@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C# Express 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XNA Intro", "XNA Intro\XNA Intro\XNA Intro.csproj", "{FAC7FEF6-1124-4606-ABE0-06F7DFB3BE7C}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "XNA IntroContent", "XNA Intro\XNA IntroContent\XNA IntroContent.contentproj", "{7AC6BAE1-3A67-4194-A0A1-93FFD247FC72}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FAC7FEF6-1124-4606-ABE0-06F7DFB3BE7C}.Debug|x86.ActiveCfg = Debug|x86
+		{FAC7FEF6-1124-4606-ABE0-06F7DFB3BE7C}.Debug|x86.Build.0 = Debug|x86
+		{FAC7FEF6-1124-4606-ABE0-06F7DFB3BE7C}.Release|x86.ActiveCfg = Release|x86
+		{FAC7FEF6-1124-4606-ABE0-06F7DFB3BE7C}.Release|x86.Build.0 = Release|x86
+		{7AC6BAE1-3A67-4194-A0A1-93FFD247FC72}.Debug|x86.ActiveCfg = Debug|x86
+		{7AC6BAE1-3A67-4194-A0A1-93FFD247FC72}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
