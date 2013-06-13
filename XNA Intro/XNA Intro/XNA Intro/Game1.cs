@@ -62,7 +62,7 @@ namespace XNA_Intro
             location = new Vector2(400, 240);
             tint = Color.Blue;
 
-            speed = new Vector2(-1, -1);
+            speed = new Vector2(-5, -5);
         }
 
         /// <summary>
