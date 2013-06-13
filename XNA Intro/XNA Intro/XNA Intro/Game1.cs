@@ -60,7 +60,7 @@ namespace XNA_Intro
 
             stanHead = Content.Load<Texture2D>("WhiteRing");
             location = new Vector2(400, 240);
-            tint = Color.Red;
+            tint = Color.Pink;
 
             speed = new Vector2(-1, -1);
         }
