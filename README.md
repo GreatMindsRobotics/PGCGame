@@ -1,6 +1,4 @@
 PGCGame
 =======
-______________________ 
-
             
-Testing editing and for more info: pgcgame.com
+For more info about are space game go to pgcgame.com.
