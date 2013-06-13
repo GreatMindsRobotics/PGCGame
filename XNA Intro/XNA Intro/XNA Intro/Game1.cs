@@ -86,7 +86,7 @@ namespace XNA_Intro
                 this.Exit();
 
             // TODO: Add your update logic here
-          //  location += speed;
+          location += speed;
 
 
             if (location.Y + stanHead.Height >= GraphicsDevice.Viewport.Height || location.Y <= 0)
