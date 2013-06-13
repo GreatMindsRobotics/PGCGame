@@ -22,7 +22,7 @@ namespace XNA_Intro
 
         Texture2D stanHead; // an image or picture, kinda like a bitmap
         Vector2 location;   // just like a point on a graph, 
-        Color tint;         // color to mix in with the texture.
+        Color tint;         // color to mix in with the texture. 
 
         Vector2 speed;
 
@@ -109,7 +109,7 @@ namespace XNA_Intro
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.White);
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
