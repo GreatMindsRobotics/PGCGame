@@ -1,4 +1,4 @@
 PGCGame
 =======
             
-For more info about Plequarius: Glactic Commanders go to pgcgame.com.
+For more info about Plequarius: Galactic Commanders go to pgcgame.com.
