@@ -10,24 +10,63 @@ namespace GitPractice
 {
     public abstract class BaseSprite
     {
-        /*
-         * TODO: KAI:
-         * 
-         * Protected fields (aka variables): _texture, _location, _tintColor
-         */
 
-        public Texture2D Texture { get; set; }
-        public Vector2 Location { get; set; }
-        public Color TintColor { get; set; }
+
+        protected Vector2 _location;
+        
+        public Vector2 Location
+        {
+            get
+            {
+                return _location;
+            }
+
+            set
+            {
+                _location = value;
+            }
+        }
+        
+        protected Texture2D _texture;
+        
+        public Texture2D Texture
+        {
+            get
+            {
+                return _texture;
+            }
+            set
+            {
+                _texture = value;
+            }
+        }
+       
+        protected Color _tintColor;
+        
+        public Color TintColor
+        {
+            get
+            {
+                return _tintColor;
+            }
+
+            set
+            {
+                _tintColor = value;
+            }
+
+        }
 
         public void LoadContent(ContentManager content, string assetName)
         { 
-            //TODO: Make this work        
+           _location = new Vector2 (0, 0);
+           _texture = content.Load<Texture2D>(assetName);
+           _tintColor = Color.White;
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            //TODO: Make this work        
+            spriteBatch.Draw(_texture, _location, _tintColor);      
         }
     }
 }
