@@ -55,19 +55,19 @@ namespace GitPractice
         {
             if (keyboard.IsKeyDown(_KeyUp) && Location.Y - Speed.Y > 0)
             {
-                Location.Y -= _speed.Y;
+                Location = new Vector2(Location.X, Location.Y - _speed.Y);
             }
             if (keyboard.IsKeyDown(_KeyDown) && Location.Y + Texture.Height + Speed.Y < viewport.Height)
             {
-                Location.Y += _speed.Y;
+                Location = new Vector2(Location.X, Location.Y + _speed.Y);
             }
             if (keyboard.IsKeyDown(_KeyRight) && Location.X + Texture.Width + Speed.X < viewport.Width)
             {
-                Location.X += _speed.X;
+                Location = new Vector2(Location.X + _speed.X, Location.Y);
             }
             if (keyboard.IsKeyDown(_KeyLeft) && Location.X - Speed.X > 0)
             {
-                Location.X -= _speed.X;
+                Location = new Vector2(Location.X - _speed.X, Location.Y);
             } 
         }
         
