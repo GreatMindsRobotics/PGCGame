@@ -11,5 +11,6 @@ namespace GitPractice
 
         public static ScreenState ScreenState { get; set; }
         public static GameState GameState { get; set; }
+        public static MoveDirection MoveDirection { get; set; }
     }
 }
