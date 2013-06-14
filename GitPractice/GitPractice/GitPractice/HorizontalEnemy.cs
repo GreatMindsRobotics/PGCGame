@@ -12,12 +12,18 @@ namespace GitPractice
         /*TODO: Alexa
          * 
          * Can only move left or right; MUST NOT accept any other movemenet
-         * CANNOT move offscreen
+         * 
          */
 
         public override void Update(GameTime gameTime, GameState gameState, MoveDirection moveDirection, Viewport viewport)
-        { 
-            
+        {
+            Location = Location + Speed;
+
+            if (Location.X < 0 || Location.X + Texture.Width > viewport.Width)
+            {
+                Location = Speed * -1;
+            }
+
         }
 
     }
