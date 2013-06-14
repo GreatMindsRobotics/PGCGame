@@ -50,6 +50,10 @@ namespace GitPractice
             base.LoadContent(content, assetName);
         }
 
+        public new void LoadContent(ContentManager content, string assetName)
+        {
+            LoadContent(content, assetName, new Vector2());
+        }
 
         public void Update(KeyboardState keyboard, GameTime gameTime, GameState gameState, Viewport viewport)
         {
