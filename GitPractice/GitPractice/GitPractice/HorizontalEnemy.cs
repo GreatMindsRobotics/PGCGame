@@ -17,13 +17,42 @@ namespace GitPractice
 
         public override void Update(GameTime gameTime, GameState gameState, MoveDirection moveDirection, Viewport viewport)
         {
-            Location = Location + Speed;
 
-            if (Location.X < 0 || Location.X + Texture.Width > viewport.Width)
+            if (gameState == GameState.Playing)
             {
-                Location = Speed * -1;
-            }
+                if (moveDirection == MoveDirection.Left)
+                {
+                    if (Speed.X > 0)
+                    {
+                        Speed = Speed * -1;
+                    }
+                }
+                else if (moveDirection == MoveDirection.Right)
+                {
+                    if (Speed.X < 0)
+                    {
+                        Speed = Speed * -1;
+                    }
+                }
+                else
+                {
+                    Speed = new Vector2(0, 0);
+                }
 
+                Location = Location + Speed;
+
+                if (Location.X < 0 || Location.X + Texture.Width > viewport.Width)
+                {
+                    if (moveDirection == GitPractice.MoveDirection.Left)
+                    {
+                        moveDirection = GitPractice.MoveDirection.Right;
+                    }
+                    else
+                    {
+                        moveDirection = GitPractice.MoveDirection.Left;
+                    }
+                }
+            }
         }
 
     }
