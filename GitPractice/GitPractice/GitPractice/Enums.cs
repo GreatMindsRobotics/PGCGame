@@ -11,6 +11,7 @@ namespace GitPractice
     {
         //TODO: (TitleScreen, GamePlayScreen, GameOverScreen)
         TitleScreen,
+        Options,
         GamePlayScreen,
         GameOverScreen
     }
@@ -32,5 +33,11 @@ namespace GitPractice
         Down,
         Left,
         Right
+    }
+
+    public enum GameModeState
+    { 
+        SinglePlayer,
+        MultiPlayer
     }
 }
