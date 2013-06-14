@@ -16,9 +16,14 @@ namespace GitPractice
          */
 
         public override void Update(GameTime gameTime, GameState gameState, MoveDirection moveDirection, Viewport viewport)
-        { 
-            
+        {
+            Location = Location + Speed;
+
+            if (Location.Y < 0 || Location.Y > viewport.Height)
+            {
+               
+            }
         }
 
     }
-}
+} 
