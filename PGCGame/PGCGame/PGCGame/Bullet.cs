@@ -4,34 +4,22 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 
+using Glib.XNA;
+using Glib;
+using Glib.XNA.SpriteLib;
+
+
 namespace PGCGame
 {
-    public class Bullet
+    public class Bullet : Sprite
     {
-        public int Damage { get; set; }
-        public Vector2 Speed;
-        public float XSpeed
-        {
-            get
-            {
-                return Speed.X;
-            }
-            set
-            {
-                Speed.X = value;
-            }
-        }
+        //Matthew:
+        //Override:
 
-        public float YSpeed
-        {
-            get
-            {
-                return Speed.Y;
-            }
-            set
-            {
-                Speed.Y = value;
-            }
-        }
+        //Update
+        //your speed is in the superClass
+
+        public int Damage { get; set; }
+         
     }
 }

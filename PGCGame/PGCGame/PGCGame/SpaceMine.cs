@@ -7,6 +7,9 @@ namespace PGCGame
 {
     public class SpaceMine : SecondaryWeapon
     {
+        //MICHAEL:
+        //override the update function
+
         public int ExplosionRadius { get; set; }
         public int ExplosionDiameter { get; set; }
 
