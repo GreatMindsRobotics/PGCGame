@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C# Express 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gameUsingALibrary", "gameUsingALibrary\gameUsingALibrary\gameUsingALibrary.csproj", "{48F2D545-B5D6-48E3-8911-D3B897AD63BA}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "gameUsingALibraryContent", "gameUsingALibrary\gameUsingALibraryContent\gameUsingALibraryContent.contentproj", "{034D054A-8D7B-4F66-BFB9-D152DC40EC22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCGGameLibrary", "..\PCGGameLibrary\PCGGameLibrary\PCGGameLibrary.csproj", "{A8D9ED09-7549-4474-93E4-F88D0F7499F4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{48F2D545-B5D6-48E3-8911-D3B897AD63BA}.Debug|x86.ActiveCfg = Debug|x86
+		{48F2D545-B5D6-48E3-8911-D3B897AD63BA}.Debug|x86.Build.0 = Debug|x86
+		{48F2D545-B5D6-48E3-8911-D3B897AD63BA}.Release|x86.ActiveCfg = Release|x86
+		{48F2D545-B5D6-48E3-8911-D3B897AD63BA}.Release|x86.Build.0 = Release|x86
+		{034D054A-8D7B-4F66-BFB9-D152DC40EC22}.Debug|x86.ActiveCfg = Debug|x86
+		{034D054A-8D7B-4F66-BFB9-D152DC40EC22}.Release|x86.ActiveCfg = Release|x86
+		{A8D9ED09-7549-4474-93E4-F88D0F7499F4}.Debug|x86.ActiveCfg = Debug|x86
+		{A8D9ED09-7549-4474-93E4-F88D0F7499F4}.Debug|x86.Build.0 = Debug|x86
+		{A8D9ED09-7549-4474-93E4-F88D0F7499F4}.Release|x86.ActiveCfg = Release|x86
+		{A8D9ED09-7549-4474-93E4-F88D0F7499F4}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

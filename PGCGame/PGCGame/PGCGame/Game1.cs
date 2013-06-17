@@ -9,20 +9,15 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-namespace GitPractice
+namespace PGCGame
 {
     /// <summary>
     /// This is the main type for your game
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
-        //TODO: Abe and/or Ben - Make the game work
-
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
-        Ship spaceShip;
-        HorizontalEnemy enemy;
 
         public Game1()
         {
@@ -38,8 +33,7 @@ namespace GitPractice
         /// </summary>
         protected override void Initialize()
         {
-            spaceShip = new Ship();
-            enemy = new HorizontalEnemy();
+            // TODO: Add your initialization logic here
 
             base.Initialize();
         }
@@ -53,13 +47,7 @@ namespace GitPractice
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            spaceShip.LoadContent(Content, "ship");
-            spaceShip.Speed = new Vector2(5, 5);
-
-
-            enemy.LoadContent(Content, "coin");
-            enemy.Speed = new Vector2(5, 0);
-            enemy.MoveDirection = MoveDirection.Right;
+            // TODO: use this.Content to load your game content here
         }
 
         /// <summary>
@@ -82,8 +70,7 @@ namespace GitPractice
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            spaceShip.Update(Keyboard.GetState(), gameTime, GameState.Playing, graphics.GraphicsDevice.Viewport);
-            enemy.Update(gameTime, GameState.Playing, MoveDirection.Right, graphics.GraphicsDevice.Viewport);
+            // TODO: Add your update logic here
 
             base.Update(gameTime);
         }
@@ -96,11 +83,7 @@ namespace GitPractice
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin();
-
-            enemy.Draw(spriteBatch);
-            spaceShip.Draw(spriteBatch);
-            spriteBatch.End();
+            // TODO: Add your drawing code here
 
             base.Draw(gameTime);
         }
