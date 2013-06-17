@@ -14,11 +14,18 @@ namespace PGCGame
     public abstract class Ship : Sprite
     {
         //TODO: ALEX
-        //public abstract void Shoot();
+        public abstract void Shoot();
 
         //override: 
         //Update
-        //Draw
+        //DrawNonAuto
+
+        public override void DrawNonAuto()
+        {
+            base.DrawNonAuto();
+            throw new NotImplementedException();
+            //TODO: Draw Bullets
+        }
 
         public int DamagePerShot { get; set; }
         public int Cost { get; set; }
