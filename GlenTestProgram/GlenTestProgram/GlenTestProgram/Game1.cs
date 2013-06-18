@@ -22,9 +22,8 @@ namespace GlenTestProgram
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        ScreenManager allScreens;
 
-        SpriteManager manager;
+        ScreenManager allScreens;
 
         public Game1()
         {
@@ -45,9 +44,8 @@ namespace GlenTestProgram
             base.Initialize();
         }
 
-        Sprite ship;
-        Screen gameOver;
         Texture2D bullet;
+        Sprite ship;
 
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
@@ -58,8 +56,10 @@ namespace GlenTestProgram
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
-            TextSprite playButton = new TextSprite(spriteBatch, new Vector2(GraphicsDevice.Viewport.Width / 2, 20), Content.Load<SpriteFont>("SpriteFont1"), "Play");
+            TextSprite playButton = new TextSprite(spriteBatch, 
+                                                    new Vector2(GraphicsDevice.Viewport.Width / 2, 20), 
+                                                    Content.Load<SpriteFont>("SpriteFont1"), 
+                                                    "Play");
             playButton.IsHoverable = true;
             playButton.HoverColor = Color.Red;
             playButton.NonHoverColor = Color.Black;
@@ -67,8 +67,11 @@ namespace GlenTestProgram
 
             bullet = Content.Load<Texture2D>("Bullet");
 
-            target = new Sprite(Content.Load<Texture2D>("WhiteRing"), Vector2.Zero, spriteBatch);
-            target.YSpeed = 1;
+            target = new Sprite(Content.Load<Texture2D>("WhiteRing"), 
+                                Vector2.Zero, 
+                                spriteBatch);
+            //target.YSpeed = 1;
+            target.Speed = new Vector2(1, 1);
             target.UpdateParams.FixEdgeOff = true;
             target.Position = new Vector2(GraphicsDevice.Viewport.Width - target.Width - 1, 0);
 
@@ -77,10 +80,11 @@ namespace GlenTestProgram
             titleScreen = new Screen(new SpriteManager(spriteBatch), Color.BlanchedAlmond);
             titleScreen.Visible = true;
             titleScreen.AdditionalSprites.Add(playButton);
-            manager = new SpriteManager(spriteBatch, ship, target);
-            gameScreen = new Screen(manager, Color.CornflowerBlue);
+            gameScreen = new Screen(new SpriteManager(spriteBatch, ship, target), Color.CornflowerBlue);
+            gameScreen.Name = "MainGame";
 
-            gameOver = new Screen(new SpriteManager(spriteBatch), Color.Black);
+            Screen gameOver = new Screen(new SpriteManager(spriteBatch), Color.Black);
+            gameOver.Name = "gameOver";
             TextSprite gameOverTxt = new TextSprite(spriteBatch, new Vector2(GraphicsDevice.Viewport.Width / 2, 20), Content.Load<SpriteFont>("SpriteFont1"), "Game Over");
             gameOverTxt.NonHoverColor = Color.White;
             gameOverTxt.HoverColor = Color.CornflowerBlue;
@@ -90,7 +94,7 @@ namespace GlenTestProgram
 
             allScreens = new ScreenManager(spriteBatch, Color.Black, titleScreen, gameScreen, gameOver);
 
-            keyManagement.KeyDown += new SingleKeyEventHandler(potentialPress);
+            KeyboardManager.KeyDown += new SingleKeyEventHandler(potentialPress);
             
         }
 
@@ -121,20 +125,19 @@ namespace GlenTestProgram
             if (sender.Cast<Sprite>().Intersects(target))
             {
                 //Got a point!
-                manager.Remove(sender.Cast<Sprite>());
+                gameScreen.Sprites.Remove(sender.Cast<Sprite>());
                 if (target.Color == Color.White)
                 {
                     target.Color = Color.Red;
                 }
                 else
                 {
-                    gameOver.Visible = true;
+                    allScreens["gameOver"].Visible = true;
                     gameScreen.Visible = false;
                 }
             }
         }
 
-        KeyboardManager keyManagement = new KeyboardManager();
         static int MoveSpeed = 2;
 
         void ship_Updated(object sender, EventArgs e)
@@ -191,7 +194,7 @@ namespace GlenTestProgram
             // TODO: Add your update logic here
             //manager.Update(gameTime);
             allScreens.Update();
-            keyManagement.Update();
+            KeyboardManager.Update();
             base.Update(gameTime);
         }
 
