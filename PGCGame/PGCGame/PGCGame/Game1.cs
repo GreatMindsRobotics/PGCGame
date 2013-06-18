@@ -61,7 +61,7 @@ namespace PGCGame
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
 
-            titleScreen = new Title(spriteBatch);
+            titleScreen = new Title(spriteBatch, new Title.quitFunction(Exit));
             titleScreen.LoadContent(Content);
             titleScreen.Name = "titleScreen";
 

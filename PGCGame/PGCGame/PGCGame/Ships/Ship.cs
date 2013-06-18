@@ -128,7 +128,6 @@ namespace PGCGame
             get { return _movementSpeed; }
             set { _movementSpeed = value; }
         }
-        
 
         public int CurrentHealth { get; set; }
 
