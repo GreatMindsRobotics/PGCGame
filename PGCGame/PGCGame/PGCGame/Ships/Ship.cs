@@ -18,7 +18,7 @@ using Glib.XNA.SpriteLib;
 
 namespace PGCGame
 {
-    public abstract class Ship : Sprite
+    public abstract class Ship : Sprite, ITimerSprite
     {
         //TODO: ALEX
 
@@ -34,6 +34,40 @@ namespace PGCGame
         //Update
         //DrawNonAuto
 
+        public override void Update()
+        {
+            base.Update();
+            MouseState ms = Mouse.GetState();
+            Vector2 mousePos = new Vector2(ms.X, ms.Y);
+            Vector2 targetPos = mousePos - Position;
+            //Rotate towards mouse
+            Rotation.Radians = Math.Atan2(targetPos.X, -targetPos.Y).ToFloat();
+        }
+
+        private TimeSpan _elapsedShotTime = new TimeSpan();
+
+        public void Update(GameTime gt)
+        {
+            Update();
+            //Shoot
+            KeyboardState ks = Keyboard.GetState();
+            _elapsedShotTime += gt.ElapsedGameTime;
+            //Shoot w/ space key
+            if (CanShoot && ks.IsKeyDown(Keys.Space))
+            {
+                Shoot();
+                _elapsedShotTime = new TimeSpan();
+            }
+        }
+
+        public bool CanShoot
+        {
+            get
+            {
+                return _elapsedShotTime >= DelayBetweenShots;
+            }
+        }
+
         public override void DrawNonAuto()
         {
             base.DrawNonAuto();
@@ -43,6 +77,8 @@ namespace PGCGame
 
         public int DamagePerShot { get; set; }
         public int Cost { get; set; }
+
+        public TimeSpan DelayBetweenShots { get; set; }
 
         public Vector2 Speed { get; set; }
 
