@@ -9,6 +9,7 @@ namespace PGCGame
     {
         Title,
         MainMenu,
-        Credits
+        Credits,
+        Game
     }
 }

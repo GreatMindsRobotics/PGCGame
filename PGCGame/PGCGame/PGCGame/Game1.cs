@@ -74,7 +74,7 @@ namespace PGCGame
             screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen);
 
 
-            //the screen to be displayed
+            //USE THIS TO CHANGE THE SCREEN YOU ARE CURRENTLY WORKING ON!!!
             StateManager.ScreenState = ScreenState.Credits;
         }
 
