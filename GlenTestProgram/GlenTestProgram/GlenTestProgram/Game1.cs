@@ -70,30 +70,37 @@ namespace GlenTestProgram
             target = new Sprite(Content.Load<Texture2D>("WhiteRing"), 
                                 Vector2.Zero, 
                                 spriteBatch);
-            //target.YSpeed = 1;
-            target.Speed = new Vector2(1, 1);
+            target.YSpeed = 1;
             target.UpdateParams.FixEdgeOff = true;
-            target.Position = new Vector2(GraphicsDevice.Viewport.Width - target.Width - 1, 0);
+            target.Position = new Vector2(GraphicsDevice.Viewport.Width - target.Width, 0);
 
-            ship = new Sprite(Content.Load<Texture2D>("Bomber2B"), Vector2.Zero, spriteBatch);
+            ship = new Sprite(Content.Load<Texture2D>("Bomber2B"), 
+                              Vector2.Zero, 
+                              spriteBatch);
             ship.Updated += new EventHandler(ship_Updated);
+
             titleScreen = new Screen(new SpriteManager(spriteBatch), Color.BlanchedAlmond);
             titleScreen.Visible = true;
             titleScreen.AdditionalSprites.Add(playButton);
+            titleScreen.Name = "Title";
+            
             gameScreen = new Screen(new SpriteManager(spriteBatch, ship, target), Color.CornflowerBlue);
             gameScreen.Name = "MainGame";
 
             Screen gameOver = new Screen(new SpriteManager(spriteBatch), Color.Black);
             gameOver.Name = "gameOver";
-            TextSprite gameOverTxt = new TextSprite(spriteBatch, new Vector2(GraphicsDevice.Viewport.Width / 2, 20), Content.Load<SpriteFont>("SpriteFont1"), "Game Over");
+
+            TextSprite gameOverTxt = new TextSprite(spriteBatch, 
+                                                    new Vector2(GraphicsDevice.Viewport.Width / 2, 20), 
+                                                    Content.Load<SpriteFont>("SpriteFont1"), 
+                                                    "Game Over, You Suck!");
             gameOverTxt.NonHoverColor = Color.White;
             gameOverTxt.HoverColor = Color.CornflowerBlue;
             gameOverTxt.IsHoverable = true;
             gameOverTxt.Clicked += new EventHandler(gameOverTxt_Clicked);
             gameOver.AdditionalSprites.Add(gameOverTxt);
-
             allScreens = new ScreenManager(spriteBatch, Color.Black, titleScreen, gameScreen, gameOver);
-
+            
             KeyboardManager.KeyDown += new SingleKeyEventHandler(potentialPress);
             
         }
