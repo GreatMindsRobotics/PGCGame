@@ -18,6 +18,8 @@ namespace PGCGame
         public FighterCarrier(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
             : base(texture, location, spriteBatch)
         {
+            //UseCenterAsOrigin = true;
+            Scale = new Vector2(.01f);
         }
 
         public Drone[] Drones { get; set; }
@@ -25,8 +27,11 @@ namespace PGCGame
 
         public override void Shoot()
         {
-            throw new NotImplementedException();
-            BulletFired(this, EventArgs.Empty);
+            //TODO: Fire bullet
+            if (BulletFired != null)
+            {
+                BulletFired(this, EventArgs.Empty);
+            }
         }
     }
 }

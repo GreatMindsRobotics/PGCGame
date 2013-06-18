@@ -10,17 +10,28 @@ using Microsoft.Xna.Framework.Graphics;
 using Glib.XNA.SpriteLib;
 using Glib.XNA;
 using Glib;
+using Microsoft.Xna.Framework.Input;
 
 namespace PGCGame.Screens
 {
     public class Title : Screen
     {
-        
+        Sprite TitleImage;
 
-        public Title(SpriteBatch spriteBatch)
+        public delegate void quitFunction();
+
+        Sprite PlayButton;
+        TextSprite PlayLabel;
+
+        Sprite ExitButton;
+        TextSprite ExitLabel;
+        quitFunction exit;
+
+
+        public Title(SpriteBatch spriteBatch, quitFunction exitableFunction)
             : base(spriteBatch, Color.Black)
         {
-            
+            exit = exitableFunction;
         }
 
         public void LoadContent(ContentManager content)
@@ -28,29 +39,67 @@ namespace PGCGame.Screens
             //TODO: LOAD CONTENT
             
             //use Sprites to load your sprites
+            TitleImage = new Sprite(content.Load<Texture2D>("Gametitle"), new Vector2(150, 100), Sprites.SpriteBatch);
+            Sprites.Add(TitleImage);
 
-            Sprites.AddNewSprite(new Vector2(200, 100), content.Load<Texture2D>("Gametitle"));
+            PlayButton = new Sprite(content.Load<Texture2D>("Button"), new Vector2(300, 200), Sprites.SpriteBatch);
+            Sprites.Add(PlayButton);
 
-            Sprites.AddNewSprite(new Vector2(300, 200), content.Load<Texture2D>("Button"));
-            TextSprite PlayLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(360, 210), content.Load<SpriteFont>("TitleFont"), "Play");
+            PlayLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(360, 210), content.Load<SpriteFont>("TitleFont"), "Play");
+            PlayLabel.IsHoverable = true;
+            PlayLabel.NonHoverColor = Color.White;
+            PlayLabel.HoverColor = Color.MediumAquamarine;
             AdditionalSprites.Add(PlayLabel);
 
-            Sprites.AddNewSprite(new Vector2(300, 300), content.Load<Texture2D>("Button"));
-            TextSprite ExitLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(200, 300), content.Load<SpriteFont>("TitleFont"), "Exit");
+
+            ExitButton = new Sprite(content.Load<Texture2D>("Button"), new Vector2(300, 300), Sprites.SpriteBatch);
+            ExitButton.MouseEnter += new EventHandler(ExitButton_MouseEnter);
+            ExitButton.MouseLeave += new EventHandler(ExitButton_MouseLeave);
+            Sprites.Add(ExitButton);
+
+            ExitLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(360, 310), content.Load<SpriteFont>("TitleFont"), "Exit");
+            ExitLabel.IsHoverable = true;
+            ExitLabel.IsManuallySelectable = true;
+            ExitLabel.NonHoverColor = Color.White;
+            ExitLabel.HoverColor = Color.MediumAquamarine;
             AdditionalSprites.Add(ExitLabel);
 
-            //Sprites.Add(new Sprite(content.Load<Texture2D>("assetName"), new Vector2(0, 0), Sprites.SpriteBatch));
-            TextSprite PlequariusGalaticCommandersLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(0, 0), content.Load<SpriteFont>("TitleFont"), "Title");
-            AdditionalSprites.Add(PlequariusGalaticCommandersLabel);
-
-
+            
             //OR
             //EX: Sprites.AddNewSprite(new Vector(0, 0), content.Load<Texture2D("assetName"));
+        }
+
+        bool mouseInExitButton
+        {
+            get
+            {
+                return ExitLabel.IsSelected;
+            }
+        }
+
+        void ExitButton_MouseLeave(object sender, EventArgs e)
+        {
+            ExitLabel.IsSelected = false;
+        }
+
+        void ExitButton_MouseEnter(object sender, EventArgs e)
+        {
+            ExitLabel.IsSelected = true;
         }
 
         public override void Update(GameTime gameTime)
         {
             //TODO: UPDATE SPRITES
+            base.Update(gameTime);
+
+            if (mouseInExitButton)
+            {
+                MouseState ms = Mouse.GetState();
+                if (ms.LeftButton == ButtonState.Pressed)
+                {
+                    exit();
+                }
+            }
         }
     }
 }
