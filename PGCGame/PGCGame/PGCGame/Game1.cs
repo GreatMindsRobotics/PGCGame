@@ -81,7 +81,7 @@ namespace PGCGame
 
 
             //USE THIS TO CHANGE THE SCREEN YOU ARE CURRENTLY WORKING ON!!!
-            StateManager.ScreenState = ScreenState.Game;
+            StateManager.ScreenState = ScreenState.Title;
         }
 
         /// <summary>

@@ -43,10 +43,13 @@ namespace PGCGame.Screens
             Sprites.Add(TitleImage);
 
             PlayButton = new Sprite(content.Load<Texture2D>("Button"), new Vector2(300, 200), Sprites.SpriteBatch);
+            PlayButton.MouseEnter += new EventHandler(PlayButton_MouseEnter);
+            PlayButton.MouseLeave += new EventHandler(PlayButton_MouseLeave);
             Sprites.Add(PlayButton);
 
             PlayLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(360, 210), content.Load<SpriteFont>("TitleFont"), "Play");
             PlayLabel.IsHoverable = true;
+            PlayLabel.IsManuallySelectable = true;
             PlayLabel.NonHoverColor = Color.White;
             PlayLabel.HoverColor = Color.MediumAquamarine;
             AdditionalSprites.Add(PlayLabel);
@@ -69,11 +72,29 @@ namespace PGCGame.Screens
             //EX: Sprites.AddNewSprite(new Vector(0, 0), content.Load<Texture2D("assetName"));
         }
 
+        void PlayButton_MouseLeave(object sender, EventArgs e)
+        {
+            PlayLabel.IsSelected = false;
+        }
+
+        void PlayButton_MouseEnter(object sender, EventArgs e)
+        {
+            PlayLabel.IsSelected = true;
+        }
+
         bool mouseInExitButton
         {
             get
             {
                 return ExitLabel.IsSelected;
+            }
+        }
+
+        bool mouseInPlayButton
+        {
+            get
+            {
+                return PlayLabel.IsSelected;
             }
         }
 
@@ -92,12 +113,19 @@ namespace PGCGame.Screens
             //TODO: UPDATE SPRITES
             base.Update(gameTime);
 
-            if (mouseInExitButton)
+            if (mouseInExitButton || mouseInPlayButton)
             {
                 MouseState ms = Mouse.GetState();
                 if (ms.LeftButton == ButtonState.Pressed)
                 {
-                    exit();
+                    if (mouseInExitButton)
+                    {
+                        exit();
+                    }
+                    if (mouseInPlayButton)
+                    {
+                        StateManager.ScreenState = ScreenState.MainMenu;
+                    }
                 }
             }
         }
