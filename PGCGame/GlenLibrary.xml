@@ -299,6 +299,7 @@
             <summary>
             The scale-sensitive center of the sprite.
             Setting this property is experimental.
+            This property will break with UseCenterAsOrigin.
             </summary>
         </member>
         <member name="P:Glib.XNA.SpriteLib.Sprite.X">
@@ -343,7 +344,7 @@
         </member>
         <member name="P:Glib.XNA.SpriteLib.Sprite.Rectangle">
             <summary>
-            An approximate Rectangle representing the area covered by this Sprite.
+            Gets an approximate Rectangle representing the area covered by this Sprite.
             </summary>
         </member>
         <member name="P:Glib.XNA.SpriteLib.Sprite.Origin">
