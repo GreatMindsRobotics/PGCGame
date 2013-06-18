@@ -16,10 +16,18 @@ namespace PGCGame
 {
     public class Drone : Ship
     {
+        public FighterCarrier ParentShip { get; set; }
 
-        public Drone(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
+        public Drone(Texture2D texture, Vector2 location, SpriteBatch spriteBatch, FighterCarrier parent)
             : base(texture, location, spriteBatch)
         {
+            ParentShip = parent;
+            ParentShip.BulletFired += new EventHandler(ParentShip_BulletFired);
+        }
+
+        void ParentShip_BulletFired(object sender, EventArgs e)
+        {
+            ShotsFromMain++;
         }
         public int ShotsFromMain { get; set; }
         //must add event from fighter carrier
