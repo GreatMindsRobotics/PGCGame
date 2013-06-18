@@ -95,6 +95,13 @@ namespace PGCGame
 
         public int Armor { get; set; }
 
-        public List<Bullet> FlyingBullets { get; set; }
+        private List<Bullet> _flyingBullets = new List<Bullet>();
+
+        public List<Bullet> FlyingBullets
+        {
+            get { return _flyingBullets; }
+            set { _flyingBullets = value; }
+        }
+        
     }
 }
