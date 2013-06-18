@@ -75,7 +75,10 @@ namespace PGCGame
 
 
             //USE THIS TO CHANGE THE SCREEN YOU ARE CURRENTLY WORKING ON!!!
-            StateManager.ScreenState = ScreenState.Credits;
+            StateManager.ScreenState = ScreenState.Title;
+
+            //makes mouse visible
+            IsMouseVisible = true;
         }
 
         /// <summary>
