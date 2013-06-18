@@ -26,6 +26,7 @@ namespace PGCGame
         public override void Shoot()
         {
             throw new NotImplementedException();
+            BulletFired(this, EventArgs.Empty);
         }
     }
 }
