@@ -1,1 +1,11 @@
+<<<<<<< HEAD
 Content\NebulaSky.xnb
+=======
+Content\Title.xnb
+Content\Play.xnb
+Content\Exit.xnb
+Content\TitleFont.xnb
+Content\Button.xnb
+Content\Gametitle.xnb
+Content\Planet.xnb
+>>>>>>> 231de15c83b369a0de88fe17cc3659178afb2fdf
