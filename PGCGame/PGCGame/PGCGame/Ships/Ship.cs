@@ -44,6 +44,10 @@ namespace PGCGame
             Vector2 targetPos = mousePos - Position;
             //Rotate towards mouse
             Rotation.Radians = Math.Atan2(targetPos.X, -targetPos.Y).ToFloat();
+            foreach (Bullet b in FlyingBullets)
+            {
+                b.Update();
+            }
         }
 
         private TimeSpan _elapsedShotTime = new TimeSpan();
