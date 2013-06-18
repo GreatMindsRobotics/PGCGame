@@ -5,7 +5,7 @@ using System.Text;
 
 namespace PGCGame
 {
-    public abstract class SecondaryWeapon
+    public abstract class SecondaryWeapon 
     {
         public int Cost { get; set; }
         public int Damage { get; set; } 
