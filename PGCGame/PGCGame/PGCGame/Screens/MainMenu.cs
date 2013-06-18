@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Glib.XNA.SpriteLib;
 using Glib.XNA;
 using Glib;
+using Microsoft.Xna.Framework.Input;
 
 namespace PGCGame.Screens
 {
@@ -41,7 +42,10 @@ namespace PGCGame.Screens
 
             Sprite SinglePlayerButton = new Sprite(content.Load<Texture2D>("Button"), new Vector2(50, 100), Sprites.SpriteBatch);
             SinglePlayerLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(72, 110), content.Load<SpriteFont>("TitleFont"), "Singleplayer");
-            SinglePlayerLabel.Color = Color.White;
+            SinglePlayerLabel.IsHoverable = true;
+            SinglePlayerLabel.IsManuallySelectable = true;
+            SinglePlayerLabel.NonHoverColor = Color.White;
+            SinglePlayerLabel.HoverColor = Color.MediumAquamarine;
             SinglePlayerButton.MouseEnter += new EventHandler(SinglePlayerButton_MouseEnter);
             SinglePlayerButton.MouseLeave += new EventHandler(SinglePlayerButton_MouseLeave);
 
@@ -50,7 +54,11 @@ namespace PGCGame.Screens
 
             Sprite MultiPlayerButton = new Sprite(content.Load<Texture2D>("Button"), new Vector2(50, 195), Sprites.SpriteBatch);
             MultiPlayerLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(78, 205), content.Load<SpriteFont>("TitleFont"), "Multiplayer");
-            MultiPlayerLabel.Color = Color.White;
+            MultiPlayerLabel.IsHoverable = true;
+            MultiPlayerLabel.IsManuallySelectable = true;
+            MultiPlayerLabel.NonHoverColor = Color.White;
+            MultiPlayerLabel.HoverColor = Color.MediumAquamarine;
+
             MultiPlayerButton.MouseEnter += new EventHandler(MultiPlayerButton_MouseEnter);
             MultiPlayerButton.MouseLeave += new EventHandler(MultiPlayerButton_MouseLeave);
 
@@ -68,7 +76,10 @@ namespace PGCGame.Screens
 
             Sprite OptionsButton = new Sprite(content.Load<Texture2D>("Button"), new Vector2(290, 100), Sprites.SpriteBatch);
             OptionsLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(340, 110), content.Load<SpriteFont>("TitleFont"), "Options");
-            OptionsLabel.Color = Color.White;
+            OptionsLabel.IsHoverable = true;
+            OptionsLabel.IsManuallySelectable = true;
+            OptionsLabel.NonHoverColor = Color.White;
+            OptionsLabel.HoverColor = Color.MediumAquamarine;
             OptionsButton.MouseEnter += new EventHandler(OptionsButton_MouseEnter);
             OptionsButton.MouseLeave += new EventHandler(OptionsButton_MouseLeave);
 
@@ -77,7 +88,10 @@ namespace PGCGame.Screens
 
             Sprite CreditsButton = new Sprite(content.Load<Texture2D>("Button"), new Vector2(290, 195), Sprites.SpriteBatch);
             CreditsLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(340, 205), content.Load<SpriteFont>("TitleFont"), "Credits");
-            CreditsLabel.Color = Color.White;
+            CreditsLabel.IsHoverable = true;
+            CreditsLabel.IsManuallySelectable = true;
+            CreditsLabel.NonHoverColor = Color.White;
+            CreditsLabel.HoverColor = Color.MediumAquamarine;
             CreditsButton.MouseEnter += new EventHandler(CreditsButton_MouseEnter);
             CreditsButton.MouseLeave += new EventHandler(CreditsButton_MouseLeave);
 
@@ -88,33 +102,33 @@ namespace PGCGame.Screens
         //credits button
         void CreditsButton_MouseLeave(object sender, EventArgs e)
         {
-            CreditsLabel.Color = Color.White;
+            CreditsLabel.IsSelected = false;
         }
         void CreditsButton_MouseEnter(object sender, EventArgs e)
         {
-            CreditsLabel.Color = Color.MediumAquamarine;
+            CreditsLabel.IsSelected = true;
         }
 
 
         //options button
         void OptionsButton_MouseLeave(object sender, EventArgs e)
         {
-            OptionsLabel.Color = Color.White;
+            OptionsLabel.IsSelected = false;
         }
         void OptionsButton_MouseEnter(object sender, EventArgs e)
         {
-            OptionsLabel.Color = Color.MediumAquamarine;
+            OptionsLabel.IsSelected = true;
         }
 
 
         //multiplayer button
         void MultiPlayerButton_MouseLeave(object sender, EventArgs e)
         {
-            MultiPlayerLabel.Color = Color.White;
+            MultiPlayerLabel.IsSelected = false;
         }
         void MultiPlayerButton_MouseEnter(object sender, EventArgs e)
         {
-            MultiPlayerLabel.Color = Color.MediumAquamarine;
+            MultiPlayerLabel.IsSelected = true;
         }
 
         bool mouseInBackButton = false;
@@ -131,26 +145,55 @@ namespace PGCGame.Screens
             mouseInBackButton = true;
         }
 
+        bool mouseInSingleplayerButton
+        {
+            get
+            {
+                return SinglePlayerLabel.IsSelected;
+            }
+        }
+
+        bool mouseInCreditsButton
+        {
+            get
+            {
+                return CreditsLabel.IsSelected;
+            }
+        }
 
         //singleplayer button
         void SinglePlayerButton_MouseLeave(object sender, EventArgs e)
         {
-            SinglePlayerLabel.Color = Color.White;
+            SinglePlayerLabel.IsSelected = false;
         }
         void SinglePlayerButton_MouseEnter(object sender, EventArgs e)
         {
-            SinglePlayerLabel.Color = Color.MediumAquamarine;
+            SinglePlayerLabel.IsSelected = true;
         }
 
-        
+        MouseState lastMs = new MouseState(0,0,0,ButtonState.Pressed, ButtonState.Released, ButtonState.Released, ButtonState.Released, ButtonState.Released);
+
         public override void Update(GameTime gameTime)
         {
             //TODO: UPDATE SPRITES
             base.Update(gameTime);
-            if (mouseInBackButton && Microsoft.Xna.Framework.Input.Mouse.GetState().LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed)
+            MouseState currentMs = Mouse.GetState();
+            if (lastMs.LeftButton == ButtonState.Released && currentMs.LeftButton == ButtonState.Pressed)
             {
-                StateManager.ScreenState = ScreenState.Title;
+                if (mouseInBackButton)
+                {
+                    StateManager.ScreenState = ScreenState.Title;
+                }
+                if (mouseInSingleplayerButton)
+                {
+                    StateManager.ScreenState = ScreenState.Game;
+                }
+                if (mouseInCreditsButton)
+                {
+                    StateManager.ScreenState = ScreenState.Credits;
+                }
             }
+            lastMs = currentMs;
         }
 
     }
