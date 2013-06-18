@@ -30,10 +30,8 @@
     <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.VideoImporters, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Compile Include="NebulaSky.png">
       <Name>NebulaSky</Name>
-=======
     <Compile Include="TitleFont.spritefont">
       <Name>TitleFont</Name>
       <Importer>FontDescriptionImporter</Importer>
@@ -53,7 +51,6 @@
     </Compile>
     <Compile Include="Planet.png">
       <Name>Planet</Name>
->>>>>>> 231de15c83b369a0de88fe17cc3659178afb2fdf
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
