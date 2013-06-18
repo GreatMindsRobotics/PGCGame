@@ -35,6 +35,7 @@ namespace PGCGame
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            IsMouseVisible = true;
         }
 
         /// <summary>
@@ -47,6 +48,8 @@ namespace PGCGame
         {   
             base.Initialize();
         }
+
+        GameScreen gameScreen;
 
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
@@ -70,12 +73,15 @@ namespace PGCGame
             creditsScreen.LoadContent(Content);
             creditsScreen.Name = "creditsScreen";
 
+            gameScreen = new GameScreen(spriteBatch);
+            gameScreen.LoadContent(Content);
+            gameScreen.Name = "GameScreen";
 
-            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen);
+            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen);
 
 
             //USE THIS TO CHANGE THE SCREEN YOU ARE CURRENTLY WORKING ON!!!
-            StateManager.ScreenState = ScreenState.Credits;
+            StateManager.ScreenState = ScreenState.Game;
         }
 
         /// <summary>
@@ -98,7 +104,7 @@ namespace PGCGame
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            screenManager.Update(gameTime);
+            
 
             foreach (Screen screen in screenManager)
             {
@@ -116,8 +122,12 @@ namespace PGCGame
                 case ScreenState.Credits:
                     creditsScreen.Visible = true;
                     break;
+                case ScreenState.Game:
+                    gameScreen.Visible = true;
+                    break;
             }
 
+            screenManager.Update(gameTime);
 
             base.Update(gameTime);
         }

@@ -79,6 +79,26 @@
             Gets or sets the position of the IPositionable.
             </summary>
         </member>
+        <member name="T:Glib.XNA.ISizedScreenObject">
+            <summary>
+            Represents a sizable, positionalble, screen object.
+            </summary>
+        </member>
+        <member name="T:Glib.XNA.ISizable">
+            <summary>
+            Represents a sizable object.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.ISizable.Width">
+            <summary>
+            The width of the object.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.ISizable.Height">
+            <summary>
+            The height of the object.
+            </summary>
+        </member>
         <member name="M:Glib.XNA.SpriteLib.Sprite.op_Implicit(Glib.XNA.SpriteLib.Sprite)~Microsoft.Xna.Framework.Rectangle">
             <summary>
             Convert the specified Sprite to a rectangle.
@@ -1599,6 +1619,15 @@
             </summary>
             <param name="pos">The vector to convert to a positionable.</param>
             <returns>A positionable object with the position of the Vector2.</returns>
+        </member>
+        <member name="M:Glib.XNA.XnaExtensions.GetCenterPosition(Glib.XNA.ISizable,Microsoft.Xna.Framework.Graphics.Viewport,System.Boolean)">
+            <summary>
+            Get the position which would be required to center the specified sizable object to the specified Viewport.
+            </summary>
+            <param name="obj">The sizable object to center.</param>
+            <param name="centerToViewport">The viewport to center the ISizable to.</param>
+            <param name="centerIsOrigin">Whether or not the center of the specified ISizable is the origin.</param>
+            <returns>The position which would be required to center the specified sizable object.</returns>
         </member>
         <member name="M:Glib.XNA.XnaExtensions.ToAngle(Microsoft.Xna.Framework.Vector2,System.Single)">
             <summary>

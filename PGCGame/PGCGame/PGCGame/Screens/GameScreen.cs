@@ -24,7 +24,9 @@ namespace PGCGame.Screens
         public void LoadContent(ContentManager content)
         {
             //TODO: LOAD CONTENT
-
+            FighterCarrier ship = new FighterCarrier(content.Load<Texture2D>("NebulaSky"), new Vector2(50), Sprites.SpriteBatch);
+            Sprites.Add(ship);
+            //Sprites.Add(new Drone(content.Load<Texture2D>("aTexture"), Vector2.Zero, this.Sprites.SpriteBatch, ship)); 
             //use Sprites to load your sprites
             //EX: Sprites.Add(new Sprite(content.Load<Texture2D>("assetName"), new Vector2(0, 0), Sprites.SpriteBatch));
             //OR
@@ -33,6 +35,7 @@ namespace PGCGame.Screens
 
         public override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
             //TODO: UPDATE SPRITES
         }
     }

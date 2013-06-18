@@ -22,10 +22,19 @@ namespace PGCGame
     {
         //TODO: ALEX
 
+   
+
+        protected bool _performMovement = true;
 
         public Ship(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
             : base(texture, location, spriteBatch)
         {
+
+
+            UseCenterAsOrigin = true;
+
+
+            Scale = new Vector2(.01f);
         }
 
         public abstract void Shoot();
@@ -44,6 +53,28 @@ namespace PGCGame
             Vector2 targetPos = mousePos - Position;
             //Rotate towards mouse
             Rotation.Radians = Math.Atan2(targetPos.X, -targetPos.Y).ToFloat();
+
+            KeyboardState ks = Keyboard.GetState();
+            if (_performMovement)
+            {
+                if (ks.IsKeyDown(Keys.W) && Y - MovementSpeed.Y - (Origin.Y * Scale.Y) >= 0)
+                {
+                    Y -= MovementSpeed.Y;
+                }
+                if (ks.IsKeyDown(Keys.S) && Y + MovementSpeed.Y + (Origin.Y * Scale.Y) < (UsedViewport.HasValue ? UsedViewport.Value : SpriteBatch.GraphicsDevice.Viewport).Height)
+                {
+                    Y += MovementSpeed.Y;
+                }
+                if (ks.IsKeyDown(Keys.A) && X - MovementSpeed.X - (Origin.X * Scale.X) >= 0)
+                {
+                    X -= MovementSpeed.X;
+                }
+                if (ks.IsKeyDown(Keys.D) && X + MovementSpeed.X + (Origin.X * Scale.X) < (UsedViewport.HasValue ? UsedViewport.Value : SpriteBatch.GraphicsDevice.Viewport).Width)
+                {
+                    X += MovementSpeed.X;
+                }
+            }
+
             foreach (Bullet b in FlyingBullets)
             {
                 b.Update();
@@ -89,7 +120,15 @@ namespace PGCGame
 
         public TimeSpan DelayBetweenShots { get; set; }
 
-        public Vector2 Speed { get; set; }
+        private Vector2 _movementSpeed = Vector2.One;
+
+
+        public Vector2 MovementSpeed
+        {
+            get { return _movementSpeed; }
+            set { _movementSpeed = value; }
+        }
+        
 
         public int CurrentHealth { get; set; }
 
