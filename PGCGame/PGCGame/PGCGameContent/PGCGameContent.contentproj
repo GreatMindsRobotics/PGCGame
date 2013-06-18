@@ -32,13 +32,14 @@
   <ItemGroup>
     <Compile Include="NebulaSky.png">
       <Name>NebulaSky</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <Compile Include="TitleFont.spritefont">
       <Name>TitleFont</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Button.png">
       <Name>Button</Name>
       <Importer>TextureImporter</Importer>
