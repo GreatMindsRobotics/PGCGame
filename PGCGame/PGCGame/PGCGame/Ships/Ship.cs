@@ -34,6 +34,8 @@ namespace PGCGame
         //Update
         //DrawNonAuto
 
+        public Texture2D BulletTexture { get; set; }
+
         public override void Update()
         {
             base.Update();
@@ -71,7 +73,10 @@ namespace PGCGame
         public override void DrawNonAuto()
         {
             base.DrawNonAuto();
-            throw new NotImplementedException();
+            foreach (Bullet b in FlyingBullets)
+            {
+                b.DrawNonAuto();
+            }
             //TODO: Draw Bullets
         }
 
