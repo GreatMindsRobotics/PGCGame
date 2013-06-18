@@ -5,7 +5,10 @@ using System.Text;
 
 namespace PGCGame
 {
-    public class BattleCruiser : Ship
+    public enum ScreenState
     {
+        Title,
+        MainMenu,
+        Credits
     }
 }

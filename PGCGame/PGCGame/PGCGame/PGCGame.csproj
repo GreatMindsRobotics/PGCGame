@@ -75,20 +75,25 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BattleCruiser.cs" />
-    <Compile Include="Bullet.cs" />
-    <Compile Include="Drone.cs" />
-    <Compile Include="EMP.cs" />
-    <Compile Include="FighterCarrier.cs" />
+    <Compile Include="Enum.cs" />
+    <Compile Include="Screens\Credits.cs" />
+    <Compile Include="Screens\MainMenu.cs" />
+    <Compile Include="Screens\Title.cs" />
+    <Compile Include="Ships\BattleCruiser.cs" />
+    <Compile Include="Bullets\Bullet.cs" />
+    <Compile Include="Ships\Drone.cs" />
+    <Compile Include="SecondaryWeapons\EMP.cs" />
+    <Compile Include="Ships\FighterCarrier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="SecondaryWeapon.cs" />
-    <Compile Include="Ship.cs" />
-    <Compile Include="ShrinkBullet.cs" />
-    <Compile Include="ShrinkRay.cs" />
-    <Compile Include="SpaceMine.cs" />
-    <Compile Include="TorpedoShip.cs" />
+    <Compile Include="SecondaryWeapons\SecondaryWeapon.cs" />
+    <Compile Include="Ships\Ship.cs" />
+    <Compile Include="Bullets\ShrinkBullet.cs" />
+    <Compile Include="SecondaryWeapons\ShrinkRay.cs" />
+    <Compile Include="SecondaryWeapons\SpaceMine.cs" />
+    <Compile Include="Ships\TorpedoShip.cs" />
+    <Compile Include="StateManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

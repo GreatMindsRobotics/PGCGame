@@ -5,7 +5,8 @@ using System.Text;
 
 namespace PGCGame
 {
-    public class TorpedoShip : Ship
+    public static class StateManager
     {
+        public static ScreenState ScreenState;
     }
 }

@@ -4,9 +4,849 @@
         <name>GlenLibrary</name>
     </assembly>
     <members>
-        <member name="T:Glib.XNA.SpriteLib.TextBoxSprite">
+        <member name="T:Glib.XNA.SpriteLib.KeyboardManager">
             <summary>
-            A Sprite which accepts Text as input.
+            A static class calling keyboard related events when updated.
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.SpriteLib.KeyboardManager._lastState">
+            <summary>
+            The last known state of the keyboard.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.KeyboardManager.Update">
+            <summary>
+            Update the KeyboardManager, calling the appropriate events.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.KeyboardManager.State">
+            <summary>
+            Gets the last known state of the keyboard.
+            </summary>
+            <remarks>
+            Current when accessed after Update().
+            </remarks>
+        </member>
+        <member name="E:Glib.XNA.SpriteLib.KeyboardManager.KeyDown">
+            <summary>
+            An event called when a new key is pressed down.
+            </summary>
+        </member>
+        <member name="E:Glib.XNA.SpriteLib.KeyboardManager.KeyUp">
+            <summary>
+            An event called when a key is lifted.
+            </summary>
+        </member>
+        <member name="E:Glib.XNA.SpriteLib.KeyboardManager.KeyPressed">
+            <summary>
+            An event called when a key is pressed and released.
+            </summary>
+        </member>
+        <member name="T:Glib.XNA.GameTimer">
+            <summary>
+            A timer firing events at set intervals during the game.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.GameTimer.#ctor(System.TimeSpan)">
+            <summary>
+            Create a new GameTimer with the specified interval.
+            </summary>
+            <param name="timePassing">The interval between calls to Elapsed.</param>
+        </member>
+        <member name="M:Glib.XNA.GameTimer.Update(Microsoft.Xna.Framework.GameTime)">
+            <summary>
+            Update the GameTimer, calling the Elapsed event if neccesary.
+            </summary>
+            <param name="gt">The current GameTime.</param>
+        </member>
+        <member name="M:Glib.XNA.GameTimer.#ctor(System.Int32)">
+            <summary>
+            Create a new GameTimer with the specified interval.
+            </summary>
+            <param name="msTimePassing">The interval (in milliseconds) between calls to Elapsed.</param>
+        </member>
+        <member name="P:Glib.XNA.GameTimer.Time">
+            <summary>
+            Gets or sets the interval of time to fire events from.
+            </summary>
+        </member>
+        <member name="E:Glib.XNA.GameTimer.Elapsed">
+            <summary>
+            An event called after every elapse of the time specified by this GameTimer.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.GameTimer.IsRepeating">
+            <summary>
+            Gets or sets a boolean indeicating whether or not this timer is repeating.
+            </summary>
+        </member>
+        <member name="T:Glib.SQL.SqlExtensions">
+            <summary>
+            Various SQL-related extensions.
+            </summary>
+        </member>
+        <member name="M:Glib.SQL.SqlExtensions.IsNull(System.Object)">
+            <summary>
+            Check if the specified object is either null or DBNull.
+            </summary>
+            <param name="nullCheck">The object to check against null and DBNull.</param>
+            <returns>Whether or not the specified object is null or DBNull.</returns>
+        </member>
+        <member name="M:Glib.SQL.SqlExtensions.OpenIfNeeded(System.Data.SqlClient.SqlConnection)">
+            <summary>
+            Open the specified SqlConnection if it is not opened already.
+            </summary>
+            <param name="conn">The connection to open.</param>
+        </member>
+        <member name="M:Glib.SQL.SqlExtensions.GetParameter(Glib.SQL.ISQLParameterProvider)">
+            <summary>
+            Get the SQL parameter represented by the specified ISQLParameterProvider.
+            </summary>
+            <param name="provider">The ISQLParameterProvider to get the parameter data from.</param>
+            <returns>A SqlParameter representing the information stored by the ISQLParameterProvider.</returns>
+        </member>
+        <member name="T:Glib.SQL.ISQLParameterProvider">
+            <summary>
+            An interface representing a provider of SQL parameter information.
+            </summary>
+        </member>
+        <member name="P:Glib.SQL.ISQLParameterProvider.ParameterName">
+            <summary>
+            The name of the provided parameter.
+            </summary>
+        </member>
+        <member name="P:Glib.SQL.ISQLParameterProvider.ParameterValue">
+            <summary>
+            The value of the provided parameter.
+            </summary>
+        </member>
+        <member name="T:Glib.SQL.StoredProcedure">
+            <summary>
+            A class representing a SQL stored procedure.
+            </summary>
+        </member>
+        <member name="M:Glib.SQL.StoredProcedure.AddParameter(System.String,System.Object)">
+            <summary>
+            Add a SqlParameter with the specified name and value to the collection of parameters.
+            </summary>
+            <param name="name">The parameter name.</param>
+            <param name="value">The value of the parameter.</param>
+        </member>
+        <member name="M:Glib.SQL.StoredProcedure.AddParameters(System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            Add the specified SqlParameters to the parameters of the underlying command.
+            </summary>
+            <param name="parameters">The parameters to add.</param>
+        </member>
+        <member name="M:Glib.SQL.StoredProcedure.RemoveParameter(System.String)">
+            <summary>
+            Remove the SqlParameter with the specified name.
+            </summary>
+            <param name="name">The name of the SqlParameter to remove.</param>
+            <returns>Whether or not the command was successfully removed.</returns>
+        </member>
+        <member name="M:Glib.SQL.StoredProcedure.#ctor(System.Data.SqlClient.SqlConnection,System.String)">
+            <summary>
+            Create a new StoredProcedure.
+            </summary>
+            <param name="connection">The SqlConnection used to connect to the database.</param>
+            <param name="procName">The name of the stored procedure to execute.</param>
+        </member>
+        <member name="M:Glib.SQL.StoredProcedure.#ctor(System.String,System.String)">
+            <summary>
+            Create a new StoredProcedure.
+            </summary>
+            <param name="connectionString">The connecting string used to connect to the database.</param>
+            <param name="procName">The name of the stored procedure to execute.</param>
+        </member>
+        <member name="M:Glib.SQL.StoredProcedure.Finalize">
+            <summary>
+            A destructor closing all known open SqlDataReaders associated with this command.
+            </summary>
+        </member>
+        <member name="M:Glib.SQL.StoredProcedure.ExecuteDataReader">
+            <summary>
+            Execute this StoredProcedure, and return the results as a SqlDataReader.
+            </summary>
+            <remarks>
+            Must be closed after use.
+            </remarks>
+            <returns>A SqlDataReader representing the results of this command.</returns>
+        </member>
+        <member name="M:Glib.SQL.StoredProcedure.ExecuteScalar">
+            <summary>
+            Executes this StoredProcedure, and return the results as a scalar value (int).
+            </summary>
+            <returns>The results of this command as a scalar value (int).</returns>
+        </member>
+        <member name="M:Glib.SQL.StoredProcedure.Execute">
+            <summary>
+            Executes this StoredProcedure, and return the number of rows affected.
+            </summary>
+            <returns>The number of rows affected by this command.</returns>
+        </member>
+        <member name="M:Glib.SQL.StoredProcedure.ExecuteDataTable">
+            <summary>
+            Execute this StoredProcedure, and return the results as a DataTable.
+            </summary>
+            <returns>A DataTable representing the results of this command.</returns>
+        </member>
+        <member name="P:Glib.SQL.StoredProcedure.Connection">
+            <summary>
+            The SqlConnection used to connect to the database.
+            </summary>
+        </member>
+        <member name="P:Glib.SQL.StoredProcedure.Parameters">
+            <summary>
+            Get the collection of <seealso cref="T:System.Data.SqlClient.SqlParameter"/>s associated with this command.
+            </summary>
+        </member>
+        <member name="P:Glib.SQL.StoredProcedure.Command">
+            <summary>
+            The underlying stored procedure executed against the database.
+            </summary>
+            <remarks>
+            Cannot be set to a non stored procedure command.
+            </remarks>
+        </member>
+        <member name="E:Glib.SQL.StoredProcedure.CommandCompleted">
+            <summary>
+            An event called after the completion of the underlying command.
+            </summary>
+        </member>
+        <member name="T:Glib.SQL.CommandWrapper">
+            <summary>
+            A wrapper class around a SqlCommand, defaulting to a stored procedure.
+            </summary>
+        </member>
+        <member name="F:Glib.SQL.CommandWrapper.Command">
+            <summary>
+            The stored procedure this class is wrapping.
+            </summary>
+        </member>
+        <member name="M:Glib.SQL.CommandWrapper.Finalize">
+            <summary>
+            A destructor closing all open SqlDataReaders.
+            </summary>
+        </member>
+        <member name="M:Glib.SQL.CommandWrapper.AddParamater(System.Data.SqlClient.SqlParameter)">
+            <summary>
+            Add a SqlParamater to the command's arguments.
+            </summary>
+            <param name="param">The SqlParamater to add.</param>
+        </member>
+        <member name="M:Glib.SQL.CommandWrapper.AddParamaters(System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            Adds multiple SqlParamaters to the command's arguments.
+            </summary>
+            <param name="paramaters">The SqlParamaters to add.</param>
+        </member>
+        <member name="M:Glib.SQL.CommandWrapper.#ctor(System.Data.SqlClient.SqlConnection,System.String)">
+            <summary>
+            Initialize a new StoredProcedureWrapper with the specified connection and stored procedure.
+            </summary>
+            <param name="connect">The SqlConnection to connect to the database with.</param>
+            <param name="storedProcName">The name of the stored procedure to use.</param>
+        </member>
+        <member name="M:Glib.SQL.CommandWrapper.ChangeToStandardSqlCommand">
+            <summary>
+            HIGHLY DISRECOMMENDED UNLESS COMMAND HAS NO USER INPUT, FOR SECURITY'S SAKE.
+            Change the command type to a regular SQL statement.
+            Vulnerable to SQL injection attacks.
+            </summary>
+        </member>
+        <member name="M:Glib.SQL.CommandWrapper.AppendUntrustedInputToCommand(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Append untrusted user input to the existing SQL command text.
+            Should not be relied on for security of a SQL command.
+            Does not escape text.
+            Throws a SecurityException in case of detected suspicious character.
+            </summary>
+            <exception cref="T:System.Exception">Thrown if a disallowed sharacter sequence is detected.</exception>
+            <param name="input">The user input to append to the SQL command.</param>
+            <param name="allowQuotes">Whether or not to allow quotes in the user input string.</param>
+            <param name="allowOr">Whether or not to allow the world "OR" in the user input string.</param>
+        </member>
+        <member name="M:Glib.SQL.CommandWrapper.#ctor(System.String,System.String)">
+            <summary>
+            Initialize a new StoredProcedureWrapper with the specified connection and stored procedure.
+            </summary>
+            <param name="connectStr">The connection string to use to connect to the database.</param>
+            <param name="storedProcName">The name of the stored procedure to use.</param>
+        </member>
+        <member name="M:Glib.SQL.CommandWrapper.ExecuteReader">
+            <summary>
+            Execute this command as a SqlDataReader.
+            It is important to close this data reader after use.
+            Thedestructor's automatic closing of all open SqlDataReaders should not be relied on.
+            </summary>
+            <returns>A SqlDataReader containing the results of the command.</returns>
+        </member>
+        <member name="M:Glib.SQL.CommandWrapper.ExecuteDataTable">
+            <summary>
+            Execute this SqlCommand, and put the results in a DataTable.
+            </summary>
+            <returns>A DataTable containing the results of the command.</returns>
+        </member>
+        <member name="M:Glib.SQL.CommandWrapper.Execute">
+            <summary>
+            Execute this command without returning any output.
+            </summary>
+        </member>
+        <member name="M:Glib.SQL.CommandWrapper.#ctor(System.Data.SqlClient.SqlConnection,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            Initialize a new StoredProcedureWrapper with the specified connection, stored procedure, and paramaters.
+            </summary>
+            <param name="connect">The SqlConnection to connect to the database with.</param>
+            <param name="storedProcName">The name of the stored procedure to use.</param>
+            <param name="paramaters">The SqlParamaters to add to this SqlCommand.</param>
+        </member>
+        <member name="P:Glib.SQL.CommandWrapper.Paramaters">
+            <summary>
+            Get the paramaters passed with this SqlCommand.
+            </summary>
+        </member>
+        <member name="T:Glib.XNA.SpriteLib.Velocity">
+            <summary>
+            Represents the velocity of a sprite.
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.SpriteLib.Velocity.XVelocity">
+            <summary>
+            The velocity on the X axis (null means no change).
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.SpriteLib.Velocity.YVelocity">
+            <summary>
+            The velocity on the Y axis (null means no change).
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.Velocity.#ctor">
+            <summary>
+            Construct a new velocity representing no change.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.Velocity.#ctor(System.Single,System.Single)">
+            <summary>
+            Construct a new velocity representing the passed in values of XSpeed and YSpeed.
+            </summary>
+        </member>
+        <member name="T:Glib.XNA.SpriteLib.WhitePixel2D">
+            <summary>
+            A texture representing a set of pixels of the same color, be default 1x1 white.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.WhitePixel2D.#ctor(Microsoft.Xna.Framework.Graphics.GraphicsDevice)">
+            <summary>
+            Create a new white dot.
+            </summary>
+            <param name="gd">The GraphicsDevice associeated with this texture.</param>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.WhitePixel2D.#ctor(Microsoft.Xna.Framework.Graphics.GraphicsDevice,System.Int32,System.Int32,Microsoft.Xna.Framework.Color)">
+            <summary>
+            Create a new dot.
+            </summary>
+            <param name="gd">The GraphicsDevice associeated with this texture.</param>
+            <param name="height">The height of the white pixel.</param>
+            <param name="width">The width of the white pixel.</param>
+            <param name="textureColor">The color of the texture.</param>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.WhitePixel2D.#ctor(Microsoft.Xna.Framework.Graphics.GraphicsDevice,System.Int32,System.Int32)">
+            <summary>
+            Create a new white dot.
+            </summary>
+            <param name="gd">The GraphicsDevice associeated with this texture.</param>
+            <param name="height">The height of the white pixel.</param>
+            <param name="width">The width of the white pixel.</param>
+        </member>
+        <member name="T:Glib.WinForms.Shapes.Shape">
+            <summary>
+            A basic shape.
+            </summary>
+        </member>
+        <member name="M:Glib.WinForms.Shapes.Shape.#ctor(System.Int32,System.Int32,System.Drawing.Color)">
+            <summary>
+            Create a new shape.
+            </summary>
+            <param name="x">The X position of the shape.</param>
+            <param name="y">The Y position of the shape.</param>
+            <param name="color">The color of the shape.</param>
+        </member>
+        <member name="M:Glib.WinForms.Shapes.Shape.Draw(System.Drawing.Graphics,System.Boolean)">
+            <summary>
+            Draw the shape to the specified graphics object with the default color.
+            </summary>
+            <param name="gfx">The graphics device to draw to.</param>
+            <param name="fill">Whether or not to fill the shape.</param>
+        </member>
+        <member name="M:Glib.WinForms.Shapes.Shape.Draw(System.Drawing.Graphics,System.Drawing.Color,System.Boolean)">
+            <summary>
+            Draw the shape to the specified graphics object.
+            </summary>
+            <param name="gfx">The graphics device to draw to.</param>
+            <param name="color">The color to draw the shape.</param>
+            <param name="fill">Whether or not to fill the shape.</param>
+        </member>
+        <member name="P:Glib.WinForms.Shapes.Shape.Color">
+            <summary>
+            The color of the shape.
+            </summary>
+        </member>
+        <member name="P:Glib.WinForms.Shapes.Shape.X">
+            <summary>
+            The X position of the shape.
+            </summary>
+        </member>
+        <member name="P:Glib.WinForms.Shapes.Shape.Position">
+            <summary>
+            Gets or sets the position of the shape.
+            </summary>
+        </member>
+        <member name="P:Glib.WinForms.Shapes.Shape.Y">
+            <summary>
+            The Y position of the shape.
+            </summary>
+        </member>
+        <member name="T:Glib.AlphabetPrinter">
+            <summary>
+            A class for printing alphabetical letters to a string and the console.
+            </summary>
+        </member>
+        <member name="M:Glib.AlphabetPrinter.#ctor(System.Char)">
+            <summary>
+            Create a new AlphabetPrinter creating letters made out of the specified character.
+            </summary>
+            <param name="printChar">The character to make letters out of.</param>
+        </member>
+        <member name="M:Glib.AlphabetPrinter.GetAlphabetString(System.String)">
+            <summary>
+            Get the large alphabet string for the specified word.
+            </summary>
+            <param name="word">The word.</param>
+            <returns>The word as a multiline alphabet string.</returns>
+        </member>
+        <member name="M:Glib.AlphabetPrinter.Print(System.String)">
+            <summary>
+            Print the specified word to console.
+            </summary>
+            <param name="word">The word to print.</param>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.LetterChar">
+            <summary>
+            The character to make letters out of.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.A">
+            <summary>
+            The character A.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.B">
+            <summary>
+            The character B.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.C">
+            <summary>
+            The character C.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.D">
+            <summary>
+            The character D.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.E">
+            <summary>
+            The character E.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.F">
+            <summary>
+            The character F.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.G">
+            
+            <summary>
+            The character G.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.H">
+            <summary>
+            The character H.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.I">
+            <summary>
+            The character I.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.J">
+            <summary>
+            The character J.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.K">
+            <summary>
+            The character K.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.L">
+            <summary>
+            The character L.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.M">
+            <summary>
+            The character M.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.N">
+            <summary>
+            The character N.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.O">
+            <summary>
+            The character O.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.P">
+            <summary>
+            The character P.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.Q">
+            <summary>
+            The character Q.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.R">
+            <summary>
+            The character R.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.S">
+            <summary>
+            The character S.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.T">
+            <summary>
+            The character T.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.U">
+            <summary>
+            The character U.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.V">
+            <summary>
+            The character V.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.Space">
+            <summary>
+            A space character.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.ExclamationMark">
+            <summary>
+            An exclamation mark.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.Pound">
+            <summary>
+            The pound sign.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.Hyphen">
+            <summary>
+            A hyphen character.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.LeftParentheses">
+            <summary>
+            The character representing left parentheses.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.RightParentheses">
+            <summary>
+            The character representing right parentheses.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.One">
+            <summary>
+            The number one.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.Two">
+            <summary>
+            The number two.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.Three">
+            <summary>
+            The number three.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.CustomChars">
+            <summary>
+            Gets a list of custom characters specific to this instance, in the format of key: input letter, value: bool[,] representing the letter.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.Four">
+            <summary>
+            The number four.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.Five">
+            <summary>
+            The number five.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.Six">
+            <summary>
+            The number six.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.Seven">
+            <summary>
+            The number seven.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.Eight">
+            <summary>
+            The number eight.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.Nine">
+            <summary>
+            The number nine.
+            </summary>
+        </member>
+        <member name="P:Glib.AlphabetPrinter.Zero">
+            <summary>
+            The number zero.
+            </summary>
+        </member>
+        <member name="T:Glib.XNA.SpriteLib.SpriteBuilder">
+            <summary>
+            A class to construct sprites easily.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteBuilder.#ctor(Microsoft.Xna.Framework.Graphics.Texture2D,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Graphics.SpriteBatch)">
+            <summary>
+            Make a new SpriteBuilder.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteBuilder.#ctor(Microsoft.Xna.Framework.Content.ContentManager,System.String,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Graphics.SpriteBatch)">
+            <summary>
+            Make a new SpriteBuilder.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteBuilder.SetDrawRegion(Microsoft.Xna.Framework.Rectangle)">
+            <summary>
+            Set the DrawRegion of the Sprite.
+            </summary>
+            <param name="region">The new DrawRegion of the Sprite.</param>
+            <returns>This SpriteBuilder.</returns>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteBuilder.RemoveDrawRegion">
+            <summary>
+            Remove the DrawRegion from the Sprite, drawing the entire Sprite.
+            </summary>
+            <returns>This SpriteBuilder.</returns>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteBuilder.SetColor(Microsoft.Xna.Framework.Color)">
+            <summary>
+            Set the color of the Sprite under construction.
+            </summary>
+            <param name="c">The color to use.</param>
+            <returns>This SpriteBuilder.</returns>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteBuilder.SetWidth(System.Single)">
+            <summary>
+            Set the width of the Sprite under construction via scaling.
+            </summary>
+            <param name="w">The new width.</param>
+            <returns>This SpriteBuilder.</returns>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteBuilder.SetUpdateParamaters(Glib.XNA.SpriteLib.UpdateParamaters)">
+            <summary>
+            Set the <seealso cref="T:Glib.XNA.SpriteLib.UpdateParamaters"/> for this Sprite.
+            </summary>
+            <param name="u">The UpdateParamaters to use for this Sprite.</param>
+            <returns>This SpriteBuilder.</returns>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteBuilder.SetViewport(Microsoft.Xna.Framework.Graphics.Viewport)">
+            <summary>
+            Set the viewport this Sprite should use.
+            </summary>
+            <param name="v">The Viewport this Sprite should use.</param>
+            <returns>This SpriteBuilder.</returns>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteBuilder.SetVelocity(Glib.XNA.SpriteLib.Velocity)">
+            <summary>
+            Set the velocity of the sprite.
+            </summary>
+            <param name="v">The new Sprite velocity.</param>
+            <returns>This SpriteBuilder.</returns>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteBuilder.SetSpeed(System.Single,System.Single)">
+            <summary>
+            Set the speed of this Sprite.
+            </summary>
+            <param name="xspeed">The speed in X.</param>
+            <param name="yspeed">The speed in Y.</param>
+            <returns>This SpriteBuilder.</returns>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteBuilder.RegisterDrawEvent(System.EventHandler)">
+            <summary>
+            Register an event for when the Sprite is drawn.
+            </summary>
+            <param name="drawEvent">The SpriteEventHandler for the Drawn event.</param>
+            <returns>This SpriteBuilder.</returns>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteBuilder.RegisterMoveEvent(Glib.XNA.SpriteLib.SpriteMoveEventHandler)">
+            <summary>
+            Register an event for when the Sprite moves.
+            </summary>
+            <param name="moveEvent">The SpriteMoveEventHandler for the Move event.</param>
+            <returns>This SpriteBuilder.</returns>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteBuilder.Build">
+            <summary>
+            Return the Sprite under construction.
+            </summary>
+            <returns>The Sprite under construction.</returns>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteBuilder.SetHeight(System.Single)">
+            <summary>
+            Set the height of the Sprite under construction via scaling.
+            </summary>
+            <param name="h">The new height.</param>
+            <returns>This SpriteBuilder.</returns>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteBuilder.RegisterUpdateEvent(System.EventHandler)">
+            <summary>
+            Register an update event handler for the Sprite under construction.
+            </summary>
+            <param name="updateEvent">The update event to register.</param>
+            <returns>This SpriteBuilder.</returns>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteBuilder.SetScale(Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Set the scale of the Sprite under construction.
+            </summary>
+            <param name="scale">The scale to assign to the Sprite.</param>
+            <returns>This SpriteBuilder.</returns>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteBuilder.SetScale(System.Single,System.Single)">
+            <summary>
+            Set the scale of the Sprite under construction.
+            </summary>
+            <param name="scalex">The X scale to assign to the Sprite.</param>
+            <param name="scaley">The Y scale to assign to the Sprite.</param>
+            <returns>This SpriteBuilder.</returns>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.SpriteBuilder.Built">
+            <summary>
+            Gets the Sprite under construction.
+            </summary>
+        </member>
+        <member name="T:Glib.XNA.SpriteLib.SpriteMoveEventHandler">
+            <summary>
+            Handle when a sprite is going to be moved. This is a cancellable event.
+            </summary>
+            <param name="source">The sprite that is undergoing an attempt to be moved.</param>
+            <param name="e">The <seealso cref="T:Glib.XNA.SpriteMoveEventArgs">SpriteMoveEventArgs</seealso> for this event.</param>
+        </member>
+        <member name="T:Glib.XNA.SpriteLib.SpriteClickEventHandler">
+            <summary>
+            Handle when a sprite has been clicked on. Called immediately after Update() on a Sprite.
+            </summary>
+            <param name="source">The SpriteManager that is managing this sprite, or, if this event is being called by the sprite itself, the sprite being clicked on.</param>
+            <param name="e">The <seealso cref="T:Glib.XNA.SpriteMoveEventArgs">SpriteMoveEventArgs</seealso> for this event.</param>
+        </member>
+        <member name="T:Glib.TypeUtils`1">
+            <summary>
+            A static class providing convenience utilities on types.
+            </summary>
+            <typeparam name="T">The type to provide utilities of.</typeparam>
+        </member>
+        <member name="M:Glib.TypeUtils`1.IsNumeric">
+            <summary>
+            Indicates whether the specified type is numeric.
+            </summary>
+            <returns>Whether or not the type parameter T is numeric.</returns>
+        </member>
+        <member name="P:Glib.TypeUtils`1.TruePredicate">
+            <summary>
+            Gets a predicate that will always return a true value.
+            </summary>
+        </member>
+        <member name="P:Glib.TypeUtils`1.FalsePredicate">
+            <summary>
+            Gets a predicate that will always return a false value.
+            </summary>
+        </member>
+        <member name="T:Glib.Utils">
+            <summary>
+            A static class providing convenience utilities.
+            </summary>
+        </member>
+        <member name="P:Glib.Utils.NumericTypes">
+            <summary>
+            Gets an array of numerical types.
+            </summary>
+        </member>
+        <member name="T:Glib.XNA.SpriteLib.SpritePositionMapping">
+            <summary>
+            A simple class for storing a mapping of ISprites to positions on the screen.
+            It is strongly suggested that the implementation of ISprite has a Location/Position property instead of using this class.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpritePositionMapping.FindPosition(Glib.XNA.ISprite)">
+            <summary>
+            Finds the position of a certain sprite.
+            </summary>
+            <param name="spr">The sprite to find the position of.</param>
+            <returns>The position of the sprite, or a blank Vector2 if not found</returns>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpritePositionMapping.Remove(Glib.XNA.ISprite)">
+            <summary>
+            Remove the position of the specified ISprite from this SpritePositionMapping.
+            </summary>
+            <param name="spr">The sprite to remove.</param>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpritePositionMapping.MoveSprite(Glib.XNA.ISprite,Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Move the given sprite to a new position.
+            </summary>
+            <param name="spr">The sprite to move.</param>
+            <param name="newpos">The new position of the sprite.</param>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.SpritePositionMapping.Item(Glib.XNA.ISprite)">
+            <summary>
+            Get and set the position of the specified ISprite.
+            </summary>
+            <param name="sprite">The ISprite you want to change the position of.</param>
+            <returns>The position of the given ISprite.</returns>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.SpritePositionMapping.Length">
+            <summary>
+            The number of items in this SpritePositionMapping.
+            </summary>
+            <remarks>
+            The same thing as Count.
+            </remarks>
+        </member>
+        <member name="T:Glib.XNA.SpriteLib.SpriteSheet">
+            <summary>
+            A class representing a Sprite from a sprite sheet. Supports sprite sheet animation.
             </summary>
         </member>
         <member name="T:Glib.XNA.SpriteLib.Sprite">
@@ -84,7 +924,14 @@
             Convert the specified Sprite to a rectangle.
             </summary>
             <param name="spr">The Sprite to convert to a Rectangle.</param>
-            <returns>The REctangle representing the area of the Sprite.</returns>
+            <returns>The Rectangle representing the area of the Sprite.</returns>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.Sprite.op_Implicit(Glib.XNA.SpriteLib.Sprite)~Microsoft.Xna.Framework.Graphics.Texture2D">
+            <summary>
+            Convert the specified Sprite to a texture.
+            </summary>
+            <param name="spr">The Sprite to convert to a Texture2D.</param>
+            <returns>The texture of the Sprite.</returns>
         </member>
         <member name="F:Glib.XNA.SpriteLib.Sprite.Speed">
             <summary>
@@ -359,116 +1206,441 @@
             Update the ITimerSprite as applicable (do logic here), using a GameTime object.
             </summary>
         </member>
-        <member name="F:Glib.XNA.SpriteLib.TextBoxSprite.KeyPressDelay">
+        <member name="F:Glib.XNA.SpriteLib.SpriteSheet.DefaultAnimationDelay">
             <summary>
-            The delay between allowed key presses.
+            The default delay between animations in milliseconds.
+            Set to 0 to update every call to Update().
             </summary>
         </member>
-        <member name="F:Glib.XNA.SpriteLib.TextBoxSprite.ResetOnSubmit">
+        <member name="F:Glib.XNA.SpriteLib.SpriteSheet.CurrentSprite">
             <summary>
-            Whether or not to reset the Text of this TextBoxSprite when the text is submitted.
+            The currently selected Sprite, where X is the zero-based column and Y is the zero-based row.
             </summary>
         </member>
-        <member name="M:Glib.XNA.SpriteLib.TextBoxSprite.#ctor(Microsoft.Xna.Framework.Graphics.Texture2D,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Graphics.SpriteBatch,Microsoft.Xna.Framework.Graphics.SpriteFont)">
+        <member name="M:Glib.XNA.SpriteLib.SpriteSheet.GetDrawRegion(System.Int32,System.Int32)">
             <summary>
-            Create a new TextBoxSprite.
+            Get the region drawn relative to the upper left corner of this SpriteSheet based on the given row and column.
+            </summary>
+            <param name="row">The zero-based row of sprites to draw from.</param>
+            <param name="column">The zero-based column of sprites to draw from.</param>
+            <returns>The region to draw with the gived row and column.</returns>
+        </member>
+        <member name="F:Glib.XNA.SpriteLib.SpriteSheet.SpriteSize">
+            <summary>
+            The size of one Sprite.
             </summary>
         </member>
-        <member name="M:Glib.XNA.SpriteLib.TextBoxSprite.#ctor(Microsoft.Xna.Framework.Graphics.Texture2D,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Graphics.SpriteBatch,Microsoft.Xna.Framework.Graphics.SpriteFont)">
+        <member name="F:Glib.XNA.SpriteLib.SpriteSheet.AnimationDelay">
             <summary>
-            Create a new TextBoxSprite.
-            </summary>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.TextBoxSprite.#ctor(Microsoft.Xna.Framework.Graphics.Texture2D,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Graphics.SpriteBatch,Glib.XNA.SpriteLib.UpdateParamaters,Microsoft.Xna.Framework.Graphics.SpriteFont)">
-            <summary>
-            Create a new TextBoxSprite.
-            </summary>
-            <param name="texture">The texture to show beneath the text.</param>
-            <param name="color">The color to tint the texture under the text.</param>
-            <param name="pos">The position of the TextBoxSprite.</param>
-            <param name="font">The SpriteFont to draw the text with.</param>
-            <param name="sb">The SpriteBatch to draw to.</param>
-            <param name="up">The UpdateParameters to use when updating this Sprite.</param>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.TextBoxSprite.#ctor(Microsoft.Xna.Framework.Graphics.Texture2D,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Graphics.SpriteBatch,Glib.XNA.SpriteLib.UpdateParamaters,Microsoft.Xna.Framework.Graphics.SpriteFont)">
-            <summary>
-            Create a new TextBoxSprite.
-            </summary>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.TextBoxSprite.DrawNonAuto">
-            <summary>
-            Draws the sprite.
-            Requires you to begin the SpriteBatch before you draw the sprite, and to end the SpriteBatch after you draw the sprite.
-            </summary>
-        </member>
-        <member name="F:Glib.XNA.SpriteLib.TextBoxSprite.IgnoredKeys">
-            <summary>
-            All keys ignored for input.
-            </summary>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.TextBoxSprite.Update">
-            <summary>
-            Update this TextBoxSprite.
-            This includes processing keypresses and calling events.
+            The delay between changes of the sprite (animation) in this SpriteSheet, if any.
             </summary>
             <remarks>
-            Doesn't tick elaspedKeyPressTime.
-            Called internally by Update(GameTime) after incrementing elaspedKeyPressTime.
+            Set to no time to change every update.
+            Set to null to not animate.
             </remarks>
         </member>
-        <member name="M:Glib.XNA.SpriteLib.TextBoxSprite.Update(Microsoft.Xna.Framework.GameTime)">
+        <member name="M:Glib.XNA.SpriteLib.SpriteSheet.#ctor(Microsoft.Xna.Framework.Graphics.Texture2D,Microsoft.Xna.Framework.Rectangle,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Graphics.SpriteBatch)">
             <summary>
-            Update this TextBoxSprite, ticking the keypress delay.
+            Construct a new SpriteSheet.
             </summary>
-            <param name="gt">The current GameTime, passed to the Game.</param>
+            <param name="sheet">The Texture2D of the actual sprite sheet.</param>
+            <param name="size">The size of one sprite (X and Y are ignored in this paramater).</param>
+            <param name="position">The initial position of this SpriteSheet.</param>
+            <param name="sb">The SpriteBatch used for drawing.</param>
         </member>
-        <member name="E:Glib.XNA.SpriteLib.TextBoxSprite.Moved">
+        <member name="M:Glib.XNA.SpriteLib.SpriteSheet.#ctor(Microsoft.Xna.Framework.Graphics.Texture2D,Microsoft.Xna.Framework.Rectangle,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Graphics.SpriteBatch,System.Int32,System.Int32)">
             <summary>
-            An EventHandler called after the successful movement of this Sprite.
+            Construct a new SpriteSheet.
+            </summary>
+            <param name="sheet">The Texture2D of the actual sprite sheet.</param>
+            <param name="size">The size of one sprite (X and Y are ignored in this paramater).</param>
+            <param name="position">The initial position of this SpriteSheet.</param>
+            <param name="sb">The SpriteBatch used for drawing.</param>
+            <param name="rows">The number of rows.</param>
+            <param name="columns">The number of columns.</param>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteSheet.#ctor(Microsoft.Xna.Framework.Content.ContentManager,System.String,Microsoft.Xna.Framework.Rectangle,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Graphics.SpriteBatch)">
+            <summary>
+            Construct a new SpriteSheet.
+            </summary>
+            <param name="manager">The ContentManager used to load the Texture2D of the ssprite sheet.</param>
+            <param name="assetName">The asset name of the Texture2D containing the sprite sheet.</param>
+            <param name="size">The size of one sprite (X and Y are ignored in this paramater).</param>
+            <param name="position">The initial position of this SpriteSheet.</param>
+            <param name="sb">The SpriteBatch used for drawing.</param>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteSheet.Update(Microsoft.Xna.Framework.GameTime)">
+            <summary>
+            Call the Updated event of this SpriteSheet, and animate the SpriteSheet if applicable.
+            </summary>
+            <param name="gt">The GameTime object passed to a Game's Update(GameTime) method.</param>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteSheet.Update">
+            <summary>
+            Call the Updated event of this SpriteSheet, WITHOUT ANIMATION TICKS.
+            Will only animate if AnimationDelay is set to 0 milliseconds.
             </summary>
         </member>
-        <member name="P:Glib.XNA.SpriteLib.TextBoxSprite.TextColor">
+        <member name="M:Glib.XNA.SpriteLib.SpriteSheet.DrawNonAuto">
             <summary>
-            The color of the text.
+            Draw this SpriteSheet's current region to the screen, without automatic SpriteBatch handling.
             </summary>
         </member>
-        <member name="P:Glib.XNA.SpriteLib.TextBoxSprite.Text">
+        <member name="P:Glib.XNA.SpriteLib.SpriteSheet.RestartAnimation">
             <summary>
-            The displayed text of the underlying TextSprite.
+            Whether or not to restart the animation when completed.
             </summary>
         </member>
-        <member name="P:Glib.XNA.SpriteLib.TextBoxSprite.RealText">
+        <member name="P:Glib.XNA.SpriteLib.SpriteSheet.IsComplete">
             <summary>
-            The full text typed into this TextBoxSprite.
-            </summary>
-        </member>
-        <member name="P:Glib.XNA.SpriteLib.TextBoxSprite.IsPassword">
-            <summary>
-            Whether or not this is a password text field.
-            </summary>
-        </member>
-        <member name="P:Glib.XNA.SpriteLib.TextBoxSprite.Focused">
-            <summary>
-            Whether or not this TextBoxSprite is focused.
-            </summary>
-        </member>
-        <member name="E:Glib.XNA.SpriteLib.TextBoxSprite.TextSubmitted">
-            <summary>
-            An event fired when text is submitted from this TextBoxSprite.
+            Whether or not the animation is complete.
             </summary>
             <remarks>
-            The text is not cleared until after the event is called, so you can use the Text property of the source to get the text submitted.
+            Is always false if RestartAnimation is true.
             </remarks>
         </member>
-        <member name="P:Glib.XNA.SpriteLib.TextBoxSprite.UseCenterAsOrigin">
+        <member name="P:Glib.XNA.SpriteLib.SpriteSheet.CurrentRow">
             <summary>
-            Use the center as the origin.
-            Always false for this Sprite implementation.
+            The current zero-based row of Sprites in this SpriteSheet.
             </summary>
         </member>
-        <member name="P:Glib.XNA.SpriteLib.TextBoxSprite.PasswordCharacter">
+        <member name="P:Glib.XNA.SpriteLib.SpriteSheet.Width">
             <summary>
-            The character to display for passwords.
+            A scale-sensitive width of 1 sprite. Use SpriteSize.Width not to account for scale.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.SpriteSheet.Height">
+            <summary>
+            A scale-sensitive height of 1 sprite. Use SpriteSize.Height not to account for scale.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.SpriteSheet.CurrentColumn">
+            <summary>
+            The current zero-based column of Sprites in this SpriteSheet.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.SpriteSheet.Center">
+            <summary>
+            The scale-sensitive center of the sprite.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.SpriteSheet.Columns">
+            <summary>
+            The number of columns of Sprites in this SpriteSheet.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.SpriteSheet.Rows">
+            <summary>
+            The number of rows in this SpriteSheet.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.SpriteSheet.IsAnimated">
+            <summary>
+            A boolean representing whether or not this SpriteSheet is automatically animated.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.SpriteSheet.OnlyDrawRegion">
+            <summary>
+            Whether or not to only draw the DrawRegion of the SpriteSheet.
+            </summary>
+            <remarks>
+            Always true.
+            </remarks>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.SpriteSheet.DrawRegion">
+            <summary>
+            The current drawing region of the SpriteSheet.
+            </summary>
+        </member>
+        <member name="E:Glib.XNA.SpriteLib.SpriteSheet.AnimationCompleted">
+            <summary>
+            An event fired when the animation is completed, and either ends or is about to restart.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.SpriteSheet.Origin">
+            <summary>
+            Get the effective origin of the Sprite.
+            </summary>
+        </member>
+        <member name="T:Glib.XNA.SpriteLib.AngleType">
+            <summary>
+            An enum representing a type of an angle measurement.
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.SpriteLib.AngleType.Radians">
+            <summary>
+            An angle in radians.
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.SpriteLib.AngleType.Degrees">
+            <summary>
+            An angle in degrees.
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.SpriteLib.AngleType.Gradians">
+            <summary>
+            An angle in gradians.
+            </summary>
+        </member>
+        <member name="T:Glib.XNA.SpriteLib.SpriteRotation">
+            <summary>
+            A class representing the rotation of a sprite.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteRotation.AsVector">
+            <summary>
+            Convert this rotation to a Vector2 through XnaExtensions.
+            </summary>
+            <returns>This rotation as a Vector2.</returns>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteRotation.op_Addition(Glib.XNA.SpriteLib.SpriteRotation,Glib.XNA.SpriteLib.SpriteRotation)">
+            <summary>
+            Add two SpriteRotations.
+            </summary>
+            <param name="x">The first SpriteRotation to add.</param>
+            <param name="y">The second SpriteRotation to add.</param>
+            <returns>A SpriteRotation representing the combined rotation values of x any y.</returns>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteRotation.op_LessThan(Glib.XNA.SpriteLib.SpriteRotation,Glib.XNA.SpriteLib.SpriteRotation)">
+            <summary>
+            Compare two SpriteRotations.
+            </summary>
+            <param name="x">The first SpriteRotation to compare.</param>
+            <param name="y">The second SpriteRotation to compare.</param>
+            <returns>Whether or not x is less than y.</returns>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteRotation.op_LessThanOrEqual(Glib.XNA.SpriteLib.SpriteRotation,Glib.XNA.SpriteLib.SpriteRotation)">
+            <summary>
+            Compare two SpriteRotations.
+            </summary>
+            <param name="x">The first SpriteRotation to compare.</param>
+            <param name="y">The second SpriteRotation to compare.</param>
+            <returns>Whether or not x is less than or equal to y.</returns>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteRotation.op_GreaterThanOrEqual(Glib.XNA.SpriteLib.SpriteRotation,Glib.XNA.SpriteLib.SpriteRotation)">
+            <summary>
+            Compare two SpriteRotations.
+            </summary>
+            <param name="x">The first SpriteRotation to compare.</param>
+            <param name="y">The second SpriteRotation to compare.</param>
+            <returns>Whether or not x is greater than or equal to y.</returns>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteRotation.op_GreaterThan(Glib.XNA.SpriteLib.SpriteRotation,Glib.XNA.SpriteLib.SpriteRotation)">
+            <summary>
+            Compare two SpriteRotations.
+            </summary>
+            <param name="x">The first SpriteRotation to compare.</param>
+            <param name="y">The second SpriteRotation to compare.</param>
+            <returns>Whether or not x is greater than y.</returns>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteRotation.op_Subtraction(Glib.XNA.SpriteLib.SpriteRotation,System.Single)">
+            <summary>
+            Subtract a SpriteRotation and a float representing a value in DEGREES.
+            </summary>
+            <param name="x">The SpriteRotation to subtract from.</param>
+            <param name="y">The number of degrees to subtract from the SpriteRotation.</param>
+            <returns>A SpriteRotation representing x.Degrees - y.</returns>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteRotation.op_Addition(Glib.XNA.SpriteLib.SpriteRotation,System.Single)">
+            <summary>
+            Add a SpriteRotation and a float representing a value in DEGREES.
+            </summary>
+            <param name="x">The SpriteRotation to add to.</param>
+            <param name="y">The number of degrees to add to the SpriteRotation.</param>
+            <returns>A SpriteRotation representing the combined rotation values of x any y.</returns>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteRotation.op_Subtraction(Glib.XNA.SpriteLib.SpriteRotation,Glib.XNA.SpriteLib.SpriteRotation)">
+            <summary>
+            Subtract two SpriteRotations.
+            </summary>
+            <param name="x">The base SpriteRotation.</param>
+            <param name="y">The SpriteRotation to subtract from the base.</param>
+            <returns>A SpriteRotation representing x.Degrees - y.Degrees.</returns>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteRotation.#ctor">
+            <summary>
+            Initialiaze a new SpriteRotation with a value of 0 degrees.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteRotation.#ctor(System.Single)">
+            <summary>
+            Initialize a new SpriteRotation with the specified value of degrees.
+            </summary>
+            <param name="degrees">The number of degrees to initialize this SpriteRotation to</param>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteRotation.#ctor(System.Single,Glib.XNA.SpriteLib.AngleType)">
+            <summary>
+            Initialize a new SpriteRotation with the specified value using the specified unit.
+            </summary>
+            <param name="value">The value to initialize this SpriteRotation to.</param>
+            <param name="measurementType">The type of angle that value represents.</param>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.SpriteRotation.Degrees">
+            <summary>
+            Gets or sets the rotation of the sprite in degrees.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.SpriteRotation.Gradians">
+            <summary>
+            Gets or sets the rotation of the Sprite in gradians (AKA gons, grads, or grades).
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.SpriteRotation.Radians">
+            <summary>
+            Gets or sets he rotation of the sprite in radians.
+            </summary>
+        </member>
+        <member name="T:Glib.PrimeList`1">
+            <summary>
+            A list of purely prime numbers.
+            </summary>
+            <typeparam name="T">A whole number numerical type.</typeparam>
+        </member>
+        <member name="M:Glib.PrimeList`1.#ctor">
+            <summary>
+            Create a new prime number list.
+            </summary>
+        </member>
+        <member name="M:Glib.PrimeList`1.#ctor(`0,`0)">
+            <summary>
+            Make a new list with all prime numbers from startpoint to endpoint.
+            </summary>
+            <param name="startpoint">The inclusive lower number.</param>
+            <param name="endpoint">The exclusive upper number.</param>
+        </member>
+        <member name="M:Glib.PrimeList`1.IsPrime(System.Object)">
+            <summary>
+            Returns whether or not the specified number is prime.
+            </summary>
+            <param name="value">The number to check primeness.</param>
+            <exception cref="T:System.ArgumentException">Thrown if value is not a valid number.</exception>
+            <returns>Whether or not the specified number is prime</returns>
+        </member>
+        <member name="M:Glib.PrimeList`1.Add(`0)">
+            <summary>
+            Add the specified item to the list.
+            </summary>
+            <param name="value">The item to add.</param>
+        </member>
+        <member name="M:Glib.PrimeList`1.Insert(System.Int32,`0)">
+            <summary>
+            Insert an item at a specified index into the list.
+            </summary>
+            <param name="index">The index at which to insert the item.</param>
+            <param name="value">The value to insert.</param>
+        </member>
+        <member name="M:Glib.PrimeList`1.InsertRange(System.Int32,System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Insert a range of values to this list beginning at the specified index.
+            </summary>
+            <param name="index">The index to begin inserting values at.</param>
+            <param name="values">The enumerable of values to insert.</param>
+        </member>
+        <member name="M:Glib.PrimeList`1.AddRange(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Add a range of values to this PrimeList.
+            </summary>
+            <param name="values">The values to add.</param>
+        </member>
+        <member name="P:Glib.PrimeList`1.Item(System.Int32)">
+            <summary>
+            Access the number at the specified index in the array.
+            </summary>
+            <param name="index">The zero-based index in the list.</param>
+            <returns>The number with the specified index in the list.</returns>
+        </member>
+        <member name="T:Glib.WinForms.Shapes.Circle">
+            <summary>
+            A circle shape.
+            </summary>
+        </member>
+        <member name="M:Glib.WinForms.Shapes.Circle.#ctor(System.Int32,System.Int32,System.Int32,System.Drawing.Color)">
+            <summary>
+            Create a new circle with the specified position, diameter, and color.
+            </summary>
+            <param name="x">The X position of the circle.</param>
+            <param name="y">The Y position of the circle.</param>
+            <param name="diameter">The diameter of the circle.</param>
+            <param name="color">The color of the circle.</param>
+        </member>
+        <member name="M:Glib.WinForms.Shapes.Circle.#ctor(System.Drawing.Point,System.Int32,System.Drawing.Color)">
+            <summary>
+            Create a new circle with the specified position, diameter, and color.
+            </summary>
+            <param name="pos">The position of the circle.</param>
+            <param name="diameter">The diameter of the circle.</param>
+            <param name="color">The color of the circle.</param>
+        </member>
+        <member name="M:Glib.WinForms.Shapes.Circle.Draw(System.Drawing.Graphics,System.Drawing.Color,System.Boolean)">
+            <summary>
+            Draw the circle to the specified graphics object..
+            </summary>
+            <param name="gfx">The graphics device to draw to.</param>
+            <param name="color">The color to draw the shape.</param>
+            <param name="fill">Whether or not to fill the shape.</param>
+        </member>
+        <member name="M:Glib.WinForms.Shapes.Circle.Draw(System.Drawing.Graphics,System.Boolean)">
+            <summary>
+            Draw this circle to the specified graphics object with the default color.
+            </summary>
+            <param name="gfx">The graphics device to draw to.</param>
+            <param name="fill">Whether or not to fill the shape.</param>
+        </member>
+        <member name="P:Glib.WinForms.Shapes.Circle.Diameter">
+            <summary>
+            The diameter of the circle.
+            </summary>
+        </member>
+        <member name="P:Glib.WinForms.Shapes.Circle.Radius">
+            <summary>
+            The radius of the circle.
+            </summary>
+            <remarks>
+            Is approximate in getting since it converts directly to the diameter by integer division.
+            </remarks>
+        </member>
+        <member name="T:Glib.XNA.IGravitySource">
+            <summary>
+            An interface representing a gravity source.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.IGravitySource.GetAttraction(Glib.XNA.IPositionable)">
+            <summary>
+            Gets the force of attraction for an object affected by this gravity.
+            </summary>
+            <param name="attracted">The object that is being attracted to this gravity source.</param>
+            <returns>The amount to pull the object, in the X and Y axis, towards the gravity source.</returns>
+        </member>
+        <member name="P:Glib.XNA.IGravitySource.Position">
+            <summary>
+            Gets or sets the position of the gravity source.
+            </summary>
+        </member>
+        <member name="T:Glib.XNA.SpriteLib.PositionRepresentation">
+            <summary>
+            A basic class that represents a position. Intented to be used when an IPositionable is needed but you only have a Vector2.
+            This class cannot be inherited.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.PositionRepresentation.#ctor(Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Create a new PositionRepresentation.
+            </summary>
+            <param name="pos">The position to represent.</param>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.PositionRepresentation.X">
+            <summary>
+            Gets or sets the X position of the Position object.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.PositionRepresentation.Y">
+            <summary>
+            Gets or sets the Y position of the Position object.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.PositionRepresentation.Position">
+            <summary>
+            Gets or sets the underlying position.
             </summary>
         </member>
         <member name="T:Glib.XNA.SpriteLib.SpriteWrapper">
@@ -545,295 +1717,119 @@
             <param name="index">The index in the Sprites collection.</param>
             <returns>The ISprite with the specified index in the Sprites collection.</returns>
         </member>
-        <member name="T:Glib.Exceptions.SecurityRiskType">
+        <member name="T:Glib.WinForms.Controls.RequiredSqlParameterTextBox">
             <summary>
-            An enum representing a type of security risk that caused a <see cref="T:Glib.Exceptions.SecurityException"/>.
+            A required text box representing a SQL parameter.
             </summary>
         </member>
-        <member name="F:Glib.Exceptions.SecurityRiskType.XSS">
+        <member name="T:Glib.WinForms.Controls.SqlParameterTextBox">
             <summary>
-            Represesnts a detected XSS attempt.
+            A SQL parameter provider in the form of a text box.
             </summary>
         </member>
-        <member name="F:Glib.Exceptions.SecurityRiskType.SQLInject">
+        <member name="M:Glib.WinForms.Controls.SqlParameterTextBox.#ctor(System.String)">
             <summary>
-            Represents a detected SQL injection attempt.
+            Create a new SqlParameterTextBox with the specified parameter name.
+            </summary>
+            <param name="parameterName">The name of the SQL parameter.</param>
+        </member>
+        <member name="P:Glib.WinForms.Controls.SqlParameterTextBox.ParameterName">
+            <summary>
+            The name of the represented SQL parameter.
             </summary>
         </member>
-        <member name="T:Glib.Exceptions.SecurityException">
+        <member name="P:Glib.WinForms.Controls.SqlParameterTextBox.ParameterValue">
             <summary>
-            An exception representing a possible security risk.
+            The string value of the text box, which is the value of the SQL parameter.
             </summary>
         </member>
-        <member name="F:Glib.Exceptions.SecurityException.RiskType">
+        <member name="T:Glib.WinForms.IRequiredField">
             <summary>
-            The type of risk represented by the exception. Null means no specific risk type.
+            An interface representing a required winforms field.
             </summary>
         </member>
-        <member name="M:Glib.Exceptions.SecurityException.#ctor">
+        <member name="P:Glib.WinForms.IRequiredField.Completed">
             <summary>
-            Create a new security exception with no specific risk type.
+            Whether or not the entry is completed properly.
             </summary>
         </member>
-        <member name="M:Glib.Exceptions.SecurityException.#ctor(Glib.Exceptions.SecurityRiskType)">
+        <member name="P:Glib.WinForms.IRequiredField.InvalidityError">
             <summary>
-            Create a new security exception with the specified risk type.
-            </summary>
-            <param name="risk">The type of security risk.</param>
-        </member>
-        <member name="P:Glib.Exceptions.SecurityException.Message">
-            <summary>
-            Gets a message that describes the current exception.
+            Gets a string indicating the error to display if the field is invalid.
             </summary>
         </member>
-        <member name="T:Glib.XNA.SpriteLib.Velocity">
+        <member name="M:Glib.WinForms.Controls.RequiredSqlParameterTextBox.#ctor(System.String)">
             <summary>
-            Represents the velocity of a sprite.
+            Create a new SqlParameterTextBox with the specified parameter name and default validation code.
+            </summary>
+            <param name="parameterName">The name of the SQL parameter.</param>
+        </member>
+        <member name="F:Glib.WinForms.Controls.RequiredSqlParameterTextBox.FieldValidation">
+            <summary>
+            The predicate checking whether or not this field is complete.
+            True means complete, false means incomplete.
             </summary>
         </member>
-        <member name="F:Glib.XNA.SpriteLib.Velocity.XVelocity">
+        <member name="M:Glib.WinForms.Controls.RequiredSqlParameterTextBox.#ctor(System.String,System.Predicate{System.String})">
             <summary>
-            The velocity on the X axis (null means no change).
+            Create a new SqlParameterTextBox with the specified parameter name and validation code.
+            </summary>
+            <param name="parameterName">The name of the SQL parameter.</param>
+            <param name="validator">The predicate to use to check if the field is complete.</param>
+        </member>
+        <member name="P:Glib.WinForms.Controls.RequiredSqlParameterTextBox.Completed">
+            <summary>
+            Whether or not the entry is completed properly.
+            Is determined by the return value of FieldValidation.
             </summary>
         </member>
-        <member name="F:Glib.XNA.SpriteLib.Velocity.YVelocity">
+        <member name="P:Glib.WinForms.Controls.RequiredSqlParameterTextBox.InvalidityError">
             <summary>
-            The velocity on the Y axis (null means no change).
+            Gets or sets a string indicating the error message to display if the field is invalid.
             </summary>
         </member>
-        <member name="M:Glib.XNA.SpriteLib.Velocity.#ctor">
+        <member name="T:Glib.WinForms.Controls.RequiredTextBox">
             <summary>
-            Construct a new velocity representing no change.
+            A required text box.
             </summary>
         </member>
-        <member name="M:Glib.XNA.SpriteLib.Velocity.#ctor(System.Single,System.Single)">
+        <member name="M:Glib.WinForms.Controls.RequiredTextBox.IsValid(System.String)">
             <summary>
-            Construct a new velocity representing the passed in values of XSpeed and YSpeed.
-            </summary>
-        </member>
-        <member name="T:Glib.XNA.SpriteLib.SpriteManager">
-            <summary>
-            Manages multiple <seealso cref="T:Glib.XNA.SpriteLib.Sprite"/> objects on the same SpriteBatch.
-            </summary>
-        </member>
-        <member name="F:Glib.XNA.SpriteLib.SpriteManager.Sprites">
-            <summary>
-            The list of sprites managed by this SpriteManager.
-            </summary>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteManager.AddNewSprite(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Graphics.Texture2D)">
-            <summary>
-            Add a new sprite with the specified position and texture.
-            </summary>
-            <param name="position">The position of the new Sprite.</param>
-            <param name="texture">The texture of the new sprite.</param>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteManager.RemoveSelf(Glib.XNA.SpriteLib.Sprite)">
-            <summary>
-            Remove a sprite from this SpriteManager.
-            Safe to call during Update() or Draw() (or from their corresponding events).
-            </summary>
-            <param name="spr">The sprite to remove</param>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteManager.Add(Glib.XNA.SpriteLib.Sprite)">
-            <summary>
-            Add a sprite to this SpriteManager.
-            </summary>
-            <param name="spr">The sprite to add</param>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteManager.Remove(Glib.XNA.SpriteLib.Sprite)">
-            <summary>
-            Remove a given sprite, that is NOT the sprite being updated.
-            </summary>
-            <param name="spr">The sprite to remove</param>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteManager.#ctor(Microsoft.Xna.Framework.Graphics.SpriteBatch,Glib.XNA.SpriteLib.Sprite[])">
-            <summary>
-            Construct a new SpriteManager.
-            </summary>
-            <param name="sb">The SpriteBatch to use.</param>
-            <param name="sprites">The sprites to add to the SpriteManager.</param>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteManager.Draw">
-            <summary>
-            Draw all sprites managed by this SpriteManager.
-            </summary>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteManager.DrawNonAuto">
-            <summary>
-            Draw all sprites managed by this SpriteManager, without opening or closing the SpriteBatch.
-            </summary>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteManager.callKeyboardEvents">
-            <summary>
-            Call KeyPress events.
-            </summary>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteManager.Update">
-            <summary>
-            Update all sprites managed by this SpriteManager.
+            The default field validation code.
             </summary>
             <remarks>
-            Does not call Update(GameTime) on subclasses of Sprite implementing ITimerSprite.
+            Checks if the field text is empty, and returns that value inverted.
             </remarks>
+            <param name="str">The text of the field.</param>
+            <returns>Whether or not the field is valid.</returns>
         </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteManager.Update(Microsoft.Xna.Framework.GameTime)">
+        <member name="M:Glib.WinForms.Controls.RequiredTextBox.#ctor">
             <summary>
-            Update all Sprites managed by this SpriteManager, calling Update(GameTime) on ITimerSprites where neccesary.
-            THIS WILL NOT CALL KEYBOARD OR MOSUE EVENTS IF gameTime.IsRunningSlowly IS TRUE.
-            </summary>
-            <param name="gameTime">The current game time.</param>
-        </member>
-        <member name="P:Glib.XNA.SpriteLib.SpriteManager.SpriteBatch">
-            <summary>
-            Gets the SpriteBatch drawn to.
+            Create a new RequiredTextBox with default validation code.
             </summary>
         </member>
-        <member name="E:Glib.XNA.SpriteLib.SpriteManager.SpriteClick">
+        <member name="F:Glib.WinForms.Controls.RequiredTextBox.FieldValidation">
             <summary>
-            An event called when a sprite is clicked on.
+            The predicate checking whether or not this field is complete.
+            True means complete, false means incomplete.
             </summary>
         </member>
-        <member name="E:Glib.XNA.SpriteLib.SpriteManager.KeyDown">
+        <member name="M:Glib.WinForms.Controls.RequiredTextBox.#ctor(System.Predicate{System.String})">
             <summary>
-            An event called when a key is down.
+            Create a new RequiredTextBox with the specified parameter name and validation code.
+            </summary>
+            <param name="validator">The predicate to use to check if the field is complete.</param>
+        </member>
+        <member name="P:Glib.WinForms.Controls.RequiredTextBox.Completed">
+            <summary>
+            Whether or not the entry is completed properly.
+            Is determined by the return value of FieldValidation.
             </summary>
         </member>
-        <member name="P:Glib.XNA.SpriteLib.SpriteManager.Item(System.Int32)">
+        <member name="P:Glib.WinForms.Controls.RequiredTextBox.InvalidityError">
             <summary>
-            Get or set the sprite with the specified index in the Sprites list.
+            Gets or sets a string indicating the error message to display if the field is invalid.
             </summary>
-            <remarks>
-            Returns null if the index is out of bounds of the array.
-            </remarks>
-            <param name="index">The index in the Sprites list.</param>
-            <returns>The sprite with the specified index in the Sprites list.</returns>
-        </member>
-        <member name="T:Glib.XNA.SpriteLib.UpdateParamaters">
-            <summary>
-            A structure representing things to automatically do when Update() is called on a Sprite.
-            </summary>
-        </member>
-        <member name="F:Glib.XNA.SpriteLib.UpdateParamaters.UpdateX">
-            <summary>
-            Whether or not to acknowledge the XIncrease value.
-            </summary>
-        </member>
-        <member name="F:Glib.XNA.SpriteLib.UpdateParamaters.UpdateY">
-            <summary>
-            Whether or not to acknowledge the YIncrease value.
-            </summary>
-        </member>
-        <member name="F:Glib.XNA.SpriteLib.UpdateParamaters.FixEdgeOff">
-            <summary>
-            Whether or not to automatically fix the sprite from going off the edge based on XIncrease and YIncrease values.
-            </summary>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.UpdateParamaters.#ctor(System.Boolean,System.Boolean,System.Boolean)">
-            <summary>
-            Create a new UpdateParamaters with the values specified.
-            </summary>
-            <param name="UpdateXParam">Whether or not to acknowledge the XIncrease value.</param>
-            <param name="UpdateYParam">Whether or not to acknowledge the YIncrease value.</param>
-            <param name="FixEdgeOffParam">Whether or not to automatically fix the sprite from going off the edge.</param>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.UpdateParamaters.#ctor(System.Boolean,System.Boolean)">
-            <summary>
-            Create a new UpdateParamaters with the values specified, and the default (false) for FixEdgeOff.
-            </summary>
-            <param name="UpdateXParam">Whether or not to acknowledge the XIncrease value.</param>
-            <param name="UpdateYParam">Whether or not to acknowledge the YIncrease value.</param>
-        </member>
-        <member name="T:Glib.TypeUtils`1">
-            <summary>
-            A static class providing convenience utilities on types.
-            </summary>
-            <typeparam name="T">The type to provide utilities of.</typeparam>
-        </member>
-        <member name="M:Glib.TypeUtils`1.IsNumeric">
-            <summary>
-            Indicates whether the specified type is numeric.
-            </summary>
-            <returns>Whether or not the type parameter T is numeric.</returns>
-        </member>
-        <member name="P:Glib.TypeUtils`1.TruePredicate">
-            <summary>
-            Gets a predicate that will always return a true value.
-            </summary>
-        </member>
-        <member name="P:Glib.TypeUtils`1.FalsePredicate">
-            <summary>
-            Gets a predicate that will always return a false value.
-            </summary>
-        </member>
-        <member name="T:Glib.Utils">
-            <summary>
-            A static class providing convenience utilities.
-            </summary>
-        </member>
-        <member name="P:Glib.Utils.NumericTypes">
-            <summary>
-            Gets an array of numerical types.
-            </summary>
-        </member>
-        <member name="T:Glib.PrimeList`1">
-            <summary>
-            A list of purely prime numbers.
-            </summary>
-            <typeparam name="T">A whole number numerical type.</typeparam>
-        </member>
-        <member name="M:Glib.PrimeList`1.#ctor">
-            <summary>
-            Create a new prime number list.
-            </summary>
-        </member>
-        <member name="M:Glib.PrimeList`1.#ctor(`0,`0)">
-            <summary>
-            Make a new list with all prime numbers from startpoint to endpoint.
-            </summary>
-            <param name="startpoint">The inclusive lower number.</param>
-            <param name="endpoint">The exclusive upper number.</param>
-        </member>
-        <member name="M:Glib.PrimeList`1.IsPrime(System.Object)">
-            <summary>
-            Returns whether or not the specified number is prime.
-            </summary>
-            <param name="value">The number to check primeness.</param>
-            <exception cref="T:System.ArgumentException">Thrown if value is not a valid number.</exception>
-            <returns>Whether or not the specified number is prime</returns>
-        </member>
-        <member name="M:Glib.PrimeList`1.Add(`0)">
-            <summary>
-            Add the specified item to the list.
-            </summary>
-            <param name="value">The item to add.</param>
-        </member>
-        <member name="M:Glib.PrimeList`1.Insert(System.Int32,`0)">
-            <summary>
-            Insert an item at a specified index into the list.
-            </summary>
-            <param name="index">The index at which to insert the item.</param>
-            <param name="value">The value to insert.</param>
-        </member>
-        <member name="M:Glib.PrimeList`1.InsertRange(System.Int32,System.Collections.Generic.IEnumerable{`0})">
-            <summary>
-            Insert a range of values to this list beginning at the specified index.
-            </summary>
-            <param name="index">The index to begin inserting values at.</param>
-            <param name="values">The enumerable of values to insert.</param>
-        </member>
-        <member name="M:Glib.PrimeList`1.AddRange(System.Collections.Generic.IEnumerable{`0})">
-            <summary>
-            Add a range of values to this PrimeList.
-            </summary>
-            <param name="values">The values to add.</param>
-        </member>
-        <member name="P:Glib.PrimeList`1.Item(System.Int32)">
-            <summary>
-            Access the number at the specified index in the array.
-            </summary>
-            <param name="index">The zero-based index in the list.</param>
-            <returns>The number with the specified index in the list.</returns>
         </member>
         <member name="T:Glib.Networking.Email">
             <summary>
@@ -980,6 +1976,399 @@
         <member name="P:Glib.Networking.IpPing.TimeOut">
             <summary>
             Get or set the ping timeout in milliseconds.
+            </summary>
+        </member>
+        <member name="T:Glib.XNA.SpriteLib.TextBoxSprite">
+            <summary>
+            A Sprite which accepts Text as input.
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.SpriteLib.TextBoxSprite.KeyPressDelay">
+            <summary>
+            The delay between allowed key presses.
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.SpriteLib.TextBoxSprite.ResetOnSubmit">
+            <summary>
+            Whether or not to reset the Text of this TextBoxSprite when the text is submitted.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.TextBoxSprite.#ctor(Microsoft.Xna.Framework.Graphics.Texture2D,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Graphics.SpriteBatch,Microsoft.Xna.Framework.Graphics.SpriteFont)">
+            <summary>
+            Create a new TextBoxSprite.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.TextBoxSprite.#ctor(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Graphics.SpriteBatch,Microsoft.Xna.Framework.Graphics.SpriteFont)">
+            <summary>
+            Create a new TextBoxSprite using a white background.
+            </summary>
+            <param name="pos">The position of the TextBoxSprite.</param>
+            <param name="font">The SpriteFont to draw the text with.</param>
+            <param name="sb">The SpriteBatch to draw to.</param>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.TextBoxSprite.#ctor(Microsoft.Xna.Framework.Graphics.Texture2D,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Graphics.SpriteBatch,Microsoft.Xna.Framework.Graphics.SpriteFont)">
+            <summary>
+            Create a new TextBoxSprite.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.TextBoxSprite.#ctor(Microsoft.Xna.Framework.Graphics.Texture2D,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Graphics.SpriteBatch,Glib.XNA.SpriteLib.UpdateParamaters,Microsoft.Xna.Framework.Graphics.SpriteFont)">
+            <summary>
+            Create a new TextBoxSprite.
+            </summary>
+            <param name="texture">The texture to show beneath the text (must be scalable).</param>
+            <param name="color">The color to tint the texture under the text.</param>
+            <param name="pos">The position of the TextBoxSprite.</param>
+            <param name="font">The SpriteFont to draw the text with.</param>
+            <param name="sb">The SpriteBatch to draw to.</param>
+            <param name="up">The UpdateParameters to use when updating this Sprite.</param>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.TextBoxSprite.#ctor(Microsoft.Xna.Framework.Graphics.Texture2D,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Graphics.SpriteBatch,Glib.XNA.SpriteLib.UpdateParamaters,Microsoft.Xna.Framework.Graphics.SpriteFont)">
+            <summary>
+            Create a new TextBoxSprite.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.TextBoxSprite.DrawNonAuto">
+            <summary>
+            Draws the sprite.
+            Requires you to begin the SpriteBatch before you draw the sprite, and to end the SpriteBatch after you draw the sprite.
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.SpriteLib.TextBoxSprite.IgnoredKeys">
+            <summary>
+            All keys ignored for input.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.TextBoxSprite.Update">
+            <summary>
+            Update this TextBoxSprite.
+            This includes processing keypresses and calling events.
+            </summary>
+            <remarks>
+            Doesn't tick elaspedKeyPressTime.
+            Called internally by Update(GameTime) after incrementing elaspedKeyPressTime.
+            </remarks>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.TextBoxSprite.Update(Microsoft.Xna.Framework.GameTime)">
+            <summary>
+            Update this TextBoxSprite, ticking the keypress delay.
+            </summary>
+            <param name="gt">The current GameTime, passed to the Game.</param>
+        </member>
+        <member name="E:Glib.XNA.SpriteLib.TextBoxSprite.Moved">
+            <summary>
+            An EventHandler called after the successful movement of this TextBoxSprite.
+            </summary>
+            <remarks>
+            The superclass implementation is hidden to prevent removal of internally used event handlers.
+            </remarks>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.TextBoxSprite.TextColor">
+            <summary>
+            The color of the text.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.TextBoxSprite.Text">
+            <summary>
+            The displayed text of the underlying TextSprite.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.TextBoxSprite.RealText">
+            <summary>
+            The full text typed into this TextBoxSprite.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.TextBoxSprite.IsPassword">
+            <summary>
+            Whether or not this is a password text field.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.TextBoxSprite.Focused">
+            <summary>
+            Whether or not this TextBoxSprite is focused.
+            </summary>
+        </member>
+        <member name="E:Glib.XNA.SpriteLib.TextBoxSprite.TextSubmitted">
+            <summary>
+            An event fired when text is submitted from this TextBoxSprite.
+            </summary>
+            <remarks>
+            The text is not cleared until after the event is called, so you can use the Text property of the source to get the text submitted.
+            </remarks>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.TextBoxSprite.UseCenterAsOrigin">
+            <summary>
+            Use the center as the origin.
+            Always false for this Sprite implementation.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.TextBoxSprite.PasswordCharacter">
+            <summary>
+            The character to display for passwords.
+            </summary>
+        </member>
+        <member name="T:Glib.XNA.SpriteLib.SpriteManager">
+            <summary>
+            Manages multiple <seealso cref="T:Glib.XNA.SpriteLib.Sprite"/> objects on the same SpriteBatch.
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.SpriteLib.SpriteManager.Sprites">
+            <summary>
+            The list of sprites managed by this SpriteManager.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteManager.AddNewSprite(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Graphics.Texture2D)">
+            <summary>
+            Add a new sprite with the specified position and texture.
+            </summary>
+            <param name="position">The position of the new Sprite.</param>
+            <param name="texture">The texture of the new sprite.</param>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteManager.RemoveSelf(Glib.XNA.SpriteLib.Sprite)">
+            <summary>
+            Remove a sprite from this SpriteManager.
+            Safe to call during Update() or Draw() (or from their corresponding events).
+            </summary>
+            <param name="spr">The sprite to remove</param>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteManager.Add(Glib.XNA.SpriteLib.Sprite)">
+            <summary>
+            Add a sprite to this SpriteManager.
+            </summary>
+            <param name="spr">The sprite to add</param>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteManager.Remove(Glib.XNA.SpriteLib.Sprite)">
+            <summary>
+            Remove a given sprite, that is NOT the sprite being updated.
+            </summary>
+            <param name="spr">The sprite to remove</param>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteManager.#ctor(Microsoft.Xna.Framework.Graphics.SpriteBatch,Glib.XNA.SpriteLib.Sprite[])">
+            <summary>
+            Construct a new SpriteManager.
+            </summary>
+            <param name="sb">The SpriteBatch to use.</param>
+            <param name="sprites">The sprites to add to the SpriteManager.</param>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteManager.Draw">
+            <summary>
+            Draw all sprites managed by this SpriteManager.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteManager.DrawNonAuto">
+            <summary>
+            Draw all sprites managed by this SpriteManager, without opening or closing the SpriteBatch.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteManager.callKeyboardEvents">
+            <summary>
+            Call KeyPress events.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteManager.Update">
+            <summary>
+            Update all sprites managed by this SpriteManager.
+            </summary>
+            <remarks>
+            Does not call Update(GameTime) on subclasses of Sprite implementing ITimerSprite.
+            </remarks>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteManager.Update(Microsoft.Xna.Framework.GameTime)">
+            <summary>
+            Update all Sprites managed by this SpriteManager, calling Update(GameTime) on ITimerSprites where neccesary.
+            THIS WILL NOT CALL KEYBOARD OR MOSUE EVENTS IF gameTime.IsRunningSlowly IS TRUE.
+            </summary>
+            <param name="gameTime">The current game time.</param>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.SpriteManager.SpriteBatch">
+            <summary>
+            Gets the SpriteBatch drawn to.
+            </summary>
+        </member>
+        <member name="E:Glib.XNA.SpriteLib.SpriteManager.SpriteClick">
+            <summary>
+            An event called when a sprite is clicked on.
+            </summary>
+        </member>
+        <member name="E:Glib.XNA.SpriteLib.SpriteManager.KeyDown">
+            <summary>
+            An event called when a key is down.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.SpriteManager.Item(System.Int32)">
+            <summary>
+            Get or set the sprite with the specified index in the Sprites list.
+            </summary>
+            <remarks>
+            Returns null if the index is out of bounds of the array.
+            </remarks>
+            <param name="index">The index in the Sprites list.</param>
+            <returns>The sprite with the specified index in the Sprites list.</returns>
+        </member>
+        <member name="T:Glib.XNA.SpriteLib.UpdateParamaters">
+            <summary>
+            A structure representing things to automatically do when Update() is called on a Sprite.
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.SpriteLib.UpdateParamaters.UpdateX">
+            <summary>
+            Whether or not to acknowledge the XIncrease value.
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.SpriteLib.UpdateParamaters.UpdateY">
+            <summary>
+            Whether or not to acknowledge the YIncrease value.
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.SpriteLib.UpdateParamaters.FixEdgeOff">
+            <summary>
+            Whether or not to automatically fix the sprite from going off the edge based on XIncrease and YIncrease values.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.UpdateParamaters.#ctor(System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Create a new UpdateParamaters with the values specified.
+            </summary>
+            <param name="UpdateXParam">Whether or not to acknowledge the XIncrease value.</param>
+            <param name="UpdateYParam">Whether or not to acknowledge the YIncrease value.</param>
+            <param name="FixEdgeOffParam">Whether or not to automatically fix the sprite from going off the edge.</param>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.UpdateParamaters.#ctor(System.Boolean,System.Boolean)">
+            <summary>
+            Create a new UpdateParamaters with the values specified, and the default (false) for FixEdgeOff.
+            </summary>
+            <param name="UpdateXParam">Whether or not to acknowledge the XIncrease value.</param>
+            <param name="UpdateYParam">Whether or not to acknowledge the YIncrease value.</param>
+        </member>
+        <member name="T:Glib.WinForms.FormValidator">
+            <summary>
+            A class validating forms to ensure all <see cref="T:Glib.WinForms.IRequiredField"/>s are complete.
+            </summary>
+        </member>
+        <member name="M:Glib.WinForms.FormValidator.#ctor(System.Windows.Forms.Form)">
+            <summary>
+            Create a new FormValidator validating the specified form.
+            </summary>
+            <param name="formToValidate">The form which contains components to validate.</param>
+        </member>
+        <member name="M:Glib.WinForms.FormValidator.#ctor(System.Windows.Forms.Control.ControlCollection)">
+            <summary>
+            Create a new FormValidator validating the specified controls.
+            </summary>
+            <param name="comToValidate">Components to validate.</param>
+        </member>
+        <member name="M:Glib.WinForms.FormValidator.AddFormComponents(System.Windows.Forms.Form)">
+            <summary>
+            Add the components of the specified form to be validated.
+            </summary>
+            <param name="formToAdd">The form which contains components to validate.</param>
+        </member>
+        <member name="M:Glib.WinForms.FormValidator.ValidateForm(System.Windows.Forms.ErrorProvider)">
+            <summary>
+            Validate these controls for errors, marking the controls with errors as errored using the specified ErrorProvider.
+            </summary>
+            <param name="errors">The ErrorProvider to use for erroring out controls.</param>
+            <returns>Whether or not the form is complete.</returns>
+        </member>
+        <member name="M:Glib.WinForms.FormValidator.ValidateForm(System.Windows.Forms.Form)">
+            <summary>
+            Validate the controls on the specified form.
+            </summary>
+            <param name="testForm">The form to validate.</param>
+            <returns>Whether or not the form has all valid controls.</returns>
+        </member>
+        <member name="P:Glib.WinForms.FormValidator.ControlsToValidate">
+            <summary>
+            Gets the collection of controls to validate.
+            </summary>
+        </member>
+        <member name="P:Glib.WinForms.FormValidator.IsComplete">
+            <summary>
+            Gets a boolean representing whether or not all required controls are completed.
+            </summary>
+        </member>
+        <member name="T:Glib.Exceptions.SecurityRiskType">
+            <summary>
+            An enum representing a type of security risk that caused a <see cref="T:Glib.Exceptions.SecurityException"/>.
+            </summary>
+        </member>
+        <member name="F:Glib.Exceptions.SecurityRiskType.XSS">
+            <summary>
+            Represesnts a detected XSS attempt.
+            </summary>
+        </member>
+        <member name="F:Glib.Exceptions.SecurityRiskType.SQLInject">
+            <summary>
+            Represents a detected SQL injection attempt.
+            </summary>
+        </member>
+        <member name="T:Glib.Exceptions.SecurityException">
+            <summary>
+            An exception representing a possible security risk.
+            </summary>
+        </member>
+        <member name="F:Glib.Exceptions.SecurityException.RiskType">
+            <summary>
+            The type of risk represented by the exception. Null means no specific risk type.
+            </summary>
+        </member>
+        <member name="M:Glib.Exceptions.SecurityException.#ctor">
+            <summary>
+            Create a new security exception with no specific risk type.
+            </summary>
+        </member>
+        <member name="M:Glib.Exceptions.SecurityException.#ctor(Glib.Exceptions.SecurityRiskType)">
+            <summary>
+            Create a new security exception with the specified risk type.
+            </summary>
+            <param name="risk">The type of security risk.</param>
+        </member>
+        <member name="P:Glib.Exceptions.SecurityException.Message">
+            <summary>
+            Gets a message that describes the current exception.
+            </summary>
+        </member>
+        <member name="T:Glib.WinForms.Shapes.XShape">
+            <summary>
+            A figure which is an X.
+            </summary>
+        </member>
+        <member name="M:Glib.WinForms.Shapes.XShape.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Drawing.Color)">
+            <summary>
+            Create a new X shape.
+            </summary>
+            <param name="x">The first X position.</param>
+            <param name="y">The first Y position.</param>
+            <param name="x1">The second X position.</param>
+            <param name="y1">The second Y position.</param>
+            <param name="distanceBetweenX">The distance between the top two points of the X shape.</param>
+            <param name="color">The color of the X.</param>
+        </member>
+        <member name="M:Glib.WinForms.Shapes.XShape.Draw(System.Drawing.Graphics,System.Drawing.Color,System.Boolean)">
+            <summary>
+            Draw the X to the specified graphics.
+            </summary>
+            <param name="gfx">The graphics to draw the X to.</param>
+            <param name="color">The color to draw the X with.</param>
+            <param name="fill">(Ignored parameter, cannot fill an X)</param>
+        </member>
+        <member name="P:Glib.WinForms.Shapes.XShape.XDistance">
+            <summary>
+            The distance between the top two corners of the X (along the X axis).
+            </summary>
+        </member>
+        <member name="P:Glib.WinForms.Shapes.XShape.X1">
+            <summary>
+            The second X coordinate of the X.
+            </summary>
+        </member>
+        <member name="P:Glib.WinForms.Shapes.XShape.Position">
+            <summary>
+            Gets the X, Y, X1, and Y1 positions of the XShape.
+            </summary>
+        </member>
+        <member name="P:Glib.WinForms.Shapes.XShape.Y1">
+            <summary>
+            The second Y coordinate of the X.
             </summary>
         </member>
         <member name="T:Glib.UniqueRandom">
@@ -1294,235 +2683,6 @@
             <param name="o">The object to cast.</param>
             <param name="castedObj">The object casted to T.</param>
         </member>
-        <member name="T:Glib.WinForms.Shapes.Shape">
-            <summary>
-            A basic shape.
-            </summary>
-        </member>
-        <member name="M:Glib.WinForms.Shapes.Shape.#ctor(System.Int32,System.Int32,System.Drawing.Color)">
-            <summary>
-            Create a new shape.
-            </summary>
-            <param name="x">The X position of the shape.</param>
-            <param name="y">The Y position of the shape.</param>
-            <param name="color">The color of the shape.</param>
-        </member>
-        <member name="M:Glib.WinForms.Shapes.Shape.Draw(System.Drawing.Graphics,System.Boolean)">
-            <summary>
-            Draw the shape to the specified graphics object with the default color.
-            </summary>
-            <param name="gfx">The graphics device to draw to.</param>
-            <param name="fill">Whether or not to fill the shape.</param>
-        </member>
-        <member name="M:Glib.WinForms.Shapes.Shape.Draw(System.Drawing.Graphics,System.Drawing.Color,System.Boolean)">
-            <summary>
-            Draw the shape to the specified graphics object.
-            </summary>
-            <param name="gfx">The graphics device to draw to.</param>
-            <param name="color">The color to draw the shape.</param>
-            <param name="fill">Whether or not to fill the shape.</param>
-        </member>
-        <member name="P:Glib.WinForms.Shapes.Shape.Color">
-            <summary>
-            The color of the shape.
-            </summary>
-        </member>
-        <member name="P:Glib.WinForms.Shapes.Shape.X">
-            <summary>
-            The X position of the shape.
-            </summary>
-        </member>
-        <member name="P:Glib.WinForms.Shapes.Shape.Position">
-            <summary>
-            Gets or sets the position of the shape.
-            </summary>
-        </member>
-        <member name="P:Glib.WinForms.Shapes.Shape.Y">
-            <summary>
-            The Y position of the shape.
-            </summary>
-        </member>
-        <member name="T:Glib.XNA.SpriteLib.Direction">
-            <summary>
-            An enum representing a direction.
-            Can also represent the edge of a viewport.
-            </summary>
-        </member>
-        <member name="F:Glib.XNA.SpriteLib.Direction.Top">
-            <summary>
-            An edge representing the top of a viewport.
-            </summary>
-        </member>
-        <member name="F:Glib.XNA.SpriteLib.Direction.Bottom">
-            <summary>
-            An edge representing the bottom of a viewport.
-            </summary>
-        </member>
-        <member name="F:Glib.XNA.SpriteLib.Direction.Left">
-            <summary>
-            An edge representing the left side of a viewport.
-            </summary>
-        </member>
-        <member name="F:Glib.XNA.SpriteLib.Direction.Right">
-            <summary>
-            An edge representing the right side of a viewport.
-            </summary>
-        </member>
-        <member name="T:Glib.WinForms.Shapes.Circle">
-            <summary>
-            A circle shape.
-            </summary>
-        </member>
-        <member name="M:Glib.WinForms.Shapes.Circle.#ctor(System.Int32,System.Int32,System.Int32,System.Drawing.Color)">
-            <summary>
-            Create a new circle with the specified position, diameter, and color.
-            </summary>
-            <param name="x">The X position of the circle.</param>
-            <param name="y">The Y position of the circle.</param>
-            <param name="diameter">The diameter of the circle.</param>
-            <param name="color">The color of the circle.</param>
-        </member>
-        <member name="M:Glib.WinForms.Shapes.Circle.#ctor(System.Drawing.Point,System.Int32,System.Drawing.Color)">
-            <summary>
-            Create a new circle with the specified position, diameter, and color.
-            </summary>
-            <param name="pos">The position of the circle.</param>
-            <param name="diameter">The diameter of the circle.</param>
-            <param name="color">The color of the circle.</param>
-        </member>
-        <member name="M:Glib.WinForms.Shapes.Circle.Draw(System.Drawing.Graphics,System.Drawing.Color,System.Boolean)">
-            <summary>
-            Draw the circle to the specified graphics object..
-            </summary>
-            <param name="gfx">The graphics device to draw to.</param>
-            <param name="color">The color to draw the shape.</param>
-            <param name="fill">Whether or not to fill the shape.</param>
-        </member>
-        <member name="M:Glib.WinForms.Shapes.Circle.Draw(System.Drawing.Graphics,System.Boolean)">
-            <summary>
-            Draw this circle to the specified graphics object with the default color.
-            </summary>
-            <param name="gfx">The graphics device to draw to.</param>
-            <param name="fill">Whether or not to fill the shape.</param>
-        </member>
-        <member name="P:Glib.WinForms.Shapes.Circle.Diameter">
-            <summary>
-            The diameter of the circle.
-            </summary>
-        </member>
-        <member name="P:Glib.WinForms.Shapes.Circle.Radius">
-            <summary>
-            The radius of the circle.
-            </summary>
-            <remarks>
-            Is approximate in getting since it converts directly to the diameter by integer division.
-            </remarks>
-        </member>
-        <member name="T:Glib.WinForms.IRequiredField">
-            <summary>
-            An interface representing a required winforms field.
-            </summary>
-        </member>
-        <member name="P:Glib.WinForms.IRequiredField.Completed">
-            <summary>
-            Whether or not the entry is completed properly.
-            </summary>
-        </member>
-        <member name="P:Glib.WinForms.IRequiredField.InvalidityError">
-            <summary>
-            Gets a string indicating the error to display if the field is invalid.
-            </summary>
-        </member>
-        <member name="T:Glib.XNA.SpriteLib.PositionRepresentation">
-            <summary>
-            A basic class that represents a position. Intented to be used when an IPositionable is needed but you only have a Vector2.
-            This class cannot be inherited.
-            </summary>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.PositionRepresentation.#ctor(Microsoft.Xna.Framework.Vector2)">
-            <summary>
-            Create a new PositionRepresentation.
-            </summary>
-            <param name="pos">The position to represent.</param>
-        </member>
-        <member name="P:Glib.XNA.SpriteLib.PositionRepresentation.X">
-            <summary>
-            Gets or sets the X position of the Position object.
-            </summary>
-        </member>
-        <member name="P:Glib.XNA.SpriteLib.PositionRepresentation.Y">
-            <summary>
-            Gets or sets the Y position of the Position object.
-            </summary>
-        </member>
-        <member name="P:Glib.XNA.SpriteLib.PositionRepresentation.Position">
-            <summary>
-            Gets or sets the underlying position.
-            </summary>
-        </member>
-        <member name="T:Glib.XNA.IGravitySource">
-            <summary>
-            An interface representing a gravity source.
-            </summary>
-        </member>
-        <member name="M:Glib.XNA.IGravitySource.GetAttraction(Glib.XNA.IPositionable)">
-            <summary>
-            Gets the force of attraction for an object affected by this gravity.
-            </summary>
-            <param name="attracted">The object that is being attracted to this gravity source.</param>
-            <returns>The amount to pull the object, in the X and Y axis, towards the gravity source.</returns>
-        </member>
-        <member name="P:Glib.XNA.IGravitySource.Position">
-            <summary>
-            Gets or sets the position of the gravity source.
-            </summary>
-        </member>
-        <member name="T:Glib.Services.Service">
-            <summary>
-            An abstract service class representing repeatedly executing code.
-            </summary>
-        </member>
-        <member name="M:Glib.Services.Service.#ctor">
-            <summary>
-            Create a new service.
-            </summary>
-        </member>
-        <member name="M:Glib.Services.Service.Main">
-            <summary>
-            The main service code. that runs repeatedly every tick of ServiceTimer.
-            </summary>
-        </member>
-        <member name="F:Glib.Services.Service.ServiceTimer">
-            <summary>
-            The underlying timer that is ticking the service.
-            </summary>
-        </member>
-        <member name="M:Glib.Services.Service.OnStart(System.String[])">
-            <summary>
-            Start the service timer.
-            </summary>
-            <param name="args">Data passed by the start command.</param>
-        </member>
-        <member name="M:Glib.Services.Service.OnStop">
-            <summary>
-            Stop the service timer.
-            </summary>
-        </member>
-        <member name="P:Glib.Services.Service.delay">
-            <summary>
-            The delay, in milliseconds, between executions of the service code.
-            </summary>
-        </member>
-        <member name="P:Glib.Services.Service.IsPrivileged">
-            <summary>
-            A boolean representing whether or not this service needs administrator-level permissions on the local system.
-            </summary>
-        </member>
-        <member name="P:Glib.Services.Service.Delay">
-            <summary>
-            The delay, in milliseconds, between executions of the service code.
-            </summary>
-        </member>
         <member name="T:Glib.XNA.XnaExtensions">
             <summary>
             Extensions onto XNA objects.
@@ -1594,504 +2754,41 @@
             <param name="triangle">The triangle to use when determining if this is a right triangle.</param>
             <returns>Whether or not the specified triangle is a right triangle.</returns>
         </member>
-        <member name="T:Glib.SQL.SqlExtensions">
+        <member name="T:Glib.XNA.SpriteLib.Updater">
             <summary>
-            Various SQL-related extensions.
+            A base class for generic update logic using a SpriteWrapper.
+            Extend this class to implement sprite updating logic if you are using a SpriteWrapper.
             </summary>
         </member>
-        <member name="M:Glib.SQL.SqlExtensions.IsNull(System.Object)">
+        <member name="M:Glib.XNA.SpriteLib.Updater.#ctor(Glib.XNA.SpriteLib.SpriteWrapper)">
             <summary>
-            Check if the specified object is either null or DBNull.
+            Construct a new Updater associated with this SpriteWrapper.
             </summary>
-            <param name="nullCheck">The object to check against null and DBNull.</param>
-            <returns>Whether or not the specified object is null or DBNull.</returns>
+            <param name="sw">The SpriteWrapper to associate this Updater with.</param>
         </member>
-        <member name="M:Glib.SQL.SqlExtensions.OpenIfNeeded(System.Data.SqlClient.SqlConnection)">
+        <member name="M:Glib.XNA.SpriteLib.Updater.RemoveSprite(Glib.XNA.ISprite)">
             <summary>
-            Open the specified SqlConnection if it is not opened already.
+            Remove an ISprite from the parent SpriteWrapper.
             </summary>
-            <param name="conn">The connection to open.</param>
+            <param name="remove">The ISprite to remove.</param>
         </member>
-        <member name="M:Glib.SQL.SqlExtensions.GetParameter(Glib.SQL.ISQLParameterProvider)">
+        <member name="M:Glib.XNA.SpriteLib.Updater.AddSprite(Glib.XNA.ISprite)">
             <summary>
-            Get the SQL parameter represented by the specified ISQLParameterProvider.
+            Add an ISprite to the parent SpriteWrapper.
             </summary>
-            <param name="provider">The ISQLParameterProvider to get the parameter data from.</param>
-            <returns>A SqlParameter representing the information stored by the ISQLParameterProvider.</returns>
+            <param name="sprite">The ISprite to add.</param>
         </member>
-        <member name="T:Glib.SQL.ISQLParameterProvider">
+        <member name="M:Glib.XNA.SpriteLib.Updater.GetAllSprites">
             <summary>
-            An interface representing a provider of SQL parameter information.
+            Get all ISprites in the parent SpriteWrapper.
             </summary>
+            <returns>An enumerable of all the ISprites managed by the parent SpriteWrapper.</returns>
         </member>
-        <member name="P:Glib.SQL.ISQLParameterProvider.ParameterName">
+        <member name="M:Glib.XNA.SpriteLib.Updater.UpdateSprite(Glib.XNA.ISprite)">
             <summary>
-            The name of the provided parameter.
+            Update this ISprite.
             </summary>
-        </member>
-        <member name="P:Glib.SQL.ISQLParameterProvider.ParameterValue">
-            <summary>
-            The value of the provided parameter.
-            </summary>
-        </member>
-        <member name="T:Glib.SQL.StoredProcedure">
-            <summary>
-            A class representing a SQL stored procedure.
-            </summary>
-        </member>
-        <member name="M:Glib.SQL.StoredProcedure.AddParameter(System.String,System.Object)">
-            <summary>
-            Add a SqlParameter with the specified name and value to the collection of parameters.
-            </summary>
-            <param name="name">The parameter name.</param>
-            <param name="value">The value of the parameter.</param>
-        </member>
-        <member name="M:Glib.SQL.StoredProcedure.AddParameters(System.Data.SqlClient.SqlParameter[])">
-            <summary>
-            Add the specified SqlParameters to the parameters of the underlying command.
-            </summary>
-            <param name="parameters">The parameters to add.</param>
-        </member>
-        <member name="M:Glib.SQL.StoredProcedure.RemoveParameter(System.String)">
-            <summary>
-            Remove the SqlParameter with the specified name.
-            </summary>
-            <param name="name">The name of the SqlParameter to remove.</param>
-            <returns>Whether or not the command was successfully removed.</returns>
-        </member>
-        <member name="M:Glib.SQL.StoredProcedure.#ctor(System.Data.SqlClient.SqlConnection,System.String)">
-            <summary>
-            Create a new StoredProcedure.
-            </summary>
-            <param name="connection">The SqlConnection used to connect to the database.</param>
-            <param name="procName">The name of the stored procedure to execute.</param>
-        </member>
-        <member name="M:Glib.SQL.StoredProcedure.#ctor(System.String,System.String)">
-            <summary>
-            Create a new StoredProcedure.
-            </summary>
-            <param name="connectionString">The connecting string used to connect to the database.</param>
-            <param name="procName">The name of the stored procedure to execute.</param>
-        </member>
-        <member name="M:Glib.SQL.StoredProcedure.Finalize">
-            <summary>
-            A destructor closing all known open SqlDataReaders associated with this command.
-            </summary>
-        </member>
-        <member name="M:Glib.SQL.StoredProcedure.ExecuteDataReader">
-            <summary>
-            Execute this StoredProcedure, and return the results as a SqlDataReader.
-            </summary>
-            <remarks>
-            Must be closed after use.
-            </remarks>
-            <returns>A SqlDataReader representing the results of this command.</returns>
-        </member>
-        <member name="M:Glib.SQL.StoredProcedure.ExecuteScalar">
-            <summary>
-            Executes this StoredProcedure, and return the results as a scalar value (int).
-            </summary>
-            <returns>The results of this command as a scalar value (int).</returns>
-        </member>
-        <member name="M:Glib.SQL.StoredProcedure.Execute">
-            <summary>
-            Executes this StoredProcedure, and return the number of rows affected.
-            </summary>
-            <returns>The number of rows affected by this command.</returns>
-        </member>
-        <member name="M:Glib.SQL.StoredProcedure.ExecuteDataTable">
-            <summary>
-            Execute this StoredProcedure, and return the results as a DataTable.
-            </summary>
-            <returns>A DataTable representing the results of this command.</returns>
-        </member>
-        <member name="P:Glib.SQL.StoredProcedure.Connection">
-            <summary>
-            The SqlConnection used to connect to the database.
-            </summary>
-        </member>
-        <member name="P:Glib.SQL.StoredProcedure.Parameters">
-            <summary>
-            Get the collection of <seealso cref="T:System.Data.SqlClient.SqlParameter"/>s associated with this command.
-            </summary>
-        </member>
-        <member name="P:Glib.SQL.StoredProcedure.Command">
-            <summary>
-            The underlying stored procedure executed against the database.
-            </summary>
-            <remarks>
-            Cannot be set to a non stored procedure command.
-            </remarks>
-        </member>
-        <member name="E:Glib.SQL.StoredProcedure.CommandCompleted">
-            <summary>
-            An event called after the completion of the underlying command.
-            </summary>
-        </member>
-        <member name="T:Glib.SQL.CommandWrapper">
-            <summary>
-            A wrapper class around a SqlCommand, defaulting to a stored procedure.
-            </summary>
-        </member>
-        <member name="F:Glib.SQL.CommandWrapper.Command">
-            <summary>
-            The stored procedure this class is wrapping.
-            </summary>
-        </member>
-        <member name="M:Glib.SQL.CommandWrapper.Finalize">
-            <summary>
-            A destructor closing all open SqlDataReaders.
-            </summary>
-        </member>
-        <member name="M:Glib.SQL.CommandWrapper.AddParamater(System.Data.SqlClient.SqlParameter)">
-            <summary>
-            Add a SqlParamater to the command's arguments.
-            </summary>
-            <param name="param">The SqlParamater to add.</param>
-        </member>
-        <member name="M:Glib.SQL.CommandWrapper.AddParamaters(System.Data.SqlClient.SqlParameter[])">
-            <summary>
-            Adds multiple SqlParamaters to the command's arguments.
-            </summary>
-            <param name="paramaters">The SqlParamaters to add.</param>
-        </member>
-        <member name="M:Glib.SQL.CommandWrapper.#ctor(System.Data.SqlClient.SqlConnection,System.String)">
-            <summary>
-            Initialize a new StoredProcedureWrapper with the specified connection and stored procedure.
-            </summary>
-            <param name="connect">The SqlConnection to connect to the database with.</param>
-            <param name="storedProcName">The name of the stored procedure to use.</param>
-        </member>
-        <member name="M:Glib.SQL.CommandWrapper.ChangeToStandardSqlCommand">
-            <summary>
-            HIGHLY DISRECOMMENDED UNLESS COMMAND HAS NO USER INPUT, FOR SECURITY'S SAKE.
-            Change the command type to a regular SQL statement.
-            Vulnerable to SQL injection attacks.
-            </summary>
-        </member>
-        <member name="M:Glib.SQL.CommandWrapper.AppendUntrustedInputToCommand(System.String,System.Boolean,System.Boolean)">
-            <summary>
-            Append untrusted user input to the existing SQL command text.
-            Should not be relied on for security of a SQL command.
-            Does not escape text.
-            Throws a SecurityException in case of detected suspicious character.
-            </summary>
-            <exception cref="T:System.Exception">Thrown if a disallowed sharacter sequence is detected.</exception>
-            <param name="input">The user input to append to the SQL command.</param>
-            <param name="allowQuotes">Whether or not to allow quotes in the user input string.</param>
-            <param name="allowOr">Whether or not to allow the world "OR" in the user input string.</param>
-        </member>
-        <member name="M:Glib.SQL.CommandWrapper.#ctor(System.String,System.String)">
-            <summary>
-            Initialize a new StoredProcedureWrapper with the specified connection and stored procedure.
-            </summary>
-            <param name="connectStr">The connection string to use to connect to the database.</param>
-            <param name="storedProcName">The name of the stored procedure to use.</param>
-        </member>
-        <member name="M:Glib.SQL.CommandWrapper.ExecuteReader">
-            <summary>
-            Execute this command as a SqlDataReader.
-            It is important to close this data reader after use.
-            Thedestructor's automatic closing of all open SqlDataReaders should not be relied on.
-            </summary>
-            <returns>A SqlDataReader containing the results of the command.</returns>
-        </member>
-        <member name="M:Glib.SQL.CommandWrapper.ExecuteDataTable">
-            <summary>
-            Execute this SqlCommand, and put the results in a DataTable.
-            </summary>
-            <returns>A DataTable containing the results of the command.</returns>
-        </member>
-        <member name="M:Glib.SQL.CommandWrapper.Execute">
-            <summary>
-            Execute this command without returning any output.
-            </summary>
-        </member>
-        <member name="M:Glib.SQL.CommandWrapper.#ctor(System.Data.SqlClient.SqlConnection,System.String,System.Data.SqlClient.SqlParameter[])">
-            <summary>
-            Initialize a new StoredProcedureWrapper with the specified connection, stored procedure, and paramaters.
-            </summary>
-            <param name="connect">The SqlConnection to connect to the database with.</param>
-            <param name="storedProcName">The name of the stored procedure to use.</param>
-            <param name="paramaters">The SqlParamaters to add to this SqlCommand.</param>
-        </member>
-        <member name="P:Glib.SQL.CommandWrapper.Paramaters">
-            <summary>
-            Get the paramaters passed with this SqlCommand.
-            </summary>
-        </member>
-        <member name="T:Glib.XNA.SpriteLib.SpriteSheet">
-            <summary>
-            A class representing a Sprite from a sprite sheet. Supports sprite sheet animation.
-            </summary>
-        </member>
-        <member name="F:Glib.XNA.SpriteLib.SpriteSheet.DefaultAnimationDelay">
-            <summary>
-            The default delay between animations in milliseconds.
-            Set to 0 to update every call to Update().
-            </summary>
-        </member>
-        <member name="F:Glib.XNA.SpriteLib.SpriteSheet.CurrentSprite">
-            <summary>
-            The currently selected Sprite, where X is the zero-based column and Y is the zero-based row.
-            </summary>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteSheet.GetDrawRegion(System.Int32,System.Int32)">
-            <summary>
-            Get the region drawn relative to the upper left corner of this SpriteSheet based on the given row and column.
-            </summary>
-            <param name="row">The zero-based row of sprites to draw from.</param>
-            <param name="column">The zero-based column of sprites to draw from.</param>
-            <returns>The region to draw with the gived row and column.</returns>
-        </member>
-        <member name="F:Glib.XNA.SpriteLib.SpriteSheet.SpriteSize">
-            <summary>
-            The size of one Sprite.
-            </summary>
-        </member>
-        <member name="F:Glib.XNA.SpriteLib.SpriteSheet.AnimationDelay">
-            <summary>
-            The delay between changes of the sprite (animation) in this SpriteSheet, if any.
-            </summary>
-            <remarks>
-            Set to no time to change every update.
-            Set to null to not animate.
-            </remarks>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteSheet.#ctor(Microsoft.Xna.Framework.Graphics.Texture2D,Microsoft.Xna.Framework.Rectangle,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Graphics.SpriteBatch)">
-            <summary>
-            Construct a new SpriteSheet.
-            </summary>
-            <param name="sheet">The Texture2D of the actual sprite sheet.</param>
-            <param name="size">The size of one sprite (X and Y are ignored in this paramater).</param>
-            <param name="position">The initial position of this SpriteSheet.</param>
-            <param name="sb">The SpriteBatch used for drawing.</param>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteSheet.#ctor(Microsoft.Xna.Framework.Graphics.Texture2D,Microsoft.Xna.Framework.Rectangle,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Graphics.SpriteBatch,System.Int32,System.Int32)">
-            <summary>
-            Construct a new SpriteSheet.
-            </summary>
-            <param name="sheet">The Texture2D of the actual sprite sheet.</param>
-            <param name="size">The size of one sprite (X and Y are ignored in this paramater).</param>
-            <param name="position">The initial position of this SpriteSheet.</param>
-            <param name="sb">The SpriteBatch used for drawing.</param>
-            <param name="rows">The number of rows.</param>
-            <param name="columns">The number of columns.</param>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteSheet.#ctor(Microsoft.Xna.Framework.Content.ContentManager,System.String,Microsoft.Xna.Framework.Rectangle,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Graphics.SpriteBatch)">
-            <summary>
-            Construct a new SpriteSheet.
-            </summary>
-            <param name="manager">The ContentManager used to load the Texture2D of the ssprite sheet.</param>
-            <param name="assetName">The asset name of the Texture2D containing the sprite sheet.</param>
-            <param name="size">The size of one sprite (X and Y are ignored in this paramater).</param>
-            <param name="position">The initial position of this SpriteSheet.</param>
-            <param name="sb">The SpriteBatch used for drawing.</param>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteSheet.Update(Microsoft.Xna.Framework.GameTime)">
-            <summary>
-            Call the Updated event of this SpriteSheet, and animate the SpriteSheet if applicable.
-            </summary>
-            <param name="gt">The GameTime object passed to a Game's Update(GameTime) method.</param>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteSheet.Update">
-            <summary>
-            Call the Updated event of this SpriteSheet, WITHOUT ANIMATION TICKS.
-            Will only animate if AnimationDelay is set to 0 milliseconds.
-            </summary>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteSheet.DrawNonAuto">
-            <summary>
-            Draw this SpriteSheet's current region to the screen, without automatic SpriteBatch handling.
-            </summary>
-        </member>
-        <member name="P:Glib.XNA.SpriteLib.SpriteSheet.RestartAnimation">
-            <summary>
-            Whether or not to restart the animation when completed.
-            </summary>
-        </member>
-        <member name="P:Glib.XNA.SpriteLib.SpriteSheet.IsComplete">
-            <summary>
-            Whether or not the animation is complete.
-            </summary>
-            <remarks>
-            Is always false if RestartAnimation is true.
-            </remarks>
-        </member>
-        <member name="P:Glib.XNA.SpriteLib.SpriteSheet.CurrentRow">
-            <summary>
-            The current zero-based row of Sprites in this SpriteSheet.
-            </summary>
-        </member>
-        <member name="P:Glib.XNA.SpriteLib.SpriteSheet.Width">
-            <summary>
-            A scale-sensitive width of 1 sprite. Use SpriteSize.Width not to account for scale.
-            </summary>
-        </member>
-        <member name="P:Glib.XNA.SpriteLib.SpriteSheet.Height">
-            <summary>
-            A scale-sensitive height of 1 sprite. Use SpriteSize.Height not to account for scale.
-            </summary>
-        </member>
-        <member name="P:Glib.XNA.SpriteLib.SpriteSheet.CurrentColumn">
-            <summary>
-            The current zero-based column of Sprites in this SpriteSheet.
-            </summary>
-        </member>
-        <member name="P:Glib.XNA.SpriteLib.SpriteSheet.Center">
-            <summary>
-            The scale-sensitive center of the sprite.
-            </summary>
-        </member>
-        <member name="P:Glib.XNA.SpriteLib.SpriteSheet.Columns">
-            <summary>
-            The number of columns of Sprites in this SpriteSheet.
-            </summary>
-        </member>
-        <member name="P:Glib.XNA.SpriteLib.SpriteSheet.Rows">
-            <summary>
-            The number of rows in this SpriteSheet.
-            </summary>
-        </member>
-        <member name="P:Glib.XNA.SpriteLib.SpriteSheet.IsAnimated">
-            <summary>
-            A boolean representing whether or not this SpriteSheet is automatically animated.
-            </summary>
-        </member>
-        <member name="P:Glib.XNA.SpriteLib.SpriteSheet.OnlyDrawRegion">
-            <summary>
-            Whether or not to only draw the DrawRegion of the SpriteSheet.
-            </summary>
-            <remarks>
-            Always true.
-            </remarks>
-        </member>
-        <member name="P:Glib.XNA.SpriteLib.SpriteSheet.DrawRegion">
-            <summary>
-            The current drawing region of the SpriteSheet.
-            </summary>
-        </member>
-        <member name="E:Glib.XNA.SpriteLib.SpriteSheet.AnimationCompleted">
-            <summary>
-            An event fired when the animation is completed, and either ends or is about to restart.
-            </summary>
-        </member>
-        <member name="P:Glib.XNA.SpriteLib.SpriteSheet.Origin">
-            <summary>
-            Get the effective origin of the Sprite.
-            </summary>
-        </member>
-        <member name="T:Glib.WinForms.FormValidator">
-            <summary>
-            A class validating forms to ensure all <see cref="T:Glib.WinForms.IRequiredField"/>s are complete.
-            </summary>
-        </member>
-        <member name="M:Glib.WinForms.FormValidator.#ctor(System.Windows.Forms.Form)">
-            <summary>
-            Create a new FormValidator validating the specified form.
-            </summary>
-            <param name="formToValidate">The form which contains components to validate.</param>
-        </member>
-        <member name="M:Glib.WinForms.FormValidator.#ctor(System.Windows.Forms.Control.ControlCollection)">
-            <summary>
-            Create a new FormValidator validating the specified controls.
-            </summary>
-            <param name="comToValidate">Components to validate.</param>
-        </member>
-        <member name="M:Glib.WinForms.FormValidator.AddFormComponents(System.Windows.Forms.Form)">
-            <summary>
-            Add the components of the specified form to be validated.
-            </summary>
-            <param name="formToAdd">The form which contains components to validate.</param>
-        </member>
-        <member name="M:Glib.WinForms.FormValidator.ValidateForm(System.Windows.Forms.ErrorProvider)">
-            <summary>
-            Validate these controls for errors, marking the controls with errors as errored using the specified ErrorProvider.
-            </summary>
-            <param name="errors">The ErrorProvider to use for erroring out controls.</param>
-            <returns>Whether or not the form is complete.</returns>
-        </member>
-        <member name="M:Glib.WinForms.FormValidator.ValidateForm(System.Windows.Forms.Form)">
-            <summary>
-            Validate the controls on the specified form.
-            </summary>
-            <param name="testForm">The form to validate.</param>
-            <returns>Whether or not the form has all valid controls.</returns>
-        </member>
-        <member name="P:Glib.WinForms.FormValidator.ControlsToValidate">
-            <summary>
-            Gets the collection of controls to validate.
-            </summary>
-        </member>
-        <member name="P:Glib.WinForms.FormValidator.IsComplete">
-            <summary>
-            Gets a boolean representing whether or not all required controls are completed.
-            </summary>
-        </member>
-        <member name="T:Glib.WinForms.Controls.SqlParameterTextBox">
-            <summary>
-            A SQL parameter provider in the form of a text box.
-            </summary>
-        </member>
-        <member name="M:Glib.WinForms.Controls.SqlParameterTextBox.#ctor(System.String)">
-            <summary>
-            Create a new SqlParameterTextBox with the specified parameter name.
-            </summary>
-            <param name="parameterName">The name of the SQL parameter.</param>
-        </member>
-        <member name="P:Glib.WinForms.Controls.SqlParameterTextBox.ParameterName">
-            <summary>
-            The name of the represented SQL parameter.
-            </summary>
-        </member>
-        <member name="P:Glib.WinForms.Controls.SqlParameterTextBox.ParameterValue">
-            <summary>
-            The string value of the text box, which is the value of the SQL parameter.
-            </summary>
-        </member>
-        <member name="T:Glib.WinForms.Shapes.XShape">
-            <summary>
-            A figure which is an X.
-            </summary>
-        </member>
-        <member name="M:Glib.WinForms.Shapes.XShape.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Drawing.Color)">
-            <summary>
-            Create a new X shape.
-            </summary>
-            <param name="x">The first X position.</param>
-            <param name="y">The first Y position.</param>
-            <param name="x1">The second X position.</param>
-            <param name="y1">The second Y position.</param>
-            <param name="distanceBetweenX">The distance between the top two points of the X shape.</param>
-            <param name="color">The color of the X.</param>
-        </member>
-        <member name="M:Glib.WinForms.Shapes.XShape.Draw(System.Drawing.Graphics,System.Drawing.Color,System.Boolean)">
-            <summary>
-            Draw the X to the specified graphics.
-            </summary>
-            <param name="gfx">The graphics to draw the X to.</param>
-            <param name="color">The color to draw the X with.</param>
-            <param name="fill">(Ignored parameter, cannot fill an X)</param>
-        </member>
-        <member name="P:Glib.WinForms.Shapes.XShape.XDistance">
-            <summary>
-            The distance between the top two corners of the X (along the X axis).
-            </summary>
-        </member>
-        <member name="P:Glib.WinForms.Shapes.XShape.X1">
-            <summary>
-            The second X coordinate of the X.
-            </summary>
-        </member>
-        <member name="P:Glib.WinForms.Shapes.XShape.Position">
-            <summary>
-            Gets the X, Y, X1, and Y1 positions of the XShape.
-            </summary>
-        </member>
-        <member name="P:Glib.WinForms.Shapes.XShape.Y1">
-            <summary>
-            The second Y coordinate of the X.
-            </summary>
+            <param name="updating">The ISprite to update.</param>
         </member>
         <member name="T:Glib.XNA.SpriteLib.TextSprite">
             <summary>
@@ -2209,107 +2906,281 @@
             The position to draw the text.
             </summary>
         </member>
-        <member name="T:Glib.XNA.SpriteLib.SpriteRotation">
+        <member name="T:Glib.XNA.SpriteLib.Screen">
             <summary>
-            A class representing the rotation of a sprite.
+            Represents a RenderTarget2D which is a screen.
             </summary>
         </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteRotation.AsVector">
+        <member name="F:Glib.XNA.SpriteLib.Screen.Sprites">
             <summary>
-            Convert this rotation to a Vector2 through XnaExtensions.
-            </summary>
-            <returns>This rotation as a Vector2.</returns>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteRotation.op_Addition(Glib.XNA.SpriteLib.SpriteRotation,Glib.XNA.SpriteLib.SpriteRotation)">
-            <summary>
-            Add two SpriteRotations.
-            </summary>
-            <param name="x">The first SpriteRotation to add.</param>
-            <param name="y">The second SpriteRotation to add.</param>
-            <returns>A SpriteRotation representing the combined rotation values of x any y.</returns>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteRotation.op_LessThan(Glib.XNA.SpriteLib.SpriteRotation,Glib.XNA.SpriteLib.SpriteRotation)">
-            <summary>
-            Compare two SpriteRotations.
-            </summary>
-            <param name="x">The first SpriteRotation to compare.</param>
-            <param name="y">The second SpriteRotation to compare.</param>
-            <returns>Whether or not x is less than y.</returns>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteRotation.op_LessThanOrEqual(Glib.XNA.SpriteLib.SpriteRotation,Glib.XNA.SpriteLib.SpriteRotation)">
-            <summary>
-            Compare two SpriteRotations.
-            </summary>
-            <param name="x">The first SpriteRotation to compare.</param>
-            <param name="y">The second SpriteRotation to compare.</param>
-            <returns>Whether or not x is less than or equal to y.</returns>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteRotation.op_GreaterThanOrEqual(Glib.XNA.SpriteLib.SpriteRotation,Glib.XNA.SpriteLib.SpriteRotation)">
-            <summary>
-            Compare two SpriteRotations.
-            </summary>
-            <param name="x">The first SpriteRotation to compare.</param>
-            <param name="y">The second SpriteRotation to compare.</param>
-            <returns>Whether or not x is greater than or equal to y.</returns>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteRotation.op_GreaterThan(Glib.XNA.SpriteLib.SpriteRotation,Glib.XNA.SpriteLib.SpriteRotation)">
-            <summary>
-            Compare two SpriteRotations.
-            </summary>
-            <param name="x">The first SpriteRotation to compare.</param>
-            <param name="y">The second SpriteRotation to compare.</param>
-            <returns>Whether or not x is greater than y.</returns>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteRotation.op_Subtraction(Glib.XNA.SpriteLib.SpriteRotation,System.Single)">
-            <summary>
-            Subtract a SpriteRotation and a float representing a value in DEGREES.
-            </summary>
-            <param name="x">The SpriteRotation to subtract from.</param>
-            <param name="y">The number of degrees to subtract from the SpriteRotation.</param>
-            <returns>A SpriteRotation representing x.Degrees - y.</returns>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteRotation.op_Addition(Glib.XNA.SpriteLib.SpriteRotation,System.Single)">
-            <summary>
-            Add a SpriteRotation and a float representing a value in DEGREES.
-            </summary>
-            <param name="x">The SpriteRotation to add to.</param>
-            <param name="y">The number of degrees to add to the SpriteRotation.</param>
-            <returns>A SpriteRotation representing the combined rotation values of x any y.</returns>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteRotation.op_Subtraction(Glib.XNA.SpriteLib.SpriteRotation,Glib.XNA.SpriteLib.SpriteRotation)">
-            <summary>
-            Subtract two SpriteRotations.
-            </summary>
-            <param name="x">The base SpriteRotation.</param>
-            <param name="y">The SpriteRotation to subtract from the base.</param>
-            <returns>A SpriteRotation representing x.Degrees - y.Degrees.</returns>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteRotation.#ctor">
-            <summary>
-            Initialiaze a new SpriteRotation with a value of 0 degrees.
+            All the Sprites to draw to this Screen.
             </summary>
         </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteRotation.#ctor(System.Single)">
+        <member name="M:Glib.XNA.SpriteLib.Screen.CenterToViewport(Microsoft.Xna.Framework.Graphics.Viewport)">
             <summary>
-            Initialize a new SpriteRotation with the specified value of degrees.
+            Center the position of this Screen relative to the position of the specified 
             </summary>
-            <param name="degrees">The number of degrees to initialize this SpriteRotation to</param>
+            <param name="v"></param>
         </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteRotation.#ctor(System.Single,System.Boolean)">
+        <member name="F:Glib.XNA.SpriteLib.Screen.AdditionalSprites">
             <summary>
-            Initialize a new SpriteRotation with the specified value using the specified unit.
-            </summary>
-            <param name="value">The value to initialize this SpriteRotation to.</param>
-            <param name="useRadians">Whether or not to interpret value as radians.</param>
-        </member>
-        <member name="P:Glib.XNA.SpriteLib.SpriteRotation.Degrees">
-            <summary>
-            The rotation of the sprite in degrees.
+            Any non-Sprite deriving Sprites that need to be drawn to this Screen.
             </summary>
         </member>
-        <member name="P:Glib.XNA.SpriteLib.SpriteRotation.Radians">
+        <member name="F:Glib.XNA.SpriteLib.Screen.ClearColor">
             <summary>
-            The rotation of the sprite in radians.
+            The color to clear this screen as.
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.SpriteLib.Screen.TintColor">
+            <summary>
+            The color to tint this screen as.
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.SpriteLib.Screen.Target">
+            <summary>
+            The target to render things to.
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.SpriteLib.Screen.Graphics">
+            <summary>
+            The graphics device to draw to.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.Screen.#ctor(Microsoft.Xna.Framework.Graphics.RenderTarget2D,Microsoft.Xna.Framework.Color,Glib.XNA.SpriteLib.SpriteManager)">
+            <summary>
+            Create a new screen.
+            </summary>
+            <param name="target">The render target to draw to.</param>
+            <param name="color">The color to clear this Screen as before drawing.</param>
+            <param name="allSprites">The SpriteManager containing the Sprites to draw.</param>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.Screen.#ctor(Microsoft.Xna.Framework.Rectangle,Microsoft.Xna.Framework.Color,Glib.XNA.SpriteLib.SpriteManager)">
+            <summary>
+            Create a new screen.
+            </summary>
+            <param name="sizeOfTarget">The size and position of the RenderTarget.</param>
+            <param name="color">The color to clear this Screen as before drawing.</param>
+            <param name="allSprites">The SpriteManager containing the Sprites to draw.</param>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.Screen.#ctor(Microsoft.Xna.Framework.Graphics.SpriteBatch,Microsoft.Xna.Framework.Color)">
+            <summary>
+            Create a new Screen with no Sprites by default.
+            </summary>
+            <param name="sb">The SpriteBatch to draw.</param>
+            <param name="c">The color of the Screen.</param>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.Screen.#ctor(Microsoft.Xna.Framework.Graphics.SpriteBatch,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Graphics.Texture2D)">
+            <summary>
+            Create a new Screen with a background image.
+            </summary>
+            <param name="sb">The SpriteBatch to draw.</param>
+            <param name="c">The color of the Screen.</param>
+            <param name="back">The background image of the Screen.</param>
+        </member>
+        <member name="F:Glib.XNA.SpriteLib.Screen.BackgroundSprite">
+            <summary>
+            If set, the Sprite to use as the background.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.Screen.#ctor(Glib.XNA.SpriteLib.SpriteManager,Microsoft.Xna.Framework.Color)">
+            <summary>
+            Create a new screen.
+            </summary>
+            <param name="color">The color to clear the Screen as before Sprite drawing.</param>
+            <param name="mgr">The SpriteManager managing a SpriteBatch with a viewport to use as the Screen size.</param>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.Screen.Update">
+            <summary>
+            Update all Sprites on this Screen.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.Screen.Update(Microsoft.Xna.Framework.GameTime)">
+            <summary>
+            Update all Sprites on this Screen.
+            </summary>
+            <param name="game">The active game time.</param>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.Screen.Visible">
+            <summary>
+            Gets or sets a boolean representing whether or not this Screen is visible.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.Screen.CenterOrigin">
+            <summary>
+            Gets or sets a value indicating whether or not to use the center of the Screen as the origin when drawing.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.Screen.Width">
+            <summary>
+            Gets the width of this Screen, in pixels.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.Screen.Height">
+            <summary>
+            Gets the height of this Screen, in pixels.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.Screen.Name">
+            <summary>
+            Gets or sets the name of the Screen.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.Screen.Position">
+            <summary>
+            Gets or sets the position of the Screen relative to the display.
+            </summary>
+        </member>
+        <member name="T:Glib.XNA.SpriteLib.ScreenManager">
+            <summary>
+            Represents a set of Screens to manage.
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.SpriteLib.ScreenManager._allScreens">
+            <summary>
+            All the Screen objects managed by this ScreenManager.
+            </summary>
+            <remarks>
+            The component that is called by all implemented IEnumerable and ICollection methods.
+            </remarks>
+        </member>
+        <member name="F:Glib.XNA.SpriteLib.ScreenManager.Graphics">
+            <summary>
+            The graphics device to draw to.
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.SpriteLib.ScreenManager.SpriteBatch">
+            <summary>
+            The SpriteBatch to draw to.
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.SpriteLib.ScreenManager.Background">
+            <summary>
+            The main background color.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.ScreenManager.#ctor(Microsoft.Xna.Framework.Graphics.SpriteBatch,Microsoft.Xna.Framework.Color,Glib.XNA.SpriteLib.Screen[])">
+            <summary>
+            Create a ScreenManager.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.ScreenManager.Update(System.Boolean)">
+            <summary>
+            Update all the Screen's sprites.
+            </summary>
+            <param name="updateInvisible">Whether or not to update invisible screens.</param>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.ScreenManager.Update(Microsoft.Xna.Framework.GameTime)">
+            <summary>
+            Update all the Screen's sprites.
+            </summary>
+            <param name="gt">The active GameTime.</param>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.ScreenManager.Update(System.Boolean,Microsoft.Xna.Framework.GameTime)">
+            <summary>
+            Update all the Screen's sprites.
+            </summary>
+            <param name="updateInvisible">Whether or not to update invisible screens.</param>
+            <param name="gt">The active GameTime.</param>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.ScreenManager.Update">
+            <summary>
+            Update all the Screen's sprites.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.ScreenManager.Draw">
+            <summary>
+            Draws all the visible screens.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.ScreenManager.Add(Glib.XNA.SpriteLib.Screen)">
+            <summary>
+            Add the specified Screen to this ScreenManager.
+            </summary>
+            <param name="item">The screen to add.</param>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.ScreenManager.Clear">
+            <summary>
+            Clear this ScreenManager of all Screens.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.ScreenManager.Contains(Glib.XNA.SpriteLib.Screen)">
+            <summary>
+            Check if this ScreenManager contains the specified Screen.
+            </summary>
+            <param name="item">The item to check.</param>
+            <returns>Whether or not this ScreenManager contains item.</returns>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.ScreenManager.CopyTo(Glib.XNA.SpriteLib.Screen[],System.Int32)">
+            <summary>
+            Copies the entire collection of Screens to the specified array starting at the specified index.
+            </summary>
+            <param name="array">The array to copy items to.</param>
+            <param name="arrayIndex">The index to begin putting items.</param>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.ScreenManager.Remove(Glib.XNA.SpriteLib.Screen)">
+            <summary>
+            Remove the specified Screen from this ScreenManager.
+            </summary>
+            <param name="item">The item to remove.</param>
+            <returns>Whether or not the item was removed.</returns>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.ScreenManager.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the ScreenManager.
+            </summary>
+            <returns>An enumerator that iterates through the ScreenManager.</returns>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.ScreenManager.Item(System.Int32)">
+            <summary>
+            Gets the Screen at the specified index.
+            </summary>
+            <param name="index">The index in the AllScreens list.</param>
+            <returns>The screen with the specified index.</returns>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.ScreenManager.Item(System.String)">
+            <summary>
+            Gets the Screen with the specified name.
+            </summary>
+            <param name="name">The name of the screen.</param>
+            <exception cref="T:System.InvalidOperationException">If multiple Screens with the specified name exist.</exception>
+            <exception cref="T:System.IndexOutOfRangeException">If no Screens with the specified name exist.</exception>
+            <returns>The screen with the specified name.</returns>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.ScreenManager.Count">
+            <summary>
+            Gets the number of Screens this ScreenManager is managing.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.ScreenManager.IsReadOnly">
+            <summary>
+            Gets a value representing whether or not this collection is read only.
+            </summary>
+        </member>
+        <member name="T:Glib.XNA.SpriteLib.Direction">
+            <summary>
+            An enum representing a direction.
+            Can also represent the edge of a viewport.
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.SpriteLib.Direction.Top">
+            <summary>
+            An edge representing the top of a viewport.
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.SpriteLib.Direction.Bottom">
+            <summary>
+            An edge representing the bottom of a viewport.
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.SpriteLib.Direction.Left">
+            <summary>
+            An edge representing the left side of a viewport.
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.SpriteLib.Direction.Right">
+            <summary>
+            An edge representing the right side of a viewport.
             </summary>
         </member>
         <member name="T:Glib.WinForms.Shapes.Triangle">
@@ -2344,420 +3215,50 @@
             The right hand corner of the triangle.
             </summary>
         </member>
-        <member name="T:Glib.AlphabetPrinter">
+        <member name="T:Glib.Services.Service">
             <summary>
-            A class for printing alphabetical letters to a string and the console.
+            An abstract service class representing repeatedly executing code.
             </summary>
         </member>
-        <member name="M:Glib.AlphabetPrinter.#ctor(System.Char)">
+        <member name="M:Glib.Services.Service.#ctor">
             <summary>
-            Create a new AlphabetPrinter creating letters made out of the specified character.
+            Create a new service.
             </summary>
-            <param name="printChar">The character to make letters out of.</param>
         </member>
-        <member name="M:Glib.AlphabetPrinter.GetAlphabetString(System.String)">
+        <member name="M:Glib.Services.Service.Main">
             <summary>
-            Get the large alphabet string for the specified word.
+            The main service code. that runs repeatedly every tick of ServiceTimer.
             </summary>
-            <param name="word">The word.</param>
-            <returns>The word as a multiline alphabet string.</returns>
         </member>
-        <member name="M:Glib.AlphabetPrinter.Print(System.String)">
+        <member name="F:Glib.Services.Service.ServiceTimer">
             <summary>
-            Print the specified word to console.
+            The underlying timer that is ticking the service.
             </summary>
-            <param name="word">The word to print.</param>
         </member>
-        <member name="P:Glib.AlphabetPrinter.LetterChar">
+        <member name="M:Glib.Services.Service.OnStart(System.String[])">
             <summary>
-            The character to make letters out of.
+            Start the service timer.
             </summary>
+            <param name="args">Data passed by the start command.</param>
         </member>
-        <member name="P:Glib.AlphabetPrinter.A">
+        <member name="M:Glib.Services.Service.OnStop">
             <summary>
-            The character A.
+            Stop the service timer.
             </summary>
         </member>
-        <member name="P:Glib.AlphabetPrinter.B">
+        <member name="P:Glib.Services.Service.delay">
             <summary>
-            The character B.
+            The delay, in milliseconds, between executions of the service code.
             </summary>
         </member>
-        <member name="P:Glib.AlphabetPrinter.C">
+        <member name="P:Glib.Services.Service.IsPrivileged">
             <summary>
-            The character C.
+            A boolean representing whether or not this service needs administrator-level permissions on the local system.
             </summary>
         </member>
-        <member name="P:Glib.AlphabetPrinter.D">
+        <member name="P:Glib.Services.Service.Delay">
             <summary>
-            The character D.
-            </summary>
-        </member>
-        <member name="P:Glib.AlphabetPrinter.E">
-            <summary>
-            The character E.
-            </summary>
-        </member>
-        <member name="P:Glib.AlphabetPrinter.F">
-            <summary>
-            The character F.
-            </summary>
-        </member>
-        <member name="P:Glib.AlphabetPrinter.G">
-            
-            <summary>
-            The character G.
-            </summary>
-        </member>
-        <member name="P:Glib.AlphabetPrinter.H">
-            <summary>
-            The character H.
-            </summary>
-        </member>
-        <member name="P:Glib.AlphabetPrinter.I">
-            <summary>
-            The character I.
-            </summary>
-        </member>
-        <member name="P:Glib.AlphabetPrinter.J">
-            <summary>
-            The character J.
-            </summary>
-        </member>
-        <member name="P:Glib.AlphabetPrinter.Space">
-            <summary>
-            A space character.
-            </summary>
-        </member>
-        <member name="P:Glib.AlphabetPrinter.ExclamationMark">
-            <summary>
-            An exclamation mark.
-            </summary>
-        </member>
-        <member name="P:Glib.AlphabetPrinter.Pound">
-            <summary>
-            The pound sign.
-            </summary>
-        </member>
-        <member name="P:Glib.AlphabetPrinter.Hyphen">
-            <summary>
-            A hyphen character.
-            </summary>
-        </member>
-        <member name="P:Glib.AlphabetPrinter.LeftParentheses">
-            <summary>
-            The character representing left parentheses.
-            </summary>
-        </member>
-        <member name="P:Glib.AlphabetPrinter.RightParentheses">
-            <summary>
-            The character representing right parentheses.
-            </summary>
-        </member>
-        <member name="P:Glib.AlphabetPrinter.One">
-            <summary>
-            The number one.
-            </summary>
-        </member>
-        <member name="P:Glib.AlphabetPrinter.Two">
-            <summary>
-            The number two.
-            </summary>
-        </member>
-        <member name="P:Glib.AlphabetPrinter.Three">
-            <summary>
-            The number three.
-            </summary>
-        </member>
-        <member name="P:Glib.AlphabetPrinter.CustomChars">
-            <summary>
-            Gets a list of custom characters specific to this instance, in the format of key: input letter, value: bool[,] representing the letter.
-            </summary>
-        </member>
-        <member name="P:Glib.AlphabetPrinter.Four">
-            <summary>
-            The number four.
-            </summary>
-        </member>
-        <member name="P:Glib.AlphabetPrinter.Five">
-            <summary>
-            The number five.
-            </summary>
-        </member>
-        <member name="P:Glib.AlphabetPrinter.S">
-            <summary>
-            The character S.
-            </summary>
-        </member>
-        <member name="T:Glib.XNA.SpriteLib.SpriteBuilder">
-            <summary>
-            A class to construct sprites easily.
-            </summary>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteBuilder.#ctor(Microsoft.Xna.Framework.Graphics.Texture2D,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Graphics.SpriteBatch)">
-            <summary>
-            Make a new SpriteBuilder.
-            </summary>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteBuilder.#ctor(Microsoft.Xna.Framework.Content.ContentManager,System.String,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Graphics.SpriteBatch)">
-            <summary>
-            Make a new SpriteBuilder.
-            </summary>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteBuilder.SetDrawRegion(Microsoft.Xna.Framework.Rectangle)">
-            <summary>
-            Set the DrawRegion of the Sprite.
-            </summary>
-            <param name="region">The new DrawRegion of the Sprite.</param>
-            <returns>This SpriteBuilder.</returns>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteBuilder.RemoveDrawRegion">
-            <summary>
-            Remove the DrawRegion from the Sprite, drawing the entire Sprite.
-            </summary>
-            <returns>This SpriteBuilder.</returns>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteBuilder.SetColor(Microsoft.Xna.Framework.Color)">
-            <summary>
-            Set the color of the Sprite under construction.
-            </summary>
-            <param name="c">The color to use.</param>
-            <returns>This SpriteBuilder.</returns>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteBuilder.SetWidth(System.Single)">
-            <summary>
-            Set the width of the Sprite under construction via scaling.
-            </summary>
-            <param name="w">The new width.</param>
-            <returns>This SpriteBuilder.</returns>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteBuilder.SetUpdateParamaters(Glib.XNA.SpriteLib.UpdateParamaters)">
-            <summary>
-            Set the <seealso cref="T:Glib.XNA.SpriteLib.UpdateParamaters"/> for this Sprite.
-            </summary>
-            <param name="u">The UpdateParamaters to use for this Sprite.</param>
-            <returns>This SpriteBuilder.</returns>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteBuilder.SetViewport(Microsoft.Xna.Framework.Graphics.Viewport)">
-            <summary>
-            Set the viewport this Sprite should use.
-            </summary>
-            <param name="v">The Viewport this Sprite should use.</param>
-            <returns>This SpriteBuilder.</returns>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteBuilder.SetVelocity(Glib.XNA.SpriteLib.Velocity)">
-            <summary>
-            Set the velocity of the sprite.
-            </summary>
-            <param name="v">The new Sprite velocity.</param>
-            <returns>This SpriteBuilder.</returns>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteBuilder.RegisterDrawEvent(System.EventHandler)">
-            <summary>
-            Register an event for when the Sprite is drawn.
-            </summary>
-            <param name="drawEvent">The SpriteEventHandler for the Drawn event.</param>
-            <returns>This SpriteBuilder.</returns>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteBuilder.RegisterMoveEvent(Glib.XNA.SpriteLib.SpriteMoveEventHandler)">
-            <summary>
-            Register an event for when the Sprite moves.
-            </summary>
-            <param name="moveEvent">The SpriteMoveEventHandler for the Move event.</param>
-            <returns>This SpriteBuilder.</returns>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteBuilder.Build">
-            <summary>
-            Return the Sprite under construction.
-            </summary>
-            <returns>The Sprite under construction.</returns>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteBuilder.SetHeight(System.Single)">
-            <summary>
-            Set the height of the Sprite under construction via scaling.
-            </summary>
-            <param name="h">The new height.</param>
-            <returns>This SpriteBuilder.</returns>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteBuilder.RegisterUpdateEvent(System.EventHandler)">
-            <summary>
-            Register an update event handler for the Sprite under construction.
-            </summary>
-            <param name="updateEvent">The update event to register.</param>
-            <returns>This SpriteBuilder.</returns>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteBuilder.SetScale(Microsoft.Xna.Framework.Vector2)">
-            <summary>
-            Set the scale of the Sprite under construction.
-            </summary>
-            <param name="scale">The scale to assign to the Sprite.</param>
-            <returns>This SpriteBuilder.</returns>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteBuilder.SetScale(System.Single,System.Single)">
-            <summary>
-            Set the scale of the Sprite under construction.
-            </summary>
-            <param name="scalex">The X scale to assign to the Sprite.</param>
-            <param name="scaley">The Y scale to assign to the Sprite.</param>
-            <returns>This SpriteBuilder.</returns>
-        </member>
-        <member name="T:Glib.Cryptography.CryptoExtensions">
-            <summary>
-            A class providing cryptographic extensions on strings.
-            </summary>
-        </member>
-        <member name="M:Glib.Cryptography.CryptoExtensions.MD5Hash(System.String)">
-            <summary>
-            Compute the hexadecimal MD5 hash of the specified string.
-            </summary>
-            <param name="s">The string to hash.</param>
-            <returns>The MD5 hash of the input string.</returns>
-        </member>
-        <member name="M:Glib.Cryptography.CryptoExtensions.SHA256Hash(System.String)">
-            <summary>
-            Compute the hexadecimal SHA256 hash of the specified string.
-            </summary>
-            <param name="s">The string to hash.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Glib.Cryptography.CryptoExtensions.SHA1Hash(System.String)">
-            <summary>
-            Compute the hexadecimal SHA1 hash of the specified string.
-            </summary>
-            <param name="s">The string to hash.</param>
-            <returns>The SHA1 hash of the input string.</returns>
-        </member>
-        <member name="M:Glib.Cryptography.CryptoExtensions.SHA512Hash(System.String)">
-            <summary>
-            Compute the hexadecimal SHA512 hash of the specified string.
-            </summary>
-            <param name="s">The string to hash.</param>
-            <returns>The hexadecimal SHA512 hash of the specified string.</returns>
-        </member>
-        <member name="T:Glib.XNA.SpriteLib.Updater">
-            <summary>
-            A base class for generic update logic using a SpriteWrapper.
-            Extend this class to implement sprite updating logic if you are using a SpriteWrapper.
-            </summary>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.Updater.#ctor(Glib.XNA.SpriteLib.SpriteWrapper)">
-            <summary>
-            Construct a new Updater associated with this SpriteWrapper.
-            </summary>
-            <param name="sw">The SpriteWrapper to associate this Updater with.</param>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.Updater.RemoveSprite(Glib.XNA.ISprite)">
-            <summary>
-            Remove an ISprite from the parent SpriteWrapper.
-            </summary>
-            <param name="remove">The ISprite to remove.</param>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.Updater.AddSprite(Glib.XNA.ISprite)">
-            <summary>
-            Add an ISprite to the parent SpriteWrapper.
-            </summary>
-            <param name="sprite">The ISprite to add.</param>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.Updater.GetAllSprites">
-            <summary>
-            Get all ISprites in the parent SpriteWrapper.
-            </summary>
-            <returns>An enumerable of all the ISprites managed by the parent SpriteWrapper.</returns>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.Updater.UpdateSprite(Glib.XNA.ISprite)">
-            <summary>
-            Update this ISprite.
-            </summary>
-            <param name="updating">The ISprite to update.</param>
-        </member>
-        <member name="T:Glib.XNA.SpriteLib.SpritePositionMapping">
-            <summary>
-            A simple class for storing a mapping of ISprites to positions on the screen.
-            It is strongly suggested that the implementation of ISprite has a Location/Position property instead of using this class.
-            </summary>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpritePositionMapping.FindPosition(Glib.XNA.ISprite)">
-            <summary>
-            Finds the position of a certain sprite.
-            </summary>
-            <param name="spr">The sprite to find the position of.</param>
-            <returns>The position of the sprite, or a blank Vector2 if not found</returns>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpritePositionMapping.Remove(Glib.XNA.ISprite)">
-            <summary>
-            Remove the position of the specified ISprite from this SpritePositionMapping.
-            </summary>
-            <param name="spr">The sprite to remove.</param>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.SpritePositionMapping.MoveSprite(Glib.XNA.ISprite,Microsoft.Xna.Framework.Vector2)">
-            <summary>
-            Move the given sprite to a new position.
-            </summary>
-            <param name="spr">The sprite to move.</param>
-            <param name="newpos">The new position of the sprite.</param>
-        </member>
-        <member name="P:Glib.XNA.SpriteLib.SpritePositionMapping.Item(Glib.XNA.ISprite)">
-            <summary>
-            Get and set the position of the specified ISprite.
-            </summary>
-            <param name="sprite">The ISprite you want to change the position of.</param>
-            <returns>The position of the given ISprite.</returns>
-        </member>
-        <member name="P:Glib.XNA.SpriteLib.SpritePositionMapping.Length">
-            <summary>
-            The number of items in this SpritePositionMapping.
-            </summary>
-            <remarks>
-            The same thing as Count.
-            </remarks>
-        </member>
-        <member name="T:Glib.XNA.SpriteLib.SpriteMoveEventHandler">
-            <summary>
-            Handle when a sprite is going to be moved. This is a cancellable event.
-            </summary>
-            <param name="source">The sprite that is undergoing an attempt to be moved.</param>
-            <param name="e">The <seealso cref="T:Glib.XNA.SpriteMoveEventArgs">SpriteMoveEventArgs</seealso> for this event.</param>
-        </member>
-        <member name="T:Glib.XNA.SpriteLib.SpriteClickEventHandler">
-            <summary>
-            Handle when a sprite has been clicked on. Called immediately after Update() on a Sprite.
-            </summary>
-            <param name="source">The SpriteManager that is managing this sprite, or, if this event is being called by the sprite itself, the sprite being clicked on.</param>
-            <param name="e">The <seealso cref="T:Glib.XNA.SpriteMoveEventArgs">SpriteMoveEventArgs</seealso> for this event.</param>
-        </member>
-        <member name="T:Glib.XNA.SpriteLib.KeyboardManager">
-            <summary>
-            A class calling keyboard related events when updated.
-            </summary>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.KeyboardManager.#ctor">
-            <summary>
-            Create a new KeyboardManager.
-            </summary>
-        </member>
-        <member name="F:Glib.XNA.SpriteLib.KeyboardManager._lastState">
-            <summary>
-            The last known state of the keyboard.
-            </summary>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.KeyboardManager.Update">
-            <summary>
-            Update the KeyboardManager, calling the appropriate events.
-            </summary>
-        </member>
-        <member name="E:Glib.XNA.SpriteLib.KeyboardManager.KeyDown">
-            <summary>
-            An event called when a new key is pressed down.
-            </summary>
-        </member>
-        <member name="E:Glib.XNA.SpriteLib.KeyboardManager.KeyUp">
-            <summary>
-            An event called when a key is lifted.
-            </summary>
-        </member>
-        <member name="E:Glib.XNA.SpriteLib.KeyboardManager.KeyPressed">
-            <summary>
-            An event called when a key is pressed and released.
+            The delay, in milliseconds, between executions of the service code.
             </summary>
         </member>
         <member name="T:Glib.XNA.KeyEventHandler">
@@ -2884,281 +3385,38 @@
             Gets the key associated with this event.
             </summary>
         </member>
-        <member name="T:Glib.XNA.SpriteLib.Screen">
+        <member name="T:Glib.Cryptography.CryptoExtensions">
             <summary>
-            Represents a RenderTarget2D which is a screen.
+            A class providing cryptographic extensions on strings.
             </summary>
         </member>
-        <member name="F:Glib.XNA.SpriteLib.Screen.Sprites">
+        <member name="M:Glib.Cryptography.CryptoExtensions.MD5Hash(System.String)">
             <summary>
-            All the Sprites to draw to this Screen.
+            Compute the hexadecimal MD5 hash of the specified string.
             </summary>
+            <param name="s">The string to hash.</param>
+            <returns>The MD5 hash of the input string.</returns>
         </member>
-        <member name="M:Glib.XNA.SpriteLib.Screen.CenterToViewport(Microsoft.Xna.Framework.Graphics.Viewport)">
+        <member name="M:Glib.Cryptography.CryptoExtensions.SHA256Hash(System.String)">
             <summary>
-            Center the position of this Screen relative to the position of the specified 
+            Compute the hexadecimal SHA256 hash of the specified string.
             </summary>
-            <param name="v"></param>
+            <param name="s">The string to hash.</param>
+            <returns></returns>
         </member>
-        <member name="F:Glib.XNA.SpriteLib.Screen.AdditionalSprites">
+        <member name="M:Glib.Cryptography.CryptoExtensions.SHA1Hash(System.String)">
             <summary>
-            Any non-Sprite deriving Sprites that need to be drawn to this Screen.
+            Compute the hexadecimal SHA1 hash of the specified string.
             </summary>
+            <param name="s">The string to hash.</param>
+            <returns>The SHA1 hash of the input string.</returns>
         </member>
-        <member name="F:Glib.XNA.SpriteLib.Screen.ClearColor">
+        <member name="M:Glib.Cryptography.CryptoExtensions.SHA512Hash(System.String)">
             <summary>
-            The color to clear this screen as.
+            Compute the hexadecimal SHA512 hash of the specified string.
             </summary>
-        </member>
-        <member name="F:Glib.XNA.SpriteLib.Screen.TintColor">
-            <summary>
-            The color to tint this screen as.
-            </summary>
-        </member>
-        <member name="F:Glib.XNA.SpriteLib.Screen.Target">
-            <summary>
-            The target to render things to.
-            </summary>
-        </member>
-        <member name="F:Glib.XNA.SpriteLib.Screen.Graphics">
-            <summary>
-            The graphics device to draw to.
-            </summary>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.Screen.#ctor(Microsoft.Xna.Framework.Graphics.RenderTarget2D,Microsoft.Xna.Framework.Color,Glib.XNA.SpriteLib.SpriteManager)">
-            <summary>
-            Create a new screen.
-            </summary>
-            <param name="target">The render target to draw to.</param>
-            <param name="color">The color to clear this Screen as before drawing.</param>
-            <param name="allSprites">The SpriteManager containing the Sprites to draw.</param>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.Screen.#ctor(Microsoft.Xna.Framework.Rectangle,Microsoft.Xna.Framework.Color,Glib.XNA.SpriteLib.SpriteManager)">
-            <summary>
-            Create a new screen.
-            </summary>
-            <param name="sizeOfTarget">The size and position of the RenderTarget.</param>
-            <param name="color">The color to clear this Screen as before drawing.</param>
-            <param name="allSprites">The SpriteManager containing the Sprites to draw.</param>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.Screen.#ctor(Glib.XNA.SpriteLib.SpriteManager,Microsoft.Xna.Framework.Color)">
-            <summary>
-            Create a new screen.
-            </summary>
-            <param name="color">The color to clear the Screen as before Sprite drawing.</param>
-            <param name="mgr">The SpriteManager managing a SpriteBatch with a viewport to use as the Screen size.</param>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.Screen.Update">
-            <summary>
-            Update all Sprites on this Screen.
-            </summary>
-        </member>
-        <member name="P:Glib.XNA.SpriteLib.Screen.Visible">
-            <summary>
-            Gets or sets a boolean representing whether or not this Screen is visible.
-            </summary>
-        </member>
-        <member name="P:Glib.XNA.SpriteLib.Screen.CenterOrigin">
-            <summary>
-            Gets or sets a value indicating whether or not to use the center of the Screen as the origin when drawing.
-            </summary>
-        </member>
-        <member name="P:Glib.XNA.SpriteLib.Screen.Width">
-            <summary>
-            Gets the width of this Screen, in pixels.
-            </summary>
-        </member>
-        <member name="P:Glib.XNA.SpriteLib.Screen.Height">
-            <summary>
-            Gets the height of this Screen, in pixels.
-            </summary>
-        </member>
-        <member name="P:Glib.XNA.SpriteLib.Screen.Position">
-            <summary>
-            Gets or sets the position of the Screen relative to the display.
-            </summary>
-        </member>
-        <member name="T:Glib.XNA.SpriteLib.ScreenManager">
-            <summary>
-            Represents a set of Screens to manage.
-            </summary>
-        </member>
-        <member name="F:Glib.XNA.SpriteLib.ScreenManager._allScreens">
-            <summary>
-            All the Screen objects managed by this ScreenManager.
-            </summary>
-            <remarks>
-            The component that is called by all implemented IEnumerable and ICollection methods.
-            </remarks>
-        </member>
-        <member name="F:Glib.XNA.SpriteLib.ScreenManager.Graphics">
-            <summary>
-            The graphics device to draw to.
-            </summary>
-        </member>
-        <member name="F:Glib.XNA.SpriteLib.ScreenManager.SpriteBatch">
-            <summary>
-            The SpriteBatch to draw to.
-            </summary>
-        </member>
-        <member name="F:Glib.XNA.SpriteLib.ScreenManager.Background">
-            <summary>
-            The main background color.
-            </summary>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.ScreenManager.#ctor(Microsoft.Xna.Framework.Graphics.SpriteBatch,Microsoft.Xna.Framework.Color,Glib.XNA.SpriteLib.Screen[])">
-            <summary>
-            Create a ScreenManager.
-            </summary>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.ScreenManager.Update(System.Boolean)">
-            <summary>
-            Update all the Screen's sprites.
-            </summary>
-            <param name="updateInvisible">Whether or not to update invisible screens.</param>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.ScreenManager.Update">
-            <summary>
-            Update all the Screen's sprites.
-            </summary>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.ScreenManager.Draw">
-            <summary>
-            Draws all the visible screens.
-            </summary>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.ScreenManager.Add(Glib.XNA.SpriteLib.Screen)">
-            <summary>
-            Add the specified Screen to this ScreenManager.
-            </summary>
-            <param name="item">The screen to add.</param>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.ScreenManager.Clear">
-            <summary>
-            Clear this ScreenManager of all Screens.
-            </summary>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.ScreenManager.Contains(Glib.XNA.SpriteLib.Screen)">
-            <summary>
-            Check if this ScreenManager contains the specified Screen.
-            </summary>
-            <param name="item">The item to check.</param>
-            <returns>Whether or not this ScreenManager contains item.</returns>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.ScreenManager.CopyTo(Glib.XNA.SpriteLib.Screen[],System.Int32)">
-            <summary>
-            Copies the entire collection of Screens to the specified array starting at the specified index.
-            </summary>
-            <param name="array">The array to copy items to.</param>
-            <param name="arrayIndex">The index to begin putting items.</param>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.ScreenManager.Remove(Glib.XNA.SpriteLib.Screen)">
-            <summary>
-            Remove the specified Screen from this ScreenManager.
-            </summary>
-            <param name="item">The item to remove.</param>
-            <returns>Whether or not the item was removed.</returns>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.ScreenManager.GetEnumerator">
-            <summary>
-            Returns an enumerator that iterates through the ScreenManager.
-            </summary>
-            <returns>An enumerator that iterates through the ScreenManager.</returns>
-        </member>
-        <member name="P:Glib.XNA.SpriteLib.ScreenManager.Item(System.Int32)">
-            <summary>
-            Gets the Screen at the specified index.
-            </summary>
-            <param name="index">The index in the AllScreens list.</param>
-            <returns>The screen with the specified index.</returns>
-        </member>
-        <member name="P:Glib.XNA.SpriteLib.ScreenManager.Count">
-            <summary>
-            Gets the number of Screens this ScreenManager is managing.
-            </summary>
-        </member>
-        <member name="P:Glib.XNA.SpriteLib.ScreenManager.IsReadOnly">
-            <summary>
-            Gets a value representing whether or not this collection is read only.
-            </summary>
-        </member>
-        <member name="T:Glib.WinForms.Controls.RequiredSqlParameterTextBox">
-            <summary>
-            A required text box representing a SQL parameter.
-            </summary>
-        </member>
-        <member name="M:Glib.WinForms.Controls.RequiredSqlParameterTextBox.#ctor(System.String)">
-            <summary>
-            Create a new SqlParameterTextBox with the specified parameter name and default validation code.
-            </summary>
-            <param name="parameterName">The name of the SQL parameter.</param>
-        </member>
-        <member name="F:Glib.WinForms.Controls.RequiredSqlParameterTextBox.FieldValidation">
-            <summary>
-            The predicate checking whether or not this field is complete.
-            True means complete, false means incomplete.
-            </summary>
-        </member>
-        <member name="M:Glib.WinForms.Controls.RequiredSqlParameterTextBox.#ctor(System.String,System.Predicate{System.String})">
-            <summary>
-            Create a new SqlParameterTextBox with the specified parameter name and validation code.
-            </summary>
-            <param name="parameterName">The name of the SQL parameter.</param>
-            <param name="validator">The predicate to use to check if the field is complete.</param>
-        </member>
-        <member name="P:Glib.WinForms.Controls.RequiredSqlParameterTextBox.Completed">
-            <summary>
-            Whether or not the entry is completed properly.
-            Is determined by the return value of FieldValidation.
-            </summary>
-        </member>
-        <member name="P:Glib.WinForms.Controls.RequiredSqlParameterTextBox.InvalidityError">
-            <summary>
-            Gets or sets a string indicating the error message to display if the field is invalid.
-            </summary>
-        </member>
-        <member name="T:Glib.WinForms.Controls.RequiredTextBox">
-            <summary>
-            A required text box.
-            </summary>
-        </member>
-        <member name="M:Glib.WinForms.Controls.RequiredTextBox.IsValid(System.String)">
-            <summary>
-            The default field validation code.
-            </summary>
-            <remarks>
-            Checks if the field text is empty, and returns that value inverted.
-            </remarks>
-            <param name="str">The text of the field.</param>
-            <returns>Whether or not the field is valid.</returns>
-        </member>
-        <member name="M:Glib.WinForms.Controls.RequiredTextBox.#ctor">
-            <summary>
-            Create a new RequiredTextBox with default validation code.
-            </summary>
-        </member>
-        <member name="F:Glib.WinForms.Controls.RequiredTextBox.FieldValidation">
-            <summary>
-            The predicate checking whether or not this field is complete.
-            True means complete, false means incomplete.
-            </summary>
-        </member>
-        <member name="M:Glib.WinForms.Controls.RequiredTextBox.#ctor(System.Predicate{System.String})">
-            <summary>
-            Create a new RequiredTextBox with the specified parameter name and validation code.
-            </summary>
-            <param name="validator">The predicate to use to check if the field is complete.</param>
-        </member>
-        <member name="P:Glib.WinForms.Controls.RequiredTextBox.Completed">
-            <summary>
-            Whether or not the entry is completed properly.
-            Is determined by the return value of FieldValidation.
-            </summary>
-        </member>
-        <member name="P:Glib.WinForms.Controls.RequiredTextBox.InvalidityError">
-            <summary>
-            Gets or sets a string indicating the error message to display if the field is invalid.
-            </summary>
+            <param name="s">The string to hash.</param>
+            <returns>The hexadecimal SHA512 hash of the specified string.</returns>
         </member>
     </members>
 </doc>

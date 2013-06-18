@@ -13,6 +13,8 @@ using Glib.XNA;
 using Glib;
 using Glib.XNA.SpriteLib;
 
+using PGCGame.Screens;
+
 namespace PGCGame
 {
     /// <summary>
@@ -22,6 +24,12 @@ namespace PGCGame
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+        ScreenManager screenManager;
+
+        Title titleScreen;
+        MainMenu mainMenuScreen;
+        Credits creditsScreen;
 
         public Game1()
         {
@@ -36,9 +44,7 @@ namespace PGCGame
         /// and initialize them as well.
         /// </summary>
         protected override void Initialize()
-        {
-            // TODO: Add your initialization logic here
-
+        {   
             base.Initialize();
         }
 
@@ -51,7 +57,25 @@ namespace PGCGame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+
+            titleScreen = new Title(spriteBatch);
+            titleScreen.LoadContent(Content);
+            titleScreen.Name = "titleScreen";
+
+            mainMenuScreen = new MainMenu(spriteBatch);
+            mainMenuScreen.LoadContent(Content);
+            mainMenuScreen.Name = "mainMenuScreen";
+
+            creditsScreen = new Credits(spriteBatch);
+            creditsScreen.LoadContent(Content);
+            creditsScreen.Name = "creditsScreen";
+
+
+            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen);
+
+
+            //the screen to be displayed
+            StateManager.ScreenState = ScreenState.Credits;
         }
 
         /// <summary>
@@ -74,7 +98,26 @@ namespace PGCGame
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            // TODO: Add your update logic here
+            screenManager.Update(gameTime);
+
+            foreach (Screen screen in screenManager)
+            {
+                screen.Visible = false;
+            }
+
+            switch (StateManager.ScreenState)
+            {
+                case ScreenState.Title:
+                    titleScreen.Visible = true;
+                    break;
+                case ScreenState.MainMenu:
+                    mainMenuScreen.Visible = true;
+                    break;
+                case ScreenState.Credits:
+                    creditsScreen.Visible = true;
+                    break;
+            }
+
 
             base.Update(gameTime);
         }
@@ -87,7 +130,7 @@ namespace PGCGame
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            screenManager.Draw();
 
             base.Draw(gameTime);
         }
