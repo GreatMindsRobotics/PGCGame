@@ -1,7 +1,7 @@
 #################
 ## Conflicting files
 #################
-PGCGame.csproj.Debug.cachefile
+*.cachefile
 
 
 #################
