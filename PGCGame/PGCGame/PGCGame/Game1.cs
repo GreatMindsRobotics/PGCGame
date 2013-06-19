@@ -75,13 +75,10 @@ namespace PGCGame
 
             gameScreen = new GameScreen(spriteBatch);
             gameScreen.LoadContent(Content);
-            gameScreen.Name = "GameScreen";
+            gameScreen.Name = "gameScreen";
 
             screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen);
-
-
-            //USE THIS TO CHANGE THE SCREEN YOU ARE CURRENTLY WORKING ON!!!
-            StateManager.ScreenState = ScreenState.Title;
+            StateManager.AllScreens = screenManager;
         }
 
         /// <summary>
@@ -103,29 +100,6 @@ namespace PGCGame
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
-
-            
-
-            foreach (Screen screen in screenManager)
-            {
-                screen.Visible = false;
-            }
-
-            switch (StateManager.ScreenState)
-            {
-                case ScreenState.Title:
-                    titleScreen.Visible = true;
-                    break;
-                case ScreenState.MainMenu:
-                    mainMenuScreen.Visible = true;
-                    break;
-                case ScreenState.Credits:
-                    creditsScreen.Visible = true;
-                    break;
-                case ScreenState.Game:
-                    gameScreen.Visible = true;
-                    break;
-            }
 
             screenManager.Update(gameTime);
 
