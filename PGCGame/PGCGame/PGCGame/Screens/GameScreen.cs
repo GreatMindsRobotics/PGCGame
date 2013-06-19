@@ -25,7 +25,8 @@ namespace PGCGame.Screens
         {
             //TODO: LOAD CONTENT
             BackgroundSprite = new BackgroundSprite(content.Load<Texture2D>("Images\\Background\\NebulaSky"), Sprites.SpriteBatch, 10, 10);
-            FighterCarrier ship = new FighterCarrier(content.Load<Texture2D>("Ships\\Additional\\1"), Vector2.Zero, Sprites.SpriteBatch);
+            FighterCarrier ship = new FighterCarrier(content.Load<Texture2D>("Ships\\Additional\\1"),Vector2.Zero, Sprites.SpriteBatch);
+            ship.Position = ship.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport);
             Sprites.Add(ship);
             //Sprites.Add(ship);
             //Sprites.Add(new Drone(content.Load<Texture2D>("aTexture"), Vector2.Zero, this.Sprites.SpriteBatch, ship)); 

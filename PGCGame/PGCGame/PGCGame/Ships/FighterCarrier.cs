@@ -19,7 +19,6 @@ namespace PGCGame
             : base(texture, location, spriteBatch)
         {
             //UseCenterAsOrigin = true;
-            Scale = new Vector2(.01f);
         }
 
         public Drone[] Drones { get; set; }

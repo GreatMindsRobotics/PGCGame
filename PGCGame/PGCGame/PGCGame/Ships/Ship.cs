@@ -25,6 +25,7 @@ namespace PGCGame
    
 
         protected bool _performMovement = true;
+        protected bool _rotateTowardsMouse = true;
 
         public Ship(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
             : base(texture, location, spriteBatch)
@@ -32,9 +33,7 @@ namespace PGCGame
 
 
             UseCenterAsOrigin = true;
-
-
-            Scale = new Vector2(.01f);
+            
         }
 
         public abstract void Shoot();
@@ -48,15 +47,20 @@ namespace PGCGame
         public override void Update()
         {
             base.Update();
-            MouseState ms = Mouse.GetState();
-            Vector2 mousePos = new Vector2(ms.X, ms.Y);
-            Vector2 targetPos = mousePos - Position;
-            //Rotate towards mouse
-            Rotation.Radians = Math.Atan2(targetPos.X, -targetPos.Y).ToFloat();
+            if (_rotateTowardsMouse)
+            {
+                MouseState ms = Mouse.GetState();
+                Vector2 mousePos = new Vector2(ms.X, ms.Y);
+                Vector2 targetPos = mousePos - Position;              
 
-            KeyboardState ks = Keyboard.GetState();
+                //Rotate towards mouse
+                Rotation.Radians = Math.Atan2(targetPos.X, -targetPos.Y).ToFloat();
+            }
+
+            
             if (_performMovement)
             {
+                KeyboardState ks = Keyboard.GetState();
                 if (ks.IsKeyDown(Keys.W) && Y - MovementSpeed.Y - (Origin.Y * Scale.Y) >= 0)
                 {
                     Y -= MovementSpeed.Y;
@@ -108,6 +112,10 @@ namespace PGCGame
         public override void DrawNonAuto()
         {
             base.DrawNonAuto();
+
+            //SpriteBatch.Draw(Texture, Position, DrawRegion, Color.White, Rotation.Radians, Origin, Scale, Effect, 0);
+
+            
             foreach (Bullet b in FlyingBullets)
             {
                 b.DrawNonAuto();

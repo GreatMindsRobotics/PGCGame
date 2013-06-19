@@ -23,6 +23,7 @@ namespace PGCGame
         {
             ParentShip = parent;
             _performMovement = false;
+            _rotateTowardsMouse = false;
             ParentShip.BulletFired += new EventHandler(ParentShip_BulletFired);
         }
 
