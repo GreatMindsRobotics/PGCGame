@@ -30,49 +30,45 @@
     <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.VideoImporters, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NebulaSky.png">
+    <Compile Include="Images\Background\NebulaSky.png">
       <Name>NebulaSky</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="TitleFont.spritefont">
-      <Name>TitleFont</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-    </Compile>
-    <Compile Include="Button.png">
+    <Compile Include="Images\Controls\Button.png">
       <Name>Button</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Gametitle.png">
+    <Compile Include="Images\Controls\Gametitle.png">
       <Name>Gametitle</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Planet.png">
+    <Compile Include="Images\NonPlayingObject\Planet.png">
       <Name>Planet</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="CreditsFont.spritefont">
-      <Name>CreditsFont</Name>
+    <Compile Include="Fonts\SegoeUIMono.spritefont">
+      <Name>SegoeUIMono</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
-    <Compile Include="Failing Defense.mp3">
+    <Compile Include="Songs\Failing Defense.mp3">
       <Name>Failing Defense</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SongProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="1920by1080SkyStar.png">
+    <Compile Include="Images\Background\1920by1080SkyStar.png">
       <Name>1920by1080SkyStar</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -39,15 +39,15 @@ namespace PGCGame.Screens
             //TODO: LOAD CONTENT
             
             //use Sprites to load your sprites
-            TitleImage = new Sprite(content.Load<Texture2D>("Gametitle"), new Vector2(150, 100), Sprites.SpriteBatch);
+            TitleImage = new Sprite(content.Load<Texture2D>("Images\\Controls\\Gametitle"), new Vector2(150, 100), Sprites.SpriteBatch);
             Sprites.Add(TitleImage);
 
-            PlayButton = new Sprite(content.Load<Texture2D>("Button"), new Vector2(300, 200), Sprites.SpriteBatch);
+            PlayButton = new Sprite(content.Load<Texture2D>("Images\\Controls\\Button"), new Vector2(300, 200), Sprites.SpriteBatch);
             PlayButton.MouseEnter += new EventHandler(PlayButton_MouseEnter);
             PlayButton.MouseLeave += new EventHandler(PlayButton_MouseLeave);
             Sprites.Add(PlayButton);
 
-            PlayLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(360, 210), content.Load<SpriteFont>("TitleFont"), "Play");
+            PlayLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(360, 210), content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "Play");
             PlayLabel.IsHoverable = true;
             PlayLabel.IsManuallySelectable = true;
             PlayLabel.NonHoverColor = Color.White;
@@ -55,12 +55,12 @@ namespace PGCGame.Screens
             AdditionalSprites.Add(PlayLabel);
 
 
-            ExitButton = new Sprite(content.Load<Texture2D>("Button"), new Vector2(300, 300), Sprites.SpriteBatch);
+            ExitButton = new Sprite(content.Load<Texture2D>("Images\\Controls\\Button"), new Vector2(300, 300), Sprites.SpriteBatch);
             ExitButton.MouseEnter += new EventHandler(ExitButton_MouseEnter);
             ExitButton.MouseLeave += new EventHandler(ExitButton_MouseLeave);
             Sprites.Add(ExitButton);
 
-            ExitLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(360, 310), content.Load<SpriteFont>("TitleFont"), "Exit");
+            ExitLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(360, 310), content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "Exit");
             ExitLabel.IsHoverable = true;
             ExitLabel.IsManuallySelectable = true;
             ExitLabel.NonHoverColor = Color.White;

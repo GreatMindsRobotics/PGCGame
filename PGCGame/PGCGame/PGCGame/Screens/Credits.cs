@@ -16,10 +16,10 @@ namespace PGCGame.Screens
 {
     public class Credits : Screen
     {
+        //TODO FOR MATTHEW:
+        //MAKE THE CREDITS END AND GO BACK TO THE MAINMENU
         private TextSprite credits;
-
         private Song _creditsSong;
-
         private Vector2 _scrollingSpeed;
 
 
@@ -31,26 +31,15 @@ namespace PGCGame.Screens
 
         public void LoadContent(ContentManager content)
         {
-
             _scrollingSpeed = new Vector2(0, -1);
-            //TODO: LOAD CONTENT
             
-            //use Sprites to load your sprites
-            //EX: Sprites.Add(new Sprite(content.Load<Texture2D>("assetName"), new Vector2(0, 0), Sprites.SpriteBatch));
-            //OR
-            //EX: Sprites.AddNewSprite(new Vector(0, 0), content.Load<Texture2D("assetName"));
-            credits = new TextSprite(Sprites.SpriteBatch, content.Load<SpriteFont>("CreditsFont"), "   Plequarius: Galactic Commanders\n\n\n\n\n\nWeek 1 - Functional Spec, GameState Management\n\n\n\n- Kai F.\n\n\n- Michael K.\n\n\n- Alexa L.\n\n\n- Andrea L.\n\n\n- Alexander L.\n\n\n- Matthew P.\n\n\n- Jeremiah T.\n\n\n\n\nWeek 2 - Technical Spec, Class Design, Functionality\n\n\n\n- Glen H.\n\n\n- Michael K.\n\n\n- Alex L.\n\n\n- Matthew P.\n\n\n\n\n\n\n Week 3 - AI's\n\n\n\n\n\n\n\n\n\n\n\nWeek 4 - Xbox Converson\n\n\n\n\nUnderlying Library written by:\nGlen Husman (glen3b)\nGlib is available on github! \n\n\n\n\n\n\n                Music:\n\nFailing Defense - Kevin MacLeod\n\nAll music obtained from Incompetech.com", Color.White);
+            credits = new TextSprite(Sprites.SpriteBatch, content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "   Plequarius: Galactic Commanders\n\n\n\n\n\nWeek 1 - Functional Spec, GameState Management\n\n\n\n- Kai F.\n\n\n- Michael K.\n\n\n- Alexa L.\n\n\n- Andrea L.\n\n\n- Alexander L.\n\n\n- Matthew P.\n\n\n- Jeremiah T.\n\n\n\n\nWeek 2 - Technical Spec, Class Design, Functionality\n\n\n\n- Glen H.\n\n\n- Michael K.\n\n\n- Alex L.\n\n\n- Matthew P.\n\n\n\n\n\n\n Week 3 - AI's\n\n\n\n\n\n\n\n\n\n\n\nWeek 4 - Xbox Converson\n\n\n\n\nUnderlying Library written by:\nGlen Husman (glen3b)\nGlib is available on github! \n\n\n\n\n\n\n                Music:\n\nFailing Defense - Kevin MacLeod\n\nAll music obtained from Incompetech.com", Color.White);
 
             credits.Position = new Vector2(200, 600);
 
-            _creditsSong = content.Load<Song>("Failing Defense");
+            _creditsSong = content.Load<Song>("Songs\\Failing Defense");
 
             AdditionalSprites.Add(credits);
-            
-
-            
-              
-
         }
 
         public override void Update(GameTime gameTime)

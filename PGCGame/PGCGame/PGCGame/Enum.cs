@@ -7,6 +7,8 @@ namespace PGCGame
 {
     public enum ScreenState
     {
+        //TODO: FOR MICHAEL
+        //ADD MORE SCREEN STATES SUCH AS OPTIONS, PAUSED, ETC
         Title,
         MainMenu,
         Credits,

@@ -1,9 +1,8 @@
-Content\NebulaSky.xnb
-Content\Button.xnb
-Content\Gametitle.xnb
-Content\Planet.xnb
-Content\TitleFont.xnb
-Content\CreditsFont.xnb
-Content\Failing Defense.xnb
-Content\1920by1080SkyStar.xnb
-Content\Failing Defense.wma
+Content\Fonts\SegoeUIMono.xnb
+Content\Songs\Failing Defense.xnb
+Content\Images\Background\NebulaSky.xnb
+Content\Images\Controls\Button.xnb
+Content\Images\Controls\Gametitle.xnb
+Content\Images\NonPlayingObject\Planet.xnb
+Content\Images\Background\1920by1080SkyStar.xnb
+Content\Songs\Failing Defense.wma

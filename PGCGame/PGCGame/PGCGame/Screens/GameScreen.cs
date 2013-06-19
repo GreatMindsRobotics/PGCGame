@@ -24,7 +24,7 @@ namespace PGCGame.Screens
         public void LoadContent(ContentManager content)
         {
             //TODO: LOAD CONTENT
-            FighterCarrier ship = new FighterCarrier(content.Load<Texture2D>("NebulaSky"), new Vector2(50), Sprites.SpriteBatch);
+            FighterCarrier ship = new FighterCarrier(content.Load<Texture2D>("Images\\Background\\NebulaSky"), new Vector2(50), Sprites.SpriteBatch);
             Sprites.Add(ship);
             //Sprites.Add(new Drone(content.Load<Texture2D>("aTexture"), Vector2.Zero, this.Sprites.SpriteBatch, ship)); 
             //use Sprites to load your sprites
