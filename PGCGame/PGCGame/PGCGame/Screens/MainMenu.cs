@@ -6,11 +6,11 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-
-using Glib.XNA.SpriteLib;
-using Glib.XNA;
-using Glib;
 using Microsoft.Xna.Framework.Input;
+
+using Glib;
+using Glib.XNA;
+using Glib.XNA.SpriteLib;
 
 namespace PGCGame.Screens
 {
@@ -47,11 +47,11 @@ namespace PGCGame.Screens
 
             Texture2D planetTexture = content.Load<Texture2D>("Images\\NonPlayingObject\\Planet");
             Sprite planet = new Sprite(planetTexture, Vector2.Zero, Sprites.SpriteBatch);
-            planet.Scale = new Vector2(.0625f);
-            planet.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.423f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .6f);
+            planet.Scale = new Vector2(.7f);
+            planet.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.6f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1515f);
             Sprite planettwo = new Sprite(planetTexture, Vector2.Zero, Sprites.SpriteBatch);
-            planettwo.Scale = new Vector2(.125f);
-            planettwo.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.92f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .92f);
+            planettwo.Scale = new Vector2(1f);
+            planettwo.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.8f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .75f);
             Sprites.Add(planet);
             Sprites.Add(planettwo);
             

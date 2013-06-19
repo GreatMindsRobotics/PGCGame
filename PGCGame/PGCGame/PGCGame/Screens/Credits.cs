@@ -6,11 +6,12 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-
-using Glib.XNA.SpriteLib;
-using Glib.XNA;
-using Glib;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+
+using Glib;
+using Glib.XNA;
+using Glib.XNA.SpriteLib;
 
 namespace PGCGame.Screens
 {
@@ -21,7 +22,7 @@ namespace PGCGame.Screens
         private TextSprite credits;
         private Song _creditsSong;
         private Vector2 _scrollingSpeed;
-
+        
         private TimeSpan _timeUntilCreditsFinish = new TimeSpan (0, 0, 0, 45, 0);
         private TimeSpan _elapsedTime;
 
@@ -34,6 +35,8 @@ namespace PGCGame.Screens
 
         public void LoadContent(ContentManager content)
         {
+            Texture2D buttonImage = content.Load<Texture2D>("Images\\Controls\\Button");
+            SpriteFont SegoeUIMono = content.Load<SpriteFont>("Fonts\\SegoeUIMono");
             _scrollingSpeed = new Vector2(0, -1);
             
             credits = new TextSprite(Sprites.SpriteBatch, content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "   Plequarius: Galactic Commanders\n\n\n\n\n\nWeek 1 - Functional Spec, GameState Management\n\n\n\n- Kai F.\n\n\n- Michael K.\n\n\n- Alexa L.\n\n\n- Andrea L.\n\n\n- Alexander L.\n\n\n- Matthew P.\n\n\n- Jeremiah T.\n\n\n\n\nWeek 2 - Technical Spec, Class Design, Functionality\n\n\n\n- Glen H.\n\n\n- Michael K.\n\n\n- Alex L.\n\n\n- Matthew P.\n\n\n\n\n\n\n Week 3 - AI's\n\n\n\n\n\n\n\n\n\n\n\nWeek 4 - Xbox Converson\n\n\n\n\nUnderlying Library written by:\nGlen Husman (glen3b)\nGlib is available on github! \n\n\n\n\n\n\n                Music:\n\nFailing Defense - Kevin MacLeod\n\nAll music obtained from Incompetech.com", Color.White);
@@ -43,26 +46,31 @@ namespace PGCGame.Screens
             _creditsSong = content.Load<Song>("Songs\\Failing Defense");
 
             AdditionalSprites.Add(credits);
+           
+
             _elapsedTime = new TimeSpan();
         }
 
         public override void Update(GameTime gameTime)
         {
-            _elapsedTime += gameTime.ElapsedGameTime;
             base.Update(gameTime);
+
+            KeyboardState keyboard = Keyboard.GetState();
+
+            _elapsedTime += gameTime.ElapsedGameTime;
+
             if (MediaPlayer.State != MediaState.Playing)
             {
                 MediaPlayer.Play(_creditsSong);
             }
             credits.Position += _scrollingSpeed;
 
-            if (_elapsedTime >= _timeUntilCreditsFinish)
+            if (_elapsedTime >= _timeUntilCreditsFinish || keyboard.IsKeyDown(Keys.Escape))
             {
                 MediaPlayer.Stop();
+                _elapsedTime = new TimeSpan();
                 StateManager.ScreenState = ScreenState.Title;
             }
-
-            //TODO: UPDATE SPRITES
         }
     }
 }
