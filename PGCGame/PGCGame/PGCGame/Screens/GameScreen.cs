@@ -44,7 +44,12 @@ namespace PGCGame.Screens
 
         public override void MiscellaneousProcessing()
         {
-            
+            //TODO: Draw player spriebatch stuff
+        }
+
+        public override void OpenSpriteBatch(ref SpriteBatch sb)
+        {
+            //base.OpenSpriteBatch(ref sb);
         }
     }
 }
