@@ -3464,5 +3464,34 @@
             Gets or sets a string indicating the error message to display if the field is invalid.
             </summary>
         </member>
+        <member name="T:Glib.XNA.SpriteLib.BackgroundSprite">
+            <summary>
+            Represents a background Sprite which tiles a background.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.BackgroundSprite.#ctor(Microsoft.Xna.Framework.Graphics.Texture2D,Microsoft.Xna.Framework.Graphics.SpriteBatch,System.Int32,System.Int32)">
+            <summary>
+            Create a new BackgroundSprite.
+            </summary>
+            <param name="texture">The sprite texture.</param>
+            <param name="sb">The SpriteBatch.</param>
+            <param name="height">The height of the background matrix.</param>
+            <param name="width">The width of the background matrix.</param>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.BackgroundSprite.DrawNonAuto">
+            <summary>
+            Draw this background sprite w/o opening/closing the SpriteBatch.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.BackgroundSprite.CenterViewport">
+            <summary>
+            Sets the viewport to the middle of the BackgroundSprite Texture.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.BackgroundSprite.ShowStitches">
+            <summary>
+            Gets or sets a boolean indicating whether or not to show stitches.
+            </summary>
+        </member>
     </members>
 </doc>
