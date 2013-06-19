@@ -38,8 +38,6 @@ namespace PGCGame.Screens
             ship.Position = ship.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport, true);
             playerShip = ship;
             playerSbObjects.Add(ship);
-            //Sprites.Add(ship);
-            //Sprites.Add(ship);
             //Sprites.Add(new Drone(content.Load<Texture2D>("aTexture"), Vector2.Zero, this.Sprites.SpriteBatch, ship)); 
             //use Sprites to load your sprites
             //EX: Sprites.Add(new Sprite(content.Load<Texture2D>("assetName"), Vector2.Zero, Sprites.SpriteBatch));
