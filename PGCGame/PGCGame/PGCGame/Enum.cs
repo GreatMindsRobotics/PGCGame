@@ -12,6 +12,7 @@ namespace PGCGame
         Title,
         MainMenu,
         Credits,
-        Game
+        Game,
+        Option
     }
 }

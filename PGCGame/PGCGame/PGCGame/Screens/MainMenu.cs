@@ -132,6 +132,14 @@ namespace PGCGame.Screens
             OptionsLabel.IsSelected = true;
         }
 
+        public bool mouseInOptionButton
+        {
+            get
+            {
+                return OptionsLabel.IsSelected;
+            }
+        }
+
 
         //multiplayer button
         void MultiPlayerButton_MouseLeave(object sender, EventArgs e)
@@ -203,6 +211,10 @@ namespace PGCGame.Screens
                 if (mouseInCreditsButton)
                 {
                     StateManager.ScreenState = ScreenState.Credits;
+                }
+                if (mouseInOptionButton)
+                {
+                    StateManager.ScreenState = ScreenState.Option;
                 }
             }
             lastMs = currentMs;

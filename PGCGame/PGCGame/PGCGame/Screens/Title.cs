@@ -38,32 +38,37 @@ namespace PGCGame.Screens
 
         public void LoadContent(ContentManager content)
         {
-            //TODO: LOAD CONTENT
+            Viewport viewPort = Sprites.SpriteBatch.GraphicsDevice.Viewport;
             
             //use Sprites to load your sprites
             this.BackgroundSprite = new HorizontalMenuBGSprite(content.Load<Texture2D>("Images\\Background\\1920by1080SkyStar"), Sprites.SpriteBatch);
+
+            //loading the content ONCE
             Texture2D planetTexture = content.Load<Texture2D>("Images\\NonPlayingObject\\Planet");
+            Texture2D buttonTexture = content.Load<Texture2D>("Images\\Controls\\Button");
+            SpriteFont SegoeUIMono = content.Load<SpriteFont>("Fonts\\SegoeUIMono");
+
             Sprite planet = new Sprite(planetTexture, Vector2.Zero, Sprites.SpriteBatch);
             planet.Scale = new Vector2(.0625f);
             planet.Position = new Vector2(300, 321);
+            Sprites.Add(planet);
+
             Sprite planettwo = new Sprite(planetTexture, Vector2.Zero, Sprites.SpriteBatch);
             planettwo.Scale = new Vector2(.125f);
             planettwo.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width - 45 - planettwo.Width, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height - 13.5f - planettwo.Height);
-            Sprites.Add(planet);
             Sprites.Add(planettwo);
 
-            Viewport viewPort = Sprites.SpriteBatch.GraphicsDevice.Viewport;
-
+            //title image
             TitleImage = new Sprite(content.Load<Texture2D>("Images\\Controls\\Gametitle"), Vector2.Zero, Sprites.SpriteBatch);
-            TitleImage.Position = new Vector2(viewPort.Width / 2 - TitleImage.Texture.Width / 2, viewPort.Height * .2f);
+            TitleImage.Position = new Vector2(viewPort.Width / 2 - TitleImage.Texture.Width / 2, viewPort.Height * 0.2f);
             Sprites.Add(TitleImage);
 
-            PlayButton = new Sprite(content.Load<Texture2D>("Images\\Controls\\Button"), new Vector2(viewPort.Width * 0.375f, viewPort.Height * 0.4f), Sprites.SpriteBatch);
+            PlayButton = new Sprite(buttonTexture, new Vector2(viewPort.Width * 0.375f, viewPort.Height * 0.4f), Sprites.SpriteBatch);
             PlayButton.MouseEnter += new EventHandler(PlayButton_MouseEnter);
             PlayButton.MouseLeave += new EventHandler(PlayButton_MouseLeave);
             Sprites.Add(PlayButton);
 
-            PlayLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "Play");
+            PlayLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Play");
             PlayLabel.Position = new Vector2(PlayButton.X + (PlayButton.Width / 2 - PlayLabel.Width / 2), PlayButton.Y + (PlayButton.Height / 2 - PlayLabel.Height / 2 - (labelYOffset * PlayButton.Scale.Y)));
             PlayLabel.IsHoverable = true;
             PlayLabel.IsManuallySelectable = true;
@@ -72,22 +77,18 @@ namespace PGCGame.Screens
             AdditionalSprites.Add(PlayLabel);
 
 
-            ExitButton = new Sprite(content.Load<Texture2D>("Images\\Controls\\Button"), new Vector2(300, 300), Sprites.SpriteBatch);
+            ExitButton = new Sprite(buttonTexture, new Vector2(PlayButton.X, PlayButton.Y + (PlayButton.Height * 1.6f)), Sprites.SpriteBatch);
             ExitButton.MouseEnter += new EventHandler(ExitButton_MouseEnter);
             ExitButton.MouseLeave += new EventHandler(ExitButton_MouseLeave);
             Sprites.Add(ExitButton);
 
-            ExitLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(360, 310), content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "Exit");
+            ExitLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(360, 310), SegoeUIMono, "Exit");
             ExitLabel.IsHoverable = true;
             ExitLabel.Position = new Vector2(ExitButton.X + (ExitButton.Width / 2 - ExitLabel.Width / 2), ExitButton.Y + (ExitButton.Height / 2 - ExitLabel.Height / 2 - (labelYOffset * ExitButton.Scale.Y)));
             ExitLabel.IsManuallySelectable = true;
             ExitLabel.NonHoverColor = Color.White;
             ExitLabel.HoverColor = Color.MediumAquamarine;
             AdditionalSprites.Add(ExitLabel);
-
-            
-            //OR
-            //EX: Sprites.AddNewSprite(new Vector(0, 0), content.Load<Texture2D("assetName"));
         }
 
         void PlayButton_MouseLeave(object sender, EventArgs e)

@@ -30,6 +30,7 @@ namespace PGCGame
         Title titleScreen;
         MainMenu mainMenuScreen;
         Credits creditsScreen;
+        Options optionScreen;
 
         public Game1()
         {
@@ -78,7 +79,11 @@ namespace PGCGame
             gameScreen.LoadContent(Content);
             gameScreen.Name = "gameScreen";
 
-            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen);
+            optionScreen = new Options(spriteBatch);
+            optionScreen.LoadContent(Content);
+            optionScreen.Name = "optionScreen";
+
+            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen);
             StateManager.AllScreens = screenManager;
         }
 
