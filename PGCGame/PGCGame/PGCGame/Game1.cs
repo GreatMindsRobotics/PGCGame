@@ -64,6 +64,7 @@ namespace PGCGame
             titleScreen = new Title(spriteBatch, new Title.quitFunction(Exit));
             titleScreen.LoadContent(Content);
             titleScreen.Name = "titleScreen";
+            titleScreen.Visible = true;
 
             mainMenuScreen = new MainMenu(spriteBatch);
             mainMenuScreen.LoadContent(Content);
