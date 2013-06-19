@@ -17,13 +17,17 @@ namespace PGCGame
         public HorizontalMenuBGSprite(Texture2D bg, SpriteBatch sb)
         {
             vp = sb.GraphicsDevice.Viewport;
+            
             Sprite spr1 = new Sprite(bg, Vector2.Zero, sb);
-            spr1.YSpeed = .15f;
+            spr1.YSpeed = 1.5f;
             _bgList.Add(spr1);
-            Sprite spr2 = new Sprite(bg, new Vector2(0, -bg.Height), sb);
+
+            Sprite spr2 = new Sprite(bg, new Vector2(0, -bg.Height - (PGCGame.Screens.MainMenu.DebugBackground ? 1 : 0)), sb);
             spr2.Effect = SpriteEffects.FlipVertically;
+            spr2.YSpeed = spr1.YSpeed;
             _bgList.Add(spr2);
-            spr1.Moved += new EventHandler(spr1_Moved);
+            
+            //spr1.Moved += new EventHandler(spr1_Moved);
         }
 
         void spr1_Moved(object sender, EventArgs e)
@@ -36,13 +40,18 @@ namespace PGCGame
             foreach (Sprite s in _bgList)
             {
                 s.Update();
-                
+                if (s.Y >= vp.Height)
+                {
+                    s.Position = new Vector2(0, -s.Height);
+                }
+
             }
+            /*
             if (_bgList[0].Y >= vp.Height)
             {
                 _bgList[0].Position = Vector2.Zero;
-                _bgList[0].Effect = _bgList[0].Effect == SpriteEffects.FlipHorizontally ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-            }
+                //_bgList[0].Effect = _bgList[0].Effect == SpriteEffects.FlipHorizontally ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            }*/
         }
 
         public void Draw()
