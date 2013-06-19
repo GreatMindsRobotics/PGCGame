@@ -51,6 +51,7 @@ namespace PGCGame
         }
 
         GameScreen gameScreen;
+        Shop shopScreen;
 
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
@@ -61,6 +62,9 @@ namespace PGCGame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            shopScreen = new Shop(spriteBatch);
+            shopScreen.LoadContent(Content);
+            shopScreen.Name = "shopScreen";
 
             titleScreen = new Title(spriteBatch, new Title.quitFunction(Exit));
             titleScreen.LoadContent(Content);
@@ -83,7 +87,9 @@ namespace PGCGame
             optionScreen.LoadContent(Content);
             optionScreen.Name = "optionScreen";
 
-            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen);
+
+
+            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen);
             StateManager.AllScreens = screenManager;
         }
 

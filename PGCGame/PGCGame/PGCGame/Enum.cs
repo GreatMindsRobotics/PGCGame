@@ -13,6 +13,7 @@ namespace PGCGame
         MainMenu,
         Credits,
         Game,
-        Option
+        Option,
+        Shop
     }
 }

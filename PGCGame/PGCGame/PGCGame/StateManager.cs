@@ -40,6 +40,9 @@ namespace PGCGame
                     case PGCGame.ScreenState.Option:
                         AllScreens["optionScreen"].Visible = true;
                         break;
+                    case ScreenState.Shop:
+                        AllScreens["shopScreen"].Visible = true;
+                        break;
                 }
             }
         }
