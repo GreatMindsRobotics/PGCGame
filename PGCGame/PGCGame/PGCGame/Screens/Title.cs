@@ -49,13 +49,13 @@ namespace PGCGame.Screens
             SpriteFont SegoeUIMono = content.Load<SpriteFont>("Fonts\\SegoeUIMono");
 
             Sprite planet = new Sprite(planetTexture, Vector2.Zero, Sprites.SpriteBatch);
-            planet.Scale = new Vector2(.0625f);
-            planet.Position = new Vector2(300, 321);
+            planet.Scale = new Vector2(.7f);
+            planet.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.1f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .16f);
             Sprites.Add(planet);
 
             Sprite planettwo = new Sprite(planetTexture, Vector2.Zero, Sprites.SpriteBatch);
-            planettwo.Scale = new Vector2(.125f);
-            planettwo.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width - 45 - planettwo.Width, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height - 13.5f - planettwo.Height);
+            planettwo.Scale = new Vector2(1f);
+            planettwo.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.8f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .75f);
             Sprites.Add(planettwo);
 
             //title image
@@ -82,7 +82,7 @@ namespace PGCGame.Screens
             ExitButton.MouseLeave += new EventHandler(ExitButton_MouseLeave);
             Sprites.Add(ExitButton);
 
-            ExitLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(360, 310), SegoeUIMono, "Exit");
+            ExitLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(ExitButton.Y + (PlayButton.Width / 2 - PlayLabel.Width / 2), ExitButton.Y + (PlayButton.Height / 2 - PlayLabel.Height / 2 - (labelYOffset * PlayButton.Scale.Y))), SegoeUIMono, "Exit");
             ExitLabel.IsHoverable = true;
             ExitLabel.Position = new Vector2(ExitButton.X + (ExitButton.Width / 2 - ExitLabel.Width / 2), ExitButton.Y + (ExitButton.Height / 2 - ExitLabel.Height / 2 - (labelYOffset * ExitButton.Scale.Y)));
             ExitLabel.IsManuallySelectable = true;
