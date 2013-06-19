@@ -24,6 +24,11 @@ namespace GitPractice
         Ship spaceShip;
         HorizontalEnemy enemy;
 
+
+        Texture2D backgroundImage;
+        Vector2 backgroundLocation;
+        Color backgroundTint;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -60,6 +65,11 @@ namespace GitPractice
             enemy.LoadContent(Content, "coin");
             enemy.Speed = new Vector2(5, 0);
             enemy.MoveDirection = MoveDirection.Right;
+
+            backgroundImage = Content.Load<Texture2D>("assassins-creed-4-hd-wallpaper");
+            backgroundLocation = Vector2.Zero;
+            backgroundTint = Color.White;
+
         }
 
         /// <summary>
@@ -98,8 +108,10 @@ namespace GitPractice
 
             spriteBatch.Begin();
 
+            spriteBatch.Draw(backgroundImage, backgroundLocation, backgroundTint);
             enemy.Draw(spriteBatch);
             spaceShip.Draw(spriteBatch);
+
             spriteBatch.End();
 
             base.Draw(gameTime);
