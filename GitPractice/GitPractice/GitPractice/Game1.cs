@@ -24,7 +24,14 @@ namespace GitPractice
         Ship spaceShip;
         HorizontalEnemy enemy;
 
+<<<<<<< HEAD
         Song bgMusic;
+=======
+
+        Texture2D backgroundImage;
+        Vector2 backgroundLocation;
+        Color backgroundTint;
+>>>>>>> db41775e174ae7dcee253d2a68330058ebd522f5
 
         public Game1()
         {
@@ -63,9 +70,16 @@ namespace GitPractice
             enemy.Speed = new Vector2(5, 0);
             enemy.MoveDirection = MoveDirection.Right;
 
+<<<<<<< HEAD
             bgMusic = Content.Load<Song>("Kalimba");
             MediaPlayer.Play(bgMusic);
             MediaPlayer.IsRepeating = true;
+=======
+            backgroundImage = Content.Load<Texture2D>("assassins-creed-4-hd-wallpaper");
+            backgroundLocation = Vector2.Zero;
+            backgroundTint = Color.White;
+
+>>>>>>> db41775e174ae7dcee253d2a68330058ebd522f5
         }
 
         /// <summary>
@@ -104,8 +118,10 @@ namespace GitPractice
 
             spriteBatch.Begin();
 
+            spriteBatch.Draw(backgroundImage, backgroundLocation, backgroundTint);
             enemy.Draw(spriteBatch);
             spaceShip.Draw(spriteBatch);
+
             spriteBatch.End();
 
             base.Draw(gameTime);
