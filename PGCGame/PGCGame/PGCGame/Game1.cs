@@ -35,7 +35,6 @@ namespace PGCGame
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            IsMouseVisible = true;
         }
 
         /// <summary>
@@ -47,6 +46,7 @@ namespace PGCGame
         protected override void Initialize()
         {   
             base.Initialize();
+            IsMouseVisible = true;
         }
 
         GameScreen gameScreen;
