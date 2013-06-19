@@ -39,21 +39,21 @@ namespace PGCGame.Screens
             //OR
             //EX: Sprites.AddNewSprite(new Vector(0, 0), content.Load<Texture2D("assetName"));
 
-            Sprite Title = new Sprite(content.Load<Texture2D>("Images\\Controls\\Gametitle"), new Vector2(25), Sprites.SpriteBatch);
+            Sprite Title = new Sprite(content.Load<Texture2D>("Images\\Controls\\Gametitle"), new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width*.05f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height*.07f), Sprites.SpriteBatch);
             this.BackgroundSprite = new HorizontalMenuBGSprite(content.Load<Texture2D>("Images\\Background\\1920by1080SkyStar"), Sprites.SpriteBatch);
             Texture2D planetTexture = content.Load<Texture2D>("Images\\NonPlayingObject\\Planet");
             Sprite planet = new Sprite(planetTexture, Vector2.Zero, Sprites.SpriteBatch);
             planet.Scale = new Vector2(.0625f);
-            planet.Position = new Vector2(300,321);
+            planet.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.423f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .6f);
             Sprite planettwo = new Sprite(planetTexture, Vector2.Zero, Sprites.SpriteBatch);
             planettwo.Scale = new Vector2(.125f);
-            planettwo.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width - 45 - planettwo.Width, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height - 13.5f - planettwo.Height);
+            planettwo.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.92f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .92f);
             Sprites.Add(planet);
             Sprites.Add(planettwo);
             
             Sprites.Add(Title);
-            Sprite SinglePlayerButton = new Sprite(content.Load<Texture2D>("Images\\Controls\\Button"), new Vector2(50, 100), Sprites.SpriteBatch);
-            SinglePlayerLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(72, 110), content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "Singleplayer");
+            Sprite SinglePlayerButton = new Sprite(content.Load<Texture2D>("Images\\Controls\\Button"), new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .21f), Sprites.SpriteBatch);
+            SinglePlayerLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .087f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .23f), content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "Singleplayer");
             SinglePlayerLabel.IsHoverable = true;
             SinglePlayerLabel.IsManuallySelectable = true;
             SinglePlayerLabel.NonHoverColor = Color.White;
@@ -64,8 +64,8 @@ namespace PGCGame.Screens
             Sprites.Add(SinglePlayerButton);
             AdditionalSprites.Add(SinglePlayerLabel);
 
-            Sprite MultiPlayerButton = new Sprite(content.Load<Texture2D>("Images\\Controls\\Button"), new Vector2(50, 195), Sprites.SpriteBatch);
-            MultiPlayerLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(78, 205), content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "Multiplayer");
+            Sprite MultiPlayerButton = new Sprite(content.Load<Texture2D>("Images\\Controls\\Button"), new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .405f), Sprites.SpriteBatch);
+            MultiPlayerLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .093f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .425f), content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "Multiplayer");
             MultiPlayerLabel.IsHoverable = true;
             MultiPlayerLabel.IsManuallySelectable = true;
             MultiPlayerLabel.NonHoverColor = Color.White;
@@ -77,8 +77,8 @@ namespace PGCGame.Screens
             Sprites.Add(MultiPlayerButton);
             AdditionalSprites.Add(MultiPlayerLabel);
 
-            Sprite BackButton = new Sprite(content.Load<Texture2D>("Images\\Controls\\Button"), new Vector2(50, 290), Sprites.SpriteBatch);
-            BackLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(115, 299), content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "Back");
+            Sprite BackButton = new Sprite(content.Load<Texture2D>("Images\\Controls\\Button"), new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .60f), Sprites.SpriteBatch);
+            BackLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .139f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .62f), content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "Back");
             BackLabel.Color = Color.White;
             BackButton.MouseEnter += new EventHandler(BackButton_MouseEnter);
             BackButton.MouseLeave += new EventHandler(BackButton_MouseLeave);
@@ -86,8 +86,8 @@ namespace PGCGame.Screens
             Sprites.Add(BackButton);
             AdditionalSprites.Add(BackLabel);
 
-            Sprite OptionsButton = new Sprite(content.Load<Texture2D>("Images\\Controls\\Button"), new Vector2(290, 100), Sprites.SpriteBatch);
-            OptionsLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(340, 110), content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "Options");
+            Sprite OptionsButton = new Sprite(content.Load<Texture2D>("Images\\Controls\\Button"), new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .362f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .21f), Sprites.SpriteBatch);
+            OptionsLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .422f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .23f), content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "Options");
             OptionsLabel.IsHoverable = true;
             OptionsLabel.IsManuallySelectable = true;
             OptionsLabel.NonHoverColor = Color.White;
@@ -98,8 +98,8 @@ namespace PGCGame.Screens
             Sprites.Add(OptionsButton);
             AdditionalSprites.Add(OptionsLabel);
 
-            Sprite CreditsButton = new Sprite(content.Load<Texture2D>("Images\\Controls\\Button"), new Vector2(290, 195), Sprites.SpriteBatch);
-            CreditsLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(340, 205), content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "Credits");
+            Sprite CreditsButton = new Sprite(content.Load<Texture2D>("Images\\Controls\\Button"), new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .362f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .405f), Sprites.SpriteBatch);
+            CreditsLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .423f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .425f), content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "Credits");
             CreditsLabel.IsHoverable = true;
             CreditsLabel.IsManuallySelectable = true;
             CreditsLabel.NonHoverColor = Color.White;
