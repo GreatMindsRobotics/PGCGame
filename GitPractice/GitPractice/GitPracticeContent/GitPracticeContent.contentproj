@@ -51,15 +51,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Kalimba.mp3">
-      <Name>Kalimba</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
-    </Compile>
-    <Compile Include="assassins-creed-4-hd-wallpaper.jpg">
-      <Name>assassins-creed-4-hd-wallpaper</Name>
+    <Compile Include="Snake.png">
+      <Name>bgImage</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Movement Proposition.mp3">
+      <Name>bgMusic</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
