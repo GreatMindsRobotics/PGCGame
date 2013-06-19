@@ -37,8 +37,21 @@ namespace PGCGame.Screens
         public void LoadContent(ContentManager content)
         {
             //TODO: LOAD CONTENT
-            
+
+            StateManager.Options.Volume = 50;
+
             //use Sprites to load your sprites
+            this.BackgroundSprite = new HorizontalMenuBGSprite(content.Load<Texture2D>("Images\\Background\\1920by1080SkyStar"), Sprites.SpriteBatch);
+            Texture2D planetTexture = content.Load<Texture2D>("Images\\NonPlayingObject\\Planet");
+            Sprite planet = new Sprite(planetTexture, Vector2.Zero, Sprites.SpriteBatch);
+            planet.Scale = new Vector2(.0625f);
+            planet.Position = new Vector2(300, 321);
+            Sprite planettwo = new Sprite(planetTexture, Vector2.Zero, Sprites.SpriteBatch);
+            planettwo.Scale = new Vector2(.125f);
+            planettwo.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width - 45 - planettwo.Width, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height - 13.5f - planettwo.Height);
+            Sprites.Add(planet);
+            Sprites.Add(planettwo);
+
             TitleImage = new Sprite(content.Load<Texture2D>("Images\\Controls\\Gametitle"), new Vector2(150, 100), Sprites.SpriteBatch);
             Sprites.Add(TitleImage);
 
