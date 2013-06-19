@@ -22,6 +22,7 @@ namespace PGCGame
             : base(texture, location, spriteBatch)
         {
             ParentShip = parent;
+            _performMovement = false;
             ParentShip.BulletFired += new EventHandler(ParentShip_BulletFired);
         }
 

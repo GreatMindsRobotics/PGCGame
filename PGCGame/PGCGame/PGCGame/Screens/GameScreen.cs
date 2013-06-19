@@ -37,6 +37,7 @@ namespace PGCGame.Screens
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            BackgroundSprite.Cast<BackgroundSprite>().CenterViewport();
             //TODO: UPDATE SPRITES
         }
     }
