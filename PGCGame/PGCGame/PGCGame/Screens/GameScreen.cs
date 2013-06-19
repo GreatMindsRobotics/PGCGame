@@ -23,6 +23,7 @@ namespace PGCGame.Screens
             playerSb = new SpriteBatch(spriteBatch.GraphicsDevice);
         }
 
+        Ship playerShip;
         SpriteBatch playerSb;
 
         List<ISprite> playerSbObjects = new List<ISprite>();
@@ -30,11 +31,12 @@ namespace PGCGame.Screens
         public void LoadContent(ContentManager content)
         {
             //TODO: LOAD CONTENT
-            BackgroundSprite bs = new BackgroundSprite(content.Load<Texture2D>("Images\\Background\\NebulaSky"), Sprites.SpriteBatch, 10, 10);
-            worldCam.Pos = new Vector2(bs.Width/2, bs.Height/2);
-            BackgroundSprite = bs;
+            BackgroundSprite bgspr = new BackgroundSprite(content.Load<Texture2D>("Images\\Background\\NebulaSky"), Sprites.SpriteBatch, 10, 10);
+            worldCam.Pos = new Vector2(bgspr.TotalWidth/2, bgspr.TotalHeight/2);
+            BackgroundSprite = bgspr;
             FighterCarrier ship = new FighterCarrier(content.Load<Texture2D>("Images\\Fighter Carrier\\Tier1"),Vector2.Zero, playerSb);
             ship.Position = ship.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport, true);
+            playerShip = ship;
             playerSbObjects.Add(ship);
             //Sprites.Add(ship);
             //Sprites.Add(ship);
@@ -48,25 +50,38 @@ namespace PGCGame.Screens
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            BackgroundSprite bg = BackgroundSprite.Cast<BackgroundSprite>();
             //TODO: UPDATE SPRITES
             KeyboardState keyboard = Keyboard.GetState();
             Vector2 camMove = Vector2.Zero;
             if (keyboard.IsKeyDown(Keys.W))
             {
-                camMove.Y = -1;
+                if (worldCam.Pos.Y > bg.Height / 2)
+                {
+                    camMove.Y = -playerShip.MovementSpeed.Y;
+                }
             }
             else if (keyboard.IsKeyDown(Keys.S))
             {
-                camMove.Y = 1;
+                if (worldCam.Pos.Y < bg.TotalHeight - (bg.Height / 2))
+                {
+                    camMove.Y = playerShip.MovementSpeed.Y;
+                }
             }
 
             if (keyboard.IsKeyDown(Keys.D))
             {
-                camMove.X = 1;
+                if (worldCam.Pos.X < bg.TotalWidth - (bg.Width / 2))
+                {
+                    camMove.X = playerShip.MovementSpeed.X;
+                }
             }
             else if (keyboard.IsKeyDown(Keys.A))
             {
-                camMove.X = -1;
+                if (worldCam.Pos.X > bg.Width / 2)
+                {
+                    camMove.X = -playerShip.MovementSpeed.X;
+                }
             }
             
             worldCam.Move(camMove);

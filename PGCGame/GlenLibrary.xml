@@ -1443,6 +1443,26 @@
             Sets the viewport to the middle of the BackgroundSprite Texture.
             </summary>
         </member>
+        <member name="P:Glib.XNA.SpriteLib.BackgroundSprite.HorizontalCount">
+            <summary>
+            Gets the count of background image tiles horizontally.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.BackgroundSprite.VerticalCount">
+            <summary>
+            Gets the count of background image tiles vertiacally.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.BackgroundSprite.TotalWidth">
+            <summary>
+            Gets the total width of the background.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.BackgroundSprite.TotalHeight">
+            <summary>
+            Gets the total height of the background.
+            </summary>
+        </member>
         <member name="P:Glib.XNA.SpriteLib.BackgroundSprite.ShowStitches">
             <summary>
             Gets or sets a boolean indicating whether or not to show stitches.
