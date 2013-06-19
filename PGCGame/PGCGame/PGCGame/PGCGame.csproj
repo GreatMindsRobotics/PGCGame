@@ -77,11 +77,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BGSprite.cs" />
+    <Compile Include="Camera2DMatrix.cs" />
     <Compile Include="Enum.cs" />
     <Compile Include="Screens\Credits.cs" />
     <Compile Include="Screens\GameScreen.cs" />
     <Compile Include="Screens\MainMenu.cs" />
     <Compile Include="Screens\Options.cs" />
+    <Compile Include="Screens\Shop.cs" />
     <Compile Include="Screens\Title.cs" />
     <Compile Include="Ships\BattleCruiser.cs" />
     <Compile Include="Bullets\Bullet.cs" />

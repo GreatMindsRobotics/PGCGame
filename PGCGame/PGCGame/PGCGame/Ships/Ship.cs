@@ -24,7 +24,7 @@ namespace PGCGame
 
    
 
-        protected bool _performMovement = true;
+        protected bool _performMovement = false;
         protected bool _rotateTowardsMouse = true;
 
         public Ship(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
