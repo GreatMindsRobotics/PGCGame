@@ -3209,7 +3209,7 @@
         </member>
         <member name="F:Glib.XNA.SpriteLib.Screen.BackgroundSprite">
             <summary>
-            If set, the Sprite to use as the background.
+            If set, the ISprite to use as the background.
             </summary>
         </member>
         <member name="M:Glib.XNA.SpriteLib.Screen.#ctor(Glib.XNA.SpriteLib.SpriteManager,Microsoft.Xna.Framework.Color)">

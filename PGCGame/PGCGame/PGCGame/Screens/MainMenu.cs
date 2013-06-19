@@ -38,8 +38,18 @@ namespace PGCGame.Screens
             //EX: Sprites.AddNewSprite(new Vector(0, 0), content.Load<Texture2D("assetName"));
             
             Sprite Title = new Sprite(content.Load<Texture2D>("Gametitle"), new Vector2(25), Sprites.SpriteBatch);
+            BackgroundSprite = new HorizontalMenuBGSprite(content.Load<Texture2D>("1920by1080SkyStar"), Sprites.SpriteBatch);
+            Texture2D planetTexture = content.Load<Texture2D>("Planet");
+            Sprite planet = new Sprite(planetTexture, Vector2.Zero, Sprites.SpriteBatch);
+            planet.Scale = new Vector2(.0625f);
+            planet.Position = new Vector2(300,321);
+            Sprite planettwo = new Sprite(planetTexture, Vector2.Zero, Sprites.SpriteBatch);
+            planettwo.Scale = new Vector2(.125f);
+            planettwo.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width - 45 - planettwo.Width, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height - 13.5f - planettwo.Height);
+            Sprites.Add(planet);
+            Sprites.Add(planettwo);
+            
             Sprites.Add(Title);
-
             Sprite SinglePlayerButton = new Sprite(content.Load<Texture2D>("Button"), new Vector2(50, 100), Sprites.SpriteBatch);
             SinglePlayerLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(72, 110), content.Load<SpriteFont>("TitleFont"), "Singleplayer");
             SinglePlayerLabel.IsHoverable = true;
