@@ -19,7 +19,7 @@ namespace PGCGame
             vp = sb.GraphicsDevice.Viewport;
             
             Sprite spr1 = new Sprite(bg, Vector2.Zero, sb);
-            spr1.YSpeed = 1.5f;
+            spr1.YSpeed = 1.5f / (PGCGame.Screens.MainMenu.DebugBackground ? 1 : 10);
             _bgList.Add(spr1);
 
             Sprite spr2 = new Sprite(bg, new Vector2(0, -bg.Height - (PGCGame.Screens.MainMenu.DebugBackground ? 1 : 0)), sb);
