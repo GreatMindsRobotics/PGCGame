@@ -69,275 +69,63 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ships\Additional\1.png">
-      <Name>1</Name>
+    <Compile Include="Images\Battle Cruiser\Tier1.png">
+      <Name>Tier1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Ships\Additional\10.png">
-      <Name>10</Name>
+    <Compile Include="Images\Battle Cruiser\Tier2.png">
+      <Name>Tier2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Ships\Additional\10B.png">
-      <Name>10B</Name>
+    <Compile Include="Images\Battle Cruiser\Tier3.png">
+      <Name>Tier3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Ships\Additional\11.png">
-      <Name>11</Name>
+    <Compile Include="Images\Battle Cruiser\Tier4.png">
+      <Name>Tier4</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Ships\Additional\11B.png">
-      <Name>11B</Name>
+    <Compile Include="Images\Fighter Carrier\Tier1.png">
+      <Name>Tier1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Ships\Additional\12.png">
-      <Name>12</Name>
+    <Compile Include="Images\Fighter Carrier\Tier2.png">
+      <Name>Tier2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Ships\Additional\12B.png">
-      <Name>12B</Name>
+    <Compile Include="Images\Fighter Carrier\Tier3.png">
+      <Name>Tier3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Ships\Additional\13.png">
-      <Name>13</Name>
+    <Compile Include="Images\Fighter Carrier\Tier4.png">
+      <Name>Tier4</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Ships\Additional\13B.png">
-      <Name>13B</Name>
+    <Compile Include="Images\Torpedo Ship\Tier1.png">
+      <Name>Tier1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Ships\Additional\1B.png">
-      <Name>1B</Name>
+    <Compile Include="Images\Torpedo Ship\Tier2.png">
+      <Name>Tier2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Ships\Additional\2.png">
-      <Name>2</Name>
+    <Compile Include="Images\Torpedo Ship\Tier3.png">
+      <Name>Tier3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Ships\Additional\2B.png">
-      <Name>2B</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\Additional\3.png">
-      <Name>3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\Additional\3B.png">
-      <Name>3B</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\Additional\4.png">
-      <Name>4</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\Additional\4B.png">
-      <Name>4B</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\Additional\5.png">
-      <Name>5</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\Additional\5B.png">
-      <Name>5B</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\Additional\6.png">
-      <Name>6</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\Additional\6B.png">
-      <Name>6B</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\Additional\7.png">
-      <Name>7</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\Additional\7B.png">
-      <Name>7B</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\Additional\8.png">
-      <Name>8</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\Additional\8B.png">
-      <Name>8B</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\Additional\9.png">
-      <Name>9</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\Additional\9B.png">
-      <Name>9B</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Ships\1.png">
-      <Name>1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\10.png">
-      <Name>10</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\11.png">
-      <Name>11</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\12.png">
-      <Name>12</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\13.png">
-      <Name>13</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\2.png">
-      <Name>2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\3.png">
-      <Name>3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\4.png">
-      <Name>4</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\5.png">
-      <Name>5</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\8.png">
-      <Name>8</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\9.png">
-      <Name>9</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\Alien-Battlecruiser.png">
-      <Name>Alien-Battlecruiser</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\Alien-Battleship.png">
-      <Name>Alien-Battleship</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\Alien-Bomber.png">
-      <Name>Alien-Bomber</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\Alien-Cruiser.png">
-      <Name>Alien-Cruiser</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\Alien-Destroyer.png">
-      <Name>Alien-Destroyer</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\Alien-Frigatey.png">
-      <Name>Alien-Frigatey</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\Alien-HeavyCruiser.png">
-      <Name>Alien-HeavyCruiser</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\Alien-Mothership.png">
-      <Name>Alien-Mothership</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\Alien-Scout.png">
-      <Name>Alien-Scout</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\Alien-Spacestation.png">
-      <Name>Alien-Spacestation</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\Battleship.png">
-      <Name>Battleship</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\Corvette.png">
-      <Name>Corvette</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\Cruiser.png">
-      <Name>Cruiser</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\Cruiser2.png">
-      <Name>Cruiser2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\Destroyer.png">
-      <Name>Destroyer</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\Frigate.png">
-      <Name>Frigate</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Ships\spaceship_top_Down6.png">
-      <Name>spaceship_top_Down6</Name>
+    <Compile Include="Images\Torpedo Ship\Tier4.png">
+      <Name>Tier4</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
