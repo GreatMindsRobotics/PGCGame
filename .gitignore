@@ -1,4 +1,10 @@
 #################
+## Conflicting files
+#################
+PGCGame.csproj.Debug.cachefile
+
+
+#################
 ## Eclipse
 #################
 
