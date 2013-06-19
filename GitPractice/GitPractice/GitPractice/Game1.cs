@@ -24,6 +24,8 @@ namespace GitPractice
         Ship spaceShip;
         HorizontalEnemy enemy;
 
+        Song bgMusic;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -60,6 +62,10 @@ namespace GitPractice
             enemy.LoadContent(Content, "coin");
             enemy.Speed = new Vector2(5, 0);
             enemy.MoveDirection = MoveDirection.Right;
+
+            bgMusic = Content.Load<Song>("Kalimba");
+            MediaPlayer.Play(bgMusic);
+            MediaPlayer.IsRepeating = true;
         }
 
         /// <summary>
