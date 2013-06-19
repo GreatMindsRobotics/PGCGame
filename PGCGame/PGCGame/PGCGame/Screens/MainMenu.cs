@@ -40,7 +40,7 @@ namespace PGCGame.Screens
             //EX: Sprites.AddNewSprite(new Vector(0, 0), content.Load<Texture2D("assetName"));
 
             Sprite Title = new Sprite(content.Load<Texture2D>("Images\\Controls\\Gametitle"), new Vector2(25), Sprites.SpriteBatch);
-            BackgroundSprite = new HorizontalMenuBGSprite(content.Load<Texture2D>("Images\\Background\\1920by1080SkyStar"), Sprites.SpriteBatch);
+            this.BackgroundSprite = new HorizontalMenuBGSprite(content.Load<Texture2D>("Images\\Background\\1920by1080SkyStar"), Sprites.SpriteBatch);
             Texture2D planetTexture = content.Load<Texture2D>("Images\\NonPlayingObject\\Planet");
             Sprite planet = new Sprite(planetTexture, Vector2.Zero, Sprites.SpriteBatch);
             planet.Scale = new Vector2(.0625f);
