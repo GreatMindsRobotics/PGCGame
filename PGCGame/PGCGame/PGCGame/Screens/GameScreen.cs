@@ -31,7 +31,7 @@ namespace PGCGame.Screens
             //Sprites.Add(ship);
             //Sprites.Add(new Drone(content.Load<Texture2D>("aTexture"), Vector2.Zero, this.Sprites.SpriteBatch, ship)); 
             //use Sprites to load your sprites
-            //EX: Sprites.Add(new Sprite(content.Load<Texture2D>("assetName"), new Vector2(0, 0), Sprites.SpriteBatch));
+            //EX: Sprites.Add(new Sprite(content.Load<Texture2D>("assetName"), Vector2.Zero, Sprites.SpriteBatch));
             //OR
             //EX: Sprites.AddNewSprite(new Vector(0, 0), content.Load<Texture2D("assetName"));
         }
@@ -40,6 +40,11 @@ namespace PGCGame.Screens
         {
             base.Update(gameTime);
             //TODO: UPDATE SPRITES
+        }
+
+        public override void MiscellaneousProcessing()
+        {
+            
         }
     }
 }
