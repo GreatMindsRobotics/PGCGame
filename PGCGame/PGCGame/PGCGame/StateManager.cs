@@ -43,6 +43,9 @@ namespace PGCGame
                     case ScreenState.Shop:
                         AllScreens["shopScreen"].Visible = true;
                         break;
+                    case PGCGame.ScreenState.Pause:
+                        AllScreens["pauseScreen"].Visible = true;
+                        break;
                 }
             }
         }

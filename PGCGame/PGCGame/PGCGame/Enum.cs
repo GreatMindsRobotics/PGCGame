@@ -14,6 +14,7 @@ namespace PGCGame
         Credits,
         Game,
         Option,
-        Shop
+        Shop,
+        Pause
     }
 }
