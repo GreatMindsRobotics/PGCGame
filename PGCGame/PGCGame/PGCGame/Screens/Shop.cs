@@ -24,6 +24,7 @@ namespace PGCGame.Screens
         TextSprite upgradeELabel;
         TextSprite shipLabel;
         TextSprite weaponsLabel;
+        TextSprite backLabel;
 
         public void LoadContent(ContentManager content)
         {
@@ -37,8 +38,8 @@ namespace PGCGame.Screens
             SpriteFont SegoeUIMono = content.Load<SpriteFont>("Fonts\\SegoeUIMono");
 
             Sprite upgradeEButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .1f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .4f), Sprites.SpriteBatch);
-            upgradeELabel = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .117f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .425f), SegoeUIMono, "Upgrade Equipment");
-            upgradeELabel.Scale = new Vector2(0.8f);
+            upgradeELabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Equipment");
+            upgradeELabel.Position = new Vector2((upgradeEButton.X + upgradeEButton.Width / 2) - upgradeELabel.Width / 2, (upgradeEButton.Y + upgradeEButton.Height / 2) - upgradeELabel.Height / 2);
             upgradeELabel.Color = Color.White;
             upgradeELabel.IsHoverable = true;
             upgradeELabel.IsManuallySelectable = true;
@@ -51,7 +52,8 @@ namespace PGCGame.Screens
             AdditionalSprites.Add(upgradeELabel);
 
             Sprite shipButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .400f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .4f), Sprites.SpriteBatch);
-            shipLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .48f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .42f), SegoeUIMono, "Ship");
+            shipLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Ship");
+            shipLabel.Position = new Vector2((shipButton.X + shipButton.Width / 2) - shipLabel.Width / 2, (shipButton.Y + shipButton.Height / 2) - shipLabel.Height / 2);
             shipLabel.Color = Color.White;
             shipLabel.IsHoverable = true;
             shipLabel.IsManuallySelectable = true;
@@ -64,7 +66,8 @@ namespace PGCGame.Screens
             AdditionalSprites.Add(shipLabel);
 
             Sprite weaponsButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .700f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .4f), Sprites.SpriteBatch);
-            weaponsLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .76f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .42f), SegoeUIMono, "Weapons");
+            weaponsLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Weapons");
+            weaponsLabel.Position = new Vector2((weaponsButton.X + weaponsButton.Width / 2) - weaponsLabel.Width / 2, (weaponsButton.Y + weaponsButton.Height / 2) - weaponsLabel.Height / 2);
             weaponsLabel.Color = Color.White;
             weaponsLabel.IsHoverable = true;
             weaponsLabel.IsManuallySelectable = true;
@@ -75,6 +78,7 @@ namespace PGCGame.Screens
 
             Sprites.Add(weaponsButton);
             AdditionalSprites.Add(weaponsLabel);
+
         }
 
         //weaponsbutton
