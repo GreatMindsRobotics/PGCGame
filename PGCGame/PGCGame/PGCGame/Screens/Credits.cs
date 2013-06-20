@@ -127,6 +127,8 @@ namespace PGCGame.Screens
                 MediaPlayer.Stop();
                 _elapsedTime = new TimeSpan();
                 StateManager.ScreenState = ScreenState.Title;
+                credits.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .255f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height);
+
             }
         }
     }
