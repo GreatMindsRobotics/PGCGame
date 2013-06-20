@@ -98,7 +98,7 @@ namespace PGCGame.Screens
 
 
 
-            ships = new Sprite[2] { new Sprite(buttonImage, Vector2.Zero, Sprites.SpriteBatch), new Sprite(content.Load<Texture2D>("Fighter Carrier\\Tier1"), Vector2.Zero, Sprites.SpriteBatch) };
+            ships = new Sprite[2] { new Sprite(buttonImage, Vector2.Zero, Sprites.SpriteBatch), new Sprite(content.Load<Texture2D>("Images\\Fighter Carrier\\Tier1"), Vector2.Zero, Sprites.SpriteBatch) };
             descriptions = new TextSprite[2] { new TextSprite(Sprites.SpriteBatch, SegoeUIMono, "Description 1", Color.White), new TextSprite(Sprites.SpriteBatch, SegoeUIMono, "Description 2")};
             Sprites.Add(ships[0]);
             
@@ -164,7 +164,7 @@ namespace PGCGame.Screens
                 if(mouseInplayButton)
                 {
                     //TODO: Ship selection screen will choose ship
-                     StateManager.InitializeSingleplayerGameScreen<BattleCruiser>(ShipTier.Tier4);
+                    StateManager.InitializeSingleplayerGameScreen<FighterCarrier>(ShipTier.Tier1);
                     StateManager.ScreenState = ScreenState.Game;
                 }
                 if(mouseInbackButton)

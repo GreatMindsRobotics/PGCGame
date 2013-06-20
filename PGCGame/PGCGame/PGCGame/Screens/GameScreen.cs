@@ -59,18 +59,6 @@ namespace PGCGame.Screens
             }
             TShip ship = null;
             Texture2D shipTexture = null;
-            foreach (KeyValuePair<string, Texture2D> kvp in shipTextures)
-            {
-                if (kvp.Key.Trim().Equals(ship.TextureFolder + "\\" + tier.ToString()))
-                {
-                    shipTexture = kvp.Value;
-                }
-            }
-            if (shipTexture == null)
-            {
-                shipTexture = storedCm.Load<Texture2D>("Images\\" + ship.TextureFolder + "\\" + tier.ToString().Replace("ShipTier.", ""));
-                shipTextures.Add(new KeyValuePair<string, Texture2D>(ship.TextureFolder + "\\" + tier.ToString(), shipTexture));
-            }
             if (typeof(TShip) == typeof(FighterCarrier))
             {
                 Texture2D droneTexture = null;
@@ -87,11 +75,29 @@ namespace PGCGame.Screens
                     shipTextures.Add(new KeyValuePair<string, Texture2D>("Drone", droneTexture));
                 }
                 ship = new FighterCarrier(shipTexture, Vector2.Zero, playerSb, droneTexture).Cast<TShip>();
-            }
-            else
+            }else
             {
-                ship = (TShip)Activator.CreateInstance(typeof(TShip), shipTexture, Vector2.Zero, playerSb);
+                ship = (TShip)Activator.CreateInstance(typeof(TShip), null, Vector2.Zero, playerSb);
             }
+            
+            foreach (KeyValuePair<string, Texture2D> kvp in shipTextures)
+            {
+                if (kvp.Key.Trim().Equals(ship.TextureFolder + "\\" + tier.ToString()))
+                {
+                    shipTexture = kvp.Value;
+                }
+            }
+            
+            
+            
+            
+            if (shipTexture == null)
+            {
+                shipTexture = storedCm.Load<Texture2D>("Images\\" + ship.TextureFolder + "\\" + tier.ToString().Replace("ShipTier.", ""));
+                shipTextures.Add(new KeyValuePair<string, Texture2D>(ship.TextureFolder + "\\" + tier.ToString(), shipTexture));
+            }
+            
+            ship.Texture = shipTexture;
             ship.Tier = tier;
             ship.Position = ship.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport, true);
             playerShip = ship;
