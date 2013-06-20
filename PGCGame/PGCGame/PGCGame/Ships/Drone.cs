@@ -16,6 +16,8 @@ namespace PGCGame
 {
     public class Drone : Ship
     {
+        public ShipRelativePosition RelativePosition;
+
         public FighterCarrier ParentShip { get; set; }
 
         public Drone(Texture2D texture, Vector2 location, SpriteBatch spriteBatch, FighterCarrier parent)
@@ -30,6 +32,7 @@ namespace PGCGame
         void ParentShip_BulletFired(object sender, EventArgs e)
         {
             ShotsFromMain++;
+            Shoot();
         }
         public int ShotsFromMain { get; set; }
         //must add event from fighter carrier
@@ -54,7 +57,7 @@ namespace PGCGame
 
         public override string TextureFolder
         {
-            get { return null; }
+            get { throw new NotImplementedException(); }
         }
     }
 }

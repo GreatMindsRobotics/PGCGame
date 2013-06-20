@@ -27,6 +27,14 @@ namespace PGCGame
         Tier4
     }
 
+    public enum ShipRelativePosition
+    {
+        TopLeft,
+        TopRight,
+        BottomLeft,
+        BottomRight
+    }
+
     public enum ShipType
     {
         BattleCruiser,

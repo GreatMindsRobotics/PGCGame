@@ -53,8 +53,11 @@ namespace PGCGame.Screens
             BackgroundSprite bgspr = new BackgroundSprite(bgImg, Sprites.SpriteBatch, 10, 10);
             worldCam.Pos = new Vector2(bgspr.TotalWidth / 2, bgspr.TotalHeight / 2);
             BackgroundSprite = bgspr;
-            TShip ship = (TShip)Activator.CreateInstance(typeof(TShip), null, Vector2.Zero, playerSb);
-            ship.Tier = tier;
+            if (typeof(TShip) == typeof(Drone))
+            {
+                throw new Exception();
+            }
+            TShip ship = null;
             Texture2D shipTexture = null;
             foreach (KeyValuePair<string, Texture2D> kvp in shipTextures)
             {
@@ -68,7 +71,28 @@ namespace PGCGame.Screens
                 shipTexture = storedCm.Load<Texture2D>("Images\\" + ship.TextureFolder + "\\" + tier.ToString().Replace("ShipTier.", ""));
                 shipTextures.Add(new KeyValuePair<string, Texture2D>(ship.TextureFolder + "\\" + tier.ToString(), shipTexture));
             }
-            ship.Texture = shipTexture;
+            if (typeof(TShip) == typeof(FighterCarrier))
+            {
+                Texture2D droneTexture = null;
+                foreach (KeyValuePair<string, Texture2D> kvp in shipTextures)
+                {
+                    if (kvp.Key.Trim().Equals("Drone"))
+                    {
+                        droneTexture = kvp.Value;
+                    }
+                }
+                if (droneTexture == null)
+                {
+                    droneTexture = storedCm.Load<Texture2D>("Images\\Drones\\TempDrones");
+                    shipTextures.Add(new KeyValuePair<string, Texture2D>("Drone", droneTexture));
+                }
+                ship = new FighterCarrier(shipTexture, Vector2.Zero, playerSb, droneTexture).Cast<TShip>();
+            }
+            else
+            {
+                ship = (TShip)Activator.CreateInstance(typeof(TShip), shipTexture, Vector2.Zero, playerSb);
+            }
+            ship.Tier = tier;
             ship.Position = ship.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport, true);
             playerShip = ship;
             playerSbObjects.Add(ship);
