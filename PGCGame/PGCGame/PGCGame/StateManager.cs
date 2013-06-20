@@ -66,31 +66,8 @@ namespace PGCGame
             public static ScreenResolution ScreenResolution { get; set; }
             public static bool EnableSFX { get; set; }
 
-            private static int _volume = 100;
-            public static int Volume
-            {
-                get
-                {
-                    return _volume;
-                }
-                set
-                {
-                    if (value < 0)
-                    {
-                        _volume = 0;
-                    }
-                    else if (value > 100)
-                    {
-                        _volume = 100;
-                    }
-                    else
-                    {
-                        _volume = value;
-                    }
-                }
-            }
-
-            //TODO: ADD RESOLUTION
+            public static VolumeSettings Music { get; set; }
+            public static VolumeSettings SFX { get; set; }
         }
     }
 }
