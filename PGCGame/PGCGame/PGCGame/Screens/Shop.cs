@@ -36,6 +36,7 @@ namespace PGCGame.Screens
             //EX: Sprites.AddNewSprite(new Vector(0, 0), content.Load<Texture2D("assetName"));
             Texture2D buttonImage = content.Load<Texture2D>("Images\\Controls\\Button");
             SpriteFont SegoeUIMono = content.Load<SpriteFont>("Fonts\\SegoeUIMono");
+            BackgroundSprite = new HorizontalMenuBGSprite(content.Load<Texture2D>("Images\\Background\\1920by1080SkyStar"), Sprites.SpriteBatch);
 
             Sprite upgradeEButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .1f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .4f), Sprites.SpriteBatch);
             upgradeELabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Equipment");
@@ -65,7 +66,7 @@ namespace PGCGame.Screens
             Sprites.Add(shipButton);
             AdditionalSprites.Add(shipLabel);
 
-            Sprite weaponsButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .700f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .4f), Sprites.SpriteBatch);
+            Sprite weaponsButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .7f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .4f), Sprites.SpriteBatch);
             weaponsLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Weapons");
             weaponsLabel.Position = new Vector2((weaponsButton.X + weaponsButton.Width / 2) - weaponsLabel.Width / 2, (weaponsButton.Y + weaponsButton.Height / 2) - weaponsLabel.Height / 2);
             weaponsLabel.Color = Color.White;
@@ -79,6 +80,34 @@ namespace PGCGame.Screens
             Sprites.Add(weaponsButton);
             AdditionalSprites.Add(weaponsLabel);
 
+            Sprite backButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .4f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .65f), Sprites.SpriteBatch);
+            backLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Back");
+            backLabel.Position = new Vector2((backButton.X + backButton.Width / 2) - backLabel.Width / 2, (backButton.Y + backButton.Height / 2) - backLabel.Height / 2);
+            backLabel.Color = Color.White;
+            backLabel.IsHoverable = true;
+            backLabel.IsManuallySelectable = true;
+            backLabel.NonHoverColor = Color.White;
+            backLabel.HoverColor = Color.MediumAquamarine;
+            backButton.MouseEnter += new EventHandler(backButton_MouseEnter);
+            backButton.MouseLeave += new EventHandler(backButton_MouseLeave);
+
+            Sprites.Add(backButton);
+            AdditionalSprites.Add(backLabel);
+        }
+
+        bool mouseInBackButton = false;
+
+        //backbutton
+        void backButton_MouseLeave(object sender, EventArgs e)
+        {
+            backLabel.IsSelected = false;
+            mouseInBackButton = false;
+        }
+        void backButton_MouseEnter(object sender, EventArgs e)
+        {
+            backLabel.IsSelected = true;
+            mouseInBackButton = true;
+            
         }
 
         //weaponsbutton
@@ -111,9 +140,20 @@ namespace PGCGame.Screens
             upgradeELabel.IsSelected = true;
         }
 
+        MouseState lastMs = new MouseState(0, 0, 0, ButtonState.Pressed, ButtonState.Released, ButtonState.Released, ButtonState.Released, ButtonState.Released);
+
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            MouseState currentMs = Mouse.GetState();
+            if (lastMs.LeftButton == ButtonState.Released && currentMs.LeftButton == ButtonState.Pressed)
+            {
+                if (mouseInBackButton)
+                {
+                    StateManager.ScreenState = ScreenState.MainMenu;
+                }
+            }
+            lastMs = currentMs;
         }
     }
 }
