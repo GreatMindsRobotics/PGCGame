@@ -23,10 +23,19 @@ namespace PGCGame.Screens
             
         }
 
+        TextSprite playLabel;
 
         public void LoadContent(ContentManager content)
         {
+            Texture2D buttonImage = content.Load<Texture2D>("Images\\Controls\\Button");
+            SpriteFont SegoeUIMono = content.Load<SpriteFont>("Fonts\\SegoeUIMono");
 
+            Sprite playButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .8f), Sprites.SpriteBatch);
+            playLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Play");
+            playLabel.Color = Color.White;
+
+            Sprites.Add(playButton);
+            AdditionalSprites.Add(playLabel);
         }
 
         public override void Update(GameTime gameTime)
