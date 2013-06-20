@@ -32,6 +32,7 @@ namespace PGCGame
         Credits creditsScreen;
         Options optionScreen;
         PauseScreen pauseScreen;
+        ShipSelect shipSelectScreen;
 
         public Game1()
         {
@@ -92,7 +93,11 @@ namespace PGCGame
             pauseScreen.LoadContent(Content);
             pauseScreen.Name = "pauseScreen";
 
-            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen);
+            shipSelectScreen = new ShipSelect(spriteBatch);
+            shipSelectScreen.LoadContent(Content);
+            shipSelectScreen.Name = "shipSelectScreen";
+
+            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen, shipSelectScreen);
             StateManager.AllScreens = screenManager;
         }
 

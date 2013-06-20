@@ -53,6 +53,9 @@ namespace PGCGame
                     case PGCGame.ScreenState.Pause:
                         AllScreens["pauseScreen"].Visible = true;
                         break;
+                    case PGCGame.ScreenState.ShipSelect:
+                        AllScreens["shipSelectScreen"].Visible = true;
+                        break;
                 }
             }
         }
