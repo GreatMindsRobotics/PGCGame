@@ -54,6 +54,7 @@ namespace PGCGame.Screens
             worldCam.Pos = new Vector2(bgspr.TotalWidth / 2, bgspr.TotalHeight / 2);
             BackgroundSprite = bgspr;
             TShip ship = (TShip)Activator.CreateInstance(typeof(TShip), null, Vector2.Zero, playerSb);
+            ship.Tier = tier;
             Texture2D shipTexture = null;
             foreach (KeyValuePair<string, Texture2D> kvp in shipTextures)
             {
@@ -79,6 +80,10 @@ namespace PGCGame.Screens
             BackgroundSprite bg = BackgroundSprite.Cast<BackgroundSprite>();
             //TODO: UPDATE SPRITES
             KeyboardState keyboard = Keyboard.GetState();
+            if (keyboard.IsKeyDown(Keys.Escape))
+            {
+                StateManager.ScreenState = ScreenState.Pause;
+            }
             Vector2 camMove = Vector2.Zero;
             if (keyboard.IsKeyDown(Keys.W))
             {

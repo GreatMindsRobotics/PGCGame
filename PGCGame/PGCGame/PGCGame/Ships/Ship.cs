@@ -148,6 +148,8 @@ namespace PGCGame
 
         private List<Bullet> _flyingBullets = new List<Bullet>();
 
+        public ShipTier Tier = ShipTier.Tier1;
+
         public List<Bullet> FlyingBullets
         {
             get { return _flyingBullets; }

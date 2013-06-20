@@ -211,7 +211,7 @@ namespace PGCGame.Screens
                 if (mouseInSingleplayerButton)
                 {
                     //TODO: Ship selection screen will choose ship
-                    StateManager.InitializeSingleplayerGameScreen<FighterCarrier>(ShipTier.Tier2);
+                    StateManager.InitializeSingleplayerGameScreen<BattleCruiser>(ShipTier.Tier2);
                     StateManager.ScreenState = ScreenState.Game;
                 }
                 if (mouseInCreditsButton)

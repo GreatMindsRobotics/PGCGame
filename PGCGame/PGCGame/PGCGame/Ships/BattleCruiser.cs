@@ -19,12 +19,15 @@ namespace PGCGame
         public BattleCruiser(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
             : base(texture, location, spriteBatch)
         {
+            MovementSpeed = Vector2.One / 2;
         }
 
         public override void Shoot()
         {
             throw new NotImplementedException();
         }
+
+        
 
         public override string TextureFolder
         {
