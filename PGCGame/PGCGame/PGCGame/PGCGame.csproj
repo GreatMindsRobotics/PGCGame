@@ -84,6 +84,7 @@
     <Compile Include="Screens\MainMenu.cs" />
     <Compile Include="Screens\Options.cs" />
     <Compile Include="Screens\PauseScreen.cs" />
+    <Compile Include="Screens\SelectScreens\BaseSelectScreen.cs" />
     <Compile Include="Screens\ShipSelect.cs" />
     <Compile Include="Screens\Shop.cs" />
     <Compile Include="Screens\Title.cs" />
