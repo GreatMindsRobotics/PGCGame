@@ -22,7 +22,8 @@ namespace PGCGame
     {
         //TODO: ALEX
 
-   
+
+        public abstract string TextureFolder { get; }
 
         protected bool _performMovement = false;
         protected bool _rotateTowardsMouse = true;
@@ -152,6 +153,5 @@ namespace PGCGame
             get { return _flyingBullets; }
             set { _flyingBullets = value; }
         }
-        
     }
 }

@@ -25,24 +25,52 @@ namespace PGCGame.Screens
 
         Ship playerShip;
         SpriteBatch playerSb;
-
+        Texture2D bgImg;
         List<ISprite> playerSbObjects = new List<ISprite>();
+        ContentManager storedCm;
+        List<KeyValuePair<string, Texture2D>> shipTextures = new List<KeyValuePair<string, Texture2D>>();
 
         public void LoadContent(ContentManager content)
         {
             //TODO: LOAD CONTENT
-            BackgroundSprite bgspr = new BackgroundSprite(content.Load<Texture2D>("Images\\Background\\NebulaSky"), Sprites.SpriteBatch, 10, 10);
-            worldCam.Pos = new Vector2(bgspr.TotalWidth/2, bgspr.TotalHeight/2);
-            BackgroundSprite = bgspr;
-            FighterCarrier ship = new FighterCarrier(content.Load<Texture2D>("Images\\Fighter Carrier\\Tier1"),Vector2.Zero, playerSb);
-            ship.Position = ship.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport, true);
-            playerShip = ship;
-            playerSbObjects.Add(ship);
+            storedCm = content;
+
+            bgImg = content.Load<Texture2D>("Images\\Background\\NebulaSky");
+
+
+            
             //Sprites.Add(new Drone(content.Load<Texture2D>("aTexture"), Vector2.Zero, this.Sprites.SpriteBatch, ship)); 
             //use Sprites to load your sprites
             //EX: Sprites.Add(new Sprite(content.Load<Texture2D>("assetName"), Vector2.Zero, Sprites.SpriteBatch));
             //OR
             //EX: Sprites.AddNewSprite(new Vector(0, 0), content.Load<Texture2D("assetName"));
+        }
+
+        public void InitializeScreen<TShip>(ShipTier tier) where TShip : Ship
+        {
+            
+            playerSbObjects.Clear();
+            BackgroundSprite bgspr = new BackgroundSprite(bgImg, Sprites.SpriteBatch, 10, 10);
+            worldCam.Pos = new Vector2(bgspr.TotalWidth / 2, bgspr.TotalHeight / 2);
+            BackgroundSprite = bgspr;
+            TShip ship = (TShip)Activator.CreateInstance(typeof(TShip), null, Vector2.Zero, playerSb);
+            Texture2D shipTexture = null;
+            foreach (KeyValuePair<string, Texture2D> kvp in shipTextures)
+            {
+                if (kvp.Key.Trim().Equals(ship.TextureFolder + "\\" + tier.ToString()))
+                {
+                    shipTexture = kvp.Value;
+                }
+            }
+            if (shipTexture == null)
+            {
+                shipTexture = storedCm.Load<Texture2D>("Images\\" + ship.TextureFolder + "\\" + tier.ToString().Replace("ShipTier.", ""));
+                shipTextures.Add(new KeyValuePair<string, Texture2D>(ship.TextureFolder + "\\" + tier.ToString(), shipTexture));
+            }
+            ship.Texture = shipTexture;
+            ship.Position = ship.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport, true);
+            playerShip = ship;
+            playerSbObjects.Add(ship);
         }
 
         public override void Update(GameTime gameTime)

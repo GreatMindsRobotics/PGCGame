@@ -3,12 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Glib.XNA.SpriteLib;
+using Glib;
 
 namespace PGCGame
 {
     public static class StateManager
     {
         private static ScreenState _screenState = PGCGame.ScreenState.Title;
+
+        public static void InitializeSingleplayerGameScreen<T>(ShipTier tier) where T : Ship
+        {
+            AllScreens["gameScreen"].Cast<Screens.GameScreen>().InitializeScreen<T>(tier);
+        }
+
         public static ScreenState ScreenState
         {
             get

@@ -25,5 +25,10 @@ namespace PGCGame
         {
             throw new NotImplementedException();
         }
+
+        public override string TextureFolder
+        {
+            get { return "Battle Cruiser"; }
+        }
     }
 }

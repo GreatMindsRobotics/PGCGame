@@ -32,5 +32,10 @@ namespace PGCGame
                 BulletFired(this, EventArgs.Empty);
             }
         }
+
+        public override string TextureFolder
+        {
+            get { return "Fighter Carrier"; }
+        }
     }
 }

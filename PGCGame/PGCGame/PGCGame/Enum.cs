@@ -16,4 +16,20 @@ namespace PGCGame
         Option,
         Shop
     }
+
+    public enum ShipTier
+    {
+        Tier1,
+        Tier2,
+        Tier3,
+        Tier4
+    }
+
+    public enum ShipType
+    {
+        BattleCruiser,
+        FighterCarrier,
+        TorpedoShip,
+        Drone
+    }
 }
