@@ -111,7 +111,7 @@ namespace PGCGame.Screens
 
             _elapsedTime += gameTime.ElapsedGameTime;
 
-            if (MediaPlayer.State != MediaState.Playing)
+            if (MediaPlayer.State != MediaState.Playing && StateManager.Options.Volume > 0)
             {
                 MediaPlayer.Play(_creditsSong);
             }
@@ -137,6 +137,7 @@ namespace PGCGame.Screens
                 }
 
             }
+            
         }
     }
 }

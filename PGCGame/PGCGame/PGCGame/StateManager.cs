@@ -60,7 +60,10 @@ namespace PGCGame
 
         public static class Options
         {
-            private static int _volume;
+            public static ScreenResolution ScreenResolution { get; set; }
+            public static bool EnableSFX { get; set; }
+
+            private static int _volume = 100;
             public static int Volume
             {
                 get

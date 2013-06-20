@@ -12,7 +12,10 @@ namespace PGCGame.Screens
 {
     public class Options : Screen
     {
-        TextSprite VolumeLabel;
+
+        TextSprite Graphics;
+        TextSprite SFXLabel;
+        TextSprite MusicLabel;
         TextSprite Volume;
         TextSprite OptionsLabel;
         TextSprite BackLabel;
@@ -37,24 +40,66 @@ namespace PGCGame.Screens
             BackButton.MouseLeave +=new EventHandler(BackButton_MouseLeave);
 
 
-            Sprite volumeLabel= new Sprite(content.Load<Texture2D>("Images\\Controls\\Button"), new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .60f), Sprites.SpriteBatch);
-            VolumeLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .139f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .62f), content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "Back");
-            VolumeLabel.Color = Color.White;
-          
 
 
-            Sprite VolumeButton = new Sprite(content.Load<Texture2D>("Images\\Controls\\Button"), new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .5f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .60f), Sprites.SpriteBatch);
-            VolumeButton.Color = Color.White;
+
+            TextSprite SFXLabel = new TextSprite(Sprites.SpriteBatch, content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "SFX:");
+            Sprite SFXButton = new Sprite(content.Load<Texture2D>("Images\\Controls\\Button"), new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .5f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .3f), Sprites.SpriteBatch);
 
 
-            Sprites.Add(VolumeButton);
-            
+            TextSprite GraphicsLabel = new TextSprite(Sprites.SpriteBatch, content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "Graphics:");
+            Sprite GraphicsButton = new Sprite(content.Load<Texture2D>("Images\\Controls\\Button"), new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .3f), Sprites.SpriteBatch);   
+
+
+
+            Sprite MusicButton = new Sprite(content.Load<Texture2D>("Images\\Controls\\Button"), new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .5f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .60f), Sprites.SpriteBatch);
+            MusicButton.Color = Color.White;
+            MusicButton.MouseEnter += new EventHandler(MusicButton_MouseEnter);
+            MusicButton.MouseLeave += new EventHandler(MusicButton_MouseLeave);
+
+            MusicLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "Music: "+(StateManager.Options.Volume == 100 ? "On" : "Off"));
+            MusicLabel.Position = new Vector2((MusicButton.X + MusicButton.Width/2) - MusicLabel.Width/2, (MusicButton.Y + MusicButton.Height/2) - MusicLabel.Height/2);
+            MusicLabel.Color = Color.White;
+            MusicLabel.IsHoverable = true;
+            MusicLabel.IsManuallySelectable = true;
+            MusicLabel.HoverColor = Color.MediumAquamarine;
+            MusicLabel.NonHoverColor = Color.White;
+
+
+            SFXLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "SFX:");
+            SFXLabel.Position = new Vector2((SFXButton.X + SFXButton.Width / 2) - SFXLabel.Width / 2, (SFXButton.Y + SFXButton.Height / 2) - SFXLabel.Height / 2);
+            SFXLabel.Color = Color.White;
+
+
+
+            GraphicsLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "Graphics:");
+            GraphicsLabel.Position = new Vector2((GraphicsButton.X + GraphicsButton.Width / 2) - GraphicsLabel.Width / 2, (GraphicsButton.Y + GraphicsButton.Height / 2) - GraphicsLabel.Height / 2);
+            GraphicsLabel.Color = Color.White;
+
+            Sprites.Add(GraphicsButton);
+            Sprites.Add(MusicButton);
+            Sprites.Add(SFXButton);
+
+
             Sprites.Add(BackButton);
 
-            AdditionalSprites.Add(VolumeLabel);
+
+            AdditionalSprites.Add(GraphicsLabel);
+            AdditionalSprites.Add(MusicLabel);
             AdditionalSprites.Add(BackLabel);
+            AdditionalSprites.Add(SFXLabel);
 
        
+        }
+
+        void MusicButton_MouseLeave(object sender, EventArgs e)
+        {
+            MusicLabel.IsSelected = false;
+        }
+
+        void MusicButton_MouseEnter(object sender, EventArgs e)
+        {
+            MusicLabel.IsSelected = true;
         }
 
 
@@ -98,10 +143,14 @@ namespace PGCGame.Screens
                 {
                     StateManager.ScreenState = ScreenState.MainMenu;
                 }
-                
+                if (MusicLabel.IsSelected)
+                {
+                    StateManager.Options.Volume = StateManager.Options.Volume == 100 ? 0 : 100;
+                    MusicLabel.Text = "Music: " + (StateManager.Options.Volume == 100 ? "On" : "Off");
+                }
             }
             lastMs = currentMs;
-
+            
         }
         
         

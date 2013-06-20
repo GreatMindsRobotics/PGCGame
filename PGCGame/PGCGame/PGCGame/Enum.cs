@@ -33,4 +33,16 @@ namespace PGCGame
         TorpedoShip,
         Drone
     }
+
+    public enum ScreenResolution
+    {
+        Normal,
+        FullScreen
+    }
+
+    public enum VolumeSettings
+    {
+        Off = 0,
+        Max = 100
+    }
 }
