@@ -51,6 +51,7 @@ namespace PGCGame.Screens
             
             playerSbObjects.Clear();
             BackgroundSprite bgspr = new BackgroundSprite(bgImg, Sprites.SpriteBatch, 10, 10);
+            bgspr.Drawn += new EventHandler(bgspr_Drawn);
             worldCam.Pos = new Vector2(bgspr.TotalWidth / 2, bgspr.TotalHeight / 2);
             BackgroundSprite = bgspr;
             if (typeof(TShip) == typeof(Drone))
@@ -98,10 +99,27 @@ namespace PGCGame.Screens
             }
             
             ship.Texture = shipTexture;
+            ship.WorldSb = Sprites.SpriteBatch;
             ship.Tier = tier;
             ship.Position = ship.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport, true);
             playerShip = ship;
             playerSbObjects.Add(ship);
+        }
+
+        void bgspr_Drawn(object sender, EventArgs e)
+        {
+            foreach (Bullet b in playerShip.FlyingBullets)
+            {
+                Sprites.SpriteBatch.Draw(b);
+            }
+            if (playerShip.GetType() == typeof(FighterCarrier))
+            {
+                foreach (Bullet b in playerShip.Cast<FighterCarrier>().DroneBullets)
+                {
+                Sprites.SpriteBatch.Draw(b);
+                }
+                
+            }
         }
 
         public override void Update(GameTime gameTime)
@@ -146,6 +164,7 @@ namespace PGCGame.Screens
             }
             
             worldCam.Move(camMove);
+            playerShip.WorldCoords = worldCam.Pos;
             foreach (ISprite s in playerSbObjects)
             {
                 if (s.GetType().Implements(typeof(ITimerSprite)))

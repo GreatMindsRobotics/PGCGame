@@ -89,6 +89,7 @@ namespace PGCGame
             }
         }
 
+        public SpriteBatch WorldSb;
         private TimeSpan _elapsedShotTime = new TimeSpan();
         private KeyboardState _lastKs = new KeyboardState();
 
@@ -107,6 +108,8 @@ namespace PGCGame
             _lastKs = ks;
         }
 
+        public Vector2 WorldCoords = Vector2.Zero;
+
         public bool CanShoot
         {
             get
@@ -122,10 +125,7 @@ namespace PGCGame
             //SpriteBatch.Draw(Texture, Position, DrawRegion, Color.White, Rotation.Radians, Origin, Scale, Effect, 0);
 
             
-            foreach (Bullet b in FlyingBullets)
-            {
-                b.DrawNonAuto();
-            }
+            
             //TODO: Draw Bullets
         }
 

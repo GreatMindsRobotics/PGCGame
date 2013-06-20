@@ -195,6 +195,11 @@
             Requires you to begin the SpriteBatch before you draw the sprite, and to end the SpriteBatch after you draw the sprite.
             </summary>
         </member>
+        <member name="M:Glib.XNA.SpriteLib.Sprite.CallDrawn">
+            <summary>
+            Call the drawn event after drawing of the Sprite.
+            </summary>
+        </member>
         <member name="M:Glib.XNA.SpriteLib.Sprite.ClickCheck(Microsoft.Xna.Framework.Input.MouseState)">
             <summary>
             Checks whether the user is clicking on the sprite.

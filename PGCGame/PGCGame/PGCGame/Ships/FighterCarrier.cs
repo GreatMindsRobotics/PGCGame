@@ -35,7 +35,7 @@ namespace PGCGame
         {
             //TODO: Fire bullet
             //Ben magic: Targeting
-            Bullet bullet = new Bullet(BulletTexture, Position, SpriteBatch);
+            Bullet bullet = new Bullet(BulletTexture, WorldCoords, SpriteBatch);
             MouseState ms = Mouse.GetState();
             bullet.Damage = DamagePerShot;
             Vector2 mousePos = new Vector2(ms.X, ms.Y);
@@ -48,6 +48,8 @@ namespace PGCGame
                 BulletFired(this, EventArgs.Empty);
             }
         }
+
+        public List<Bullet> DroneBullets = new List<Bullet>();
 
         public override void Update()
         {
