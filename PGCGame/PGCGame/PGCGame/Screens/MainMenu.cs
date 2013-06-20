@@ -29,6 +29,7 @@ namespace PGCGame.Screens
         TextSprite BackLabel;
         TextSprite OptionsLabel;
         TextSprite CreditsLabel;
+        TextSprite ShopLabel;
 
         public void LoadContent(ContentManager content)
         {
@@ -57,7 +58,8 @@ namespace PGCGame.Screens
             
             Sprites.Add(Title);
             Sprite SinglePlayerButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .21f), Sprites.SpriteBatch);
-            SinglePlayerLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .087f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .23f), SegoeUIMono, "Singleplayer");
+            SinglePlayerLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Singleplayer");
+            SinglePlayerLabel.Position = new Vector2((SinglePlayerButton.X + SinglePlayerButton.Width / 2) - SinglePlayerLabel.Width/2, (SinglePlayerButton.Y + SinglePlayerButton.Height / 2) - SinglePlayerLabel.Height/2);
             SinglePlayerLabel.IsHoverable = true;
             SinglePlayerLabel.IsManuallySelectable = true;
             SinglePlayerLabel.NonHoverColor = Color.White;
@@ -69,7 +71,8 @@ namespace PGCGame.Screens
             AdditionalSprites.Add(SinglePlayerLabel);
 
             Sprite MultiPlayerButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .405f), Sprites.SpriteBatch);
-            MultiPlayerLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .093f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .425f), SegoeUIMono, "Multiplayer");
+            MultiPlayerLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Multiplayer");
+            MultiPlayerLabel.Position = new Vector2((MultiPlayerButton.X + MultiPlayerButton.Width / 2) - MultiPlayerLabel.Width / 2, (MultiPlayerButton.Y + MultiPlayerButton.Height / 2) - MultiPlayerLabel.Height / 2);
             MultiPlayerLabel.IsHoverable = true;
             MultiPlayerLabel.IsManuallySelectable = true;
             MultiPlayerLabel.NonHoverColor = Color.White;
@@ -82,7 +85,8 @@ namespace PGCGame.Screens
             AdditionalSprites.Add(MultiPlayerLabel);
 
             Sprite BackButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .60f), Sprites.SpriteBatch);
-            BackLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .139f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .62f), SegoeUIMono, "Back");
+            BackLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Back");
+            BackLabel.Position = new Vector2((BackButton.X + BackButton.Width / 2) - BackLabel.Width / 2, (BackButton.Y + BackButton.Height / 2) - BackLabel.Height / 2);
             BackLabel.Color = Color.White;
             BackButton.MouseEnter += new EventHandler(BackButton_MouseEnter);
             BackButton.MouseLeave += new EventHandler(BackButton_MouseLeave);
@@ -91,7 +95,8 @@ namespace PGCGame.Screens
             AdditionalSprites.Add(BackLabel);
 
             Sprite OptionsButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .362f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .21f), Sprites.SpriteBatch);
-            OptionsLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .422f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .23f), SegoeUIMono, "Options");
+            OptionsLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Options");
+            OptionsLabel.Position = new Vector2((OptionsButton.X + OptionsButton.Width / 2) - OptionsLabel.Width / 2, (OptionsButton.Y + OptionsButton.Height / 2) - OptionsLabel.Height / 2);
             OptionsLabel.IsHoverable = true;
             OptionsLabel.IsManuallySelectable = true;
             OptionsLabel.NonHoverColor = Color.White;
@@ -103,7 +108,8 @@ namespace PGCGame.Screens
             AdditionalSprites.Add(OptionsLabel);
 
             Sprite CreditsButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .362f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .405f), Sprites.SpriteBatch);
-            CreditsLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .423f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .425f), SegoeUIMono, "Credits");
+            CreditsLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Credits");
+            CreditsLabel.Position = new Vector2((CreditsButton.X + CreditsButton.Width / 2) - CreditsLabel.Width / 2, (CreditsButton.Y + CreditsButton.Height / 2) - CreditsLabel.Height / 2);
             CreditsLabel.IsHoverable = true;
             CreditsLabel.IsManuallySelectable = true;
             CreditsLabel.NonHoverColor = Color.White;
@@ -113,6 +119,31 @@ namespace PGCGame.Screens
 
             Sprites.Add(CreditsButton);
             AdditionalSprites.Add(CreditsLabel);
+
+            //temperary
+            Sprite ShopButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .362f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .598f), Sprites.SpriteBatch);
+            ShopLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Shop");
+            ShopLabel.Position = new Vector2((ShopButton.X + ShopButton.Width / 2) - ShopLabel.Width / 2, (ShopButton.Y + ShopButton.Height / 2) - ShopLabel.Height / 2);
+            ShopLabel.Color = Color.White;
+            ShopLabel.IsHoverable = true;
+            ShopLabel.IsManuallySelectable = true;
+            ShopLabel.NonHoverColor = Color.White;
+            ShopLabel.HoverColor = Color.MediumAquamarine;
+            ShopButton.MouseEnter += new EventHandler(ShopButton_MouseEnter);
+            ShopButton.MouseLeave += new EventHandler(ShopButton_MouseLeave);
+
+            Sprites.Add(ShopButton);
+            AdditionalSprites.Add(ShopLabel);
+        }
+
+        //shop button
+        void ShopButton_MouseLeave(object sender, EventArgs e)
+        {
+            ShopLabel.IsSelected = false;
+        }
+        void ShopButton_MouseEnter(object sender, EventArgs e)
+        {
+            ShopLabel.IsSelected = true;
         }
 
         //credits button
@@ -221,6 +252,10 @@ namespace PGCGame.Screens
                 if (mouseInOptionButton)
                 {
                     StateManager.ScreenState = ScreenState.Option;
+                }
+                if (ShopLabel.IsSelected)
+                {
+                    StateManager.ScreenState = ScreenState.Shop;
                 }
             }
             lastMs = currentMs;
