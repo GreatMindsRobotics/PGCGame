@@ -23,7 +23,7 @@ namespace PGCGame.Screens
         private Song _creditsSong;
         private Vector2 _scrollingSpeed;
         private string[] creditLines = new string[]{
-            "\n\n\n\nWeek 1 - Functional Spec, GameState Management\n",
+            "<b>\n\n\n\nWeek 1 - Functional Spec, GameState Management\n",
             "Kai F.\n",
             "Michael K.\n",
             "Alexa L.\n",
@@ -31,23 +31,23 @@ namespace PGCGame.Screens
             "Alexander L.\n",
             "Matthew P.\n",
             "Jeremiah T.\n\n\n",
-            "Week 2 - Technical Spec, Class Design, Functionality\n",
+            "<b>Week 2 - Technical Spec, Class Design, Functionality\n",
             "Glen H.\n",
             "Michael K.\n",
             "Alex L.\n",
             "Matthew P.\n\n\n",
-            "Week 3 - AI Programming\n",
+            "<b>Week 3 - AI Programming\n",
             "...\n",
             "...\n\n\n",
-            "Week 4 - Xbox Converson\n",
+            "<b>Week 4 - Xbox Converson\n",
             "...\n",
             "...\n\n\n",
-            "Underlying Sprite/Screen Management Library",
-            "Glen Husman (glen3b)",
+            "U<b>nderlying Sprite/Screen Management Library",
+            "<Glen Husman (glen3b)",
             "Glib is available on github!\n\n\n\n\n\n\n",
-            "Credits Music:",
+            "<b>Credits Music:",
             "Failing Defense - Kevin MacLeod\n\n",
-            "All music obtained from Incompetech.com"
+            "<b>All music obtained from Incompetech.com"
         };
         
         private TimeSpan _timeUntilCreditsFinish = TimeSpan.FromSeconds(38);
@@ -79,11 +79,12 @@ namespace PGCGame.Screens
             //credits.Position = new Vector2(credits.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height+imgSprite.Height);
 
             SpriteFont creditsFont = content.Load<SpriteFont>("Fonts\\SegoeUIMono");
+            SpriteFont boldCreditsFont = content.Load<SpriteFont>("Fonts\\SegoeUIMonoBold");
             _creditsSong = content.Load<Song>("Songs\\Failing Defense");
 
             for (int i = 0; i < creditLines.Length; i++)
             {
-                TextSprite credit = new TextSprite(Sprites.SpriteBatch, creditsFont, creditLines[i]);
+                TextSprite credit = new TextSprite(Sprites.SpriteBatch, creditLines[i].Length > 3 && creditLines[i].Substring(0,3) == "<b>" ? boldCreditsFont : creditsFont, creditLines[i].Replace("<b>", ""));
                 credit.X = credit.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X;
                 credit.Color = Color.White;
                 if (i == 0)
