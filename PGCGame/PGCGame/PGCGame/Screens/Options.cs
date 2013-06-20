@@ -89,6 +89,8 @@ namespace PGCGame.Screens
             GraphicsLabel.Position = new Vector2((GraphicsButton.X + GraphicsButton.Width / 2) - GraphicsLabel.Width / 2, (GraphicsButton.Y + GraphicsButton.Height / 2) - GraphicsLabel.Height / 2);
             GraphicsLabel.Color = Color.White;
 
+
+            Sprites.Add(TemporaryButton);
             Sprites.Add(GraphicsButton);
             Sprites.Add(ControlButton);
             Sprites.Add(MusicButton);
@@ -97,6 +99,8 @@ namespace PGCGame.Screens
 
             Sprites.Add(BackButton);
 
+            
+            //AdditionalSprites.Add(
             AdditionalSprites.Add(ControlLabel);
             AdditionalSprites.Add(GraphicsLabel);
             AdditionalSprites.Add(MusicLabel);
