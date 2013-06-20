@@ -12,7 +12,8 @@ namespace PGCGame.Screens
 {
     public class Options : Screen
     {
-
+        TextSprite Temporary;
+        TextSprite Control;
         TextSprite Graphics;
         TextSprite SFXLabel;
         TextSprite MusicLabel;
@@ -41,14 +42,20 @@ namespace PGCGame.Screens
 
 
 
+            TextSprite TemporaryLabel = new TextSprite(Sprites.SpriteBatch, content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "Temporary:");
+            Sprite TemporaryButton = new Sprite(content.Load<Texture2D>("Images\\Controls\\Button"), new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .55f), Sprites.SpriteBatch);
+
 
 
             TextSprite SFXLabel = new TextSprite(Sprites.SpriteBatch, content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "SFX:");
-            Sprite SFXButton = new Sprite(content.Load<Texture2D>("Images\\Controls\\Button"), new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .5f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .3f), Sprites.SpriteBatch);
+            Sprite SFXButton = new Sprite(content.Load<Texture2D>("Images\\Controls\\Button"), new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .5f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .35f), Sprites.SpriteBatch);
 
 
             TextSprite GraphicsLabel = new TextSprite(Sprites.SpriteBatch, content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "Graphics:");
-            Sprite GraphicsButton = new Sprite(content.Load<Texture2D>("Images\\Controls\\Button"), new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .3f), Sprites.SpriteBatch);   
+            Sprite GraphicsButton = new Sprite(content.Load<Texture2D>("Images\\Controls\\Button"), new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .35f), Sprites.SpriteBatch);
+
+            TextSprite ControlLabel;
+            Sprite ControlButton = new Sprite(content.Load<Texture2D>("Images\\Controls\\Button"), new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f), Sprites.SpriteBatch);   
 
 
 
@@ -70,6 +77,12 @@ namespace PGCGame.Screens
             SFXLabel.Position = new Vector2((SFXButton.X + SFXButton.Width / 2) - SFXLabel.Width / 2, (SFXButton.Y + SFXButton.Height / 2) - SFXLabel.Height / 2);
             SFXLabel.Color = Color.White;
 
+            ControlLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "Controls");
+            ControlLabel.Position = new Vector2((ControlButton.X + ControlButton.Width / 2)- ControlLabel.Width / 2, (ControlButton.Y + ControlButton.Height / 2) - ControlLabel.Height / 2);
+            ControlLabel.Color = Color.White;
+
+            TemporaryLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "Temporary", Color.White);
+            TemporaryLabel.Position = new Vector2((GraphicsButton.X + GraphicsButton.Width / 2) - GraphicsLabel.Width / 2, (GraphicsButton.Y + GraphicsButton.Height / 2) - GraphicsLabel.Height / 2);
 
 
             GraphicsLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "Graphics:");
@@ -77,13 +90,14 @@ namespace PGCGame.Screens
             GraphicsLabel.Color = Color.White;
 
             Sprites.Add(GraphicsButton);
+            Sprites.Add(ControlButton);
             Sprites.Add(MusicButton);
             Sprites.Add(SFXButton);
 
 
             Sprites.Add(BackButton);
 
-
+            AdditionalSprites.Add(ControlLabel);
             AdditionalSprites.Add(GraphicsLabel);
             AdditionalSprites.Add(MusicLabel);
             AdditionalSprites.Add(BackLabel);
@@ -126,11 +140,9 @@ namespace PGCGame.Screens
         }
 
 
-        //TODO: LOAD CONTENT 
-        //use Sprites to load your sprites
-        //EX: Sprites.Add(new Sprite(content.Load<Texture2D>("assetName"), new Vector2(0, 0), Sprites.SpriteBatch));
-        //OR
-        //EX: Sprites.AddNewSprite(new Vector(0, 0), content.Load<Texture2D("assetName"));
+     
+    
+                                                    
         MouseState lastMs = new MouseState(0, 0, 0, ButtonState.Pressed, ButtonState.Released, ButtonState.Released, ButtonState.Released, ButtonState.Released);
 
         public override void Update(GameTime gameTime)
