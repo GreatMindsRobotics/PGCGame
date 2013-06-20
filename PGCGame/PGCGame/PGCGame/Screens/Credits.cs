@@ -42,7 +42,7 @@ namespace PGCGame.Screens
             "<b>Week 4 - Xbox Converson\n",
             "...\n",
             "...\n\n\n",
-            "U<b>nderlying Sprite/Screen Management Library",
+            "<b>Underlying Sprite/Screen Management Library",
             "Glen Husman (glen3b)",
             "Glib is available on github!\n\n\n\n\n\n\n",
             "<b>Credits Music:",
