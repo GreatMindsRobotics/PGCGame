@@ -23,6 +23,9 @@ namespace PGCGame
             Drones[0].RelativePosition = ShipRelativePosition.TopLeft;
             Drones[1] = new Drone(droneTexture, Vector2.Zero, spriteBatch, this);
             Drones[1].RelativePosition = ShipRelativePosition.BottomRight;
+            BulletTexture = Ship.FighterCarrierBullet;
+            DelayBetweenShots = TimeSpan.FromSeconds(.5);
+
         }
 
         public Drone[] Drones = new Drone[2];
@@ -31,7 +34,7 @@ namespace PGCGame
         public override void Shoot()
         {
             //TODO: Fire bullet
-            //Ben magic
+            //Ben magic: Targeting
             Bullet bullet = new Bullet(BulletTexture, Position, SpriteBatch);
             MouseState ms = Mouse.GetState();
             bullet.Damage = DamagePerShot;

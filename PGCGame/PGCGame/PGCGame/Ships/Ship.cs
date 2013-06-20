@@ -21,7 +21,10 @@ namespace PGCGame
     public abstract class Ship : Sprite, ITimerSprite
     {
         //TODO: ALEX
-
+        public static Texture2D DroneBullet;
+        public static Texture2D BattleCruiserBullet;
+        public static Texture2D FighterCarrierBullet;
+        public static Texture2D Torpedo;
 
         public abstract string TextureFolder { get; }
 
@@ -87,6 +90,7 @@ namespace PGCGame
         }
 
         private TimeSpan _elapsedShotTime = new TimeSpan();
+        private KeyboardState _lastKs = new KeyboardState();
 
         public void Update(GameTime gt)
         {
@@ -95,11 +99,12 @@ namespace PGCGame
             KeyboardState ks = Keyboard.GetState();
             _elapsedShotTime += gt.ElapsedGameTime;
             //Shoot w/ space key
-            if (CanShoot && ks.IsKeyDown(Keys.Space))
+            if (CanShoot && _lastKs.IsKeyUp(Keys.Space) && ks.IsKeyDown(Keys.Space))
             {
                 Shoot();
                 _elapsedShotTime = new TimeSpan();
             }
+            _lastKs = ks;
         }
 
         public bool CanShoot

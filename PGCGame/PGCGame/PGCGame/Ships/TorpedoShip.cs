@@ -18,6 +18,8 @@ namespace PGCGame
         public TorpedoShip(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
             : base(texture, location, spriteBatch)
         {
+            BulletTexture = Ship.Torpedo;
+            DelayBetweenShots = TimeSpan.FromSeconds(.75);
         }
 
         public override void Shoot()

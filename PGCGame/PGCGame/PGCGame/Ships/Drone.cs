@@ -26,6 +26,7 @@ namespace PGCGame
             ParentShip = parent;
             _performMovement = false;
             _rotateTowardsMouse = false;
+            BulletTexture = Ship.DroneBullet;
             ParentShip.BulletFired += new EventHandler(ParentShip_BulletFired);
         }
 
@@ -42,7 +43,7 @@ namespace PGCGame
             //Every 4th shot of main, shoot
             if (ShotsFromMain % 4 == 0)
             {
-                //Ben magic
+                //Ben magic: Targeting
                 Bullet bullet = new Bullet(BulletTexture, Position, SpriteBatch);
                 MouseState ms = Mouse.GetState();
                 bullet.Damage = DamagePerShot;

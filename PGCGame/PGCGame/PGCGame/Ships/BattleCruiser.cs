@@ -20,6 +20,8 @@ namespace PGCGame
             : base(texture, location, spriteBatch)
         {
             MovementSpeed = Vector2.One / 2;
+            BulletTexture = Ship.BattleCruiserBullet;
+            DelayBetweenShots = TimeSpan.FromSeconds(1);
         }
 
         public override void Shoot()
