@@ -43,7 +43,7 @@ namespace PGCGame.Screens
             "...\n",
             "...\n\n\n",
             "U<b>nderlying Sprite/Screen Management Library",
-            "<Glen Husman (glen3b)",
+            "Glen Husman (glen3b)",
             "Glib is available on github!\n\n\n\n\n\n\n",
             "<b>Credits Music:",
             "Failing Defense - Kevin MacLeod\n\n",
