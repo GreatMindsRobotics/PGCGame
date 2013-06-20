@@ -14,7 +14,8 @@ namespace PGCGame
         Credits,
         Game,
         Option,
-        Shop
+        Shop,
+        Pause
     }
 
     public enum ShipTier

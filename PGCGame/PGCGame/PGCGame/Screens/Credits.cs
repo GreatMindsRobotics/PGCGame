@@ -65,7 +65,6 @@ namespace PGCGame.Screens
         public void LoadContent(ContentManager content)
         {
             BackgroundSprite = new Sprite(content.Load<Texture2D>("Images\\Background\\1920by1080SkyStar"), Vector2.Zero, Sprites.SpriteBatch);
-            Texture2D buttonImage = content.Load<Texture2D>("Images\\Controls\\Button");
             SpriteFont SegoeUIMono = content.Load<SpriteFont>("Fonts\\SegoeUIMono");
             _scrollingSpeed = new Vector2(0, -1);
             
@@ -127,6 +126,16 @@ namespace PGCGame.Screens
                 MediaPlayer.Stop();
                 _elapsedTime = new TimeSpan();
                 StateManager.ScreenState = ScreenState.Title;
+                //credits.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .255f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height);
+
+                float offset = Sprites.SpriteBatch.GraphicsDevice.Viewport.Height - Sprites[0].Position.Y;
+                Sprites[0].Y += offset;
+
+                foreach (TextSprite credit in credits)
+                {
+                    credit.Y += offset;
+                }
+
             }
         }
     }

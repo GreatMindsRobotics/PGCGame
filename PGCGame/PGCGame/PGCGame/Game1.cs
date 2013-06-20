@@ -31,6 +31,7 @@ namespace PGCGame
         MainMenu mainMenuScreen;
         Credits creditsScreen;
         Options optionScreen;
+        PauseScreen pauseScreen;
 
         public Game1()
         {
@@ -87,9 +88,11 @@ namespace PGCGame
             optionScreen.LoadContent(Content);
             optionScreen.Name = "optionScreen";
 
+            pauseScreen = new PauseScreen(spriteBatch);
+            pauseScreen.LoadContent(Content);
+            pauseScreen.Name = "pauseScreen";
 
-
-            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen);
+            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen);
             StateManager.AllScreens = screenManager;
         }
 
