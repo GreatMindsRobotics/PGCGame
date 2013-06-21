@@ -33,20 +33,23 @@ namespace PGCGame
         {
             if (Tier == ShipTier.Tier1)
             {
-                Scale = new Vector2(.5f);
+                Scale = new Vector2(.7f);
                 DistanceToNose = 3f/8f;
             }
             else if (Tier == ShipTier.Tier2)
             {
                 //79 to 115
+                Scale = new Vector2(.7f);
                 DistanceToNose = .15f;
             }
             else if (Tier == ShipTier.Tier3)
             {
+                Scale = new Vector2(.7f);
                 DistanceToNose = .28f;
             }
             else if (Tier == ShipTier.Tier4)
             {
+                Scale = new Vector2(.75f);
                 DistanceToNose = .5f;
             }
         }
