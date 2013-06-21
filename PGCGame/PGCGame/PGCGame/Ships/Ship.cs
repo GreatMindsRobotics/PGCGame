@@ -153,7 +153,30 @@ namespace PGCGame
 
         private List<Bullet> _flyingBullets = new List<Bullet>();
 
-        public ShipTier Tier = ShipTier.Tier1;
+
+        private ShipTier _shipTier = ShipTier.Tier1;
+
+        public event EventHandler TierChanged;
+
+        /// <summary>
+        /// Gets or sets the tier of the ship.
+        /// </summary>
+        public ShipTier Tier
+        {
+            get { return _shipTier; }
+            set {
+                _shipTier = value;
+                if (TierChanged != null)
+                {
+                    TierChanged(this, EventArgs.Empty);
+                }
+            }
+        }
+
+        /// <summary>
+        /// The percentage of the total height of the ship that the nose is from the center.
+        /// </summary>
+        public float DistanceToNose;
 
         public List<Bullet> FlyingBullets
         {

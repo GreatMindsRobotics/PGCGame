@@ -25,8 +25,32 @@ namespace PGCGame
             Drones[1].RelativePosition = ShipRelativePosition.BottomRight;
             BulletTexture = Ship.FighterCarrierBullet;
             DelayBetweenShots = TimeSpan.FromSeconds(.5);
+            this.TierChanged += new EventHandler(FighterCarrier_TierChanged);
 
         }
+
+        void FighterCarrier_TierChanged(object sender, EventArgs e)
+        {
+            if (Tier == ShipTier.Tier1)
+            {
+                DistanceToNose = 3f/8f;
+            }
+            else if (Tier == ShipTier.Tier2)
+            {
+                //79 to 115
+                DistanceToNose = .15f;
+            }
+            else if (Tier == ShipTier.Tier3)
+            {
+                DistanceToNose = .28f;
+            }
+            else if (Tier == ShipTier.Tier4)
+            {
+                DistanceToNose = .5f;
+            }
+        }
+
+        
 
         public Drone[] Drones = new Drone[2];
         public event EventHandler BulletFired;
@@ -35,8 +59,12 @@ namespace PGCGame
         {
             //TODO: Fire bullet
             //Glen's mom magic: Targeting
-            Bullet bullet = new Bullet(BulletTexture, WorldCoords, SpriteBatch);
+
+            Bullet bullet = new Bullet(BulletTexture, WorldCoords - new Vector2(Height * -DistanceToNose, Height * -DistanceToNose) * Rotation.AsVector(), WorldSb);
+            
             bullet.Speed = Rotation.AsVector();
+            bullet.UseCenterAsOrigin = true;
+            bullet.Rotation = Rotation - 90;
             bullet.Damage = DamagePerShot;
             //Vector2 mousePos = new Vector2(ms.X, ms.Y);
             //Vector2 slope = mousePos - Position;

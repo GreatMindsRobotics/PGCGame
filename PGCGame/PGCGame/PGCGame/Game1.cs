@@ -65,10 +65,10 @@ namespace PGCGame
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             //TODO: Load in bullet textures
-            Ship.BattleCruiserBullet = new PlainTexture2D(GraphicsDevice);
-            Ship.DroneBullet = new PlainTexture2D(GraphicsDevice);
-            Ship.FighterCarrierBullet = new PlainTexture2D(GraphicsDevice);
-            Ship.Torpedo = new PlainTexture2D(GraphicsDevice);
+            Ship.BattleCruiserBullet = new PlainTexture2D(GraphicsDevice, 5, 1, Color.Red);
+            Ship.DroneBullet = new PlainTexture2D(GraphicsDevice, 5, 1, Color.Red);
+            Ship.FighterCarrierBullet = new PlainTexture2D(GraphicsDevice, 5, 1, Color.Red);
+            Ship.Torpedo = new PlainTexture2D(GraphicsDevice, 5, 1, Color.Red);
 
             shopScreen = new Shop(spriteBatch);
             shopScreen.LoadContent(Content);
