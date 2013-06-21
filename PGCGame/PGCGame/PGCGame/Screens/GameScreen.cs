@@ -50,9 +50,9 @@ namespace PGCGame.Screens
         {
             
             playerSbObjects.Clear();
-            BackgroundSprite bgspr = new BackgroundSprite(bgImg, Sprites.SpriteBatch, 10, 10);
+            BackgroundSprite bgspr = new BackgroundSprite(bgImg, Sprites.SpriteBatch, 10, 2);
             bgspr.Drawn += new EventHandler(bgspr_Drawn);
-            worldCam.Pos = new Vector2(bgspr.TotalWidth / 2, bgspr.TotalHeight / 2);
+            worldCam.Pos = new Vector2(bgspr.TotalWidth / 2, bgspr.TotalHeight - (bgspr.Height / 2));
             BackgroundSprite = bgspr;
             if (typeof(TShip) == typeof(Drone))
             {

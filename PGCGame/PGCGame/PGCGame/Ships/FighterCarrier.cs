@@ -34,14 +34,14 @@ namespace PGCGame
         public override void Shoot()
         {
             //TODO: Fire bullet
-            //Ben magic: Targeting
+            //Glen's mom magic: Targeting
             Bullet bullet = new Bullet(BulletTexture, WorldCoords, SpriteBatch);
-            MouseState ms = Mouse.GetState();
+            bullet.Speed = Rotation.AsVector();
             bullet.Damage = DamagePerShot;
-            Vector2 mousePos = new Vector2(ms.X, ms.Y);
-            Vector2 slope = mousePos - Position;
-            slope.Normalize();
-            bullet.Speed = slope;
+            //Vector2 mousePos = new Vector2(ms.X, ms.Y);
+            //Vector2 slope = mousePos - Position;
+            //slope.Normalize();
+            //bullet.Speed = slope;
             FlyingBullets.Add(bullet);
             if (BulletFired != null)
             {

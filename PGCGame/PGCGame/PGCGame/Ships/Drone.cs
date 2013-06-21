@@ -43,14 +43,14 @@ namespace PGCGame
             //Every 4th shot of main, shoot
             if (ShotsFromMain % 4 == 0)
             {
-                //Ben magic: Targeting
+                //Glen's mom magic: Targeting
                 Bullet bullet = new Bullet(BulletTexture, WorldCoords, SpriteBatch);
-                MouseState ms = Mouse.GetState();
+                //MouseState ms = Mouse.GetState();
                 bullet.Damage = DamagePerShot;
-                Vector2 mousePos = new Vector2(ms.X, ms.Y);
-                Vector2 slope = mousePos - Position;
-                slope.Normalize();
-                bullet.Speed = slope;
+                bullet.Speed = ParentShip.Rotation.AsVector();
+                //Vector2 mousePos = new Vector2(ms.X, ms.Y);
+                //Vector2 slope = mousePos - Position;
+                //slope.Normalize();
                 ParentShip.DroneBullets.Add(bullet);
             }
             //throw new NotImplementedException();
