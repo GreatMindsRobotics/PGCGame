@@ -25,6 +25,8 @@ namespace PGCGame
         {
             ParentShip = parent;
             _performMovement = false;
+            //TODO: Change scale w/ actual drone texture
+            Scale = new Vector2(.35f);
             _rotateTowardsMouse = false;
             BulletTexture = Ship.DroneBullet;
             ParentShip.BulletFired += new EventHandler(ParentShip_BulletFired);
