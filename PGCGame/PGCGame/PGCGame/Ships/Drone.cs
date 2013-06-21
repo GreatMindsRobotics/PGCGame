@@ -44,6 +44,7 @@ namespace PGCGame
             if (ShotsFromMain % 4 == 0)
             {
                 //Glen's mom magic: Targeting
+                //TODO: AI Targeting
                 Bullet bullet = new Bullet(BulletTexture, WorldCoords, SpriteBatch);
                 //MouseState ms = Mouse.GetState();
                 bullet.Damage = DamagePerShot;
