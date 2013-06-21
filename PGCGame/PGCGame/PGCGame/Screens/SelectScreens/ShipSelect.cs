@@ -31,6 +31,7 @@ namespace PGCGame.Screens
         {
             ship1 = new Sprite(content.Load<Texture2D>("Images\\Battle Cruiser\\Tier1"), Vector2.Zero, Sprites.SpriteBatch);
             TextSprite text1 = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "TODO");
+            text1.Color = Color.White;
             ship1.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.81f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .12f);
             ship1.Rotation = new SpriteRotation(90);
 
