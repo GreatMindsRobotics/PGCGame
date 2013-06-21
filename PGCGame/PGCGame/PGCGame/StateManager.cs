@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Glib.XNA.SpriteLib;
 using Glib;
+using Microsoft.Xna.Framework;
 
 namespace PGCGame
 {
@@ -60,6 +61,8 @@ namespace PGCGame
             }
         }
         public static ScreenManager AllScreens;
+
+        public static GraphicsDeviceManager GraphicsManager;
 
         public static class Options
         {

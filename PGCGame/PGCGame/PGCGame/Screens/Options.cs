@@ -184,6 +184,7 @@ namespace PGCGame.Screens
             mouseInBackButton = true;
         }
 
+        
                                                     
         MouseState lastMs = new MouseState(0, 0, 0, ButtonState.Pressed, ButtonState.Released, ButtonState.Released, ButtonState.Released, ButtonState.Released);
 
@@ -211,6 +212,7 @@ namespace PGCGame.Screens
                 {
                     StateManager.Options.HDEnabled = !StateManager.Options.HDEnabled;
                     GFXLabel.Text = String.Format("GFX: {0}", StateManager.Options.HDEnabled ? "High Def" : "Standard");
+                    StateManager.GraphicsManager.ToggleFullScreen();
                 }
             }
             lastMs = currentMs;

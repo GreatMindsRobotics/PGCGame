@@ -105,6 +105,7 @@ namespace PGCGame
 
             screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen, shipSelectScreen);
             StateManager.AllScreens = screenManager;
+            StateManager.GraphicsManager = graphics;
         }
 
         /// <summary>
