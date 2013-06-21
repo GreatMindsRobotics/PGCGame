@@ -29,7 +29,6 @@ namespace PGCGame.Screens
         TextSprite BackLabel;
         TextSprite OptionsLabel;
         TextSprite CreditsLabel;
-        TextSprite ShopLabel;
 
         public void LoadContent(ContentManager content)
         {
@@ -119,31 +118,6 @@ namespace PGCGame.Screens
 
             Sprites.Add(CreditsButton);
             AdditionalSprites.Add(CreditsLabel);
-
-            //temperary
-            Sprite ShopButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .362f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .598f), Sprites.SpriteBatch);
-            ShopLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Shop");
-            ShopLabel.Position = new Vector2((ShopButton.X + ShopButton.Width / 2) - ShopLabel.Width / 2, (ShopButton.Y + ShopButton.Height / 2) - ShopLabel.Height / 2);
-            ShopLabel.Color = Color.White;
-            ShopLabel.IsHoverable = true;
-            ShopLabel.IsManuallySelectable = true;
-            ShopLabel.NonHoverColor = Color.White;
-            ShopLabel.HoverColor = Color.MediumAquamarine;
-            ShopButton.MouseEnter += new EventHandler(ShopButton_MouseEnter);
-            ShopButton.MouseLeave += new EventHandler(ShopButton_MouseLeave);
-
-            Sprites.Add(ShopButton);
-            AdditionalSprites.Add(ShopLabel);
-        }
-
-        //shop button
-        void ShopButton_MouseLeave(object sender, EventArgs e)
-        {
-            ShopLabel.IsSelected = false;
-        }
-        void ShopButton_MouseEnter(object sender, EventArgs e)
-        {
-            ShopLabel.IsSelected = true;
         }
 
         //credits button
@@ -252,10 +226,6 @@ namespace PGCGame.Screens
                 if (mouseInOptionButton)
                 {
                     StateManager.ScreenState = ScreenState.Option;
-                }
-                if (ShopLabel.IsSelected)
-                {
-                    StateManager.ScreenState = ScreenState.Shop;
                 }
             }
             lastMs = currentMs;

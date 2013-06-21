@@ -18,7 +18,7 @@ namespace PGCGame.Screens
         public Shop(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
         {
-            
+            //TODO: BACKGROUND
         }
 
         TextSprite upgradeELabel;
