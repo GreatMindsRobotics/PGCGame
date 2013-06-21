@@ -28,7 +28,9 @@ namespace PGCGame.Screens
         TextSprite leftLabel;
         TextSprite rightLabel;
 
-        int selected = 0;
+        public event EventHandler nextButtonClicked;
+
+        protected int selected = 0;
 
         protected List<KeyValuePair<Sprite, TextSprite>> items;
 
@@ -182,9 +184,10 @@ namespace PGCGame.Screens
             {
                 if (mouseInplayButton)
                 {
-                    //TODO: Ship selection screen will choose ship
-                    StateManager.InitializeSingleplayerGameScreen<FighterCarrier>(ShipTier.Tier1);
-                    StateManager.ScreenState = ScreenState.Game;
+                    if (nextButtonClicked != null)
+                    {
+                        nextButtonClicked(this, new EventArgs());
+                    }
                 }
                 else if (mouseInbackButton)
                 {

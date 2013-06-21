@@ -23,27 +23,55 @@ namespace PGCGame.Screens
             
         }
 
-        
+        Sprite ship1;
+        Sprite ship2;
+        Sprite ship3;
+
         public override void LoadContent(ContentManager content)
         {
-            Sprite ship1 = new Sprite(content.Load<Texture2D>("Images\\Battle Cruiser\\Tier1"), Vector2.Zero, Sprites.SpriteBatch);
+            ship1 = new Sprite(content.Load<Texture2D>("Images\\Battle Cruiser\\Tier1"), Vector2.Zero, Sprites.SpriteBatch);
             TextSprite text1 = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "TODO");
-            ship1.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.82f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .12f);
+            ship1.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.81f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .12f);
             ship1.Rotation = new SpriteRotation(90);
 
             items.Add(new KeyValuePair<Sprite, TextSprite>(ship1, text1));
 
-            Sprite ship2 = new Sprite(content.Load<Texture2D>("Images\\Fighter Carrier\\Tier1"), Vector2.Zero, Sprites.SpriteBatch);
+            ship2 = new Sprite(content.Load<Texture2D>("Images\\Fighter Carrier\\Tier1"), Vector2.Zero, Sprites.SpriteBatch);
             TextSprite text2 = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "TODO");
+            ship2.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.85f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .01f);
+            ship2.Rotation = new SpriteRotation(90);
 
             items.Add(new KeyValuePair<Sprite, TextSprite>(ship2, text2));
 
-            Sprite ship3 = new Sprite(content.Load<Texture2D>("Images\\Torpedo Ship\\Tier1"), Vector2.Zero, Sprites.SpriteBatch);
+            ship3 = new Sprite(content.Load<Texture2D>("Images\\Torpedo Ship\\Tier1"), Vector2.Zero, Sprites.SpriteBatch);
             TextSprite text3 = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "TODO");
+            ship3.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.81f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .12f);
+            ship3.Rotation = new SpriteRotation(90);
 
             items.Add(new KeyValuePair<Sprite, TextSprite>(ship3, text3));
 
             base.LoadContent(content);
+            nextButtonClicked += new EventHandler(ShipSelect_nextButtonClicked);
+        }
+
+        void ShipSelect_nextButtonClicked(object sender, EventArgs e)
+        {
+            //TODO: Ship selection screen will choose ship
+            if (items[selected].Key.Texture == ship1.Texture)
+            {
+                StateManager.InitializeSingleplayerGameScreen<BattleCruiser>(ShipTier.Tier1);
+            }
+            else if (items[selected].Key.Texture == ship2.Texture)
+            {
+                StateManager.InitializeSingleplayerGameScreen<FighterCarrier>(ShipTier.Tier1);
+            }
+            else if (items[selected].Key.Texture == ship3.Texture)
+            {
+                StateManager.InitializeSingleplayerGameScreen<TorpedoShip>(ShipTier.Tier1);
+            }
+
+            
+            StateManager.ScreenState = ScreenState.Game;
         }
 
 
