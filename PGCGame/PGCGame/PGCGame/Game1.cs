@@ -39,7 +39,18 @@ namespace PGCGame
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreparingDeviceSettings += new EventHandler<PreparingDeviceSettingsEventArgs>(graphics_PreparingDeviceSettings);
+            graphics.DeviceReset += new EventHandler<EventArgs>(graphics_DeviceReset);
             Content.RootDirectory = "Content";
+        }
+
+        void graphics_DeviceReset(object sender, EventArgs e)
+        {
+
+            foreach (Screen s in StateManager.AllScreens)
+            {
+                s.Target = new RenderTarget2D(s.Graphics, graphics.GraphicsDevice.DisplayMode.Width, graphics.GraphicsDevice.DisplayMode.Height);
+            }
         }
 
         /// <summary>
@@ -111,7 +122,36 @@ namespace PGCGame
 
             screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen, shipSelectScreen, weaponSelectScreen);
             StateManager.AllScreens = screenManager;
+            
             StateManager.GraphicsManager = graphics;
+        }
+
+        /// <summary>
+        /// Modifies the display mode for the graphics device 
+        /// when it is reset or recreated.
+        /// </summary>
+        void graphics_PreparingDeviceSettings(object sender,
+            PreparingDeviceSettingsEventArgs e)
+        {
+            //First call - rely on defaults
+            if (graphics.GraphicsDevice == null)
+            {
+                StateManager.Resolution = new Point(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+                return;
+            }
+
+
+
+            //Reset PreferredBackBuffer to the new DisplayMode size
+            PresentationParameters screenParams = new PresentationParameters();
+
+            screenParams.BackBufferFormat = graphics.GraphicsDevice.DisplayMode.Format;
+            screenParams.BackBufferWidth = StateManager.Options.HDEnabled ? graphics.GraphicsDevice.DisplayMode.Width : StateManager.Resolution.X;
+            screenParams.BackBufferHeight = StateManager.Options.HDEnabled ? graphics.GraphicsDevice.DisplayMode.Height : StateManager.Resolution.Y;
+            screenParams.DeviceWindowHandle = Window.Handle;
+
+            GraphicsDevice.Reset(screenParams);
+            GraphicsDevice.Viewport = new Viewport(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight) { MinDepth = 0.0f, MaxDepth = 1.0f };
         }
 
         /// <summary>

@@ -65,13 +65,24 @@ namespace PGCGame
         }
         public static ScreenManager AllScreens;
 
+        public static Point Resolution;
+
         public static GraphicsDeviceManager GraphicsManager;
 
         public static class Options
         {
-            public static ScreenResolution ScreenResolution { get; set; }
             public static bool SFXEnabled { get; set; }
-            public static bool MusicEnabled { get; set; }
+
+            private static bool _musicEnabled = true;
+
+
+            public static bool MusicEnabled
+            {
+                get { return _musicEnabled; }
+                set { _musicEnabled = value; }
+            }
+            
+            
             public static bool HDEnabled { get; set; }
         }
     }
