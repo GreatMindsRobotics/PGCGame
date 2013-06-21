@@ -21,6 +21,7 @@ namespace PGCGame.Screens
         TextSprite PauseLabel;
         TextSprite ResumeLabel;
         TextSprite ShopLabel;
+        TextSprite OptionsLabel;
 
         public PauseScreen(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
@@ -46,7 +47,7 @@ namespace PGCGame.Screens
 
 
 
-            Sprite ExitButton = new Sprite(button, new Vector2(ResumeButton.X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .666f), Sprites.SpriteBatch);
+            Sprite ExitButton = new Sprite(button, new Vector2(ResumeButton.X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .8f), Sprites.SpriteBatch);
             ExitButton.MouseEnter += new EventHandler(BackButton_MouseEnter);
             ExitButton.MouseLeave += new EventHandler(BackButton_MouseLeave);
             Sprites.Add(ExitButton);
@@ -70,7 +71,7 @@ namespace PGCGame.Screens
             AdditionalSprites.Add(ExitLabel);
 
             Sprite ShopButton = new Sprite(button, Vector2.Zero, Sprites.SpriteBatch);
-            ShopButton.Position = new Vector2(ResumeButton.X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .5f);
+            ShopButton.Position = new Vector2(ResumeButton.X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .53f);
             ShopButton.MouseEnter += new EventHandler(ShopButton_MouseEnter);
             ShopButton.MouseLeave += new EventHandler(ShopButton_MouseLeave);
             Sprites.Add(ShopButton);
@@ -84,6 +85,31 @@ namespace PGCGame.Screens
             ShopLabel.NonHoverColor = Color.White;
             AdditionalSprites.Add(ShopLabel);
 
+            Sprite OptionButton = new Sprite(button, Vector2.Zero, Sprites.SpriteBatch);
+            OptionButton.Position = new Vector2(ResumeButton.X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .37f);
+            OptionButton.MouseEnter += new EventHandler(OptionButton_MouseEnter);
+            OptionButton.MouseLeave += new EventHandler(OptionButton_MouseLeave);
+            Sprites.Add(OptionButton);
+
+            OptionsLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "Options");
+            OptionsLabel.Position = new Vector2(OptionsLabel.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X, OptionButton.Y + (OptionButton.Height / 2 - OptionsLabel.Height / 2));
+            OptionsLabel.Color = Color.White;
+            OptionsLabel.IsHoverable = true;
+            OptionsLabel.IsManuallySelectable = true;
+            OptionsLabel.HoverColor = Color.MediumAquamarine;
+            OptionsLabel.NonHoverColor = Color.White;
+            AdditionalSprites.Add(OptionsLabel);
+
+        }
+
+        void OptionButton_MouseLeave(object sender, EventArgs e)
+        {
+            OptionsLabel.IsSelected = false;
+        }
+
+        void OptionButton_MouseEnter(object sender, EventArgs e)
+        {
+            OptionsLabel.IsSelected = true;   
         }
 
         void ShopButton_MouseLeave(object sender, EventArgs e)
@@ -122,6 +148,22 @@ namespace PGCGame.Screens
             }
         }
 
+        public bool mouseInShopButton
+        {
+            get
+            {
+                return ShopLabel.IsSelected;
+            }
+        }
+
+        public bool mouseInOptionsButton
+        {
+            get
+            {
+                return OptionsLabel.IsSelected;
+            }
+        }
+
         void BackButton_MouseLeave(object sender, EventArgs e)
         {
             ExitLabel.IsSelected = false;
@@ -138,7 +180,7 @@ namespace PGCGame.Screens
         {
             base.Update(gameTime);
 
-            if (mouseInResumeButton || mouseInExitButton)
+            if (mouseInResumeButton || mouseInExitButton || mouseInShopButton || mouseInOptionsButton)
             {
                 MouseState ms = Mouse.GetState();
                 if (ms.LeftButton == ButtonState.Pressed)
@@ -150,7 +192,16 @@ namespace PGCGame.Screens
 
                     if (mouseInExitButton)
                     {
-                        StateManager.ScreenState = ScreenState.Title;
+                        StateManager.ScreenState = ScreenState.MainMenu;
+                    }
+                    if (mouseInShopButton)
+                    {
+                        StateManager.ScreenState = ScreenState.Shop;
+                    }
+
+                    if (mouseInOptionsButton)
+                    {
+                        StateManager.ScreenState = ScreenState.Option;
                     }
 
                 }

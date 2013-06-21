@@ -150,7 +150,7 @@ namespace PGCGame.Screens
             {
                 if (mouseInBackButton)
                 {
-                    StateManager.ScreenState = ScreenState.MainMenu;
+                    StateManager.ScreenState = ScreenState.Pause;
                 }
             }
             lastMs = currentMs;
