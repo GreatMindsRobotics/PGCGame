@@ -64,10 +64,9 @@ namespace PGCGame
         public static class Options
         {
             public static ScreenResolution ScreenResolution { get; set; }
-            public static bool EnableSFX { get; set; }
-
-            public static VolumeSettings Music { get; set; }
-            public static VolumeSettings SFX { get; set; }
+            public static bool SFXEnabled { get; set; }
+            public static bool MusicEnabled { get; set; }
+            public static bool HDEnabled { get; set; }
         }
     }
 }

@@ -54,4 +54,10 @@ namespace PGCGame
         Off = 0,
         Max = 100
     }
+
+    public enum GraphicSetting
+    {
+        Standard,
+        FullHD
+    }
 }
