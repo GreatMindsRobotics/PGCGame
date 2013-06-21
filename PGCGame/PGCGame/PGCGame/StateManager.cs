@@ -57,6 +57,9 @@ namespace PGCGame
                     case PGCGame.ScreenState.ShipSelect:
                         AllScreens["shipSelectScreen"].Visible = true;
                         break;
+                    case PGCGame.ScreenState.WeaponSelect:
+                        AllScreens["weaponSelectScreen"].Visible = true;
+                        break;
                 }
             }
         }

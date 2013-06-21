@@ -14,6 +14,7 @@ using Glib;
 using Glib.XNA.SpriteLib;
 
 using PGCGame.Screens;
+using PGCGame.Screens.SelectScreens;
 
 namespace PGCGame
 {
@@ -33,6 +34,7 @@ namespace PGCGame
         Options optionScreen;
         PauseScreen pauseScreen;
         ShipSelect shipSelectScreen;
+        WeaponSelectScreen weaponSelectScreen;
 
         public Game1()
         {
@@ -103,7 +105,11 @@ namespace PGCGame
             shipSelectScreen.LoadContent(Content);
             shipSelectScreen.Name = "shipSelectScreen";
 
-            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen, shipSelectScreen);
+            weaponSelectScreen = new WeaponSelectScreen(spriteBatch);
+            weaponSelectScreen.LoadContent(Content);
+            weaponSelectScreen.Name = "weaponSelectScreen";
+
+            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen, shipSelectScreen, weaponSelectScreen);
             StateManager.AllScreens = screenManager;
             StateManager.GraphicsManager = graphics;
         }

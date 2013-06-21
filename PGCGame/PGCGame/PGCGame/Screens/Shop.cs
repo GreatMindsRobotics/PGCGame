@@ -120,6 +120,14 @@ namespace PGCGame.Screens
             weaponsLabel.IsSelected = true;
         }
 
+        public bool mouseInWeaponButton
+        {
+            get
+            {
+                return weaponsLabel.IsSelected;
+            }
+        }
+
         //shipbutton
         void shipButton_MouseLeave(object sender, EventArgs e)
         {
@@ -151,6 +159,10 @@ namespace PGCGame.Screens
                 if (mouseInBackButton)
                 {
                     StateManager.ScreenState = ScreenState.Pause;
+                }
+                if (mouseInWeaponButton)
+                {
+                    StateManager.ScreenState = ScreenState.WeaponSelect;
                 }
             }
             lastMs = currentMs;
