@@ -62,6 +62,10 @@ namespace PGCGame
                     case PGCGame.ScreenState.WeaponSelect:
                         AllScreens["weaponSelectScreen"].Visible = true;
                         break;
+                    case PGCGame.ScreenState.UpgradeScreen:
+                        AllScreens["upgradeScreen"].Visible = true;
+                        break;
+                    
                 }
             }
         }

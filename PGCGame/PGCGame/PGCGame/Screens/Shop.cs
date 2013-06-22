@@ -128,6 +128,14 @@ namespace PGCGame.Screens
             }
         }
 
+        public bool mouseInUpgradeButton
+        {
+            get
+            {
+                return upgradeELabel.IsSelected = true;
+            }
+        }
+
         //shipbutton
         void shipButton_MouseLeave(object sender, EventArgs e)
         {
@@ -148,6 +156,8 @@ namespace PGCGame.Screens
             upgradeELabel.IsSelected = true;
         }
 
+        
+
         MouseState lastMs = new MouseState(0, 0, 0, ButtonState.Pressed, ButtonState.Released, ButtonState.Released, ButtonState.Released, ButtonState.Released);
 
         public override void Update(GameTime gameTime)
@@ -164,6 +174,11 @@ namespace PGCGame.Screens
                 {
                     StateManager.ScreenState = ScreenState.WeaponSelect;
                 }
+                if (mouseInUpgradeButton)
+                {
+                    StateManager.ScreenState = ScreenState.UpgradeScreen;
+                }
+                
             }
             lastMs = currentMs;
         }
