@@ -17,6 +17,8 @@ namespace PGCGame
             AllScreens["gameScreen"].Cast<Screens.GameScreen>().InitializeScreen<T>(tier);
         }
 
+        
+
         public static ScreenState ScreenState
         {
             get
@@ -71,6 +73,16 @@ namespace PGCGame
 
         public static class Options
         {
+            public static event EventHandler ScreenResolutionChanged;
+
+            internal static void callResChangeEvent()
+            {
+                if (ScreenResolutionChanged != null)
+                {
+                    ScreenResolutionChanged(null, EventArgs.Empty);
+                }
+            }
+
             public static bool SFXEnabled { get; set; }
 
             private static bool _musicEnabled = true;

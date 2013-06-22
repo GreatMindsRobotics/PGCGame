@@ -21,7 +21,10 @@ namespace PGCGame
         {
             MovementSpeed = Vector2.One / 2;
             BulletTexture = Ship.BattleCruiserBullet;
-            DelayBetweenShots = TimeSpan.FromSeconds(1);
+            DelayBetweenShots = TimeSpan.FromSeconds(1.5);
+            DamagePerShot = 20;
+            MovementSpeed = new Vector2(.375f);
+            InitialHealth = 120;
         }
 
         public override void Shoot()

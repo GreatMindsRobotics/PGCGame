@@ -19,6 +19,8 @@ namespace PGCGame
             : base(texture, location, spriteBatch)
         {
             BulletTexture = Ship.Torpedo;
+            MovementSpeed = new Vector2(1.333f);
+            //MovementSpeed = new Vector2(1f);
             DelayBetweenShots = TimeSpan.FromSeconds(.75);
         }
 

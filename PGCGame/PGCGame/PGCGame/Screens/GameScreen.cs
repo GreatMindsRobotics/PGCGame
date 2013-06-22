@@ -135,31 +135,47 @@ namespace PGCGame.Screens
             Vector2 camMove = Vector2.Zero;
             if (keyboard.IsKeyDown(Keys.W))
             {
-                if (worldCam.Pos.Y > bg.Height / 2)
+                if (worldCam.Pos.Y - playerShip.MovementSpeed.Y >= bg.Height / 2)
                 {
                     camMove.Y = -playerShip.MovementSpeed.Y;
+                }
+                else
+                {
+                    camMove.Y = bg.Height / 2 - worldCam.Pos.Y;
                 }
             }
             else if (keyboard.IsKeyDown(Keys.S))
             {
-                if (worldCam.Pos.Y < bg.TotalHeight - (bg.Height / 2))
+                if (worldCam.Pos.Y + playerShip.MovementSpeed.Y <= bg.TotalHeight - (bg.Height / 2))
                 {
                     camMove.Y = playerShip.MovementSpeed.Y;
+                }
+                else
+                {
+                    camMove.Y = (bg.TotalHeight - (bg.Height / 2)) - worldCam.Pos.Y;
                 }
             }
 
             if (keyboard.IsKeyDown(Keys.D))
             {
-                if (worldCam.Pos.X < bg.TotalWidth - (bg.Width / 2))
+                if (worldCam.Pos.X + playerShip.MovementSpeed.X <= bg.TotalWidth - (bg.Width / 2))
                 {
                     camMove.X = playerShip.MovementSpeed.X;
+                }
+                else
+                {
+                    camMove.X = (bg.TotalWidth - (bg.Width / 2)) - worldCam.Pos.X;
                 }
             }
             else if (keyboard.IsKeyDown(Keys.A))
             {
-                if (worldCam.Pos.X > bg.Width / 2)
+                if (worldCam.Pos.X - playerShip.MovementSpeed.X >= bg.Width / 2)
                 {
                     camMove.X = -playerShip.MovementSpeed.X;
+                }
+                else
+                {
+                    camMove.X = bg.Width / 2 - worldCam.Pos.X;
                 }
             }
             

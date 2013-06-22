@@ -24,7 +24,10 @@ namespace PGCGame
             Drones[1] = new Drone(droneTexture, Vector2.Zero, spriteBatch, this);
             Drones[1].RelativePosition = ShipRelativePosition.BottomRight;
             BulletTexture = Ship.FighterCarrierBullet;
-            DelayBetweenShots = TimeSpan.FromSeconds(.5);
+            DelayBetweenShots = TimeSpan.FromMilliseconds(55);
+            DamagePerShot = 2;
+            InitialHealth = 100;
+            MovementSpeed = Vector2.One;
             this.TierChanged += new EventHandler(FighterCarrier_TierChanged);
 
         }
