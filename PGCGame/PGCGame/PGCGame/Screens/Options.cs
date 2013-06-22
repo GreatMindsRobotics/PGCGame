@@ -223,18 +223,22 @@ namespace PGCGame.Screens
                     screenParams.BackBufferHeight = StateManager.Options.HDEnabled ? StateManager.GraphicsManager.GraphicsDevice.DisplayMode.Height : StateManager.Resolution.Y;
                     screenParams.DeviceWindowHandle = StateManager.GraphicsManager.GraphicsDevice.PresentationParameters.DeviceWindowHandle;
 
+                    
                     StateManager.GraphicsManager.GraphicsDevice.Reset(screenParams);
-                    StateManager.GraphicsManager.GraphicsDevice.Viewport = new Viewport(0, 0, StateManager.GraphicsManager.PreferredBackBufferWidth, StateManager.GraphicsManager.PreferredBackBufferHeight) { MinDepth = 0.0f, MaxDepth = 1.0f };
-
+                    StateManager.GraphicsManager.IsFullScreen = StateManager.Options.HDEnabled;
+                    
+                    StateManager.GraphicsManager.GraphicsDevice.Viewport = new Viewport(0, 0, screenParams.BackBufferWidth, screenParams.BackBufferHeight) { MinDepth = 0.0f, MaxDepth = 1.0f };
+                    StateManager.GraphicsManager.PreferredBackBufferWidth = screenParams.BackBufferWidth;
+                    StateManager.GraphicsManager.PreferredBackBufferHeight = screenParams.BackBufferHeight;
                     foreach (Screen s in StateManager.AllScreens)
                     {
-                        if (!screenParams.IsFullScreen)
-                        {
-                            System.Diagnostics.Debugger.Break();
-                        }
+                        //if (!screenParams.IsFullScreen)
+                        //{
+                        //    System.Diagnostics.Debugger.Break();
+                        //}
                         s.Target = new RenderTarget2D(s.Graphics, screenParams.BackBufferWidth, screenParams.BackBufferHeight);
                     }
-
+                    StateManager.Options.callResChangeEvent();
                     //System.Diagnostics.Debug.WriteLine("Fullscreen: {0} wide by {1} high, mode {2}", StateManager.GraphicsManager.PreferredBackBufferWidth, StateManager.GraphicsManager.PreferredBackBufferHeight, StateManager.GraphicsManager.GraphicsDevice.DisplayMode);
                     
                 }
