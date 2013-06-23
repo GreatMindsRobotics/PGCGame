@@ -12,6 +12,8 @@ using Glib.XNA;
 using Glib;
 using Microsoft.Xna.Framework.Input;
 
+using PGCGame.CoreTypes;
+
 namespace PGCGame.Screens
 {
     public class GameScreen : Screen
@@ -54,10 +56,12 @@ namespace PGCGame.Screens
             bgspr.Drawn += new EventHandler(bgspr_Drawn);
             worldCam.Pos = new Vector2(bgspr.TotalWidth / 2, bgspr.TotalHeight - (bgspr.Height / 2));
             BackgroundSprite = bgspr;
+            
             if (typeof(TShip) == typeof(Drone))
             {
                 throw new Exception();
             }
+            
             TShip ship = null;
             Texture2D shipTexture = null;
             if (typeof(TShip) == typeof(FighterCarrier))
@@ -72,11 +76,12 @@ namespace PGCGame.Screens
                 }
                 if (droneTexture == null)
                 {
-                    droneTexture = storedCm.Load<Texture2D>("Images\\Drones\\TempDrones");
+                    droneTexture = storedCm.Load<Texture2D>("Images\\Drones\\Drone1");
                     shipTextures.Add(new KeyValuePair<string, Texture2D>("Drone", droneTexture));
                 }
                 ship = new FighterCarrier(shipTexture, Vector2.Zero, playerSb, droneTexture).Cast<TShip>();
-            }else
+            }
+            else
             {
                 ship = (TShip)Activator.CreateInstance(typeof(TShip), null, Vector2.Zero, playerSb);
             }

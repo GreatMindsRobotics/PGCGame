@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using PGCGame.CoreTypes;
 
 namespace PGCGame.Screens
 {
@@ -16,7 +17,6 @@ namespace PGCGame.Screens
         TextSprite GFXLabel;
         TextSprite SFXLabel;
         TextSprite MusicVolumeLabel;
-        TextSprite OptionsLabel;
         TextSprite BackLabel;
         bool mouseInBackButton = false;
         
@@ -32,7 +32,6 @@ namespace PGCGame.Screens
             this.BackgroundSprite = new HorizontalMenuBGSprite(content.Load<Texture2D>("Images\\Background\\1920by1080SkyStar"), Sprites.SpriteBatch);
 
             //Move Controls (aka Controls)
-            TextSprite MoveControlLabel;
             Sprite MoveControlButton = new Sprite(content.Load<Texture2D>("Images\\Controls\\Button"), new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f), Sprites.SpriteBatch);
             MoveControlLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "Move");
             MoveControlLabel.Position = new Vector2(MoveControlButton.Position.X + (MoveControlButton.Width / 2 - MoveControlLabel.Width / 2), MoveControlButton.Position.Y + (MoveControlButton.Height / 2 - MoveControlLabel.Height / 2));
@@ -160,16 +159,6 @@ namespace PGCGame.Screens
         {
             MusicVolumeLabel.IsSelected = true;
         }
-
-
-        public bool mouseInOptionButton
-        {
-            get
-            {
-                return OptionsLabel.IsSelected;
-
-            }
-        }
      
 
         //back button
@@ -210,37 +199,21 @@ namespace PGCGame.Screens
                 }
                 if (mouseOnGraphicButton)
                 {
-                    StateManager.Options.HDEnabled = !StateManager.Options.HDEnabled;
-                    GFXLabel.Text = String.Format("GFX: {0}", StateManager.Options.HDEnabled ? "High Def" : "Standard");
-                    //System.Diagnostics.Debug.WriteLine("Pre-fullscreen: {0} wide by {1} high, mode {2}", StateManager.GraphicsManager.PreferredBackBufferWidth, StateManager.GraphicsManager.PreferredBackBufferHeight, StateManager.GraphicsManager.GraphicsDevice.DisplayMode);
-                    //StateManager.GraphicsManager.ToggleFullScreen();
+                    StateManager.GraphicsManager.PreferredBackBufferWidth = StateManager.GraphicsManager.IsFullScreen ? StateManager.ViewportSize.X : StateManager.GraphicsManager.GraphicsDevice.DisplayMode.Width;
+                    StateManager.GraphicsManager.PreferredBackBufferHeight = StateManager.GraphicsManager.IsFullScreen ? StateManager.ViewportSize.Y : StateManager.GraphicsManager.GraphicsDevice.DisplayMode.Height;
+                    StateManager.GraphicsManager.ToggleFullScreen();
 
-                    PresentationParameters screenParams = new PresentationParameters();
-
-                    screenParams.IsFullScreen = StateManager.Options.HDEnabled;
-                    screenParams.BackBufferFormat = StateManager.GraphicsManager.GraphicsDevice.DisplayMode.Format;
-                    screenParams.BackBufferWidth = StateManager.Options.HDEnabled ? StateManager.GraphicsManager.GraphicsDevice.DisplayMode.Width : StateManager.Resolution.X;
-                    screenParams.BackBufferHeight = StateManager.Options.HDEnabled ? StateManager.GraphicsManager.GraphicsDevice.DisplayMode.Height : StateManager.Resolution.Y;
-                    screenParams.DeviceWindowHandle = StateManager.GraphicsManager.GraphicsDevice.PresentationParameters.DeviceWindowHandle;
-
-                    
-                    StateManager.GraphicsManager.GraphicsDevice.Reset(screenParams);
-                    StateManager.GraphicsManager.IsFullScreen = StateManager.Options.HDEnabled;
-                    
-                    StateManager.GraphicsManager.GraphicsDevice.Viewport = new Viewport(0, 0, screenParams.BackBufferWidth, screenParams.BackBufferHeight) { MinDepth = 0.0f, MaxDepth = 1.0f };
-                    StateManager.GraphicsManager.PreferredBackBufferWidth = screenParams.BackBufferWidth;
-                    StateManager.GraphicsManager.PreferredBackBufferHeight = screenParams.BackBufferHeight;
                     foreach (Screen s in StateManager.AllScreens)
                     {
-                        //if (!screenParams.IsFullScreen)
-                        //{
-                        //    System.Diagnostics.Debugger.Break();
-                        //}
-                        s.Target = new RenderTarget2D(s.Graphics, screenParams.BackBufferWidth, screenParams.BackBufferHeight);
+                        s.Target = new RenderTarget2D(StateManager.GraphicsManager.GraphicsDevice, StateManager.GraphicsManager.PreferredBackBufferWidth, StateManager.GraphicsManager.PreferredBackBufferHeight);
                     }
-                    StateManager.Options.callResChangeEvent();
-                    //System.Diagnostics.Debug.WriteLine("Fullscreen: {0} wide by {1} high, mode {2}", StateManager.GraphicsManager.PreferredBackBufferWidth, StateManager.GraphicsManager.PreferredBackBufferHeight, StateManager.GraphicsManager.GraphicsDevice.DisplayMode);
-                    
+
+                    //STAN: Redundand! Already tracked via XNA's GraphicsManager.IsFullScreen
+                    StateManager.Options.HDEnabled = !StateManager.Options.HDEnabled;
+
+
+
+                    GFXLabel.Text = String.Format("GFX: {0}", StateManager.Options.HDEnabled ? "High Def" : "Standard");
                 }
             }
             lastMs = currentMs;

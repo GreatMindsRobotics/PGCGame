@@ -145,13 +145,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Images\Drones\TempDrones.png">
-      <Name>TempDrones</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Images\Drones\Drone1.png">
       <Name>Drone1</Name>
       <Importer>TextureImporter</Importer>

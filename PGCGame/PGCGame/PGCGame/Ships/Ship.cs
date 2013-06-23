@@ -15,6 +15,7 @@ using Glib.XNA;
 using Glib;
 using Glib.XNA.SpriteLib;
 
+using PGCGame.CoreTypes;
 
 namespace PGCGame
 {

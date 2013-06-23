@@ -12,6 +12,8 @@ using Glib;
 using Glib.XNA;
 using Glib.XNA.SpriteLib;
 
+using PGCGame.CoreTypes;
+
 namespace PGCGame.Screens
 {
     public class MainMenu : Screen

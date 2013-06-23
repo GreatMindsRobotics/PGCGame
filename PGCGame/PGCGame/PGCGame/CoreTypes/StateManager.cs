@@ -6,11 +6,14 @@ using Glib.XNA.SpriteLib;
 using Glib;
 using Microsoft.Xna.Framework;
 
+using PGCGame.CoreTypes;
+using Microsoft.Xna.Framework.Graphics;
+
 namespace PGCGame
 {
     public static class StateManager
     {
-        private static ScreenState _screenState = PGCGame.ScreenState.Title;
+        private static ScreenState _screenState = ScreenState.Title;
 
         public static void InitializeSingleplayerGameScreen<T>(ShipTier tier) where T : Ship
         {
@@ -47,22 +50,22 @@ namespace PGCGame
                     case ScreenState.Game:
                         AllScreens["gameScreen"].Visible = true;
                         break;
-                    case PGCGame.ScreenState.Option:
+                    case ScreenState.Option:
                         AllScreens["optionScreen"].Visible = true;
                         break;
                     case ScreenState.Shop:
                         AllScreens["shopScreen"].Visible = true;
                         break;
-                    case PGCGame.ScreenState.Pause:
+                    case ScreenState.Pause:
                         AllScreens["pauseScreen"].Visible = true;
                         break;
-                    case PGCGame.ScreenState.ShipSelect:
+                    case ScreenState.ShipSelect:
                         AllScreens["shipSelectScreen"].Visible = true;
                         break;
-                    case PGCGame.ScreenState.WeaponSelect:
+                    case ScreenState.WeaponSelect:
                         AllScreens["weaponSelectScreen"].Visible = true;
                         break;
-                    case PGCGame.ScreenState.UpgradeScreen:
+                    case ScreenState.UpgradeScreen:
                         AllScreens["upgradeScreen"].Visible = true;
                         break;
                     
@@ -71,9 +74,21 @@ namespace PGCGame
         }
         public static ScreenManager AllScreens;
 
-        public static Point Resolution;
+        public static Point ViewportSize;
 
-        public static GraphicsDeviceManager GraphicsManager;
+        private static GraphicsDeviceManager _gfx;
+        public static GraphicsDeviceManager GraphicsManager 
+        {
+            get { return _gfx; }
+            
+            set
+            {
+                _gfx = value;
+                ViewportSize = new Point(_gfx.GraphicsDevice.Viewport.Width, _gfx.GraphicsDevice.Viewport.Height);
+            }
+
+        
+        }
 
         public static class Options
         {
@@ -83,7 +98,7 @@ namespace PGCGame
             {
                 if (ScreenResolutionChanged != null)
                 {
-                    ScreenResolutionChanged(null, EventArgs.Empty);
+                    ScreenResolutionChanged(null, new ViewportEventArgs() { Viewport = GraphicsManager.GraphicsDevice.Viewport, IsFullScreen = HDEnabled });
                 }
             }
 

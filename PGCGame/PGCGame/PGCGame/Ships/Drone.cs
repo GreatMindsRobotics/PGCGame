@@ -12,6 +12,8 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Glib.XNA.SpriteLib;
 
+using PGCGame.CoreTypes;
+
 namespace PGCGame
 {
     public class Drone : Ship
@@ -26,7 +28,7 @@ namespace PGCGame
             ParentShip = parent;
             _performMovement = false;
             //TODO: Change scale w/ actual drone texture
-            Scale = new Vector2(.35f);
+            Scale = Vector2.One;
             _rotateTowardsMouse = false;
             BulletTexture = Ship.DroneBullet;
             ParentShip.BulletFired += new EventHandler(ParentShip_BulletFired);
@@ -57,6 +59,19 @@ namespace PGCGame
                 ParentShip.DroneBullets.Add(bullet);
             }
             //throw new NotImplementedException();
+        }
+
+        public override void Update()
+        {
+            Position = ParentShip.Position; //+ new Vector2(ParentShip.Width / 2, ParentShip.Height / 2);
+            Rotation += .5f;
+                        
+            base.Update();
+        }
+
+        public override void DrawNonAuto()
+        {
+            SpriteBatch.Draw(Texture, Position, DrawRegion, Color, Rotation.Radians, ParentShip.Origin, Scale, Effect, 0f);
         }
 
         public override string TextureFolder

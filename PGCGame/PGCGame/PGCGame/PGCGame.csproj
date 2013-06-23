@@ -76,9 +76,10 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BGSprite.cs" />
-    <Compile Include="Camera2DMatrix.cs" />
-    <Compile Include="Enum.cs" />
+    <Compile Include="CoreTypes\BGSprite.cs" />
+    <Compile Include="CoreTypes\Camera2DMatrix.cs" />
+    <Compile Include="CoreTypes\Enum.cs" />
+    <Compile Include="CoreTypes\ViewportEventArgs.cs" />
     <Compile Include="Screens\Credits.cs" />
     <Compile Include="Screens\GameScreen.cs" />
     <Compile Include="Screens\MainMenu.cs" />
@@ -104,7 +105,7 @@
     <Compile Include="SecondaryWeapons\ShrinkRay.cs" />
     <Compile Include="SecondaryWeapons\SpaceMine.cs" />
     <Compile Include="Ships\TorpedoShip.cs" />
-    <Compile Include="StateManager.cs" />
+    <Compile Include="CoreTypes\StateManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

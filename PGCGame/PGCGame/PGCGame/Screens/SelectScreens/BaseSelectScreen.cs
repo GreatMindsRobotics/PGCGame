@@ -13,6 +13,8 @@ using Glib;
 using Glib.XNA;
 using Glib.XNA.SpriteLib;
 
+using PGCGame.CoreTypes;
+
 namespace PGCGame.Screens
 {
     public abstract class BaseSelectScreen : Screen

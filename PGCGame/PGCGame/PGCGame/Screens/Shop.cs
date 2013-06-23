@@ -11,6 +11,8 @@ using Glib.XNA;
 using Glib;
 using Microsoft.Xna.Framework.Input;
 
+using PGCGame.CoreTypes;
+
 namespace PGCGame.Screens
 {
     public class Shop : Screen
