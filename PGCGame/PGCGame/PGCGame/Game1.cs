@@ -41,6 +41,7 @@ namespace PGCGame
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            Window.Title = "Plequarius: Galactic Commanders";
         }
 
         /// <summary>
