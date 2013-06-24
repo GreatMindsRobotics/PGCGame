@@ -37,7 +37,7 @@ namespace PGCGame
         {
 
 
-            UseCenterAsOrigin = true;
+            
             
         }
 

@@ -257,11 +257,6 @@
             </summary>
             <exception cref="T:System.NullReferenceException">If there is no associated SpriteManager (the SpriteManager property is null).</exception>
         </member>
-        <member name="F:Glib.XNA.SpriteLib.Sprite.UseCenterAsOrigin">
-            <summary>
-            Whether or not to use the center of the Sprite as the origin.
-            </summary>
-        </member>
         <member name="M:Glib.XNA.SpriteLib.Sprite.FollowMouse(Glib.XNA.SpriteLib.SpriteRotation,System.Single)">
             <summary>
             Follow the mouse pointer.
@@ -374,8 +369,17 @@
         </member>
         <member name="P:Glib.XNA.SpriteLib.Sprite.Origin">
             <summary>
-            Get the effective origin of the Sprite.
+            Gets or sets the origin of the Sprite.
             </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.Sprite.UseCenterAsOrigin">
+            <summary>
+            Gets or sets whether or not to use the center of the Sprite as the origin.
+            </summary>
+            <remarks>
+            When Origin is set, it will only affect this value if set precisely to the center of the Sprite (no scale accounting).
+            If this is set to false, the Origin will not be changed.
+            </remarks>
         </member>
         <member name="T:Glib.XNA.ITimerSprite">
             <summary>
@@ -2146,7 +2150,7 @@
         </member>
         <member name="P:Glib.XNA.SpriteLib.SpriteSheet.Origin">
             <summary>
-            Get the effective origin of the Sprite.
+            Gets the effective origin of the Sprite.
             </summary>
         </member>
         <member name="T:Glib.WinForms.FormValidator">
@@ -2505,6 +2509,12 @@
             </summary>
             <param name="value">The value to initialize this SpriteRotation to.</param>
             <param name="measurementType">The type of angle that value represents.</param>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteRotation.Clone">
+            <summary>
+            Clone this SpriteRotation into a new SpriteRotation of equivalent value.
+            </summary>
+            <returns>A new SpriteRotation with the same value as this one.</returns>
         </member>
         <member name="P:Glib.XNA.SpriteLib.SpriteRotation.Degrees">
             <summary>

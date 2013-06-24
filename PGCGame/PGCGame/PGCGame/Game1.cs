@@ -67,11 +67,16 @@ namespace PGCGame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            //TODO: Load in bullet textures
-            Ship.BattleCruiserBullet = new PlainTexture2D(GraphicsDevice, 5, 1, Color.Red);
-            Ship.DroneBullet = new PlainTexture2D(GraphicsDevice, 5, 1, Color.Red);
-            Ship.FighterCarrierBullet = new PlainTexture2D(GraphicsDevice, 5, 1, Color.Red);
-            Ship.Torpedo = new PlainTexture2D(GraphicsDevice, 5, 1, Color.Red);
+            Texture2D greenLaser = Content.Load<Texture2D>("Images\\Bullets\\Laser");
+            //Ship.BattleCruiserBullet = new PlainTexture2D(GraphicsDevice, 5, 1, Color.Red);
+            Ship.BattleCruiserBullet = greenLaser;
+            //Ship.DroneBullet = new PlainTexture2D(GraphicsDevice, 5, 1, Color.Red);
+            Ship.DroneBullet = greenLaser;
+            //Ship.FighterCarrierBullet = new PlainTexture2D(GraphicsDevice, 5, 1, Color.Red);
+            Ship.FighterCarrierBullet = greenLaser;
+
+            //TODO: Torpedo!
+            Ship.Torpedo = new PlainTexture2D(GraphicsDevice, 5, 3, Color.Red);
 
             shopScreen = new Shop(spriteBatch);
             shopScreen.LoadContent(Content);

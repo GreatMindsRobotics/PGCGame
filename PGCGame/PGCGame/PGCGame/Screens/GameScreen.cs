@@ -104,6 +104,7 @@ namespace PGCGame.Screens
             }
             
             ship.Texture = shipTexture;
+            ship.UseCenterAsOrigin = true;
             ship.WorldSb = Sprites.SpriteBatch;
             ship.Tier = tier;
             ship.Position = ship.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport, true);

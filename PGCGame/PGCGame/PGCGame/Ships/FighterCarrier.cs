@@ -11,7 +11,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
+using Glib;
 using PGCGame.CoreTypes;
+using Glib.XNA.SpriteLib;
 
 namespace PGCGame
 {
@@ -59,6 +61,7 @@ namespace PGCGame
             }
         }
 
+        private bool _dronesInitialized = false;
         
 
         public Drone[] Drones = new Drone[2];
@@ -73,7 +76,7 @@ namespace PGCGame
             
             bullet.Speed = Rotation.AsVector();
             bullet.UseCenterAsOrigin = true;
-            bullet.Rotation = Rotation - 90;
+            bullet.Rotation = Rotation.Clone().Cast<SpriteRotation>();
             bullet.Damage = DamagePerShot;
             //Vector2 mousePos = new Vector2(ms.X, ms.Y);
             //Vector2 slope = mousePos - Position;
@@ -90,6 +93,12 @@ namespace PGCGame
 
         public override void Update()
         {
+            if (!_dronesInitialized)
+            {
+                _dronesInitialized = true;
+                Drones[0].Origin = Origin;
+                Drones[1].Origin = Origin;
+            }
             base.Update();
             foreach (Drone d in Drones)
             {

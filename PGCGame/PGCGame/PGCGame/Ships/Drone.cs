@@ -30,6 +30,7 @@ namespace PGCGame
             //TODO: Change scale w/ actual drone texture
             Scale = Vector2.One;
             _rotateTowardsMouse = false;
+            
             BulletTexture = Ship.DroneBullet;
             ParentShip.BulletFired += new EventHandler(ParentShip_BulletFired);
         }
@@ -67,11 +68,6 @@ namespace PGCGame
             Rotation += .5f;
                         
             base.Update();
-        }
-
-        public override void DrawNonAuto()
-        {
-            SpriteBatch.Draw(Texture, Position, DrawRegion, Color, Rotation.Radians, ParentShip.Origin, Scale, Effect, 0f);
         }
 
         public override string TextureFolder
