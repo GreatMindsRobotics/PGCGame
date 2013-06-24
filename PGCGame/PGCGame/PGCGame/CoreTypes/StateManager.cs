@@ -115,6 +115,10 @@ namespace PGCGame
             
             
             public static bool HDEnabled { get; set; }
+
+            public static bool ArrowKeysEnabled { get; set; }
+
+            public static bool LeftButtonEnabled { get; set; }
         }
     }
 }

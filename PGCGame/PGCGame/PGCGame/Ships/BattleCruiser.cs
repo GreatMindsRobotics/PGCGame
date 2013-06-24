@@ -15,7 +15,7 @@ namespace PGCGame
 {
     public class BattleCruiser : Ship
     {
-
+        
         public BattleCruiser(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
             : base(texture, location, spriteBatch)
         {
@@ -31,8 +31,6 @@ namespace PGCGame
         {
             throw new NotImplementedException();
         }
-
-        
 
         public override string TextureFolder
         {

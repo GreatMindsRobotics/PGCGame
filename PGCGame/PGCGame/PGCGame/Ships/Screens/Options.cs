@@ -18,6 +18,8 @@ namespace PGCGame.Screens
         TextSprite SFXLabel;
         TextSprite MusicVolumeLabel;
         TextSprite BackLabel;
+        TextSprite FireControlLabel;
+
         bool mouseInBackButton = false;
         
 
@@ -33,18 +35,28 @@ namespace PGCGame.Screens
 
             //Move Controls (aka Controls)
             Sprite MoveControlButton = new Sprite(content.Load<Texture2D>("Images\\Controls\\Button"), new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f), Sprites.SpriteBatch);
-            MoveControlLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "Move");
+            MoveControlLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, content.Load<SpriteFont>("Fonts\\SegoeUIMono"), String.Format("Move: {0}", StateManager.Options.ArrowKeysEnabled ? "Arrow" : "WASD"));
             MoveControlLabel.Position = new Vector2(MoveControlButton.Position.X + (MoveControlButton.Width / 2 - MoveControlLabel.Width / 2), MoveControlButton.Position.Y + (MoveControlButton.Height / 2 - MoveControlLabel.Height / 2));
             MoveControlLabel.Color = Color.White;
-
+            MoveControlLabel.IsManuallySelectable = true;
+            MoveControlLabel.IsHoverable = true;
+            MoveControlLabel.HoverColor = Color.MediumAquamarine;
+            MoveControlLabel.NonHoverColor = Color.White;
+            MoveControlButton.MouseEnter += new EventHandler(MoveControlButton_MouseEnter);
+            MoveControlButton.MouseLeave += new EventHandler(MoveControlButton_MouseLeave);                                                                                                                                                                   
 
           
             //Fire Controls (aka Temporary)
-
-            TextSprite FireControlLabel = new TextSprite(Sprites.SpriteBatch, content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "FireControlLabel:");
+            FireControlLabel = new TextSprite(Sprites.SpriteBatch, content.Load<SpriteFont>("Fonts\\SegoeUIMono"), String.Format("Fire:{0}", StateManager.Options.LeftButtonEnabled ? "LClick" : "Space"));
             Sprite FireControlButton = new Sprite(content.Load<Texture2D>("Images\\Controls\\Button"), new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .50f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .10f), Sprites.SpriteBatch);
             FireControlLabel.Position = new Vector2((FireControlButton.X + FireControlButton.Width / 2) - FireControlLabel.Width / 2, (FireControlButton.Y + FireControlButton.Height / 2) - FireControlLabel.Height / 2);
-            
+            FireControlLabel.Color = Color.White;
+            FireControlLabel.IsManuallySelectable = true;
+            FireControlLabel.IsHoverable = true;
+            FireControlLabel.HoverColor = Color.MediumAquamarine;
+            FireControlLabel.NonHoverColor = Color.White;
+            FireControlButton.MouseEnter += new EventHandler(FireControlButton_MouseEnter);
+            FireControlButton.MouseLeave += new EventHandler(FireControlButton_MouseLeave);                                                                                                                   
 
 
             //GFX
@@ -52,7 +64,7 @@ namespace PGCGame.Screens
             GraphicsButton.MouseEnter +=new EventHandler(GraphicsButton_MouseEnter);
             GraphicsButton.MouseLeave +=new EventHandler(GraphicsButton_MouseLeave);
 
-            GFXLabel = new TextSprite(Sprites.SpriteBatch, content.Load<SpriteFont>("Fonts\\SegoeUIMono"), String.Format("GFX: {0}", StateManager.Options.HDEnabled ? "High Def" : "Standard"));
+            GFXLabel = new TextSprite(Sprites.SpriteBatch, content.Load<SpriteFont>("Fonts\\SegoeUIMono"), String.Format("GFX: {0}", StateManager.Options.HDEnabled ? "Full" : "Standard"));
             GFXLabel.Position = new Vector2((GraphicsButton.X + GraphicsButton.Width / 2) - GFXLabel.Width / 2, (GraphicsButton.Y + GraphicsButton.Height / 2) - GFXLabel.Height / 2);
             GFXLabel.Color = Color.White;
             GFXLabel.IsManuallySelectable = true;
@@ -116,6 +128,25 @@ namespace PGCGame.Screens
             AdditionalSprites.Add(MusicVolumeLabel);
        
         }
+        //Fire Controls
+        void FireControlButton_MouseLeave(object sender, EventArgs e)
+        {
+            FireControlLabel.IsSelected = false;
+        }
+        void FireControlButton_MouseEnter(object sender, EventArgs e)
+        {
+            FireControlLabel.IsSelected = true;
+        }
+
+        //Controls
+        void MoveControlButton_MouseLeave(object sender, EventArgs e)
+        {
+            MoveControlLabel.IsSelected = false;
+        }
+        void MoveControlButton_MouseEnter(object sender, EventArgs e)
+        {
+            MoveControlLabel.IsSelected = true;
+        }
 
         void SFXButton_MouseLeave(object sender, EventArgs e)
         {
@@ -128,7 +159,7 @@ namespace PGCGame.Screens
         }
 
         //standard
-        //full hd
+        //Full
 
         void GraphicsButton_MouseLeave(object sender, EventArgs e)
         {
@@ -213,13 +244,20 @@ namespace PGCGame.Screens
 
 
 
-                    GFXLabel.Text = String.Format("GFX: {0}", StateManager.Options.HDEnabled ? "High Def" : "Standard");
+                    GFXLabel.Text = String.Format("GFX: {0}", StateManager.Options.HDEnabled ? "Full" : "Standard");
+                }
+                if (MoveControlLabel.IsSelected)
+                {
+                    StateManager.Options.ArrowKeysEnabled = !StateManager.Options.ArrowKeysEnabled;
+                    MoveControlLabel.Text = String.Format("Move: {0}", StateManager.Options.ArrowKeysEnabled ? "Arrow" : "WASD");
+                }
+                if (FireControlLabel.IsSelected)
+                {
+                    StateManager.Options.LeftButtonEnabled = !StateManager.Options.LeftButtonEnabled;
+                    FireControlLabel.Text = String.Format("Fire:{0}", StateManager.Options.LeftButtonEnabled ? "LClick" : "Space");
                 }
             }
             lastMs = currentMs;
-            
-        }
-        
-        
+        } 
     }
 }
