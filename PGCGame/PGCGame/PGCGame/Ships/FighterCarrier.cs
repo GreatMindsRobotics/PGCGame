@@ -76,7 +76,7 @@ namespace PGCGame
             
             bullet.Speed = Rotation.AsVector();
             bullet.UseCenterAsOrigin = true;
-            bullet.Rotation = Rotation.Clone().Cast<SpriteRotation>();
+            bullet.Rotation = Rotation;
             bullet.Damage = DamagePerShot;
             //Vector2 mousePos = new Vector2(ms.X, ms.Y);
             //Vector2 slope = mousePos - Position;
