@@ -21,6 +21,8 @@ namespace PGCGame
 {
     public abstract class Ship : Sprite, ITimerSprite
     {
+        public const bool CanHoldShootKey = true;
+
         //TODO: ALEX
         public static Texture2D DroneBullet;
         public static Texture2D BattleCruiserBullet;
@@ -101,7 +103,7 @@ namespace PGCGame
             KeyboardState ks = Keyboard.GetState();
             _elapsedShotTime += gt.ElapsedGameTime;
             //Shoot w/ space key
-            if (CanShoot && _lastKs.IsKeyUp(Keys.Space) && ks.IsKeyDown(Keys.Space))
+            if (CanShoot && (_lastKs.IsKeyUp(Keys.Space) || CanHoldShootKey) && ks.IsKeyDown(Keys.Space))
             {
                 Shoot();
                 _elapsedShotTime = new TimeSpan();
