@@ -112,7 +112,9 @@
     <Content Include="GameThumbnail.png">
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
     </Content>
+    <Content Include="Xml\Credits.xml" />
     <Content Include="Xml\SecondaryWeapons.xml" />
+    <Content Include="Xml\ShipDescription.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PGCGameContent\PGCGameContent.contentproj">
