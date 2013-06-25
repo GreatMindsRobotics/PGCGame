@@ -12,14 +12,9 @@ namespace GitPractice
 {
     public class MovingSprite : BaseSprite
     {
-        /* TODO: MATTHEW:
-         * 
-         * Inherit from BaseSprite
-         * CANNOT move offscreen
-         * 
-         * Protected fields (aka variables): _keyUp, _keyDown, _keyLeft, _keyRight
-         *                                   _speed
-         *                                   
+        /* TODO: JOEY:
+         * If i hit "R" it should place any moving sprite to the center of the screen
+         * The default moving keys should be the arrow keys                                 
          */
 
         public Keys KeyUp { get { return _KeyUp; } set { _KeyUp = value; } }
@@ -43,7 +38,7 @@ namespace GitPractice
              _KeyLeft = Keys.A;
              _KeyDown = Keys.S;
              _KeyRight = Keys.D;
-            _KeyUp = Keys.W;
+             _KeyUp = Keys.W;
 
             _speed = speed;
 

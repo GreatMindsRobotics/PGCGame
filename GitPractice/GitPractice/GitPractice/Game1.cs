@@ -16,13 +16,18 @@ namespace GitPractice
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
-        //TODO: Abe and/or Ben - Make the game work
+        /* TODO: Kevin
+         * Change the enemies image to the "snake" image.
+         * Create, load, update, and draw a horizontal enemy.
+         * 
+         * */
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
         Ship spaceShip;
-        HorizontalEnemy enemy;
+        VerticalEnemy enemy;
+        
 
         Song bgMusic;
 
@@ -45,7 +50,7 @@ namespace GitPractice
         protected override void Initialize()
         {
             spaceShip = new Ship();
-            enemy = new HorizontalEnemy();
+            enemy = new VerticalEnemy();
 
             base.Initialize();
         }
@@ -64,7 +69,7 @@ namespace GitPractice
 
 
             enemy.LoadContent(Content, "coin");
-            enemy.Speed = new Vector2(5, 0);
+            enemy.Speed = new Vector2(0, 5);
             enemy.MoveDirection = MoveDirection.Right;
 
             bgMusic = Content.Load<Song>("bgMusic");
@@ -96,7 +101,7 @@ namespace GitPractice
                 this.Exit();
 
             spaceShip.Update(Keyboard.GetState(), gameTime, GameState.Playing, graphics.GraphicsDevice.Viewport);
-            enemy.Update(gameTime, GameState.Playing, MoveDirection.Right, graphics.GraphicsDevice.Viewport);
+            enemy.Update(gameTime, GameState.Playing, MoveDirection.Down, graphics.GraphicsDevice.Viewport);
 
             base.Update(gameTime);
         }
@@ -112,7 +117,11 @@ namespace GitPractice
             spriteBatch.Begin();
 
             spriteBatch.Draw(backgroundImage, backgroundLocation, backgroundTint);
+
             enemy.Draw(spriteBatch);
+
+            
+
             spaceShip.Draw(spriteBatch);
 
             spriteBatch.End();

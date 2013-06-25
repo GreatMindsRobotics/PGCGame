@@ -9,10 +9,10 @@ namespace GitPractice
 {
     public class VerticalEnemy : BaseEnemy
     {
-        /*TODO: Andrea
+        /*TODO: Jeremiah
          * 
-         * Can only move up or down; MUST NOT accept any other movemenet
          * CANNOT move offscreen
+         * 
          */
 
         public override void Update(GameTime gameTime, GameState gameState, MoveDirection moveDirection, Viewport viewport)
@@ -21,7 +21,7 @@ namespace GitPractice
 
             if (Location.Y < 0 || Location.Y > viewport.Height)
             {
-               
+
             }
         }
 

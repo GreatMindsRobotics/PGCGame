@@ -10,6 +10,11 @@ using Microsoft.Xna.Framework.Input;
 
 namespace GitPractice
 {
+    /*TODO: Andrew:
+     * Rate of fire. Should shoot every half second
+     * Bullets should be removed from the list as they hit the top of the screen
+     * */
+
     public class Ship : MovingSprite
     {
         private List<MovingSprite> _flyingBullets;
@@ -26,9 +31,10 @@ namespace GitPractice
 
         public new void Update(KeyboardState keyboard, GameTime gameTime, GameState gameState, Viewport viewport)
         {
-            foreach (MovingSprite b in _flyingBullets)
+            for(int i = 0; i < _flyingBullets.Count; i++)
             {
-                b.Update(new KeyboardState(b.KeyUp), gameTime, gameState, viewport);
+                _flyingBullets[i].Update(new KeyboardState(_flyingBullets[i].KeyUp), gameTime, gameState, viewport);
+
             }
 
             if (keyboard.IsKeyDown(Keys.Space))

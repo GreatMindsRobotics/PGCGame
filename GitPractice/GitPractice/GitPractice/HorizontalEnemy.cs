@@ -23,7 +23,7 @@ namespace GitPractice
 
                 if (Location.X < 0 || Location.X + Texture.Width > viewport.Width)
                 {
-                    moveDirection = moveDirection == GitPractice.MoveDirection.Left ? MoveDirection.Right : MoveDirection.Left;
+                    moveDirection = moveDirection == MoveDirection.Left ? MoveDirection.Right : MoveDirection.Left;
                     Speed *= -1;
                 }
 
