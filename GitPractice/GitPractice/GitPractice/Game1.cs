@@ -27,7 +27,7 @@ namespace GitPractice
 
         Ship spaceShip;
         VerticalEnemy enemy;
-        
+        HorizontalEnemy horizontalEnemy;
 
         Song bgMusic;
 
@@ -51,6 +51,7 @@ namespace GitPractice
         {
             spaceShip = new Ship();
             enemy = new VerticalEnemy();
+            horizontalEnemy = new HorizontalEnemy();
 
             base.Initialize();
         }
@@ -70,7 +71,12 @@ namespace GitPractice
 
             enemy.LoadContent(Content, "coin");
             enemy.Speed = new Vector2(0, 5);
-            enemy.MoveDirection = MoveDirection.Right;
+            enemy.MoveDirection = MoveDirection.Down;
+
+            horizontalEnemy.LoadContent(Content, "coin");
+            horizontalEnemy.Speed = new Vector2(5, 0);
+            horizontalEnemy.MoveDirection = MoveDirection.Right;
+
 
             bgMusic = Content.Load<Song>("bgMusic");
             MediaPlayer.Play(bgMusic);
@@ -102,6 +108,7 @@ namespace GitPractice
 
             spaceShip.Update(Keyboard.GetState(), gameTime, GameState.Playing, graphics.GraphicsDevice.Viewport);
             enemy.Update(gameTime, GameState.Playing, MoveDirection.Down, graphics.GraphicsDevice.Viewport);
+            horizontalEnemy.Update(gameTime, GameState.Playing, MoveDirection.Right, graphics.GraphicsDevice.Viewport);
 
             base.Update(gameTime);
         }
@@ -120,7 +127,7 @@ namespace GitPractice
 
             enemy.Draw(spriteBatch);
 
-            
+            horizontalEnemy.Draw(spriteBatch);
 
             spaceShip.Draw(spriteBatch);
 
