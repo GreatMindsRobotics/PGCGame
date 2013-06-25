@@ -216,7 +216,7 @@ namespace PGCGame.Screens
             {
                 if (mouseInBackButton)
                 {
-                    StateManager.ScreenState = ScreenState.MainMenu;
+                    StateManager.GoBack();
                 }
                 if (MusicVolumeLabel.IsSelected)
                 {

@@ -13,6 +13,9 @@ namespace PGCGame
 {
     public static class StateManager
     {
+        //Work almost like a List.
+        private static Stack<ScreenState> _screenStack = new Stack<ScreenState>();
+
         private static ScreenState _screenState = ScreenState.Title;
 
         public static void InitializeSingleplayerGameScreen<T>(ShipTier tier) where T : Ship
@@ -20,7 +23,12 @@ namespace PGCGame
             AllScreens["gameScreen"].Cast<Screens.GameScreen>().InitializeScreen<T>(tier);
         }
 
-        
+        public static void GoBack()
+        {
+            _screenStack.Pop();
+            _screenState = _screenStack.Peek();
+            SwitchScreen(_screenState);
+        }
 
         public static ScreenState ScreenState
         {
@@ -30,48 +38,57 @@ namespace PGCGame
             }
             set
             {
+                _screenStack.Push(value);
                 _screenState = value;
-                foreach (Screen screen in AllScreens)
-                {
-                    screen.Visible = false;
-                }
+                
 
-                switch (value)
-                {
-                    case ScreenState.Title:
-                        AllScreens["titleScreen"].Visible = true;
-                        break;
-                    case ScreenState.MainMenu:
-                        AllScreens["mainMenuScreen"].Visible = true;
-                        break;
-                    case ScreenState.Credits:
-                        AllScreens["creditsScreen"].Visible = true;
-                        break;
-                    case ScreenState.Game:
-                        AllScreens["gameScreen"].Visible = true;
-                        break;
-                    case ScreenState.Option:
-                        AllScreens["optionScreen"].Visible = true;
-                        break;
-                    case ScreenState.Shop:
-                        AllScreens["shopScreen"].Visible = true;
-                        break;
-                    case ScreenState.Pause:
-                        AllScreens["pauseScreen"].Visible = true;
-                        break;
-                    case ScreenState.ShipSelect:
-                        AllScreens["shipSelectScreen"].Visible = true;
-                        break;
-                    case ScreenState.WeaponSelect:
-                        AllScreens["weaponSelectScreen"].Visible = true;
-                        break;
-                    case ScreenState.UpgradeScreen:
-                        AllScreens["upgradeScreen"].Visible = true;
-                        break;
-                    
-                }
+                SwitchScreen(value);
             }
         }
+
+        private static void SwitchScreen(ScreenState screenState)
+        {
+            foreach (Screen screen in AllScreens)
+            {
+                screen.Visible = false;
+            }
+
+            switch (screenState)
+            {
+                case ScreenState.Title:
+                    AllScreens["titleScreen"].Visible = true;
+
+                    break;
+                case ScreenState.MainMenu:
+                    AllScreens["mainMenuScreen"].Visible = true;
+                    break;
+                case ScreenState.Credits:
+                    AllScreens["creditsScreen"].Visible = true;
+                    break;
+                case ScreenState.Game:
+                    AllScreens["gameScreen"].Visible = true;
+                    break;
+                case ScreenState.Option:
+                    AllScreens["optionScreen"].Visible = true;
+                    break;
+                case ScreenState.Shop:
+                    AllScreens["shopScreen"].Visible = true;
+                    break;
+                case ScreenState.Pause:
+                    AllScreens["pauseScreen"].Visible = true;
+                    break;
+                case ScreenState.ShipSelect:
+                    AllScreens["shipSelectScreen"].Visible = true;
+                    break;
+                case ScreenState.WeaponSelect:
+                    AllScreens["weaponSelectScreen"].Visible = true;
+                    break;
+                case ScreenState.UpgradeScreen:
+                    AllScreens["upgradeScreen"].Visible = true;
+                    break;
+            }
+        }
+
         public static ScreenManager AllScreens;
 
         public static Point ViewportSize;
@@ -86,8 +103,6 @@ namespace PGCGame
                 _gfx = value;
                 ViewportSize = new Point(_gfx.GraphicsDevice.Viewport.Width, _gfx.GraphicsDevice.Viewport.Height);
             }
-
-        
         }
 
         public static class Options

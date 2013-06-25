@@ -189,7 +189,7 @@ namespace PGCGame.Screens
                 {
                     if (mouseInResumeButton)
                     {
-                        StateManager.ScreenState = ScreenState.Game;
+                        StateManager.GoBack();
                     }
 
                     if (mouseInExitButton)

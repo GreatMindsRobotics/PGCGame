@@ -170,7 +170,7 @@ namespace PGCGame.Screens
             {
                 if (mouseInBackButton)
                 {
-                    StateManager.ScreenState = ScreenState.Pause;
+                    StateManager.GoBack();
                 }
                 if (mouseInWeaponButton)
                 {

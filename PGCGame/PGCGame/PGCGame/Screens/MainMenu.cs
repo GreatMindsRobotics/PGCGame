@@ -246,7 +246,7 @@ namespace PGCGame.Screens
             {
                 if (mouseInBackButton)
                 {
-                    StateManager.ScreenState = ScreenState.Title;
+                    StateManager.GoBack();
                 }
                 if (mouseInSingleplayerButton)
                 {

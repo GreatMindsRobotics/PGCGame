@@ -27,21 +27,28 @@
     </WhatHappened>
   </Week2>
 
+  <!-- TODO: Matthew - please fix up this document per example below -->
+  
   <Week3>
-    <people>
-      Alex L.
+    <Students>
+      <Student>
+        <FirstName>Alex</FirstName>
+        <LastName>L.</LastName>
+      </Student>
+      
       Andrew K.
-      Kai F.
+      Kai F-H.
       Kevin F
       Matthew P.,
       Michal K.
-      Jeremaih T.
+      Jeremiah T.
       Joseph V.
+    </Students>
 
-    </people>
-    <WhatHappened>
-      AI Programming
-    </WhatHappened>
+    <Topics>
+      <Topic>topic here...</Topic>
+      <Topic>AI Programming</Topic>
+    </Topics>
   </Week3>
 
   <Week4>
