@@ -29,16 +29,18 @@ namespace GitPractice
         protected Keys _KeyDown;
         protected Keys _KeyRight;
         protected Keys _KeyLeft;
+        protected Keys _KeyReset;
 
         protected Vector2 _speed;
-        public Vector2 Speed { get{return _speed;} set {_speed = value;} }
+        public Vector2 Speed { get { return _speed; } set { _speed = value; } }
 
         public void LoadContent(ContentManager content, string assetName, Vector2 speed)
         {
-             _KeyLeft = Keys.A;
-             _KeyDown = Keys.S;
-             _KeyRight = Keys.D;
-             _KeyUp = Keys.W;
+            _KeyLeft = Keys.Left;
+            _KeyDown = Keys.Down;
+            _KeyRight = Keys.Right;
+            _KeyUp = Keys.Up;
+            _KeyReset = Keys.R;
 
             _speed = speed;
 
@@ -67,8 +69,15 @@ namespace GitPractice
             if (keyboard.IsKeyDown(_KeyLeft) && Location.X - Speed.X > 0)
             {
                 Location = new Vector2(Location.X - _speed.X, Location.Y);
-            } 
+            }
+            if (keyboard.IsKeyDown(_KeyReset))
+            {
+                Location = new Vector2(viewport.Width / 2, viewport.Height / 2);
+            }
+
+
+
+
         }
-        
     }
 }
