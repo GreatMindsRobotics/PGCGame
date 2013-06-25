@@ -1,4 +1,56 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Credits>
-  
+  <Week1>
+    <people>
+      Kai F.
+      Michael K.
+      Alexa L.
+      Andrea L.
+      Alexander L.
+      Matthew P.
+      Jeremiah T.
+    </people>
+    <WhatHappened>
+      Functional Spec, GameState Management
+    </WhatHappened>
+  </Week1>
+
+  <Week2>
+    <people>
+      Glen H.
+      "Michael K.
+      "Alex L.
+      "Matthew P.
+    </people>
+    <WhatHappened>
+      Technical Spec, Class Design, Functionality
+    </WhatHappened>
+  </Week2>
+
+  <Week3>
+    <people>
+      Alex L.
+      Andrew K.
+      Kai F.
+      Kevin F
+      Matthew P.,
+      Michal K.
+      Jeremaih T.
+      Joseph V.
+
+    </people>
+    <WhatHappened>
+      AI Programming
+    </WhatHappened>
+  </Week3>
+
+  <Week4>
+    <people>
+
+    </people>
+    <WhatHappened>
+      Xbox Conversion
+    </WhatHappened>
+  </Week4>
+
 </Credits>
