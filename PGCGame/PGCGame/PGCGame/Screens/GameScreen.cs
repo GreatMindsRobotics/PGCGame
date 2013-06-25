@@ -41,8 +41,7 @@ namespace PGCGame.Screens
             //TODO: LOAD CONTENT
             storedCm = content;
 
-            //TODO: CHANGE SONG
-            _gameSong = content.Load<Song>("Songs\\Failing Defense");
+            _gameSong = content.Load<Song>("Songs\\Movement Proposition");
 
             bgImg = content.Load<Texture2D>("Images\\Background\\NebulaSky");
 
