@@ -19,9 +19,9 @@ namespace GitPractice
         {
             Location = Location + Speed;
 
-            if (Location.Y < 0 || Location.Y > viewport.Height)
+            if (Location.Y < 0 || Location.Y + Texture.Height > viewport.Height)
             {
-
+                Speed *= -1;
             }
         }
 
