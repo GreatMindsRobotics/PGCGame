@@ -11,8 +11,10 @@ using Glib.XNA.SpriteLib;
 using Glib.XNA;
 using Glib;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 using PGCGame.CoreTypes;
+using System.Diagnostics;
 
 namespace PGCGame.Screens
 {
@@ -28,8 +30,10 @@ namespace PGCGame.Screens
         Ship playerShip;
         SpriteBatch playerSb;
         Texture2D bgImg;
+        Song _gameSong;
         List<ISprite> playerSbObjects = new List<ISprite>();
         ContentManager storedCm;
+
         List<KeyValuePair<string, Texture2D>> shipTextures = new List<KeyValuePair<string, Texture2D>>();
 
         public void LoadContent(ContentManager content)
@@ -37,10 +41,13 @@ namespace PGCGame.Screens
             //TODO: LOAD CONTENT
             storedCm = content;
 
+            //TODO: CHANGE SONG
+            _gameSong = content.Load<Song>("Songs\\Failing Defense");
+
             bgImg = content.Load<Texture2D>("Images\\Background\\NebulaSky");
 
 
-            
+
             //Sprites.Add(new Drone(content.Load<Texture2D>("aTexture"), Vector2.Zero, this.Sprites.SpriteBatch, ship)); 
             //use Sprites to load your sprites
             //EX: Sprites.Add(new Sprite(content.Load<Texture2D>("assetName"), Vector2.Zero, Sprites.SpriteBatch));
@@ -50,18 +57,18 @@ namespace PGCGame.Screens
 
         public void InitializeScreen<TShip>(ShipTier tier) where TShip : Ship
         {
-            
+
             playerSbObjects.Clear();
             BackgroundSprite bgspr = new BackgroundSprite(bgImg, Sprites.SpriteBatch, 10, 2);
             bgspr.Drawn += new EventHandler(bgspr_Drawn);
             worldCam.Pos = new Vector2(bgspr.TotalWidth / 2, bgspr.TotalHeight - (bgspr.Height / 2));
             BackgroundSprite = bgspr;
-            
+
             if (typeof(TShip) == typeof(Drone))
             {
                 throw new Exception();
             }
-            
+
             TShip ship = null;
             Texture2D shipTexture = null;
             if (typeof(TShip) == typeof(FighterCarrier))
@@ -85,7 +92,7 @@ namespace PGCGame.Screens
             {
                 ship = (TShip)Activator.CreateInstance(typeof(TShip), null, Vector2.Zero, playerSb);
             }
-            
+
             foreach (KeyValuePair<string, Texture2D> kvp in shipTextures)
             {
                 if (kvp.Key.Trim().Equals(ship.TextureFolder + "\\" + tier.ToString()))
@@ -93,16 +100,13 @@ namespace PGCGame.Screens
                     shipTexture = kvp.Value;
                 }
             }
-            
-            
-            
-            
+
             if (shipTexture == null)
             {
                 shipTexture = storedCm.Load<Texture2D>("Images\\" + ship.TextureFolder + "\\" + tier.ToString().Replace("ShipTier.", ""));
                 shipTextures.Add(new KeyValuePair<string, Texture2D>(ship.TextureFolder + "\\" + tier.ToString(), shipTexture));
             }
-            
+
             ship.Texture = shipTexture;
             ship.UseCenterAsOrigin = true;
             ship.WorldSb = Sprites.SpriteBatch;
@@ -122,21 +126,33 @@ namespace PGCGame.Screens
             {
                 foreach (Bullet b in playerShip.Cast<FighterCarrier>().DroneBullets)
                 {
-                Sprites.SpriteBatch.Draw(b);
+                    Sprites.SpriteBatch.Draw(b);
                 }
-                
+
             }
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
+            if (StateManager.Options.MusicEnabled == true && MediaPlayer.State != MediaState.Playing && MediaPlayer.State != MediaState.Paused)
+            {
+                MediaPlayer.Play(_gameSong);
+            }
+            else if ((StateManager.Options.MusicEnabled == true && MediaPlayer.State == MediaState.Paused))
+            {
+                MediaPlayer.Resume();
+            }
+
+
             BackgroundSprite bg = BackgroundSprite.Cast<BackgroundSprite>();
             //TODO: UPDATE SPRITES
             KeyboardState keyboard = Keyboard.GetState();
             if (keyboard.IsKeyDown(Keys.Escape))
             {
                 StateManager.ScreenState = ScreenState.Pause;
+                MediaPlayer.Pause();
             }
             Vector2 camMove = Vector2.Zero;
             if (keyboard.IsKeyDown(Keys.W))
@@ -184,7 +200,7 @@ namespace PGCGame.Screens
                     camMove.X = bg.Width / 2 - worldCam.Pos.X;
                 }
             }
-            
+
             worldCam.Move(camMove);
             playerShip.WorldCoords = worldCam.Pos;
             foreach (ISprite s in playerSbObjects)
