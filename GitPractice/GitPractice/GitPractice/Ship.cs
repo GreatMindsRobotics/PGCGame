@@ -14,11 +14,15 @@ namespace GitPractice
      * Rate of fire. Should shoot every half second
      * Bullets should be removed from the list as they hit the top of the screen
      * */
-
+    
     public class Ship : MovingSprite
     {
         private List<MovingSprite> _flyingBullets;
         private MovingSprite bullet;
+
+        //if is zero bullet can fire;
+        private TimeSpan _rateOfFire = new TimeSpan(0, 0, 0, 0, 200);
+        private TimeSpan _elapsedTime;
 
         public new void LoadContent(ContentManager content, string assetName)
         {
@@ -31,13 +35,20 @@ namespace GitPractice
 
         public new void Update(KeyboardState keyboard, GameTime gameTime, GameState gameState, Viewport viewport)
         {
+            
+            _elapsedTime += gameTime.ElapsedGameTime;
+
             for(int i = 0; i < _flyingBullets.Count; i++)
             {
                 _flyingBullets[i].Update(new KeyboardState(_flyingBullets[i].KeyUp), gameTime, gameState, viewport);
+                if (_flyingBullets[i].Location.Y <=_flyingBullets[i].Texture.Height)
+                {
+                    _flyingBullets.Remove(_flyingBullets[i]);
+                }
 
             }
 
-            if (keyboard.IsKeyDown(Keys.Space))
+            if (keyboard.IsKeyDown(Keys.Space) && _elapsedTime > _rateOfFire)
             {
                 MovingSprite createdBullet = new MovingSprite();
 
@@ -51,7 +62,10 @@ namespace GitPractice
                 createdBullet.TintColor = Color.White;
 
                 _flyingBullets.Add(createdBullet);
+
+                _elapsedTime = new TimeSpan();
             }
+
 
             base.Update(keyboard, gameTime, gameState, viewport);
         }
