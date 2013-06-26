@@ -28,25 +28,14 @@ namespace PGCGame.Screens
       
         private string[] creditLines = new string[]
         {
-            "<b>\n\n\n\nWeek 1 - Functional Spec, GameState Management\n",
-            "Kai F.\n",
-            "Michael K.\n",
-            "Alexa L.\n",
-            "Andrea L.\n",
-            "Alexander L.\n",
-            "Matthew P.\n",
-            "Jeremiah T.\n\n\n",
-            "<b>Week 2 - Technical Spec, Class Design, Functionality\n",
-            "Glen H.\n",
-            "Michael K.\n",
-            "Alex L.\n",
-            "Matthew P.\n\n\n",
-            "<b>Week 3 - AI Programming\n",
-            "...\n",
-            "...\n\n\n",
-            "<b>Week 4 - Xbox Converson\n",
-            "...\n",
-            "...\n\n\n",
+            "<b>\n\n\n\nWeek # - Topic 1, Topic 2\n",
+            "Student 1.\n",
+            "Student 2.\n",
+            "Student 3.\n\n\n",
+            "<b>Week # - Topic 1, Topic 2, Topic 3\n",
+            "Student 1.\n",
+            "Student 2.\n",
+            "Student 3.\n\n\n",
             "<b>Underlying Sprite/Screen Management Library",
             "Glen Husman (glen3b)",
             "Glib is available on github!\n\n\n\n\n\n\n",
@@ -86,6 +75,34 @@ namespace PGCGame.Screens
             SpriteFont boldCreditsFont = content.Load<SpriteFont>("Fonts\\SegoeUIMonoBold");
             _creditsSong = content.Load<Song>("Songs\\Failing Defense");
 
+            foreach (KeyValuePair<XmlCredits.Week, XmlCredits.Student> weekStudent in _xmlCredits.Students)
+            {
+                StringBuilder title = new StringBuilder();
+
+                int weekID = weekStudent.Key.ID;
+                title.Append(String.Format("Week {0} - ", weekID));
+
+                foreach (KeyValuePair<int, string> topic in weekStudent.Key.Topics)
+                {
+                    title.Append(String.Format("{0}, ", topic.Value));
+                }
+
+                TextSprite credit = new TextSprite(Sprites.SpriteBatch, boldCreditsFont, title.ToString());
+                credit.X = credit.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X;
+                credit.Color = Color.White;
+
+                if (credits.Count == 0)
+                {
+                    credit.Y = imgSprite.Y + imgSprite.Height;
+                }
+                else
+                {
+                    credit.Y = credits[credits.Count - 1].Y + credits[credits.Count - 1].Height + (creditsFont.LineSpacing - creditsFont.MeasureString("A").Y);
+                }
+                credits.Add(credit);
+            }
+
+/*
             for (int i = 0; i < creditLines.Length; i++)
             {
                 TextSprite credit = new TextSprite(Sprites.SpriteBatch, creditLines[i].Length > 3 && creditLines[i].Substring(0,3) == "<b>" ? boldCreditsFont : creditsFont, creditLines[i].Replace("<b>", ""));
@@ -101,7 +118,7 @@ namespace PGCGame.Screens
                 }
                 credits.Add(credit);
             }
-
+*/
             AdditionalSprites.AddRange(credits);
             Sprites.Add(imgSprite);
 
