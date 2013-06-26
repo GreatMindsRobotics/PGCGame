@@ -241,6 +241,9 @@ namespace PGCGame.Screens
                         s.Target = new RenderTarget2D(StateManager.GraphicsManager.GraphicsDevice, StateManager.GraphicsManager.PreferredBackBufferWidth, StateManager.GraphicsManager.PreferredBackBufferHeight);
                     }
 
+                    
+                    StateManager.Options.CallResChangeEvent();
+
                     GFXLabel.Text = String.Format("GFX: {0}", StateManager.GraphicsManager.IsFullScreen ? "Full" : "Standard");
                 }
                 if (MoveControlLabel.IsSelected)

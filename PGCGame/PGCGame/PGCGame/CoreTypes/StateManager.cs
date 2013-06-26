@@ -118,7 +118,7 @@ namespace PGCGame
         {
             public static event EventHandler ScreenResolutionChanged;
 
-            internal static void callResChangeEvent()
+            public static void CallResChangeEvent()
             {
                 if (ScreenResolutionChanged != null)
                 {

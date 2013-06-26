@@ -21,7 +21,7 @@ namespace PGCGame.CoreTypes
             Sprite spr1 = new Sprite(bg, Vector2.Zero, sb);
             spr1.YSpeed = 1.5f / (PGCGame.Screens.MainMenu.DebugBackground ? 1 : 10);
             _bgList.Add(spr1);
-            //StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
+            StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
             Sprite spr2 = new Sprite(bg, new Vector2(0, -bg.Height - (PGCGame.Screens.MainMenu.DebugBackground ? 1 : 0)), sb);
             spr2.Effect = SpriteEffects.FlipVertically;
             spr2.YSpeed = spr1.YSpeed;

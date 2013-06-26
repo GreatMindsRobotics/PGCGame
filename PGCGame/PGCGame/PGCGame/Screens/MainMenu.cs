@@ -18,10 +18,14 @@ namespace PGCGame.Screens
 {
     public class MainMenu : Screen
     {
-        public const bool DebugBackground = false;
+        private static bool _debugBackground = false;
+        public static bool DebugBackground
+        {
+            get { return _debugBackground; }
+        }
 
         public MainMenu(SpriteBatch spriteBatch)
-            : base(spriteBatch, DebugBackground ? Color.Red : Color.Black)
+            : base(spriteBatch, _debugBackground ? Color.Red : Color.Black)
         {
             
         }
