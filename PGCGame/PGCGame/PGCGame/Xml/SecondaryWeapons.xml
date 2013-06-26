@@ -3,30 +3,18 @@
   <weapon id="1">
     <name>Emp</name>
     <description>An electro magnetic pulse. This device causes all nearby enemy ships within your ship's range.</description>
+    <Cost>$1000</Cost>
   </weapon>
 
   <weapon id="2">
-    <name>
-      Shrink Ray
-    </name>
-    <description>
-      This weapon causes the targeted enemy to shrink losing 33% of their health. This does not affect bosses.
-    </description>
-    <Cost>
-      
-    </Cost>
+    <name>Shrink Ray</name>
+    <description>This weapon causes the targeted enemy to shrink losing 33% of their health. This does not affect bosses.</description>
+    <Cost>$2000</Cost>
   </weapon>
 
   <weapon id="3">
-    <name>
-      Space Mine
-    </name>
-    <description>
-      You place this mine anywhere in space and when an enemy steps on it the mine explodes.
-    </description>
-    <Cost>
-
-    </Cost>
+    <name>Space Mine</name>
+    <description>You place this mine anywhere in space and when an enemy steps on it the mine explodes.</description>
+    <Cost>$500</Cost>
   </weapon>
-
 </SecondaryWeapons>
