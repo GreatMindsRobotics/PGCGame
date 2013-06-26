@@ -1,145 +1,110 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Credits>
-  <Week1>
+  <Week id="1">
     <Students>
-      Kai F.
-      Michael K.
-      Alexa L.
-      Andrea L.
-      Alexander L.
-      Matthew P.
-      Jeremiah T.
-    </Students>
-    <WhatHappened>
-      Functional Spec, GameState Management
-    </WhatHappened>
-  </Week1>
-
-  <Week2>
-    <Students>
-      <Student>
-        <FirstName>
-          Glen
-        </FirstName>
-        <LastName>
-          H.
-        </LastName>
+      <Student id="1">
+        <FirstName>Alexa</FirstName>
+        <LastName>L.</LastName>
       </Student>
-      <Student>
-        <FirstName>
-          Michael
-        </FirstName>
-        <LastName>
-          K.
-        </LastName>
+      <Student id="2">
+        <FirstName>Alexander</FirstName>
+        <LastName>L.</LastName>
       </Student>
-      <Student>
-        <FirstName>
-          Alex
-        </FirstName>
-        <LastName>
-          L.
-        </LastName>
+      <Student id="3">
+        <FirstName>Andrea</FirstName>
+        <LastName>L.</LastName>
       </Student>
-      <Student>
-        <FirstName>
-          Matthew
-        </FirstName>
-        <LastName>
-          P.
-        </LastName>
+      <Student id="4">
+        <FirstName>Jeremiah</FirstName>
+        <LastName>T.</LastName>
+      </Student>
+      <Student id="5">
+        <FirstName>Kai</FirstName>
+        <LastName>F.</LastName>
+      </Student>
+      <Student id="6">
+        <FirstName>Matthew</FirstName>
+        <LastName>P.</LastName>
+      </Student>
+      <Student id="7">
+        <FirstName>Michael</FirstName>
+        <LastName>K.</LastName>
       </Student>
     </Students>
     <Topics>
-      <Topic>
-        Techical Spec
-      </Topic>
-      <Topic>
-        Class Design
-      </Topic>
-      <Topic>
-        Functionality
-      </Topic>
+      <Topic id ="1">Functional Spec</Topic>
+      <Topic id="2">GameState Management</Topic>
     </Topics>
-  </Week2>
+  </Week>
 
-  <Week3>
+  <Week id="2">
     <Students>
-      <Student>
-        <FirstName>
-          Alex
-        </FirstName>
-        <LastName>
-          L.
-        </LastName>
+      <Student id="8">
+        <FirstName>Alex</FirstName>
+        <LastName>L.</LastName>
       </Student>
-      <Student>
-        <FirstName>
-          Andrew
-        </FirstName>
-        <LastName>
-          K.
-        </LastName>
+      <Student id="9">
+        <FirstName>Glen</FirstName>
+        <LastName>H.</LastName>
       </Student>
-      <Student>
-        <FirstName>
-          Kai
-        </FirstName>
-        <LastName>
-          F-H.
-        </LastName>
+      <Student id="6">
+        <FirstName>Matthew</FirstName>
+        <LastName>P.</LastName>
       </Student>
-      <Student>
-        <FirstName>
-          Kevin
-        </FirstName>
-        <LastName>
-          F.
-        </LastName>
-      </Student>
-      <Student>
-        <FirstName>
-          Matthew
-        </FirstName>
-        <LastName>
-          P.
-        </LastName>
-      </Student>
-      <Student>
-        <FirstName>
-          Michael
-        </FirstName>
-        <LastName>
-          K.
-        </LastName>
-      </Student>
-      <Student>
-        <FirstName>
-          Jeremiah
-        </FirstName>
-        <LastName>
-          T.
-        </LastName>
-      </Student>
-      <Student>
-        <FirstName>
-          Joseph
-        </FirstName>
-        <LastName>
-          V.
-        </LastName>
+      <Student id="7">
+        <FirstName>Michael</FirstName>
+        <LastName>K.</LastName>
       </Student>
     </Students>
-    <Topic>AI Programming</Topic>
-  </Week3>
+    <Topics>
+      <Topic id="3">Class Design</Topic>
+      <Topic id="4">Functionality</Topic>
+      <Topic id="5">Techical Spec</Topic>
+    </Topics>
+  </Week>
 
-  <Week4>
+  <Week id="3">
     <Students>
-
+      <Student id="8">
+        <FirstName>Alex</FirstName>
+        <LastName>L.</LastName>
+      </Student>
+      <Student id="10">
+        <FirstName>Andrew</FirstName>
+        <LastName>K.</LastName>
+      </Student>
+      <Student id="5">
+        <FirstName>Kai</FirstName>
+        <LastName>F-H.</LastName>
+      </Student>
+      <Student id="11">
+        <FirstName>Kevin</FirstName>
+        <LastName>F.</LastName>
+      </Student>
+      <Student id="6">
+        <FirstName>Matthew</FirstName>
+        <LastName>P.</LastName>
+      </Student>
+      <Student id="7">
+        <FirstName>Michael</FirstName>
+        <LastName>K.</LastName>
+      </Student>
+      <Student id="4">
+        <FirstName>Jeremiah</FirstName>
+        <LastName>T.</LastName>
+      </Student>
+      <Student id="12">
+        <FirstName>Joseph</FirstName>
+        <LastName>V.</LastName>
+      </Student>
     </Students>
-    <Topic>
-      Xbox Conversion
-    </Topic>
-  </Week4>
+    <Topic id="6">AI Programming</Topic>
+  </Week>
+
+  <Week id ="4">
+    <Students>
+    </Students>
+    <Topic id="7">Xbox Conversion</Topic>
+  </Week>
 
 </Credits>

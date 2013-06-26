@@ -1,12 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SecondaryWeapons>
   <weapon id="1">
-    <name>
-      Emp
-    </name>
-    <description>
-      An electro magnetic pulse. This device causes all nearby enemy ships within your ship's range.
-    </description>
+    <name>Emp</name>
+    <description>An electro magnetic pulse. This device causes all nearby enemy ships within your ship's range.</description>
   </weapon>
 
   <weapon id="2">
@@ -14,7 +10,7 @@
       Shrink Ray
     </name>
     <description>
-      This weapon causes the targeted enemy to shrink losing 33% of their health.
+      This weapon causes the targeted enemy to shrink losing 33% of their health. This does not affect bosses.
     </description>
     <Cost>
       
