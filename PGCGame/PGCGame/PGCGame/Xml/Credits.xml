@@ -3,11 +3,11 @@
   <Week id="1">
     <Students>
       <Student id="1">
-        <FirstName>Alexa</FirstName>
+        <FirstName>Alex</FirstName>
         <LastName>L.</LastName>
       </Student>
       <Student id="2">
-        <FirstName>Alexander</FirstName>
+        <FirstName>Alexa</FirstName>
         <LastName>L.</LastName>
       </Student>
       <Student id="3">
@@ -39,11 +39,11 @@
 
   <Week id="2">
     <Students>
-      <Student id="8">
+      <Student id="1">
         <FirstName>Alex</FirstName>
         <LastName>L.</LastName>
       </Student>
-      <Student id="9">
+      <Student id="8">
         <FirstName>Glen</FirstName>
         <LastName>H.</LastName>
       </Student>
@@ -65,11 +65,11 @@
 
   <Week id="3">
     <Students>
-      <Student id="8">
+      <Student id="1">
         <FirstName>Alex</FirstName>
         <LastName>L.</LastName>
       </Student>
-      <Student id="10">
+      <Student id="9">
         <FirstName>Andrew</FirstName>
         <LastName>K.</LastName>
       </Student>
@@ -77,7 +77,7 @@
         <FirstName>Kai</FirstName>
         <LastName>F-H.</LastName>
       </Student>
-      <Student id="11">
+      <Student id="10">
         <FirstName>Kevin</FirstName>
         <LastName>F.</LastName>
       </Student>
@@ -93,7 +93,7 @@
         <FirstName>Jeremiah</FirstName>
         <LastName>T.</LastName>
       </Student>
-      <Student id="12">
+      <Student id="11">
         <FirstName>Joseph</FirstName>
         <LastName>V.</LastName>
       </Student>
@@ -106,5 +106,26 @@
     </Students>
     <Topic id="7">Xbox Conversion</Topic>
   </Week>
-
+  <UnderlyingHelpers>
+    <Helper id="1">
+      <Job>Creation of Glib, our Sprite/Screen Management Library</Job>
+      <FirstName>Glen</FirstName>
+      <FullLastName>Husman</FullLastName>
+    </Helper>
+    <Helper id="2">
+      <Job>Help Programming</Job>
+      <FirstName>Stan</FirstName>
+      <FullLastName>Khaykin</FullLastName>
+    </Helper>
+    <Helper id="3">
+      <Job>Music Creation</Job>
+      <FirstName>Kevin</FirstName>
+      <FullLastName>MacLeod</FullLastName>
+      <Songs>
+        <Song id="1">Credits - Failing Defense</Song>
+        <Song id="2">Gameplay - Movement Proposition</Song>
+        <Site>Music From Incompetech.com</Site>
+      </Songs>
+    </Helper>
+  </UnderlyingHelpers>
 </Credits>
