@@ -1,29 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Ships>
   <Ship id="1">
-    <BattleCruiser>
       <Name>Battle Cruiser</Name>
       <Description>This ship is the firepower of the fleet. It will do tons of damage but will not be able to keep up with it's enemies due to it's low speed.</Description>
       <Specs>
         <Damage>20</Damage>
         <Health>120</Health>
       </Specs>
-    </BattleCruiser>
   </Ship>
   <Ship id="2">
-    <TorpedoShip>
       <Name>Torpedo Ship</Name>
       <Description>This ship is the most balanced in the fleet. It has a good amount of health with decent damage. It's damage might be somewhat low but it shoots torpedos which are hard to dodge!</Description>
       <Specs>
         <Damage>5</Damage>
         <Health>110</Health>
       </Specs>
-    </TorpedoShip>
   </Ship>
   <Ship id="3">
-    <FighterCarrier>
       <Name>Fighter Carrier</Name>
-      <Description></Description>
+      <Description>This ship does very little damage and does not have much health. It's advantage is that it is very fast and heas drones that help him attack.</Description>
       <Specs>
         <ShipSpecs>
           <Damage>2</Damage>
@@ -35,7 +30,6 @@
           <Health>10</Health>
         </DroneSpecs>
       </Specs>
-    </FighterCarrier>
   </Ship>
 </Ships>
 
