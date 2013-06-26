@@ -103,9 +103,22 @@
 
   <Week id ="4">
     <Students>
+      <Student id="1">
+        <FirstName>Alex</FirstName>
+        <LastName>L.</LastName>
+      </Student>
+      <Student id="9">
+        <FirstName>Andrew</FirstName>
+        <LastName>K.</LastName>
+      </Student>
+      <Student id="7">
+        <FirstName>Michael</FirstName>
+        <LastName>K.</LastName>
+      </Student>
     </Students>
     <Topic id="7">Xbox Conversion</Topic>
   </Week>
+  
   <UnderlyingHelpers>
     <Helper id="1">
       <Job>Creation of Glib, our Sprite/Screen Management Library</Job>

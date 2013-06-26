@@ -75,50 +75,47 @@ namespace PGCGame.Screens
             SpriteFont boldCreditsFont = content.Load<SpriteFont>("Fonts\\SegoeUIMonoBold");
             _creditsSong = content.Load<Song>("Songs\\Failing Defense");
 
+            int lastWeekID = 0;
             foreach (KeyValuePair<XmlCredits.Week, XmlCredits.Student> weekStudent in _xmlCredits.Students)
             {
-                StringBuilder title = new StringBuilder();
-
                 int weekID = weekStudent.Key.ID;
-                title.Append(String.Format("Week {0} - ", weekID));
 
-                foreach (KeyValuePair<int, string> topic in weekStudent.Key.Topics)
+                if (lastWeekID != weekID)
                 {
-                    title.Append(String.Format("{0}, ", topic.Value));
+                    StringBuilder title = new StringBuilder();
+
+                    title.Append(String.Format("\n\n\n\nWeek {0} - ", weekID));
+                    
+                    for (int topicCounter = 0; topicCounter < weekStudent.Key.Topics.Count; topicCounter++)
+                    {
+                        KeyValuePair<int, string> topic = weekStudent.Key.Topics[topicCounter];
+                        title.Append(String.Format("{0}{1}", topic.Value, topicCounter == weekStudent.Key.Topics.Count - 1 ? "\n" : ", "));
+                    }
+
+                    TextSprite credit = new TextSprite(Sprites.SpriteBatch, boldCreditsFont, title.ToString());
+                    credit.X = credit.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X;
+                    credit.Color = Color.White;
+
+                    if (credits.Count == 0)
+                    {
+                        credit.Y = imgSprite.Y + imgSprite.Height;
+                    }
+                    else
+                    {
+                        credit.Y = credits[credits.Count - 1].Y + credits[credits.Count - 1].Height + (creditsFont.LineSpacing - creditsFont.MeasureString("A").Y);
+                    }
+                    credits.Add(credit);
+
+                    lastWeekID = weekID;
                 }
 
-                TextSprite credit = new TextSprite(Sprites.SpriteBatch, boldCreditsFont, title.ToString());
-                credit.X = credit.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X;
-                credit.Color = Color.White;
-
-                if (credits.Count == 0)
-                {
-                    credit.Y = imgSprite.Y + imgSprite.Height;
-                }
-                else
-                {
-                    credit.Y = credits[credits.Count - 1].Y + credits[credits.Count - 1].Height + (creditsFont.LineSpacing - creditsFont.MeasureString("A").Y);
-                }
-                credits.Add(credit);
+                TextSprite student = new TextSprite(Sprites.SpriteBatch, creditsFont, String.Format("{0} {1}\n", weekStudent.Value.FirstName, weekStudent.Value.LastName));
+                student.X = student.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X;
+                student.Color = Color.White;
+                student.Y = credits[credits.Count - 1].Y + credits[credits.Count - 1].Height + (creditsFont.LineSpacing - creditsFont.MeasureString("A").Y);
+                credits.Add(student);
             }
 
-/*
-            for (int i = 0; i < creditLines.Length; i++)
-            {
-                TextSprite credit = new TextSprite(Sprites.SpriteBatch, creditLines[i].Length > 3 && creditLines[i].Substring(0,3) == "<b>" ? boldCreditsFont : creditsFont, creditLines[i].Replace("<b>", ""));
-                credit.X = credit.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X;
-                credit.Color = Color.White;
-                if (i == 0)
-                {
-                    credit.Y = imgSprite.Y + imgSprite.Height;
-                }
-                else
-                {
-                    credit.Y = credits[i - 1].Y + credits[i-1].Height+(creditsFont.LineSpacing-creditsFont.MeasureString("A").Y);
-                }
-                credits.Add(credit);
-            }
-*/
             AdditionalSprites.AddRange(credits);
             Sprites.Add(imgSprite);
 
