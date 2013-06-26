@@ -193,7 +193,7 @@ namespace PGCGame.Screens
                 }
                 else if (mouseInbackButton)
                 {
-                    StateManager.ScreenState = ScreenState.MainMenu;
+                    StateManager.GoBack();
                 }
                 else if (mouseOnLeftButton || mouseOnRightButton)
                 {

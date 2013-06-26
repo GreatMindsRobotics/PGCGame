@@ -56,7 +56,6 @@ namespace PGCGame.Screens
 
         public void InitializeScreen<TShip>(ShipTier tier) where TShip : Ship
         {
-
             playerSbObjects.Clear();
             BackgroundSprite bgspr = new BackgroundSprite(bgImg, Sprites.SpriteBatch, 10, 2);
             bgspr.Drawn += new EventHandler(bgspr_Drawn);
@@ -65,7 +64,7 @@ namespace PGCGame.Screens
 
             if (typeof(TShip) == typeof(Drone))
             {
-                throw new Exception();
+                throw new Exception("Can't create a Drone as the main ship");
             }
 
             TShip ship = null;
@@ -89,7 +88,7 @@ namespace PGCGame.Screens
             }
             else
             {
-                ship = (TShip)Activator.CreateInstance(typeof(TShip), null, Vector2.Zero, playerSb);
+                ship = Activator.CreateInstance(typeof(TShip), null, Vector2.Zero, playerSb).Cast<TShip>();
             }
 
             foreach (KeyValuePair<string, Texture2D> kvp in shipTextures)
