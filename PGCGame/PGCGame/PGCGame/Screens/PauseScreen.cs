@@ -195,6 +195,9 @@ namespace PGCGame.Screens
                     if (mouseInExitButton)
                     {
                         StateManager.ScreenState = ScreenState.MainMenu;
+
+                        //TODO: Abe: Reset stacks; force "Title Screen" onto ScreenState stack
+                        StateManager.ActiveShips.Clear();
                     }
                     if (mouseInShopButton)
                     {

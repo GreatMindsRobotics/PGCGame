@@ -91,11 +91,11 @@
     <Compile Include="Screens\SelectScreens\WeaponSelectScreen.cs" />
     <Compile Include="Screens\Shop.cs" />
     <Compile Include="Screens\Title.cs" />
-    <Compile Include="Ships\BattleCruiser.cs" />
+    <Compile Include="Ships\Allies\BattleCruiser.cs" />
     <Compile Include="Bullets\Bullet.cs" />
-    <Compile Include="Ships\Drone.cs" />
+    <Compile Include="Ships\Allies\Drone.cs" />
     <Compile Include="SecondaryWeapons\EMP.cs" />
-    <Compile Include="Ships\FighterCarrier.cs" />
+    <Compile Include="Ships\Allies\FighterCarrier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
@@ -104,7 +104,7 @@
     <Compile Include="Bullets\ShrinkBullet.cs" />
     <Compile Include="SecondaryWeapons\ShrinkRay.cs" />
     <Compile Include="SecondaryWeapons\SpaceMine.cs" />
-    <Compile Include="Ships\TorpedoShip.cs" />
+    <Compile Include="Ships\Allies\TorpedoShip.cs" />
     <Compile Include="CoreTypes\StateManager.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -113,8 +113,12 @@
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
     </Content>
     <Content Include="Xml\Credits.xml" />
-    <Content Include="Xml\SecondaryWeapons.xml" />
-    <Content Include="Xml\ShipDescription.xml" />
+    <Content Include="Xml\SecondaryWeapons.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Xml\ShipDescription.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PGCGameContent\PGCGameContent.contentproj">
@@ -149,7 +153,9 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Ships\Enemies\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--

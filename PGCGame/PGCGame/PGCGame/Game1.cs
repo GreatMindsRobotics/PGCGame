@@ -40,6 +40,7 @@ namespace PGCGame
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+
             Content.RootDirectory = "Content";
             Window.Title = "Plequarius: Galactic Commanders";
         }
@@ -51,9 +52,11 @@ namespace PGCGame
         /// and initialize them as well.
         /// </summary>
         protected override void Initialize()
-        {   
-            base.Initialize();
+        {
+            StateManager.GraphicsManager = graphics;
             IsMouseVisible = true;
+
+            base.Initialize();
         }
 
         GameScreen gameScreen;
@@ -122,8 +125,7 @@ namespace PGCGame
 
             screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen, shipSelectScreen, weaponSelectScreen, upgradeScreen);
             StateManager.AllScreens = screenManager;
-            
-            StateManager.GraphicsManager = graphics;
+            StateManager.ScreenState = CoreTypes.ScreenState.Title;
         }
 
         /// <summary>

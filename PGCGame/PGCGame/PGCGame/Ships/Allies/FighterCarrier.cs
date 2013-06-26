@@ -24,16 +24,15 @@ namespace PGCGame
         {
             //UseCenterAsOrigin = true;
             Drones[0] = new Drone(droneTexture, Vector2.Zero, spriteBatch, this);
-            Drones[0].RelativePosition = ShipRelativePosition.TopLeft;
+            Drones[0].Rotation.Radians = MathHelper.Pi;
             Drones[1] = new Drone(droneTexture, Vector2.Zero, spriteBatch, this);
-            Drones[1].RelativePosition = ShipRelativePosition.BottomRight;
+            Drones[1].Rotation.Radians = MathHelper.TwoPi;
             BulletTexture = Ship.FighterCarrierBullet;
             DelayBetweenShots = TimeSpan.FromMilliseconds(55);
             DamagePerShot = 2;
             InitialHealth = 100;
             MovementSpeed = Vector2.One;
             this.TierChanged += new EventHandler(FighterCarrier_TierChanged);
-
         }
 
         void FighterCarrier_TierChanged(object sender, EventArgs e)
@@ -41,11 +40,10 @@ namespace PGCGame
             if (Tier == ShipTier.Tier1)
             {
                 Scale = new Vector2(.7f);
-                DistanceToNose = 3f/8f;
+                DistanceToNose = .375f;
             }
             else if (Tier == ShipTier.Tier2)
             {
-                //79 to 115
                 Scale = new Vector2(.7f);
                 DistanceToNose = .15f;
             }

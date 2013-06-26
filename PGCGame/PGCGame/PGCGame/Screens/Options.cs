@@ -64,7 +64,7 @@ namespace PGCGame.Screens
             GraphicsButton.MouseEnter +=new EventHandler(GraphicsButton_MouseEnter);
             GraphicsButton.MouseLeave +=new EventHandler(GraphicsButton_MouseLeave);
 
-            GFXLabel = new TextSprite(Sprites.SpriteBatch, content.Load<SpriteFont>("Fonts\\SegoeUIMono"), String.Format("GFX: {0}", StateManager.Options.HDEnabled ? "Full" : "Standard"));
+            GFXLabel = new TextSprite(Sprites.SpriteBatch, content.Load<SpriteFont>("Fonts\\SegoeUIMono"), String.Format("GFX: {0}", StateManager.GraphicsManager.IsFullScreen ? "Full" : "Standard"));
             GFXLabel.Position = new Vector2((GraphicsButton.X + GraphicsButton.Width / 2) - GFXLabel.Width / 2, (GraphicsButton.Y + GraphicsButton.Height / 2) - GFXLabel.Height / 2);
             GFXLabel.Color = Color.White;
             GFXLabel.IsManuallySelectable = true;
@@ -234,17 +234,14 @@ namespace PGCGame.Screens
                     StateManager.GraphicsManager.PreferredBackBufferHeight = StateManager.GraphicsManager.IsFullScreen ? StateManager.ViewportSize.Y : StateManager.GraphicsManager.GraphicsDevice.DisplayMode.Height;
                     StateManager.GraphicsManager.ToggleFullScreen();
 
+                    //Loop through each screen and adjust display size
+                    //TODO: Scrolling backgrounds do not properly reset
                     foreach (Screen s in StateManager.AllScreens)
                     {
                         s.Target = new RenderTarget2D(StateManager.GraphicsManager.GraphicsDevice, StateManager.GraphicsManager.PreferredBackBufferWidth, StateManager.GraphicsManager.PreferredBackBufferHeight);
                     }
 
-                    //STAN: Redundand! Already tracked via XNA's GraphicsManager.IsFullScreen
-                    StateManager.Options.HDEnabled = !StateManager.Options.HDEnabled;
-
-
-
-                    GFXLabel.Text = String.Format("GFX: {0}", StateManager.Options.HDEnabled ? "Full" : "Standard");
+                    GFXLabel.Text = String.Format("GFX: {0}", StateManager.GraphicsManager.IsFullScreen ? "Full" : "Standard");
                 }
                 if (MoveControlLabel.IsSelected)
                 {

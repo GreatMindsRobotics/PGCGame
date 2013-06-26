@@ -12,9 +12,18 @@ using Microsoft.Xna.Framework.Graphics;
 namespace PGCGame
 {
     public static class StateManager
-    {
-        //Work almost like a List.
+    {        
         private static Stack<ScreenState> _screenStack = new Stack<ScreenState>();
+
+        /// <summary>
+        /// Keeps track of active ships in the game. This info can be used for mini-map, collision detection, etc
+        /// </summary>
+        public static List<Ship> ActiveShips = new List<Ship>();
+
+        /// <summary>
+        /// Identifies the player in the network game
+        /// </summary>
+        public static Guid PlayerID = Guid.NewGuid();
 
         private static ScreenState _screenState = ScreenState.Title;
 
@@ -113,7 +122,7 @@ namespace PGCGame
             {
                 if (ScreenResolutionChanged != null)
                 {
-                    ScreenResolutionChanged(null, new ViewportEventArgs() { Viewport = GraphicsManager.GraphicsDevice.Viewport, IsFullScreen = HDEnabled });
+                    ScreenResolutionChanged(null, new ViewportEventArgs() { Viewport = GraphicsManager.GraphicsDevice.Viewport, IsFullScreen = GraphicsManager.IsFullScreen });
                 }
             }
 
@@ -127,10 +136,7 @@ namespace PGCGame
                 get { return _musicEnabled; }
                 set { _musicEnabled = value; }
             }
-            
-            
-            public static bool HDEnabled { get; set; }
-
+                       
             public static bool ArrowKeysEnabled { get; set; }
 
             public static bool LeftButtonEnabled { get; set; }

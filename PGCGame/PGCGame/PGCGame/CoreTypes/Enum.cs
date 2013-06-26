@@ -29,6 +29,7 @@ namespace PGCGame.CoreTypes
         Tier4
     }
 
+    //TODO: Are we using this? If not, remove...
     public enum ShipRelativePosition
     {
         TopLeft,
@@ -45,21 +46,10 @@ namespace PGCGame.CoreTypes
         Drone
     }
 
-    public enum ScreenResolution
-    {
-        Normal,
-        FullScreen
-    }
-
-    public enum VolumeSettings
-    {
-        Off = 0,
-        Max = 100
-    }
-
-    public enum GraphicSetting
-    {
-        Standard,
-        FullHD
+    public enum PlayerType
+    { 
+        Ally,
+        Enemy,
+        Solo
     }
 }

@@ -21,7 +21,8 @@ namespace PGCGame
 {
     public abstract class Ship : Sprite, ITimerSprite
     {
-        public const bool CanHoldShootKey = true;
+
+        protected const bool CanHoldShootKey = false;
 
         //TODO: ALEX
         public static Texture2D DroneBullet;
@@ -31,17 +32,21 @@ namespace PGCGame
 
         public abstract string TextureFolder { get; }
 
-        protected bool _performMovement = false;
         protected bool _rotateTowardsMouse = true;
+
+        public Guid PlayerID
+        {
+            get { return StateManager.PlayerID; }
+        }
+        
 
         public Ship(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
             : base(texture, location, spriteBatch)
         {
-
-
-            
-            
+            StateManager.ActiveShips.Add(this);
         }
+
+        public PlayerType PlayerType { get; set; }
 
         public abstract void Shoot();
 
@@ -62,29 +67,7 @@ namespace PGCGame
 
                 //Rotate towards mouse
                 Rotation.Radians = Math.Atan2(targetPos.X, -targetPos.Y).ToFloat();
-            }
-
-            
-            if (_performMovement)
-            {
-                KeyboardState ks = Keyboard.GetState();
-                if (ks.IsKeyDown(Keys.W) && Y - MovementSpeed.Y - (Origin.Y * Scale.Y) >= 0)
-                {
-                    Y -= MovementSpeed.Y;
-                }
-                if (ks.IsKeyDown(Keys.S) && Y + MovementSpeed.Y + (Origin.Y * Scale.Y) < (UsedViewport.HasValue ? UsedViewport.Value : SpriteBatch.GraphicsDevice.Viewport).Height)
-                {
-                    Y += MovementSpeed.Y;
-                }
-                if (ks.IsKeyDown(Keys.A) && X - MovementSpeed.X - (Origin.X * Scale.X) >= 0)
-                {
-                    X -= MovementSpeed.X;
-                }
-                if (ks.IsKeyDown(Keys.D) && X + MovementSpeed.X + (Origin.X * Scale.X) < (UsedViewport.HasValue ? UsedViewport.Value : SpriteBatch.GraphicsDevice.Viewport).Width)
-                {
-                    X += MovementSpeed.X;
-                }
-            }
+            }           
 
             foreach (Bullet b in FlyingBullets)
             {

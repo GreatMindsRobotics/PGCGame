@@ -26,7 +26,6 @@ namespace PGCGame
             : base(texture, location, spriteBatch)
         {
             ParentShip = parent;
-            _performMovement = false;
             //TODO: Change scale w/ actual drone texture
             Scale = Vector2.One;
             _rotateTowardsMouse = false;
