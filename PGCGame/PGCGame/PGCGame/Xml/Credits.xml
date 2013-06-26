@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Credits>
   <Week1>
-    <people>
+    <Students>
       Kai F.
       Michael K.
       Alexa L.
@@ -9,55 +9,137 @@
       Alexander L.
       Matthew P.
       Jeremiah T.
-    </people>
+    </Students>
     <WhatHappened>
       Functional Spec, GameState Management
     </WhatHappened>
   </Week1>
 
   <Week2>
-    <people>
-      Glen H.
-      "Michael K.
-      "Alex L.
-      "Matthew P.
-    </people>
-    <WhatHappened>
-      Technical Spec, Class Design, Functionality
-    </WhatHappened>
+    <Students>
+      <Student>
+        <FirstName>
+          Glen
+        </FirstName>
+        <LastName>
+          H.
+        </LastName>
+      </Student>
+      <Student>
+        <FirstName>
+          Michael
+        </FirstName>
+        <LastName>
+          K.
+        </LastName>
+      </Student>
+      <Student>
+        <FirstName>
+          Alex
+        </FirstName>
+        <LastName>
+          L.
+        </LastName>
+      </Student>
+      <Student>
+        <FirstName>
+          Matthew
+        </FirstName>
+        <LastName>
+          P.
+        </LastName>
+      </Student>
+    </Students>
+    <Topics>
+      <Topic>
+        Techical Spec
+      </Topic>
+      <Topic>
+        Class Design
+      </Topic>
+      <Topic>
+        Functionality
+      </Topic>
+    </Topics>
   </Week2>
 
-  <!-- TODO: Matthew - please fix up this document per example below -->
-  
   <Week3>
     <Students>
       <Student>
-        <FirstName>Alex</FirstName>
-        <LastName>L.</LastName>
+        <FirstName>
+          Alex
+        </FirstName>
+        <LastName>
+          L.
+        </LastName>
       </Student>
-      
-      Andrew K.
-      Kai F-H.
-      Kevin F
-      Matthew P.,
-      Michal K.
-      Jeremiah T.
-      Joseph V.
+      <Student>
+        <FirstName>
+          Andrew
+        </FirstName>
+        <LastName>
+          K.
+        </LastName>
+      </Student>
+      <Student>
+        <FirstName>
+          Kai
+        </FirstName>
+        <LastName>
+          F-H.
+        </LastName>
+      </Student>
+      <Student>
+        <FirstName>
+          Kevin
+        </FirstName>
+        <LastName>
+          F.
+        </LastName>
+      </Student>
+      <Student>
+        <FirstName>
+          Matthew
+        </FirstName>
+        <LastName>
+          P.
+        </LastName>
+      </Student>
+      <Student>
+        <FirstName>
+          Michael
+        </FirstName>
+        <LastName>
+          K.
+        </LastName>
+      </Student>
+      <Student>
+        <FirstName>
+          Jeremiah
+        </FirstName>
+        <LastName>
+          T.
+        </LastName>
+      </Student>
+      <Student>
+        <FirstName>
+          Joseph
+        </FirstName>
+        <LastName>
+          V.
+        </LastName>
+      </Student>
     </Students>
-
-    <Topics>
-      <Topic>topic here...</Topic>
-      <Topic>AI Programming</Topic>
-    </Topics>
+    <Topic>AI Programming</Topic>
   </Week3>
 
   <Week4>
-    <people>
+    <Students>
 
-    </people>
-    <WhatHappened>
+    </Students>
+    <Topic>
       Xbox Conversion
-    </WhatHappened>
+    </Topic>
   </Week4>
 
 </Credits>

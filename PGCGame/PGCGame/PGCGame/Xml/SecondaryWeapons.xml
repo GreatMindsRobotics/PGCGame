@@ -1,18 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SecondaryWeapons>
   <weapon id="1">
-    <name>Emp</name>
-    <description>Emits an electric pulse in a relatively large radius that disables nearby ships for a few seconds.</description>
+    <name>
+      Emp
+    </name>
+    <description>
+      An electro magnetic pulse. This device causes all nearby enemy ships within your ship's range.
+    </description>
   </weapon>
 
   <weapon id="2">
-    <name>Shrink Ray</name>
-    <description>This Weapon can srink anyone! Warning Does Not Work on boss or droid. When you shrink something, it loses half of there health.</description>
+    <name>
+      Shrink Ray
+    </name>
+    <description>
+      This weapon causes the targeted enemy to shrink losing 33% of their health.
+    </description>
+    <Cost>
+      
+    </Cost>
   </weapon>
 
   <weapon id="3">
-    <name>SpaceMine</name>
-    <description>This powerful piece of weaponry explodes upon contact of ANY ship that collides with it. Beware DON DON DAAAAAAAAAAAA!</description>
+    <name>
+      Space Mine
+    </name>
+    <description>
+      You place this mine anywhere in space and when an enemy steps on it the mine explodes.
+    </description>
+    <Cost>
+
+    </Cost>
   </weapon>
 
 </SecondaryWeapons>
