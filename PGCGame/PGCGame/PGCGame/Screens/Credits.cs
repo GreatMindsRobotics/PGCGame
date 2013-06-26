@@ -14,17 +14,20 @@ using Glib.XNA;
 using Glib.XNA.SpriteLib;
 
 using PGCGame.CoreTypes;
+using PGCGame.Xml.XmlTypes;
 
 namespace PGCGame.Screens
 {
     public class Credits : Screen
     {
-        //TODO FOR MATTHEW:
-        //MAKE THE CREDITS END AND GO BACK TO THE MAINMENU
         private List<TextSprite> credits = new List<TextSprite>();
         private Song _creditsSong;
         private Vector2 _scrollingSpeed;
-        private string[] creditLines = new string[]{
+
+        private XmlCredits _xmlCredits = XmlBaseLoader.Create<XmlCredits>(XmlDataFile.Credits);
+      
+        private string[] creditLines = new string[]
+        {
             "<b>\n\n\n\nWeek 1 - Functional Spec, GameState Management\n",
             "Kai F.\n",
             "Michael K.\n",
@@ -59,7 +62,7 @@ namespace PGCGame.Screens
         public Credits(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
         {
-            
+            _xmlCredits.LoadData();
         }
 
         Sprite imgSprite;

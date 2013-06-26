@@ -52,4 +52,11 @@ namespace PGCGame.CoreTypes
         Enemy,
         Solo
     }
+
+    public enum XmlDataFile
+    { 
+        Credits,
+        SecondaryWeapons,
+        ShipDescriptions
+    }
 }

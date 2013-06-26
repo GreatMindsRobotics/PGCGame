@@ -106,18 +106,26 @@
     <Compile Include="SecondaryWeapons\SpaceMine.cs" />
     <Compile Include="Ships\Allies\TorpedoShip.cs" />
     <Compile Include="CoreTypes\StateManager.cs" />
+    <Compile Include="Xml\XmlTypes\XmlBaseLoader.cs" />
+    <Compile Include="Xml\XmlTypes\XmlCredits.cs" />
+    <Compile Include="Xml\XmlTypes\XmlSecondaryWeapons.cs" />
+    <Compile Include="Xml\XmlTypes\XmlShipDescriptions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png">
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
     </Content>
-    <Content Include="Xml\Credits.xml" />
+    <Content Include="Xml\Credits.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Xml\SecondaryWeapons.xml">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Xml\ShipDescription.xml">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
