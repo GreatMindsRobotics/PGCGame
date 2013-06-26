@@ -27,7 +27,7 @@ namespace PGCGame
         {
             ParentShip = parent;
             //TODO: Change scale w/ actual drone texture
-            Scale = Vector2.One;
+            Scale = new Vector2(.75f);
             _rotateTowardsMouse = false;
             
             BulletTexture = Ship.DroneBullet;

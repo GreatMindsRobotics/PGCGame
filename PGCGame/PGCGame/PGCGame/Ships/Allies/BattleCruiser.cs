@@ -25,7 +25,7 @@ namespace PGCGame
             DamagePerShot = 20;
             MovementSpeed = new Vector2(.375f);
             InitialHealth = 120;
-
+            Scale = new Vector2(.875f);
             PlayerType = CoreTypes.PlayerType.Ally;
         }
 

@@ -28,7 +28,7 @@ namespace PGCGame
             Drones[1] = new Drone(droneTexture, Vector2.Zero, spriteBatch, this);
             Drones[1].Rotation.Radians = MathHelper.TwoPi;
             BulletTexture = Ship.FighterCarrierBullet;
-            DelayBetweenShots = TimeSpan.FromMilliseconds(55);
+            DelayBetweenShots = TimeSpan.FromMilliseconds(100);
             DamagePerShot = 2;
             InitialHealth = 100;
             MovementSpeed = Vector2.One;
@@ -39,22 +39,22 @@ namespace PGCGame
         {
             if (Tier == ShipTier.Tier1)
             {
-                Scale = new Vector2(.7f);
+                Scale = new Vector2(.55f);
                 DistanceToNose = .375f;
             }
             else if (Tier == ShipTier.Tier2)
             {
-                Scale = new Vector2(.7f);
+                Scale = new Vector2(.55f);
                 DistanceToNose = .15f;
             }
             else if (Tier == ShipTier.Tier3)
             {
-                Scale = new Vector2(.7f);
+                Scale = new Vector2(.55f);
                 DistanceToNose = .28f;
             }
             else if (Tier == ShipTier.Tier4)
             {
-                Scale = new Vector2(.75f);
+                Scale = new Vector2(.55f);
                 DistanceToNose = .5f;
             }
         }
@@ -72,7 +72,7 @@ namespace PGCGame
 
             Bullet bullet = new Bullet(BulletTexture, WorldCoords - new Vector2(Height * -DistanceToNose, Height * -DistanceToNose) * Rotation.AsVector(), WorldSb);
             
-            bullet.Speed = Rotation.AsVector()*1.5f;
+            bullet.Speed = Rotation.AsVector()*3f;
             bullet.UseCenterAsOrigin = true;
             bullet.Rotation = Rotation;
             bullet.Damage = DamagePerShot;

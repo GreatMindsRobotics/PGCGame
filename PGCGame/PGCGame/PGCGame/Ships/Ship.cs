@@ -22,7 +22,7 @@ namespace PGCGame
     public abstract class Ship : Sprite, ITimerSprite
     {
 
-        protected const bool CanHoldShootKey = false;
+        protected const bool CanHoldShootKey = true;
 
         //TODO: ALEX
         public static Texture2D DroneBullet;

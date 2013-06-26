@@ -18,6 +18,7 @@ namespace PGCGame
         public TorpedoShip(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
             : base(texture, location, spriteBatch)
         {
+            Scale = new Vector2(.925f);
             BulletTexture = Ship.Torpedo;
             MovementSpeed = new Vector2(1.333f);
             //MovementSpeed = new Vector2(1f);
