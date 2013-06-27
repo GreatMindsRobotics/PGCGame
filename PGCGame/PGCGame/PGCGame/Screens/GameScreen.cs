@@ -114,10 +114,9 @@ namespace PGCGame.Screens
             playerSbObjects.Add(ship);
 
             //TEST CODE: Start with one mine; TODO: purchase mines!!!
-            SpaceMine spaceMine = new SpaceMine(Ship.SpaceMine, Vector2.Zero, playerShip.WorldSb);
-            spaceMine.ParentShip = playerShip;
-            
-            playerShip.SpaceMines.Push(spaceMine);
+            //SpaceMine spaceMine = new SpaceMine(Ship.SpaceMine, Vector2.Zero, playerShip.WorldSb);
+            //spaceMine.ParentShip = playerShip;
+            //playerShip.SpaceMines.Push(spaceMine);
             
         }
 

@@ -22,7 +22,7 @@ namespace PGCGame
 
         //TODO: Make this a selectable key in options 
         private Keys _deployKey = Keys.LeftShift;
-        
+
         #endregion Private Fields
 
         #region Public Fields
@@ -32,7 +32,7 @@ namespace PGCGame
         #endregion Private Methods
 
         #region Private Events
-        
+
         #endregion Private Events
 
         #region Public Properties
@@ -43,7 +43,7 @@ namespace PGCGame
         #endregion Public Properties
 
         #region Public Ctors
-        
+
         public Drone(Texture2D texture, Vector2 location, SpriteBatch spriteBatch, FighterCarrier parent)
             : base(texture, location, spriteBatch)
         {
@@ -55,7 +55,7 @@ namespace PGCGame
             Scale = new Vector2(.75f);
             _rotateTowardsMouse = false;
 
-            BulletTexture = Ship.DroneBullet;            
+            BulletTexture = Ship.DroneBullet;
         }
 
         #endregion Public Ctors
@@ -73,7 +73,7 @@ namespace PGCGame
 
             //Drone AI FSM
             switch (DroneState)
-            {   
+            {
                 default:
                 case CoreTypes.DroneState.Stowed:
                     //Drone is stowed on the Figher Carrier; wait for deploy command. This is the default state
@@ -98,15 +98,25 @@ namespace PGCGame
 
                     //Push the drones out by changing origin slowly
                     Vector2 distanceToParentOrigin = ParentShip.Origin - Origin;
-                    
+
                     if (distanceToParentOrigin.LengthSquared() < 1.0f)
                     {
                         DroneState = CoreTypes.DroneState.Deployed;
                         return;
                     }
-
-                    distanceToParentOrigin.Normalize();
-                    Origin += distanceToParentOrigin;
+                    else
+                    {
+                        if (Scale.X < .75f)
+                        {
+                            Scale.X += .03f;
+                            Scale.Y += .03f;
+                        }
+                        else
+                        {
+                            distanceToParentOrigin.Normalize();
+                            Origin += distanceToParentOrigin;
+                        }
+                    }
 
                     break;
 
@@ -119,7 +129,7 @@ namespace PGCGame
                         _lastKs = keyboard;
                         return;
                     }
-                    
+
                     //TODO: Monitor for enemies within 400x400px square
                     //TODO: DEBUG: Show monitoring radius                    
 
@@ -131,6 +141,7 @@ namespace PGCGame
 
                     if (keyboard.IsKeyDown(_deployKey) && _lastKs != null && !_lastKs.IsKeyDown(Keys.LeftShift))
                     {
+
                         DroneState = DroneState.Deploying;
 
                         _lastKs = keyboard;
@@ -142,12 +153,23 @@ namespace PGCGame
 
                     if (distanceToParentCenter.LengthSquared() < 1.0f)
                     {
-                        DroneState = CoreTypes.DroneState.Stowed;
-                        return;
+                        //Shrink into mother-ship
+                        if (Scale.X > .3f)
+                        {
+                            Scale.X -= .05f;
+                            Scale.Y -= .05f;
+                        }
+                        else
+                        {
+                            DroneState = CoreTypes.DroneState.Stowed;
+                            return;
+                        }
                     }
-
-                    distanceToParentCenter.Normalize();
-                    Origin -= distanceToParentCenter;                    
+                    else
+                    {
+                        distanceToParentCenter.Normalize();
+                        Origin -= distanceToParentCenter;
+                    }
 
                     break;
 
@@ -162,7 +184,7 @@ namespace PGCGame
 
             Position = ParentShip.Position; //+ new Vector2(ParentShip.Width / 2, ParentShip.Height / 2);
             Rotation += .5f;
-            
+
             _lastKs = keyboard;
 
             base.Update();
@@ -193,6 +215,6 @@ namespace PGCGame
             get { throw new NotImplementedException(); }
         }
 
-        #endregion Public Methods       
+        #endregion Public Methods
     }
 }
