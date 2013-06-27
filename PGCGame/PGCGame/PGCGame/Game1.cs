@@ -36,6 +36,7 @@ namespace PGCGame
         ShipSelect shipSelectScreen;
         WeaponSelectScreen weaponSelectScreen;
         UpgradeScreen upgradeScreen;
+        TierSelect tierSelectScreen;
 
         public Game1()
         {
@@ -123,7 +124,11 @@ namespace PGCGame
             upgradeScreen.LoadContent(Content);
             upgradeScreen.Name = "upgradeScreen";
 
-            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen, shipSelectScreen, weaponSelectScreen, upgradeScreen);
+            tierSelectScreen = new TierSelect(spriteBatch);
+            tierSelectScreen.LoadContent(Content);
+            tierSelectScreen.Name = "tierSelectScreen";
+
+            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen, shipSelectScreen, weaponSelectScreen, upgradeScreen, tierSelectScreen);
             StateManager.AllScreens = screenManager;
             StateManager.ScreenState = CoreTypes.ScreenState.Title;
         }

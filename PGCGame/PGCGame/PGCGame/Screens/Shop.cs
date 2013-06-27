@@ -65,6 +65,7 @@ namespace PGCGame.Screens
             shipButton.MouseEnter += new EventHandler(shipButton_MouseEnter);
             shipButton.MouseLeave += new EventHandler(shipButton_MouseLeave);
 
+
             Sprites.Add(shipButton);
             AdditionalSprites.Add(shipLabel);
 
@@ -138,6 +139,14 @@ namespace PGCGame.Screens
             }
         }
 
+        public bool mouseInShipButton
+        {
+            get
+            {
+                return shipLabel.IsSelected;
+            }
+        }
+
         //shipbutton
         void shipButton_MouseLeave(object sender, EventArgs e)
         {
@@ -179,6 +188,10 @@ namespace PGCGame.Screens
                 if (mouseInUpgradeButton)
                 {
                     StateManager.ScreenState = ScreenState.UpgradeScreen;
+                }
+                if (mouseInShipButton)
+                {
+                    StateManager.ScreenState = ScreenState.TierSelect;
                 }
                 
             }

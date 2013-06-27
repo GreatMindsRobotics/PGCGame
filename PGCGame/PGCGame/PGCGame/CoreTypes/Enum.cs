@@ -18,7 +18,8 @@ namespace PGCGame.CoreTypes
         Pause,
         ShipSelect,
         WeaponSelect,
-        UpgradeScreen
+        UpgradeScreen,
+        TierSelect
     }
 
     public enum ShipTier

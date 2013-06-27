@@ -132,6 +132,9 @@ namespace PGCGame
                 case ScreenState.UpgradeScreen:
                     AllScreens["upgradeScreen"].Visible = true;
                     break;
+                case ScreenState.TierSelect:
+                AllScreens["tierSelectScreen"].Visible = true;
+                break;
             }
         }
 
