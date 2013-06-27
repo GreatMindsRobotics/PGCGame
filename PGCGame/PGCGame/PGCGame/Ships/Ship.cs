@@ -21,10 +21,8 @@ namespace PGCGame
 {
     public abstract class Ship : Sprite, ITimerSprite
     {
-
         protected const bool CanHoldShootKey = true;
 
-        //TODO: ALEX
         public static Texture2D DroneBullet;
         public static Texture2D BattleCruiserBullet;
         public static Texture2D FighterCarrierBullet;
@@ -77,7 +75,7 @@ namespace PGCGame
 
         public SpriteBatch WorldSb;
         private TimeSpan _elapsedShotTime = new TimeSpan();
-        private KeyboardState _lastKs = new KeyboardState();
+        protected KeyboardState _lastKs = new KeyboardState();
 
         public void Update(GameTime gt)
         {

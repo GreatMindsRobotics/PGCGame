@@ -23,10 +23,13 @@ namespace PGCGame
             : base(texture, location, spriteBatch)
         {
             //UseCenterAsOrigin = true;
-            Drones[0] = new Drone(droneTexture, Vector2.Zero, spriteBatch, this);
+
+            //Init drones
+            Drones.Add(new Drone(droneTexture, Vector2.Zero, spriteBatch, this) { DroneState = CoreTypes.DroneState.Stowed });
             Drones[0].Rotation.Radians = MathHelper.Pi;
-            Drones[1] = new Drone(droneTexture, Vector2.Zero, spriteBatch, this);
+            Drones.Add(new Drone(droneTexture, Vector2.Zero, spriteBatch, this) { DroneState = CoreTypes.DroneState.Stowed });
             Drones[1].Rotation.Radians = MathHelper.TwoPi;
+            
             BulletTexture = Ship.FighterCarrierBullet;
             DelayBetweenShots = TimeSpan.FromMilliseconds(100);
             DamagePerShot = 2;
@@ -58,11 +61,8 @@ namespace PGCGame
                 DistanceToNose = .5f;
             }
         }
-
-        private bool _dronesInitialized = false;
-        
-
-        public Drone[] Drones = new Drone[2];
+     
+        public List<Drone> Drones = new List<Drone>();
         public event EventHandler BulletFired;
 
         public override void Shoot()
@@ -91,13 +91,8 @@ namespace PGCGame
 
         public override void Update()
         {
-            if (!_dronesInitialized)
-            {
-                _dronesInitialized = true;
-                Drones[0].Origin = Origin;
-                Drones[1].Origin = Origin;
-            }
             base.Update();
+
             foreach (Drone d in Drones)
             {
                 d.Update();
@@ -106,11 +101,13 @@ namespace PGCGame
 
         public override void DrawNonAuto()
         {
-            base.DrawNonAuto();
+            //IMPORTANT: Draw drones first!
             foreach (Drone d in Drones)
             {
                 d.DrawNonAuto();
             }
+
+            base.DrawNonAuto();         
         }
 
         public override string TextureFolder

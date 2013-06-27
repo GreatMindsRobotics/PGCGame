@@ -46,6 +46,23 @@ namespace PGCGame.CoreTypes
         Drone
     }
 
+    /// <summary>
+    /// States for the Drone AI FSM
+    /// </summary>
+    public enum DroneState
+    { 
+        Stowed,
+        Stowing,
+        Deploying,
+        Deployed,
+        TargetAcquired,
+        MovingToTarget,
+        Attacking,
+        EvadingFire,
+        AcceptingFate,
+        RIP
+    }
+
     public enum PlayerType
     { 
         Ally,
