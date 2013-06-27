@@ -76,4 +76,14 @@ namespace PGCGame.CoreTypes
         SecondaryWeapons,
         ShipDescriptions
     }
+
+    public enum SpaceMineState
+    { 
+        Stowed,
+        Deploying,
+        Deployed,
+        Armed,
+        RIP
+    }
+
 }
