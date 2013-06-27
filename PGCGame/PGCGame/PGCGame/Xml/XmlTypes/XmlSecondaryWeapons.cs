@@ -12,7 +12,7 @@ namespace PGCGame.Xml.XmlTypes
         public struct Weapon
         {
             public int ID { get; set; }
-            public string Cost { get; set; }
+            public int Cost { get; set; }
             public string Name { get; set; }
             public string Description { get; set; }
         }
@@ -29,7 +29,9 @@ namespace PGCGame.Xml.XmlTypes
                 weapon.ID = element.Attributes.GetNamedItem("id").Value.ToInt();
                 weapon.Name = element.GetElementsByTagName("name")[0].InnerText;
                 weapon.Description = element.GetElementsByTagName("description")[0].InnerText;
-                weapon.Cost = element.GetElementsByTagName("Cost")[0].InnerText; 
+                weapon.Cost = element.GetElementsByTagName("Cost")[0].InnerText.ToInt();
+
+                Weapons.Add(weapon);
             }
         }
     }
