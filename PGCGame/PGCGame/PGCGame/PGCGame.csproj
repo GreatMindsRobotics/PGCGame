@@ -101,6 +101,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="SecondaryWeapons\SecondaryWeapon.cs" />
+    <Compile Include="Ships\Enemies\EnemyDrone.cs" />
     <Compile Include="Ships\Ship.cs" />
     <Compile Include="Bullets\ShrinkBullet.cs" />
     <Compile Include="SecondaryWeapons\ShrinkRay.cs" />
@@ -163,9 +164,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Ships\Enemies\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--

@@ -16,10 +16,13 @@ using Microsoft.Xna.Framework.Media;
 using PGCGame.CoreTypes;
 using System.Diagnostics;
 
+using PGCGame.Ships.Enemies;
+
 namespace PGCGame.Screens
 {
     public class GameScreen : Screen
     {
+        TorpedoShip enemy;
         public GameScreen(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
         {
@@ -45,13 +48,11 @@ namespace PGCGame.Screens
 
             bgImg = content.Load<Texture2D>("Images\\Background\\NebulaSky");
 
+            //enemy = new EnemyDrone(content.Load<Texture2D>("Images\\Drones\\Drone1"), Vector2.Zero, Sprites.SpriteBatch);
 
-
-            //Sprites.Add(new Drone(content.Load<Texture2D>("aTexture"), Vector2.Zero, this.Sprites.SpriteBatch, ship)); 
-            //use Sprites to load your sprites
-            //EX: Sprites.Add(new Sprite(content.Load<Texture2D>("assetName"), Vector2.Zero, Sprites.SpriteBatch));
-            //OR
-            //EX: Sprites.AddNewSprite(new Vector(0, 0), content.Load<Texture2D("assetName"));
+            enemy = new TorpedoShip(content.Load<Texture2D>("Images\\Fighter Carrier\\Tier1"), Vector2.Zero, Sprites.SpriteBatch);
+            enemy.WorldCoords = new Vector2(1920, 10260);
+            Sprites.Add(enemy);
         }
 
         public void InitializeScreen<TShip>(ShipTier tier) where TShip : Ship
@@ -210,8 +211,10 @@ namespace PGCGame.Screens
                 }
             }
 
+            
             worldCam.Move(camMove);
             playerShip.WorldCoords = worldCam.Pos;
+
             foreach (ISprite s in playerSbObjects)
             {
                 if (s.GetType().Implements(typeof(ITimerSprite)))

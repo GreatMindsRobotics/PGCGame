@@ -18,17 +18,9 @@ namespace PGCGame.Screens
 {
     public class Title : Screen
     {
-        Sprite TitleImage;
-
         public delegate void quitFunction();
 
-        Sprite PlayButton;
-        TextSprite PlayLabel;
-
-        Sprite ExitButton;
-        TextSprite ExitLabel;
         quitFunction exit;
-
 
         public Title(SpriteBatch spriteBatch, quitFunction exitableFunction)
             : base(spriteBatch, Color.Black)
@@ -36,13 +28,24 @@ namespace PGCGame.Screens
             exit = exitableFunction;
         }
 
-        float labelYOffset = 0.895f;
+        private const float labelYOffset = 0.895f;
+
+        Sprite TitleImage;
+
+        Sprite planet;
+        Sprite planettwo;
+
+        Sprite PlayButton;
+        TextSprite PlayLabel;
+
+        Sprite ExitButton;
+        TextSprite ExitLabel;
+
 
         public void LoadContent(ContentManager content)
         {
             Viewport viewPort = Sprites.SpriteBatch.GraphicsDevice.Viewport;
             
-            //use Sprites to load your sprites
             this.BackgroundSprite = new HorizontalMenuBGSprite(content.Load<Texture2D>("Images\\Background\\1920by1080SkyStar"), Sprites.SpriteBatch);
 
             //loading the content ONCE
@@ -50,12 +53,12 @@ namespace PGCGame.Screens
             Texture2D buttonTexture = content.Load<Texture2D>("Images\\Controls\\Button");
             SpriteFont SegoeUIMono = content.Load<SpriteFont>("Fonts\\SegoeUIMono");
 
-            Sprite planet = new Sprite(planetTexture, Vector2.Zero, Sprites.SpriteBatch);
+            planet = new Sprite(planetTexture, Vector2.Zero, Sprites.SpriteBatch);
             planet.Scale = new Vector2(.7f);
             planet.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.1f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .16f);
             Sprites.Add(planet);
 
-            Sprite planettwo = new Sprite(planetTexture, Vector2.Zero, Sprites.SpriteBatch);
+            planettwo = new Sprite(planetTexture, Vector2.Zero, Sprites.SpriteBatch);
             planettwo.Scale = new Vector2(1f);
             planettwo.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.8f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .75f);
             Sprites.Add(planettwo);
@@ -71,7 +74,7 @@ namespace PGCGame.Screens
             Sprites.Add(PlayButton);
 
             PlayLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Play");
-            PlayLabel.Position = new Vector2(PlayButton.X + (PlayButton.Width / 2 - PlayLabel.Width / 2), PlayButton.Y + (PlayButton.Height / 2 - PlayLabel.Height / 2 - (labelYOffset * PlayButton.Scale.Y)));
+            PlayLabel.Position = new Vector2(PlayButton.X + (PlayButton.Width / 2 - PlayLabel.Width / 2), PlayButton.Y + (PlayButton.Height / 2 - PlayLabel.Height / 2));
             PlayLabel.IsHoverable = true;
             PlayLabel.IsManuallySelectable = true;
             PlayLabel.NonHoverColor = Color.White;
@@ -84,9 +87,9 @@ namespace PGCGame.Screens
             ExitButton.MouseLeave += new EventHandler(ExitButton_MouseLeave);
             Sprites.Add(ExitButton);
 
-            ExitLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(ExitButton.Y + (PlayButton.Width / 2 - PlayLabel.Width / 2), ExitButton.Y + (PlayButton.Height / 2 - PlayLabel.Height / 2 - (labelYOffset * PlayButton.Scale.Y))), SegoeUIMono, "Exit");
+            ExitLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Exit");
+            ExitLabel.Position = new Vector2(ExitButton.X + (ExitButton.Width / 2 - ExitLabel.Width / 2), ExitButton.Y + (ExitButton.Height / 2 - ExitLabel.Height / 2));
             ExitLabel.IsHoverable = true;
-            ExitLabel.Position = new Vector2(ExitButton.X + (ExitButton.Width / 2 - ExitLabel.Width / 2), ExitButton.Y + (ExitButton.Height / 2 - ExitLabel.Height / 2 - (labelYOffset * ExitButton.Scale.Y)));
             ExitLabel.IsManuallySelectable = true;
             ExitLabel.NonHoverColor = Color.White;
             ExitLabel.HoverColor = Color.MediumAquamarine;
@@ -103,22 +106,6 @@ namespace PGCGame.Screens
             PlayLabel.IsSelected = true;
         }
 
-        bool mouseInExitButton
-        {
-            get
-            {
-                return ExitLabel.IsSelected;
-            }
-        }
-
-        bool mouseInPlayButton
-        {
-            get
-            {
-                return PlayLabel.IsSelected;
-            }
-        }
-
         void ExitButton_MouseLeave(object sender, EventArgs e)
         {
             ExitLabel.IsSelected = false;
@@ -131,24 +118,16 @@ namespace PGCGame.Screens
 
         public override void Update(GameTime gameTime)
         {
-            //TODO: UPDATE SPRITES
-            base.Update(gameTime);
-
-            if (mouseInExitButton || mouseInPlayButton)
+            if (PlayLabel.IsSelected && PlayButton.ClickCheck())
             {
-                MouseState ms = Mouse.GetState();
-                if (ms.LeftButton == ButtonState.Pressed)
-                {
-                    if (mouseInExitButton)
-                    {
-                        exit();
-                    }
-                    if (mouseInPlayButton)
-                    {
-                        StateManager.ScreenState = ScreenState.MainMenu;
-                    }
-                }
+                StateManager.ScreenState = ScreenState.MainMenu;
             }
+            else if (ExitLabel.IsSelected && ExitButton.ClickCheck())
+            {
+                exit();
+            }
+
+            base.Update(gameTime);
         }
     }
 }
