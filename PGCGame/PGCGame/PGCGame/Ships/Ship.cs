@@ -55,26 +55,6 @@ namespace PGCGame
 
         public Texture2D BulletTexture { get; set; }
 
-        public override void Update()
-        {
-            base.Update();
-
-            if (_rotateTowardsMouse)
-            {
-                MouseState ms = Mouse.GetState();
-                Vector2 mousePos = new Vector2(ms.X, ms.Y);
-                Vector2 targetPos = mousePos - Position;              
-
-                //Rotate towards mouse
-                Rotation.Radians = Math.Atan2(targetPos.X, -targetPos.Y).ToFloat();
-            }           
-
-            foreach (Bullet b in FlyingBullets)
-            {
-                b.Update();
-            }
-        }
-
         public SpriteBatch WorldSb;
         private TimeSpan _elapsedShotTime = new TimeSpan();
         protected KeyboardState _lastKs = new KeyboardState();
@@ -87,10 +67,24 @@ namespace PGCGame
             get { return _spaceMines; }
             set { _spaceMines = value; }
         }
-        
+
         public void Update(GameTime gt)
         {
-            Update();
+            base.Update();
+            if (_rotateTowardsMouse)
+            {
+                MouseState ms = Mouse.GetState();
+                Vector2 mousePos = new Vector2(ms.X, ms.Y);
+                Vector2 targetPos = mousePos - Position;
+
+                //Rotate towards mouse
+                Rotation.Radians = Math.Atan2(targetPos.X, -targetPos.Y).ToFloat();
+            }
+
+            foreach (Bullet b in FlyingBullets)
+            {
+                b.Update();
+            }
             //Shoot
             KeyboardState ks = Keyboard.GetState();
             _elapsedShotTime += gt.ElapsedGameTime;
@@ -116,8 +110,6 @@ namespace PGCGame
 
             _lastKs = ks;
         }
-
-        public Vector2 WorldCoords = Vector2.Zero;
 
         public bool CanShoot
         {

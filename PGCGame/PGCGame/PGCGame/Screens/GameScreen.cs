@@ -51,7 +51,7 @@ namespace PGCGame.Screens
             //enemy = new EnemyDrone(content.Load<Texture2D>("Images\\Drones\\Drone1"), Vector2.Zero, Sprites.SpriteBatch);
 
             enemy = new TorpedoShip(content.Load<Texture2D>("Images\\Fighter Carrier\\Tier1"), Vector2.Zero, Sprites.SpriteBatch);
-            enemy.WorldCoords = new Vector2(1920, 10260);
+            enemy.Position = new Vector2(1920, 10260);
             Sprites.Add(enemy);
         }
 
@@ -113,6 +113,7 @@ namespace PGCGame.Screens
             ship.Position = ship.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport, true);
             playerShip = ship;
             playerSbObjects.Add(ship);
+
 
             //TEST CODE: Start with one mine; TODO: purchase mines!!!
             //SpaceMine spaceMine = new SpaceMine(Ship.SpaceMine, Vector2.Zero, playerShip.WorldSb);
@@ -213,7 +214,8 @@ namespace PGCGame.Screens
 
             
             worldCam.Move(camMove);
-            playerShip.WorldCoords = worldCam.Pos;
+            //Just use world cam pos
+            //playerShip.WorldCoords = worldCam.Pos;
 
             foreach (ISprite s in playerSbObjects)
             {
