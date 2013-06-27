@@ -30,14 +30,6 @@ namespace PGCGame.CoreTypes
         Tier4
     }
 
-    //TODO: Are we using this? If not, remove...
-    public enum ShipRelativePosition
-    {
-        TopLeft,
-        TopRight,
-        BottomLeft,
-        BottomRight
-    }
 
     public enum ShipType
     {
