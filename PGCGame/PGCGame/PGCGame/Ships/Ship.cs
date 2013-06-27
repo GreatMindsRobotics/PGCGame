@@ -27,6 +27,7 @@ namespace PGCGame
         public static Texture2D BattleCruiserBullet;
         public static Texture2D FighterCarrierBullet;
         public static Texture2D Torpedo;
+        public static Texture2D SpaceMine;
 
         public abstract string TextureFolder { get; }
 
@@ -57,6 +58,7 @@ namespace PGCGame
         public override void Update()
         {
             base.Update();
+
             if (_rotateTowardsMouse)
             {
                 MouseState ms = Mouse.GetState();
@@ -77,6 +79,15 @@ namespace PGCGame
         private TimeSpan _elapsedShotTime = new TimeSpan();
         protected KeyboardState _lastKs = new KeyboardState();
 
+        protected Stack<SpaceMine> _spaceMines = new Stack<SpaceMine>();
+        public SpaceMine ActiveSpaceMine { get; set; }
+
+        public Stack<SpaceMine> SpaceMines
+        {
+            get { return _spaceMines; }
+            set { _spaceMines = value; }
+        }
+        
         public void Update(GameTime gt)
         {
             Update();
@@ -89,6 +100,20 @@ namespace PGCGame
                 Shoot();
                 _elapsedShotTime = new TimeSpan();
             }
+
+            //Deploy mine?
+            if (SpaceMines.Count > 0 && ks.IsKeyDown(Keys.RightShift) && _lastKs != null && !_lastKs.IsKeyDown(Keys.RightShift))
+            {
+                ActiveSpaceMine = SpaceMines.Pop();
+                ActiveSpaceMine.SpaceMineState = SpaceMineState.Deploying;
+                ActiveSpaceMine.Update(gt);
+            }
+
+            if (ActiveSpaceMine != null)
+            {
+                ActiveSpaceMine.Update(gt);
+            }
+
             _lastKs = ks;
         }
 
@@ -106,11 +131,10 @@ namespace PGCGame
         {
             base.DrawNonAuto();
 
+
             //SpriteBatch.Draw(Texture, Position, DrawRegion, Color.White, Rotation.Radians, Origin, Scale, Effect, 0);
 
-            
-            
-            //TODO: Draw Bullets
+            //TODO: Draw Bullets; currently in each ship class 
         }
 
         public int DamagePerShot { get; set; }

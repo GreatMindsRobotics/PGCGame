@@ -112,6 +112,13 @@ namespace PGCGame.Screens
             ship.Position = ship.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport, true);
             playerShip = ship;
             playerSbObjects.Add(ship);
+
+            //TEST CODE: Start with one mine; TODO: purchase mines!!!
+            SpaceMine spaceMine = new SpaceMine(Ship.SpaceMine, Vector2.Zero, playerShip.WorldSb);
+            spaceMine.ParentShip = playerShip;
+            
+            playerShip.SpaceMines.Push(spaceMine);
+            
         }
 
         void bgspr_Drawn(object sender, EventArgs e)
@@ -127,6 +134,11 @@ namespace PGCGame.Screens
                     Sprites.SpriteBatch.Draw(b);
                 }
 
+            }
+
+            if (playerShip.ActiveSpaceMine != null && playerShip.ActiveSpaceMine.SpaceMineState != SpaceMineState.Stowed)
+            {
+                Sprites.SpriteBatch.Draw(playerShip.ActiveSpaceMine);
             }
         }
 
