@@ -165,7 +165,7 @@ namespace PGCGame.Screens
                 MediaPlayer.Pause();
             }
             Vector2 camMove = Vector2.Zero;
-            if (keyboard.IsKeyDown(Keys.W))
+            if (keyboard.IsKeyDown((StateManager.Options.ArrowKeysEnabled ? Keys.Up : Keys.W)))
             {
                 if (worldCam.Pos.Y - playerShip.MovementSpeed.Y >= bg.Height / 2)
                 {
@@ -176,7 +176,7 @@ namespace PGCGame.Screens
                     camMove.Y = bg.Height / 2 - worldCam.Pos.Y;
                 }
             }
-            else if (keyboard.IsKeyDown(Keys.S))
+            else if (keyboard.IsKeyDown((StateManager.Options.ArrowKeysEnabled ? Keys.Down : Keys.S)))
             {
                 if (worldCam.Pos.Y + playerShip.MovementSpeed.Y <= bg.TotalHeight - (bg.Height / 2))
                 {
@@ -188,7 +188,7 @@ namespace PGCGame.Screens
                 }
             }
 
-            if (keyboard.IsKeyDown(Keys.D))
+            if (keyboard.IsKeyDown((StateManager.Options.ArrowKeysEnabled ? Keys.Right : Keys.D)))
             {
                 if (worldCam.Pos.X + playerShip.MovementSpeed.X <= bg.TotalWidth - (bg.Width / 2))
                 {
@@ -199,7 +199,7 @@ namespace PGCGame.Screens
                     camMove.X = (bg.TotalWidth - (bg.Width / 2)) - worldCam.Pos.X;
                 }
             }
-            else if (keyboard.IsKeyDown(Keys.A))
+            else if (keyboard.IsKeyDown((StateManager.Options.ArrowKeysEnabled ? Keys.Left : Keys.A)))
             {
                 if (worldCam.Pos.X - playerShip.MovementSpeed.X >= bg.Width / 2)
                 {
