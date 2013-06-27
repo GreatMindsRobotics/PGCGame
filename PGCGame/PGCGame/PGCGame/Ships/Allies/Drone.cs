@@ -67,7 +67,7 @@ namespace PGCGame
             //TODO: One shot per "range" - 400px from shot origin
         }
 
-        public override void Update()
+        public override void Update(GameTime gameTime)
         {
             KeyboardState keyboard = Keyboard.GetState();
 
@@ -187,7 +187,7 @@ namespace PGCGame
 
             _lastKs = keyboard;
 
-            base.Update();
+            base.Update(gameTime);
         }
 
         public override void DrawNonAuto()

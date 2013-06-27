@@ -68,7 +68,7 @@ namespace PGCGame
             set { _spaceMines = value; }
         }
 
-        public void Update(GameTime gt)
+        public virtual void Update(GameTime gt)
         {
             base.Update();
             if (_rotateTowardsMouse)
@@ -110,6 +110,26 @@ namespace PGCGame
 
             _lastKs = ks;
         }
+
+        private Vector2 _worldPos;
+
+        public bool IsPlayerShip = false;
+
+        public Vector2 WorldCoords
+        {
+            get { return IsPlayerShip ? _worldPos : Position; }
+            set {
+                if (!IsPlayerShip)
+                {
+                    Position = value;
+                }
+                else
+                {
+                    _worldPos = value;
+                }
+            }
+        }
+        
 
         public bool CanShoot
         {

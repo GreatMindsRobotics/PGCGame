@@ -112,6 +112,7 @@ namespace PGCGame.Screens
             ship.Tier = tier;
             ship.Position = ship.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport, true);
             playerShip = ship;
+            playerShip.IsPlayerShip = true;
             playerSbObjects.Add(ship);
 
 
@@ -214,8 +215,7 @@ namespace PGCGame.Screens
 
             
             worldCam.Move(camMove);
-            //Just use world cam pos
-            //playerShip.WorldCoords = worldCam.Pos;
+            playerShip.WorldCoords = worldCam.Pos;
 
             foreach (ISprite s in playerSbObjects)
             {

@@ -89,13 +89,13 @@ namespace PGCGame
 
         public List<Bullet> DroneBullets = new List<Bullet>();
 
-        public override void Update()
+        public override void Update(GameTime gt)
         {
-            base.Update();
+            base.Update(gt);
 
             foreach (Drone d in Drones)
             {
-                d.Update();
+                d.Update(gt);
             }
         }
 
