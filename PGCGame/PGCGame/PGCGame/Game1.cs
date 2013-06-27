@@ -18,6 +18,8 @@ using PGCGame.Screens.SelectScreens;
 
 namespace PGCGame
 {
+    public delegate bool CheckIfWindowFocused();
+
     /// <summary>
     /// This is the main type for your game
     /// </summary>
@@ -41,7 +43,6 @@ namespace PGCGame
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-
             Content.RootDirectory = "Content";
             Window.Title = "Plequarius: Galactic Commanders";
         }
@@ -56,12 +57,18 @@ namespace PGCGame
         {
             StateManager.GraphicsManager = graphics;
             IsMouseVisible = true;
-
             base.Initialize();
         }
 
+
+
         GameScreen gameScreen;
         Shop shopScreen;
+
+        bool isFocused()
+        {
+            return IsActive;
+        }
 
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
@@ -82,6 +89,8 @@ namespace PGCGame
 
             //SpaceMines
             Ship.SpaceMine = Content.Load<Texture2D>("Images\\Secondary Weapons\\Spacemine\\bombas3");
+
+            StateManager.IsWindowFocused = new CheckIfWindowFocused(isFocused);
 
             //TODO: Torpedo!
             Ship.Torpedo = new PlainTexture2D(GraphicsDevice, 5, 3, Color.Red);
