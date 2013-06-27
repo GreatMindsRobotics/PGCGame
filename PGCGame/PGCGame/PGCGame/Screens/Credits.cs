@@ -134,7 +134,9 @@ namespace PGCGame.Screens
             {
                 MediaPlayer.Play(_creditsSong);
             }
+
             imgSprite.Position += _scrollingSpeed;
+
             foreach (TextSprite credit in credits)
             {
                 credit.Position += _scrollingSpeed;
@@ -144,9 +146,8 @@ namespace PGCGame.Screens
             {
                 MediaPlayer.Stop();
                 _elapsedTime = new TimeSpan();
-                StateManager.ScreenState = ScreenState.Title;
-                //credits.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .255f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height);
-
+                StateManager.GoBack();
+                
                 float offset = Sprites.SpriteBatch.GraphicsDevice.Viewport.Height - Sprites[0].Position.Y;
                 Sprites[0].Y += offset;
 
@@ -154,9 +155,7 @@ namespace PGCGame.Screens
                 {
                     credit.Y += offset;
                 }
-
             }
-            
         }
     }
 }

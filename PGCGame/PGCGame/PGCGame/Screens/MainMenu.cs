@@ -181,6 +181,9 @@ namespace PGCGame.Screens
             SinglePlayerButton.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .21f);
             MultiPlayerButton.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .405f);
             OptionsButton.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .362f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .21f);
+
+            //to unselect options label when changing to full screens and back
+            OptionsLabel.IsSelected = false;
         }
 
         //credits button
@@ -229,25 +232,30 @@ namespace PGCGame.Screens
             SinglePlayerLabel.IsSelected = true;
         }
 
+        MouseState lastMouseState;
+
         public override void Update(GameTime gameTime)
         {
-            if (BackLabel.IsSelected && BackButton.ClickCheck())
+            MouseState currentMouseState = Mouse.GetState();
+
+            if (BackLabel.IsSelected && BackButton.ClickCheck(currentMouseState) && !BackButton.ClickCheck(lastMouseState))
             {
                 StateManager.GoBack();
             }
-            else if (CreditsLabel.IsSelected && CreditsButton.ClickCheck())
+            else if (CreditsLabel.IsSelected && CreditsButton.ClickCheck(currentMouseState) && !CreditsButton.ClickCheck(lastMouseState))
             {
                 StateManager.ScreenState = ScreenState.Credits;
             }
-            else if (OptionsLabel.IsSelected && OptionsButton.ClickCheck())
+            else if (OptionsLabel.IsSelected && OptionsButton.ClickCheck(currentMouseState) && !OptionsButton.ClickCheck(lastMouseState))
             {
                 StateManager.ScreenState = ScreenState.Option;
             }
-            else if (SinglePlayerLabel.IsSelected && SinglePlayerButton.ClickCheck())
+            else if (SinglePlayerLabel.IsSelected && SinglePlayerButton.ClickCheck(currentMouseState) && !SinglePlayerButton.ClickCheck(lastMouseState))
             {
                 StateManager.ScreenState = ScreenState.ShipSelect;
             }
 
+            lastMouseState = currentMouseState;
 
             base.Update(gameTime);
         }

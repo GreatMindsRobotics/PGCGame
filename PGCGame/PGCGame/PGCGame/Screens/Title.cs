@@ -116,16 +116,22 @@ namespace PGCGame.Screens
             ExitLabel.IsSelected = true;
         }
 
+        MouseState lastMouseState;
+
         public override void Update(GameTime gameTime)
         {
-            if (PlayLabel.IsSelected && PlayButton.ClickCheck())
+            MouseState currentMoustState = Mouse.GetState();
+
+            if (PlayLabel.IsSelected && PlayButton.ClickCheck(currentMoustState) && !PlayButton.ClickCheck(lastMouseState))
             {
                 StateManager.ScreenState = ScreenState.MainMenu;
             }
-            else if (ExitLabel.IsSelected && ExitButton.ClickCheck())
+            else if (ExitLabel.IsSelected && ExitButton.ClickCheck(currentMoustState) && !ExitButton.ClickCheck(lastMouseState))
             {
                 exit();
             }
+
+            lastMouseState = currentMoustState;
 
             base.Update(gameTime);
         }
