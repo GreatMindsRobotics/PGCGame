@@ -134,7 +134,7 @@ namespace PGCGame.Screens
         {
             get
             {
-                return upgradeELabel.IsSelected = true;
+                return upgradeELabel.IsSelected;
             }
         }
 
