@@ -187,7 +187,14 @@ namespace PGCGame.Screens
             OptionsButton.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .362f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .21f);
 
             //to unselect options label when changing to full screens and back
-            OptionsLabel.IsSelected = false;
+            foreach (ISprite s in AdditionalSprites)
+            {
+                if (s.GetType() == typeof(TextSprite))
+                {
+                    //We can deselect
+                    s.Cast<TextSprite>().IsSelected = false;
+                }
+            }
         }
 
         //credits button
