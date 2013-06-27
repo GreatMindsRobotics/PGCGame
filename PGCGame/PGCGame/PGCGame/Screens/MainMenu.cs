@@ -27,13 +27,17 @@ namespace PGCGame.Screens
             }
         }
 
-        public MainMenu(SpriteBatch spriteBatch)
+        PGCGame.Screens.Title.quitFunction exit;
+
+        public MainMenu(SpriteBatch spriteBatch, PGCGame.Screens.Title.quitFunction exit)
             : base(spriteBatch, _debugBackground ? Color.Red : Color.Black)
         {
-            
+            this.exit = exit;
         }
 
         Sprite TitleSprite;
+
+        
 
         Sprite planet;
         Sprite planettwo;
@@ -123,7 +127,7 @@ namespace PGCGame.Screens
             BackButton.MouseLeave += new EventHandler(BackButton_MouseLeave);
             Sprites.Add(BackButton);
 
-            BackLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Back");
+            BackLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Exit");
             BackLabel.Position = new Vector2((BackButton.X + BackButton.Width / 2) - BackLabel.Width / 2, (BackButton.Y + BackButton.Height / 2) - BackLabel.Height / 2);
             BackLabel.IsHoverable = true;
             BackLabel.IsManuallySelectable = true;
@@ -240,7 +244,8 @@ namespace PGCGame.Screens
 
             if (BackLabel.IsSelected && BackButton.ClickCheck(currentMouseState) && !BackButton.ClickCheck(lastMouseState))
             {
-                StateManager.GoBack();
+                //StateManager.GoBack();
+                exit();
             }
             else if (CreditsLabel.IsSelected && CreditsButton.ClickCheck(currentMouseState) && !CreditsButton.ClickCheck(lastMouseState))
             {
