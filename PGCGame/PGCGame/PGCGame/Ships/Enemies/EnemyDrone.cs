@@ -27,7 +27,7 @@ namespace PGCGame.Ships.Enemies
         public override void Shoot()
         {
             Bullet shotBullet = new Bullet(BulletTexture, WorldCoords, SpriteBatch);
-
+            
             shotBullet.Damage = DamagePerShot;
             shotBullet.Speed = Rotation.Vector * 6f;
 
@@ -49,7 +49,7 @@ namespace PGCGame.Ships.Enemies
         }
 
         TimeSpan elapsedRotationDelay = new TimeSpan();
-        TimeSpan rotationDelay = new TimeSpan(0, 0, 0, 0, 4);
+        TimeSpan rotationDelay = new TimeSpan(0, 0, 0, 0, 5);
 
         public override void Update(GameTime gt)
         { 
@@ -87,7 +87,7 @@ namespace PGCGame.Ships.Enemies
 
             if (elapsedRotationDelay > rotationDelay)
             {
-                if (closestAllyShipDistance.HasValue && closestAllyShip != null && closestAllyShipDistance.Value.LengthSquared() < Math.Pow(400, 2))
+                if (closestAllyShipDistance.HasValue && closestAllyShip != null && closestAllyShipDistance.Value.LengthSquared() < Math.Pow(600, 2))
                 {
                     float angle = closestAllyShipDistance.Value.ToAngle();
 
@@ -112,6 +112,13 @@ namespace PGCGame.Ships.Enemies
                         {
                             Rotation.Radians = angle;
                         }
+                    }
+                    if (closestAllyShipDistance.Value.LengthSquared() > Math.Pow(400, 2))
+                    {
+                        //Rotation.Vector.Normalize();
+                        //Rotation.Vector *= .1f;
+                        this.Speed = new Vector2(.5f, .5f);
+                        this.Position += this.Speed;
                     }
                 }
 
