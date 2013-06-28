@@ -43,7 +43,7 @@ namespace PGCGame.Screens.SelectScreens
            items.Add(new KeyValuePair<Sprite, TextSprite>(image2, text2));
            Sprite image3 = new Sprite(tempImage, Vector2.Zero, Sprites.SpriteBatch);
            TextSprite text3 = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, font, "todo too");
-           text2.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.1f, 30);
+           text3.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.1f, 30);
            image3.Scale = new Vector2(0.75f,0.75f);
            image3.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.63f, 100);
            items.Add(new KeyValuePair<Sprite, TextSprite>(image3, text3));
