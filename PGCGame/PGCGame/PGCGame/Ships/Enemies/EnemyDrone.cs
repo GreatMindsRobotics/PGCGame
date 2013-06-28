@@ -17,6 +17,8 @@ namespace PGCGame.Ships.Enemies
             Scale = new Vector2(.75f);
             RotateTowardsMouse = false;
 
+            DistanceToNose = .5f;
+
             this.PlayerType = CoreTypes.PlayerType.Enemy;
             UseCenterAsOrigin = true;
 
@@ -26,15 +28,29 @@ namespace PGCGame.Ships.Enemies
 
         public override void Shoot()
         {
-            Bullet shotBullet = new Bullet(BulletTexture, WorldCoords, SpriteBatch);
+            Bullet bullet = new Bullet(BulletTexture, WorldCoords - new Vector2(Height * -DistanceToNose, Height * -DistanceToNose) * Rotation.Vector, WorldSb);
+            bullet.Speed = Rotation.Vector * 3f;
+            bullet.UseCenterAsOrigin = true;
+            bullet.Rotation = Rotation;
+            bullet.Damage = DamagePerShot;
+            //Vector2 mousePos = new Vector2(ms.X, ms.Y);
+            //Vector2 slope = mousePos - Position;
+            //slope.Normalize();
+            //bullet.Speed = slope;
+            FlyingBullets.Add(bullet);
+
+
+
+
+            //Bullet shotBullet = new Bullet(BulletTexture, WorldCoords, SpriteBatch);
             
-            shotBullet.Damage = DamagePerShot;
-            shotBullet.Speed = Rotation.Vector * 6f;
+            //shotBullet.Damage = DamagePerShot;
+            //shotBullet.Speed = Rotation.Vector * 6f;
 
-            shotBullet.UseCenterAsOrigin = true;
-            shotBullet.Rotation = Rotation;
+            //shotBullet.UseCenterAsOrigin = true;
+            //shotBullet.Rotation = Rotation;
 
-            FlyingBullets.Add(shotBullet);
+            //FlyingBullets.Add(shotBullet);
         }
 
 
@@ -59,7 +75,11 @@ namespace PGCGame.Ships.Enemies
 
             Ship closestAllyShip = null;
             Vector2? closestAllyShipDistance = null;
-            Vector2? distance = null; 
+            Vector2? distance = null;
+            foreach (Bullet b in FlyingBullets)
+            {
+                b.Update();
+            }
 
 
             foreach (Ship allyShip in StateManager.ActiveShips)
@@ -119,6 +139,10 @@ namespace PGCGame.Ships.Enemies
                         //Rotation.Vector *= .1f;
                         this.Speed = new Vector2(Rotation.Vector.X * .5f, Rotation.Vector.Y * .5f);
                         this.Position += this.Speed;
+                    }
+                    else
+                    {
+                        this.Shoot();
                     }
                 }
 

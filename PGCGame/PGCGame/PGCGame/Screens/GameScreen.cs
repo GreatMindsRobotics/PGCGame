@@ -143,6 +143,10 @@ namespace PGCGame.Screens
             {
                 Sprites.SpriteBatch.Draw(b);
             }
+            foreach(Bullet b in enemy.FlyingBullets)
+            {
+                Sprites.SpriteBatch.Draw(b);
+            }
             if (playerShip.GetType() == typeof(FighterCarrier))
             {
                 foreach (Bullet b in playerShip.Cast<FighterCarrier>().DroneBullets)
