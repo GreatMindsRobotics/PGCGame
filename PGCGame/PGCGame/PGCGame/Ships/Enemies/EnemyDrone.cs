@@ -117,7 +117,7 @@ namespace PGCGame.Ships.Enemies
                     {
                         //Rotation.Vector.Normalize();
                         //Rotation.Vector *= .1f;
-                        this.Speed = new Vector2(.5f, .5f);
+                        this.Speed = new Vector2(Rotation.Vector.X * .5f, Rotation.Vector.Y * .5f);
                         this.Position += this.Speed;
                     }
                 }
