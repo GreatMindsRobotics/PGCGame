@@ -121,7 +121,7 @@
   
   <UnderlyingHelpers>
     <Helper id="1">
-      <Job>Creation of Glib, our Sprite/Screen Management Library</Job>
+      <Job>Creator of Glib, our Sprite/Screen Management Library</Job>
       <FirstName>Glen</FirstName>
       <FullLastName>Husman</FullLastName>
     </Helper>
