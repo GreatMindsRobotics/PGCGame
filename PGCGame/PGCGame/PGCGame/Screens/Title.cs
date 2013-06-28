@@ -120,13 +120,13 @@ namespace PGCGame.Screens
 
         public override void Update(GameTime gameTime)
         {
-            MouseState currentMoustState = Mouse.GetState();
-
             if (!StateManager.IsWindowFocused())
             {
                 //Not active window
                 return;
             }
+            
+            MouseState currentMoustState = Mouse.GetState();
 
             if (PlayLabel.IsSelected && PlayButton.ClickCheck(currentMoustState) && !PlayButton.ClickCheck(lastMouseState))
             {
