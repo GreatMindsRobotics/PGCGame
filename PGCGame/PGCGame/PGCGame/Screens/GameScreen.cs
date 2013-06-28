@@ -63,7 +63,10 @@ namespace PGCGame.Screens
 
         void Options_ScreenResolutionChanged(object sender, EventArgs e)
         {
-            playerShip.Position = playerShip.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport, true);
+            if (playerShip != null)
+            {
+                playerShip.Position = playerShip.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport, true);
+            }
         }
 
         public void InitializeScreen<TShip>(ShipTier tier) where TShip : Ship
