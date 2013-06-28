@@ -25,10 +25,12 @@ namespace PGCGame.Screens
             items = new List<KeyValuePair<Sprite, TextSprite>>();
         }
 
-        TextSprite playLabel;
-        TextSprite backLabel;
-        TextSprite leftLabel;
-        TextSprite rightLabel;
+        
+        protected TextSprite acceptLabel;
+        protected TextSprite backLabel;
+        protected TextSprite leftLabel;
+        protected TextSprite rightLabel;
+        protected TextSprite nameLabel;
 
         public event EventHandler nextButtonClicked;
 
@@ -42,18 +44,18 @@ namespace PGCGame.Screens
             SpriteFont SegoeUIMono = content.Load<SpriteFont>("Fonts\\SegoeUIMono");
 
             Sprite playButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .7f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .8f), Sprites.SpriteBatch);
-            playLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Play");
-            playLabel.Position = new Vector2((playButton.X + playButton.Width / 2) - playLabel.Width / 2, (playButton.Y + playButton.Height / 2) - playLabel.Height / 2);
-            playLabel.Color = Color.White;
-            playLabel.IsHoverable = true;
-            playLabel.IsManuallySelectable = true;
-            playLabel.NonHoverColor = Color.White;
-            playLabel.HoverColor = Color.MediumAquamarine;
+            acceptLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Play");
+            acceptLabel.Position = new Vector2((playButton.X + playButton.Width / 2) - acceptLabel.Width / 2, (playButton.Y + playButton.Height / 2) - acceptLabel.Height / 2);
+            acceptLabel.Color = Color.White;
+            acceptLabel.IsHoverable = true;
+            acceptLabel.IsManuallySelectable = true;
+            acceptLabel.NonHoverColor = Color.White;
+            acceptLabel.HoverColor = Color.MediumAquamarine;
             playButton.MouseEnter += new EventHandler(playButton_MouseEnter);
             playButton.MouseLeave += new EventHandler(playButton_MouseLeave);
 
             Sprites.Add(playButton);
-            AdditionalSprites.Add(playLabel);
+            AdditionalSprites.Add(acceptLabel);
 
             Sprite backButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .8f), Sprites.SpriteBatch);
             backLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Back");
@@ -98,6 +100,12 @@ namespace PGCGame.Screens
 
             Sprites.Add(rightButton);
             AdditionalSprites.Add(rightLabel);
+
+            nameLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Name Of Item");
+            nameLabel.Position = new Vector2((leftButton.X + leftButton.Texture.Width - (rightButton.X - (leftButton.X + leftButton.Texture.Width))/2) - nameLabel.Width/2.5f, (leftButton.Y + leftButton.Texture.Height/2) - nameLabel.Height/2);
+            nameLabel.Color = Color.White;
+
+            AdditionalSprites.Add(nameLabel);
 
             for (int i = 0; i < items.Count; i++)
             {
@@ -167,12 +175,12 @@ namespace PGCGame.Screens
         //playbutton
         void playButton_MouseLeave(object sender, EventArgs e)
         {
-            playLabel.IsSelected = false;
+            acceptLabel.IsSelected = false;
             mouseInplayButton = false;
         }
         void playButton_MouseEnter(object sender, EventArgs e)
         {
-            playLabel.IsSelected = true;
+            acceptLabel.IsSelected = true;
             mouseInplayButton = true;
         }
 
