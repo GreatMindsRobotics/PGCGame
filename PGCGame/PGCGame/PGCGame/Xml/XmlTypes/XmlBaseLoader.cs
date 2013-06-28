@@ -28,9 +28,11 @@ namespace PGCGame.Xml.XmlTypes
                     break;
 
                 case XmlDataFile.Credits:
-                default:
                     xmlType = new XmlCredits().Cast<TXmlType>();
-                    break;                
+                    break;
+
+                default:
+                    throw new NotImplementedException("The specified XmlDataFile type is not implemented.");          
             }
 
             xmlType.LoadXml(xmlDataFile);
