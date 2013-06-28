@@ -275,7 +275,8 @@ namespace PGCGame.Screens
                 {
                     StateManager.Options.LeftButtonEnabled = !StateManager.Options.LeftButtonEnabled;
                     FireControlLabel.Text = String.Format("Fire:{0}", StateManager.Options.LeftButtonEnabled ? "LClick" : "Space");
-                }
+                    
+                                    }
             }
             lastMs = currentMs;
         } 
