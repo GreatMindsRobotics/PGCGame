@@ -51,7 +51,7 @@ namespace PGCGame.Screens
             //enemy = new EnemyDrone(content.Load<Texture2D>("Images\\Drones\\Drone1"), Vector2.Zero, Sprites.SpriteBatch);
 
             enemy = new TorpedoShip(content.Load<Texture2D>("Images\\Torpedo Ship\\Tier1"), Vector2.Zero, Sprites.SpriteBatch);
-            enemy.Position = new Vector2(1920, 10260);
+            enemy.WorldCoords = new Vector2(1920, 10260);
             //TODO: Different texture
             enemy.Color = Color.Green;
             enemy.Tier = ShipTier.Tier1;
@@ -152,11 +152,11 @@ namespace PGCGame.Screens
         {
             base.Update(gameTime);
 
-            if (StateManager.Options.MusicEnabled == true && MediaPlayer.State != MediaState.Playing && MediaPlayer.State != MediaState.Paused)
+            if (StateManager.Options.MusicEnabled && MediaPlayer.State != MediaState.Playing && MediaPlayer.State != MediaState.Paused)
             {
                 MediaPlayer.Play(_gameSong);
             }
-            else if ((StateManager.Options.MusicEnabled == true && MediaPlayer.State == MediaState.Paused))
+            else if ((StateManager.Options.MusicEnabled && MediaPlayer.State == MediaState.Paused))
             {
                 MediaPlayer.Resume();
             }
