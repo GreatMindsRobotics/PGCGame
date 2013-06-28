@@ -122,6 +122,12 @@ namespace PGCGame.Screens
         {
             MouseState currentMoustState = Mouse.GetState();
 
+            if (!StateManager.IsWindowFocused())
+            {
+                //Not active window
+                return;
+            }
+
             if (PlayLabel.IsSelected && PlayButton.ClickCheck(currentMoustState) && !PlayButton.ClickCheck(lastMouseState))
             {
                 StateManager.ScreenState = ScreenState.MainMenu;
