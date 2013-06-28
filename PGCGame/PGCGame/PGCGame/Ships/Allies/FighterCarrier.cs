@@ -70,9 +70,9 @@ namespace PGCGame
             //TODO: Fire bullet
             //Glen's mom magic: Targeting
 
-            Bullet bullet = new Bullet(BulletTexture, WorldCoords - new Vector2(Height * -DistanceToNose, Height * -DistanceToNose) * Rotation.AsVector(), WorldSb);
+            Bullet bullet = new Bullet(BulletTexture, WorldCoords - new Vector2(Height * -DistanceToNose, Height * -DistanceToNose) * Rotation.Vector, WorldSb);
             
-            bullet.Speed = Rotation.AsVector()*3f;
+            bullet.Speed = Rotation.Vector*3f;
             bullet.UseCenterAsOrigin = true;
             bullet.Rotation = Rotation;
             bullet.Damage = DamagePerShot;

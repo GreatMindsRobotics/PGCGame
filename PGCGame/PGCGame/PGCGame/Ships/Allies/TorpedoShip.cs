@@ -57,9 +57,9 @@ namespace PGCGame
         public override void Shoot()
         {
             //TODO: change image to torpedo
-            Bullet bullet = new Bullet(BulletTexture, WorldCoords - new Vector2(Height * -DistanceToNose, Height * -DistanceToNose) * Rotation.AsVector(), WorldSb);
+            Bullet bullet = new Bullet(BulletTexture, WorldCoords - new Vector2(Height * -DistanceToNose, Height * -DistanceToNose) * Rotation.Vector, WorldSb);
             
-            bullet.Speed = Rotation.AsVector() * 6f;
+            bullet.Speed = Rotation.Vector * 6f;
             bullet.UseCenterAsOrigin = true;
             bullet.Rotation = Rotation;
             bullet.Damage = DamagePerShot;

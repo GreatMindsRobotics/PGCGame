@@ -23,7 +23,7 @@ namespace PGCGame.Ships.Enemies
             Bullet shotBullet = new Bullet(BulletTexture, WorldCoords, SpriteBatch);
 
             shotBullet.Damage = DamagePerShot;
-            shotBullet.Speed = Rotation.AsVector() * 6f;
+            shotBullet.Speed = Rotation.Vector * 6f;
 
             shotBullet.UseCenterAsOrigin = true;
             shotBullet.Rotation = Rotation;
