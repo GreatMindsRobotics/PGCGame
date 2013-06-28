@@ -28,8 +28,6 @@ namespace PGCGame.Screens
             exit = exitableFunction;
         }
 
-        private const float labelYOffset = 0.895f;
-
         Sprite TitleImage;
 
         Sprite planet;
