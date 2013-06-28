@@ -38,14 +38,16 @@ namespace PGCGame.Screens.SelectScreens
            Sprite image2 = new Sprite(tempImage, Vector2.Zero, Sprites.SpriteBatch);
            TextSprite text2 = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, font, "todo");
            image2.Scale = new Vector2(0.5f, 0.5f);
-           image2.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.66f, 100);
+           image2.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.66f, 150);
            text2.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.1f, 30);
            items.Add(new KeyValuePair<Sprite, TextSprite>(image2, text2));
            Sprite image3 = new Sprite(tempImage, Vector2.Zero, Sprites.SpriteBatch);
-           TextSprite text3 = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, font, "todo");
+           TextSprite text3 = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, font, "todo too");
            text2.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.1f, 30);
            image3.Scale = new Vector2(0.75f,0.75f);
-           image3.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.66f, 100);
+           image3.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.63f, 100);
+           items.Add(new KeyValuePair<Sprite, TextSprite>(image3, text3));
+
         
            base.LoadContent(content);
        }
