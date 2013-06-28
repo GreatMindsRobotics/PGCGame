@@ -35,6 +35,7 @@ namespace PGCGame.Screens
         {
             Texture2D button = content.Load<Texture2D>("Images\\Controls\\Button");
 
+            StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
 
             PauseLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, content.Load<SpriteFont>("Fonts\\SegoeUIMonoBold"), "Paused");
             PauseLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width / 2 - PauseLabel.Width / 2, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f);
@@ -102,6 +103,11 @@ namespace PGCGame.Screens
             OptionsLabel.NonHoverColor = Color.White;
             AdditionalSprites.Add(OptionsLabel);
 
+        }
+
+        void Options_ScreenResolutionChanged(object sender, EventArgs e)
+        {
+            //relocate buttons and labels on the screen!
         }
 
         void OptionButton_MouseLeave(object sender, EventArgs e)
