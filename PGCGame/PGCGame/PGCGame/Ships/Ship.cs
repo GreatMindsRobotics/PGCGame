@@ -28,6 +28,8 @@ namespace PGCGame
         public static Texture2D FighterCarrierBullet;
         public static Texture2D Torpedo;
         public static Texture2D SpaceMine;
+        MouseState ms;
+        MouseState lastms;
         
         public abstract string TextureFolder { get; }
 
@@ -71,9 +73,12 @@ namespace PGCGame
         public virtual void Update(GameTime gt)
         {
             base.Update();
+            
             if (RotateTowardsMouse)
             {
-                MouseState ms = Mouse.GetState();
+
+
+                    ms = Mouse.GetState();
                 Vector2 mousePos = new Vector2(ms.X, ms.Y);
                 Vector2 targetPos = mousePos - Position;
 
@@ -89,11 +94,16 @@ namespace PGCGame
             KeyboardState ks = Keyboard.GetState();
             _elapsedShotTime += gt.ElapsedGameTime;
             //Shoot w/ space key
-            if (CanShoot && (_lastKs.IsKeyUp(Keys.Space) || CanHoldShootKey) && ks.IsKeyDown(Keys.Space))
+
+            if (CanShoot)
             {
-                Shoot();
-                _elapsedShotTime = new TimeSpan();
+                if((StateManager.Options.LeftButtonEnabled && ms.LeftButton == ButtonState.Pressed) || (!StateManager.Options.LeftButtonEnabled && ks.IsKeyDown(Keys.Space)))
+                {
+                    Shoot();
+                    _elapsedShotTime = new TimeSpan();
+                }
             }
+            
 
             //Deploy mine?
             if (SpaceMines.Count > 0 && ks.IsKeyDown(Keys.RightShift) && _lastKs != null && !_lastKs.IsKeyDown(Keys.RightShift))
@@ -109,6 +119,7 @@ namespace PGCGame
             }
 
             _lastKs = ks;
+            lastms = ms;
         }
 
         private Vector2 _worldPos;

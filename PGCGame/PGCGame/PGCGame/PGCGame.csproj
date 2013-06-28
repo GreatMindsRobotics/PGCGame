@@ -86,6 +86,7 @@
     <Compile Include="Screens\Options.cs" />
     <Compile Include="Screens\PauseScreen.cs" />
     <Compile Include="Screens\SelectScreens\BaseSelectScreen.cs" />
+    <Compile Include="Screens\SelectScreens\LevelSelect.cs" />
     <Compile Include="Screens\SelectScreens\ShipSelect.cs" />
     <Compile Include="Screens\SelectScreens\TierSelect.cs" />
     <Compile Include="Screens\SelectScreens\UpgradeScreen.cs" />

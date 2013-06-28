@@ -32,10 +32,9 @@ namespace PGCGame.Screens
         {
             //TODO: LOAD CONTENT
 
-            //use Sprites to load your sprites
-            //EX: Sprites.Add(new Sprite(content.Load<Texture2D>("assetName"), new Vector2(0, 0), Sprites.SpriteBatch));
-            //OR
-            //EX: Sprites.AddNewSprite(new Vector(0, 0), content.Load<Texture2D("assetName"));
+
+            StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
+
             Texture2D buttonImage = content.Load<Texture2D>("Images\\Controls\\Button");
             SpriteFont SegoeUIMono = content.Load<SpriteFont>("Fonts\\SegoeUIMono");
             BackgroundSprite = new HorizontalMenuBGSprite(content.Load<Texture2D>("Images\\Background\\1920by1080SkyStar"), Sprites.SpriteBatch);
@@ -96,6 +95,11 @@ namespace PGCGame.Screens
 
             Sprites.Add(backButton);
             AdditionalSprites.Add(backLabel);
+        }
+
+        void Options_ScreenResolutionChanged(object sender, EventArgs e)
+        {
+            //relocate all the sprites and labels to the correct position
         }
 
         bool mouseInBackButton = false;

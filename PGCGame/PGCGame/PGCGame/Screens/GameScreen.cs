@@ -22,7 +22,7 @@ namespace PGCGame.Screens
 {
     public class GameScreen : Screen
     {
-        TorpedoShip enemy;
+        EnemyDrone enemy;
         public GameScreen(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
         {
@@ -52,7 +52,7 @@ namespace PGCGame.Screens
 
             //enemy = new EnemyDrone(content.Load<Texture2D>("Images\\Drones\\Drone1"), Vector2.Zero, Sprites.SpriteBatch);
 
-            enemy = new TorpedoShip(content.Load<Texture2D>("Images\\Torpedo Ship\\Tier1"), Vector2.Zero, Sprites.SpriteBatch);
+            enemy = new EnemyDrone(content.Load<Texture2D>("Images\\Torpedo Ship\\Tier1"), Vector2.Zero, Sprites.SpriteBatch);
             enemy.WorldCoords = new Vector2(1920, 10260);
             //TODO: Different texture
             enemy.Color = Color.Green;

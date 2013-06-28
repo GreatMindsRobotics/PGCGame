@@ -41,6 +41,8 @@ namespace PGCGame.Screens
             Texture2D button = content.Load<Texture2D>("Images\\Controls\\Button");
             SpriteFont font = content.Load<SpriteFont>("Fonts\\SegoeUIMono");
 
+            StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
+
             //Move Controls (aka Controls)
             MoveControlButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f), Sprites.SpriteBatch);
             MoveControlButton.MouseEnter += new EventHandler(MoveControlButton_MouseEnter);
@@ -138,6 +140,13 @@ namespace PGCGame.Screens
             AdditionalSprites.Add(BackLabel);
             AdditionalSprites.Add(MusicVolumeLabel);
        
+        }
+
+        void Options_ScreenResolutionChanged(object sender, EventArgs e)
+        {
+            //RESET THE LOCATION OF EVERY SPRITE ON THE SCREEN!
+
+
         }
         //Fire Controls
         void FireControlButton_MouseLeave(object sender, EventArgs e)
@@ -266,7 +275,8 @@ namespace PGCGame.Screens
                 {
                     StateManager.Options.LeftButtonEnabled = !StateManager.Options.LeftButtonEnabled;
                     FireControlLabel.Text = String.Format("Fire:{0}", StateManager.Options.LeftButtonEnabled ? "LClick" : "Space");
-                }
+                    
+                                    }
             }
             lastMs = currentMs;
         } 
