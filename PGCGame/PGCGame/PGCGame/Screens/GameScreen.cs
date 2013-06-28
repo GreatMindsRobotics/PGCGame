@@ -44,6 +44,8 @@ namespace PGCGame.Screens
             //TODO: LOAD CONTENT
             storedCm = content;
 
+            StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
+
             _gameSong = content.Load<Song>("Songs\\Movement Proposition");
 
             bgImg = content.Load<Texture2D>("Images\\Background\\NebulaSky");
@@ -57,6 +59,11 @@ namespace PGCGame.Screens
             enemy.Tier = ShipTier.Tier1;
             enemy.RotateTowardsMouse = false;
             Sprites.Add(enemy);
+        }
+
+        void Options_ScreenResolutionChanged(object sender, EventArgs e)
+        {
+            playerShip.Position = playerShip.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport, true);
         }
 
         public void InitializeScreen<TShip>(ShipTier tier) where TShip : Ship
