@@ -57,6 +57,7 @@ namespace PGCGame
         {
             StateManager.GraphicsManager = graphics;
             IsMouseVisible = true;
+            StateManager.IsWindowFocused = new CheckIfWindowFocused(isFocused);
             base.Initialize();
         }
 
@@ -90,7 +91,7 @@ namespace PGCGame
             //SpaceMines
             Ship.SpaceMine = Content.Load<Texture2D>("Images\\Secondary Weapons\\Spacemine\\bombas3");
 
-            StateManager.IsWindowFocused = new CheckIfWindowFocused(isFocused);
+            
 
             //TODO: Torpedo!
             Ship.Torpedo = new PlainTexture2D(GraphicsDevice, 5, 3, Color.Red);
