@@ -28,10 +28,10 @@ namespace PGCGame
         public static Texture2D FighterCarrierBullet;
         public static Texture2D Torpedo;
         public static Texture2D SpaceMine;
-
+        
         public abstract string TextureFolder { get; }
 
-        protected bool _rotateTowardsMouse = true;
+        public bool RotateTowardsMouse = true;
 
         public Guid PlayerID
         {
@@ -71,7 +71,7 @@ namespace PGCGame
         public virtual void Update(GameTime gt)
         {
             base.Update();
-            if (_rotateTowardsMouse)
+            if (RotateTowardsMouse)
             {
                 MouseState ms = Mouse.GetState();
                 Vector2 mousePos = new Vector2(ms.X, ms.Y);

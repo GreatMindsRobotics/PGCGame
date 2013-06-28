@@ -13,7 +13,7 @@ namespace PGCGame.Ships.Enemies
             : base(texture, location, spriteBatch)
         {
             Scale = new Vector2(.75f);
-            _rotateTowardsMouse = false;
+            RotateTowardsMouse = false;
 
             BulletTexture = Ship.DroneBullet;
         }

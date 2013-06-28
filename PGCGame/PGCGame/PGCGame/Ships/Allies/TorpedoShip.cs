@@ -16,6 +16,8 @@ namespace PGCGame
 {
     public class TorpedoShip : Ship
     {
+        //TODO: Scaling logic
+
         public TorpedoShip(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
             : base(texture, location, spriteBatch)
         {

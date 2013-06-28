@@ -50,8 +50,12 @@ namespace PGCGame.Screens
 
             //enemy = new EnemyDrone(content.Load<Texture2D>("Images\\Drones\\Drone1"), Vector2.Zero, Sprites.SpriteBatch);
 
-            enemy = new TorpedoShip(content.Load<Texture2D>("Images\\Fighter Carrier\\Tier1"), Vector2.Zero, Sprites.SpriteBatch);
+            enemy = new TorpedoShip(content.Load<Texture2D>("Images\\Torpedo Ship\\Tier1"), Vector2.Zero, Sprites.SpriteBatch);
             enemy.Position = new Vector2(1920, 10260);
+            //TODO: Different texture
+            enemy.Color = Color.Green;
+            enemy.Tier = ShipTier.Tier1;
+            enemy.RotateTowardsMouse = false;
             Sprites.Add(enemy);
         }
 
