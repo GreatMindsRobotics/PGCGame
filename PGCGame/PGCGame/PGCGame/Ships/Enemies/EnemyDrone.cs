@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
 using Glib.XNA;
+using PGCGame.CoreTypes;
 
 namespace PGCGame.Ships.Enemies
 {
@@ -64,8 +65,12 @@ namespace PGCGame.Ships.Enemies
             base.DrawNonAuto();
         }
 
-        TimeSpan elapsedRotationDelay = new TimeSpan();
-        TimeSpan rotationDelay = new TimeSpan(0, 0, 0, 0, 5);
+        TimeSpan _elapsedRotationDelay = new TimeSpan();
+        TimeSpan _rotationDelay = new TimeSpan(0, 0, 0, 0, 5);
+
+        TimeSpan _minFireRate = new TimeSpan(0, 0, 0, 0, 15);
+        TimeSpan _maxFireRate = new TimeSpan(0, 0, 0, 0, 300);
+        TimeSpan? _delayTillNextFire = null;
 
         public override void Update(GameTime gt)
         { 
@@ -103,9 +108,9 @@ namespace PGCGame.Ships.Enemies
                 }
             }
 
-            elapsedRotationDelay += gt.ElapsedGameTime;
+            _elapsedRotationDelay += gt.ElapsedGameTime;
 
-            if (elapsedRotationDelay > rotationDelay)
+            if (_elapsedRotationDelay > _rotationDelay)
             {
                 if (closestAllyShipDistance.HasValue && closestAllyShip != null && closestAllyShipDistance.Value.LengthSquared() < Math.Pow(600, 2))
                 {
@@ -142,11 +147,25 @@ namespace PGCGame.Ships.Enemies
                     }
                     else
                     {
-                        this.Shoot();
+                        if (!_delayTillNextFire.HasValue)
+                        {
+                            _delayTillNextFire = StateManager.RandomGenerator.NextTimeSpan(_minFireRate, _maxFireRate);
+                        }
+                        else if (_delayTillNextFire.Value.Milliseconds <= 0)
+                        {
+                            this.Shoot();
+                            _delayTillNextFire = null;
+                        }
+                        else
+                        {
+                            _delayTillNextFire -= gt.ElapsedGameTime;
+                        }
+
+                        
                     }
                 }
 
-                elapsedRotationDelay = new TimeSpan();
+                _elapsedRotationDelay = new TimeSpan();
             }
         }
     }

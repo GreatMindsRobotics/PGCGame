@@ -28,12 +28,12 @@ namespace PGCGame
         /// <summary>
         /// Keeps track of active ships in the game. This info can be used for mini-map, collision detection, etc
         /// </summary>
-        public static List<Ship> ActiveShips = new List<Ship>();
+        public static readonly List<Ship> ActiveShips = new List<Ship>();
 
         /// <summary>
         /// Identifies the player in the network game
         /// </summary>
-        public static Guid PlayerID = Guid.NewGuid();
+        public static readonly Guid PlayerID = Guid.NewGuid();
 
         /// <summary>
         /// Manages all screens in the game
@@ -45,6 +45,11 @@ namespace PGCGame
         /// (used for switching between Normal mode and Full Screen mode)
         /// </summary>
         public static Point ViewportSize;
+
+        /// <summary>
+        /// Random generator to use throughout the game; ensures no concurrent seeding of two Random objects
+        /// </summary>
+        public static readonly Random RandomGenerator = new Random();
 
         #endregion Public Fields
 

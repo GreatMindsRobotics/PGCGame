@@ -22,7 +22,6 @@ namespace PGCGame.Screens
 {
     public class GameScreen : Screen
     {
-        EnemyDrone enemy;
         public GameScreen(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
         {
@@ -30,6 +29,7 @@ namespace PGCGame.Screens
             playerSb = new SpriteBatch(spriteBatch.GraphicsDevice);
         }
 
+        EnemyDrone enemy;
         Ship playerShip;
         SpriteBatch playerSb;
         Texture2D bgImg;
@@ -53,7 +53,7 @@ namespace PGCGame.Screens
             //enemy = new EnemyDrone(content.Load<Texture2D>("Images\\Drones\\Drone1"), Vector2.Zero, Sprites.SpriteBatch);
 
             enemy = new EnemyDrone(content.Load<Texture2D>("Images\\Torpedo Ship\\Tier1"), Vector2.Zero, Sprites.SpriteBatch);
-            enemy.WorldCoords = new Vector2(1920, 10260);
+            enemy.WorldCoords = StateManager.RandomGenerator.NextVector2(new Vector2(200, 9500), new Vector2(600, 10500));
             //TODO: Different texture
             enemy.Color = Color.Green;
             enemy.Tier = ShipTier.Tier1;
@@ -221,7 +221,7 @@ namespace PGCGame.Screens
             }
             else if (keyboard.IsKeyDown((StateManager.Options.ArrowKeysEnabled ? Keys.Left : Keys.A)))
             {
-                if (worldCam.Pos.X - playerShip.MovementSpeed.X >= bg.Width / 2)
+                if (worldCam.Pos.X - playerShip.MovementSpeed.X >=  Sprites.SpriteBatch.GraphicsDevice.Viewport.Width / 2)
                 {
                     camMove.X = -playerShip.MovementSpeed.X;
                 }

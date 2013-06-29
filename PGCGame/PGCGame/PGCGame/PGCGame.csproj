@@ -79,6 +79,7 @@
     <Compile Include="CoreTypes\BGSprite.cs" />
     <Compile Include="CoreTypes\Camera2DMatrix.cs" />
     <Compile Include="CoreTypes\Enum.cs" />
+    <Compile Include="CoreTypes\Extensions.cs" />
     <Compile Include="CoreTypes\ViewportEventArgs.cs" />
     <Compile Include="Screens\Credits.cs" />
     <Compile Include="Screens\GameScreen.cs" />
