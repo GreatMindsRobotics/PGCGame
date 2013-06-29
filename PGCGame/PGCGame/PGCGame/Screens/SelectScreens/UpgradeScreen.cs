@@ -25,8 +25,12 @@ namespace PGCGame.Screens.SelectScreens
 
        public override void LoadContent(ContentManager content)
        {
+
+           base.LoadContent(content);
            Texture2D tempImage = content.Load<Texture2D>("Images\\NonPlayingObject\\Planet");
            SpriteFont font = content.Load<SpriteFont>("Fonts\\SegoeUIMono");
+
+
 
            Sprite image = new Sprite(tempImage, Vector2.Zero, Sprites.SpriteBatch);
            TextSprite text = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, font, "TODO");
@@ -36,7 +40,7 @@ namespace PGCGame.Screens.SelectScreens
            items.Add(new KeyValuePair<Sprite, TextSprite>(image, text));
            
            Sprite image2 = new Sprite(tempImage, Vector2.Zero, Sprites.SpriteBatch);
-           TextSprite text2 = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, font, "todo");
+           TextSprite text2 = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, font, "Todo");
            image2.Scale = new Vector2(0.5f, 0.5f);
            image2.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.66f, 150);
            text2.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.1f, 30);
@@ -48,8 +52,6 @@ namespace PGCGame.Screens.SelectScreens
            image3.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.63f, 100);
            items.Add(new KeyValuePair<Sprite, TextSprite>(image3, text3));
 
-        
-           base.LoadContent(content);
        }
 
        public override void Update(GameTime gameTime)
