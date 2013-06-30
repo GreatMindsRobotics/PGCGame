@@ -15,15 +15,15 @@ namespace PGCGame.CoreTypes
         /// <summary>
         /// Generates a new TimeSpan between minValue and maxValue
         /// </summary>
-        /// <param name="random">Random number generator to use</param>
-        /// <param name="minValue">Inclusive minimum value</param>
-        /// <param name="maxValue">Exclusive maximum value</param>
-        /// <returns>new TimeSpan object</returns>
+        /// <param name="random">Random number generator to use.</param>
+        /// <param name="minValue">Inclusive minimum value.</param>
+        /// <param name="maxValue">Exclusive maximum value.</param>
+        /// <returns>A new TimeSpan object of a random duration between minValue and maxValue.</returns>
         public static TimeSpan NextTimeSpan(this Random random, TimeSpan minValue, TimeSpan maxValue)
         {
             if (minValue >= maxValue)
             {
-                throw new Exception("minValue cannot equal or exceed maxValue");
+                throw new ArgumentException("minValue cannot equal or exceed maxValue.");
             }
 
             return TimeSpan.FromMilliseconds(random.Next((int)minValue.TotalMilliseconds, (int)maxValue.TotalMilliseconds));
