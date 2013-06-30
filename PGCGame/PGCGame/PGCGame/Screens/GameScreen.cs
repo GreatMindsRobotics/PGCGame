@@ -86,6 +86,7 @@ namespace PGCGame.Screens
 
             miniMap = new Sprite(new PlainTexture2D(Sprites.SpriteBatch.GraphicsDevice, 1, 1, new Color(Color.Navy.R, Color.Navy.G, Color.Navy.B, 128)), Vector2.Zero, playerSb);
             miniMap.Width = bgspr.TotalWidth / MinimapDivAmount;
+            miniMap.Color = Color.Transparent;
             miniMap.Height = bgspr.TotalHeight / MinimapDivAmount;
             miniMap.Y = 7.5f;
             miniMap.Updated += new EventHandler(miniMap_Updated);
@@ -151,7 +152,7 @@ namespace PGCGame.Screens
             //playerShip.SpaceMines.Push(spaceMine);
             
         }
-
+        
         List<Sprite> miniShips = new List<Sprite>();
 
         void miniMap_Updated(object sender, EventArgs e)
@@ -161,17 +162,22 @@ namespace PGCGame.Screens
                 playerSbObjects.Remove(s);
             }
             miniShips.Clear();
-            foreach (Ship s in StateManager.ActiveShips)
+
+            if (miniMap.Color == Color.White)
             {
-                if (s.GetType() == typeof(Drone))
+
+                foreach (Ship s in StateManager.ActiveShips)
                 {
-                    continue;
+                    if (s.GetType() == typeof(Drone))
+                    {
+                        continue;
+                    }
+                    Sprite miniShip = new Sprite(new PlainTexture2D(playerSb.GraphicsDevice, 3, 3, s.PlayerType == PlayerType.Enemy ? Color.Red : Color.Lime), miniMap.Position + (s.WorldCoords / MinimapDivAmount), playerSb);
+                    miniShip.UseCenterAsOrigin = true;
+                    miniShips.Add(miniShip);
                 }
-                Sprite miniShip = new Sprite(new PlainTexture2D(playerSb.GraphicsDevice, 3, 3, s.PlayerType == PlayerType.Enemy ? Color.Red : Color.Lime), miniMap.Position + (s.WorldCoords / MinimapDivAmount), playerSb);
-                miniShip.UseCenterAsOrigin = true;
-                miniShips.Add(miniShip);
+                playerSbObjects.AddRange(miniShips);
             }
-            playerSbObjects.AddRange(miniShips);
         }
 
         void bgspr_Drawn(object sender, EventArgs e)
@@ -198,6 +204,8 @@ namespace PGCGame.Screens
                 Sprites.SpriteBatch.Draw(playerShip.ActiveSpaceMine);
             }
         }
+
+        KeyboardState _lastState = new KeyboardState();
 
         public override void Update(GameTime gameTime)
         {
@@ -268,7 +276,11 @@ namespace PGCGame.Screens
                 }
             }
 
-            
+            if (_lastState.IsKeyUp(Keys.M) && keyboard.IsKeyDown(Keys.M))
+            {
+                miniMap.Color = miniMap.Color == Color.White ? Color.Transparent : Color.White;
+            }
+
             worldCam.Move(camMove);
             playerShip.WorldCoords = worldCam.Pos;
 
@@ -288,6 +300,8 @@ namespace PGCGame.Screens
             }
 
             miniMap.Update();
+
+            _lastState = keyboard;
         }
 
         Camera2DMatrix worldCam;
