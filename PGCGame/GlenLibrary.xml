@@ -218,6 +218,18 @@
             <param name="centerIsOrigin">Whether or not the center of the specified ISizable is the origin.</param>
             <returns>The position which would be required to center the specified sizable object.</returns>
         </member>
+        <member name="M:Glib.XNA.XnaExtensions.CreateTexture(Microsoft.Xna.Framework.Graphics.GraphicsDevice,System.Predicate{Microsoft.Xna.Framework.Point},Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color,System.Int32,System.Int32)">
+            <summary>
+            Create a 2-color Texture2D on the specified graphics device of the specified size.
+            </summary>
+            <param name="graphics">The GraphicsDevice to create the Texture2D on.</param>
+            <param name="colorDetermine">The predicate to use for determining the color of every individual pixel in the texture.</param>
+            <param name="trueColor">The color to set a pixel to when the predicate returns true.</param>
+            <param name="falseColor">The color to set a pixel to when the predicate returns false.</param>
+            <param name="width">The width of the texture.</param>
+            <param name="height">The height of the texture.</param>
+            <returns>A 2-color Texture2D of the specified size.</returns>
+        </member>
         <member name="M:Glib.XNA.XnaExtensions.ToAngle(Microsoft.Xna.Framework.Vector2,System.Single)">
             <summary>
             Convert a vector to a rotation angle in radians.
@@ -1417,8 +1429,14 @@
         </member>
         <member name="P:Glib.XNA.SpriteLib.ProgressBar.Texture">
             <summary>
-            Gets a representation of the texture to use for the progress bar.
+            Gets or sets a representation of the texture to use for the progress bar.
             </summary>
+            <remarks>
+            Setting this texture will result in (slow) image processing to create data.
+            It does not assume the same color scheme, but it does assume the same scale.
+            If the bar is one color, the program will parse it as 0% unless the color is the FillColor of this ProgressBar.
+            If the color scheme is inverted in the texture you are setting this ProgressBar to, you should be aware of this.
+            </remarks>
         </member>
         <member name="T:Glib.XNA.PlainTexture2D">
             <summary>
