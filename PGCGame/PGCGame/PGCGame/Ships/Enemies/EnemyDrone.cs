@@ -60,11 +60,6 @@ namespace PGCGame.Ships.Enemies
             get { throw new NotImplementedException(); }
         }
 
-        public override void DrawNonAuto()
-        {
-            base.DrawNonAuto();
-        }
-
         TimeSpan _elapsedRotationDelay = new TimeSpan();
         TimeSpan _rotationDelay = new TimeSpan(0, 0, 0, 0, 5);
 
