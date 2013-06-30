@@ -221,7 +221,7 @@ namespace PGCGame.Screens
             }
             else if (keyboard.IsKeyDown((StateManager.Options.ArrowKeysEnabled ? Keys.Left : Keys.A)))
             {
-                if (worldCam.Pos.X - playerShip.MovementSpeed.X >=  Sprites.SpriteBatch.GraphicsDevice.Viewport.Width / 2)
+                if (worldCam.Pos.X - playerShip.MovementSpeed.X >=  bg.Width / 2)
                 {
                     camMove.X = -playerShip.MovementSpeed.X;
                 }
