@@ -28,6 +28,11 @@ namespace PGCGame.Screens
             worldCam = new Camera2DMatrix();
             playerSb = new SpriteBatch(spriteBatch.GraphicsDevice);
         }
+        
+        /// <summary>
+        /// The amount to divide the background size by to generate the minimap size.
+        /// </summary>
+        public const int MinimapDivAmount = 45;
 
         EnemyDrone enemy;
         Ship playerShip;
@@ -43,7 +48,7 @@ namespace PGCGame.Screens
         {
             //TODO: LOAD CONTENT
             storedCm = content;
-
+            
             StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
 
             _gameSong = content.Load<Song>("Songs\\Movement Proposition");
@@ -69,6 +74,8 @@ namespace PGCGame.Screens
             }
         }
 
+        Sprite miniMap;
+
         public void InitializeScreen<TShip>(ShipTier tier) where TShip : Ship
         {
             playerSbObjects.Clear();
@@ -76,6 +83,14 @@ namespace PGCGame.Screens
             bgspr.Drawn += new EventHandler(bgspr_Drawn);
             worldCam.Pos = new Vector2(bgspr.TotalWidth / 2, bgspr.TotalHeight - (bgspr.Height / 2));
             BackgroundSprite = bgspr;
+
+            miniMap = new Sprite(new PlainTexture2D(Sprites.SpriteBatch.GraphicsDevice, 1, 1, new Color(Color.Navy.R, Color.Navy.G, Color.Navy.B, 128)), Vector2.Zero, playerSb);
+            miniMap.Width = bgspr.TotalWidth / MinimapDivAmount;
+            miniMap.Height = bgspr.TotalHeight / MinimapDivAmount;
+            miniMap.Y = 7.5f;
+            miniMap.Updated += new EventHandler(miniMap_Updated);
+            miniMap.X = playerSb.GraphicsDevice.Viewport.Width-miniMap.Width-7.5f;
+            playerSbObjects.Add(miniMap);
 
             if (typeof(TShip) == typeof(Drone))
             {
@@ -135,6 +150,28 @@ namespace PGCGame.Screens
             //spaceMine.ParentShip = playerShip;
             //playerShip.SpaceMines.Push(spaceMine);
             
+        }
+
+        List<Sprite> miniShips = new List<Sprite>();
+
+        void miniMap_Updated(object sender, EventArgs e)
+        {
+            foreach (Sprite s in miniShips)
+            {
+                playerSbObjects.Remove(s);
+            }
+            miniShips.Clear();
+            foreach (Ship s in StateManager.ActiveShips)
+            {
+                if (s.GetType() == typeof(Drone))
+                {
+                    continue;
+                }
+                Sprite miniShip = new Sprite(new PlainTexture2D(playerSb.GraphicsDevice, 3, 3, s.PlayerType == PlayerType.Enemy ? Color.Red : Color.Lime), miniMap.Position + (s.WorldCoords / MinimapDivAmount), playerSb);
+                miniShip.UseCenterAsOrigin = true;
+                miniShips.Add(miniShip);
+            }
+            playerSbObjects.AddRange(miniShips);
         }
 
         void bgspr_Drawn(object sender, EventArgs e)
@@ -237,15 +274,20 @@ namespace PGCGame.Screens
 
             foreach (ISprite s in playerSbObjects)
             {
-                if (s.GetType().Implements(typeof(ITimerSprite)))
+                if (s != miniMap)
                 {
-                    s.Cast<ITimerSprite>().Update(gameTime);
-                }
-                else
-                {
-                    s.Update();
+                    if (s.GetType().Implements(typeof(ITimerSprite)))
+                    {
+                        s.Cast<ITimerSprite>().Update(gameTime);
+                    }
+                    else
+                    {
+                        s.Update();
+                    }
                 }
             }
+
+            miniMap.Update();
         }
 
         Camera2DMatrix worldCam;
