@@ -140,12 +140,14 @@ namespace PGCGame.Screens
             AdditionalSprites.Add(BackLabel);
             AdditionalSprites.Add(MusicVolumeLabel);
        
+            StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
+
         }
 
         void Options_ScreenResolutionChanged(object sender, EventArgs e)
         {
             //RESET THE LOCATION OF EVERY SPRITE ON THE SCREEN!
-
+            GFXLabel.Text = String.Format("GFX: {0}", StateManager.GraphicsManager.IsFullScreen ? "Full" : "Standard");
 
         }
         //Fire Controls
@@ -250,21 +252,9 @@ namespace PGCGame.Screens
                 }
                 if (mouseOnGraphicButton)
                 {
-                    StateManager.GraphicsManager.PreferredBackBufferWidth = StateManager.GraphicsManager.IsFullScreen ? StateManager.ViewportSize.X : StateManager.GraphicsManager.GraphicsDevice.DisplayMode.Width;
-                    StateManager.GraphicsManager.PreferredBackBufferHeight = StateManager.GraphicsManager.IsFullScreen ? StateManager.ViewportSize.Y : StateManager.GraphicsManager.GraphicsDevice.DisplayMode.Height;
-                    StateManager.GraphicsManager.ToggleFullScreen();
-
-                    //Loop through each screen and adjust display size
-                    //TODO: Scrolling backgrounds do not properly reset
-                    foreach (Screen s in StateManager.AllScreens)
-                    {
-                        s.Target = new RenderTarget2D(StateManager.GraphicsManager.GraphicsDevice, StateManager.GraphicsManager.PreferredBackBufferWidth, StateManager.GraphicsManager.PreferredBackBufferHeight);
-                    }
+                    StateManager.Options.ToggleFullscreen();
 
                     
-                    StateManager.Options.CallResChangeEvent();
-
-                    GFXLabel.Text = String.Format("GFX: {0}", StateManager.GraphicsManager.IsFullScreen ? "Full" : "Standard");
                 }
                 if (MoveControlLabel.IsSelected)
                 {

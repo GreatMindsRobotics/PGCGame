@@ -330,6 +330,11 @@ namespace PGCGame.Screens
                 miniMap.Color = miniMap.Color == Color.White ? Color.Transparent : Color.White;
             }
 
+            if (_lastState.IsKeyUp(Keys.F11) && keyboard.IsKeyDown(Keys.F11))
+            {
+                StateManager.Options.ToggleFullscreen();
+            }
+
             worldCam.Move(camMove);
             playerShip.WorldCoords = worldCam.Pos;
 

@@ -190,8 +190,19 @@ namespace PGCGame
                 set { _musicEnabled = value; }
             }
 
-            public static void CallResChangeEvent()
+            public static void ToggleFullscreen()
             {
+                StateManager.GraphicsManager.PreferredBackBufferWidth = StateManager.GraphicsManager.IsFullScreen ? StateManager.ViewportSize.X : StateManager.GraphicsManager.GraphicsDevice.DisplayMode.Width;
+                StateManager.GraphicsManager.PreferredBackBufferHeight = StateManager.GraphicsManager.IsFullScreen ? StateManager.ViewportSize.Y : StateManager.GraphicsManager.GraphicsDevice.DisplayMode.Height;
+                StateManager.GraphicsManager.ToggleFullScreen();
+
+                //Loop through each screen and adjust display size
+                //TODO: Scrolling backgrounds do not properly reset
+                foreach (Screen s in StateManager.AllScreens)
+                {
+                    s.Target = new RenderTarget2D(StateManager.GraphicsManager.GraphicsDevice, StateManager.GraphicsManager.PreferredBackBufferWidth, StateManager.GraphicsManager.PreferredBackBufferHeight);
+                }
+
                 if (ScreenResolutionChanged != null)
                 {
                     ScreenResolutionChanged(null, new ViewportEventArgs() { Viewport = GraphicsManager.GraphicsDevice.Viewport, IsFullScreen = GraphicsManager.IsFullScreen });
