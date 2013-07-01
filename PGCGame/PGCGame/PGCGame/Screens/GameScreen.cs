@@ -55,18 +55,7 @@ namespace PGCGame.Screens
 
             bgImg = content.Load<Texture2D>("Images\\Background\\NebulaSky");
 
-            for (int i = 0; i < 4; i++)
-            {
-                EnemyDrone enemy = new EnemyDrone(content.Load<Texture2D>("Images\\Drones\\Drone1"), Vector2.Zero, Sprites.SpriteBatch);
-
-                enemy.WorldCoords = StateManager.RandomGenerator.NextVector2(new Vector2(500, 6500), new Vector2(3550, 10500));
-                //TODO: Different texture
-                enemy.Color = Color.Green;
-                enemy.Tier = ShipTier.Tier1;
-                enemy.RotateTowardsMouse = false;
-                Sprites.Add(enemy);
-                enemies.Add(enemy);
-            }
+            
         }
 
         void Options_ScreenResolutionChanged(object sender, EventArgs e)
@@ -84,6 +73,34 @@ namespace PGCGame.Screens
         public void InitializeScreen<TShip>(ShipTier tier) where TShip : Ship
         {
             playerSbObjects.Clear();
+            Sprites.Sprites.Clear();
+            enemies.Clear();
+            Texture2D enemyTexture = null;
+            foreach (KeyValuePair<string, Texture2D> kvp in shipTextures)
+            {
+                if (kvp.Key.Trim().Equals("EnemyDrone"))
+                {
+                    enemyTexture = kvp.Value;
+                }
+            }
+            if (enemyTexture == null)
+            {
+                enemyTexture = storedCm.Load<Texture2D>("Images\\Drones\\Drone1");
+                shipTextures.Add(new KeyValuePair<string,Texture2D>("EnemyDrone", enemyTexture));
+            }
+            for (int i = 0; i < 4; i++)
+            {
+                EnemyDrone enemy = new EnemyDrone(enemyTexture, Vector2.Zero, Sprites.SpriteBatch);
+
+                enemy.WorldCoords = StateManager.RandomGenerator.NextVector2(new Vector2(500, 6500), new Vector2(3550, 10500));
+                //TODO: Different texture
+                enemy.Color = Color.Green;
+                enemy.Tier = ShipTier.Tier1;
+                enemy.RotateTowardsMouse = false;
+
+                Sprites.Add(enemy);
+                enemies.Add(enemy);
+            }
             BackgroundSprite bgspr = new BackgroundSprite(bgImg, Sprites.SpriteBatch, 10, 2);
             bgspr.Drawn += new EventHandler(bgspr_Drawn);
             worldCam.Pos = new Vector2(bgspr.TotalWidth / 2, bgspr.TotalHeight - (bgspr.Height / 2));
