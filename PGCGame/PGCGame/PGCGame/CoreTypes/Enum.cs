@@ -39,6 +39,14 @@ namespace PGCGame.CoreTypes
         Drone
     }
 
+    public enum MoveDirection
+    {
+        Up,
+        Down,
+        Left,
+        Right
+    }
+
     /// <summary>
     /// States for the Drone AI FSM
     /// </summary>

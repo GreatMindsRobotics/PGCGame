@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 
 using PGCGame.CoreTypes;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace PGCGame
 {
@@ -184,6 +185,27 @@ namespace PGCGame
 
 
         #region Public Classes
+
+        public static class InputManager
+        {
+            public static bool ShouldMove(MoveDirection direction)
+            {
+                Keys[] pressed = Keyboard.GetState().GetPressedKeys();
+                switch (direction)
+                {
+                    case MoveDirection.Down:
+                        return pressed.Contains(Options.ArrowKeysEnabled ? Keys.Down : Keys.S);
+                    case MoveDirection.Left:
+                        return pressed.Contains(Options.ArrowKeysEnabled ? Keys.Left : Keys.A);
+                    case MoveDirection.Right:
+                        return pressed.Contains(Options.ArrowKeysEnabled ? Keys.Right : Keys.D);
+                    case MoveDirection.Up:
+                        return pressed.Contains(Options.ArrowKeysEnabled ? Keys.Up : Keys.W);
+                    default:
+                        throw new NotImplementedException("The specified direction is not implemented.");
+                }
+            }
+        }
 
         public static class Options
         {

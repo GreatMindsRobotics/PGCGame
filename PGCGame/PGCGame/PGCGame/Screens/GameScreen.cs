@@ -331,7 +331,7 @@ namespace PGCGame.Screens
             }
 
             Vector2 camMove = Vector2.Zero;
-            if (keyboard.IsKeyDown((StateManager.Options.ArrowKeysEnabled ? Keys.Up : Keys.W)))
+            if (StateManager.InputManager.ShouldMove(MoveDirection.Up))
             {
                 if (worldCam.Pos.Y - playerShip.MovementSpeed.Y >= bg.Height / 2)
                 {
@@ -342,7 +342,7 @@ namespace PGCGame.Screens
                     camMove.Y = bg.Height / 2 - worldCam.Pos.Y;
                 }
             }
-            else if (keyboard.IsKeyDown((StateManager.Options.ArrowKeysEnabled ? Keys.Down : Keys.S)))
+            else if (StateManager.InputManager.ShouldMove(MoveDirection.Down))
             {
                 if (worldCam.Pos.Y + playerShip.MovementSpeed.Y <= bg.TotalHeight - (bg.Height / 2))
                 {
@@ -354,7 +354,7 @@ namespace PGCGame.Screens
                 }
             }
 
-            if (keyboard.IsKeyDown((StateManager.Options.ArrowKeysEnabled ? Keys.Right : Keys.D)))
+            if (StateManager.InputManager.ShouldMove(MoveDirection.Right))
             {
                 if (worldCam.Pos.X + playerShip.MovementSpeed.X <= bg.TotalWidth - (bg.Width / 2))
                 {
@@ -365,7 +365,7 @@ namespace PGCGame.Screens
                     camMove.X = (bg.TotalWidth - (bg.Width / 2)) - worldCam.Pos.X;
                 }
             }
-            else if (keyboard.IsKeyDown((StateManager.Options.ArrowKeysEnabled ? Keys.Left : Keys.A)))
+            else if (StateManager.InputManager.ShouldMove(MoveDirection.Left))
             {
                 if (worldCam.Pos.X - playerShip.MovementSpeed.X >=  bg.Width / 2)
                 {
