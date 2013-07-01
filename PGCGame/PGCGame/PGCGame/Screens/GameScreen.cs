@@ -37,6 +37,8 @@ namespace PGCGame.Screens
         List<EnemyDrone> enemies = new List<EnemyDrone>();
         Ship playerShip;
         SpriteBatch playerSb;
+        SpriteFont normal;
+        SpriteFont bold;
         Texture2D bgImg;
         Song _gameSong;
         List<ISprite> playerSbObjects = new List<ISprite>();
@@ -48,7 +50,8 @@ namespace PGCGame.Screens
         {
             //TODO: LOAD CONTENT
             storedCm = content;
-            
+            bold = content.Load<SpriteFont>("Fonts\\SegoeUIMonoBold");
+            normal = content.Load<SpriteFont>("Fonts\\SegoeUIMono");
             StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
 
             _gameSong = content.Load<Song>("Songs\\Movement Proposition");
@@ -113,6 +116,12 @@ namespace PGCGame.Screens
             miniMap.Y = 7.5f;
             miniMap.Updated += new EventHandler(miniMap_Updated);
             miniMap.X = playerSb.GraphicsDevice.Viewport.Width-miniMap.Width-7.5f;
+            miniShipInfoBg = new Sprite(new PlainTexture2D(Sprites.SpriteBatch.GraphicsDevice, 1, 1, new Color(0, 0, 0, 192)), new Vector2(7.5f, miniMap.Y), playerSb);
+            miniShipInfoBg.Height = miniMap.Height;
+            miniShipInfoBg.Width = Graphics.Viewport.Width - miniShipInfoBg.X - 7.5f - miniMap.Width - (Graphics.Viewport.Width/3);
+            miniShipInfoBg.X = miniMap.X - miniShipInfoBg.Width - 7.5f;
+            miniShipInfoBg.Color = Color.Transparent;
+            playerSbObjects.Add(miniShipInfoBg);
             playerSbObjects.Add(miniMap);
 
             if (typeof(TShip) == typeof(Drone))
@@ -174,7 +183,10 @@ namespace PGCGame.Screens
             //playerShip.SpaceMines.Push(spaceMine);
             
         }
-        
+
+        Sprite miniShipInfoBg;
+        TextSprite miniShipInfoTitle = null;
+        TextSprite miniShipInfo = null;
         List<Sprite> miniShips = new List<Sprite>();
 
         void miniMap_Updated(object sender, EventArgs e)
@@ -183,11 +195,19 @@ namespace PGCGame.Screens
             {
                 playerSbObjects.Remove(s);
             }
+            if (miniShipInfoTitle != null)
+            {
+                playerSbObjects.Remove(miniShipInfoTitle);
+            }
+            if (miniShipInfo != null)
+            {
+                playerSbObjects.Remove(miniShipInfo);
+            }
             miniShips.Clear();
 
             if (miniMap.Color == Color.White)
             {
-
+                Ship activeMiniShipDisplay = null;
                 foreach (Ship s in StateManager.ActiveShips)
                 {
                     if (s.GetType() == typeof(Drone))
@@ -197,7 +217,24 @@ namespace PGCGame.Screens
                     Sprite miniShip = new Sprite(new PlainTexture2D(playerSb.GraphicsDevice, 3, 3, s.PlayerType == PlayerType.Enemy ? Color.Red : Color.Lime), miniMap.Position + (s.WorldCoords / MinimapDivAmount), playerSb);
                     miniShip.UseCenterAsOrigin = true;
                     miniShips.Add(miniShip);
+                    if(miniShip.Intersects(Mouse.GetState()) && activeMiniShipDisplay == null)
+                    {
+                        activeMiniShipDisplay = s;
+                    }
                 }
+                miniShipInfoBg.Color = activeMiniShipDisplay != null ? Color.White : Color.Transparent;
+                if (activeMiniShipDisplay != null)
+                {
+                    miniShipInfoTitle = new TextSprite(playerSb, bold, activeMiniShipDisplay.FriendlyName);
+                    miniShipInfoTitle.Color = Color.White;
+                    miniShipInfoTitle.Position = new Vector2(miniShipInfoBg.X+(miniShipInfoBg.Width/2f)-(miniShipInfoTitle.Width/2f), miniShipInfoBg.Y+(miniShipInfoBg.Height/12.5f));
+                    playerSbObjects.Add(miniShipInfoTitle);
+                    miniShipInfo = new TextSprite(playerSb, normal, string.Format("HP: {0}/{1}", activeMiniShipDisplay.CurrentHealth, activeMiniShipDisplay.InitialHealth));
+                    miniShipInfo.Color = Color.White;
+                    miniShipInfo.Position = new Vector2(miniShipInfoBg.X + (miniShipInfoBg.Width / 2f) - (miniShipInfo.Width / 2f), miniShipInfoTitle.Y+bold.LineSpacing);
+                    playerSbObjects.Add(miniShipInfo);
+                }
+                
                 playerSbObjects.AddRange(miniShips);
             }
         }
@@ -328,6 +365,7 @@ namespace PGCGame.Screens
             if (_lastState.IsKeyUp(Keys.M) && keyboard.IsKeyDown(Keys.M))
             {
                 miniMap.Color = miniMap.Color == Color.White ? Color.Transparent : Color.White;
+                
             }
 
             if (_lastState.IsKeyUp(Keys.F11) && keyboard.IsKeyDown(Keys.F11))
