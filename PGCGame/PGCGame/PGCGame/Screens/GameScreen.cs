@@ -69,6 +69,7 @@ namespace PGCGame.Screens
             }
             miniMap.Y = 7.5f;
             miniMap.X = playerSb.GraphicsDevice.Viewport.Width - miniMap.Width - 7.5f;
+            miniShipInfoBg.X = miniMap.X - miniShipInfoBg.Width - 7.5f;
         }
 
         Sprite miniMap;
@@ -217,7 +218,7 @@ namespace PGCGame.Screens
                     Sprite miniShip = new Sprite(new PlainTexture2D(playerSb.GraphicsDevice, 3, 3, s.PlayerType == PlayerType.Enemy ? Color.Red : Color.Lime), miniMap.Position + (s.WorldCoords / MinimapDivAmount), playerSb);
                     miniShip.UseCenterAsOrigin = true;
                     miniShips.Add(miniShip);
-                    if(miniShip.Intersects(Mouse.GetState()) && activeMiniShipDisplay == null)
+                    if (miniShip.Intersects(Mouse.GetState()) && activeMiniShipDisplay == null)
                     {
                         activeMiniShipDisplay = s;
                     }
@@ -227,15 +228,20 @@ namespace PGCGame.Screens
                 {
                     miniShipInfoTitle = new TextSprite(playerSb, bold, activeMiniShipDisplay.FriendlyName);
                     miniShipInfoTitle.Color = Color.White;
-                    miniShipInfoTitle.Position = new Vector2(miniShipInfoBg.X+(miniShipInfoBg.Width/2f)-(miniShipInfoTitle.Width/2f), miniShipInfoBg.Y+(miniShipInfoBg.Height/12.5f));
+                    miniShipInfoTitle.Position = new Vector2(miniShipInfoBg.X + (miniShipInfoBg.Width / 2f) - (miniShipInfoTitle.Width / 2f), miniShipInfoBg.Y + (miniShipInfoBg.Height / 12.5f));
                     playerSbObjects.Add(miniShipInfoTitle);
                     miniShipInfo = new TextSprite(playerSb, normal, string.Format("HP: {0}/{1}", activeMiniShipDisplay.CurrentHealth, activeMiniShipDisplay.InitialHealth));
                     miniShipInfo.Color = Color.White;
-                    miniShipInfo.Position = new Vector2(miniShipInfoBg.X + (miniShipInfoBg.Width / 2f) - (miniShipInfo.Width / 2f), miniShipInfoTitle.Y+bold.LineSpacing);
+                    miniShipInfo.Position = new Vector2(miniShipInfoBg.X + (miniShipInfoBg.Width / 2f) - (miniShipInfo.Width / 2f), miniShipInfoTitle.Y + bold.LineSpacing);
                     playerSbObjects.Add(miniShipInfo);
                 }
-                
+
                 playerSbObjects.AddRange(miniShips);
+            }
+            else
+            {
+                miniShipInfoBg.Color = Color.Transparent;
+
             }
         }
 
