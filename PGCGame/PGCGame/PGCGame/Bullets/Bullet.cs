@@ -20,6 +20,13 @@ namespace PGCGame
 {
     public class Bullet : Sprite
     {
+        /// <summary>
+        /// The maximum distance a bullet can travel before death.
+        /// If null, it can travel indefinently.
+        /// </summary>
+        public Vector2? MaximumDistance = new Vector2(4000f);
+
+
         public Bullet(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
             : base(texture, location, spriteBatch)
         {
@@ -28,6 +35,23 @@ namespace PGCGame
 
         private bool _isDead = false;
 
+        /// <summary>
+        /// The amount of distance traveled, world coords.
+        /// </summary>
+        private Vector2 _traveledDistance = Vector2.Zero;
+
+        public override void Update()
+        {
+            base.Update();
+            _traveledDistance += Speed;
+            if (MaximumDistance.HasValue)
+            {
+                if (_traveledDistance.Length() >= MaximumDistance.Value.Length())
+                {
+                    _isDead = true;
+                }
+            }
+        }
 
         public bool IsDead
         {
