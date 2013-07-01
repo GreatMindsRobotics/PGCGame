@@ -77,5 +77,10 @@ namespace PGCGame
         {
             get { return "Torpedo Ship"; }
         }
+
+        public override string FriendlyName
+        {
+            get { return "Torpedo Ship"; }
+        }
     }
 }

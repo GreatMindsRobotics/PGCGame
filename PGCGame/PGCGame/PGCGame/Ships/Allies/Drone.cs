@@ -37,6 +37,11 @@ namespace PGCGame
 
         #region Public Properties
 
+        public override string FriendlyName
+        {
+            get { return "Drone"; }
+        }
+
         public FighterCarrier ParentShip { get; set; }
         public DroneState DroneState { get; set; }
 

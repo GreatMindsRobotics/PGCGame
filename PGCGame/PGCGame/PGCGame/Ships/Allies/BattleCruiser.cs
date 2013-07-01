@@ -82,5 +82,10 @@ namespace PGCGame
         {
             get { return "Battle Cruiser"; }
         }
+
+        public override string FriendlyName
+        {
+            get { return "Battle Cruiser"; }
+        }
     }
 }

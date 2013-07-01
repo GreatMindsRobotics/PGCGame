@@ -164,5 +164,10 @@ namespace PGCGame.Ships.Enemies
                 _elapsedRotationDelay = new TimeSpan();
             }
         }
+
+        public override string FriendlyName
+        {
+            get { return "Enemy Ship"; }
+        }
     }
 }

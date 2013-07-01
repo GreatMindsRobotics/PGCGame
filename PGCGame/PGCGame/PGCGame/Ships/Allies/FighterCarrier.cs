@@ -114,5 +114,10 @@ namespace PGCGame
         {
             get { return "Fighter Carrier"; }
         }
+
+        public override string FriendlyName
+        {
+            get { return "Fighter Carrier"; }
+        }
     }
 }

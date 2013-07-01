@@ -61,6 +61,8 @@ namespace PGCGame
         private TimeSpan _elapsedShotTime = new TimeSpan();
         protected KeyboardState _lastKs = new KeyboardState();
 
+        public abstract string FriendlyName { get; }
+
         protected Stack<SpaceMine> _spaceMines = new Stack<SpaceMine>();
         public SpaceMine ActiveSpaceMine { get; set; }
 
