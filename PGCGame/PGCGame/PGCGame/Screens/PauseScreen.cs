@@ -23,7 +23,10 @@ namespace PGCGame.Screens
         TextSprite PauseLabel;
         TextSprite ResumeLabel;
         TextSprite ShopLabel;
+        Sprite ResumeButton;
         TextSprite OptionsLabel;
+        Sprite ExitButton;
+        Sprite ShopButton;
 
         public PauseScreen(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
@@ -42,7 +45,7 @@ namespace PGCGame.Screens
             PauseLabel.Color = Color.White;
             AdditionalSprites.Add(PauseLabel);
 
-            Sprite ResumeButton = new Sprite(button, Vector2.Zero, Sprites.SpriteBatch);
+            ResumeButton = new Sprite(button, Vector2.Zero, Sprites.SpriteBatch);
             ResumeButton.Position = new Vector2(ResumeButton.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .2f);
             ResumeButton.MouseEnter += new EventHandler(ResumeButton_MouseEnter);
             ResumeButton.MouseLeave += new EventHandler(ResumeButton_MouseLeave);
@@ -50,7 +53,7 @@ namespace PGCGame.Screens
 
 
 
-            Sprite ExitButton = new Sprite(button, new Vector2(ResumeButton.X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .8f), Sprites.SpriteBatch);
+            ExitButton = new Sprite(button, new Vector2(ResumeButton.X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .8f), Sprites.SpriteBatch);
             ExitButton.MouseEnter += new EventHandler(BackButton_MouseEnter);
             ExitButton.MouseLeave += new EventHandler(BackButton_MouseLeave);
             Sprites.Add(ExitButton);
@@ -73,7 +76,7 @@ namespace PGCGame.Screens
             ExitLabel.NonHoverColor = Color.White;
             AdditionalSprites.Add(ExitLabel);
 
-            Sprite ShopButton = new Sprite(button, Vector2.Zero, Sprites.SpriteBatch);
+            ShopButton = new Sprite(button, Vector2.Zero, Sprites.SpriteBatch);
             ShopButton.Position = new Vector2(ResumeButton.X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .53f);
             ShopButton.MouseEnter += new EventHandler(ShopButton_MouseEnter);
             ShopButton.MouseLeave += new EventHandler(ShopButton_MouseLeave);
@@ -88,7 +91,7 @@ namespace PGCGame.Screens
             ShopLabel.NonHoverColor = Color.White;
             AdditionalSprites.Add(ShopLabel);
 
-            Sprite OptionButton = new Sprite(button, Vector2.Zero, Sprites.SpriteBatch);
+            OptionButton = new Sprite(button, Vector2.Zero, Sprites.SpriteBatch);
             OptionButton.Position = new Vector2(ResumeButton.X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .37f);
             OptionButton.MouseEnter += new EventHandler(OptionButton_MouseEnter);
             OptionButton.MouseLeave += new EventHandler(OptionButton_MouseLeave);
@@ -102,12 +105,24 @@ namespace PGCGame.Screens
             OptionsLabel.HoverColor = Color.MediumAquamarine;
             OptionsLabel.NonHoverColor = Color.White;
             AdditionalSprites.Add(OptionsLabel);
-
         }
+
+        Sprite OptionButton;
 
         void Options_ScreenResolutionChanged(object sender, EventArgs e)
         {
             //relocate buttons and labels on the screen!
+
+            PauseLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width / 2 - PauseLabel.Width / 2, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f);
+
+            ResumeButton.Position = new Vector2(ResumeButton.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .2f);
+            ExitButton.Position = new Vector2(ResumeButton.X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .8f);
+            ExitLabel.Position = new Vector2(ExitLabel.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X, ExitButton.Y + (ExitButton.Height / 2 - ExitLabel.Height / 2));
+            ShopButton.Position = new Vector2(ResumeButton.X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .53f);
+            ResumeLabel.Position = new Vector2(ResumeLabel.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X, ResumeButton.Y + (ResumeButton.Height / 2 - ResumeLabel.Height / 2));
+            OptionButton.Position = new Vector2(ResumeButton.X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .37f);
+            ShopLabel.Position = new Vector2(ShopLabel.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X, ShopButton.Y + (ShopButton.Height / 2 - ShopLabel.Height / 2));
+            OptionsLabel.Position = new Vector2(OptionsLabel.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X, OptionButton.Y + (OptionButton.Height / 2 - OptionsLabel.Height / 2));
         }
 
         void OptionButton_MouseLeave(object sender, EventArgs e)
