@@ -121,7 +121,7 @@ namespace PGCGame.Screens
             miniMap.Updated += new EventHandler(miniMap_Updated);
             miniMap.X = playerSb.GraphicsDevice.Viewport.Width-miniMap.Width-7.5f;
             miniShipInfoBg = new Sprite(new PlainTexture2D(Sprites.SpriteBatch.GraphicsDevice, 1, 1, new Color(0, 0, 0, 192)), new Vector2(7.5f, miniMap.Y), playerSb);
-            miniShipInfoBg.Height = miniMap.Height;
+            miniShipInfoBg.Height = 0.01f;
             miniShipInfoBg.Width = Graphics.Viewport.Width - miniShipInfoBg.X - 7.5f - miniMap.Width - (Graphics.Viewport.Width/3);
             miniShipInfoBg.X = miniMap.X - miniShipInfoBg.Width - 7.5f;
             miniShipInfoBg.Color = Color.Transparent;
@@ -233,10 +233,16 @@ namespace PGCGame.Screens
                     miniShipInfoTitle.Color = Color.White;
                     miniShipInfoTitle.Position = new Vector2(miniShipInfoBg.X + (miniShipInfoBg.Width / 2f) - (miniShipInfoTitle.Width / 2f), miniShipInfoBg.Y + (miniShipInfoBg.Height / 12.5f));
                     playerSbObjects.Add(miniShipInfoTitle);
-                    miniShipInfo = new TextSprite(playerSb, normal, string.Format("HP: {0}/{1}", activeMiniShipDisplay.CurrentHealth, activeMiniShipDisplay.InitialHealth));
+                    miniShipInfoBg.Height = (miniShipInfoTitle.Y - miniShipInfoBg.Y) + miniShipInfoTitle.Height + (miniShipInfoTitle.Y - miniShipInfoBg.Y);
+                    miniShipInfo = new TextSprite(playerSb, normal, string.Format("HP: {0}/{1}\nDamage: {2}", activeMiniShipDisplay.CurrentHealth, activeMiniShipDisplay.InitialHealth, activeMiniShipDisplay.DamagePerShot));
                     miniShipInfo.Color = Color.White;
                     miniShipInfo.Position = new Vector2(miniShipInfoBg.X + (miniShipInfoBg.Width / 2f) - (miniShipInfo.Width / 2f), miniShipInfoTitle.Y + bold.LineSpacing);
-                    playerSbObjects.Add(miniShipInfo);
+                    if (StateManager.HasBoughtScanner)
+                    {
+                        miniShipInfoBg.Height += miniShipInfo.Height;
+                        playerSbObjects.Add(miniShipInfo);
+                    }
+
                 }
 
                 playerSbObjects.AddRange(miniShips);

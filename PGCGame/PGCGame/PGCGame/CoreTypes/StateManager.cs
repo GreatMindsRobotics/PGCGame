@@ -14,7 +14,8 @@ namespace PGCGame
     public static class StateManager
     {
         #region Private Fields
-        
+
+        private static bool _hasBoughtScanner = false;
         private static Stack<ScreenState> _screenStack = new Stack<ScreenState>();
         private static ScreenState _screenState = ScreenState.Title;
         private static GraphicsDeviceManager _gfx;                
@@ -87,6 +88,16 @@ namespace PGCGame
                 ViewportSize = new Point(_gfx.GraphicsDevice.Viewport.Width, _gfx.GraphicsDevice.Viewport.Height);
             }
         }
+
+        /// <summary>
+        /// Indicates whether or not the user has bought the "scanner" power up.
+        /// </summary>
+        public static bool HasBoughtScanner
+        {
+            get { return _hasBoughtScanner; }
+            set { _hasBoughtScanner = value; }
+        }
+        
 
         #endregion Public Properties
 
