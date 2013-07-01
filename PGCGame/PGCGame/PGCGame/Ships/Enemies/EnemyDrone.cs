@@ -69,6 +69,7 @@ namespace PGCGame.Ships.Enemies
 
         public override void Update(GameTime gt)
         { 
+            
             //Check if this is your ship: StateManager.ActiveShips[0].PlayerID == StateManager.PlayerID
             //Check if this is another player's ship: StateManager.ActiveShips[0].IsPlayerShip && StateManager.ActiveShips[0].PlayerID != StateManager.PlayerID;
             //Check if this is an enemy ship: StateManager.ActiveShips[0].PlayerType == CoreTypes.PlayerType.Enemy

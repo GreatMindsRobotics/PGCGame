@@ -34,7 +34,7 @@ namespace PGCGame.Screens
         /// </summary>
         public const int MinimapDivAmount = 45;
 
-        EnemyDrone enemy;
+        List<EnemyDrone> enemies = new List<EnemyDrone>();
         Ship playerShip;
         SpriteBatch playerSb;
         Texture2D bgImg;
@@ -55,15 +55,18 @@ namespace PGCGame.Screens
 
             bgImg = content.Load<Texture2D>("Images\\Background\\NebulaSky");
 
-            //enemy = new EnemyDrone(content.Load<Texture2D>("Images\\Drones\\Drone1"), Vector2.Zero, Sprites.SpriteBatch);
+            for (int i = 0; i < 4; i++)
+            {
+                EnemyDrone enemy = new EnemyDrone(content.Load<Texture2D>("Images\\Drones\\Drone1"), Vector2.Zero, Sprites.SpriteBatch);
 
-            enemy = new EnemyDrone(content.Load<Texture2D>("Images\\Torpedo Ship\\Tier1"), Vector2.Zero, Sprites.SpriteBatch);
-            enemy.WorldCoords = StateManager.RandomGenerator.NextVector2(new Vector2(200, 9500), new Vector2(600, 10500));
-            //TODO: Different texture
-            enemy.Color = Color.Green;
-            enemy.Tier = ShipTier.Tier1;
-            enemy.RotateTowardsMouse = false;
-            Sprites.Add(enemy);
+                enemy.WorldCoords = StateManager.RandomGenerator.NextVector2(new Vector2(500, 6500), new Vector2(3550, 10500));
+                //TODO: Different texture
+                enemy.Color = Color.Green;
+                enemy.Tier = ShipTier.Tier1;
+                enemy.RotateTowardsMouse = false;
+                Sprites.Add(enemy);
+                enemies.Add(enemy);
+            }
         }
 
         void Options_ScreenResolutionChanged(object sender, EventArgs e)
@@ -188,9 +191,12 @@ namespace PGCGame.Screens
             {
                 Sprites.SpriteBatch.Draw(b);
             }
-            foreach(Bullet b in enemy.FlyingBullets)
+            foreach (var enemy in enemies)
             {
-                Sprites.SpriteBatch.Draw(b);
+                foreach (Bullet b in enemy.FlyingBullets)
+                {
+                    Sprites.SpriteBatch.Draw(b);
+                }
             }
             if (playerShip.GetType() == typeof(FighterCarrier))
             {
