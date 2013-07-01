@@ -254,6 +254,30 @@ namespace PGCGame.Screens
                 StateManager.ScreenState = ScreenState.Pause;
                 MediaPlayer.Pause();
             }
+
+            foreach (Bullet b in playerShip.FlyingBullets)
+            {
+                b.IsDead = b.X <= 0 || b.X >= bg.TotalWidth || b.Y <= 0 || b.Y >= bg.TotalHeight;
+            }
+            playerShip.FlyingBullets.RemoveAll(b => b.IsDead);
+            foreach (var enemy in enemies)
+            {
+                foreach (Bullet b in enemy.FlyingBullets)
+                {
+                    b.IsDead = b.X <= 0 || b.X >= bg.TotalWidth || b.Y <= 0 || b.Y >= bg.TotalHeight;
+                }
+                enemy.FlyingBullets.RemoveAll(b => b.IsDead);
+            }
+            
+            if (playerShip.GetType() == typeof(FighterCarrier))
+            {
+                foreach (Bullet b in playerShip.Cast<FighterCarrier>().DroneBullets)
+                {
+                    b.IsDead = b.X <= 0 || b.X >= bg.TotalWidth || b.Y <= 0 || b.Y >= bg.TotalHeight;
+                }
+                playerShip.Cast<FighterCarrier>().DroneBullets.RemoveAll(b => b.IsDead);
+            }
+
             Vector2 camMove = Vector2.Zero;
             if (keyboard.IsKeyDown((StateManager.Options.ArrowKeysEnabled ? Keys.Up : Keys.W)))
             {
@@ -323,6 +347,8 @@ namespace PGCGame.Screens
                     }
                 }
             }
+
+
 
             miniMap.Update();
 

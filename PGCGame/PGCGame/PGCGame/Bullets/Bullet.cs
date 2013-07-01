@@ -25,6 +25,16 @@ namespace PGCGame
         {
         }
         public int Damage { get; set; }
+
+        private bool _isDead = false;
+
+
+        public bool IsDead
+        {
+            get { return _isDead; }
+            set { _isDead = value; }
+        }
+        
          
     }
 }
