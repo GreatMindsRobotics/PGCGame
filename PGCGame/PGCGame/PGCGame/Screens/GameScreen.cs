@@ -67,9 +67,12 @@ namespace PGCGame.Screens
             {
                 playerShip.Position = playerShip.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport, true);
             }
-            miniMap.Y = 7.5f;
-            miniMap.X = playerSb.GraphicsDevice.Viewport.Width - miniMap.Width - 7.5f;
-            miniShipInfoBg.X = miniMap.X - miniShipInfoBg.Width - 7.5f;
+            if (miniMap != null)
+            {
+                miniMap.Y = 7.5f;
+                miniMap.X = playerSb.GraphicsDevice.Viewport.Width - miniMap.Width - 7.5f;
+                miniShipInfoBg.X = miniMap.X - miniShipInfoBg.Width - 7.5f;
+            }
         }
 
         Sprite miniMap;
