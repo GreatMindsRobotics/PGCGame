@@ -16,6 +16,7 @@ using Glib;
 using Glib.XNA.SpriteLib;
 
 using PGCGame.CoreTypes;
+using PGCGame.Ships.Allies;
 
 namespace PGCGame
 {
@@ -170,6 +171,14 @@ namespace PGCGame
         #endregion CTOR
 
         #region PublicMethod
+        protected void FireBulletEvent()
+        {
+            if (BulletFired != null)
+            {
+                BulletFired(this, EventArgs.Empty);
+            }
+        }
+
         public virtual void Shoot()
         {
             Bullet bullet = new Bullet(BulletTexture, WorldCoords - new Vector2(Height * -DistanceToNose, Height * -DistanceToNose) * Rotation.Vector, WorldSb);
@@ -180,10 +189,7 @@ namespace PGCGame
 
             FlyingBullets.Add(bullet);
 
-            if (BulletFired != null)
-            {
-                BulletFired(this, EventArgs.Empty);
-            }
+            FireBulletEvent();
         }
 
         public virtual void Update(GameTime gt)
@@ -210,7 +216,7 @@ namespace PGCGame
         {
             base.DrawNonAuto();
 
-            if (InitialHealth > 1 || StateManager.HasBoughtScanner)
+            if (InitialHealth > 1 && (StateManager.HasBoughtScanner || (this is BaseAllyShip && this.Cast<BaseAllyShip>().IsPlayerShip)))
             {
                 _healthBar.DrawNonAuto();
             }

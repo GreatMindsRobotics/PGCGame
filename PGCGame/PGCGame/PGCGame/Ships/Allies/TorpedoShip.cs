@@ -54,7 +54,7 @@ namespace PGCGame
                 DistanceToNose = .5f;
             }
         }
-        public event EventHandler BulletFired;
+        //public event EventHandler BulletFired;
 
         public override void Shoot()
         {
@@ -70,10 +70,7 @@ namespace PGCGame
             //slope.Normalize();
             //bullet.Speed = slope;
             FlyingBullets.Add(bullet);
-            if (BulletFired != null)
-            {
-                BulletFired(this, EventArgs.Empty);
-            }
+            FireBulletEvent();
         }
         public override string TextureFolder
         {
