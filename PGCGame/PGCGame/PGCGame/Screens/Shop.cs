@@ -37,7 +37,7 @@ namespace PGCGame.Screens
 
             Texture2D buttonImage = content.Load<Texture2D>("Images\\Controls\\Button");
             SpriteFont SegoeUIMono = content.Load<SpriteFont>("Fonts\\SegoeUIMono");
-            BackgroundSprite = new HorizontalMenuBGSprite(content.Load<Texture2D>("Images\\Background\\1920by1080SkyStar"), Sprites.SpriteBatch);
+            BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
 
             Sprite upgradeEButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .1f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .4f), Sprites.SpriteBatch);
             upgradeELabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Equipment");

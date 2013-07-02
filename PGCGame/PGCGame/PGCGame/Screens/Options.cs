@@ -36,7 +36,7 @@ namespace PGCGame.Screens
         public void LoadContent(ContentManager content)
         {
             //Add background to this screen     
-            this.BackgroundSprite = new HorizontalMenuBGSprite(content.Load<Texture2D>("Images\\Background\\1920by1080SkyStar"), Sprites.SpriteBatch);
+            this.BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
 
             Texture2D button = content.Load<Texture2D>("Images\\Controls\\Button");
             SpriteFont font = content.Load<SpriteFont>("Fonts\\SegoeUIMono");

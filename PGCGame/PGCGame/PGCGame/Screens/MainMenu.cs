@@ -66,7 +66,7 @@ namespace PGCGame.Screens
 
             StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
 
-            this.BackgroundSprite = new HorizontalMenuBGSprite(content.Load<Texture2D>("Images\\Background\\1920by1080SkyStar"), Sprites.SpriteBatch);
+            this.BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
 
             TitleSprite = new Sprite(content.Load<Texture2D>("Images\\Controls\\Gametitle"), new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .05f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .07f), Sprites.SpriteBatch);
             Sprites.Add(TitleSprite);

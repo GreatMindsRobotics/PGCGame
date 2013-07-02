@@ -14,8 +14,14 @@ namespace PGCGame.CoreTypes
         List<Sprite> _bgList = new List<Sprite>();
         private Viewport vp;
 
+        public static HorizontalMenuBGSprite CurrentBG = null;
+
         public HorizontalMenuBGSprite(Texture2D bg, SpriteBatch sb)
         {
+            if (HorizontalMenuBGSprite.CurrentBG != null)
+            {
+                throw new Exception("This class is a singleton; use HorizontalMenuBGSprite.CurrentBG.");
+            }
             vp = sb.GraphicsDevice.Viewport;
             
             Sprite spr1 = new Sprite(bg, Vector2.Zero, sb);
@@ -28,6 +34,7 @@ namespace PGCGame.CoreTypes
             _bgList.Add(spr2);
             
             //spr1.Moved += new EventHandler(spr1_Moved);
+            HorizontalMenuBGSprite.CurrentBG = this;
         }
 
         void Options_ScreenResolutionChanged(object sender, EventArgs e)
