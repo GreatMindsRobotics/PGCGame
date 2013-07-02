@@ -19,8 +19,8 @@ namespace PGCGame
         private static bool _hasBoughtScanner = false;
         private static Stack<ScreenState> _screenStack = new Stack<ScreenState>();
         private static ScreenState _screenState = ScreenState.Title;
-        private static GraphicsDeviceManager _gfx;                
-
+        private static GraphicsDeviceManager _gfx;
+        private static Guid _enemyID = Guid.NewGuid();
         #endregion Private Fields
 
         #region Public Fields
@@ -73,6 +73,18 @@ namespace PGCGame
                 _screenState = value;
 
                 SwitchScreen(value);
+            }
+        }
+
+        public static Guid EnemyID
+        {
+            get
+            {
+                return _enemyID;
+            }
+            private set
+            {
+                _enemyID = value;
             }
         }
 

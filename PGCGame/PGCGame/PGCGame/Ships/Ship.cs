@@ -68,7 +68,7 @@ namespace PGCGame
         {
             get
             {
-                return StateManager.PlayerID;
+                return this is BaseAllyShip ? StateManager.PlayerID : StateManager.EnemyID;
             }
         }
 

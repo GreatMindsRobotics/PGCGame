@@ -41,6 +41,7 @@ namespace PGCGame.Ships.Allies
             }
         }
 
+
         public override Vector2 WorldCoords
         {
             get
