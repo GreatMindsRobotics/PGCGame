@@ -23,169 +23,92 @@ namespace PGCGame
     {
         protected const bool CanHoldShootKey = true;
 
+        #region StaticProperties
+        
         public static Texture2D DroneBullet;
         public static Texture2D BattleCruiserBullet;
         public static Texture2D FighterCarrierBullet;
         public static Texture2D Torpedo;
         public static Texture2D SpaceMine;
-        MouseState ms;
-        ProgressBar healthBar;
-        MouseState lastms;
+
+        #endregion StaticProperties
+
         
         public abstract string TextureFolder { get; }
+        
 
-        public bool RotateTowardsMouse = true;
+        #region Private Fields
+
+        //current tier of the ship
+        private ShipTier _shipTier = ShipTier.Tier1;
+
+        //position of the ship in the world
+        private List<Bullet> _flyingBullets = new List<Bullet>();
+
+        private ProgressBar _healthBar;
+
+        private Vector2 _movementSpeed = Vector2.One;
+
+        private Guid _shipID;
+        private bool _isFirstUpdate = true;
+
+        #endregion Private Fields
+
+        protected int _initHealth;
+
+        public event EventHandler TierChanged;
+        public event EventHandler BulletFired;
+
+        public abstract string FriendlyName { get; }
+
+        #region PublicProperties
 
         public Guid PlayerID
         {
-            get { return StateManager.PlayerID; }
+            get
+            {
+                return StateManager.PlayerID;
+            }
         }
-        
 
-        public Ship(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
-            : base(texture, location, spriteBatch)
+        public Guid ShipID
         {
-            StateManager.ActiveShips.Add(this);
-            healthBar = new ProgressBar(new Vector2(X, Y), Color.DarkGreen, Color.Red, spriteBatch);
-            healthBar.WidthScale = 1;
-            healthBar.HeightScale = 10;
+             get
+             {
+                 return _shipID;
+             }
         }
 
         public PlayerType PlayerType { get; set; }
 
-        public abstract void Shoot();
-
-        //override: 
-        //Update
-        //DrawNonAuto
-
         public Texture2D BulletTexture { get; set; }
 
         public SpriteBatch WorldSb;
-        private TimeSpan _elapsedShotTime = new TimeSpan();
-        protected KeyboardState _lastKs = new KeyboardState();
 
-        public abstract string FriendlyName { get; }
-
-        protected Stack<SpaceMine> _spaceMines = new Stack<SpaceMine>();
-        public SpaceMine ActiveSpaceMine { get; set; }
-
-        public Stack<SpaceMine> SpaceMines
-        {
-            get { return _spaceMines; }
-            set { _spaceMines = value; }
-        }
-
-        bool _isFirstUpdate = true;
-
-        public virtual void Update(GameTime gt)
-        {
-            base.Update();
-            if (_isFirstUpdate)
-            {
-                healthBar.Position = new Vector2(X - (healthBar.Width/2), Y - (Height / 1.5f));
-                CurrentHealth = InitialHealth;
-            }
-            if (RotateTowardsMouse)
-            {
-
-
-                ms = Mouse.GetState();
-                Vector2 mousePos = new Vector2(ms.X, ms.Y);
-                Vector2 targetPos = mousePos - Position;
-
-                //Rotate towards mouse
-                Rotation.Radians = Math.Atan2(targetPos.X, -targetPos.Y).ToFloat();
-            }
-
-            foreach (Bullet b in FlyingBullets)
-            {
-                b.Update();
-            }
-            //Shoot
-            KeyboardState ks = Keyboard.GetState();
-            _elapsedShotTime += gt.ElapsedGameTime;
-            //Shoot w/ space key
-
-            if (CanShoot)
-            {
-                if((StateManager.Options.LeftButtonEnabled && ms.LeftButton == ButtonState.Pressed) || (!StateManager.Options.LeftButtonEnabled && ks.IsKeyDown(Keys.Space)))
-                {
-                    Shoot();
-                    _elapsedShotTime = new TimeSpan();
-                }
-            }
-            
-
-            //Deploy mine?
-            if (SpaceMines.Count > 0 && ks.IsKeyDown(Keys.RightShift) && _lastKs != null && !_lastKs.IsKeyDown(Keys.RightShift))
-            {
-                ActiveSpaceMine = SpaceMines.Pop();
-                ActiveSpaceMine.SpaceMineState = SpaceMineState.Deploying;
-                ActiveSpaceMine.Update(gt);
-            }
-
-            if (ActiveSpaceMine != null)
-            {
-                ActiveSpaceMine.Update(gt);
-            }
-
-            _lastKs = ks;
-            lastms = ms;
-
-            healthBar.Denominator = InitialHealth;
-            healthBar.Value = CurrentHealth;
-        }
-
-        private Vector2 _worldPos;
-
-        public bool IsPlayerShip = false;
-
-        public Vector2 WorldCoords
-        {
-            get { return IsPlayerShip ? _worldPos : Position; }
-            set {
-                if (!IsPlayerShip)
-                {
-                    Position = value;
-                }
-                else
-                {
-                    _worldPos = value;
-                }
-            }
-        }
-        
-
-        public bool CanShoot
+        public virtual Vector2 WorldCoords
         {
             get
             {
-                return _elapsedShotTime >= DelayBetweenShots;
+                return Position;
             }
-        }
-
-        public override void DrawNonAuto()
-        {
-            base.DrawNonAuto();
-
-            if (InitialHealth > 1 && (IsPlayerShip || StateManager.HasBoughtScanner))
+            set
             {
-                healthBar.DrawNonAuto();
+                Position = value;
             }
-
-            //SpriteBatch.Draw(Texture, Position, DrawRegion, Color.White, Rotation.Radians, Origin, Scale, Effect, 0);
-
-            //TODO: Draw Bullets; currently in each ship class 
         }
 
         public int DamagePerShot { get; set; }
+
+        public List<Bullet> FlyingBullets
+        {
+            get { return _flyingBullets; }
+            set { _flyingBullets = value; }
+
+        }
+
         public int Cost { get; set; }
 
         public TimeSpan DelayBetweenShots { get; set; }
-
-        private Vector2 _movementSpeed = Vector2.One;
-
 
         public Vector2 MovementSpeed
         {
@@ -195,7 +118,7 @@ namespace PGCGame
 
         public int CurrentHealth { get; set; }
 
-        protected int _initHealth;
+        
 
         public int InitialHealth
         {
@@ -208,20 +131,14 @@ namespace PGCGame
 
         public int Armor { get; set; }
 
-        private List<Bullet> _flyingBullets = new List<Bullet>();
-
-
-        private ShipTier _shipTier = ShipTier.Tier1;
-
-        public event EventHandler TierChanged;
-
         /// <summary>
         /// Gets or sets the tier of the ship.
         /// </summary>
         public ShipTier Tier
         {
             get { return _shipTier; }
-            set {
+            set
+            {
                 _shipTier = value;
                 if (TierChanged != null)
                 {
@@ -235,10 +152,69 @@ namespace PGCGame
         /// </summary>
         public float DistanceToNose;
 
-        public List<Bullet> FlyingBullets
+        #endregion PublicProperties
+
+        #region CTOR
+
+        public Ship(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
+            : base(texture, location, spriteBatch)
         {
-            get { return _flyingBullets; }
-            set { _flyingBullets = value; }
+            StateManager.ActiveShips.Add(this);
+            _shipID = Guid.NewGuid();
+            _initHealth = 100;
+            _healthBar = new ProgressBar(new Vector2(X, Y), Color.DarkGreen, Color.Red, spriteBatch);
+            _healthBar.WidthScale = 1;
+            _healthBar.HeightScale = 10;
         }
+
+        #endregion CTOR
+
+        #region PublicMethod
+        public virtual void Shoot()
+        {
+            Bullet bullet = new Bullet(BulletTexture, WorldCoords - new Vector2(Height * -DistanceToNose, Height * -DistanceToNose) * Rotation.Vector, WorldSb);
+            bullet.Speed = Rotation.Vector * 3f;
+            bullet.UseCenterAsOrigin = true;
+            bullet.Rotation = Rotation;
+            bullet.Damage = DamagePerShot;
+
+            FlyingBullets.Add(bullet);
+
+            if (BulletFired != null)
+            {
+                BulletFired(this, EventArgs.Empty);
+            }
+        }
+
+        public virtual void Update(GameTime gt)
+        {
+            base.Update();
+
+            if (_isFirstUpdate)
+            {
+                _healthBar.Position = new Vector2(X - (_healthBar.Width / 2), Y - (Height / 1.5f));
+                CurrentHealth = InitialHealth;
+                
+            }
+
+            _healthBar.Denominator = InitialHealth;
+            _healthBar.Value = CurrentHealth;
+
+            foreach (Bullet b in FlyingBullets)
+            {
+                b.Update();
+            }
+        }
+
+        public override void DrawNonAuto()
+        {
+            base.DrawNonAuto();
+
+            if (InitialHealth > 1 || StateManager.HasBoughtScanner)
+            {
+                _healthBar.DrawNonAuto();
+            }
+        }
+        #endregion PublicMethod
     }
 }

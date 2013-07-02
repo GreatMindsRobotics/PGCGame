@@ -14,10 +14,11 @@ using Microsoft.Xna.Framework.Media;
 using Glib;
 using PGCGame.CoreTypes;
 using Glib.XNA.SpriteLib;
+using PGCGame.Ships.Allies;
 
 namespace PGCGame
 {
-    public class FighterCarrier : Ship
+    public class FighterCarrier : BaseAllyShip
     {
         public FighterCarrier(Texture2D texture, Vector2 location, SpriteBatch spriteBatch, Texture2D droneTexture)
             : base(texture, location, spriteBatch)
@@ -63,29 +64,7 @@ namespace PGCGame
         }
      
         public List<Drone> Drones = new List<Drone>();
-        public event EventHandler BulletFired;
 
-        public override void Shoot()
-        {
-            //TODO: Fire bullet
-            //Glen's mom magic: Targeting
-
-            Bullet bullet = new Bullet(BulletTexture, WorldCoords - new Vector2(Height * -DistanceToNose, Height * -DistanceToNose) * Rotation.Vector, WorldSb);
-            
-            bullet.Speed = Rotation.Vector*3f;
-            bullet.UseCenterAsOrigin = true;
-            bullet.Rotation = Rotation;
-            bullet.Damage = DamagePerShot;
-            //Vector2 mousePos = new Vector2(ms.X, ms.Y);
-            //Vector2 slope = mousePos - Position;
-            //slope.Normalize();
-            //bullet.Speed = slope;
-            FlyingBullets.Add(bullet);
-            if (BulletFired != null)
-            {
-                BulletFired(this, EventArgs.Empty);
-            }
-        }
 
         public List<Bullet> DroneBullets = new List<Bullet>();
 

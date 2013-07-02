@@ -13,10 +13,11 @@ using Microsoft.Xna.Framework.Media;
 using Glib.XNA.SpriteLib;
 
 using PGCGame.CoreTypes;
+using PGCGame.Ships.Allies;
 
 namespace PGCGame
 {
-    public class Drone : Ship
+    public class Drone : BaseAllyShip
     {
         #region Private Fields
 

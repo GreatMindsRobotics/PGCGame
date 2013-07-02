@@ -166,7 +166,7 @@ namespace PGCGame
         /// </summary>
         /// <typeparam name="T">Ship type</typeparam>
         /// <param name="tier">Ship tier</param>
-        public static void InitializeSingleplayerGameScreen<T>(ShipTier tier) where T : Ship
+        public static void InitializeSingleplayerGameScreen<T>(ShipTier tier) where T : PGCGame.Ships.Allies.BaseAllyShip
         {
             AllScreens["gameScreen"].Cast<Screens.GameScreen>().InitializeScreen<T>(tier);
         }

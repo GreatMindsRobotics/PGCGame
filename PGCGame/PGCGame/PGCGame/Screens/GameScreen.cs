@@ -17,6 +17,7 @@ using PGCGame.CoreTypes;
 using System.Diagnostics;
 
 using PGCGame.Ships.Enemies;
+using PGCGame.Ships.Allies;
 
 namespace PGCGame.Screens
 {
@@ -35,7 +36,7 @@ namespace PGCGame.Screens
         public const int MinimapDivAmount = 45;
 
         List<EnemyDrone> enemies = new List<EnemyDrone>();
-        Ship playerShip;
+        BaseAllyShip playerShip;
         SpriteBatch playerSb;
         SpriteFont normal;
         SpriteFont bold;
@@ -77,7 +78,7 @@ namespace PGCGame.Screens
 
         Sprite miniMap;
 
-        public void InitializeScreen<TShip>(ShipTier tier) where TShip : Ship
+        public void InitializeScreen<TShip>(ShipTier tier) where TShip : BaseAllyShip
         {
             playerSbObjects.Clear();
             Sprites.Sprites.Clear();
@@ -103,7 +104,6 @@ namespace PGCGame.Screens
                 //TODO: Different texture
                 enemy.Color = Color.Green;
                 enemy.Tier = ShipTier.Tier1;
-                enemy.RotateTowardsMouse = false;
 
                 Sprites.Add(enemy);
                 enemies.Add(enemy);
@@ -178,8 +178,10 @@ namespace PGCGame.Screens
             ship.Position = ship.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport, true);
             playerShip = ship;
             playerShip.IsPlayerShip = true;
+            playerShip.RotateTowardsMouse = true;
             playerSbObjects.Add(ship);
 
+            playerShip.InitialHealth = 100;
 
             //TEST CODE: Start with one mine; TODO: purchase mines!!!
             //SpaceMine spaceMine = new SpaceMine(Ship.SpaceMine, Vector2.Zero, playerShip.WorldSb);
