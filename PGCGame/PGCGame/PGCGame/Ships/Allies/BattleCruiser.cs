@@ -65,6 +65,7 @@ namespace PGCGame
             Bullet bullet = new Bullet(BulletTexture, WorldCoords - new Vector2(Height * -DistanceToNose, Height * -DistanceToNose) * Rotation.Vector, WorldSb);
             bullet.Speed = Rotation.Vector * 3f;
             bullet.UseCenterAsOrigin = true;
+            _initHealth = 120;
             bullet.Rotation = Rotation;
             bullet.Damage = DamagePerShot;
             //Vector2 mousePos = new Vector2(ms.X, ms.Y);

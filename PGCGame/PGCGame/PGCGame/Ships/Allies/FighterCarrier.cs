@@ -33,7 +33,7 @@ namespace PGCGame
             BulletTexture = Ship.FighterCarrierBullet;
             DelayBetweenShots = TimeSpan.FromMilliseconds(100);
             DamagePerShot = 2;
-            InitialHealth = 100;
+            _initHealth = 100;
             MovementSpeed = Vector2.One;
             this.TierChanged += new EventHandler(FighterCarrier_TierChanged);
         }

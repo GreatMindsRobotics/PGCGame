@@ -59,7 +59,7 @@ namespace PGCGame
             WorldCoords = ParentShip.WorldCoords;
             Scale = new Vector2(.75f);
             RotateTowardsMouse = false;
-
+            _initHealth = 10;
             BulletTexture = Ship.DroneBullet;
         }
 

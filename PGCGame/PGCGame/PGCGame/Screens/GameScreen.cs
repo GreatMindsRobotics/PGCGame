@@ -45,7 +45,7 @@ namespace PGCGame.Screens
         ContentManager storedCm;
 
         List<KeyValuePair<string, Texture2D>> shipTextures = new List<KeyValuePair<string, Texture2D>>();
-
+        
         public void LoadContent(ContentManager content)
         {
             //TODO: LOAD CONTENT

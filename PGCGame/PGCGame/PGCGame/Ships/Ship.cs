@@ -29,6 +29,7 @@ namespace PGCGame
         public static Texture2D Torpedo;
         public static Texture2D SpaceMine;
         MouseState ms;
+        ProgressBar healthBar;
         MouseState lastms;
         
         public abstract string TextureFolder { get; }
@@ -45,6 +46,9 @@ namespace PGCGame
             : base(texture, location, spriteBatch)
         {
             StateManager.ActiveShips.Add(this);
+            healthBar = new ProgressBar(new Vector2(X, Y), Color.DarkGreen, Color.Red, spriteBatch);
+            healthBar.WidthScale = 1;
+            healthBar.HeightScale = 10;
         }
 
         public PlayerType PlayerType { get; set; }
@@ -72,15 +76,21 @@ namespace PGCGame
             set { _spaceMines = value; }
         }
 
+        bool _isFirstUpdate = true;
+
         public virtual void Update(GameTime gt)
         {
             base.Update();
-            
+            if (_isFirstUpdate)
+            {
+                healthBar.Position = new Vector2(X - (healthBar.Width/2), Y - (Height / 1.5f));
+                CurrentHealth = InitialHealth;
+            }
             if (RotateTowardsMouse)
             {
 
 
-                    ms = Mouse.GetState();
+                ms = Mouse.GetState();
                 Vector2 mousePos = new Vector2(ms.X, ms.Y);
                 Vector2 targetPos = mousePos - Position;
 
@@ -122,6 +132,9 @@ namespace PGCGame
 
             _lastKs = ks;
             lastms = ms;
+
+            healthBar.Denominator = InitialHealth;
+            healthBar.Value = CurrentHealth;
         }
 
         private Vector2 _worldPos;
@@ -156,6 +169,10 @@ namespace PGCGame
         {
             base.DrawNonAuto();
 
+            if (InitialHealth > 1 && (IsPlayerShip || StateManager.HasBoughtScanner))
+            {
+                healthBar.DrawNonAuto();
+            }
 
             //SpriteBatch.Draw(Texture, Position, DrawRegion, Color.White, Rotation.Radians, Origin, Scale, Effect, 0);
 
@@ -178,7 +195,14 @@ namespace PGCGame
 
         public int CurrentHealth { get; set; }
 
-        public int InitialHealth { get; set; }
+        protected int _initHealth;
+
+        public int InitialHealth
+        {
+            get { return _initHealth; }
+            set { _initHealth = value; }
+        }
+        
 
         public int Shield { get; set; }
 

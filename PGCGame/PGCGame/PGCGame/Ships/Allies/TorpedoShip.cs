@@ -26,6 +26,7 @@ namespace PGCGame
             MovementSpeed = new Vector2(1.333f);
             //MovementSpeed = new Vector2(1f);
             DelayBetweenShots = TimeSpan.FromSeconds(.75);
+            _initHealth = 110;
             this.TierChanged += new EventHandler(TorpedoShip_TierChanged);
         }
 

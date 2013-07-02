@@ -14,7 +14,7 @@ namespace PGCGame
         {
 
         }
-
+        
         public ShrinkBullet ShotBullet { get; set; }
     }
 }
