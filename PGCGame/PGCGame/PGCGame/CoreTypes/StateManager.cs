@@ -143,6 +143,7 @@ namespace PGCGame
                     AllScreens["creditsScreen"].Visible = true;
                     break;
                 case ScreenState.Game:
+                    AllScreens["gameScreen"].Cast<PGCGame.Screens.GameScreen>().ResetLastKS(Keys.Escape);
                     AllScreens["gameScreen"].Visible = true;
                     break;
                 case ScreenState.Option:
@@ -152,6 +153,7 @@ namespace PGCGame
                     AllScreens["shopScreen"].Visible = true;
                     break;
                 case ScreenState.Pause:
+                    AllScreens["pauseScreen"].Cast<PGCGame.Screens.PauseScreen>().lastState = new KeyboardState(Keys.Escape);
                     AllScreens["pauseScreen"].Visible = true;
                     break;
                 case ScreenState.ShipSelect:

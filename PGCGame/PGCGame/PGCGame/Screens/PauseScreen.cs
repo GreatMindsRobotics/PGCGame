@@ -107,6 +107,7 @@ namespace PGCGame.Screens
             AdditionalSprites.Add(OptionsLabel);
         }
 
+        public KeyboardState lastState;
         Sprite OptionButton;
 
         void Options_ScreenResolutionChanged(object sender, EventArgs e)
@@ -202,6 +203,12 @@ namespace PGCGame.Screens
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            KeyboardState current = Keyboard.GetState();
+            if (lastState.IsKeyUp(Keys.Escape) && current.IsKeyDown(Keys.Escape))
+            {
+                StateManager.GoBack();
+                return;
+            }
 
             if (mouseInResumeButton || mouseInExitButton || mouseInShopButton || mouseInOptionsButton)
             {
@@ -233,7 +240,7 @@ namespace PGCGame.Screens
                 }
 
             }
-
+            lastState = current;
         }
     }
 }

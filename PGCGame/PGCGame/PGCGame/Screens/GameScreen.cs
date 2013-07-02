@@ -195,6 +195,11 @@ namespace PGCGame.Screens
         TextSprite miniShipInfo = null;
         List<Sprite> miniShips = new List<Sprite>();
 
+        public void ResetLastKS(params Keys[] allKeys)
+        {
+            _lastState = new KeyboardState(allKeys);
+        }
+
         void miniMap_Updated(object sender, EventArgs e)
         {
             foreach (Sprite s in miniShips)
@@ -303,7 +308,7 @@ namespace PGCGame.Screens
             BackgroundSprite bg = BackgroundSprite.Cast<BackgroundSprite>();
             //TODO: UPDATE SPRITES
             KeyboardState keyboard = Keyboard.GetState();
-            if (keyboard.IsKeyDown(Keys.Escape))
+            if (_lastState.IsKeyUp(Keys.Escape) && keyboard.IsKeyDown(Keys.Escape))
             {
                 StateManager.ScreenState = ScreenState.Pause;
                 MediaPlayer.Pause();
