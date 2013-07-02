@@ -30,8 +30,6 @@ namespace PGCGame.Screens.SelectScreens
            Texture2D tempImage = content.Load<Texture2D>("Images\\NonPlayingObject\\Planet");
            SpriteFont font = content.Load<SpriteFont>("Fonts\\SegoeUIMono");
 
-
-
            Sprite image = new Sprite(tempImage, Vector2.Zero, Sprites.SpriteBatch);
            TextSprite text = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, font, "TODO");
            text.Color = Color.White;

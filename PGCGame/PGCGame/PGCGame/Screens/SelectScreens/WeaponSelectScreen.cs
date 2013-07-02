@@ -17,6 +17,8 @@ namespace PGCGame.Screens.SelectScreens
 {
     public class WeaponSelectScreen : BaseSelectScreen
     {
+        //TODO: Buying a weapon should add that weapon to the ship's secondary weapon list.
+
         public WeaponSelectScreen(SpriteBatch spriteBatch)
             : base(spriteBatch)
         {
@@ -24,6 +26,7 @@ namespace PGCGame.Screens.SelectScreens
         }
 
         List<KeyValuePair<Sprite, string>> itemsShown = new List<KeyValuePair<Sprite, string>>();
+        
 
         public override void LoadContent(ContentManager content)
         {
@@ -31,8 +34,11 @@ namespace PGCGame.Screens.SelectScreens
             Texture2D EMP = content.Load<Texture2D>("Images\\Secondary Weapons\\EMP\\EMP");
             Texture2D RayGun = content.Load<Texture2D>("Images\\Secondary Weapons\\Ray Gun\\RayGun");
             Texture2D Bomb = content.Load<Texture2D>("Images\\Secondary Weapons\\Spacemine\\bombas3");
+            //Texture2D Scanner = content.Load<Texture2D>("Images\\Secondary Weapons\\Spacemine\\EMP");
+            Texture2D Scanner = new PlainTexture2D(Graphics, 100, 100, Color.Red);
             SpriteFont font = content.Load<SpriteFont>("Fonts\\SegoeUIMono");
 
+            //EMP
             Sprite weapon1 = new Sprite(EMP, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.6f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.1f), Sprites.SpriteBatch);
             TextSprite text1 = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.01f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.1f), font, "\n\nAn electro magnetic pulse. \nThis device disables all \nnearby enemy ships \nwithin your ship's range. \n\ncost: 1000 credits", Color.White);
             weapon1.Scale = new Vector2(0.5f, 0.5f);
@@ -41,11 +47,13 @@ namespace PGCGame.Screens.SelectScreens
 
             items.Add(new KeyValuePair<Sprite, TextSprite>(weapon1, text1));
 
+            //Ray Gun
             Sprite weapon2 = new Sprite(RayGun, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.60f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.2f), Sprites.SpriteBatch);
             weapon2.Scale = new Vector2(0.5f, 0.5f);
 
             itemsShown.Add(new KeyValuePair<Sprite, string>(weapon2, "Ray Gun"));
 
+            //Space Mine
             Sprite weapon3 = new Sprite(Bomb, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.69f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.3f), Sprites.SpriteBatch);
             weapon3.Scale = new Vector2(2f, 2f);
 
@@ -57,11 +65,30 @@ namespace PGCGame.Screens.SelectScreens
             items.Add(new KeyValuePair<Sprite, TextSprite>(weapon2, text2));
             items.Add(new KeyValuePair<Sprite, TextSprite>(weapon3, text3));
 
+            //Scanner
+            Sprite weapon4 = new Sprite(Scanner, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.6f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.1f), Sprites.SpriteBatch);
+            TextSprite text4 = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.01f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.1f), font, "\n\nA ship scanner. This is temporary text\n to check if this works \n\ncost: 15000 credits", Color.White);
+
+            items.Add(new KeyValuePair<Sprite, TextSprite>(weapon4, text4));
+
+            itemsShown.Add(new KeyValuePair<Sprite, string>(weapon4, "Scanner"));
+
             ChangeItem += new EventHandler(WeaponSelectScreen_ChangeItem);
 
             base.LoadContent(content);
             acceptLabel.Text = "Buy";
+            //In clicked code
+            this.nextButtonClicked += new EventHandler(WeaponSelectScreen_nextButtonClicked);
         }
+
+        void WeaponSelectScreen_nextButtonClicked(object sender, EventArgs e)
+        {
+            if (itemsShown[selected].Value == "Scanner")
+            {
+                StateManager.HasBoughtScanner = true;
+            }
+        }
+
 
         void WeaponSelectScreen_ChangeItem(object sender, EventArgs e)
         {

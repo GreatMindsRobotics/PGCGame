@@ -32,13 +32,39 @@ namespace PGCGame
         public static Texture2D Torpedo;
         public static Texture2D SpaceMine;
 
-        #endregion StaticProperties
-
+        private static KeyValuePair<int, ShipTier>[] _cost;
+        public static KeyValuePair<int, ShipTier>[] Cost { get { return _cost; } set { _cost = value; } }
         
         public abstract string TextureFolder { get; }
-        
-
+        #endregion StaticProperties
         #region Private Fields
+
+        public Ship(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
+            : base(texture, location, spriteBatch)
+        {
+            StateManager.ActiveShips.Add(this);
+            _healthBar = new ProgressBar(new Vector2(X, Y), Color.DarkGreen, Color.Red, spriteBatch);
+            _healthBar.WidthScale = 1;
+            _healthBar.HeightScale = 10;
+            _shipID = Guid.NewGuid();
+            _initHealth = 100;
+            _cost = new KeyValuePair<int, ShipTier>[4];
+        }
+
+        public PlayerType PlayerType { get; set; }
+
+
+        //override: 
+        //Update
+        //DrawNonAuto
+
+        public Texture2D BulletTexture { get; set; }
+
+        public SpriteBatch WorldSb;
+        private TimeSpan _elapsedShotTime = new TimeSpan();
+        protected KeyboardState _lastKs = new KeyboardState();
+
+        public abstract string FriendlyName { get; }
 
         //current tier of the ship
         private ShipTier _shipTier = ShipTier.Tier1;
@@ -60,8 +86,6 @@ namespace PGCGame
         public event EventHandler TierChanged;
         public event EventHandler BulletFired;
 
-        public abstract string FriendlyName { get; }
-
         #region PublicProperties
 
         public Guid PlayerID
@@ -79,12 +103,6 @@ namespace PGCGame
                  return _shipID;
              }
         }
-
-        public PlayerType PlayerType { get; set; }
-
-        public Texture2D BulletTexture { get; set; }
-
-        public SpriteBatch WorldSb;
 
         public virtual Vector2 WorldCoords
         {
@@ -106,8 +124,6 @@ namespace PGCGame
             set { _flyingBullets = value; }
 
         }
-
-        public int Cost { get; set; }
 
         public TimeSpan DelayBetweenShots { get; set; }
 
@@ -154,21 +170,6 @@ namespace PGCGame
         public float DistanceToNose;
 
         #endregion PublicProperties
-
-        #region CTOR
-
-        public Ship(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
-            : base(texture, location, spriteBatch)
-        {
-            StateManager.ActiveShips.Add(this);
-            _shipID = Guid.NewGuid();
-            _initHealth = 100;
-            _healthBar = new ProgressBar(new Vector2(X, Y), Color.DarkGreen, Color.Red, spriteBatch);
-            _healthBar.WidthScale = 1;
-            _healthBar.HeightScale = 10;
-        }
-
-        #endregion CTOR
 
         #region PublicMethod
         protected void FireBulletEvent()
