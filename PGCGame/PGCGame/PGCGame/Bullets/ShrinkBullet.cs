@@ -18,6 +18,7 @@ namespace PGCGame
         public ShrinkBullet(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
             : base(texture, location, spriteBatch)
         {
+            MaximumDistance = new Vector2(600);
         }
     }
 }
