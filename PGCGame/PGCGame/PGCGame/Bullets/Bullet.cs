@@ -46,7 +46,7 @@ namespace PGCGame
             _traveledDistance += Speed;
             if (MaximumDistance.HasValue)
             {
-                if (_traveledDistance.Length() >= MaximumDistance.Value.Length())
+                if (_traveledDistance.LengthSquared() >= MaximumDistance.Value.LengthSquared())
                 {
                     _isDead = true;
                 }
