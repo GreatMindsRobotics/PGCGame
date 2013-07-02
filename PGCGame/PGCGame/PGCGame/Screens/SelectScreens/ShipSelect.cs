@@ -40,6 +40,7 @@ namespace PGCGame.Screens
             ship1.Rotation = new SpriteRotation(90);
 
 
+
             items.Add(new KeyValuePair<Sprite, TextSprite>(ship1, text1));
             
             itemsShown.Add(new KeyValuePair<Sprite,string>(ship1, "Battle Cruiser"));
@@ -68,6 +69,7 @@ namespace PGCGame.Screens
             ChangeItem += new EventHandler(ShipSelect_ChangeItem);
 
             base.LoadContent(content);
+            acceptLabel.Text = "Next";
         }
 
         void ShipSelect_ChangeItem(object sender, EventArgs e)
@@ -99,7 +101,7 @@ namespace PGCGame.Screens
             }
 
             
-            StateManager.ScreenState = ScreenState.Game;
+            StateManager.ScreenState = ScreenState.LevelSelect;
         }
 
 

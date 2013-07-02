@@ -19,7 +19,15 @@ namespace PGCGame.CoreTypes
         ShipSelect,
         WeaponSelect,
         UpgradeScreen,
-        TierSelect
+        TierSelect,
+        LevelSelect
+    }
+
+    public enum SecondaryWeaponState
+    {
+        Ready,
+        Charging,
+        Fired
     }
 
     public enum ShipTier
