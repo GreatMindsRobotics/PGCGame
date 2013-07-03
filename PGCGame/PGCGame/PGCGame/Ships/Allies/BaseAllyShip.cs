@@ -26,7 +26,6 @@ namespace PGCGame.Ships.Allies
         protected bool _isPlayerShip;
         protected bool _rotateTowardMouse;
 
-        protected KeyboardState _lastKs = new KeyboardState();
         protected Stack<SpaceMine> _spaceMines = new Stack<SpaceMine>();
 
         public bool IsPlayerShip

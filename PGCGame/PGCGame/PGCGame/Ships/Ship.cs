@@ -61,7 +61,7 @@ namespace PGCGame
         public Texture2D BulletTexture { get; set; }
 
         public SpriteBatch WorldSb;
-        private TimeSpan _elapsedShotTime = new TimeSpan();
+        //private TimeSpan _elapsedShotTime = new TimeSpan();
         protected KeyboardState _lastKs = new KeyboardState();
 
         public abstract string FriendlyName { get; }
