@@ -122,7 +122,7 @@ namespace PGCGame.Screens
             miniMap.X = playerSb.GraphicsDevice.Viewport.Width-miniMap.Width-7.5f;
             miniShipInfoBg = new Sprite(new PlainTexture2D(Sprites.SpriteBatch.GraphicsDevice, 1, 1, new Color(0, 0, 0, 192)), new Vector2(7.5f, miniMap.Y), playerSb);
             miniShipInfoBg.Height = 0.01f;
-            miniShipInfoBg.Width = Graphics.Viewport.Width - miniShipInfoBg.X - 7.5f - miniMap.Width - (Graphics.Viewport.Width/3);
+            miniShipInfoBg.Width = 767.5f - miniShipInfoBg.X - 7.5f - miniMap.Width - 266.6666667f;
             miniShipInfoBg.X = miniMap.X - miniShipInfoBg.Width - 7.5f;
             miniShipInfoBg.Color = Color.Transparent;
             playerSbObjects.Add(miniShipInfoBg);
