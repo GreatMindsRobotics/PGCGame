@@ -16,6 +16,7 @@ using Glib.XNA.SpriteLib;
 using PGCGame.Screens;
 using PGCGame.Screens.SelectScreens;
 using Glib.XNA.InputLib;
+using PGCGame.CoreTypes;
 
 namespace PGCGame
 {
@@ -103,12 +104,12 @@ namespace PGCGame
             shopScreen.LoadContent(Content);
             shopScreen.Name = "shopScreen";
 
-            titleScreen = new Title(spriteBatch, new Title.quitFunction(Exit));
+            titleScreen = new Title(spriteBatch, new Delegates.QuitFunction(Exit));
             titleScreen.LoadContent(Content);
             titleScreen.Name = "titleScreen";
             titleScreen.Visible = true;
 
-            mainMenuScreen = new MainMenu(spriteBatch, new Title.quitFunction(Exit));
+            mainMenuScreen = new MainMenu(spriteBatch, new Delegates.QuitFunction(Exit));
             mainMenuScreen.LoadContent(Content);
             mainMenuScreen.Name = "mainMenuScreen";
 

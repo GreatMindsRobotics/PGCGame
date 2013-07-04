@@ -45,8 +45,6 @@ namespace PGCGame.Screens
         Song _gameSong;
         List<ISprite> playerSbObjects = new List<ISprite>();
         ContentManager storedCm;
-
-        List<KeyValuePair<string, Texture2D>> shipTextures = new List<KeyValuePair<string, Texture2D>>();
         
         public void LoadContent(ContentManager content)
         {
@@ -84,19 +82,8 @@ namespace PGCGame.Screens
             playerSbObjects.Clear();
             Sprites.Sprites.Clear();
             enemies.Clear();
-            Texture2D enemyTexture = null;
-            foreach (KeyValuePair<string, Texture2D> kvp in shipTextures)
-            {
-                if (kvp.Key.Trim().Equals("EnemyDrone"))
-                {
-                    enemyTexture = kvp.Value;
-                }
-            }
-            if (enemyTexture == null)
-            {
-                enemyTexture = storedCm.Load<Texture2D>("Images\\Drones\\Drone1");
-                shipTextures.Add(new KeyValuePair<string,Texture2D>("EnemyDrone", enemyTexture));
-            }
+            Texture2D enemyTexture = storedCm.Load<Texture2D>("Images\\Drones\\Drone1");
+
             for (int i = 0; i < 4; i++)
             {
                 EnemyDrone enemy = new EnemyDrone(enemyTexture, Vector2.Zero, Sprites.SpriteBatch);
@@ -109,6 +96,7 @@ namespace PGCGame.Screens
                 Sprites.Add(enemy);
                 enemies.Add(enemy);
             }
+
             BackgroundSprite bgspr = new BackgroundSprite(bgImg, Sprites.SpriteBatch, 10, 2);
             bgspr.Drawn += new EventHandler(bgspr_Drawn);
             worldCam.Pos = new Vector2(bgspr.TotalWidth / 2, bgspr.TotalHeight - (bgspr.Height / 2));
@@ -135,44 +123,16 @@ namespace PGCGame.Screens
             }
 
             TShip ship = null;
-            Texture2D shipTexture = null;
             if (typeof(TShip) == typeof(FighterCarrier))
             {
-                Texture2D droneTexture = null;
-                foreach (KeyValuePair<string, Texture2D> kvp in shipTextures)
-                {
-                    if (kvp.Key.Trim().Equals("Drone"))
-                    {
-                        droneTexture = kvp.Value;
-                    }
-                }
-                if (droneTexture == null)
-                {
-                    droneTexture = storedCm.Load<Texture2D>("Images\\Drones\\Drone1");
-                    shipTextures.Add(new KeyValuePair<string, Texture2D>("Drone", droneTexture));
-                }
-                ship = new FighterCarrier(shipTexture, Vector2.Zero, playerSb, droneTexture).Cast<TShip>();
+                ship = new FighterCarrier(null, Vector2.Zero, playerSb, storedCm.Load<Texture2D>("Images\\Drones\\Drone1")).Cast<TShip>();
             }
             else
             {
                 ship = Activator.CreateInstance(typeof(TShip), null, Vector2.Zero, playerSb).Cast<TShip>();
             }
 
-            foreach (KeyValuePair<string, Texture2D> kvp in shipTextures)
-            {
-                if (kvp.Key.Trim().Equals(ship.TextureFolder + "\\" + tier.ToString()))
-                {
-                    shipTexture = kvp.Value;
-                }
-            }
-
-            if (shipTexture == null)
-            {
-                shipTexture = storedCm.Load<Texture2D>("Images\\" + ship.TextureFolder + "\\" + tier.ToString().Replace("ShipTier.", ""));
-                shipTextures.Add(new KeyValuePair<string, Texture2D>(ship.TextureFolder + "\\" + tier.ToString(), shipTexture));
-            }
-
-            ship.Texture = shipTexture;
+            ship.Texture = storedCm.Load<Texture2D>("Images\\" + ship.TextureFolder + "\\" + tier.ToString().Replace("ShipTier.", ""));
             ship.UseCenterAsOrigin = true;
             ship.WorldSb = Sprites.SpriteBatch;
             ship.Tier = tier;
@@ -183,12 +143,6 @@ namespace PGCGame.Screens
             playerSbObjects.Add(ship);
 
             playerShip.InitialHealth = 100;
-
-            //TEST CODE: Start with one mine; TODO: purchase mines!!!
-            //SpaceMine spaceMine = new SpaceMine(Ship.SpaceMine, Vector2.Zero, playerShip.WorldSb);
-            //spaceMine.ParentShip = playerShip;
-            //playerShip.SpaceMines.Push(spaceMine);
-            
         }
 
         Sprite miniShipInfoBg;

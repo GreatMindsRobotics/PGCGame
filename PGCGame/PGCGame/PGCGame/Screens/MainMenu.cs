@@ -19,6 +19,9 @@ namespace PGCGame.Screens
 {
     public class MainMenu : Screen
     {
+
+        private Delegates.QuitFunction _exit;
+
         private static bool _debugBackground = false;
         public static bool DebugBackground
         {
@@ -28,12 +31,10 @@ namespace PGCGame.Screens
             }
         }
 
-        PGCGame.Screens.Title.quitFunction exit;
-
-        public MainMenu(SpriteBatch spriteBatch, PGCGame.Screens.Title.quitFunction exit)
+        public MainMenu(SpriteBatch spriteBatch, Delegates.QuitFunction exit)
             : base(spriteBatch, _debugBackground ? Color.Red : Color.Black)
         {
-            this.exit = exit;
+            _exit = exit;
         }
 
         Sprite TitleSprite;
@@ -253,7 +254,7 @@ namespace PGCGame.Screens
             if (BackLabel.IsSelected && BackButton.ClickCheck(currentMouseState) && !BackButton.ClickCheck(lastMouseState))
             {
                 //StateManager.GoBack();
-                exit();
+                _exit();
             }
             else if (CreditsLabel.IsSelected && CreditsButton.ClickCheck(currentMouseState) && !CreditsButton.ClickCheck(lastMouseState))
             {

@@ -19,14 +19,12 @@ namespace PGCGame.Screens
 {
     public class Title : Screen
     {
-        public delegate void quitFunction();
+        private Delegates.QuitFunction _exit;
 
-        quitFunction exit;
-
-        public Title(SpriteBatch spriteBatch, quitFunction exitableFunction)
+        public Title(SpriteBatch spriteBatch, Delegates.QuitFunction exitableFunction)
             : base(spriteBatch, Color.Black)
         {
-            exit = exitableFunction;
+            _exit = exitableFunction;
         }
 
         Sprite TitleImage;
@@ -133,7 +131,7 @@ namespace PGCGame.Screens
             }
             else if (ExitLabel.IsSelected && ExitButton.ClickCheck(currentMoustState) && !ExitButton.ClickCheck(lastMouseState))
             {
-                exit();
+                _exit();
             }
 
             lastMouseState = currentMoustState;
