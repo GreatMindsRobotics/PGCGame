@@ -13,6 +13,7 @@ using Glib;
 using Microsoft.Xna.Framework.Input;
 
 using PGCGame.CoreTypes;
+using Glib.XNA.InputLib.Mouse;
 
 namespace PGCGame.Screens
 {
@@ -124,7 +125,7 @@ namespace PGCGame.Screens
                 return;
             }
             
-            MouseState currentMoustState = Mouse.GetState();
+            MouseState currentMoustState = MouseManager.CurrentMouseState;
 
             if (PlayLabel.IsSelected && PlayButton.ClickCheck(currentMoustState) && !PlayButton.ClickCheck(lastMouseState))
             {

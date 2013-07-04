@@ -12,6 +12,7 @@ using Glib;
 using Glib.XNA;
 using Glib.XNA.SpriteLib;
 using PGCGame.CoreTypes;
+using Glib.XNA.InputLib.Mouse;
 
 namespace PGCGame.Ships.Allies
 {
@@ -106,7 +107,7 @@ namespace PGCGame.Ships.Allies
         {
             if (RotateTowardsMouse)
             {
-                ms = Mouse.GetState();
+                ms = MouseManager.CurrentMouseState;
                 Vector2 mousePos = new Vector2(ms.X, ms.Y);
                 Vector2 targetPos = mousePos - Position;
 

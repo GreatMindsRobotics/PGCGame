@@ -18,6 +18,7 @@ using System.Diagnostics;
 
 using PGCGame.Ships.Enemies;
 using PGCGame.Ships.Allies;
+using Glib.XNA.InputLib.Mouse;
 
 namespace PGCGame.Screens
 {
@@ -228,7 +229,7 @@ namespace PGCGame.Screens
                     Sprite miniShip = new Sprite(new PlainTexture2D(playerSb.GraphicsDevice, 3, 3, s == playerShip ? Color.Lime : (s.PlayerType == PlayerType.Enemy ? Color.Red : Color.CornflowerBlue)), miniMap.Position + (s.WorldCoords / MinimapDivAmount), playerSb);
                     miniShip.UseCenterAsOrigin = true;
                     miniShips.Add(miniShip);
-                    if (miniShip.Intersects(Mouse.GetState()) && activeMiniShipDisplay == null)
+                    if (miniShip.Intersects(MouseManager.CurrentMouseState) && activeMiniShipDisplay == null)
                     {
                         activeMiniShipDisplay = s;
                     }

@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using PGCGame.CoreTypes;
+using Glib.XNA.InputLib.Mouse;
 
 namespace PGCGame.Screens
 {
@@ -233,7 +234,7 @@ namespace PGCGame.Screens
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            MouseState currentMs = Mouse.GetState();
+            MouseState currentMs = MouseManager.CurrentMouseState;
             if (lastMs.LeftButton == ButtonState.Released && currentMs.LeftButton == ButtonState.Pressed)
             {
                 if (mouseInBackButton)

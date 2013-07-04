@@ -14,6 +14,7 @@ using Glib.XNA;
 using Glib.XNA.SpriteLib;
 
 using PGCGame.CoreTypes;
+using Glib.XNA.InputLib.Mouse;
 
 namespace PGCGame.Screens
 {
@@ -212,7 +213,7 @@ namespace PGCGame.Screens
 
             if (mouseInResumeButton || mouseInExitButton || mouseInShopButton || mouseInOptionsButton)
             {
-                MouseState ms = Mouse.GetState();
+                MouseState ms = MouseManager.CurrentMouseState;
                 if (ms.LeftButton == ButtonState.Pressed)
                 {
                     if (mouseInResumeButton)

@@ -14,6 +14,7 @@ using Glib.XNA;
 using Glib.XNA.SpriteLib;
 
 using PGCGame.CoreTypes;
+using Glib.XNA.InputLib.Mouse;
 
 namespace PGCGame.Screens
 {
@@ -208,7 +209,7 @@ namespace PGCGame.Screens
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            MouseState currentMs = Mouse.GetState();
+            MouseState currentMs = MouseManager.CurrentMouseState;
             if (lastMs.LeftButton == ButtonState.Released && currentMs.LeftButton == ButtonState.Pressed)
             {
                 if (mouseInplayButton)
