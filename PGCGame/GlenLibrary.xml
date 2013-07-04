@@ -416,6 +416,9 @@
             <summary>
             Update the TextSprite. Just calls the Updated event by default.
             </summary>
+            <remarks>
+            Uses the InputLib.Mouse.MouseManager.CurrentMouseState for mouse data.
+            </remarks>
         </member>
         <member name="F:Glib.XNA.SpriteLib.TextSprite.CallKeyboardClickEvent">
             <summary>
@@ -1210,7 +1213,7 @@
         </member>
         <member name="M:Glib.XNA.SpriteLib.Sprite.ClickCheck">
             <summary>
-            Checks whether the user is clicking on the sprite, using the default MouseState.
+            Checks whether the user is clicking on the sprite, using the MouseState of InputLib.Mouse.MouseManager.
             </summary>
         </member>
         <member name="M:Glib.XNA.SpriteLib.Sprite.Intersects(Microsoft.Xna.Framework.Vector2)">
@@ -1262,6 +1265,9 @@
             <summary>
             Follow the mouse pointer.
             </summary>
+            <remarks>
+            Uses the InputLib.Mouse.MouseManager.CurrentMouseState.
+            </remarks>
             <param name="initialRotation">The offset rotation to use in adjusting the Sprite's rotation towards the mouse.</param>
             <param name="speed">The speed of following.</param>
         </member>
@@ -2460,13 +2466,17 @@
             </summary>
             <remarks>
             Does not call Update(GameTime) on subclasses of Sprite implementing ITimerSprite.
+            The MouseState for click checking is InputLib.Mouse.MouseManager.CurrentMouseState.
             </remarks>
         </member>
         <member name="M:Glib.XNA.SpriteLib.SpriteManager.Update(Microsoft.Xna.Framework.GameTime)">
             <summary>
             Update all Sprites managed by this SpriteManager, calling Update(GameTime) on ITimerSprites where neccesary.
-            THIS WILL NOT CALL KEYBOARD OR MOSUE EVENTS IF gameTime.IsRunningSlowly IS TRUE.
+            THIS WILL NOT CALL KEYBOARD OR MOUSE EVENTS IF gameTime.IsRunningSlowly IS TRUE.
             </summary>
+            <remarks>
+            Uses InputLib.Mouse.MouseManager.CurrentMouseState.
+            </remarks>
             <param name="gameTime">The current game time.</param>
         </member>
         <member name="P:Glib.XNA.SpriteLib.SpriteManager.SpriteBatch">

@@ -42,11 +42,12 @@ namespace PGCGame
 
         public override void Update()
         {
-            //STAN: DO NOT CALL base.Update() here - too much work happening in base method (MouseState check, etc); very expensive
-            //base.Update();
+            // (Obselete) STAN: DO NOT CALL base.Update() here - too much work happening in base method (MouseState check, etc); very expensive
+            //The performance issues in Sprite.Update() have been fixed.            
+            base.Update();
 
 
-            Position += Speed;
+            //Position += Speed;
 
 
             _traveledDistance += Speed;
