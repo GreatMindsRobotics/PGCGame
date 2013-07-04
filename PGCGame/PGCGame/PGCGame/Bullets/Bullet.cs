@@ -42,7 +42,13 @@ namespace PGCGame
 
         public override void Update()
         {
-            base.Update();
+            //STAN: DO NOT CALL base.Update() here - too much work happening in base method (MouseState check, etc); very expensive
+            //base.Update();
+
+
+            Position += Speed;
+
+
             _traveledDistance += Speed;
             if (MaximumDistance.HasValue)
             {
