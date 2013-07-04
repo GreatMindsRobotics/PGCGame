@@ -15,6 +15,7 @@ using Glib.XNA.SpriteLib;
 
 using PGCGame.Screens;
 using PGCGame.Screens.SelectScreens;
+using Glib.XNA.InputLib;
 
 namespace PGCGame
 {
@@ -58,6 +59,7 @@ namespace PGCGame
         {
             StateManager.GraphicsManager = graphics;
             IsMouseVisible = true;
+            Components.Add(new InputManagerComponent(this));
             StateManager.IsWindowFocused = new CheckIfWindowFocused(isFocused);
             base.Initialize();
         }
@@ -167,13 +169,15 @@ namespace PGCGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
+
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
             screenManager.Update(gameTime);
 
-            base.Update(gameTime);
+            
         }
 
         /// <summary>
