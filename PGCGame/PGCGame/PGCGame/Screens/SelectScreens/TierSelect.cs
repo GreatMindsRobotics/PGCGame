@@ -27,7 +27,7 @@ namespace PGCGame.Screens.SelectScreens
         //This screen needs sprites for each tier of ship and descriptions for each tier.
         List<KeyValuePair<Sprite, string>> itemsShown = new List<KeyValuePair<Sprite, string>>();
 
-        public override void InitScreen()
+        public override void InitScreen(ScreenType screenType)
           {
             Sprite ship1;
             Sprite ship2;
@@ -64,7 +64,7 @@ namespace PGCGame.Screens.SelectScreens
 
             ChangeItem += new EventHandler(TierSelect_ChangeItem);
 
-            base.InitScreen();
+            base.InitScreen(screenType);
 
             acceptLabel.Text = "Buy";
         }

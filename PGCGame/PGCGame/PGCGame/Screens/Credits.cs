@@ -18,7 +18,7 @@ using PGCGame.Xml.XmlTypes;
 
 namespace PGCGame.Screens
 {
-    public class Credits : Screen
+    public class Credits : BaseScreen
     {
         private List<TextSprite> credits = new List<TextSprite>();
         private Song _creditsSong;
@@ -56,8 +56,10 @@ namespace PGCGame.Screens
 
         Sprite imgSprite;
 
-        public void InitScreen()
+        public void InitScreen(ScreenType screenType)
         {
+            base.InitScreen(screenType);
+
             BackgroundSprite = new Sprite(GameContent.GameAssets.Images.Backgrounds.Screens[ScreenBackgrounds.Credits], Vector2.Zero, Sprites.SpriteBatch);
             SpriteFont SegoeUIMono = GameContent.GameAssets.Fonts.NormalText;
             _scrollingSpeed = new Vector2(0, -1);

@@ -12,12 +12,12 @@ using Glib.XNA.InputLib.Mouse;
 
 namespace PGCGame.Screens
 {
-    public class Options : Screen
+    public class Options : BaseScreen
     {
 
 
         public Options(SpriteBatch spriteBatch)
-            : base(spriteBatch, Color.Pink)
+            : base(spriteBatch, Color.Black)
         {
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
         }
@@ -34,8 +34,10 @@ namespace PGCGame.Screens
         bool mouseInBackButton = false;
         
 
-        public void InitScreen()
+        public void InitScreen(ScreenType screenType)
         {
+            base.InitScreen(screenType);
+
             //Add background to this screen     
             this.BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
 

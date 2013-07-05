@@ -17,7 +17,7 @@ using Glib.XNA.InputLib.Mouse;
 
 namespace PGCGame.Screens
 {
-    public class Title : Screen
+    public class Title : BaseScreen
     {
         private Delegates.QuitFunction _exit;
 
@@ -39,8 +39,10 @@ namespace PGCGame.Screens
         TextSprite ExitLabel;
 
 
-        public void InitScreen()
+        public void InitScreen(ScreenType screenName)
         {
+            base.InitScreen(screenName);
+
             Viewport viewPort = Sprites.SpriteBatch.GraphicsDevice.Viewport;
             
             this.BackgroundSprite = new HorizontalMenuBGSprite(GameContent.GameAssets.Images.Backgrounds.Screens[ScreenBackgrounds.GlobalScrollingBg], Sprites.SpriteBatch);
@@ -126,7 +128,7 @@ namespace PGCGame.Screens
 
             if (PlayLabel.IsSelected && PlayButton.ClickCheck(currentMoustState) && !PlayButton.ClickCheck(lastMouseState))
             {
-                StateManager.ScreenState = ScreenState.MainMenu;
+                StateManager.ScreenState = ScreenType.MainMenu;
             }
             else if (ExitLabel.IsSelected && ExitButton.ClickCheck(currentMoustState) && !ExitButton.ClickCheck(lastMouseState))
             {

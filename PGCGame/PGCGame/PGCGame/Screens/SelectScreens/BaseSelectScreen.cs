@@ -18,7 +18,7 @@ using Glib.XNA.InputLib.Mouse;
 
 namespace PGCGame.Screens
 {
-    public abstract class BaseSelectScreen : Screen
+    public abstract class BaseSelectScreen : BaseScreen
     {
         public BaseSelectScreen(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
@@ -40,8 +40,10 @@ namespace PGCGame.Screens
 
         protected List<KeyValuePair<Sprite, TextSprite>> items;
 
-        public virtual void InitScreen()
+        public virtual void InitScreen(ScreenType screenType)
         {
+            base.InitScreen(screenType);
+
             Texture2D buttonImage = GameContent.GameAssets.Images.Controls.Button;
             SpriteFont SegoeUIMono = GameContent.GameAssets.Fonts.NormalText;
 

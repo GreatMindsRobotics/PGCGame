@@ -31,7 +31,7 @@ namespace PGCGame.Screens
 
         List<KeyValuePair<Sprite, string>> itemsShown = new List<KeyValuePair<Sprite, string>>();
 
-        public override void InitScreen()
+        public override void InitScreen(ScreenType screenType)
         {
             ship1 = new Sprite(GameContent.GameAssets.Images.Ships[ShipType.BattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
             TextSprite text1 = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "\n\n This is the strongest class \n in the fleet, but also the slowest.\n What it lacks in speed it makes \n up for in strength.\n\n Damage Per Shot: 20\n Amount of Health: 120");
@@ -64,7 +64,7 @@ namespace PGCGame.Screens
             nextButtonClicked += new EventHandler(ShipSelect_nextButtonClicked);
             ChangeItem += new EventHandler(ShipSelect_ChangeItem);
 
-            base.InitScreen();
+            base.InitScreen(screenType);
             acceptLabel.Text = "Next";
         }
 
@@ -97,7 +97,7 @@ namespace PGCGame.Screens
             }
 
             
-            StateManager.ScreenState = ScreenState.LevelSelect;
+            StateManager.ScreenState = ScreenType.LevelSelect;
         }
 
 

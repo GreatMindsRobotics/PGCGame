@@ -18,7 +18,7 @@ using Glib.XNA.InputLib.Mouse;
 
 namespace PGCGame.Screens
 {
-    public class PauseScreen : Screen
+    public class PauseScreen : BaseScreen
     {
         TextSprite ExitLabel;
         TextSprite PauseLabel;
@@ -35,8 +35,10 @@ namespace PGCGame.Screens
 
         }
 
-        public void InitScreen()
+        public void InitScreen(ScreenType screenType)
         {
+            base.InitScreen(screenType);
+
             Texture2D button = GameContent.GameAssets.Images.Controls.Button;
 
             StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
@@ -223,19 +225,19 @@ namespace PGCGame.Screens
 
                     if (mouseInExitButton)
                     {
-                        StateManager.ScreenState = ScreenState.MainMenu;
+                        StateManager.ScreenState = ScreenType.MainMenu;
 
                         //TODO: Abe: Reset stacks; force "Title Screen" onto ScreenState stack
                         StateManager.ActiveShips.Clear();
                     }
                     if (mouseInShopButton)
                     {
-                        StateManager.ScreenState = ScreenState.Shop;
+                        StateManager.ScreenState = ScreenType.Shop;
                     }
 
                     if (mouseInOptionsButton)
                     {
-                        StateManager.ScreenState = ScreenState.Option;
+                        StateManager.ScreenState = ScreenType.Options;
                     }
 
                 }

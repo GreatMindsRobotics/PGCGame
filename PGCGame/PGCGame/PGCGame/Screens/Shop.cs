@@ -2,21 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Glib.XNA.SpriteLib;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-
-using Glib.XNA;
-using Glib;
 using Microsoft.Xna.Framework.Input;
+
+using Glib.XNA.SpriteLib;
 
 using PGCGame.CoreTypes;
 using Glib.XNA.InputLib.Mouse;
 
 namespace PGCGame.Screens
 {
-    public class Shop : Screen
+    public class Shop : BaseScreen
     {
         public Shop(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
@@ -24,32 +22,34 @@ namespace PGCGame.Screens
             //TODO: BACKGROUND
         }
 
-        TextSprite upgradeELabel;
+        TextSprite upgradeEquipmentLabel;
         TextSprite shipLabel;
         TextSprite weaponsLabel;
         TextSprite backLabel;
 
-        public void InitScreen()
+        public override void InitScreen(ScreenType screenName)
         {
+            base.InitScreen(screenName);
+
             StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
 
             Texture2D buttonImage = GameContent.GameAssets.Images.Controls.Button;
             SpriteFont SegoeUIMono = GameContent.GameAssets.Fonts.NormalText;
             BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
 
-            Sprite upgradeEButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .1f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .4f), Sprites.SpriteBatch);
-            upgradeELabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Equipment");
-            upgradeELabel.Position = new Vector2((upgradeEButton.X + upgradeEButton.Width / 2) - upgradeELabel.Width / 2, (upgradeEButton.Y + upgradeEButton.Height / 2) - upgradeELabel.Height / 2);
-            upgradeELabel.Color = Color.White;
-            upgradeELabel.IsHoverable = true;
-            upgradeELabel.IsManuallySelectable = true;
-            upgradeELabel.NonHoverColor = Color.White;
-            upgradeELabel.HoverColor = Color.MediumAquamarine;
-            upgradeEButton.MouseEnter += new EventHandler(upgradeEButton_MouseEnter);
-            upgradeEButton.MouseLeave += new EventHandler(upgradeEButton_MouseLeave);
+            Sprite upgradeEquipmentButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .1f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .4f), Sprites.SpriteBatch);
+            upgradeEquipmentLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Equipment");
+            upgradeEquipmentLabel.Position = new Vector2((upgradeEquipmentButton.X + upgradeEquipmentButton.Width / 2) - upgradeEquipmentLabel.Width / 2, (upgradeEquipmentButton.Y + upgradeEquipmentButton.Height / 2) - upgradeEquipmentLabel.Height / 2);
+            upgradeEquipmentLabel.Color = Color.White;
+            upgradeEquipmentLabel.IsHoverable = true;
+            upgradeEquipmentLabel.IsManuallySelectable = true;
+            upgradeEquipmentLabel.NonHoverColor = Color.White;
+            upgradeEquipmentLabel.HoverColor = Color.MediumAquamarine;
+            upgradeEquipmentButton.MouseEnter += new EventHandler(upgradeEButton_MouseEnter);
+            upgradeEquipmentButton.MouseLeave += new EventHandler(upgradeEButton_MouseLeave);
 
-            Sprites.Add(upgradeEButton);
-            AdditionalSprites.Add(upgradeELabel);
+            Sprites.Add(upgradeEquipmentButton);
+            AdditionalSprites.Add(upgradeEquipmentLabel);
 
             Sprite shipButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .400f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .4f), Sprites.SpriteBatch);
             shipLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Ship");
@@ -137,7 +137,7 @@ namespace PGCGame.Screens
         {
             get
             {
-                return upgradeELabel.IsSelected;
+                return upgradeEquipmentLabel.IsSelected;
             }
         }
 
@@ -162,11 +162,11 @@ namespace PGCGame.Screens
         //upgradeEbutton
         void upgradeEButton_MouseLeave(object sender, EventArgs e)
         {
-            upgradeELabel.IsSelected = false;
+            upgradeEquipmentLabel.IsSelected = false;
         }
         void upgradeEButton_MouseEnter(object sender, EventArgs e)
         {
-            upgradeELabel.IsSelected = true;
+            upgradeEquipmentLabel.IsSelected = true;
         }
 
         
@@ -185,15 +185,15 @@ namespace PGCGame.Screens
                 }
                 if (mouseInWeaponButton)
                 {
-                    StateManager.ScreenState = ScreenState.WeaponSelect;
+                    StateManager.ScreenState = ScreenType.WeaponSelect;
                 }
                 if (mouseInUpgradeButton)
                 {
-                    StateManager.ScreenState = ScreenState.UpgradeScreen;
+                    StateManager.ScreenState = ScreenType.UpgradeScreen;
                 }
                 if (mouseInShipButton)
                 {
-                    StateManager.ScreenState = ScreenState.TierSelect;
+                    StateManager.ScreenState = ScreenType.TierSelect;
                 }
                 
             }

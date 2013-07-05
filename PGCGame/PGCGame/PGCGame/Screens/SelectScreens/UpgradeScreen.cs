@@ -24,9 +24,9 @@ namespace PGCGame.Screens.SelectScreens
             
         }
 
-       public override void InitScreen()
+       public override void InitScreen(ScreenType screenType)
        {
-           base.InitScreen();
+           base.InitScreen(screenType);
 
            Texture2D tempImage = GameContent.GameAssets.Images.NonPlayingObjects.Planet;
            SpriteFont font = GameContent.GameAssets.Fonts.NormalText;

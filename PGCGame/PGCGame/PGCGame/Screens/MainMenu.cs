@@ -17,22 +17,13 @@ using Glib.XNA.InputLib.Mouse;
 
 namespace PGCGame.Screens
 {
-    public class MainMenu : Screen
+    public class MainMenu : BaseScreen
     {
 
         private Delegates.QuitFunction _exit;
 
-        private static bool _debugBackground = false;
-        public static bool DebugBackground
-        {
-            get 
-            { 
-                return _debugBackground; 
-            }
-        }
-
         public MainMenu(SpriteBatch spriteBatch, Delegates.QuitFunction exit)
-            : base(spriteBatch, _debugBackground ? Color.Red : Color.Black)
+            : base(spriteBatch, Color.Black)
         {
             _exit = exit;
         }
@@ -60,8 +51,10 @@ namespace PGCGame.Screens
         TextSprite CreditsLabel;
 
 
-        public void InitScreen()
+        public void InitScreen(ScreenType screnType)
         {
+            base.InitScreen(screnType);
+
             Texture2D planetTexture = GameContent.GameAssets.Images.NonPlayingObjects.Planet;
             Texture2D buttonImage = GameContent.GameAssets.Images.Controls.Button;
             SpriteFont SegoeUIMono = GameContent.GameAssets.Fonts.NormalText;
@@ -258,15 +251,15 @@ namespace PGCGame.Screens
             }
             else if (CreditsLabel.IsSelected && CreditsButton.ClickCheck(currentMouseState) && !CreditsButton.ClickCheck(lastMouseState))
             {
-                StateManager.ScreenState = ScreenState.Credits;
+                StateManager.ScreenState = ScreenType.Credits;
             }
             else if (OptionsLabel.IsSelected && OptionsButton.ClickCheck(currentMouseState) && !OptionsButton.ClickCheck(lastMouseState))
             {
-                StateManager.ScreenState = ScreenState.Option;
+                StateManager.ScreenState = ScreenType.Options;
             }
             else if (SinglePlayerLabel.IsSelected && SinglePlayerButton.ClickCheck(currentMouseState) && !SinglePlayerButton.ClickCheck(lastMouseState))
             {
-                StateManager.ScreenState = ScreenState.ShipSelect;
+                StateManager.ScreenState = ScreenType.ShipSelect;
             }
 
             lastMouseState = currentMouseState;

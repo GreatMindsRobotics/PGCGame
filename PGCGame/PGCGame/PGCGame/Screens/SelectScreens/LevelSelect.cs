@@ -21,16 +21,16 @@ namespace PGCGame.Screens.SelectScreens
 
         }
 
-        public override void InitScreen()
+        public override void InitScreen(ScreenType screenType)
         {
-            base.InitScreen();
+            base.InitScreen(screenType);
 
             nextButtonClicked += new EventHandler(LevelSelect_nextButtonClicked);
         }
 
         void LevelSelect_nextButtonClicked(object sender, EventArgs e)
         {
-            StateManager.ScreenState = ScreenState.Game;
+            StateManager.ScreenState = ScreenType.Game;
         }
 
         public override void Update(GameTime gameTime)

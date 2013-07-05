@@ -77,6 +77,7 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CoreTypes\BaseScreen.cs" />
     <Compile Include="CoreTypes\BGSprite.cs" />
     <Compile Include="CoreTypes\Camera2DMatrix.cs" />
     <Compile Include="CoreTypes\ContentLoader.cs" />

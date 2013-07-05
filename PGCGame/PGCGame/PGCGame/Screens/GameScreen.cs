@@ -22,7 +22,7 @@ using Glib.XNA.InputLib.Mouse;
 
 namespace PGCGame.Screens
 {
-    public class GameScreen : Screen
+    public class GameScreen : BaseScreen
     {
         public GameScreen(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
@@ -45,8 +45,10 @@ namespace PGCGame.Screens
         Song _gameSong;
         List<ISprite> playerSbObjects = new List<ISprite>();
         
-        public void LoadContent()
+        public override void InitScreen(ScreenType screenType)
         {
+            base.InitScreen(screenType);
+
             bold = GameContent.GameAssets.Fonts.BoldText;
             normal = GameContent.GameAssets.Fonts.NormalText;
             StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
@@ -260,7 +262,7 @@ namespace PGCGame.Screens
             KeyboardState keyboard = Keyboard.GetState();
             if (_lastState.IsKeyUp(Keys.Escape) && keyboard.IsKeyDown(Keys.Escape))
             {
-                StateManager.ScreenState = ScreenState.Pause;
+                StateManager.ScreenState = ScreenType.Pause;
                 MediaPlayer.Pause();
             }
 

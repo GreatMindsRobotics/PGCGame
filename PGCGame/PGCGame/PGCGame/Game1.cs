@@ -21,7 +21,7 @@ using PGCGame.CoreTypes;
 namespace PGCGame
 {
     /// <summary>
-    /// This is the main type for your game
+    /// Main type for PGCGame
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
@@ -40,6 +40,9 @@ namespace PGCGame
         UpgradeScreen upgradeScreen;
         TierSelect tierSelectScreen;
         LevelSelect levelSelectScreen;
+        GameScreen gameScreen;
+        Shop shopScreen;
+
 
         public Game1()
         {
@@ -49,33 +52,21 @@ namespace PGCGame
         }
 
         /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
+        /// Initialize StateManager and InputManager
         /// </summary>
         protected override void Initialize()
         {
             StateManager.GraphicsManager = graphics;
+            StateManager.IsWindowFocused = new Delegates.CheckIfWindowFocused(() => IsActive);
+
             IsMouseVisible = true;
             Components.Add(new InputManagerComponent(this));
-            StateManager.IsWindowFocused = new Delegates.CheckIfWindowFocused(isFocused);
+            
             base.Initialize();
         }
 
-
-
-        GameScreen gameScreen;
-        Shop shopScreen;
-
-        bool isFocused()
-        {
-            return IsActive;
-        }
-
         /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
+        /// Load Game Assets and initialize all screens
         /// </summary>
         protected override void LoadContent()
         {
@@ -86,57 +77,45 @@ namespace PGCGame
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             shopScreen = new Shop(spriteBatch);
-            shopScreen.InitScreen();
-            shopScreen.Name = "shopScreen";
+            shopScreen.InitScreen(ScreenType.Shop);
 
             titleScreen = new Title(spriteBatch, new Delegates.QuitFunction(Exit));
-            titleScreen.InitScreen();
-            titleScreen.Name = "titleScreen";
+            titleScreen.InitScreen(ScreenType.Title);
             titleScreen.Visible = true;
 
             mainMenuScreen = new MainMenu(spriteBatch, new Delegates.QuitFunction(Exit));
-            mainMenuScreen.InitScreen();
-            mainMenuScreen.Name = "mainMenuScreen";
+            mainMenuScreen.InitScreen(ScreenType.MainMenu);
 
             creditsScreen = new Credits(spriteBatch);
-            creditsScreen.InitScreen();
-            creditsScreen.Name = "creditsScreen";
+            creditsScreen.InitScreen(ScreenType.Credits);
 
             gameScreen = new GameScreen(spriteBatch);
-            gameScreen.LoadContent();
-            gameScreen.Name = "gameScreen";
+            gameScreen.InitScreen(ScreenType.Game);
 
             optionScreen = new Options(spriteBatch);
-            optionScreen.InitScreen();
-            optionScreen.Name = "optionScreen";
+            optionScreen.InitScreen(ScreenType.Options);
 
             pauseScreen = new PauseScreen(spriteBatch);
-            pauseScreen.InitScreen();
-            pauseScreen.Name = "pauseScreen";
+            pauseScreen.InitScreen(ScreenType.Pause);
 
             shipSelectScreen = new ShipSelect(spriteBatch);
-            shipSelectScreen.InitScreen();
-            shipSelectScreen.Name = "shipSelectScreen";
+            shipSelectScreen.InitScreen(ScreenType.ShipSelect);
 
             weaponSelectScreen = new WeaponSelectScreen(spriteBatch);
-            weaponSelectScreen.InitScreen();
-            weaponSelectScreen.Name = "weaponSelectScreen";
+            weaponSelectScreen.InitScreen(ScreenType.WeaponSelect);
 
             upgradeScreen = new UpgradeScreen(spriteBatch);
-            upgradeScreen.InitScreen();
-            upgradeScreen.Name = "upgradeScreen";
+            upgradeScreen.InitScreen(ScreenType.UpgradeScreen);
 
             tierSelectScreen = new TierSelect(spriteBatch);
-            tierSelectScreen.InitScreen();
-            tierSelectScreen.Name = "tierSelectScreen";
+            tierSelectScreen.InitScreen(ScreenType.TierSelect);
 
             levelSelectScreen = new LevelSelect(spriteBatch);
-            levelSelectScreen.InitScreen();
-            levelSelectScreen.Name = "levelSelectScreen";
+            levelSelectScreen.InitScreen(ScreenType.LevelSelect);
 
             screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen, shipSelectScreen, weaponSelectScreen, upgradeScreen, tierSelectScreen, levelSelectScreen);
             StateManager.AllScreens = screenManager;
-            StateManager.ScreenState = CoreTypes.ScreenState.Title;
+            StateManager.ScreenState = CoreTypes.ScreenType.Title;
         }
 
         /// <summary>
@@ -163,7 +142,7 @@ namespace PGCGame
 
             screenManager.Update(gameTime);
 
-            
+
         }
 
         /// <summary>

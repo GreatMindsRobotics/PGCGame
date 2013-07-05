@@ -17,8 +17,8 @@ namespace PGCGame
         #region Private Fields
 
         private static bool _hasBoughtScanner = false;
-        private static Stack<ScreenState> _screenStack = new Stack<ScreenState>();
-        private static ScreenState _screenState = ScreenState.Title;
+        private static Stack<ScreenType> _screenStack = new Stack<ScreenType>();
+        private static ScreenType _screenState = ScreenType.Title;
         private static GraphicsDeviceManager _gfx;
         private static Guid _enemyID = Guid.NewGuid();
         #endregion Private Fields
@@ -61,7 +61,7 @@ namespace PGCGame
         /// Gets or sets ScreenState for the game, indicating the currently visible screen.
         /// StateManager keeps track of active screens on the screenStack.
         /// </summary>
-        public static ScreenState ScreenState
+        public static ScreenType ScreenState
         {
             get
             {
@@ -110,68 +110,43 @@ namespace PGCGame
             get { return _hasBoughtScanner; }
             set { _hasBoughtScanner = value; }
         }
-        
+
 
         #endregion Public Properties
 
 
 
         #region Private Methods
- 
+
         /// <summary>
         /// Switches the active screen based on screenState parameter.
         /// Note: Currently only a single screen can be visible at any one time.
         /// </summary>
-        /// <param name="screenState">Screen to switch to</param>
-        private static void SwitchScreen(ScreenState screenState)
+        /// <param name="screenType">Screen to switch to</param>
+        private static void SwitchScreen(ScreenType screenType)
         {
             foreach (Screen screen in AllScreens)
             {
                 screen.Visible = false;
             }
 
-            switch (screenState)
-            {
-                case ScreenState.Title:
-                    AllScreens["titleScreen"].Visible = true;
+            //Find the right screen
+            Screen activeScreen = AllScreens[screenType.ToString()];
 
+            //Special handling
+            switch (screenType)
+            {
+                case ScreenType.Game:
+                    activeScreen.Cast<PGCGame.Screens.GameScreen>().ResetLastKS(Keys.Escape);
                     break;
-                case ScreenState.MainMenu:
-                    AllScreens["mainMenuScreen"].Visible = true;
-                    break;
-                case ScreenState.Credits:
-                    AllScreens["creditsScreen"].Visible = true;
-                    break;
-                case ScreenState.Game:
-                    AllScreens["gameScreen"].Cast<PGCGame.Screens.GameScreen>().ResetLastKS(Keys.Escape);
-                    AllScreens["gameScreen"].Visible = true;
-                    break;
-                case ScreenState.Option:
-                    AllScreens["optionScreen"].Visible = true;
-                    break;
-                case ScreenState.Shop:
-                    AllScreens["shopScreen"].Visible = true;
-                    break;
-                case ScreenState.Pause:
-                    AllScreens["pauseScreen"].Cast<PGCGame.Screens.PauseScreen>().lastState = new KeyboardState(Keys.Escape);
-                    AllScreens["pauseScreen"].Visible = true;
-                    break;
-                case ScreenState.ShipSelect:
-                    AllScreens["shipSelectScreen"].Visible = true;
-                    break;
-                case ScreenState.WeaponSelect:
-                    AllScreens["weaponSelectScreen"].Visible = true;
-                    break;
-                case ScreenState.UpgradeScreen:
-                    AllScreens["upgradeScreen"].Visible = true;
-                    break;
-                case ScreenState.TierSelect:
-                AllScreens["tierSelectScreen"].Visible = true;
-                break;
-                case ScreenState.LevelSelect:
-                AllScreens["levelSelectScreen"].Visible = true;
-                break;
+                
+                case ScreenType.Pause:
+                    activeScreen.Cast<PGCGame.Screens.PauseScreen>().lastState = new KeyboardState(Keys.Escape);
+                    break;                
             }
+
+            //Set selected screen visible
+            activeScreen.Visible = true;
         }
 
         #endregion Private Methods
@@ -185,7 +160,7 @@ namespace PGCGame
         /// <param name="tier">Ship tier</param>
         public static void InitializeSingleplayerGameScreen<T>(ShipTier tier) where T : PGCGame.Ships.Allies.BaseAllyShip
         {
-            AllScreens["gameScreen"].Cast<Screens.GameScreen>().InitializeScreen<T>(tier);
+            AllScreens[ScreenType.Game.ToString()].Cast<Screens.GameScreen>().InitializeScreen<T>(tier);
         }
 
         /// <summary>

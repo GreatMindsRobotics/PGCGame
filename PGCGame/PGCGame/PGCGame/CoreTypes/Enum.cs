@@ -5,13 +5,13 @@ using System.Text;
 
 namespace PGCGame.CoreTypes
 {
-    public enum ScreenState
+    public enum ScreenType
     {
         Title,
         MainMenu,
         Credits,
         Game,
-        Option,
+        Options,
         Shop,
         Pause,
         ShipSelect,

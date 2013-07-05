@@ -29,7 +29,7 @@ namespace PGCGame.Screens.SelectScreens
         List<KeyValuePair<Sprite, string>> itemsShown = new List<KeyValuePair<Sprite, string>>();
         
 
-        public override void InitScreen()
+        public override void InitScreen(ScreenType screenType)
         {
             Texture2D image = GameContent.GameAssets.Images.NonPlayingObjects.Planet;
             Texture2D EMP = GameContent.GameAssets.Images.SecondaryWeapon[SecondaryWeaponType.EMP, TextureDisplayType.ShopDisplay];
@@ -77,7 +77,7 @@ namespace PGCGame.Screens.SelectScreens
 
             ChangeItem += new EventHandler(WeaponSelectScreen_ChangeItem);
 
-            base.InitScreen();
+            base.InitScreen(screenType);
 
             acceptLabel.Text = "Buy";
             //In clicked code
