@@ -60,17 +60,17 @@ namespace PGCGame.Screens
         TextSprite CreditsLabel;
 
 
-        public void LoadContent(ContentManager content)
+        public void InitScreen()
         {
-            Texture2D planetTexture = content.Load<Texture2D>("Images\\NonPlayingObject\\Planet");
-            Texture2D buttonImage = content.Load<Texture2D>("Images\\Controls\\Button");
-            SpriteFont SegoeUIMono = content.Load<SpriteFont>("Fonts\\SegoeUIMono");
+            Texture2D planetTexture = GameContent.GameAssets.Images.NonPlayingObjects.Planet;
+            Texture2D buttonImage = GameContent.GameAssets.Images.Controls.Button;
+            SpriteFont SegoeUIMono = GameContent.GameAssets.Fonts.NormalText;
 
             StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
 
             this.BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
 
-            TitleSprite = new Sprite(content.Load<Texture2D>("Images\\Controls\\Gametitle"), new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .05f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .07f), Sprites.SpriteBatch);
+            TitleSprite = new Sprite(GameContent.GameAssets.Images.Controls.Title, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .05f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .07f), Sprites.SpriteBatch);
             Sprites.Add(TitleSprite);
 
             planet = new Sprite(planetTexture, Vector2.Zero, Sprites.SpriteBatch);

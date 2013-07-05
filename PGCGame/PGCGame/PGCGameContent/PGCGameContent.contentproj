@@ -31,7 +31,7 @@
     <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.VideoImporters, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Images\Background\NebulaSky.png">
+    <Compile Include="Images\Backgrounds\NebulaSky.png">
       <Name>NebulaSky</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -46,7 +46,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Images\NonPlayingObject\Planet.png">
+    <Compile Include="Images\NonPlayingObjects\Planet.png">
       <Name>Planet</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -63,69 +63,69 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Images\Background\1920by1080SkyStar.png">
+    <Compile Include="Images\Backgrounds\1920by1080SkyStar.png">
       <Name>1920by1080SkyStar</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Images\Battle Cruiser\Tier1.png">
+    <Compile Include="Images\Ships\Allies\BattleCruiser\Tier1.png">
       <Name>Tier1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Images\Battle Cruiser\Tier2.png">
+    <Compile Include="Images\Ships\Allies\BattleCruiser\Tier2.png">
       <Name>Tier2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Images\Battle Cruiser\Tier3.png">
+    <Compile Include="Images\Ships\Allies\BattleCruiser\Tier3.png">
       <Name>Tier3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Images\Battle Cruiser\Tier4.png">
+    <Compile Include="Images\Ships\Allies\BattleCruiser\Tier4.png">
       <Name>Tier4</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Images\Fighter Carrier\Tier1.png">
+    <Compile Include="Images\Ships\Allies\FighterCarrier\Tier1.png">
       <Name>Tier1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Images\Fighter Carrier\Tier2.png">
+    <Compile Include="Images\Ships\Allies\FighterCarrier\Tier2.png">
       <Name>Tier2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Images\Fighter Carrier\Tier3.png">
+    <Compile Include="Images\Ships\Allies\FighterCarrier\Tier3.png">
       <Name>Tier3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Images\Fighter Carrier\Tier4.png">
+    <Compile Include="Images\Ships\Allies\FighterCarrier\Tier4.png">
       <Name>Tier4</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Images\Torpedo Ship\Tier1.png">
+    <Compile Include="Images\Ships\Allies\TorpedoShip\Tier1.png">
       <Name>Tier1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Images\Torpedo Ship\Tier2.png">
+    <Compile Include="Images\Ships\Allies\TorpedoShip\Tier2.png">
       <Name>Tier2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Images\Torpedo Ship\Tier3.png">
+    <Compile Include="Images\Ships\Allies\TorpedoShip\Tier3.png">
       <Name>Tier3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Images\Torpedo Ship\Tier4.png">
+    <Compile Include="Images\Ships\Allies\TorpedoShip\Tier4.png">
       <Name>Tier4</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -139,20 +139,20 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Images\Bullets\Laser.png">
+    <Compile Include="Images\TempBullets\Laser.png">
       <Name>Laser</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Images\Drones\Drone1.png">
-      <Name>Drone1</Name>
+    <Compile Include="Images\Ships\Allies\FighterCarrier\Drones\Tier1.png">
+      <Name>Tier1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Images\Drones\Drone2.png">
-      <Name>Drone2</Name>
+    <Compile Include="Images\Ships\Allies\FighterCarrier\Drones\Tier2.png">
+      <Name>Tier2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -165,22 +165,36 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Images\Secondary Weapons\EMP\EMP.png">
+    <Compile Include="Images\SecondaryWeapons\EMP\EMP.png">
       <Name>EMP</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Images\Secondary Weapons\Spacemine\bombas3.png">
-      <Name>bombas3</Name>
+    <Compile Include="Images\SecondaryWeapons\SpaceMine\SpaceMine.png">
+      <Name>SpaceMine</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Images\Secondary Weapons\Ray Gun\RayGun.png">
-      <Name>RayGun</Name>
+    <Compile Include="Images\SecondaryWeapons\ShrinkRay\ShrinkRay.png">
+      <Name>ShrinkRay</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\Ships\Allies\BattleCruiser\Bullets\" />
+    <Folder Include="Images\Ships\Allies\FighterCarrier\Bullets\" />
+    <Folder Include="Images\Ships\Allies\FighterCarrier\Drones\Bullets\" />
+    <Folder Include="Images\Ships\Allies\TorpedoShip\Bullets\" />
+    <Folder Include="Images\Ships\Enemies\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\Equipment\Scanner\Scanner.png">
+      <Name>Scanner</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

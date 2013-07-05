@@ -44,21 +44,16 @@ namespace PGCGame.Screens
         Texture2D bgImg;
         Song _gameSong;
         List<ISprite> playerSbObjects = new List<ISprite>();
-        ContentManager storedCm;
         
-        public void LoadContent(ContentManager content)
+        public void LoadContent()
         {
-            //TODO: LOAD CONTENT
-            storedCm = content;
-            bold = content.Load<SpriteFont>("Fonts\\SegoeUIMonoBold");
-            normal = content.Load<SpriteFont>("Fonts\\SegoeUIMono");
+            bold = GameContent.GameAssets.Fonts.BoldText;
+            normal = GameContent.GameAssets.Fonts.NormalText;
             StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
 
-            _gameSong = content.Load<Song>("Songs\\Movement Proposition");
+            _gameSong = GameContent.GameAssets.Music[ScreenMusic.Level1];
 
-            bgImg = content.Load<Texture2D>("Images\\Background\\NebulaSky");
-
-            
+            bgImg = GameContent.GameAssets.Images.Backgrounds.Levels[GameLevel.Level1];
         }
 
         void Options_ScreenResolutionChanged(object sender, EventArgs e)
@@ -82,10 +77,10 @@ namespace PGCGame.Screens
             playerSbObjects.Clear();
             Sprites.Sprites.Clear();
             enemies.Clear();
-            Texture2D enemyTexture = storedCm.Load<Texture2D>("Images\\Drones\\Drone1");
 
             for (int i = 0; i < 4; i++)
             {
+                Texture2D enemyTexture = GameContent.GameAssets.Images.Ships[ShipType.Drone, StateManager.RandomGenerator.NextShipTier(ShipTier.Tier1, ShipTier.Tier2)];
                 EnemyDrone enemy = new EnemyDrone(enemyTexture, Vector2.Zero, Sprites.SpriteBatch);
 
                 enemy.WorldCoords = StateManager.RandomGenerator.NextVector2(new Vector2(500, 6500), new Vector2(3550, 10500));
@@ -125,14 +120,14 @@ namespace PGCGame.Screens
             TShip ship = null;
             if (typeof(TShip) == typeof(FighterCarrier))
             {
-                ship = new FighterCarrier(null, Vector2.Zero, playerSb, storedCm.Load<Texture2D>("Images\\Drones\\Drone1")).Cast<TShip>();
+                ship = new FighterCarrier(null, Vector2.Zero, playerSb, GameContent.GameAssets.Images.Ships[ShipType.Drone, ShipTier.Tier1]).Cast<TShip>();
             }
             else
             {
                 ship = Activator.CreateInstance(typeof(TShip), null, Vector2.Zero, playerSb).Cast<TShip>();
             }
 
-            ship.Texture = storedCm.Load<Texture2D>("Images\\" + ship.TextureFolder + "\\" + tier.ToString().Replace("ShipTier.", ""));
+            ship.Texture = GameContent.GameAssets.Images.Ships[ship.ShipType, ShipTier.Tier1];
             ship.UseCenterAsOrigin = true;
             ship.WorldSb = Sprites.SpriteBatch;
             ship.Tier = tier;

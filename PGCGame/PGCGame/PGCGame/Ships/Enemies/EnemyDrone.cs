@@ -19,13 +19,12 @@ namespace PGCGame.Ships.Enemies
 
             DistanceToNose = .5f;
 
-            BulletTexture = Ship.DroneBullet;
+            BulletTexture = GameContent.GameAssets.Images.Ships.Bullets[CoreTypes.ShipType.Drone, ShipTier.Tier1];
         }
 
-
-        public override string TextureFolder
+        public override ShipType ShipType
         {
-            get { throw new NotImplementedException(); }
+            get { return ShipType.Drone; }
         }
 
         public override string FriendlyName

@@ -66,6 +66,25 @@ namespace PGCGame.CoreTypes
             return new Vector2(x, y);
         }
 
+
+        /// <summary>
+        /// Generates a new ShipTier between minValue and maxValue, inclusively
+        /// </summary>
+        /// <param name="random">Random number generator to use</param>
+        /// <param name="minValue">Inclusive minimum value</param>
+        /// <param name="maxValue">Inclusive maximum value</param>
+        /// <remarks>Both minimum and maximum values are inclusive for this extension method</remarks>
+        /// <returns>ShipTier value</returns>
+        public static ShipTier NextShipTier(this Random random, ShipTier minValue, ShipTier maxValue)
+        {
+            if(minValue >= maxValue)
+            {
+                throw new ArgumentException("Minimum ship tier must be smaller than maximum ship tier");
+            }
+
+            return (ShipTier)random.Next(minValue.ToInt(), maxValue.ToInt() + 1);
+        }
+
 #endregion Random Class extensions
 
 

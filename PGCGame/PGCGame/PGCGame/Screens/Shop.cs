@@ -29,15 +29,12 @@ namespace PGCGame.Screens
         TextSprite weaponsLabel;
         TextSprite backLabel;
 
-        public void LoadContent(ContentManager content)
+        public void InitScreen()
         {
-            //TODO: LOAD CONTENT
-
-
             StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
 
-            Texture2D buttonImage = content.Load<Texture2D>("Images\\Controls\\Button");
-            SpriteFont SegoeUIMono = content.Load<SpriteFont>("Fonts\\SegoeUIMono");
+            Texture2D buttonImage = GameContent.GameAssets.Images.Controls.Button;
+            SpriteFont SegoeUIMono = GameContent.GameAssets.Fonts.NormalText;
             BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
 
             Sprite upgradeEButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .1f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .4f), Sprites.SpriteBatch);

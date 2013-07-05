@@ -61,7 +61,7 @@ namespace PGCGame
             Scale = new Vector2(.75f);
             RotateTowardsMouse = false;
             _initHealth = 10;
-            BulletTexture = Ship.DroneBullet;
+            BulletTexture = GameContent.GameAssets.Images.Ships.Bullets[ShipType.Drone, ShipTier.Tier1];
         }
 
         #endregion Public Ctors
@@ -225,9 +225,9 @@ namespace PGCGame
             base.Draw();
         }
 
-        public override string TextureFolder
+        public override ShipType ShipType
         {
-            get { throw new NotImplementedException(); }
+            get { return ShipType.Drone; }
         }
 
         #endregion Public Methods

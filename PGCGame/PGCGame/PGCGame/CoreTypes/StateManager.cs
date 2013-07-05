@@ -25,7 +25,7 @@ namespace PGCGame
 
         #region Public Fields
 
-        public static CheckIfWindowFocused IsWindowFocused;
+        public static Delegates.CheckIfWindowFocused IsWindowFocused;
 
         /// <summary>
         /// Keeps track of active ships in the game. This info can be used for mini-map, collision detection, etc

@@ -23,7 +23,7 @@ namespace PGCGame
             : base(texture, location, spriteBatch)
         {
             Scale = new Vector2(.925f);
-            BulletTexture = Ship.Torpedo;
+            BulletTexture = GameContent.GameAssets.Images.Ships.Bullets[ShipType.TorpedoShip, ShipTier.Tier1];
             MovementSpeed = new Vector2(1.333f);
             //MovementSpeed = new Vector2(1f);
             DelayBetweenShots = TimeSpan.FromSeconds(.75);
@@ -72,9 +72,9 @@ namespace PGCGame
             FlyingBullets.Add(bullet);
             FireBulletEvent();
         }
-        public override string TextureFolder
+        public override ShipType ShipType
         {
-            get { return "Torpedo Ship"; }
+            get { return ShipType.TorpedoShip; }
         }
 
         public override string FriendlyName

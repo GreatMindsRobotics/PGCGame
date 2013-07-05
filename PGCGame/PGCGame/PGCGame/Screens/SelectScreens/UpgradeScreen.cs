@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Media;
 using Glib;
 using Glib.XNA;
 using Glib.XNA.SpriteLib;
+using PGCGame.CoreTypes;
 
 namespace PGCGame.Screens.SelectScreens
 {
@@ -23,12 +24,12 @@ namespace PGCGame.Screens.SelectScreens
             
         }
 
-       public override void LoadContent(ContentManager content)
+       public override void InitScreen()
        {
+           base.InitScreen();
 
-           base.LoadContent(content);
-           Texture2D tempImage = content.Load<Texture2D>("Images\\NonPlayingObject\\Planet");
-           SpriteFont font = content.Load<SpriteFont>("Fonts\\SegoeUIMono");
+           Texture2D tempImage = GameContent.GameAssets.Images.NonPlayingObjects.Planet;
+           SpriteFont font = GameContent.GameAssets.Fonts.NormalText;
 
            Sprite image = new Sprite(tempImage, Vector2.Zero, Sprites.SpriteBatch);
            TextSprite text = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, font, "TODO");

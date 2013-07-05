@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Media;
 using Glib;
 using Glib.XNA;
 using Glib.XNA.SpriteLib;
+using PGCGame.CoreTypes;
 
 namespace PGCGame.Screens.SelectScreens
 {
@@ -28,15 +29,16 @@ namespace PGCGame.Screens.SelectScreens
         List<KeyValuePair<Sprite, string>> itemsShown = new List<KeyValuePair<Sprite, string>>();
         
 
-        public override void LoadContent(ContentManager content)
+        public override void InitScreen()
         {
-            Texture2D image = content.Load<Texture2D>("Images\\NonPlayingObject\\Planet");
-            Texture2D EMP = content.Load<Texture2D>("Images\\Secondary Weapons\\EMP\\EMP");
-            Texture2D RayGun = content.Load<Texture2D>("Images\\Secondary Weapons\\Ray Gun\\RayGun");
-            Texture2D Bomb = content.Load<Texture2D>("Images\\Secondary Weapons\\Spacemine\\bombas3");
-            //Texture2D Scanner = content.Load<Texture2D>("Images\\Secondary Weapons\\Spacemine\\EMP");
-            Texture2D Scanner = new PlainTexture2D(Graphics, 100, 100, Color.Red);
-            SpriteFont font = content.Load<SpriteFont>("Fonts\\SegoeUIMono");
+            Texture2D image = GameContent.GameAssets.Images.NonPlayingObjects.Planet;
+            Texture2D EMP = GameContent.GameAssets.Images.SecondaryWeapon[SecondaryWeaponType.EMP, TextureDisplayType.ShopDisplay];
+            Texture2D RayGun = GameContent.GameAssets.Images.SecondaryWeapon[SecondaryWeaponType.ShrinkRay, TextureDisplayType.ShopDisplay];
+            Texture2D Bomb = GameContent.GameAssets.Images.SecondaryWeapon[SecondaryWeaponType.SpaceMine, TextureDisplayType.ShopDisplay];
+
+            Texture2D Scanner = GameContent.GameAssets.Images.Equipment[EquipmentType.Scanner, TextureDisplayType.ShopDisplay];
+
+            SpriteFont font = GameContent.GameAssets.Fonts.NormalText;
 
             //EMP
             Sprite weapon1 = new Sprite(EMP, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.6f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.1f), Sprites.SpriteBatch);
@@ -75,7 +77,8 @@ namespace PGCGame.Screens.SelectScreens
 
             ChangeItem += new EventHandler(WeaponSelectScreen_ChangeItem);
 
-            base.LoadContent(content);
+            base.InitScreen();
+
             acceptLabel.Text = "Buy";
             //In clicked code
             this.nextButtonClicked += new EventHandler(WeaponSelectScreen_nextButtonClicked);

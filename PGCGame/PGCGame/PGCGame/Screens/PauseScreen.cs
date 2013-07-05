@@ -35,13 +35,13 @@ namespace PGCGame.Screens
 
         }
 
-        public void LoadContent(ContentManager content)
+        public void InitScreen()
         {
-            Texture2D button = content.Load<Texture2D>("Images\\Controls\\Button");
+            Texture2D button = GameContent.GameAssets.Images.Controls.Button;
 
             StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
 
-            PauseLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, content.Load<SpriteFont>("Fonts\\SegoeUIMonoBold"), "Paused");
+            PauseLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.BoldText, "Paused");
             PauseLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width / 2 - PauseLabel.Width / 2, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f);
             PauseLabel.Color = Color.White;
             AdditionalSprites.Add(PauseLabel);
@@ -59,7 +59,7 @@ namespace PGCGame.Screens
             ExitButton.MouseLeave += new EventHandler(BackButton_MouseLeave);
             Sprites.Add(ExitButton);
 
-            ResumeLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "Resume");
+            ResumeLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "Resume");
             ResumeLabel.Position = new Vector2(ResumeLabel.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X, ResumeButton.Y + (ResumeButton.Height / 2 - ResumeLabel.Height / 2));
             ResumeLabel.Color = Color.White;
             ResumeLabel.IsHoverable = true;
@@ -68,7 +68,7 @@ namespace PGCGame.Screens
             ResumeLabel.NonHoverColor = Color.White;
             AdditionalSprites.Add(ResumeLabel);
 
-            ExitLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "Exit");
+            ExitLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "Exit");
             ExitLabel.Position = new Vector2(ExitLabel.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X, ExitButton.Y + (ExitButton.Height / 2 - ExitLabel.Height / 2));
             ExitLabel.Color = Color.White;
             ExitLabel.IsHoverable = true;
@@ -83,7 +83,7 @@ namespace PGCGame.Screens
             ShopButton.MouseLeave += new EventHandler(ShopButton_MouseLeave);
             Sprites.Add(ShopButton);
 
-            ShopLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "Shop");
+            ShopLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "Shop");
             ShopLabel.Position = new Vector2(ShopLabel.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X, ShopButton.Y + (ShopButton.Height / 2 - ShopLabel.Height / 2));
             ShopLabel.Color = Color.White;
             ShopLabel.IsHoverable = true;
@@ -98,7 +98,7 @@ namespace PGCGame.Screens
             OptionButton.MouseLeave += new EventHandler(OptionButton_MouseLeave);
             Sprites.Add(OptionButton);
 
-            OptionsLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "Options");
+            OptionsLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "Options");
             OptionsLabel.Position = new Vector2(OptionsLabel.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X, OptionButton.Y + (OptionButton.Height / 2 - OptionsLabel.Height / 2));
             OptionsLabel.Color = Color.White;
             OptionsLabel.IsHoverable = true;

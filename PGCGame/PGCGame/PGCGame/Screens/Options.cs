@@ -34,13 +34,13 @@ namespace PGCGame.Screens
         bool mouseInBackButton = false;
         
 
-        public void LoadContent(ContentManager content)
+        public void InitScreen()
         {
             //Add background to this screen     
             this.BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
 
-            Texture2D button = content.Load<Texture2D>("Images\\Controls\\Button");
-            SpriteFont font = content.Load<SpriteFont>("Fonts\\SegoeUIMono");
+            Texture2D button = GameContent.GameAssets.Images.Controls.Button;
+            SpriteFont font = GameContent.GameAssets.Fonts.NormalText;
 
             StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
 
@@ -103,7 +103,7 @@ namespace PGCGame.Screens
 
             //Back button
             Sprite BackButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .60f), Sprites.SpriteBatch);
-            BackLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .139f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .62f), content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "Back");
+            BackLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .139f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .62f), GameContent.GameAssets.Fonts.NormalText, "Back");
             BackLabel.Color = Color.White;
             BackButton.MouseEnter += new EventHandler(BackButton_MouseEnter);
             BackButton.MouseLeave += new EventHandler(BackButton_MouseLeave);

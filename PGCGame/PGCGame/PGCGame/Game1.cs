@@ -20,8 +20,6 @@ using PGCGame.CoreTypes;
 
 namespace PGCGame
 {
-    public delegate bool CheckIfWindowFocused();
-
     /// <summary>
     /// This is the main type for your game
     /// </summary>
@@ -61,7 +59,7 @@ namespace PGCGame
             StateManager.GraphicsManager = graphics;
             IsMouseVisible = true;
             Components.Add(new InputManagerComponent(this));
-            StateManager.IsWindowFocused = new CheckIfWindowFocused(isFocused);
+            StateManager.IsWindowFocused = new Delegates.CheckIfWindowFocused(isFocused);
             base.Initialize();
         }
 
@@ -81,72 +79,59 @@ namespace PGCGame
         /// </summary>
         protected override void LoadContent()
         {
+            //Instantiate the singleton class GameContent and load all game assets
+            GameContent gameContent = new GameContent(Content);
+
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            Texture2D greenLaser = Content.Load<Texture2D>("Images\\Bullets\\Laser");
-            //Ship.BattleCruiserBullet = new PlainTexture2D(GraphicsDevice, 5, 1, Color.Red);
-            Ship.BattleCruiserBullet = greenLaser;
-            //Ship.DroneBullet = new PlainTexture2D(GraphicsDevice, 5, 1, Color.Red);
-            Ship.DroneBullet = greenLaser;
-            //Ship.FighterCarrierBullet = new PlainTexture2D(GraphicsDevice, 5, 1, Color.Red);
-            Ship.FighterCarrierBullet = greenLaser;
-
-            //SpaceMines
-            Ship.SpaceMine = Content.Load<Texture2D>("Images\\Secondary Weapons\\Spacemine\\bombas3");
-
-            
-
-            //TODO: Torpedo!
-            Ship.Torpedo = new PlainTexture2D(GraphicsDevice, 5, 3, Color.Red);
-
             shopScreen = new Shop(spriteBatch);
-            shopScreen.LoadContent(Content);
+            shopScreen.InitScreen();
             shopScreen.Name = "shopScreen";
 
             titleScreen = new Title(spriteBatch, new Delegates.QuitFunction(Exit));
-            titleScreen.LoadContent(Content);
+            titleScreen.InitScreen();
             titleScreen.Name = "titleScreen";
             titleScreen.Visible = true;
 
             mainMenuScreen = new MainMenu(spriteBatch, new Delegates.QuitFunction(Exit));
-            mainMenuScreen.LoadContent(Content);
+            mainMenuScreen.InitScreen();
             mainMenuScreen.Name = "mainMenuScreen";
 
             creditsScreen = new Credits(spriteBatch);
-            creditsScreen.LoadContent(Content);
+            creditsScreen.InitScreen();
             creditsScreen.Name = "creditsScreen";
 
             gameScreen = new GameScreen(spriteBatch);
-            gameScreen.LoadContent(Content);
+            gameScreen.LoadContent();
             gameScreen.Name = "gameScreen";
 
             optionScreen = new Options(spriteBatch);
-            optionScreen.LoadContent(Content);
+            optionScreen.InitScreen();
             optionScreen.Name = "optionScreen";
 
             pauseScreen = new PauseScreen(spriteBatch);
-            pauseScreen.LoadContent(Content);
+            pauseScreen.InitScreen();
             pauseScreen.Name = "pauseScreen";
 
             shipSelectScreen = new ShipSelect(spriteBatch);
-            shipSelectScreen.LoadContent(Content);
+            shipSelectScreen.InitScreen();
             shipSelectScreen.Name = "shipSelectScreen";
 
             weaponSelectScreen = new WeaponSelectScreen(spriteBatch);
-            weaponSelectScreen.LoadContent(Content);
+            weaponSelectScreen.InitScreen();
             weaponSelectScreen.Name = "weaponSelectScreen";
 
             upgradeScreen = new UpgradeScreen(spriteBatch);
-            upgradeScreen.LoadContent(Content);
+            upgradeScreen.InitScreen();
             upgradeScreen.Name = "upgradeScreen";
 
             tierSelectScreen = new TierSelect(spriteBatch);
-            tierSelectScreen.LoadContent(Content);
+            tierSelectScreen.InitScreen();
             tierSelectScreen.Name = "tierSelectScreen";
 
             levelSelectScreen = new LevelSelect(spriteBatch);
-            levelSelectScreen.LoadContent(Content);
+            levelSelectScreen.InitScreen();
             levelSelectScreen.Name = "levelSelectScreen";
 
             screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen, shipSelectScreen, weaponSelectScreen, upgradeScreen, tierSelectScreen, levelSelectScreen);

@@ -7,8 +7,6 @@ namespace PGCGame.CoreTypes
 {
     public enum ScreenState
     {
-        //TODO: FOR MICHAEL
-        //ADD MORE SCREEN STATES SUCH AS OPTIONS, PAUSED, ETC
         Title,
         MainMenu,
         Credits,
@@ -21,6 +19,42 @@ namespace PGCGame.CoreTypes
         UpgradeScreen,
         TierSelect,
         LevelSelect
+    }
+
+    public enum ScreenBackgrounds
+    {
+        GlobalScrollingBg,
+        Title,
+        MainMenu,
+        Credits,
+        Options,
+        Shop,
+        Pause,
+        ShipSelect,
+        WeaponSelect,
+        UpgradeScreen,
+        TierSelect,
+        LevelSelect
+    }
+
+    public enum ScreenMusic
+    {
+        GlobalPlayingBgMusic,
+        Title,
+        MainMenu,
+        Credits,
+        Options,
+        Shop,
+        Pause,
+        ShipSelect,
+        WeaponSelect,
+        UpgradeScreen,
+        TierSelect,
+        LevelSelect,
+        Level1,
+        Level2,
+        Level3,
+        Level4
     }
 
     public enum SecondaryWeaponState
@@ -53,6 +87,14 @@ namespace PGCGame.CoreTypes
         Down,
         Left,
         Right
+    }
+
+    public enum GameLevel
+    { 
+        Level1,
+        Level2,
+        Level3,
+        Level4
     }
 
     /// <summary>
@@ -95,4 +137,21 @@ namespace PGCGame.CoreTypes
         RIP
     }
 
+    public enum SecondaryWeaponType
+    { 
+        EMP,
+        ShrinkRay,
+        SpaceMine
+    }
+
+    public enum TextureDisplayType
+    { 
+        ShopDisplay,
+        InGameUse
+    }
+
+    public enum EquipmentType
+    { 
+        Scanner
+    }
 }

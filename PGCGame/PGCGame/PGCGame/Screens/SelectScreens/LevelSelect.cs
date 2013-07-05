@@ -21,9 +21,9 @@ namespace PGCGame.Screens.SelectScreens
 
         }
 
-        public override void LoadContent(ContentManager content)
+        public override void InitScreen()
         {
-            base.LoadContent(content);
+            base.InitScreen();
 
             nextButtonClicked += new EventHandler(LevelSelect_nextButtonClicked);
         }

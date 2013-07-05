@@ -40,10 +40,10 @@ namespace PGCGame.Screens
 
         protected List<KeyValuePair<Sprite, TextSprite>> items;
 
-        public virtual void LoadContent(ContentManager content)
+        public virtual void InitScreen()
         {
-            Texture2D buttonImage = content.Load<Texture2D>("Images\\Controls\\Button");
-            SpriteFont SegoeUIMono = content.Load<SpriteFont>("Fonts\\SegoeUIMono");
+            Texture2D buttonImage = GameContent.GameAssets.Images.Controls.Button;
+            SpriteFont SegoeUIMono = GameContent.GameAssets.Fonts.NormalText;
 
             acceptButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .7f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .8f), Sprites.SpriteBatch);
             acceptLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Play");

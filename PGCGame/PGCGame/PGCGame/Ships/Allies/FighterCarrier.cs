@@ -30,8 +30,8 @@ namespace PGCGame
             Drones[0].Rotation.Radians = MathHelper.Pi;
             Drones.Add(new Drone(droneTexture, Vector2.Zero, spriteBatch, this) { DroneState = CoreTypes.DroneState.Stowed });
             Drones[1].Rotation.Radians = MathHelper.TwoPi;
-            
-            BulletTexture = Ship.FighterCarrierBullet;
+
+            BulletTexture = GameContent.GameAssets.Images.Ships.Bullets[ShipType.FighterCarrier, ShipTier.Tier1];
             DelayBetweenShots = TimeSpan.FromMilliseconds(100);
             DamagePerShot = 2;
             _initHealth = 100;
@@ -89,9 +89,9 @@ namespace PGCGame
             base.DrawNonAuto();         
         }
 
-        public override string TextureFolder
+        public override ShipType ShipType
         {
-            get { return "Fighter Carrier"; }
+            get { return ShipType.FighterCarrier; }
         }
 
         public override string FriendlyName

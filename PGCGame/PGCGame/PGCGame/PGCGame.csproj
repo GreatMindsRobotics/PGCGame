@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="CoreTypes\BGSprite.cs" />
     <Compile Include="CoreTypes\Camera2DMatrix.cs" />
+    <Compile Include="CoreTypes\ContentLoader.cs" />
     <Compile Include="CoreTypes\Delegates.cs" />
     <Compile Include="CoreTypes\Enum.cs" />
     <Compile Include="CoreTypes\Extensions.cs" />

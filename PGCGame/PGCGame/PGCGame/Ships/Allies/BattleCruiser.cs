@@ -26,7 +26,7 @@ namespace PGCGame
             : base(texture, location, spriteBatch)
         {
             MovementSpeed = Vector2.One / 2;
-            BulletTexture = Ship.BattleCruiserBullet;
+            BulletTexture = GameContent.GameAssets.Images.Ships.Bullets[ShipType.BattleCruiser, ShipTier.Tier1];
             DelayBetweenShots = TimeSpan.FromSeconds(1);
             DamagePerShot = 20;
             MovementSpeed = new Vector2(.375f);
@@ -61,9 +61,9 @@ namespace PGCGame
         }
        
 
-        public override string TextureFolder
+        public override ShipType ShipType
         {
-            get { return "Battle Cruiser"; }
+            get { return ShipType.BattleCruiser; }
         }
 
         public override string FriendlyName

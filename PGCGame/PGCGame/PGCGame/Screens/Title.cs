@@ -39,16 +39,15 @@ namespace PGCGame.Screens
         TextSprite ExitLabel;
 
 
-        public void LoadContent(ContentManager content)
+        public void InitScreen()
         {
             Viewport viewPort = Sprites.SpriteBatch.GraphicsDevice.Viewport;
             
-            this.BackgroundSprite = new HorizontalMenuBGSprite(content.Load<Texture2D>("Images\\Background\\1920by1080SkyStar"), Sprites.SpriteBatch);
+            this.BackgroundSprite = new HorizontalMenuBGSprite(GameContent.GameAssets.Images.Backgrounds.Screens[ScreenBackgrounds.GlobalScrollingBg], Sprites.SpriteBatch);
 
-            //loading the content ONCE
-            Texture2D planetTexture = content.Load<Texture2D>("Images\\NonPlayingObject\\Planet");
-            Texture2D buttonTexture = content.Load<Texture2D>("Images\\Controls\\Button");
-            SpriteFont SegoeUIMono = content.Load<SpriteFont>("Fonts\\SegoeUIMono");
+            Texture2D planetTexture = GameContent.GameAssets.Images.NonPlayingObjects.Planet;
+            Texture2D buttonTexture = GameContent.GameAssets.Images.Controls.Button;
+            SpriteFont SegoeUIMono = GameContent.GameAssets.Fonts.NormalText;
 
             planet = new Sprite(planetTexture, Vector2.Zero, Sprites.SpriteBatch);
             planet.Scale = new Vector2(.7f);
@@ -61,7 +60,7 @@ namespace PGCGame.Screens
             Sprites.Add(planettwo);
 
             //title image
-            TitleImage = new Sprite(content.Load<Texture2D>("Images\\Controls\\Gametitle"), Vector2.Zero, Sprites.SpriteBatch);
+            TitleImage = new Sprite(GameContent.GameAssets.Images.Controls.Title, Vector2.Zero, Sprites.SpriteBatch);
             TitleImage.Position = new Vector2(viewPort.Width / 2 - TitleImage.Texture.Width / 2, viewPort.Height * 0.2f);
             Sprites.Add(TitleImage);
 

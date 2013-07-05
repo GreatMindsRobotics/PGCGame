@@ -35,7 +35,8 @@ namespace PGCGame
         private static KeyValuePair<int, ShipTier>[] _cost;
         public static KeyValuePair<int, ShipTier>[] Cost { get { return _cost; } set { _cost = value; } }
         
-        public abstract string TextureFolder { get; }
+        public abstract ShipType ShipType { get; }
+
         #endregion StaticProperties
         #region Private Fields
 

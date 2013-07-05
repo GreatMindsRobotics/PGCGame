@@ -24,11 +24,13 @@
           <Damage>2</Damage>
           <Health>100</Health>
         </ShipSpecs>
-        <DroneSpecs>
+        <Drones>
           <Amount>2</Amount>
-          <Damage>1</Damage>
-          <Health>10</Health>
-        </DroneSpecs>
+          <DroneSpecs>
+            <Damage>1</Damage>
+            <Health>10</Health>
+          </DroneSpecs>
+        </Drones>
       </Specs>
   </Ship>
 </Ships>
