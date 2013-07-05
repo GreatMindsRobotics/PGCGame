@@ -51,7 +51,7 @@ namespace PGCGame.Screens
         TextSprite CreditsLabel;
 
 
-        public void InitScreen(ScreenType screnType)
+        public override void InitScreen(ScreenType screnType)
         {
             base.InitScreen(screnType);
 

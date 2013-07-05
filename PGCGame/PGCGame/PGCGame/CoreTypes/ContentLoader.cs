@@ -5,6 +5,8 @@ using System.Text;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework;
+using Glib.XNA;
 
 namespace PGCGame.CoreTypes
 {
@@ -69,6 +71,7 @@ namespace PGCGame.CoreTypes
                 Backgrounds = new GameBackgrounds(content);
                 Controls = new GameControls(content);
                 Ships = new GameShips(content);
+                MiniShips = new GameMiniShips(content);
                 NonPlayingObjects = new NonPlayingGameObjects(content);
                 SecondaryWeapon = new GameSecondaryWeapon(content);
                 Equipment = new GameEquipment(content);
@@ -171,7 +174,7 @@ namespace PGCGame.CoreTypes
                         //TEMP
                         _bulletTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.BattleCruiser, ShipTier.Tier1), content.Load<Texture2D>("Images\\TempBullets\\Laser"));
                         _bulletTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.FighterCarrier, ShipTier.Tier1), content.Load<Texture2D>("Images\\TempBullets\\Laser"));
-                        _bulletTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.TorpedoShip, ShipTier.Tier1), new Glib.XNA.PlainTexture2D(StateManager.GraphicsManager.GraphicsDevice, 5, 3, Microsoft.Xna.Framework.Color.Red));
+                        _bulletTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.TorpedoShip, ShipTier.Tier1), new PlainTexture2D(StateManager.GraphicsManager.GraphicsDevice, 5, 3, Color.Red));
                         _bulletTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.Drone, ShipTier.Tier1), content.Load<Texture2D>("Images\\TempBullets\\Laser"));
 
                         /*
@@ -200,6 +203,27 @@ namespace PGCGame.CoreTypes
                 }
             }
 
+            public readonly GameMiniShips MiniShips;
+            public class GameMiniShips
+            {
+                public readonly Dictionary<PlayerType, Texture2D> _miniShipTextures;
+
+                public Texture2D this[PlayerType index]
+                {
+                    get { return _miniShipTextures[index]; }
+                }
+
+                internal GameMiniShips(ContentManager content)
+                {
+                    _miniShipTextures = new Dictionary<PlayerType, Texture2D>();
+
+                    _miniShipTextures.Add(PlayerType.MyShip, new PlainTexture2D(StateManager.GraphicsManager.GraphicsDevice, 3, 3, Color.Lime));
+                    _miniShipTextures.Add(PlayerType.Enemy, new PlainTexture2D(StateManager.GraphicsManager.GraphicsDevice, 3, 3, Color.Red));
+                    _miniShipTextures.Add(PlayerType.Ally, new PlainTexture2D(StateManager.GraphicsManager.GraphicsDevice, 3, 3, Color.CornflowerBlue));
+                    _miniShipTextures.Add(PlayerType.Solo, new PlainTexture2D(StateManager.GraphicsManager.GraphicsDevice, 3, 3, Color.Crimson));
+                }
+            }
+
             public readonly GameControls Controls;
             public class GameControls
             {
@@ -212,6 +236,8 @@ namespace PGCGame.CoreTypes
                     Button = content.Load<Texture2D>("Images\\Controls\\Button");
                 }
             }
+
+
 
             public readonly NonPlayingGameObjects NonPlayingObjects;
             public class NonPlayingGameObjects

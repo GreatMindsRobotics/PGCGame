@@ -56,7 +56,7 @@ namespace PGCGame.Screens
 
         Sprite imgSprite;
 
-        public void InitScreen(ScreenType screenType)
+        public override void InitScreen(ScreenType screenType)
         {
             base.InitScreen(screenType);
 

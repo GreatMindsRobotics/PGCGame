@@ -35,7 +35,7 @@ namespace PGCGame.Screens
 
         }
 
-        public void InitScreen(ScreenType screenType)
+        public override void InitScreen(ScreenType screenType)
         {
             base.InitScreen(screenType);
 

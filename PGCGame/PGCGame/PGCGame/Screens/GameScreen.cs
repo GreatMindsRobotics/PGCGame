@@ -140,6 +140,9 @@ namespace PGCGame.Screens
             playerSbObjects.Add(ship);
 
             playerShip.InitialHealth = 100;
+
+            //Set as own ship
+            playerShip.PlayerType = PlayerType.MyShip;
         }
 
         Sprite miniShipInfoBg;
@@ -177,7 +180,7 @@ namespace PGCGame.Screens
                     {
                         continue;
                     }
-                    Sprite miniShip = new Sprite(new PlainTexture2D(playerSb.GraphicsDevice, 3, 3, s == playerShip ? Color.Lime : (s.PlayerType == PlayerType.Enemy ? Color.Red : Color.CornflowerBlue)), miniMap.Position + (s.WorldCoords / MinimapDivAmount), playerSb);
+                    Sprite miniShip = new Sprite(GameContent.GameAssets.Images.MiniShips[s.PlayerType], miniMap.Position + (s.WorldCoords / MinimapDivAmount), playerSb);
                     miniShip.UseCenterAsOrigin = true;
                     miniShips.Add(miniShip);
                     if (miniShip.Intersects(MouseManager.CurrentMouseState) && activeMiniShipDisplay == null)

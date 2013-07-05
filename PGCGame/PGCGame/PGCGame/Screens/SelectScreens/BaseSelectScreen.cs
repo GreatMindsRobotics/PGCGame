@@ -40,7 +40,7 @@ namespace PGCGame.Screens
 
         protected List<KeyValuePair<Sprite, TextSprite>> items;
 
-        public virtual void InitScreen(ScreenType screenType)
+        public override void InitScreen(ScreenType screenType)
         {
             base.InitScreen(screenType);
 

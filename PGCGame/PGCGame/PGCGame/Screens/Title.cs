@@ -39,7 +39,7 @@ namespace PGCGame.Screens
         TextSprite ExitLabel;
 
 
-        public void InitScreen(ScreenType screenName)
+        public override void InitScreen(ScreenType screenName)
         {
             base.InitScreen(screenName);
 

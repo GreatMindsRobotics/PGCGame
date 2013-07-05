@@ -118,7 +118,8 @@ namespace PGCGame.CoreTypes
     { 
         Ally,
         Enemy,
-        Solo
+        Solo,
+        MyShip  //Current player
     }
 
     public enum XmlDataFile

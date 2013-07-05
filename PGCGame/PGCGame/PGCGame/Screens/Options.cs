@@ -34,7 +34,7 @@ namespace PGCGame.Screens
         bool mouseInBackButton = false;
         
 
-        public void InitScreen(ScreenType screenType)
+        public override void InitScreen(ScreenType screenType)
         {
             base.InitScreen(screenType);
 
