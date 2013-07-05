@@ -136,6 +136,8 @@ namespace PGCGame
                         return;
                     }
 
+                 
+
                     //TODO: Monitor for enemies within 400x400px square
                     //TODO: DEBUG: Show monitoring radius                    
 
@@ -188,8 +190,15 @@ namespace PGCGame
                 return;
             }
 
-            Position = ParentShip.Position; //+ new Vector2(ParentShip.Width / 2, ParentShip.Height / 2);
-            Rotation += .5f;
+            if (
+                !new DroneState[] { DroneState.Attacking, DroneState.AcceptingFate,
+                    DroneState.EvadingFire, DroneState.MovingToTarget,
+                    DroneState.RIP, DroneState.TargetAcquired }.
+                    Contains(DroneState))
+            {
+                Position = ParentShip.Position; //+ new Vector2(ParentShip.Width / 2, ParentShip.Height / 2);
+                Rotation += .5f;
+            }
 
             _lastKs = keyboard;
 
