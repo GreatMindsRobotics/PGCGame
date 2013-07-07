@@ -13,6 +13,11 @@ namespace PGCGame.CoreTypes
         public delegate void QuitFunction();
 
         /// <summary>
+        /// Provides ability to run code on the next update of a screen.
+        /// </summary>
+        public delegate void NextRun();
+
+        /// <summary>
         /// Checks if current window has focus; use to reduce input checks in Normal mode
         /// </summary>
         /// <returns>true if game has focus; otherwise false</returns>

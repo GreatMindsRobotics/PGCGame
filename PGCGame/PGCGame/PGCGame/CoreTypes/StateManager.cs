@@ -117,18 +117,18 @@ namespace PGCGame
 
         static StateManager()
         {
-            MediaPlayer.MediaStateChanged += new EventHandler<EventArgs>(MediaPlayer_MediaStateChanged);
+            //MediaPlayer.MediaStateChanged += new EventHandler<EventArgs>(MediaPlayer_MediaStateChanged);
         }
 
         #region Private Methods
 
+        /*
         private static void MediaPlayer_MediaStateChanged(object sender, EventArgs e)
         {
-            if (AllScreens[ScreenType.Game.ToString()].Visible)
-            {
-                //TODO: Game music handling
-            }
+            //Game music handling
+            AllScreens[ScreenType.Game.ToString()].Cast<PGCGame.Screens.GameScreen>().HandleMusicChange();
         }
+        */
 
         /// <summary>
         /// Switches the active screen based on screenState parameter.
@@ -154,7 +154,11 @@ namespace PGCGame
                 
                 case ScreenType.Pause:
                     activeScreen.Cast<PGCGame.Screens.PauseScreen>().lastState = new KeyboardState(Keys.Escape);
-                    break;                
+                    break; 
+               
+                case ScreenType.Credits:
+                    activeScreen.Cast<PGCGame.Screens.Credits>().PlayMusic();
+                    break;
             }
 
             //Set selected screen visible
@@ -221,10 +225,21 @@ namespace PGCGame
             public static bool ArrowKeysEnabled { get; set; }
             public static bool LeftButtonEnabled { get; set; }
 
+            public static event EventHandler MusicStateChanged;
+
             public static bool MusicEnabled
             {
                 get { return _musicEnabled; }
-                set { _musicEnabled = value; }
+                set {
+                    if (value != _musicEnabled)
+                    {
+                        _musicEnabled = value;
+                        if (MusicStateChanged != null)
+                        {
+                            MusicStateChanged(null, EventArgs.Empty);
+                        }
+                    }
+                }
             }
 
             public static void ToggleFullscreen()

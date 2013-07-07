@@ -46,20 +46,35 @@ namespace PGCGame.Screens
         
         private TimeSpan _timeUntilCreditsFinish = TimeSpan.FromSeconds(38);
         private TimeSpan _elapsedTime;
+        private EventHandler<EventArgs> musicHandler;
 
+        private void music_StateChange(object src, EventArgs data)
+        {
+            if (Visible && StateManager.Options.MusicEnabled && MediaPlayer.State != MediaState.Playing)
+            {
+                MediaPlayer.Play(_creditsSong);
+            }
+        }
 
         public Credits(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
         {
             _xmlCredits.LoadData();
+            musicHandler = new EventHandler<EventArgs>(music_StateChange);
         }
 
         Sprite imgSprite;
 
+        internal void PlayMusic()
+        {
+            MediaPlayer.Play(_creditsSong);
+        }
+
         public override void InitScreen(ScreenType screenType)
         {
             base.InitScreen(screenType);
-
+            MediaPlayer.MediaStateChanged -= musicHandler;
+            MediaPlayer.MediaStateChanged += musicHandler;
             BackgroundSprite = new Sprite(GameContent.GameAssets.Images.Backgrounds.Screens[ScreenBackgrounds.Credits], Vector2.Zero, Sprites.SpriteBatch);
             SpriteFont SegoeUIMono = GameContent.GameAssets.Fonts.NormalText;
             _scrollingSpeed = new Vector2(0, -1);
@@ -131,11 +146,6 @@ namespace PGCGame.Screens
             KeyboardState keyboard = Keyboard.GetState();
 
             _elapsedTime += gameTime.ElapsedGameTime;
-
-            if (MediaPlayer.State != MediaState.Playing && StateManager.Options.MusicEnabled )
-            {
-                MediaPlayer.Play(_creditsSong);
-            }
 
             imgSprite.Position += _scrollingSpeed;
 

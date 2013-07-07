@@ -24,6 +24,7 @@ namespace PGCGame.CoreTypes
             }
         }
 
+        public PGCGame.CoreTypes.Delegates.NextRun RunNextUpdate = null;
 
         private ScreenType _screenType;
         public ScreenType ScreenType
@@ -35,6 +36,16 @@ namespace PGCGame.CoreTypes
         {
             get { return _screenType.ToString(); }
             private set { }
+        }
+
+        public override void Update(GameTime game)
+        {
+            base.Update(game);
+            if (RunNextUpdate != null)
+            {
+                RunNextUpdate();
+                RunNextUpdate = null;
+            }
         }
 
         public virtual void InitScreen(ScreenType screenName)

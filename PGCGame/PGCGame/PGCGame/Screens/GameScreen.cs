@@ -24,11 +24,36 @@ namespace PGCGame.Screens
 {
     public class GameScreen : BaseScreen
     {
+
+        public static readonly ScreenType[] ScreensToAllowMusicProcessing = new ScreenType[] { ScreenType.Game, ScreenType.Options, ScreenType.Pause, ScreenType.Shop, ScreenType.UpgradeScreen, ScreenType.WeaponSelect };
+
         public GameScreen(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
         {
+            StateManager.Options.MusicStateChanged += new EventHandler(Options_MusicStateChanged);
             worldCam = new Camera2DMatrix();
             playerSb = new SpriteBatch(spriteBatch.GraphicsDevice);
+        }
+
+        void Options_MusicStateChanged(object sender, EventArgs e)
+        {
+            RunNextUpdate = new Delegates.NextRun(delegate() {
+                if (StateManager.Options.MusicEnabled)
+                {
+                    if (MediaPlayer.State == MediaState.Paused)
+                    {
+                        MediaPlayer.Resume();
+                    }
+                    else
+                    {
+                        MediaPlayer.Play(_gameSong);
+                    }
+                }
+                else
+                {
+                    MediaPlayer.Stop();
+                }
+            });
         }
         
         /// <summary>
@@ -78,6 +103,7 @@ namespace PGCGame.Screens
         {
             //Reset music
             _gameHasStarted = false;
+            //_allowMusicHandling = false;
             playerSbObjects.Clear();
             Sprites.Sprites.Clear();
             enemies.Clear();
@@ -247,29 +273,23 @@ namespace PGCGame.Screens
         }
 
         bool _gameHasStarted = false;
+        //bool _allowMusicHandling = false;
         KeyboardState _lastState = new KeyboardState();
 
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
-
             if (!_gameHasStarted)
             {
+                //_allowMusicHandling = false;
                 MediaPlayer.Stop();
-                MediaPlayer.Play(_gameSong);
-            }
-            else
-            {
-                if (StateManager.Options.MusicEnabled && MediaPlayer.State != MediaState.Playing && MediaPlayer.State != MediaState.Paused)
+                if (StateManager.Options.MusicEnabled)
                 {
                     MediaPlayer.Play(_gameSong);
                 }
-                else if ((StateManager.Options.MusicEnabled && MediaPlayer.State == MediaState.Paused))
-                {
-                    MediaPlayer.Resume();
-                }
+                //_allowMusicHandling = true;
             }
 
+            base.Update(gameTime);
 
             BackgroundSprite bg = BackgroundSprite.Cast<BackgroundSprite>();
             //TODO: UPDATE SPRITES
@@ -277,6 +297,7 @@ namespace PGCGame.Screens
             if (_lastState.IsKeyUp(Keys.Escape) && keyboard.IsKeyDown(Keys.Escape))
             {
                 StateManager.ScreenState = ScreenType.Pause;
+                //_allowMusicHandling = false;
                 MediaPlayer.Pause();
             }
 
@@ -412,5 +433,26 @@ namespace PGCGame.Screens
             sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null,
                                     worldCam.GetTransformation(sb.GraphicsDevice));
         }
+
+        /*
+        internal void HandleMusicChange()
+        {
+            if (_allowMusicHandling && ScreensToAllowMusicProcessing.Contains(StateManager.ScreenState))
+            {
+                //This is an expensive call (unmanaged code transition), better to only call it once
+                MediaState currentState = MediaPlayer.State;
+
+                if (StateManager.Options.MusicEnabled && currentState != MediaState.Playing && currentState != MediaState.Paused)
+                {
+                    RunNextUpdate = new Delegates.NextRun(delegate() { if (StateManager.Options.MusicEnabled) { MediaPlayer.Play(_gameSong); } });
+                }
+                else if ((StateManager.Options.MusicEnabled && currentState == MediaState.Paused))
+                {
+                    RunNextUpdate = new Delegates.NextRun(delegate() { MediaPlayer.Resume(); });
+                }
+            }
+         
+        }
+         */
     }
 }
