@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using PGCGame.CoreTypes;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace PGCGame
 {
@@ -114,9 +115,20 @@ namespace PGCGame
 
         #endregion Public Properties
 
-
+        static StateManager()
+        {
+            MediaPlayer.MediaStateChanged += new EventHandler<EventArgs>(MediaPlayer_MediaStateChanged);
+        }
 
         #region Private Methods
+
+        private static void MediaPlayer_MediaStateChanged(object sender, EventArgs e)
+        {
+            if (AllScreens[ScreenType.Game.ToString()].Visible)
+            {
+                //TODO: Game music handling
+            }
+        }
 
         /// <summary>
         /// Switches the active screen based on screenState parameter.
