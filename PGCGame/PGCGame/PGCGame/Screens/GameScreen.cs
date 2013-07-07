@@ -76,6 +76,8 @@ namespace PGCGame.Screens
 
         public void InitializeScreen<TShip>(ShipTier tier) where TShip : BaseAllyShip
         {
+            //Reset music
+            _gameHasStarted = false;
             playerSbObjects.Clear();
             Sprites.Sprites.Clear();
             enemies.Clear();
@@ -244,19 +246,28 @@ namespace PGCGame.Screens
             }
         }
 
+        bool _gameHasStarted = false;
         KeyboardState _lastState = new KeyboardState();
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 
-            if (StateManager.Options.MusicEnabled && MediaPlayer.State != MediaState.Playing && MediaPlayer.State != MediaState.Paused)
+            if (!_gameHasStarted)
             {
+                MediaPlayer.Stop();
                 MediaPlayer.Play(_gameSong);
             }
-            else if ((StateManager.Options.MusicEnabled && MediaPlayer.State == MediaState.Paused))
+            else
             {
-                MediaPlayer.Resume();
+                if (StateManager.Options.MusicEnabled && MediaPlayer.State != MediaState.Playing && MediaPlayer.State != MediaState.Paused)
+                {
+                    MediaPlayer.Play(_gameSong);
+                }
+                else if ((StateManager.Options.MusicEnabled && MediaPlayer.State == MediaState.Paused))
+                {
+                    MediaPlayer.Resume();
+                }
             }
 
 
@@ -368,7 +379,7 @@ namespace PGCGame.Screens
                 }
             }
 
-
+            _gameHasStarted = true;
 
             miniMap.Update();
 
