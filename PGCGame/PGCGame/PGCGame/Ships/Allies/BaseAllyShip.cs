@@ -18,7 +18,7 @@ namespace PGCGame.Ships.Allies
 {
     public abstract class BaseAllyShip : Ship
     {
-        private TimeSpan _elapsedShotTime = new TimeSpan();
+        private TimeSpan _elapsedShotTime = TimeSpan.Zero;
 
         private MouseState ms;
         private MouseState lastms;
@@ -127,7 +127,7 @@ namespace PGCGame.Ships.Allies
                 if ((StateManager.Options.LeftButtonEnabled && ms.LeftButton == ButtonState.Pressed) || (!StateManager.Options.LeftButtonEnabled && ks.IsKeyDown(Keys.Space)))
                 {
                     Shoot();
-                    _elapsedShotTime = new TimeSpan();
+                    _elapsedShotTime = TimeSpan.Zero;
                 }
             }
 

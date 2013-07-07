@@ -101,12 +101,12 @@ namespace PGCGame.Screens
                 {
                     StringBuilder title = new StringBuilder();
 
-                    title.Append(String.Format("\n\n\n\nWeek {0} - ", weekID));
+                    title.AppendFormat("\n\n\n\nWeek {0} - ", weekID);
                     
                     for (int topicCounter = 0; topicCounter < weekStudent.Key.Topics.Count; topicCounter++)
                     {
                         KeyValuePair<int, string> topic = weekStudent.Key.Topics[topicCounter];
-                        title.Append(String.Format("{0}{1}", topic.Value, topicCounter == weekStudent.Key.Topics.Count - 1 ? "\n" : ", "));
+                        title.AppendFormat("{0}{1}", topic.Value, topicCounter == weekStudent.Key.Topics.Count - 1 ? "\n" : ", ");
                     }
 
                     TextSprite credit = new TextSprite(Sprites.SpriteBatch, boldCreditsFont, title.ToString());
@@ -136,7 +136,7 @@ namespace PGCGame.Screens
             AdditionalSprites.AddRange(credits);
             Sprites.Add(imgSprite);
 
-            _elapsedTime = new TimeSpan();
+            _elapsedTime = TimeSpan.Zero;
         }
 
         public override void Update(GameTime gameTime)
@@ -157,7 +157,7 @@ namespace PGCGame.Screens
             if (_elapsedTime >= _timeUntilCreditsFinish || keyboard.IsKeyDown(Keys.Escape))
             {
                 MediaPlayer.Stop();
-                _elapsedTime = new TimeSpan();
+                _elapsedTime = TimeSpan.Zero;
                 StateManager.GoBack();
                 
                 float offset = Sprites.SpriteBatch.GraphicsDevice.Viewport.Height - Sprites[0].Position.Y;

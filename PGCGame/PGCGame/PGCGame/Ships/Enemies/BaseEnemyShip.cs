@@ -21,7 +21,7 @@ namespace PGCGame.Ships.Enemies
             UseCenterAsOrigin = true;
         }
 
-        TimeSpan _elapsedRotationDelay = new TimeSpan();
+        TimeSpan _elapsedRotationDelay = TimeSpan.Zero;
         TimeSpan _rotationDelay = new TimeSpan(0, 0, 0, 0, 5);
 
         TimeSpan _minFireRate = new TimeSpan(0, 0, 0, 0, 15);
@@ -113,7 +113,7 @@ namespace PGCGame.Ships.Enemies
                     }
                 }
 
-                _elapsedRotationDelay = new TimeSpan();
+                _elapsedRotationDelay = TimeSpan.Zero;
             }
 
             base.Update(gt);
