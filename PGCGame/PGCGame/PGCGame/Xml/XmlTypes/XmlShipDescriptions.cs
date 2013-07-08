@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
+﻿using System.Collections.Generic;
+using System.Xml.Linq;
 using Glib;
 
 namespace PGCGame.Xml.XmlTypes
@@ -28,15 +25,15 @@ namespace PGCGame.Xml.XmlTypes
 
         public void Load() 
         {
-            foreach (XmlElement element in _xml.GetElementsByTagName("Ship"))
+            foreach (XElement element in _xml.Elements(XName.Get("Ship")))
             {
                 ShipDescription description = new ShipDescription();
 
-                description.ID = element.Attributes.GetNamedItem("id").Value.ToInt();
-                description.Name = element.GetElementsByTagName("Name")[0].InnerText;
-                description.Description = element.GetElementsByTagName("Description")[0].InnerText;
-                description.Damage = element.Attributes.GetNamedItem("Damage").Value.ToInt();
-                description.Health = element.Attributes.GetNamedItem("Health").Value.ToInt();
+                description.ID = element.Attribute(XName.Get("id")).Value.ToInt();
+                description.Name = element.Element(XName.Get("Name")).Value;
+                description.Description = element.Element(XName.Get("Description")).Value;
+                description.Damage = element.Attribute(XName.Get("Damage")).Value.ToInt();
+                description.Health = element.Attribute(XName.Get("Health")).Value.ToInt();
 
                 Descriptions.Add(description);
             }

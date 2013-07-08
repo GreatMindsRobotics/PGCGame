@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
-
+﻿using System.Collections.Generic;
+using System.Xml.Linq;
 using Glib;
 
 namespace PGCGame.Xml.XmlTypes
@@ -37,26 +33,26 @@ namespace PGCGame.Xml.XmlTypes
 
         public void LoadData()
         {
-            foreach (XmlElement xmlWeek in _xml.GetElementsByTagName("Week"))
+            foreach (XElement xmlWeek in _xml.Elements(XName.Get("Week")))
             {
                 Week week = new Week();
-                week.ID = xmlWeek.Attributes.GetNamedItem("id").Value.ToInt();
+                week.ID = xmlWeek.Attribute(XName.Get("id")).Value.ToInt();
 
-                foreach (XmlElement xmlTopic in xmlWeek.GetElementsByTagName("Topic"))
+                foreach (XElement xmlTopic in xmlWeek.Elements(XName.Get("Topic")))
                 {
-                    int topicID = xmlTopic.Attributes.GetNamedItem("id").Value.ToInt();
-                    string topicDescription = xmlTopic.InnerText;
+                    int topicID = xmlTopic.Attribute(XName.Get("id")).Value.ToInt();
+                    string topicDescription = xmlTopic.Value;
 
                     KeyValuePair<int, string> topic = new KeyValuePair<int, string>(topicID, topicDescription);
                     week.Topics.Add(topic);
                 }
 
-                foreach (XmlElement xmlStudent in xmlWeek.GetElementsByTagName("Student"))
+                foreach (XElement xmlStudent in xmlWeek.Elements(XName.Get("Student")))
                 {
                     Student student = new Student();
-                    student.ID = xmlStudent.Attributes.GetNamedItem("id").Value.ToInt();
-                    student.FirstName = xmlStudent.GetElementsByTagName("FirstName")[0].InnerText;
-                    student.LastName = xmlStudent.GetElementsByTagName("LastName")[0].InnerText;
+                    student.ID = xmlStudent.Attribute(XName.Get("id")).Value.ToInt();
+                    student.FirstName = xmlStudent.Element(XName.Get("FirstName")).Value;
+                    student.LastName = xmlStudent.Element(XName.Get("LastName")).Value;
 
                     KeyValuePair<Week, Student> weekStudent = new KeyValuePair<Week, Student>(week, student);
                     Students.Add(weekStudent);

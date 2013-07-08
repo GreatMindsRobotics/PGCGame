@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
+﻿using System.Collections.Generic;
+using System.Xml.Linq;
 using Glib;
 
 namespace PGCGame.Xml.XmlTypes
@@ -22,14 +19,14 @@ namespace PGCGame.Xml.XmlTypes
 
         public void Load()
         { 
-            foreach(XmlElement element in _xml.GetElementsByTagName("weapon"))
+            foreach(XElement element in _xml.Elements(XName.Get("weapon")))
             {
                 Weapon weapon = new Weapon();
 
-                weapon.ID = element.Attributes.GetNamedItem("id").Value.ToInt();
-                weapon.Name = element.GetElementsByTagName("name")[0].InnerText;
-                weapon.Description = element.GetElementsByTagName("description")[0].InnerText;
-                weapon.Cost = element.GetElementsByTagName("Cost")[0].InnerText.ToInt();
+                weapon.ID = element.Attribute(XName.Get("id")).Value.ToInt();
+                weapon.Name = element.Element(XName.Get("name")).Value;
+                weapon.Description = element.Element(XName.Get("description")).Value;
+                weapon.Cost = element.Element(XName.Get("Cost")).Value.ToInt();
 
                 Weapons.Add(weapon);
             }

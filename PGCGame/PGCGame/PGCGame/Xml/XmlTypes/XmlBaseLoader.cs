@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
-using PGCGame.CoreTypes;
-
+using System.Xml.Linq;
 using Glib;
+using PGCGame.CoreTypes;
 
 namespace PGCGame.Xml.XmlTypes
 {
     public abstract class XmlBaseLoader
     {
-        protected XmlDocument _xml = new XmlDocument();
+        protected XDocument _xml = new XDocument();
 
         public static TXmlType Create<TXmlType>(XmlDataFile xmlDataFile) where TXmlType : XmlBaseLoader
         {
@@ -43,7 +39,7 @@ namespace PGCGame.Xml.XmlTypes
         {
             try
             {
-                _xml.Load(String.Format("Xml\\{0}.xml", xmlDataFile.ToString()));
+                _xml = new XDocument(String.Format("Xml\\{0}.xml", xmlDataFile.ToString()));
                 return true;
             }
             catch
