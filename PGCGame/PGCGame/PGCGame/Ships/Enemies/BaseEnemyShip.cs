@@ -21,6 +21,8 @@ namespace PGCGame.Ships.Enemies
             UseCenterAsOrigin = true;
         }
 
+        Boolean activated = false;
+
         TimeSpan _elapsedRotationDelay = TimeSpan.Zero;
         TimeSpan _rotationDelay = new TimeSpan(0, 0, 0, 0, 5);
 
@@ -37,8 +39,6 @@ namespace PGCGame.Ships.Enemies
             Ship closestAllyShip = null;
             Vector2? closestAllyShipDistance = null;
             Vector2? shipDistance = null;
-
-            Boolean activated = false;
 
             //finds the closes ship 
             foreach (Ship allyShip in StateManager.ActiveShips)
