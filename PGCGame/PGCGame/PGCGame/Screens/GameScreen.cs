@@ -322,27 +322,40 @@ namespace PGCGame.Screens
                 MediaPlayer.Pause();
             }
 
-            foreach (Bullet b in playerShip.FlyingBullets)
+            for (int i = 0; i < playerShip.FlyingBullets.Count; i++)
             {
-                b.IsDead = b.IsDead || b.X <= 0 || b.X >= bg.TotalWidth || b.Y <= 0 || b.Y >= bg.TotalHeight;
+                Bullet b = playerShip.FlyingBullets[i];
+                if (b.IsDead || b.X <= 0 || b.X >= bg.TotalWidth || b.Y <= 0 || b.Y >= bg.TotalHeight)
+                {
+                    playerShip.FlyingBullets.RemoveAt(i);
+                    i--;
+                }
             }
-            playerShip.FlyingBullets.RemoveAll(b => b.IsDead);
+
             foreach (var enemy in enemies)
             {
-                foreach (Bullet b in enemy.FlyingBullets)
+                for (int i = 0; i < enemy.FlyingBullets.Count; i++)
                 {
-                    b.IsDead = b.IsDead || b.X <= 0 || b.X >= bg.TotalWidth || b.Y <= 0 || b.Y >= bg.TotalHeight;
+                    Bullet b = enemy.FlyingBullets[i];
+                    if (b.IsDead || b.X <= 0 || b.X >= bg.TotalWidth || b.Y <= 0 || b.Y >= bg.TotalHeight)
+                    {
+                        enemy.FlyingBullets.RemoveAt(i);
+                        i--;
+                    }
                 }
-                enemy.FlyingBullets.RemoveAll(b => b.IsDead);
             }
             
             if (playerShip.GetType() == typeof(FighterCarrier))
             {
-                foreach (Bullet b in playerShip.Cast<FighterCarrier>().DroneBullets)
+                FighterCarrier ship = playerShip.Cast<FighterCarrier>();
+                for(int i = 0; i < ship.DroneBullets.Count; i++)
                 {
-                    b.IsDead = b.IsDead || b.X <= 0 || b.X >= bg.TotalWidth || b.Y <= 0 || b.Y >= bg.TotalHeight;
+                    if (ship.DroneBullets[i].IsDead || ship.DroneBullets[i].X <= 0 || ship.DroneBullets[i].X >= bg.TotalWidth || ship.DroneBullets[i].Y <= 0 || ship.DroneBullets[i].Y >= bg.TotalHeight)
+                    {
+                        ship.DroneBullets.RemoveAt(i);
+                        i--;
+                    }
                 }
-                playerShip.Cast<FighterCarrier>().DroneBullets.RemoveAll(b => b.IsDead);
             }
 
             Vector2 camMove = Vector2.Zero;
