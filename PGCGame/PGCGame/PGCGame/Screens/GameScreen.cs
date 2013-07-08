@@ -76,6 +76,27 @@ namespace PGCGame.Screens
 
             bold = GameContent.GameAssets.Fonts.BoldText;
             normal = GameContent.GameAssets.Fonts.NormalText;
+            StateManager.ScreenStateChanged += new EventHandler(delegate(object src, EventArgs arg)
+            {
+                if (Visible)
+                {
+                    if (StateManager.Options.MusicEnabled)
+                    {
+                        if (MediaPlayer.State == MediaState.Paused)
+                        {
+                            MediaPlayer.Resume();
+                        }
+                        else
+                        {
+                            MediaPlayer.Play(_gameSong);
+                        }
+                    }
+                    else
+                    {
+                        MediaPlayer.Stop();
+                    }
+                }
+            });
             StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
 
             _gameSong = GameContent.GameAssets.Music[ScreenMusic.Level1];

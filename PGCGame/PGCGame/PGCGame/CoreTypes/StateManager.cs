@@ -50,6 +50,11 @@ namespace PGCGame
         public static Point ViewportSize;
 
         /// <summary>
+        /// An event called on screen switch.
+        /// </summary>
+        public static event EventHandler ScreenStateChanged;
+
+        /// <summary>
         /// Random generator to use throughout the game; ensures no concurrent seeding of two Random objects
         /// </summary>
         public static readonly Random RandomGenerator = new Random();
@@ -163,6 +168,10 @@ namespace PGCGame
 
             //Set selected screen visible
             activeScreen.Visible = true;
+            if (ScreenStateChanged != null)
+            {
+                ScreenStateChanged(null, EventArgs.Empty);
+            }
         }
 
         #endregion Private Methods
