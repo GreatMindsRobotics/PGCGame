@@ -25,15 +25,15 @@ namespace PGCGame.Xml.XmlTypes
 
         public void Load() 
         {
-            foreach (XElement element in _xml.Elements(XName.Get("Ship")))
+            foreach (XElement element in _xml.Element(XName.Get("Ships")).Descendants(XName.Get("Ship")))
             {
                 ShipDescription description = new ShipDescription();
 
                 description.ID = element.Attribute(XName.Get("id")).Value.ToInt();
                 description.Name = element.Element(XName.Get("Name")).Value;
                 description.Description = element.Element(XName.Get("Description")).Value;
-                description.Damage = element.Attribute(XName.Get("Damage")).Value.ToInt();
-                description.Health = element.Attribute(XName.Get("Health")).Value.ToInt();
+                description.Damage = element.Element(XName.Get("Specs")).Element(XName.Get("Damage")).Value.ToInt();
+                description.Health = element.Element(XName.Get("Specs")).Element(XName.Get("Health")).Value.ToInt();
 
                 Descriptions.Add(description);
             }

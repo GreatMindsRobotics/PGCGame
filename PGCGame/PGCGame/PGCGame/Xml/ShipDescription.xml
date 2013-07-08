@@ -20,16 +20,12 @@
       <Name>Fighter Carrier</Name>
       <Description>This ship does very little damage and does not have much health. It's advantage is that it is very fast and heas drones that help him attack.</Description>
       <Specs>
-        <ShipSpecs>
-          <Damage>2</Damage>
-          <Health>100</Health>
-        </ShipSpecs>
+        <Damage>2</Damage>
+        <Health>100</Health>
         <Drones>
           <Amount>2</Amount>
-          <DroneSpecs>
-            <Damage>1</Damage>
-            <Health>10</Health>
-          </DroneSpecs>
+          <Damage>1</Damage>
+          <Health>10</Health>
         </Drones>
       </Specs>
   </Ship>
