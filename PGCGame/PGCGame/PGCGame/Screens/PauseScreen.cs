@@ -14,7 +14,7 @@ using Glib.XNA;
 using Glib.XNA.SpriteLib;
 
 using PGCGame.CoreTypes;
-using Glib.XNA.InputLib.Mouse;
+using Glib.XNA.InputLib;
 
 namespace PGCGame.Screens
 {

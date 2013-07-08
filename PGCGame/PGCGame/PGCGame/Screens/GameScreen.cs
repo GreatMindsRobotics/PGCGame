@@ -18,7 +18,7 @@ using System.Diagnostics;
 
 using PGCGame.Ships.Enemies;
 using PGCGame.Ships.Allies;
-using Glib.XNA.InputLib.Mouse;
+using Glib.XNA.InputLib;
 
 namespace PGCGame.Screens
 {

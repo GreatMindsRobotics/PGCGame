@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using PGCGame.CoreTypes;
-using Glib.XNA.InputLib.Mouse;
+using Glib.XNA.InputLib;
 
 namespace PGCGame.Screens
 {

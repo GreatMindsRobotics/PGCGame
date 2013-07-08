@@ -1103,7 +1103,7 @@
             <param name="spr">The Sprite to convert to a Rectangle.</param>
             <returns>The Rectangle representing the area of the Sprite.</returns>
         </member>
-        <member name="M:Glib.XNA.SpriteLib.Sprite.op_Implicit(Glib.XNA.SpriteLib.Sprite)~Glib.XNA.InputLib.Mouse.ScreenRegion">
+        <member name="M:Glib.XNA.SpriteLib.Sprite.op_Implicit(Glib.XNA.SpriteLib.Sprite)~Glib.XNA.InputLib.ScreenRegion">
             <summary>
             Convert the specified Sprite to a screen region.
             </summary>
@@ -2135,6 +2135,99 @@
             </summary>
             <param name="updating">The ISprite to update.</param>
         </member>
+        <member name="T:Glib.XNA.InputLib.ScreenRegion">
+            <summary>
+            Represents a region on screen which can call mouse events.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.InputLib.ScreenRegion.op_Explicit(Glib.XNA.InputLib.ScreenRegion)~Microsoft.Xna.Framework.Rectangle">
+            <summary>
+            Convert the specified ScreenRegion to a rectangle.
+            </summary>
+            <param name="a">The ScreenRegion to convert.</param>
+            <returns>The rectangle representing the ScreenRegion.</returns>
+            <remarks>
+            The rectange is rounded, since the ScreenRegion supports floating point numbers.
+            </remarks>
+        </member>
+        <member name="M:Glib.XNA.InputLib.ScreenRegion.#ctor(Microsoft.Xna.Framework.Rectangle)">
+            <summary>
+            Create a new ScreenRegion with the specified bounds and position.
+            </summary>
+            <param name="bounds">The bounds and position of the ScreenRegion.</param>
+        </member>
+        <member name="M:Glib.XNA.InputLib.ScreenRegion.#ctor(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Create a new ScreenRegion with the specified size and position.
+            </summary>
+            <param name="pos">The position of the ScreenRegion.</param>
+            <param name="size">The size of the ScreenRegion.</param>
+        </member>
+        <member name="M:Glib.XNA.InputLib.ScreenRegion.Update">
+            <summary>
+            Update this ScreenRegion, calling mouse events.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.InputLib.ScreenRegion.Size">
+            <summary>
+            Gets or sets the size of the ScreenRegion.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.InputLib.ScreenRegion.Position">
+            <summary>
+            Gets or sets the position of the ScreenRegion.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.InputLib.ScreenRegion.Width">
+            <summary>
+            Gets or sets the width of the ScreenRegion.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.InputLib.ScreenRegion.Height">
+            <summary>
+            Gets or sets the height of the ScreenRegion.
+            </summary>
+        </member>
+        <member name="E:Glib.XNA.InputLib.ScreenRegion.MouseEnter">
+            <summary>
+            An event called when a mouse enters this ScreenRegion.
+            </summary>
+        </member>
+        <member name="E:Glib.XNA.InputLib.ScreenRegion.MouseLeave">
+            <summary>
+            An event called when a mouse leaves this ScreenRegion.
+            </summary>
+        </member>
+        <member name="E:Glib.XNA.InputLib.ScreenRegion.MouseClick">
+            <summary>
+            An event called when there is a mouse click in this region.
+            </summary>
+        </member>
+        <member name="T:Glib.XNA.InputLib.MouseManager">
+            <summary>
+            Represents a manager of mouse events and data.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.InputLib.MouseManager.Update">
+            <summary>
+            Update the MouseManager.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.InputLib.MouseManager.CurrentMouseState">
+            <summary>
+            Gets the current mouse state.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.InputLib.MouseManager.LastMouseState">
+            <summary>
+            Gets the last known mouse state before the current mouse state.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.InputLib.MouseManager.AllRegions">
+            <summary>
+            Gets a list of all known updated SreenRegion objects.
+            </summary>
+        </member>
         <member name="T:Glib.XNA.GameTimer">
             <summary>
             A timer firing events at set intervals during the game.
@@ -2916,99 +3009,6 @@
             </summary>
             <param name="s">The string to hash.</param>
             <returns>The hexadecimal SHA512 hash of the specified string.</returns>
-        </member>
-        <member name="T:Glib.XNA.InputLib.Mouse.ScreenRegion">
-            <summary>
-            Represents a region on screen which can call mouse events.
-            </summary>
-        </member>
-        <member name="M:Glib.XNA.InputLib.Mouse.ScreenRegion.op_Explicit(Glib.XNA.InputLib.Mouse.ScreenRegion)~Microsoft.Xna.Framework.Rectangle">
-            <summary>
-            Convert the specified ScreenRegion to a rectangle.
-            </summary>
-            <param name="a">The ScreenRegion to convert.</param>
-            <returns>The rectangle representing the ScreenRegion.</returns>
-            <remarks>
-            The rectange is rounded, since the ScreenRegion supports floating point numbers.
-            </remarks>
-        </member>
-        <member name="M:Glib.XNA.InputLib.Mouse.ScreenRegion.#ctor(Microsoft.Xna.Framework.Rectangle)">
-            <summary>
-            Create a new ScreenRegion with the specified bounds and position.
-            </summary>
-            <param name="bounds">The bounds and position of the ScreenRegion.</param>
-        </member>
-        <member name="M:Glib.XNA.InputLib.Mouse.ScreenRegion.#ctor(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2)">
-            <summary>
-            Create a new ScreenRegion with the specified size and position.
-            </summary>
-            <param name="pos">The position of the ScreenRegion.</param>
-            <param name="size">The size of the ScreenRegion.</param>
-        </member>
-        <member name="M:Glib.XNA.InputLib.Mouse.ScreenRegion.Update">
-            <summary>
-            Update this ScreenRegion, calling mouse events.
-            </summary>
-        </member>
-        <member name="P:Glib.XNA.InputLib.Mouse.ScreenRegion.Size">
-            <summary>
-            Gets or sets the size of the ScreenRegion.
-            </summary>
-        </member>
-        <member name="P:Glib.XNA.InputLib.Mouse.ScreenRegion.Position">
-            <summary>
-            Gets or sets the position of the ScreenRegion.
-            </summary>
-        </member>
-        <member name="P:Glib.XNA.InputLib.Mouse.ScreenRegion.Width">
-            <summary>
-            Gets or sets the width of the ScreenRegion.
-            </summary>
-        </member>
-        <member name="P:Glib.XNA.InputLib.Mouse.ScreenRegion.Height">
-            <summary>
-            Gets or sets the height of the ScreenRegion.
-            </summary>
-        </member>
-        <member name="E:Glib.XNA.InputLib.Mouse.ScreenRegion.MouseEnter">
-            <summary>
-            An event called when a mouse enters this ScreenRegion.
-            </summary>
-        </member>
-        <member name="E:Glib.XNA.InputLib.Mouse.ScreenRegion.MouseLeave">
-            <summary>
-            An event called when a mouse leaves this ScreenRegion.
-            </summary>
-        </member>
-        <member name="E:Glib.XNA.InputLib.Mouse.ScreenRegion.MouseClick">
-            <summary>
-            An event called when there is a mouse click in this region.
-            </summary>
-        </member>
-        <member name="T:Glib.XNA.InputLib.Mouse.MouseManager">
-            <summary>
-            Represents a manager of mouse events and data.
-            </summary>
-        </member>
-        <member name="M:Glib.XNA.InputLib.Mouse.MouseManager.Update">
-            <summary>
-            Update the MouseManager.
-            </summary>
-        </member>
-        <member name="P:Glib.XNA.InputLib.Mouse.MouseManager.CurrentMouseState">
-            <summary>
-            Gets the current mouse state.
-            </summary>
-        </member>
-        <member name="P:Glib.XNA.InputLib.Mouse.MouseManager.LastMouseState">
-            <summary>
-            Gets the last known mouse state before the current mouse state.
-            </summary>
-        </member>
-        <member name="P:Glib.XNA.InputLib.Mouse.MouseManager.AllRegions">
-            <summary>
-            Gets a list of all known updated SreenRegion objects.
-            </summary>
         </member>
         <member name="T:Glib.WinForms.Shapes.Circle">
             <summary>
