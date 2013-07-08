@@ -107,10 +107,10 @@ namespace PGCGame.Ships.Enemies
                         //Rotation.Vector.Normalize();
                         //Rotation.Vector *= .1f;
                         this.Speed = new Vector2(Rotation.Vector.X * .5f, Rotation.Vector.Y * .5f);
-                        this.Position += this.Speed;
                     }
                     else
                     {
+                        this.Speed = Vector2.Zero;
                         if (!_delayTillNextFire.HasValue)
                         {
                             _delayTillNextFire = StateManager.RandomGenerator.NextTimeSpan(_minFireRate, _maxFireRate);
