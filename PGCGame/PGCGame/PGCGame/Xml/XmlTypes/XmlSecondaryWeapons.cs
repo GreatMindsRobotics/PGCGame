@@ -19,7 +19,7 @@ namespace PGCGame.Xml.XmlTypes
 
         public void Load()
         { 
-            foreach(XElement element in _xml.Elements(XName.Get("weapon")))
+            foreach(XElement element in _xml.Element(XName.Get("SecondaryWeapons")).Descendants(XName.Get("weapon")))
             {
                 Weapon weapon = new Weapon();
 

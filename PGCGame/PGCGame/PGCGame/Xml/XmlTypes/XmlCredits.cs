@@ -33,12 +33,12 @@ namespace PGCGame.Xml.XmlTypes
 
         public void LoadData()
         {
-            foreach (XElement xmlWeek in _xml.Elements(XName.Get("Week")))
+            foreach (XElement xmlWeek in _xml.Element(XName.Get("Credits")).Descendants(XName.Get("Week")))
             {
                 Week week = new Week();
                 week.ID = xmlWeek.Attribute(XName.Get("id")).Value.ToInt();
 
-                foreach (XElement xmlTopic in xmlWeek.Elements(XName.Get("Topic")))
+                foreach (XElement xmlTopic in xmlWeek.Descendants(XName.Get("Topic")))
                 {
                     int topicID = xmlTopic.Attribute(XName.Get("id")).Value.ToInt();
                     string topicDescription = xmlTopic.Value;
@@ -47,7 +47,7 @@ namespace PGCGame.Xml.XmlTypes
                     week.Topics.Add(topic);
                 }
 
-                foreach (XElement xmlStudent in xmlWeek.Elements(XName.Get("Student")))
+                foreach (XElement xmlStudent in xmlWeek.Descendants(XName.Get("Student")))
                 {
                     Student student = new Student();
                     student.ID = xmlStudent.Attribute(XName.Get("id")).Value.ToInt();

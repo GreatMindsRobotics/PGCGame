@@ -31,7 +31,10 @@ namespace PGCGame.Xml.XmlTypes
                     throw new NotImplementedException("The specified XmlDataFile type is not implemented.");          
             }
 
-            xmlType.LoadXml(xmlDataFile);
+            if (!xmlType.LoadXml(xmlDataFile))
+            {
+                throw new Exception("The data file failed to load.");
+            }
             return xmlType;
         }
 
@@ -39,7 +42,7 @@ namespace PGCGame.Xml.XmlTypes
         {
             try
             {
-                _xml = new XDocument(String.Format("Xml\\{0}.xml", xmlDataFile.ToString()));
+                _xml = XDocument.Load(String.Format("Xml\\{0}.xml", xmlDataFile.ToString()));
                 return true;
             }
             catch
