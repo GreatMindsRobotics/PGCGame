@@ -48,6 +48,10 @@ namespace PGCGame.Screens
         private TimeSpan _elapsedTime;
         private EventHandler<EventArgs> musicHandler;
 
+        private SpriteFont _creditsFont = GameContent.GameAssets.Fonts.NormalText;
+        private SpriteFont _boldCreditsFont = GameContent.GameAssets.Fonts.BoldText;
+
+
         private void music_StateChange(object src, EventArgs data)
         {
             if (Visible && StateManager.Options.MusicEnabled && MediaPlayer.State != MediaState.Playing)
@@ -61,9 +65,38 @@ namespace PGCGame.Screens
         {
             _xmlCredits.LoadData();
             musicHandler = new EventHandler<EventArgs>(music_StateChange);
+            StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
         }
 
-        Sprite imgSprite;
+        void Options_ScreenResolutionChanged(object sender, EventArgs e)
+        {
+            //Get the new viewport from EventArgs
+            Viewport viewport = e.Cast<ViewportEventArgs>().Viewport;
+
+            //Re-position title based on new viewport
+            gameTitle.X = gameTitle.GetCenterPosition(viewport).X;
+            gameTitle.Y = viewport.Height;
+
+            //Re-position all credits based on new viewport
+            for (int i = 0; i < AdditionalSprites.Count; i++)
+            {
+                TextSprite credit = AdditionalSprites[i].Cast<TextSprite>();
+
+                credit.X = credit.GetCenterPosition(viewport).X;
+
+                if (i == 0)
+                {
+                    credit.Y = gameTitle.Y + gameTitle.Height;
+                }
+                else
+                {
+                    TextSprite prevCredit = AdditionalSprites[i - 1].Cast<TextSprite>();
+                    credit.Y = prevCredit.Y + prevCredit.Height + (_creditsFont.LineSpacing - _creditsFont.MeasureString("A").Y);
+                }
+            }
+        }
+
+        Sprite gameTitle;
 
         internal void PlayMusic()
         {
@@ -80,16 +113,14 @@ namespace PGCGame.Screens
             _scrollingSpeed = new Vector2(0, -1);
 
             Texture2D logo = GameContent.GameAssets.Images.Controls.Title;
-            imgSprite = new Sprite(logo, new Vector2(0, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height), Sprites.SpriteBatch);
-            imgSprite.X = imgSprite.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X;
+            gameTitle = new Sprite(logo, new Vector2(0, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height), Sprites.SpriteBatch);
+            gameTitle.X = gameTitle.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X;
             //credits = new TextSprite(Sprites.SpriteBatch, , "\n\n\n\nWeek 1 - Functional Spec, GameState Management\n
             //Week 3 - AI's\n\n\n\n\n\n\n\n\n\n\n\nWeek 4 - Xbox Converson\n\n\n\n\nUnderlying Library written by:\nGlen Husman (glen3b)\nGlib is available on github! \n\n\n\n\n\n\n                Music:\n\nFailing Defense - Kevin MacLeod\n\nAll music obtained from Incompetech.com", Color.White);
             //credits = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, "   Plequarius: Galactic Commanders\n\n\n\n\n\nAll Developement:\nGlen Husman\n\nMinor Assistance:\nAbe", Color.White);
 
             //credits.Position = new Vector2(credits.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height+imgSprite.Height);
 
-            SpriteFont creditsFont = GameContent.GameAssets.Fonts.NormalText;
-            SpriteFont boldCreditsFont = GameContent.GameAssets.Fonts.BoldText;
             _creditsSong = GameContent.GameAssets.Music[ScreenMusic.Credits];
 
             int lastWeekID = 0;
@@ -109,32 +140,32 @@ namespace PGCGame.Screens
                         title.AppendFormat("{0}{1}", topic.Value, topicCounter == weekStudent.Key.Topics.Count - 1 ? "\n" : ", ");
                     }
 
-                    TextSprite credit = new TextSprite(Sprites.SpriteBatch, boldCreditsFont, title.ToString());
+                    TextSprite credit = new TextSprite(Sprites.SpriteBatch, _boldCreditsFont, title.ToString());
                     credit.X = credit.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X;
                     credit.Color = Color.White;
 
                     if (credits.Count == 0)
                     {
-                        credit.Y = imgSprite.Y + imgSprite.Height;
+                        credit.Y = gameTitle.Y + gameTitle.Height;
                     }
                     else
                     {
-                        credit.Y = credits[credits.Count - 1].Y + credits[credits.Count - 1].Height + (creditsFont.LineSpacing - creditsFont.MeasureString("A").Y);
+                        credit.Y = credits[credits.Count - 1].Y + credits[credits.Count - 1].Height + (_creditsFont.LineSpacing - _creditsFont.MeasureString("A").Y);
                     }
                     credits.Add(credit);
 
                     lastWeekID = weekID;
                 }
 
-                TextSprite student = new TextSprite(Sprites.SpriteBatch, creditsFont, String.Format("{0} {1}\n", weekStudent.Value.FirstName, weekStudent.Value.LastName));
+                TextSprite student = new TextSprite(Sprites.SpriteBatch, _creditsFont, String.Format("{0} {1}\n", weekStudent.Value.FirstName, weekStudent.Value.LastName));
                 student.X = student.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X;
                 student.Color = Color.White;
-                student.Y = credits[credits.Count - 1].Y + credits[credits.Count - 1].Height + (creditsFont.LineSpacing - creditsFont.MeasureString("A").Y);
+                student.Y = credits[credits.Count - 1].Y + credits[credits.Count - 1].Height + (_creditsFont.LineSpacing - _creditsFont.MeasureString("A").Y);
                 credits.Add(student);
             }
 
             AdditionalSprites.AddRange(credits);
-            Sprites.Add(imgSprite);
+            Sprites.Add(gameTitle);
 
             _elapsedTime = TimeSpan.Zero;
         }
@@ -147,7 +178,7 @@ namespace PGCGame.Screens
 
             _elapsedTime += gameTime.ElapsedGameTime;
 
-            imgSprite.Position += _scrollingSpeed;
+            gameTitle.Position += _scrollingSpeed;
 
             foreach (TextSprite credit in credits)
             {
