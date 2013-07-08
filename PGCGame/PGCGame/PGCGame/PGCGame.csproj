@@ -85,6 +85,7 @@
     <Compile Include="CoreTypes\Enum.cs" />
     <Compile Include="CoreTypes\Extensions.cs" />
     <Compile Include="CoreTypes\ViewportEventArgs.cs" />
+    <Compile Include="Screens\ControlScreen.cs" />
     <Compile Include="Screens\Credits.cs" />
     <Compile Include="Screens\GameScreen.cs" />
     <Compile Include="Screens\MainMenu.cs" />
