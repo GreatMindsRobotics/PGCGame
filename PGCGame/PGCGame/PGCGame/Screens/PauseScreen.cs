@@ -233,11 +233,13 @@ namespace PGCGame.Screens
                     if (mouseInShopButton)
                     {
                         StateManager.ScreenState = ScreenType.Shop;
+                        ShopLabel.IsSelected = false;
                     }
 
                     if (mouseInOptionsButton)
                     {
                         StateManager.ScreenState = ScreenType.Options;
+                        OptionsLabel.IsSelected = false;
                     }
 
                 }
