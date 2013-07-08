@@ -70,7 +70,7 @@ namespace PGCGame.Screens.SelectScreens
             //Scanner
             Sprite weapon4 = new Sprite(Scanner, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.6f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.1f), Sprites.SpriteBatch);
             TextSprite text4 = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.01f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.1f), font, "\n\nA ship scanner. This is temporary text\n to check if this works \n\ncost: 15000 credits", Color.White);
-
+            weapon4.Scale = new Vector2(0.5f, 0.5f);
             items.Add(new KeyValuePair<Sprite, TextSprite>(weapon4, text4));
 
             itemsShown.Add(new KeyValuePair<Sprite, string>(weapon4, "Scanner"));
