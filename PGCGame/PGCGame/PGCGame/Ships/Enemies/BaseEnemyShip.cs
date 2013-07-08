@@ -14,7 +14,7 @@ namespace PGCGame.Ships.Enemies
 {
     public abstract class BaseEnemyShip : Ship
     {
-        public BaseEnemyShip(Texture2D texture, Vector2 location, SpriteBatch spriteBatch) 
+        public BaseEnemyShip(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
             : base(texture, location, spriteBatch)
         {
             PlayerType = CoreTypes.PlayerType.Enemy;
@@ -30,25 +30,41 @@ namespace PGCGame.Ships.Enemies
 
         public override void Update(GameTime gt)
         {
+            float bulletDistanceX;
+            float bulletDistanceY;
+            float? bulletDistance = null;
+
             Ship closestAllyShip = null;
             Vector2? closestAllyShipDistance = null;
-            Vector2? distance = null;
+            Vector2? shipDistance = null;
+
+            Boolean activated = false;
 
             //finds the closes ship 
             foreach (Ship allyShip in StateManager.ActiveShips)
             {
                 if (allyShip.PlayerType != CoreTypes.PlayerType.Enemy)
                 {
-                    if (!distance.HasValue && !closestAllyShipDistance.HasValue)
+                    foreach (Bullet b in allyShip.FlyingBullets)
                     {
-                        distance = allyShip.WorldCoords - this.WorldCoords;
-                        closestAllyShipDistance = distance;
+                        bulletDistanceX = Math.Abs(Math.Abs(b.X) - Math.Abs(this.X));
+                        bulletDistanceY = Math.Abs(Math.Abs(b.Y) - Math.Abs(this.Y));
+                        bulletDistance = bulletDistanceX + bulletDistanceY;
+                        if (Math.Pow(bulletDistance.Value, 2) < Math.Pow(300, 2))
+                        {
+                            activated = true;
+                        }
+                    }
+                    if (!shipDistance.HasValue && !closestAllyShipDistance.HasValue)
+                    {
+                        shipDistance = allyShip.WorldCoords - this.WorldCoords;
+                        closestAllyShipDistance = shipDistance;
                         closestAllyShip = allyShip;
                     }
                     else
                     {
-                        distance = allyShip.WorldCoords - this.WorldCoords;
-                        if (distance.Value.LengthSquared() < closestAllyShipDistance.Value.LengthSquared())
+                        shipDistance = allyShip.WorldCoords - this.WorldCoords;
+                        if (shipDistance.Value.LengthSquared() < closestAllyShipDistance.Value.LengthSquared())
                         {
                             closestAllyShip = allyShip;
                         }
@@ -60,7 +76,7 @@ namespace PGCGame.Ships.Enemies
 
             if (_elapsedRotationDelay > _rotationDelay)
             {
-                if (closestAllyShipDistance.HasValue && closestAllyShip != null && closestAllyShipDistance.Value.LengthSquared() < Math.Pow(600, 2))
+                if (closestAllyShipDistance.HasValue && closestAllyShip != null && closestAllyShipDistance.Value.LengthSquared() < Math.Pow(600, 2) || closestAllyShipDistance.HasValue && closestAllyShip != null && activated)
                 {
                     float angle = closestAllyShipDistance.Value.ToAngle();
 
