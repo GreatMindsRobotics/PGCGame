@@ -25,6 +25,8 @@ namespace PGCGame.Screens
     public class GameScreen : BaseScreen
     {
 
+        private Vector2 _playableAreaOffset;
+
         public static readonly ScreenType[] ScreensToAllowMusicProcessing = new ScreenType[] { ScreenType.Game, ScreenType.Options, ScreenType.Pause, ScreenType.Shop, ScreenType.UpgradeScreen, ScreenType.WeaponSelect };
 
         public GameScreen(SpriteBatch spriteBatch)
@@ -33,6 +35,8 @@ namespace PGCGame.Screens
             StateManager.Options.MusicStateChanged += new EventHandler(Options_MusicStateChanged);
             worldCam = new Camera2DMatrix();
             playerSb = new SpriteBatch(spriteBatch.GraphicsDevice);
+
+            _playableAreaOffset = new Vector2(500);
         }
 
         void Options_MusicStateChanged(object sender, EventArgs e)
@@ -129,12 +133,21 @@ namespace PGCGame.Screens
             Sprites.Sprites.Clear();
             enemies.Clear();
 
+            BackgroundSprite bgspr = new BackgroundSprite(bgImg, Sprites.SpriteBatch, 10, 2);
+            bgspr.Drawn += new EventHandler(bgspr_Drawn);
+            worldCam.Pos = new Vector2(bgspr.TotalWidth / 2, bgspr.TotalHeight - (bgspr.Height / 2));
+            BackgroundSprite = bgspr;
+
+            Vector2 minSpawnArea = _playableAreaOffset;
+            Vector2 maxSpawnArea = new Vector2(bgspr.TotalWidth, bgspr.TotalHeight) - _playableAreaOffset;
+
             for (int i = 0; i < 4; i++)
             {
                 Texture2D enemyTexture = GameContent.GameAssets.Images.Ships[ShipType.Drone, StateManager.RandomGenerator.NextShipTier(ShipTier.Tier1, ShipTier.Tier2)];
                 EnemyDrone enemy = new EnemyDrone(enemyTexture, Vector2.Zero, Sprites.SpriteBatch);
 
-                enemy.WorldCoords = StateManager.RandomGenerator.NextVector2(new Vector2(500, 6500), new Vector2(3550, 10500));
+                enemy.WorldCoords = StateManager.RandomGenerator.NextVector2(minSpawnArea, maxSpawnArea);
+                
                 //TODO: Different texture
                 enemy.Color = Color.Green;
                 enemy.Tier = ShipTier.Tier1;
@@ -142,11 +155,6 @@ namespace PGCGame.Screens
                 Sprites.Add(enemy);
                 enemies.Add(enemy);
             }
-
-            BackgroundSprite bgspr = new BackgroundSprite(bgImg, Sprites.SpriteBatch, 10, 2);
-            bgspr.Drawn += new EventHandler(bgspr_Drawn);
-            worldCam.Pos = new Vector2(bgspr.TotalWidth / 2, bgspr.TotalHeight - (bgspr.Height / 2));
-            BackgroundSprite = bgspr;
 
             miniMap = new Sprite(new PlainTexture2D(Sprites.SpriteBatch.GraphicsDevice, 1, 1, new Color(Color.Navy.R, Color.Navy.G, Color.Navy.B, 128)), Vector2.Zero, playerSb);
             miniMap.Width = bgspr.TotalWidth / MinimapDivAmount;
