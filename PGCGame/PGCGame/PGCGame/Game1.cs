@@ -77,15 +77,16 @@ namespace PGCGame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            //Title screen calls HorizontalMenuBGSprite ctor
+            titleScreen = new Title(spriteBatch, new Delegates.QuitFunction(Exit));
+            titleScreen.InitScreen(ScreenType.Title);
+            titleScreen.Visible = true;
+
             shopScreen = new Shop(spriteBatch);
             shopScreen.InitScreen(ScreenType.Shop);
 
             controlScreen = new ControlScreen(spriteBatch, new Delegates.QuitFunction(Exit));
             controlScreen.InitScreen(ScreenType.ControlScreen);
-
-            titleScreen = new Title(spriteBatch, new Delegates.QuitFunction(Exit));
-            titleScreen.InitScreen(ScreenType.Title);
-            titleScreen.Visible = true;
 
             mainMenuScreen = new MainMenu(spriteBatch, new Delegates.QuitFunction(Exit));
             mainMenuScreen.InitScreen(ScreenType.MainMenu);

@@ -60,9 +60,10 @@ namespace PGCGame.Screens
              MoveLabel.IsHoverable = true;
              MoveLabel.HoverColor = Color.MediumAquamarine;
              MoveLabel.NonHoverColor = Color.White;
-
+#if WINDOWS
              MoveButton.MouseEnter += new EventHandler(MoveButton_MouseEnter);
              MoveButton.MouseLeave += new EventHandler(MoveButton_MouseLeave);
+#endif
 
 
              FireLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, font, String.Format("Fire:{0}", StateManager.Options.ArrowKeysEnabled ? "LClick" : "Space"));
@@ -73,10 +74,10 @@ namespace PGCGame.Screens
              FireLabel.IsHoverable = true;
              FireLabel.HoverColor = Color.MediumAquamarine;
              FireLabel.NonHoverColor = Color.White;
-             
+#if WINDOWS             
              FireButton.MouseEnter += new EventHandler(FireButton_MouseEnter);
              FireButton.MouseLeave += new EventHandler(FireButton_MouseLeave);
-
+#endif
 
              SecondWeapLabel = new TextSprite(Sprites.SpriteBatch, font, ("Use Secondary Weapon: RClick"));
              SecondWeapLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .40f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .10f);
@@ -101,10 +102,10 @@ namespace PGCGame.Screens
              BackLabel.IsHoverable = true;
              BackLabel.HoverColor = Color.MediumAquamarine;
              BackLabel.NonHoverColor = Color.White;
-
+#if WINDOWS
              BackButton.MouseEnter += new EventHandler(BackButton_MouseEnter);
              BackButton.MouseLeave += new EventHandler(BackButton_MouseLeave);
-
+#endif
              //Add all buttons
              Sprites.Add(BackButton);
              Sprites.Add(MoveButton);
@@ -125,7 +126,7 @@ namespace PGCGame.Screens
 
          public override void Update(GameTime game)
          {
-             
+#if WINDOWS            
              MouseState currentMouseState = MouseManager.CurrentMouseState;
 
              if (BackLabel.IsSelected && BackButton.ClickCheck(currentMouseState) && !BackButton.ClickCheck(lastMS))
@@ -149,6 +150,7 @@ namespace PGCGame.Screens
 
              lastMS = currentMouseState;
              base.Update(game);
+#endif
          }
 
          public bool FireSelected
