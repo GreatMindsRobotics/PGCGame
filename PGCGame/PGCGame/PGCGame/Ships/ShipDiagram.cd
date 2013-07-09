@@ -44,14 +44,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="PGCGame.Ships.Enemies.BaseEnemyShip" Collapsed="true">
-    <Position X="11" Y="2" Width="1.5" />
+    <Position X="9.75" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAAAABAAAAAACgAAAAAAAAAAAAQEAAAAAA=</HashCode>
+      <HashCode>AAQAAAAAAAAAAABAAAAAQCgAAAAAAAAAAAAQEAAAAAA=</HashCode>
       <FileName>Ships\Enemies\BaseEnemyShip.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PGCGame.Ships.Enemies.EnemyDrone" Collapsed="true">
-    <Position X="11" Y="3" Width="1.5" />
+    <Position X="9.75" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
       <FileName>Ships\Enemies\EnemyDrone.cs</FileName>
