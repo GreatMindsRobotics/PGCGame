@@ -88,6 +88,7 @@ namespace PGCGame.Screens
             SinglePlayerButton.MouseEnter += new EventHandler(SinglePlayerButton_MouseEnter);
             SinglePlayerButton.MouseLeave += new EventHandler(SinglePlayerButton_MouseLeave);
 #endif
+
             Sprites.Add(SinglePlayerButton);
 
             SinglePlayerLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Singleplayer");
@@ -130,6 +131,7 @@ namespace PGCGame.Screens
             BackButton.MouseEnter += new EventHandler(BackButton_MouseEnter);
             BackButton.MouseLeave += new EventHandler(BackButton_MouseLeave);
 #endif
+
             Sprites.Add(BackButton);
 
             BackLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Exit");
@@ -173,6 +175,7 @@ namespace PGCGame.Screens
             CreditsButton.MouseEnter += new EventHandler(CreditsButton_MouseEnter);
             CreditsButton.MouseLeave += new EventHandler(CreditsButton_MouseLeave);
 #endif
+
             Sprites.Add(CreditsButton);
 
 
@@ -183,6 +186,15 @@ namespace PGCGame.Screens
             CreditsLabel.NonHoverColor = Color.White;
             CreditsLabel.HoverColor = Color.MediumAquamarine;
             AdditionalSprites.Add(CreditsLabel);
+#if XBOX
+            _screenButtons.Add(Vector2.Zero, SinglePlayerLabel);
+            _screenButtons.Add(new Vector2(0, 1), MultiPlayerLabel);
+            _screenButtons.Add(new Vector2(0, 2), BackLabel);
+            _screenButtons.Add(new Vector2(1, 0), OptionsLabel);
+            _screenButtons.Add(Vector2.One, CreditsLabel);
+
+            SinglePlayerLabel.IsSelected = true;
+#endif
         }
 
         
@@ -257,6 +269,11 @@ namespace PGCGame.Screens
 
         MouseState lastMouseState;
 
+#if XBOX
+        TimeSpan elapsedControllerDelayTime = TimeSpan.Zero;
+        TimeSpan totalControllerDelayTime = TimeSpan.FromMilliseconds(250);
+#endif
+
         public override void Update(GameTime gameTime)
         {
 #if WINDOWS
@@ -281,6 +298,87 @@ namespace PGCGame.Screens
             }
 
             lastMouseState = currentMouseState;
+#elif XBOX 
+            Vector2 lJoystick = GamePadManager.One.Current.ThumbSticks.Left;
+
+            elapsedControllerDelayTime += gameTime.ElapsedGameTime;
+
+            //If enough time passed... 
+            if (elapsedControllerDelayTime > totalControllerDelayTime)
+            {
+                elapsedControllerDelayTime = TimeSpan.Zero;
+
+                //Check Y position
+                if (lJoystick.Y <= -0.6f)
+                {
+                    _currentlySelectedButton.Y--;
+                    if (_currentlySelectedButton.Y < 0)
+                    {
+                        _currentlySelectedButton.Y = _screenButtons.Count - 1;
+                    }
+                }
+                else if (lJoystick.Y >= 0.6f)
+                {
+                    _currentlySelectedButton.Y++;
+                    if (_currentlySelectedButton.Y == _screenButtons.Count)
+                    {
+                        _currentlySelectedButton.Y = 0;
+                    }
+                }
+
+                //Check X position
+                if (lJoystick.X <= -0.6f)
+                {
+                    _currentlySelectedButton.X--;
+                    if (_currentlySelectedButton.X < 0)
+                    {
+                        _currentlySelectedButton.X = _screenButtons.Count - 1;
+                    }
+                }
+                else if (lJoystick.X >= 0.6f)
+                {
+                    _currentlySelectedButton.X++;
+                    if (_currentlySelectedButton.X == _screenButtons.Count)
+                    {
+                        _currentlySelectedButton.X = 0;
+                    }
+                }
+            }
+
+
+            //De-select all buttons
+            foreach (var button in _screenButtons)
+            {
+                button.Value.IsSelected = false;
+            }
+
+            //Select the right button
+            _screenButtons[_currentlySelectedButton].IsSelected = true;
+
+
+            if (GamePadManager.One.Current.IsButtonDown(Buttons.A))
+            {
+                if (BackLabel.IsSelected)
+                {
+                    _exit();
+                }
+                else if (SinglePlayerLabel.IsSelected)
+                {
+                    StateManager.ScreenState = ScreenType.ShipSelect;
+                }
+                else if (MultiPlayerLabel.IsSelected)
+                { 
+                    //TODO: Multiplayer
+                }
+                else if (OptionsLabel.IsSelected)
+                {
+                    StateManager.ScreenState = ScreenType.Options;
+                }
+                else if (CreditsLabel.IsSelected)
+                {
+                    StateManager.ScreenState = ScreenType.Credits;
+                }
+            }
 #endif
             base.Update(gameTime);
         }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Glib.XNA.SpriteLib;
 
 namespace PGCGame.CoreTypes
 {
@@ -53,5 +54,10 @@ namespace PGCGame.CoreTypes
             _screenType = screenName;
             base.Name = screenName.ToString();
         }
+
+#if XBOX
+        protected Vector2 _currentlySelectedButton = Vector2.Zero;
+        protected Dictionary<Vector2, TextSprite> _screenButtons = new Dictionary<Vector2, TextSprite>();
+#endif
     }
 }
