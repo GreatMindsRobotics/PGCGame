@@ -18,7 +18,8 @@ namespace PGCGame.CoreTypes
         WeaponSelect,
         UpgradeScreen,
         TierSelect,
-        LevelSelect
+        LevelSelect,
+        ControlScreen
     }
 
     public enum ScreenBackgrounds
