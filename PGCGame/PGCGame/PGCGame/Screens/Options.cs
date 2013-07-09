@@ -22,14 +22,14 @@ namespace PGCGame.Screens
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
         }
 
-        Sprite MoveControlButton;
-        TextSprite MoveControlLabel;
+        Sprite ControlButton;
+        TextSprite ControlLabel;
 
         TextSprite GFXLabel;
         TextSprite SFXLabel;
         TextSprite MusicVolumeLabel;
         TextSprite BackLabel;
-        TextSprite FireControlLabel;
+        
 
         bool mouseInBackButton = false;
         
@@ -47,37 +47,21 @@ namespace PGCGame.Screens
             StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
 
             //Move Controls (aka Controls)
-            MoveControlButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f), Sprites.SpriteBatch);
+            ControlButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f), Sprites.SpriteBatch);
             
 #if WINDOWS
-            MoveControlButton.MouseEnter += new EventHandler(MoveControlButton_MouseEnter);
-            MoveControlButton.MouseLeave += new EventHandler(MoveControlButton_MouseLeave); 
+            ControlButton.MouseEnter += new EventHandler(ControlButton_MouseEnter);
+            ControlButton.MouseLeave += new EventHandler(ControlButton_MouseLeave); 
 #endif
-            MoveControlLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, font, String.Format("Move: {0}", StateManager.Options.ArrowKeysEnabled ? "Arrow" : "WASD"));
-            MoveControlLabel.Position = new Vector2(MoveControlButton.Position.X + (MoveControlButton.Width / 2 - MoveControlLabel.Width / 2), MoveControlButton.Position.Y + (MoveControlButton.Height / 2 - MoveControlLabel.Height / 2));
-            MoveControlLabel.Color = Color.White;
-            MoveControlLabel.IsManuallySelectable = true;
-            MoveControlLabel.IsHoverable = true;
-            MoveControlLabel.HoverColor = Color.MediumAquamarine;
-            MoveControlLabel.NonHoverColor = Color.White;
+            ControlLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, font, ("Controls"));
+            ControlLabel.Position = new Vector2(ControlButton.Position.X + (ControlButton.Width / 2 - ControlLabel.Width / 2), ControlButton.Position.Y + (ControlButton.Height / 2 - ControlLabel.Height / 2));
+            ControlLabel.Color = Color.White;
+            ControlLabel.IsManuallySelectable = true;
+            ControlLabel.IsHoverable = true;
+            ControlLabel.HoverColor = Color.MediumAquamarine;
+            ControlLabel.NonHoverColor = Color.White;
 
-                                                                                                                                                                              
-
-          
-            //Fire Controls (aka Temporary)
-            FireControlLabel = new TextSprite(Sprites.SpriteBatch, font, String.Format("Fire:{0}", StateManager.Options.LeftButtonEnabled ? "LClick" : "Space"));
-            Sprite FireControlButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .50f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .10f), Sprites.SpriteBatch);
-            FireControlLabel.Position = new Vector2((FireControlButton.X + FireControlButton.Width / 2) - FireControlLabel.Width / 2, (FireControlButton.Y + FireControlButton.Height / 2) - FireControlLabel.Height / 2);
-            FireControlLabel.Color = Color.White;
-            FireControlLabel.IsManuallySelectable = true;
-            FireControlLabel.IsHoverable = true;
-            FireControlLabel.HoverColor = Color.MediumAquamarine;
-            FireControlLabel.NonHoverColor = Color.White;
-
-#if WINDOWS
-            FireControlButton.MouseEnter += new EventHandler(FireControlButton_MouseEnter);
-            FireControlButton.MouseLeave += new EventHandler(FireControlButton_MouseLeave);                                                                                                                   
-#endif
+                                                                                                                                                                             
 
             //GFX
             Sprite GraphicsButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .35f), Sprites.SpriteBatch);
@@ -96,7 +80,7 @@ namespace PGCGame.Screens
 
 
             //SFX
-            Sprite SFXButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .5f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .35f), Sprites.SpriteBatch);
+            Sprite SFXButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .5f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .10f), Sprites.SpriteBatch);
             
 #if WINDOWS
             SFXButton.MouseEnter += new EventHandler(SFXButton_MouseEnter);
@@ -123,7 +107,7 @@ namespace PGCGame.Screens
 
             //Music (volume; currently on/off)
 
-            Sprite MusicButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .5f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .60f), Sprites.SpriteBatch);
+            Sprite MusicButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .5f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .35f), Sprites.SpriteBatch);
             MusicButton.Color = Color.White;
 
 #if WINDOWS
@@ -141,16 +125,14 @@ namespace PGCGame.Screens
 
 
             //Add all buttons
-            Sprites.Add(MoveControlButton);
-            Sprites.Add(FireControlButton);
+            Sprites.Add(ControlButton);
             Sprites.Add(GraphicsButton);
             Sprites.Add(SFXButton);
             Sprites.Add(BackButton);
             Sprites.Add(MusicButton);
 
             //Add all text sprites
-            AdditionalSprites.Add(MoveControlLabel);
-            AdditionalSprites.Add(FireControlLabel);
+            AdditionalSprites.Add(ControlLabel);
             AdditionalSprites.Add(GFXLabel);
             AdditionalSprites.Add(SFXLabel);
             AdditionalSprites.Add(BackLabel);
@@ -166,26 +148,18 @@ namespace PGCGame.Screens
             GFXLabel.Text = String.Format("GFX: {0}", StateManager.GraphicsManager.IsFullScreen ? "Full" : "Standard");
 
         }
-        //Fire Controls
-        void FireControlButton_MouseLeave(object sender, EventArgs e)
-        {
-            FireControlLabel.IsSelected = false;
-        }
-        void FireControlButton_MouseEnter(object sender, EventArgs e)
-        {
-            FireControlLabel.IsSelected = true;
-        }
 
         //Controls
-        void MoveControlButton_MouseLeave(object sender, EventArgs e)
+        void ControlButton_MouseLeave(object sender, EventArgs e)
         {
-            MoveControlLabel.IsSelected = false;
+            ControlLabel.IsSelected = false;
         }
-        void MoveControlButton_MouseEnter(object sender, EventArgs e)
+        void ControlButton_MouseEnter(object sender, EventArgs e)
         {
-            MoveControlLabel.IsSelected = true;
+            ControlLabel.IsSelected = true;
         }
 
+        //Sound Effects
         void SFXButton_MouseLeave(object sender, EventArgs e)
         {
             SFXLabel.IsSelected = false;
@@ -273,17 +247,10 @@ namespace PGCGame.Screens
 
                     
                 }
-                if (MoveControlLabel.IsSelected)
+                if (ControlLabel.IsSelected)
                 {
-                    StateManager.Options.ArrowKeysEnabled = !StateManager.Options.ArrowKeysEnabled;
-                    MoveControlLabel.Text = String.Format("Move: {0}", StateManager.Options.ArrowKeysEnabled ? "Arrow" : "WASD");
+                    StateManager.ScreenState = ScreenType.ControlScreen;
                 }
-                if (FireControlLabel.IsSelected)
-                {
-                    StateManager.Options.LeftButtonEnabled = !StateManager.Options.LeftButtonEnabled;
-                    FireControlLabel.Text = String.Format("Fire:{0}", StateManager.Options.LeftButtonEnabled ? "LClick" : "Space");
-                    
-                                    }
             }
             lastMs = currentMs;
 #endif
