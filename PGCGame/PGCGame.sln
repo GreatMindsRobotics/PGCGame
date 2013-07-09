@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+# Visual C# Express 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PGCGame", "PGCGame\PGCGame\PGCGame.csproj", "{4BD7EBB8-F86B-493D-907D-CF66871DBCE0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PGCGameContent", "PGCGame\PGCGameContent\PGCGameContent.contentproj", "{65BC3F99-7A0D-46DA-90B2-4920A61EE3EC}"
