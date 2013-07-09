@@ -77,6 +77,11 @@ namespace PGCGame.Screens
             PlayLabel.Position = new Vector2(PlayButton.X + (PlayButton.Width / 2 - PlayLabel.Width / 2), PlayButton.Y + (PlayButton.Height / 2 - PlayLabel.Height / 2));
             PlayLabel.IsHoverable = true;
             PlayLabel.IsManuallySelectable = true;
+
+#if XBOX
+            PlayLabel.IsSelected = true;
+#endif
+
             PlayLabel.NonHoverColor = Color.White;
             PlayLabel.HoverColor = Color.MediumAquamarine;
             AdditionalSprites.Add(PlayLabel);
@@ -122,6 +127,11 @@ namespace PGCGame.Screens
 
         MouseState lastMouseState;
 
+#if XBOX
+        TimeSpan elapsedControllerDelayTime = TimeSpan.Zero;
+        TimeSpan totalControllerDelayTime = TimeSpan.FromMilliseconds(250);
+#endif
+
         public override void Update(GameTime gameTime)
         {
             if (!StateManager.IsWindowFocused())
@@ -143,6 +153,29 @@ namespace PGCGame.Screens
             }
 
             lastMouseState = currentMoustState;
+#elif XBOX
+            Vector2 lJoystick = GamePadManager.One.Current.ThumbSticks.Left;
+            if (lJoystick.Y <= -0.6f || lJoystick.Y >= 0.6f)
+            {
+                elapsedControllerDelayTime += gameTime.ElapsedGameTime;
+                if (elapsedControllerDelayTime > totalControllerDelayTime)
+                {
+                    elapsedControllerDelayTime = TimeSpan.Zero;
+                    ExitLabel.IsSelected = !ExitLabel.IsSelected;
+                    PlayLabel.IsSelected = !PlayLabel.IsSelected;
+                }
+            }
+            if (GamePadManager.One.Current.IsButtonDown(Buttons.A))
+            {
+                if (ExitLabel.IsSelected)
+                {
+                    _exit();
+                }
+                else if (PlayLabel.IsSelected)
+                {
+                    StateManager.ScreenState = ScreenType.MainMenu;
+                }
+            }
 #endif
             base.Update(gameTime);
         }
