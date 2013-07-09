@@ -56,6 +56,7 @@ namespace PGCGame.Screens
             base.InitScreen(screnType);
 
             Texture2D planetTexture = GameContent.GameAssets.Images.NonPlayingObjects.Planet;
+            Texture2D altPlanetTexture = GameContent.GameAssets.Images.NonPlayingObjects.AltPlanet;
             Texture2D buttonImage = GameContent.GameAssets.Images.Controls.Button;
             SpriteFont SegoeUIMono = GameContent.GameAssets.Fonts.NormalText;
 
@@ -66,7 +67,7 @@ namespace PGCGame.Screens
             TitleSprite = new Sprite(GameContent.GameAssets.Images.Controls.Title, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .05f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .07f), Sprites.SpriteBatch);
             Sprites.Add(TitleSprite);
 
-            planet = new Sprite(planetTexture, Vector2.Zero, Sprites.SpriteBatch);
+            planet = new Sprite(altPlanetTexture, Vector2.Zero, Sprites.SpriteBatch);
             planet.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.6f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1515f);
             planet.Scale = new Vector2(.7f);
             Sprites.Add(planet);
