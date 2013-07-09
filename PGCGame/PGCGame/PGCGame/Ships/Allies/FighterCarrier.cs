@@ -37,6 +37,7 @@ namespace PGCGame
             _initHealth = 100;
             MovementSpeed = Vector2.One;
             this.TierChanged += new EventHandler(FighterCarrier_TierChanged);
+            DamagePerShot = 2;
         }
 
         void FighterCarrier_TierChanged(object sender, EventArgs e)

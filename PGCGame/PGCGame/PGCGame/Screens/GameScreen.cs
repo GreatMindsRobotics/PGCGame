@@ -41,7 +41,8 @@ namespace PGCGame.Screens
 
         void Options_MusicStateChanged(object sender, EventArgs e)
         {
-            RunNextUpdate = new Delegates.NextRun(delegate() {
+            RunNextUpdate = new Delegates.NextRun(delegate()
+            {
                 if (StateManager.Options.MusicEnabled)
                 {
                     if (MediaPlayer.State == MediaState.Paused)
@@ -59,13 +60,13 @@ namespace PGCGame.Screens
                 }
             });
         }
-        
+
         /// <summary>
         /// The amount to divide the background size by to generate the minimap size.
         /// </summary>
         public const int MinimapDivAmount = 45;
 
-        List<EnemyDrone> enemies = new List<EnemyDrone>();
+        List<BaseEnemyShip> enemies = new List<BaseEnemyShip>();
         BaseAllyShip playerShip;
         SpriteBatch playerSb;
         SpriteFont normal;
@@ -73,7 +74,7 @@ namespace PGCGame.Screens
         Texture2D bgImg;
         Song _gameSong;
         List<ISprite> playerSbObjects = new List<ISprite>();
-        
+
         public override void InitScreen(ScreenType screenType)
         {
             base.InitScreen(screenType);
@@ -147,7 +148,7 @@ namespace PGCGame.Screens
                 EnemyDrone enemy = new EnemyDrone(enemyTexture, Vector2.Zero, Sprites.SpriteBatch);
 
                 enemy.WorldCoords = StateManager.RandomGenerator.NextVector2(minSpawnArea, maxSpawnArea);
-                
+
                 //TODO: Different texture
                 enemy.Color = Color.Green;
                 enemy.Tier = ShipTier.Tier1;
@@ -162,7 +163,7 @@ namespace PGCGame.Screens
             miniMap.Height = bgspr.TotalHeight / MinimapDivAmount;
             miniMap.Y = 7.5f;
             miniMap.Updated += new EventHandler(miniMap_Updated);
-            miniMap.X = playerSb.GraphicsDevice.Viewport.Width-miniMap.Width-7.5f;
+            miniMap.X = playerSb.GraphicsDevice.Viewport.Width - miniMap.Width - 7.5f;
             miniShipInfoBg = new Sprite(new PlainTexture2D(Sprites.SpriteBatch.GraphicsDevice, 1, 1, new Color(0, 0, 0, 192)), new Vector2(7.5f, miniMap.Y), playerSb);
             miniShipInfoBg.Height = 0.01f;
             miniShipInfoBg.Width = 767.5f - miniShipInfoBg.X - 7.5f - miniMap.Width - 266.6666667f;
@@ -342,8 +343,15 @@ namespace PGCGame.Screens
                 }
             }
 
-            foreach (var enemy in enemies)
+            for (int e = 0; e < enemies.Count; e++)
             {
+                BaseEnemyShip enemy = enemies[e];
+
+                if (enemy.IsDead)
+                {
+                    enemies.Remove(enemy);
+                }
+
                 for (int i = 0; i < enemy.FlyingBullets.Count; i++)
                 {
                     Bullet b = enemy.FlyingBullets[i];
@@ -354,11 +362,11 @@ namespace PGCGame.Screens
                     }
                 }
             }
-            
+
             if (playerShip.GetType() == typeof(FighterCarrier))
             {
                 FighterCarrier ship = playerShip.Cast<FighterCarrier>();
-                for(int i = 0; i < ship.DroneBullets.Count; i++)
+                for (int i = 0; i < ship.DroneBullets.Count; i++)
                 {
                     if (ship.DroneBullets[i].IsDead || ship.DroneBullets[i].X <= 0 || ship.DroneBullets[i].X >= bg.TotalWidth || ship.DroneBullets[i].Y <= 0 || ship.DroneBullets[i].Y >= bg.TotalHeight)
                     {
@@ -405,7 +413,7 @@ namespace PGCGame.Screens
             }
             else if (StateManager.InputManager.ShouldMove(MoveDirection.Left))
             {
-                if (worldCam.Pos.X - playerShip.MovementSpeed.X >=  bg.Width / 2)
+                if (worldCam.Pos.X - playerShip.MovementSpeed.X >= bg.Width / 2)
                 {
                     camMove.X = -playerShip.MovementSpeed.X;
                 }
@@ -418,7 +426,7 @@ namespace PGCGame.Screens
             if (_lastState.IsKeyUp(Keys.M) && keyboard.IsKeyDown(Keys.M))
             {
                 miniMap.Color = miniMap.Color == Color.White ? Color.Transparent : Color.White;
-                
+
             }
 
             if (_lastState.IsKeyUp(Keys.F11) && keyboard.IsKeyDown(Keys.F11))

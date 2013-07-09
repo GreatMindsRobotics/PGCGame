@@ -29,6 +29,7 @@ namespace PGCGame
             DelayBetweenShots = TimeSpan.FromSeconds(.75);
             _initHealth = 110;
             this.TierChanged += new EventHandler(TorpedoShip_TierChanged);
+            DamagePerShot = 5;
         }
 
         void TorpedoShip_TierChanged(object sender, EventArgs e)

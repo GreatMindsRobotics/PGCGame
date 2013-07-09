@@ -18,6 +18,9 @@ namespace PGCGame.Ships.Enemies
             Scale = new Vector2(.75f);
 
             DistanceToNose = .5f;
+            DistanceToRSide = .5f;
+
+            _initHealth = 1;
 
             BulletTexture = GameContent.GameAssets.Images.Ships.Bullets[CoreTypes.ShipType.Drone, ShipTier.Tier1];
         }
@@ -33,3 +36,8 @@ namespace PGCGame.Ships.Enemies
         }
     }
 }
+
+
+
+
+

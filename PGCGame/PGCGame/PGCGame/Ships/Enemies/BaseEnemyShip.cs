@@ -19,6 +19,7 @@ namespace PGCGame.Ships.Enemies
         {
             PlayerType = CoreTypes.PlayerType.Enemy;
             UseCenterAsOrigin = true;
+            
         }
 
         Boolean activated = false;
@@ -32,6 +33,18 @@ namespace PGCGame.Ships.Enemies
 
         public override void Update(GameTime gt)
         {
+            if (CurrentHealth <= 0)
+            {
+                base.Update(gt);
+
+                if (FlyingBullets.Count == 0)
+                {
+                    _isDead = true;
+                }
+
+                return;
+            }
+
             float bulletDistanceX;
             float bulletDistanceY;
             float? bulletDistance = null;
@@ -54,6 +67,13 @@ namespace PGCGame.Ships.Enemies
                         {
                             activated = true;
                         }
+                        if (b.Rectangle.Intersects(this.Rectangle))
+                        {
+                            b.Damage = 1;
+                            this.CurrentHealth -= b.Damage;
+                            b.IsDead = true;
+                        }
+                        
                     }
                     if (!shipDistance.HasValue && !closestAllyShipDistance.HasValue)
                     {

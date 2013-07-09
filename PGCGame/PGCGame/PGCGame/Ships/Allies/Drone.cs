@@ -62,6 +62,7 @@ namespace PGCGame
             RotateTowardsMouse = false;
             _initHealth = 10;
             BulletTexture = GameContent.GameAssets.Images.Ships.Bullets[ShipType.Drone, ShipTier.Tier1];
+            DamagePerShot = 1;
         }
 
         #endregion Public Ctors

@@ -49,6 +49,9 @@ namespace PGCGame
             _healthBar.HeightScale = 10;
             _shipID = Guid.NewGuid();
             _initHealth = 100;
+            _isDead = false;
+
+            _currentHealth = _initHealth;
             _cost = new KeyValuePair<int, ShipTier>[4];
         }
 
@@ -86,6 +89,15 @@ namespace PGCGame
 
         public event EventHandler TierChanged;
         public event EventHandler BulletFired;
+
+        protected bool _isDead;
+
+        public bool IsDead
+        {
+            get { return _isDead; }
+            set { _isDead = value; }
+        }
+
 
         #region PublicProperties
 
@@ -134,7 +146,11 @@ namespace PGCGame
             set { _movementSpeed = value; }
         }
 
-        public int CurrentHealth { get; set; }
+        public int CurrentHealth 
+        {
+            get { return _currentHealth; }
+            set { _currentHealth = value; }
+        }
 
         
 
@@ -169,6 +185,9 @@ namespace PGCGame
         /// The percentage of the total height of the ship that the nose is from the center.
         /// </summary>
         public float DistanceToNose;
+        public float DistanceToRSide;
+        public float DistanceToBottom;
+        private int _currentHealth;
 
         #endregion PublicProperties
 
@@ -202,7 +221,13 @@ namespace PGCGame
             {
                 _healthBar.Position = new Vector2(X - (_healthBar.Width / 2), Y - (Height / 1.5f));
                 CurrentHealth = InitialHealth;
+                _isFirstUpdate = false;
                 
+            }
+
+            if (CurrentHealth == 0)
+            {
+                StateManager.ActiveShips.Remove(this);
             }
 
             _healthBar.Denominator = InitialHealth;
@@ -216,6 +241,11 @@ namespace PGCGame
 
         public override void DrawNonAuto()
         {
+            if (CurrentHealth <= 0)
+            {
+                return;
+            }
+
             base.DrawNonAuto();
 
             if (InitialHealth > 1 && (StateManager.HasBoughtScanner || (this is BaseAllyShip && this.Cast<BaseAllyShip>().IsPlayerShip)))
