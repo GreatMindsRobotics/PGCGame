@@ -17,8 +17,7 @@ namespace PGCGame.Ships.Enemies
         {
             Scale = new Vector2(.75f);
 
-            DistanceToNose = .5f;
-            DistanceToRSide = .5f;
+            DamagePerShot = 5;
 
             _initHealth = 1;
 

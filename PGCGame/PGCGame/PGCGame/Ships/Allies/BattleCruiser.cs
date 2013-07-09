@@ -33,6 +33,7 @@ namespace PGCGame
             InitialHealth = 120;
             PlayerType = CoreTypes.PlayerType.Ally;
             this.TierChanged += new EventHandler(BattleCruiser_TierChanged);
+            DamagePerShot = 20;
         }
 
         void BattleCruiser_TierChanged(object sender, EventArgs e)

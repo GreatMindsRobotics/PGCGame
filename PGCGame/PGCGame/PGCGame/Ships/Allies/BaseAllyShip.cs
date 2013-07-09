@@ -23,6 +23,8 @@ namespace PGCGame.Ships.Allies
         private MouseState ms;
         private MouseState lastms;
 
+        Rectangle WCRectangle = new Rectangle();
+
         protected Vector2 _worldPos;
         protected bool _isPlayerShip;
         protected bool _rotateTowardMouse;
@@ -105,6 +107,33 @@ namespace PGCGame.Ships.Allies
 
         public override void Update(GameTime gt)
         {
+            if (CurrentHealth <= 0)
+            {
+                base.Update(gt);
+
+                if (FlyingBullets.Count == 0)
+                {
+                    _isDead = true;
+                }
+
+                return;
+            }
+            foreach (Ship enemyShip in StateManager.ActiveShips)
+            {
+                if (enemyShip.PlayerType != CoreTypes.PlayerType.Ally)
+                {
+                    foreach (Bullet b in enemyShip.FlyingBullets)
+                    {
+                        WCRectangle = new Rectangle(this.WorldCoords.X.ToInt(), this.WorldCoords.Y.ToInt(), this.Width.ToInt(), this.Height.ToInt());
+                        if (b.Rectangle.Intersects(WCRectangle))
+                        {
+                            this.CurrentHealth -= b.Damage;
+                            b.IsDead = true;
+                        }
+                    }
+                }
+            }
+
             if (RotateTowardsMouse)
             {
 #if WINDOWS

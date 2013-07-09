@@ -69,7 +69,6 @@ namespace PGCGame.Ships.Enemies
                         }
                         if (b.Rectangle.Intersects(this.Rectangle))
                         {
-                            b.Damage = 1;
                             this.CurrentHealth -= b.Damage;
                             b.IsDead = true;
                         }

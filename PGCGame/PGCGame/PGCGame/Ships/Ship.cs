@@ -185,8 +185,7 @@ namespace PGCGame
         /// The percentage of the total height of the ship that the nose is from the center.
         /// </summary>
         public float DistanceToNose;
-        public float DistanceToRSide;
-        public float DistanceToBottom;
+
         private int _currentHealth;
 
         #endregion PublicProperties
