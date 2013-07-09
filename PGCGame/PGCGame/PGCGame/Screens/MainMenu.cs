@@ -14,6 +14,7 @@ using Glib.XNA.SpriteLib;
 
 using PGCGame.CoreTypes;
 using Glib.XNA.InputLib;
+using Microsoft.Xna.Framework.Media;
 
 namespace PGCGame.Screens
 {
@@ -30,11 +31,11 @@ namespace PGCGame.Screens
 
         Sprite TitleSprite;
 
-        
+
 
         Sprite planet;
         Sprite planettwo;
-        
+
         Sprite SinglePlayerButton;
         TextSprite SinglePlayerLabel;
 
@@ -50,11 +51,38 @@ namespace PGCGame.Screens
         Sprite CreditsButton;
         TextSprite CreditsLabel;
 
+        Song _gameSong;
+
+
+
 
         public override void InitScreen(ScreenType screnType)
         {
             base.InitScreen(screnType);
 
+            _gameSong = GameContent.GameAssets.Music[ScreenMusic.Level1];
+            StateManager.Options.MusicStateChanged += new EventHandler(Options_MusicStateChanged);
+            StateManager.ScreenStateChanged += new EventHandler(delegate(object src, EventArgs arg)
+            {
+                if (Visible)
+                {
+                    if (StateManager.Options.MusicEnabled)
+                    {
+                        if (MediaPlayer.State == MediaState.Paused)
+                        {
+                            MediaPlayer.Resume();
+                        }
+                        else
+                        {
+                            MediaPlayer.Play(_gameSong);
+                        }
+                    }
+                    else
+                    {
+                        MediaPlayer.Stop();
+                    }
+                }
+            });
             Texture2D planetTexture = GameContent.GameAssets.Images.NonPlayingObjects.Planet;
             Texture2D altPlanetTexture = GameContent.GameAssets.Images.NonPlayingObjects.AltPlanet;
             Texture2D buttonImage = GameContent.GameAssets.Images.Controls.Button;
@@ -71,18 +99,18 @@ namespace PGCGame.Screens
             planet.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.6f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1515f);
             planet.Scale = new Vector2(.7f);
             Sprites.Add(planet);
-            
+
             planettwo = new Sprite(planetTexture, Vector2.Zero, Sprites.SpriteBatch);
             planettwo.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.8f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .75f);
             planettwo.Scale = new Vector2(1f);
             Sprites.Add(planettwo);
 
-            
+
             SinglePlayerButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .21f), Sprites.SpriteBatch);
-            SinglePlayerButton.Moved += new EventHandler(delegate(object src, EventArgs v) 
-                {
-                    SinglePlayerLabel.Position = new Vector2(SinglePlayerButton.X + (SinglePlayerButton.Width / 2 - SinglePlayerLabel.Width / 2), SinglePlayerButton.Y + (SinglePlayerButton.Height / 2 - SinglePlayerLabel.Height / 2)); 
-                });
+            SinglePlayerButton.Moved += new EventHandler(delegate(object src, EventArgs v)
+            {
+                SinglePlayerLabel.Position = new Vector2(SinglePlayerButton.X + (SinglePlayerButton.Width / 2 - SinglePlayerLabel.Width / 2), SinglePlayerButton.Y + (SinglePlayerButton.Height / 2 - SinglePlayerLabel.Height / 2));
+            });
 
 #if WINDOWS
             SinglePlayerButton.MouseEnter += new EventHandler(SinglePlayerButton_MouseEnter);
@@ -98,7 +126,7 @@ namespace PGCGame.Screens
             SinglePlayerLabel.NonHoverColor = Color.White;
             SinglePlayerLabel.HoverColor = Color.MediumAquamarine;
             AdditionalSprites.Add(SinglePlayerLabel);
-            
+
 
             MultiPlayerButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .405f), Sprites.SpriteBatch);
             MultiPlayerButton.Moved += new EventHandler(delegate(object src, EventArgs v)
@@ -122,10 +150,10 @@ namespace PGCGame.Screens
 
 
             BackButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .60f), Sprites.SpriteBatch);
-            BackButton.Moved += new EventHandler(delegate(object src, EventArgs v) 
-                { 
-                    BackLabel.Position = new Vector2((BackButton.X + BackButton.Width / 2) - BackLabel.Width / 2, (BackButton.Y + BackButton.Height / 2) - BackLabel.Height / 2); 
-                });
+            BackButton.Moved += new EventHandler(delegate(object src, EventArgs v)
+            {
+                BackLabel.Position = new Vector2((BackButton.X + BackButton.Width / 2) - BackLabel.Width / 2, (BackButton.Y + BackButton.Height / 2) - BackLabel.Height / 2);
+            });
 
 #if WINDOWS
             BackButton.MouseEnter += new EventHandler(BackButton_MouseEnter);
@@ -144,16 +172,16 @@ namespace PGCGame.Screens
 
 
             OptionsButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .362f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .21f), Sprites.SpriteBatch);
-            OptionsButton.Moved += new EventHandler(delegate(object src, EventArgs ea) 
-                {
-                    OptionsLabel.Position = new Vector2(OptionsButton.X + (OptionsButton.Width / 2 - OptionsLabel.Width / 2), OptionsButton.Y + (OptionsButton.Height / 2 - OptionsLabel.Height / 2));
-                });
+            OptionsButton.Moved += new EventHandler(delegate(object src, EventArgs ea)
+            {
+                OptionsLabel.Position = new Vector2(OptionsButton.X + (OptionsButton.Width / 2 - OptionsLabel.Width / 2), OptionsButton.Y + (OptionsButton.Height / 2 - OptionsLabel.Height / 2));
+            });
 
 #if WINDOWS
             OptionsButton.MouseEnter += new EventHandler(OptionsButton_MouseEnter);
             OptionsButton.MouseLeave += new EventHandler(OptionsButton_MouseLeave);
 #endif
-            
+
             Sprites.Add(OptionsButton);
 
             OptionsLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Options");
@@ -197,7 +225,16 @@ namespace PGCGame.Screens
 #endif
         }
 
-        
+        void Options_MusicStateChanged(object sender, EventArgs e)
+        {
+            if (MediaPlayer.State == MediaState.Playing)
+            {
+                MediaPlayer.Stop();
+            }
+        }
+
+
+
 
         void Options_ScreenResolutionChanged(object sender, EventArgs e)
         {

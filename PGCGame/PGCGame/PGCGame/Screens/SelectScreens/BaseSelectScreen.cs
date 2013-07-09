@@ -83,7 +83,7 @@ namespace PGCGame.Screens
 
             Sprite leftButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .5f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .5f), Sprites.SpriteBatch);
             leftButton.Scale = new Vector2(0.5f, 1);
-            leftLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "<<<");
+            leftLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(5,5), SegoeUIMono, "<<<");
             leftLabel.Position = new Vector2((leftButton.X + leftButton.Width / 2) - leftLabel.Width / 2, (leftButton.Y + leftButton.Height / 2) - leftLabel.Height / 2);
             leftLabel.Color = Color.White;
             leftLabel.IsHoverable = true;
@@ -99,9 +99,9 @@ namespace PGCGame.Screens
             Sprites.Add(leftButton);
             AdditionalSprites.Add(leftLabel);
 
-            Sprite rightButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .8f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .5f), Sprites.SpriteBatch);
+            Sprite rightButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .9f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .5f), Sprites.SpriteBatch);
             rightButton.Scale = new Vector2(0.5f, 1);
-            rightLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, ">>>");
+            rightLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(5,5), SegoeUIMono, ">>>");
             rightLabel.Position = new Vector2((rightButton.X + rightButton.Width / 2) - rightLabel.Width / 2, (rightButton.Y + rightButton.Height / 2) - rightLabel.Height / 2);
             rightLabel.Color = Color.White;
             rightLabel.IsHoverable = true;
@@ -117,7 +117,8 @@ namespace PGCGame.Screens
             AdditionalSprites.Add(rightLabel);
 
             nameLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Name Of Item");
-            nameLabel.Position = new Vector2((leftButton.X + leftButton.Texture.Width - (rightButton.X - (leftButton.X + leftButton.Texture.Width))/2) - nameLabel.Width/2.5f, (leftButton.Y + leftButton.Texture.Height/2) - nameLabel.Height/2);
+                                                //right side of left button              //left of right button   //right side of left button 
+            nameLabel.Position = new Vector2(((leftButton.X + leftButton.Texture.Width * leftButton.Scale.X) + (rightButton.X - (leftButton.X + leftButton.Texture.Width * leftButton.Scale.X))/2) - nameLabel.Width * .5f, (leftButton.Y + leftButton.Texture.Height/2) - nameLabel.Height/2);
             nameLabel.Color = Color.White;
 
             AdditionalSprites.Add(nameLabel);
