@@ -345,37 +345,43 @@ namespace PGCGame.Screens
             {
                 elapsedControllerDelayTime = TimeSpan.Zero;
 
+                //Determine total buttons for this column
+                int totalButtons = _screenButtons.Count<KeyValuePair<Vector2, TextSprite>>(v => v.Key.X == _currentlySelectedButton.X);
+
                 //Check Y position
-                if (lJoystick.Y <= -0.6f)
+                if (lJoystick.Y <= 0.6f)
                 {
                     _currentlySelectedButton.Y--;
                     if (_currentlySelectedButton.Y < 0)
                     {
-                        _currentlySelectedButton.Y = _screenButtons.Count - 1;
+                        _currentlySelectedButton.Y = totalButtons - 1;
                     }
                 }
-                else if (lJoystick.Y >= 0.6f)
+                else if (lJoystick.Y >= -0.6f)
                 {
                     _currentlySelectedButton.Y++;
-                    if (_currentlySelectedButton.Y == _screenButtons.Count)
+                    if (_currentlySelectedButton.Y == totalButtons)
                     {
                         _currentlySelectedButton.Y = 0;
                     }
                 }
 
+                //Determine total buttons for this row
+                totalButtons = _screenButtons.Count<KeyValuePair<Vector2, TextSprite>>(v => v.Key.Y == _currentlySelectedButton.Y);
+                
                 //Check X position
                 if (lJoystick.X <= -0.6f)
                 {
                     _currentlySelectedButton.X--;
                     if (_currentlySelectedButton.X < 0)
                     {
-                        _currentlySelectedButton.X = _screenButtons.Count - 1;
+                        _currentlySelectedButton.X = totalButtons - 1;
                     }
                 }
                 else if (lJoystick.X >= 0.6f)
                 {
                     _currentlySelectedButton.X++;
-                    if (_currentlySelectedButton.X == _screenButtons.Count)
+                    if (_currentlySelectedButton.X == totalButtons)
                     {
                         _currentlySelectedButton.X = 0;
                     }
@@ -393,7 +399,19 @@ namespace PGCGame.Screens
             _screenButtons[_currentlySelectedButton].IsSelected = true;
 
 
-            if (GamePadManager.One.Current.IsButtonDown(Buttons.A))
+            //if (GamePadManager.One.Current.IsButtonDown(Buttons.A) && !GamePadManager.One.Last.IsButtonDown(Buttons.A))
+
+            //TODO: Switch to Glib.GamePadManager once ready
+
+            currentGamePad = GamePad.GetState(PlayerIndex.One);
+
+            //Check for exit via "B" button
+            if (currentGamePad.IsButtonDown(Buttons.B) && !lastGamePad.IsButtonDown(Buttons.B))
+            {
+                _exit();
+            }
+
+            if(currentGamePad.IsButtonDown(Buttons.A) && !lastGamePad.IsButtonDown(Buttons.A))
             {
                 if (BackLabel.IsSelected)
                 {
@@ -415,10 +433,18 @@ namespace PGCGame.Screens
                 {
                     StateManager.ScreenState = ScreenType.Credits;
                 }
-            }
+            }            
+
+            lastGamePad = currentGamePad;
+
 #endif
             base.Update(gameTime);
         }
+
+#if XBOX
+        GamePadState currentGamePad;
+        GamePadState lastGamePad = new GamePadState(Vector2.Zero, Vector2.Zero, 0, 0, Buttons.A);
+#endif
 
     }
 }
