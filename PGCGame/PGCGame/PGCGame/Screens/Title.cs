@@ -67,8 +67,10 @@ namespace PGCGame.Screens
             Sprites.Add(TitleImage);
 
             PlayButton = new Sprite(buttonTexture, new Vector2(viewPort.Width * 0.375f, viewPort.Height * 0.4f), Sprites.SpriteBatch);
+#if WINDOWS
             PlayButton.MouseEnter += new EventHandler(PlayButton_MouseEnter);
             PlayButton.MouseLeave += new EventHandler(PlayButton_MouseLeave);
+#endif 
             Sprites.Add(PlayButton);
 
             PlayLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Play");
@@ -81,8 +83,12 @@ namespace PGCGame.Screens
 
 
             ExitButton = new Sprite(buttonTexture, new Vector2(PlayButton.X, PlayButton.Y + (PlayButton.Height * 1.6f)), Sprites.SpriteBatch);
+            
+#if WINDOWS
             ExitButton.MouseEnter += new EventHandler(ExitButton_MouseEnter);
             ExitButton.MouseLeave += new EventHandler(ExitButton_MouseLeave);
+#endif 
+            
             Sprites.Add(ExitButton);
 
             ExitLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Exit");
@@ -124,6 +130,7 @@ namespace PGCGame.Screens
                 return;
             }
             
+#if WINDOWS
             MouseState currentMoustState = MouseManager.CurrentMouseState;
 
             if (PlayLabel.IsSelected && PlayButton.ClickCheck(currentMoustState) && !PlayButton.ClickCheck(lastMouseState))
@@ -136,7 +143,7 @@ namespace PGCGame.Screens
             }
 
             lastMouseState = currentMoustState;
-
+#endif
             base.Update(gameTime);
         }
     }

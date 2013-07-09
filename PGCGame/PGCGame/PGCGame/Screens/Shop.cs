@@ -45,8 +45,11 @@ namespace PGCGame.Screens
             upgradeEquipmentLabel.IsManuallySelectable = true;
             upgradeEquipmentLabel.NonHoverColor = Color.White;
             upgradeEquipmentLabel.HoverColor = Color.MediumAquamarine;
+
+#if WINDOWS
             upgradeEquipmentButton.MouseEnter += new EventHandler(upgradeEButton_MouseEnter);
             upgradeEquipmentButton.MouseLeave += new EventHandler(upgradeEButton_MouseLeave);
+#endif
 
             Sprites.Add(upgradeEquipmentButton);
             AdditionalSprites.Add(upgradeEquipmentLabel);
@@ -59,8 +62,11 @@ namespace PGCGame.Screens
             shipLabel.IsManuallySelectable = true;
             shipLabel.NonHoverColor = Color.White;
             shipLabel.HoverColor = Color.MediumAquamarine;
+
+#if WINDOWS
             shipButton.MouseEnter += new EventHandler(shipButton_MouseEnter);
             shipButton.MouseLeave += new EventHandler(shipButton_MouseLeave);
+#endif
 
 
             Sprites.Add(shipButton);
@@ -74,8 +80,11 @@ namespace PGCGame.Screens
             weaponsLabel.IsManuallySelectable = true;
             weaponsLabel.NonHoverColor = Color.White;
             weaponsLabel.HoverColor = Color.MediumAquamarine;
+
+#if WINDOWS
             weaponsButton.MouseEnter += new EventHandler(weaponsButton_MouseEnter);
             weaponsButton.MouseLeave += new EventHandler(weaponsButton_MouseLeave);
+#endif
 
             Sprites.Add(weaponsButton);
             AdditionalSprites.Add(weaponsLabel);
@@ -88,8 +97,11 @@ namespace PGCGame.Screens
             backLabel.IsManuallySelectable = true;
             backLabel.NonHoverColor = Color.White;
             backLabel.HoverColor = Color.MediumAquamarine;
+
+#if WINDOWS
             backButton.MouseEnter += new EventHandler(backButton_MouseEnter);
             backButton.MouseLeave += new EventHandler(backButton_MouseLeave);
+#endif
 
             Sprites.Add(backButton);
             AdditionalSprites.Add(backLabel);
@@ -176,6 +188,7 @@ namespace PGCGame.Screens
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+#if WINDOWS
             MouseState currentMs = MouseManager.CurrentMouseState;
             if (lastMs.LeftButton == ButtonState.Released && currentMs.LeftButton == ButtonState.Pressed)
             {
@@ -198,6 +211,7 @@ namespace PGCGame.Screens
                 
             }
             lastMs = currentMs;
+#endif
         }
     }
 }

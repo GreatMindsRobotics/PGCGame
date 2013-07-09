@@ -48,9 +48,11 @@ namespace PGCGame.Screens
 
             //Move Controls (aka Controls)
             MoveControlButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f), Sprites.SpriteBatch);
+            
+#if WINDOWS
             MoveControlButton.MouseEnter += new EventHandler(MoveControlButton_MouseEnter);
             MoveControlButton.MouseLeave += new EventHandler(MoveControlButton_MouseLeave); 
-
+#endif
             MoveControlLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, font, String.Format("Move: {0}", StateManager.Options.ArrowKeysEnabled ? "Arrow" : "WASD"));
             MoveControlLabel.Position = new Vector2(MoveControlButton.Position.X + (MoveControlButton.Width / 2 - MoveControlLabel.Width / 2), MoveControlButton.Position.Y + (MoveControlButton.Height / 2 - MoveControlLabel.Height / 2));
             MoveControlLabel.Color = Color.White;
@@ -71,14 +73,18 @@ namespace PGCGame.Screens
             FireControlLabel.IsHoverable = true;
             FireControlLabel.HoverColor = Color.MediumAquamarine;
             FireControlLabel.NonHoverColor = Color.White;
+
+#if WINDOWS
             FireControlButton.MouseEnter += new EventHandler(FireControlButton_MouseEnter);
             FireControlButton.MouseLeave += new EventHandler(FireControlButton_MouseLeave);                                                                                                                   
-
+#endif
 
             //GFX
             Sprite GraphicsButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .35f), Sprites.SpriteBatch);
+#if WINDOWS
             GraphicsButton.MouseEnter +=new EventHandler(GraphicsButton_MouseEnter);
             GraphicsButton.MouseLeave +=new EventHandler(GraphicsButton_MouseLeave);
+#endif
 
             GFXLabel = new TextSprite(Sprites.SpriteBatch, font, String.Format("GFX: {0}", StateManager.GraphicsManager.IsFullScreen ? "Full" : "Standard"));
             GFXLabel.Position = new Vector2((GraphicsButton.X + GraphicsButton.Width / 2) - GFXLabel.Width / 2, (GraphicsButton.Y + GraphicsButton.Height / 2) - GFXLabel.Height / 2);
@@ -91,9 +97,11 @@ namespace PGCGame.Screens
 
             //SFX
             Sprite SFXButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .5f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .35f), Sprites.SpriteBatch);
+            
+#if WINDOWS
             SFXButton.MouseEnter += new EventHandler(SFXButton_MouseEnter);
             SFXButton.MouseLeave += new EventHandler(SFXButton_MouseLeave);
-
+#endif
             SFXLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, font, "SFX: " + (StateManager.Options.SFXEnabled ? "On" : "Off"));
             SFXLabel.Position = new Vector2((SFXButton.X + SFXButton.Width / 2) - SFXLabel.Width / 2, (SFXButton.Y + SFXButton.Height / 2) - SFXLabel.Height / 2);
             SFXLabel.Color = Color.White;
@@ -107,16 +115,21 @@ namespace PGCGame.Screens
             Sprite BackButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .60f), Sprites.SpriteBatch);
             BackLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .139f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .62f), GameContent.GameAssets.Fonts.NormalText, "Back");
             BackLabel.Color = Color.White;
+
+#if WINDOWS
             BackButton.MouseEnter += new EventHandler(BackButton_MouseEnter);
             BackButton.MouseLeave += new EventHandler(BackButton_MouseLeave);
-
+#endif
 
             //Music (volume; currently on/off)
 
             Sprite MusicButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .5f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .60f), Sprites.SpriteBatch);
             MusicButton.Color = Color.White;
+
+#if WINDOWS
             MusicButton.MouseEnter += new EventHandler(MusicButton_MouseEnter);
             MusicButton.MouseLeave += new EventHandler(MusicButton_MouseLeave);
+#endif
 
             MusicVolumeLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, font, "Music: " + (StateManager.Options.MusicEnabled ? "On" : "Off"));
             MusicVolumeLabel.Position = new Vector2((MusicButton.X + MusicButton.Width / 2) - MusicVolumeLabel.Width / 2, (MusicButton.Y + MusicButton.Height / 2) - MusicVolumeLabel.Height / 2);
@@ -236,6 +249,7 @@ namespace PGCGame.Screens
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+#if WINDOWS
             MouseState currentMs = MouseManager.CurrentMouseState;
             if (lastMs.LeftButton == ButtonState.Released && currentMs.LeftButton == ButtonState.Pressed)
             {
@@ -272,6 +286,7 @@ namespace PGCGame.Screens
                                     }
             }
             lastMs = currentMs;
+#endif
         } 
     }
 }

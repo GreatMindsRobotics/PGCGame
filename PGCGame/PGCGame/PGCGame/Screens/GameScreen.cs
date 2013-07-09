@@ -214,6 +214,7 @@ namespace PGCGame.Screens
 
         void miniMap_Updated(object sender, EventArgs e)
         {
+#if WINDOWS
             foreach (Sprite s in miniShips)
             {
                 playerSbObjects.Remove(s);
@@ -271,6 +272,7 @@ namespace PGCGame.Screens
                 miniShipInfoBg.Color = Color.Transparent;
 
             }
+#endif
         }
 
         void bgspr_Drawn(object sender, EventArgs e)

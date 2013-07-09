@@ -82,8 +82,11 @@ namespace PGCGame.Screens
                 {
                     SinglePlayerLabel.Position = new Vector2(SinglePlayerButton.X + (SinglePlayerButton.Width / 2 - SinglePlayerLabel.Width / 2), SinglePlayerButton.Y + (SinglePlayerButton.Height / 2 - SinglePlayerLabel.Height / 2)); 
                 });
+
+#if WINDOWS
             SinglePlayerButton.MouseEnter += new EventHandler(SinglePlayerButton_MouseEnter);
             SinglePlayerButton.MouseLeave += new EventHandler(SinglePlayerButton_MouseLeave);
+#endif
             Sprites.Add(SinglePlayerButton);
 
             SinglePlayerLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Singleplayer");
@@ -100,8 +103,11 @@ namespace PGCGame.Screens
             {
                 MultiPlayerLabel.Position = new Vector2(MultiPlayerButton.X + (MultiPlayerButton.Width / 2 - MultiPlayerLabel.Width / 2), MultiPlayerButton.Y + (MultiPlayerButton.Height / 2 - MultiPlayerLabel.Height / 2));
             });
+
+#if WINDOWS
             MultiPlayerButton.MouseEnter += new EventHandler(MultiPlayerButton_MouseEnter);
             MultiPlayerButton.MouseLeave += new EventHandler(MultiPlayerButton_MouseLeave);
+#endif
             Sprites.Add(MultiPlayerButton);
 
             MultiPlayerLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Multiplayer");
@@ -118,8 +124,11 @@ namespace PGCGame.Screens
                 { 
                     BackLabel.Position = new Vector2((BackButton.X + BackButton.Width / 2) - BackLabel.Width / 2, (BackButton.Y + BackButton.Height / 2) - BackLabel.Height / 2); 
                 });
+
+#if WINDOWS
             BackButton.MouseEnter += new EventHandler(BackButton_MouseEnter);
             BackButton.MouseLeave += new EventHandler(BackButton_MouseLeave);
+#endif
             Sprites.Add(BackButton);
 
             BackLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Exit");
@@ -136,8 +145,12 @@ namespace PGCGame.Screens
                 {
                     OptionsLabel.Position = new Vector2(OptionsButton.X + (OptionsButton.Width / 2 - OptionsLabel.Width / 2), OptionsButton.Y + (OptionsButton.Height / 2 - OptionsLabel.Height / 2));
                 });
+
+#if WINDOWS
             OptionsButton.MouseEnter += new EventHandler(OptionsButton_MouseEnter);
             OptionsButton.MouseLeave += new EventHandler(OptionsButton_MouseLeave);
+#endif
+            
             Sprites.Add(OptionsButton);
 
             OptionsLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Options");
@@ -154,8 +167,11 @@ namespace PGCGame.Screens
             {
                 CreditsLabel.Position = new Vector2((CreditsButton.X + CreditsButton.Width / 2) - CreditsLabel.Width / 2, (CreditsButton.Y + CreditsButton.Height / 2) - CreditsLabel.Height / 2);
             });
+
+#if WINDOWS
             CreditsButton.MouseEnter += new EventHandler(CreditsButton_MouseEnter);
             CreditsButton.MouseLeave += new EventHandler(CreditsButton_MouseLeave);
+#endif
             Sprites.Add(CreditsButton);
 
 
@@ -242,6 +258,7 @@ namespace PGCGame.Screens
 
         public override void Update(GameTime gameTime)
         {
+#if WINDOWS
             MouseState currentMouseState = MouseManager.CurrentMouseState;
 
             if (BackLabel.IsSelected && BackButton.ClickCheck(currentMouseState) && !BackButton.ClickCheck(lastMouseState))
@@ -263,7 +280,7 @@ namespace PGCGame.Screens
             }
 
             lastMouseState = currentMouseState;
-
+#endif
             base.Update(gameTime);
         }
 

@@ -50,15 +50,20 @@ namespace PGCGame.Screens
 
             ResumeButton = new Sprite(button, Vector2.Zero, Sprites.SpriteBatch);
             ResumeButton.Position = new Vector2(ResumeButton.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .2f);
+#if WINDOWS
             ResumeButton.MouseEnter += new EventHandler(ResumeButton_MouseEnter);
             ResumeButton.MouseLeave += new EventHandler(ResumeButton_MouseLeave);
+#endif 
             Sprites.Add(ResumeButton);
 
 
 
             ExitButton = new Sprite(button, new Vector2(ResumeButton.X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .8f), Sprites.SpriteBatch);
+            
+#if WINDOWS
             ExitButton.MouseEnter += new EventHandler(BackButton_MouseEnter);
             ExitButton.MouseLeave += new EventHandler(BackButton_MouseLeave);
+#endif 
             Sprites.Add(ExitButton);
 
             ResumeLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "Resume");
@@ -81,8 +86,11 @@ namespace PGCGame.Screens
 
             ShopButton = new Sprite(button, Vector2.Zero, Sprites.SpriteBatch);
             ShopButton.Position = new Vector2(ResumeButton.X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .53f);
+            
+#if WINDOWS
             ShopButton.MouseEnter += new EventHandler(ShopButton_MouseEnter);
             ShopButton.MouseLeave += new EventHandler(ShopButton_MouseLeave);
+#endif 
             Sprites.Add(ShopButton);
 
             ShopLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "Shop");
@@ -96,8 +104,11 @@ namespace PGCGame.Screens
 
             OptionButton = new Sprite(button, Vector2.Zero, Sprites.SpriteBatch);
             OptionButton.Position = new Vector2(ResumeButton.X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .37f);
+            
+#if WINDOWS
             OptionButton.MouseEnter += new EventHandler(OptionButton_MouseEnter);
             OptionButton.MouseLeave += new EventHandler(OptionButton_MouseLeave);
+#endif 
             Sprites.Add(OptionButton);
 
             OptionsLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "Options");
@@ -213,6 +224,7 @@ namespace PGCGame.Screens
                 return;
             }
 
+#if WINDOWS
             if (mouseInResumeButton || mouseInExitButton || mouseInShopButton || mouseInOptionsButton)
             {
                 MouseState ms = MouseManager.CurrentMouseState;
@@ -245,6 +257,7 @@ namespace PGCGame.Screens
                 }
 
             }
+#endif
             lastState = current;
         }
     }

@@ -164,7 +164,8 @@ namespace PGCGame.Screens
                 credits.Add(student);
             }
 
-            AdditionalSprites.AddRange(credits);
+            //The IEnumerable cast method
+            AdditionalSprites.AddRange(credits.Cast<ISprite>());
             Sprites.Add(gameTitle);
 
             _elapsedTime = TimeSpan.Zero;

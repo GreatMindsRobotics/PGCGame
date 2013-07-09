@@ -2223,6 +2223,11 @@
             Gets the last known mouse state before the current mouse state.
             </summary>
         </member>
+        <member name="E:Glib.XNA.InputLib.MouseManager.Updated">
+            <summary>
+            An event fired after the update of the MouseManager, but before the assignment of LastMouseState.
+            </summary>
+        </member>
         <member name="P:Glib.XNA.InputLib.MouseManager.AllRegions">
             <summary>
             Gets a list of all known updated SreenRegion objects.

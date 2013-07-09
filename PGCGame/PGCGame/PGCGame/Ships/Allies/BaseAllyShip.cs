@@ -107,6 +107,7 @@ namespace PGCGame.Ships.Allies
         {
             if (RotateTowardsMouse)
             {
+#if WINDOWS
                 ms = MouseManager.CurrentMouseState;
                 Vector2 mousePos = new Vector2(ms.X, ms.Y);
                 Vector2 targetPos = mousePos - Position;
@@ -115,6 +116,7 @@ namespace PGCGame.Ships.Allies
                 Rotation.Radians = Math.Atan2(targetPos.X, -targetPos.Y).ToFloat();
 
                 lastms = ms;
+#endif
             }
 
             //Shoot

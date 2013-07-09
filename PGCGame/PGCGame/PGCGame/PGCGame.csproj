@@ -142,8 +142,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PGCGameContent\PGCGameContent.contentproj">
-      <Name>PGCGameContent</Name>
+      <Name>PGCGameContent %28Content%29</Name>
       <XnaReferenceType>Content</XnaReferenceType>
+      <Project>{65BC3F99-7A0D-46DA-90B2-4920A61EE3EC}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
