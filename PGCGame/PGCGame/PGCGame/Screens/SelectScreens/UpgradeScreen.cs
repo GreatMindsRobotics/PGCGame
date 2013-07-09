@@ -24,44 +24,84 @@ namespace PGCGame.Screens.SelectScreens
             
         }
 
-       TextSprite text;
-       TextSprite text2;
-       TextSprite text3;
+       List<KeyValuePair<Sprite, string>> itemsShown = new List<KeyValuePair<Sprite, string>>();
 
        public override void InitScreen(ScreenType screenType)
        {
-           base.InitScreen(screenType);
+
+
+
 
            Texture2D tempImage = GameContent.GameAssets.Images.NonPlayingObjects.Planet;
+           Texture2D ScannerImage = GameContent.GameAssets.Images.Equipment[EquipmentType.Scanner, TextureDisplayType.ShopDisplay];
            SpriteFont font = GameContent.GameAssets.Fonts.NormalText;
 
+          
+
            Sprite image = new Sprite(tempImage, Vector2.Zero, Sprites.SpriteBatch);
-           text = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, font, "TODO");
+           //Sprite equipment1 = new Sprite(tempImage, Vector2.Zero, Sprites.SpriteBatch);
+           TextSprite text = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, font, "TODO");
            text.Color = Color.White;
-           image.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.6f, 50);
+           image.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.6f, 50); 
            text.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.1f, 30);
            items.Add(new KeyValuePair<Sprite, TextSprite>(image, text));
-           
-           Sprite image2 = new Sprite(tempImage, Vector2.Zero, Sprites.SpriteBatch);
-           text2 = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, font, "Todo");
-           image2.Scale = new Vector2(0.5f, 0.5f);
-           image2.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.66f, 150);
-           text2.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.1f, 30);
-           text2.Color = Color.White;
-           items.Add(new KeyValuePair<Sprite, TextSprite>(image2, text2));
 
+
+
+           //scanner
+
+           Sprite Scanner = new Sprite(ScannerImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.6f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.1f), Sprites.SpriteBatch);
+            TextSprite text4 = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.1f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 1.5f), font, "Scanner", Color.White);
+            text4.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.01f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.01f); 
+           Scanner.Scale = new Vector2(0.5f, 0.5f);
+            itemsShown.Add(new KeyValuePair<Sprite, string>(Scanner, text4.ToString()));
+            items.Add(new KeyValuePair<Sprite, TextSprite>(Scanner, text4));
+
+
+           Sprite equipment1 = new Sprite(tempImage, Vector2.Zero, Sprites.SpriteBatch);
+           TextSprite text1 = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, font, "Todo");
+           equipment1.Scale = new Vector2(0.5f, 0.5f);
+           equipment1.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.66f, 150);
+           text1.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.1f, 30);
+           items.Add(new KeyValuePair<Sprite, TextSprite>(equipment1, text1));
+           
            Sprite image3 = new Sprite(tempImage, Vector2.Zero, Sprites.SpriteBatch);
-           text3 = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, font, "todo too");
+           TextSprite text3 = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, font, "todo too");
            text3.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.1f, 30);
            image3.Scale = new Vector2(0.75f,0.75f);
            image3.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.63f, 100);
            items.Add(new KeyValuePair<Sprite, TextSprite>(image3, text3));
 
+
+           ChangeItem += new EventHandler(UpgradeScreen_ChangeItem);
+
+           base.InitScreen(screenType);
+
            acceptLabel.Text = "Buy";
+       
+       
+       
+       }
+
+       void UpgradeScreen_ChangeItem(object sender, EventArgs e)
+       {
+           foreach (KeyValuePair<Sprite, TextSprite> item in items)
+           {
+               if (item.Key == items[selected].Key)
+               {
+                   nameLabel.Text = item.Value.Text;
+                   
+                   break;
+               }
+
+
+
+           }
        }
 
        public override void Update(GameTime gameTime)
        {
+           
            base.Update(gameTime);
        }
     }

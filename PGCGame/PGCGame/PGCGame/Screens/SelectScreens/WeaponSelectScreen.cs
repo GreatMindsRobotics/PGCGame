@@ -36,7 +36,7 @@ namespace PGCGame.Screens.SelectScreens
             Texture2D RayGun = GameContent.GameAssets.Images.SecondaryWeapon[SecondaryWeaponType.ShrinkRay, TextureDisplayType.ShopDisplay];
             Texture2D Bomb = GameContent.GameAssets.Images.SecondaryWeapon[SecondaryWeaponType.SpaceMine, TextureDisplayType.ShopDisplay];
 
-            Texture2D Scanner = GameContent.GameAssets.Images.Equipment[EquipmentType.Scanner, TextureDisplayType.ShopDisplay];
+            
 
             SpriteFont font = GameContent.GameAssets.Fonts.NormalText;
 
@@ -67,15 +67,8 @@ namespace PGCGame.Screens.SelectScreens
             items.Add(new KeyValuePair<Sprite, TextSprite>(weapon2, text2));
             items.Add(new KeyValuePair<Sprite, TextSprite>(weapon3, text3));
 
-            //Scanner
-            Sprite weapon4 = new Sprite(Scanner, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.6f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.1f), Sprites.SpriteBatch);
-            TextSprite text4 = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.01f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.1f), font, "\n\nA ship scanner. This is temporary text\n to check if this works \n\ncost: 15000 credits", Color.White);
-            weapon4.Scale = new Vector2(0.5f, 0.5f);
-            items.Add(new KeyValuePair<Sprite, TextSprite>(weapon4, text4));
+            
 
-            itemsShown.Add(new KeyValuePair<Sprite, string>(weapon4, "Scanner"));
-
-            ChangeItem += new EventHandler(WeaponSelectScreen_ChangeItem);
 
             base.InitScreen(screenType);
 
