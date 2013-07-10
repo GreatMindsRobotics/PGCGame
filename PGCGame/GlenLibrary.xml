@@ -417,7 +417,7 @@
             Update the TextSprite. Just calls the Updated event by default.
             </summary>
             <remarks>
-            Uses the InputLib.Mouse.MouseManager.CurrentMouseState for mouse data.
+            Uses the InputLib.MouseManager.CurrentMouseState for mouse data.
             </remarks>
         </member>
         <member name="F:Glib.XNA.SpriteLib.TextSprite.CallKeyboardClickEvent">
@@ -508,6 +508,13 @@
             <summary>
             Gets or sets a boolean indicating whether or not this TextSprite will be selected by ways other than the mouse cursor.
             If this is true, the mouse cursor will be ignored.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.TextSprite.ParentSprite">
+            <summary>
+            Gets or sets the parent sprite (such as a button image) of this TextSprite.
+            If not null, all selection, click, and positioning logic logic will be performed relative to this Sprite.
+            This includes centering this TextSprite to the specified ParentSprite upon set.
             </summary>
         </member>
         <member name="P:Glib.XNA.SpriteLib.TextSprite.IsHoverable">
