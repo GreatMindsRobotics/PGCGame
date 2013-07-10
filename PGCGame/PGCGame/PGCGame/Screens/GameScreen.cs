@@ -379,9 +379,14 @@ namespace PGCGame.Screens
             Vector2 camMove = Vector2.Zero;
             if (StateManager.InputManager.ShouldMove(MoveDirection.Up))
             {
-                if (worldCam.Pos.Y - playerShip.MovementSpeed.Y >= bg.Height / 2)
+                float ymoveAmount = -playerShip.MovementSpeed.Y;
+#if XBOX
+                ymoveAmount *= Math.Abs(GamePadManager.One.Current.ThumbSticks.Left.Y);
+#endif
+
+                if (worldCam.Pos.Y + ymoveAmount>= bg.Height / 2)
                 {
-                    camMove.Y = -playerShip.MovementSpeed.Y;
+                    camMove.Y = ymoveAmount;
                 }
                 else
                 {
@@ -390,9 +395,14 @@ namespace PGCGame.Screens
             }
             else if (StateManager.InputManager.ShouldMove(MoveDirection.Down))
             {
-                if (worldCam.Pos.Y + playerShip.MovementSpeed.Y <= bg.TotalHeight - (bg.Height / 2))
+                float ymoveAmount = playerShip.MovementSpeed.Y;
+#if XBOX
+                ymoveAmount *= Math.Abs(GamePadManager.One.Current.ThumbSticks.Left.Y);
+#endif
+
+                if (worldCam.Pos.Y + ymoveAmount <= bg.TotalHeight - (bg.Height / 2))
                 {
-                    camMove.Y = playerShip.MovementSpeed.Y;
+                    camMove.Y = ymoveAmount;
                 }
                 else
                 {
@@ -402,9 +412,14 @@ namespace PGCGame.Screens
 
             if (StateManager.InputManager.ShouldMove(MoveDirection.Right))
             {
-                if (worldCam.Pos.X + playerShip.MovementSpeed.X <= bg.TotalWidth - (bg.Width / 2))
+                float xmoveAmount = playerShip.MovementSpeed.X;
+#if XBOX
+                xmoveAmount *= Math.Abs(GamePadManager.One.Current.ThumbSticks.Left.X);
+#endif
+
+                if (worldCam.Pos.X + xmoveAmount <= bg.TotalWidth - (bg.Width / 2))
                 {
-                    camMove.X = playerShip.MovementSpeed.X;
+                    camMove.X = xmoveAmount;
                 }
                 else
                 {
@@ -413,9 +428,14 @@ namespace PGCGame.Screens
             }
             else if (StateManager.InputManager.ShouldMove(MoveDirection.Left))
             {
-                if (worldCam.Pos.X - playerShip.MovementSpeed.X >= bg.Width / 2)
+                float xmoveAmount = -playerShip.MovementSpeed.X;
+#if XBOX
+                xmoveAmount *= Math.Abs(GamePadManager.One.Current.ThumbSticks.Left.X);
+#endif
+
+                if (worldCam.Pos.X + xmoveAmount >= bg.Width / 2)
                 {
-                    camMove.X = -playerShip.MovementSpeed.X;
+                    camMove.X = xmoveAmount;
                 }
                 else
                 {

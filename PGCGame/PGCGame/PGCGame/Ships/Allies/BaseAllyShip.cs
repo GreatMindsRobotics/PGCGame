@@ -145,6 +145,11 @@ namespace PGCGame.Ships.Allies
                 Rotation.Radians = Math.Atan2(targetPos.X, -targetPos.Y).ToFloat();
 
                 lastms = ms;
+#elif XBOX
+                if (new Vector2(Math.Round(GamePadManager.One.Current.ThumbSticks.Right.X * 10).ToFloat() / 10.ToFloat(), Math.Round(GamePadManager.One.Current.ThumbSticks.Right.Y * 10).ToFloat() / 10.ToFloat()) != Vector2.Zero)
+                {
+                    Rotation.Vector = new Vector2(GamePadManager.One.Current.ThumbSticks.Right.X, -GamePadManager.One.Current.ThumbSticks.Right.Y);
+                }
 #endif
             }
 

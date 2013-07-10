@@ -83,21 +83,21 @@ namespace PGCGame.Screens
 
         void ShipSelect_nextButtonClicked(object sender, EventArgs e)
         {
-            //TODO: Ship selection screen will choose ship
             if (items[selected].Key.Texture == ship1.Texture)
             {
-                StateManager.InitializeSingleplayerGameScreen<BattleCruiser>(ShipTier.Tier1);
+                StateManager.SelectedShip = ShipType.BattleCruiser;
             }
             else if (items[selected].Key.Texture == ship2.Texture)
             {
-                StateManager.InitializeSingleplayerGameScreen<FighterCarrier>(ShipTier.Tier1);
+                StateManager.SelectedShip = ShipType.FighterCarrier;
             }
             else if (items[selected].Key.Texture == ship3.Texture)
             {
-                StateManager.InitializeSingleplayerGameScreen<TorpedoShip>(ShipTier.Tier1);
+                StateManager.SelectedShip = ShipType.TorpedoShip;
             }
+            //TODO: Tiers
+            StateManager.SelectedTier = ShipTier.Tier1;
 
-            
             StateManager.ScreenState = ScreenType.LevelSelect;
         }
 

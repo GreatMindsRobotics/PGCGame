@@ -27,16 +27,29 @@ namespace PGCGame.Screens
 #if XBOX
             GamePadManager.One.Buttons.LeftShoulderPressed += new EventHandler(Buttons_LeftShoulderPressed);
             GamePadManager.One.Buttons.RightShoulderPressed += new EventHandler(Buttons_RightShoulderPressed);
-            GamePadManager.One.Buttons.BButtonPressed += new EventHandler(Buttons_BButtonPressed);
+            GamePadManager.One.Buttons.AButtonPressed += new EventHandler(Buttons_AButtonPressed);
+            StateManager.ScreenStateChanged += new EventHandler(StateManager_ScreenStateChanged);
 #endif
         }
+        
 
 #if XBOX
-        void Buttons_BButtonPressed(object sender, EventArgs e)
+        TimeSpan totalButtonTime = TimeSpan.FromMilliseconds(250);
+        TimeSpan passedButtonTime = TimeSpan.Zero;
+
+        void StateManager_ScreenStateChanged(object sender, EventArgs e)
         {
             if (Visible)
             {
-                StateManager.GoBack();
+                passedButtonTime = TimeSpan.Zero;
+            }
+        }
+
+        void Buttons_AButtonPressed(object sender, EventArgs e)
+        {
+            if (Visible && passedButtonTime > totalButtonTime && nextButtonClicked != null)
+            {
+                nextButtonClicked(this, EventArgs.Empty);
             }
         }
 
@@ -356,6 +369,8 @@ namespace PGCGame.Screens
 
             }
             lastMs = currentMs;
+#elif XBOX
+            passedButtonTime += gameTime.ElapsedGameTime;
 #endif
         }
     }
