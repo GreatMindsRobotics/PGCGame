@@ -115,7 +115,7 @@ namespace PGCGame
             }
 
             //TODO: Cleanup magic numbers
-            return (closestEnemyShipDistance.HasValue && closestEnemyShip != null && closestEnemyShipDistance.Value.LengthSquared() < Math.Pow(400, 2));          
+            return (closestEnemyShipDistance.HasValue && closestEnemyShip != null && closestEnemyShipDistance.Value.LengthSquared() < Math.Pow(400, 2) && closestEnemyShip.CurrentHealth > 0);          
         }
 
 
@@ -253,7 +253,6 @@ namespace PGCGame
                             distanceToParentCenter.Normalize();
                             Origin -= distanceToParentCenter;
                         }
-
                         break;
 
                 }

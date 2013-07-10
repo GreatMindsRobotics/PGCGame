@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
 using Glib;
+using Glib.XNA;
 using PGCGame.CoreTypes;
 using Glib.XNA.SpriteLib;
 using PGCGame.Ships.Allies;
@@ -73,7 +74,7 @@ namespace PGCGame
 
             for(int d = 0; d < Drones.Count; d++)
             {
-                Drones[d].WorldCoords = WorldCoords + (d == 0 ? Origin : -Origin);
+                Drones[d].WorldCoords = WorldCoords + Drones[d].Origin * Drones[d].Rotation.Radians.AngleToVector();
                 Drones[d].Update(gt);
             }
         }

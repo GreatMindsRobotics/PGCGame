@@ -208,7 +208,7 @@ namespace PGCGame
             FlyingBullets.Add(bullet);
         }
 
-        Rectangle WCRectangle = new Rectangle();
+
 
         public virtual void Update(GameTime gt)
         {
@@ -219,6 +219,24 @@ namespace PGCGame
                 CurrentHealth = InitialHealth;
                 _isFirstUpdate = false;
 
+            }
+
+            //TODO: Optimize ship fire
+            foreach (Ship ship in StateManager.ActiveShips)
+            {
+                foreach (Bullet b in ship.FlyingBullets)
+                {
+                    if (ship.PlayerType != this.PlayerType && this.CurrentHealth > 0)
+                    {
+                        Rectangle WCRectangle = new Rectangle(this.WorldCoords.X.ToInt(), this.WorldCoords.Y.ToInt(), this.Width.ToInt(), this.Height.ToInt());
+                        if (b.Rectangle.Intersects(WCRectangle))
+                        {
+                            this.CurrentHealth -= b.Damage;
+                            b.IsDead = true;
+
+                        }
+                    }
+                }
             }
 
             if (CurrentHealth <= 0)
@@ -232,23 +250,8 @@ namespace PGCGame
             foreach (Bullet b in FlyingBullets)
             {
                 b.Update();
-            }
-            foreach (Ship ship in StateManager.ActiveShips)
-            {
-                foreach (Bullet b in ship.FlyingBullets)
-                {
-                    if (ship.PlayerType != this.PlayerType && this.CurrentHealth > 0)
-                    {
-                        WCRectangle = new Rectangle(this.WorldCoords.X.ToInt(), this.WorldCoords.Y.ToInt(), this.Width.ToInt(), this.Height.ToInt());
-                        if (b.Rectangle.Intersects(WCRectangle))
-                        {
-                            this.CurrentHealth -= b.Damage;
-                            b.IsDead = true;
-
-                        }
-                    }
-                }
-            }
+            }            
+            
         }
 
         public override void DrawNonAuto()
