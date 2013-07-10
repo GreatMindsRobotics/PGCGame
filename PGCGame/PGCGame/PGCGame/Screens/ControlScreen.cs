@@ -56,7 +56,7 @@ namespace PGCGame.Screens
 #if XBOX
              MoveLabel = new TextSprite(Sprites.SpriteBatch, font, ("Move: Right Joystick"));
              MoveLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f);
-
+             MoveLabel.Color = Color.White;
 #endif
            
              
@@ -103,7 +103,7 @@ namespace PGCGame.Screens
 
 #if XBOX
              SecondWeapLabel = new TextSprite(Sprites.SpriteBatch, font, ("Use Secondary Weapon: LTrigger"));
-             SecondWeapLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .3f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .10f);
+             SecondWeapLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .4f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .10f);
              SecondWeapLabel.Color = Color.White;
 #endif 
 
@@ -116,8 +116,8 @@ namespace PGCGame.Screens
 #endif
 
 #if XBOX
-             SwitchSecondWeapLabel = new TextSprite(Sprites.SpriteBatch, font, ("Switch Secondary Weapons: Left and Right Bumpers"));
-             SwitchSecondWeapLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .3f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .35f);
+             SwitchSecondWeapLabel = new TextSprite(Sprites.SpriteBatch, font, ("Switch Secondary Weapons: \n Left and Right Bumpers"));
+             SwitchSecondWeapLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .4f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .35f);
              SwitchSecondWeapLabel.Color = Color.White;
 #endif
 
@@ -130,7 +130,7 @@ namespace PGCGame.Screens
 
 #if XBOX
              DeployDronesLabel = new TextSprite(Sprites.SpriteBatch, font, ("Deploy Fighter Carrier Drones: A Button"));
-             DeployDronesLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .3f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .60f);
+             DeployDronesLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .4f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .60f);
              DeployDronesLabel.Color = Color.White;
 #endif
              BackButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .60f), Sprites.SpriteBatch);
