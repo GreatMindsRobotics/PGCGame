@@ -72,20 +72,13 @@ namespace PGCGame.Screens
             Sprites.Add(TitleImage);
 
             PlayButton = new Sprite(buttonTexture, new Vector2(viewPort.Width * 0.375f, viewPort.Height * 0.4f), Sprites.SpriteBatch);
-#if WINDOWS
-            PlayButton.MouseEnter += new EventHandler(PlayButton_MouseEnter);
-            PlayButton.MouseLeave += new EventHandler(PlayButton_MouseLeave);
-#endif 
             Sprites.Add(PlayButton);
 
             PlayLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Play");
-            PlayLabel.Position = new Vector2(PlayButton.X + (PlayButton.Width / 2 - PlayLabel.Width / 2), PlayButton.Y + (PlayButton.Height / 2 - PlayLabel.Height / 2));
+            //PlayLabel.Position = new Vector2(PlayButton.X + (PlayButton.Width / 2 - PlayLabel.Width / 2), PlayButton.Y + (PlayButton.Height / 2 - PlayLabel.Height / 2));
+            
             PlayLabel.IsHoverable = true;
-            PlayLabel.IsManuallySelectable = true;
-
-#if XBOX
-            PlayLabel.IsSelected = true;
-#endif
+            
 
             PlayLabel.NonHoverColor = Color.White;
             PlayLabel.HoverColor = Color.MediumAquamarine;
@@ -94,25 +87,35 @@ namespace PGCGame.Screens
 
             ExitButton = new Sprite(buttonTexture, new Vector2(PlayButton.X, PlayButton.Y + (PlayButton.Height * 1.6f)), Sprites.SpriteBatch);
             
-#if WINDOWS
-            ExitButton.MouseEnter += new EventHandler(ExitButton_MouseEnter);
-            ExitButton.MouseLeave += new EventHandler(ExitButton_MouseLeave);
-#endif 
-            
             Sprites.Add(ExitButton);
 
             ExitLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Exit");
-            ExitLabel.Position = new Vector2(ExitButton.X + (ExitButton.Width / 2 - ExitLabel.Width / 2), ExitButton.Y + (ExitButton.Height / 2 - ExitLabel.Height / 2));
+            
             ExitLabel.IsHoverable = true;
-            ExitLabel.IsManuallySelectable = true;
+            
             ExitLabel.NonHoverColor = Color.White;
             ExitLabel.HoverColor = Color.MediumAquamarine;
             AdditionalSprites.Add(ExitLabel);
 
-#if XBOX
+#if WINDOWS
+            ExitLabel.ParentSprite = ExitButton;
+            ExitLabel.Clicked += new EventHandler(ExitLabel_Clicked);
+            PlayLabel.Clicked += new EventHandler(PlayLabel_Clicked);
+            PlayLabel.ParentSprite = PlayButton;
+#elif XBOX
             ButtonManagement = new GamePadButtonEnumerator(new TextSprite[,] { { PlayLabel }, { ExitLabel } }, InputType.LeftJoystick);
             ButtonManagement.ButtonPress += new EventHandler(ButtonManagement_ButtonPress);
 #endif
+        }
+
+        void ExitLabel_Clicked(object sender, EventArgs e)
+        {
+            _exit();
+        }
+
+        void PlayLabel_Clicked(object sender, EventArgs e)
+        {
+            StateManager.ScreenState = CoreTypes.ScreenType.MainMenu;
         }
 
 #if XBOX
@@ -127,31 +130,7 @@ namespace PGCGame.Screens
                 StateManager.ScreenState = ScreenType.MainMenu;
             }
         }
-#endif
 
-        void PlayButton_MouseLeave(object sender, EventArgs e)
-        {
-            PlayLabel.IsSelected = false;
-        }
-
-        void PlayButton_MouseEnter(object sender, EventArgs e)
-        {
-            PlayLabel.IsSelected = true;
-        }
-
-        void ExitButton_MouseLeave(object sender, EventArgs e)
-        {
-            ExitLabel.IsSelected = false;
-        }
-
-        void ExitButton_MouseEnter(object sender, EventArgs e)
-        {
-            ExitLabel.IsSelected = true;
-        }
-
-        MouseState lastMouseState;
-
-#if XBOX
         TimeSpan elapsedControllerDelayTime = TimeSpan.Zero;
         TimeSpan totalControllerDelayTime = TimeSpan.FromMilliseconds(250);
 #endif
@@ -164,20 +143,7 @@ namespace PGCGame.Screens
                 return;
             }
             
-#if WINDOWS
-            MouseState currentMoustState = MouseManager.CurrentMouseState;
-
-            if (PlayLabel.IsSelected && PlayButton.ClickCheck(currentMoustState) && !PlayButton.ClickCheck(lastMouseState))
-            {
-                StateManager.ScreenState = ScreenType.MainMenu;
-            }
-            else if (ExitLabel.IsSelected && ExitButton.ClickCheck(currentMoustState) && !ExitButton.ClickCheck(lastMouseState))
-            {
-                _exit();
-            }
-
-            lastMouseState = currentMoustState;
-#elif XBOX
+#if XBOX
             /*
             Vector2 lJoystick = GamePadManager.One.Current.ThumbSticks.Left;
             if (lJoystick.Y <= -0.6f || lJoystick.Y >= 0.6f)
