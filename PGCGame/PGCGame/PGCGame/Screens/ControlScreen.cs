@@ -34,12 +34,14 @@ namespace PGCGame.Screens
          TextSprite DeployDronesLabel; 
          TextSprite BackLabel;
          
+#if WINDOWS
          Sprite MoveButton;
          Sprite FireButton;
-         Sprite BackButton;
-
 
          MouseState lastMS;
+#endif
+         Sprite BackButton;
+
 
          public override void InitScreen(ScreenType screenType)
          {
@@ -51,45 +53,73 @@ namespace PGCGame.Screens
              Texture2D button = GameContent.GameAssets.Images.Controls.Button;
              SpriteFont font = GameContent.GameAssets.Fonts.NormalText;
 
+             
+#if XBOX
+             MoveLabel = new TextSprite(Sprites.SpriteBatch, font, ("Move: Right Joystick"));
+             MoveLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f);
 
-             MoveLabel = new TextSprite(Sprites.SpriteBatch, font, String.Format("Move:{0}", StateManager.Options.LeftButtonEnabled ? "Arrow Keys" : "WASD"));
-             MoveButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f), Sprites.SpriteBatch);
-             MoveLabel.Position = new Vector2((MoveButton.X + MoveButton.Width / 2) - MoveLabel.Width / 2, (MoveButton.Y + MoveButton.Height / 2) - MoveLabel.Height / 2);
+#endif
              MoveLabel.Color = Color.White;
              MoveLabel.IsManuallySelectable = true;
              MoveLabel.IsHoverable = true;
              MoveLabel.HoverColor = Color.MediumAquamarine;
              MoveLabel.NonHoverColor = Color.White;
 #if WINDOWS
+             MoveLabel = new TextSprite(Sprites.SpriteBatch, font, String.Format("Move:{0}", StateManager.Options.LeftButtonEnabled ? "Arrow Keys" : "WASD"));
+             MoveButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f), Sprites.SpriteBatch);
+             MoveLabel.Position = new Vector2((MoveButton.X + MoveButton.Width / 2) - MoveLabel.Width / 2, (MoveButton.Y + MoveButton.Height / 2) - MoveLabel.Height / 2);
+
              MoveButton.MouseEnter += new EventHandler(MoveButton_MouseEnter);
-             MoveButton.MouseLeave += new EventHandler(MoveButton_MouseLeave);
+             MoveButton.MouseLeave += new EventHandler(MoveButton_MouseLeave);  
 #endif
 
-
-             FireLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, font, String.Format("Fire:{0}", StateManager.Options.ArrowKeysEnabled ? "LClick" : "Space"));
-             FireButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .35f), Sprites.SpriteBatch);
-             FireLabel.Position = new Vector2(FireButton.Position.X + (FireButton.Width / 2 - FireLabel.Width / 2), FireButton.Position.Y + (FireButton.Height / 2 - FireLabel.Height / 2));
+#if XBOX
+             FireLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, font, ("Fire: RTrigger"));
+             FireLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .35f);
+#endif
              FireLabel.Color = Color.White;
              FireLabel.IsManuallySelectable = true;
              FireLabel.IsHoverable = true;
              FireLabel.HoverColor = Color.MediumAquamarine;
              FireLabel.NonHoverColor = Color.White;
 #if WINDOWS             
+             FireLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, font, String.Format("Fire:{0}", StateManager.Options.ArrowKeysEnabled ? "LClick" : "Space"));
+             FireButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .35f), Sprites.SpriteBatch);
+             FireLabel.Position = new Vector2(FireButton.Position.X + (FireButton.Width / 2 - FireLabel.Width / 2), FireButton.Position.Y + (FireButton.Height / 2 - FireLabel.Height / 2));
+
              FireButton.MouseEnter += new EventHandler(FireButton_MouseEnter);
              FireButton.MouseLeave += new EventHandler(FireButton_MouseLeave);
 #endif
 
+#if WINDOWS
              SecondWeapLabel = new TextSprite(Sprites.SpriteBatch, font, ("Use Secondary Weapon: RClick"));
+#endif
+
+#if XBOX
+             SecondWeapLabel = new TextSprite(Sprites.SpriteBatch, font, ("Use Secondary Weapon: LTrigger"));
+#endif
              SecondWeapLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .40f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .10f);
              SecondWeapLabel.Color = Color.White;
 
 
+#if WINDOWS
              SwitchSecondWeapLabel = new TextSprite(Sprites.SpriteBatch, font, ("Switch Secondary Weapons: Scroll Wheel"));
+#endif
+
+#if XBOX
+             SwitchSecondWeapLabel = new TextSprite(Sprites.SpriteBatch, font, ("Switch Secondary Weapons: Left and Right Bumpers"));
+#endif
              SwitchSecondWeapLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .4f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .35f);
              SwitchSecondWeapLabel.Color = Color.White;
 
 
+#if WINDOWS
              DeployDronesLabel = new TextSprite(Sprites.SpriteBatch, font, ("Deploy Fighter Carrier Drones: LShift"));
+#endif
+
+#if XBOX
+             DeployDronesLabel = new TextSprite(Sprites.SpriteBatch, font, ("Deploy Fighter Carrier Drones: X Button"));
+#endif
              DeployDronesLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .4f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .60f);
              DeployDronesLabel.Color = Color.White;
 
@@ -107,9 +137,11 @@ namespace PGCGame.Screens
              BackButton.MouseLeave += new EventHandler(BackButton_MouseLeave);
 #endif
              //Add all buttons
-             Sprites.Add(BackButton);
+#if WINDOWS
              Sprites.Add(MoveButton);
              Sprites.Add(FireButton);
+#endif
+             Sprites.Add(BackButton);
 
              //Add all text sprites
              AdditionalSprites.Add(BackLabel);
