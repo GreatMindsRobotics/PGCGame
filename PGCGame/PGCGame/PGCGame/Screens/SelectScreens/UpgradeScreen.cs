@@ -78,9 +78,6 @@ namespace PGCGame.Screens.SelectScreens
            base.InitScreen(screenType);
 
            acceptLabel.Text = "Buy";
-       
-       
-       
        }
 
        void UpgradeScreen_ChangeItem(object sender, EventArgs e)
