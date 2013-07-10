@@ -69,11 +69,6 @@
             Update the TextSprite. Just calls the Updated event by default.
             </summary>
         </member>
-        <member name="F:Glib.XNA.SpriteLib.TextSprite.CallKeyboardClickEvent">
-            <summary>
-            Whether or not to call Clicked events for keypresses of Enter.
-            </summary>
-        </member>
         <member name="F:Glib.XNA.SpriteLib.TextSprite.HoverColor">
             <summary>
             The color to use when hovering over the TextSprite, if hovering is enabled.
@@ -965,16 +960,103 @@
             This class cannot be inherited.
             </summary>
         </member>
+        <member name="E:Glib.XNA.InputLib.DPadEvents.LeftArrowPressed">
+            <summary>
+            An event fired when the left DPad key is pressed.
+            </summary>
+        </member>
+        <member name="E:Glib.XNA.InputLib.DPadEvents.LeftArrowReleased">
+            <summary>
+            An event fired when the left DPad key is released.
+            </summary>
+        </member>
+        <member name="E:Glib.XNA.InputLib.DPadEvents.RightArrowPressed">
+            <summary>
+            An event fired when the right DPad key is pressed.
+            </summary>
+        </member>
+        <member name="E:Glib.XNA.InputLib.DPadEvents.RightArrowReleased">
+            <summary>
+            An event fired when the right DPad key is released.
+            </summary>
+        </member>
+        <member name="E:Glib.XNA.InputLib.DPadEvents.UpArrowPressed">
+            <summary>
+            An event fired when the up DPad key is pressed.
+            </summary>
+        </member>
+        <member name="E:Glib.XNA.InputLib.DPadEvents.UpArrowReleased">
+            <summary>
+            An event fired when the up DPad key is released.
+            </summary>
+        </member>
+        <member name="E:Glib.XNA.InputLib.DPadEvents.DownArrowPressed">
+            <summary>
+            An event fired when the down DPad key is pressed.
+            </summary>
+        </member>
+        <member name="E:Glib.XNA.InputLib.DPadEvents.DownArrowReleased">
+            <summary>
+            An event fired when the down DPad key is released.
+            </summary>
+        </member>
         <member name="T:Glib.XNA.InputLib.ControllerButtonEvents">
             <summary>
             A class containing button related Xbox 360 controller events.
             This class cannot be inherited.
             </summary>
         </member>
+        <member name="E:Glib.XNA.InputLib.ControllerButtonEvents.AButtonPressed">
+            <summary>
+            An event fired when the A button is pressed.
+            </summary>
+        </member>
+        <member name="E:Glib.XNA.InputLib.ControllerButtonEvents.BButtonPressed">
+            <summary>
+            An event fired when the B button is pressed.
+            </summary>
+        </member>
+        <member name="E:Glib.XNA.InputLib.ControllerButtonEvents.BButtonReleased">
+            <summary>
+            An event fired when the B button is released.
+            </summary>
+        </member>
+        <member name="E:Glib.XNA.InputLib.ControllerButtonEvents.AButtonReleased">
+            <summary>
+            An event fired when the A button is released.
+            </summary>
+        </member>
+        <member name="E:Glib.XNA.InputLib.ControllerButtonEvents.LeftShoulderPressed">
+            <summary>
+            An event fired when the left shoulder is pressed.
+            </summary>
+        </member>
+        <member name="E:Glib.XNA.InputLib.ControllerButtonEvents.RightShoulderPressed">
+            <summary>
+            An event fired when the right shoulder is pressed.
+            </summary>
+        </member>
+        <member name="E:Glib.XNA.InputLib.ControllerButtonEvents.LeftShoulderReleased">
+            <summary>
+            An event fired when the left shoulder is released.
+            </summary>
+        </member>
+        <member name="E:Glib.XNA.InputLib.ControllerButtonEvents.RightShoulderReleased">
+            <summary>
+            An event fired when the right shoulder is released.
+            </summary>
+        </member>
         <member name="T:Glib.XNA.InputLib.GamePadManager">
             <summary>
             A manager of GamePad related information. This class cannot be inherited.
             </summary>
+        </member>
+        <member name="M:Glib.XNA.InputLib.GamePadManager.GetManager(Microsoft.Xna.Framework.PlayerIndex)">
+            <summary>
+            Gets the GamePadManager for the specified player's controller.
+            </summary>
+            <param name="player">The PlayerIndex of the player to retrieve a GamePadManager for.</param>
+            <returns>The GamePadManager of the specified player's controller.</returns>
         </member>
         <member name="M:Glib.XNA.InputLib.GamePadManager.Update">
             <summary>
@@ -1957,7 +2039,6 @@
         <member name="M:Glib.XNA.SpriteLib.SpriteManager.Update(Microsoft.Xna.Framework.GameTime)">
             <summary>
             Update all Sprites managed by this SpriteManager, calling Update(GameTime) on ITimerSprites where neccesary.
-            THIS WILL NOT CALL KEYBOARD OR MOSUE EVENTS IF gameTime.IsRunningSlowly IS TRUE.
             </summary>
             <param name="gameTime">The current game time.</param>
         </member>
@@ -2422,6 +2503,112 @@
             <param name="gd">The GraphicsDevice associated with this texture.</param>
             <param name="height">The height of the texture.</param>
             <param name="width">The width of the texture.</param>
+        </member>
+        <member name="T:Glib.XNA.InputLib.InputType">
+            <summary>
+            An enum representing an Xbox 360 controller input type.
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.InputLib.InputType.LeftJoystick">
+            <summary>
+            The left thumbstick.
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.InputLib.InputType.RightJoystick">
+            <summary>
+            The right joystick.
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.InputLib.InputType.DPad">
+            <summary>
+            The DPad.
+            </summary>
+        </member>
+        <member name="T:Glib.XNA.InputLib.GamePadButtonEnumerator">
+            <summary>
+            A class representing a way to select and deselect buttons (TextSprites) using a GamePad.
+            </summary>
+            <remarks>
+            This class depends on the GamePadManager. Ensure you have an InputManagerComponent in your Game before using this class.
+            </remarks>
+        </member>
+        <member name="F:Glib.XNA.InputLib.GamePadButtonEnumerator.Input">
+            <summary>
+            The type of input to acknowledge for selecting various buttons.
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.InputLib.GamePadButtonEnumerator.SelectionSound">
+            <summary>
+            If not null, the sound to play when the button selection changes.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.InputLib.GamePadButtonEnumerator.#ctor(Glib.XNA.SpriteLib.TextSprite[0:,0:],Glib.XNA.InputLib.InputType)">
+            <summary>
+            Creates a new GamePadButtonEnumerator with the specified buttons and input type, using an axis difference of 0.6, a delay of 250 milliseconds, player one's GamePad, and the A button.
+            </summary>
+            <param name="allButtons">All of the buttons to include in the GamePadButtonEnumerator.</param>
+            <param name="inputType">The type of input to accept for GamePad-based button enumeration.</param>
+        </member>
+        <member name="M:Glib.XNA.InputLib.GamePadButtonEnumerator.#ctor(Glib.XNA.SpriteLib.TextSprite[0:,0:],Glib.XNA.InputLib.InputType,System.Single,System.TimeSpan,Microsoft.Xna.Framework.Input.Buttons,Microsoft.Xna.Framework.PlayerIndex)">
+            <summary>
+            Creates a new GamePadButtonEnumerator with the specified buttons and parameters.
+            </summary>
+            <param name="allButtons">All of the buttons to include in the GamePadButtonEnumerator.</param>
+            <param name="inputType">The type of input to accept for GamePad-based button enumeration.</param>
+            <param name="axisDifference">The difference along the X or Y axis required on a GamePad joystick to trigger movement (after delay). This parameter does nothing if inputType is DPad.</param>
+            <param name="delay">The time required to pass between button selection changes. This parameter does nothing if inputType is DPad.</param>
+            <param name="submitButton">The button on the GamePad controller which must be pushed to trigger a ButtonPress event.</param>
+            <param name="player">The PlayerIndex to accept GamePad input from.</param>
+        </member>
+        <member name="M:Glib.XNA.InputLib.GamePadButtonEnumerator.MoveSelection(Glib.XNA.SpriteLib.Direction)">
+            <summary>
+            Move the current selection by 1 button, resetting to the top or side if neccesary.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.InputLib.GamePadButtonEnumerator.Update(Microsoft.Xna.Framework.GameTime)">
+            <summary>
+            Update this GamePadButtonEnumerator.
+            </summary>
+            <param name="gt">The current GameTime.</param>
+        </member>
+        <member name="P:Glib.XNA.InputLib.GamePadButtonEnumerator.AllButtons">
+            <summary>
+            Gets a two-dimensional array of all of the buttons to enumerate through.
+            </summary>
+            <remarks>
+            This array is in [row, column] format.
+            </remarks>
+        </member>
+        <member name="E:Glib.XNA.InputLib.GamePadButtonEnumerator.ButtonPress">
+            <summary>
+            An event fired when a button is pressed.
+            </summary>
+            <remarks>
+            The source of this event will be marked as the button that was pressed.
+            </remarks>
+        </member>
+        <member name="P:Glib.XNA.InputLib.GamePadButtonEnumerator.AxisDifference">
+            <summary>
+            The difference along the X or Y axis required on a GamePad joystick to trigger movement (after delay).
+            </summary>
+            <remarks>
+            This value is ignored if Input is DPad.
+            </remarks>
+        </member>
+        <member name="P:Glib.XNA.InputLib.GamePadButtonEnumerator.Delay">
+            <summary>
+            Gets or sets the delay that the user must wait while holding an input button before the selection takes effect.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.InputLib.GamePadButtonEnumerator.SubmitButton">
+            <summary>
+            Gets or sets the button to use for triggering a ButtonPress event.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.InputLib.GamePadButtonEnumerator.Player">
+            <summary>
+            Gets the player to receive GamePad input from.
+            </summary>
         </member>
         <member name="T:Glib.PrimeList`1">
             <summary>

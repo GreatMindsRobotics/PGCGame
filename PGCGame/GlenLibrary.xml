@@ -2198,9 +2198,14 @@
             An event called when a mouse leaves this ScreenRegion.
             </summary>
         </member>
-        <member name="E:Glib.XNA.InputLib.ScreenRegion.MouseClick">
+        <member name="E:Glib.XNA.InputLib.ScreenRegion.LeftMouseClick">
             <summary>
-            An event called when there is a mouse click in this region.
+            An event called when there is a left mouse click in this region.
+            </summary>
+        </member>
+        <member name="E:Glib.XNA.InputLib.ScreenRegion.RightMouseClick">
+            <summary>
+            An event called when there is a right mouse click (AKA a right click) in this region.
             </summary>
         </member>
         <member name="T:Glib.XNA.InputLib.MouseManager">
@@ -2553,11 +2558,6 @@
             Draw all sprites managed by this SpriteManager, without opening or closing the SpriteBatch.
             </summary>
         </member>
-        <member name="M:Glib.XNA.SpriteLib.SpriteManager.callKeyboardEvents">
-            <summary>
-            Call KeyPress events.
-            </summary>
-        </member>
         <member name="M:Glib.XNA.SpriteLib.SpriteManager.Update">
             <summary>
             Update all sprites managed by this SpriteManager.
@@ -2570,7 +2570,6 @@
         <member name="M:Glib.XNA.SpriteLib.SpriteManager.Update(Microsoft.Xna.Framework.GameTime)">
             <summary>
             Update all Sprites managed by this SpriteManager, calling Update(GameTime) on ITimerSprites where neccesary.
-            THIS WILL NOT CALL KEYBOARD OR MOUSE EVENTS IF gameTime.IsRunningSlowly IS TRUE.
             </summary>
             <remarks>
             Uses InputLib.Mouse.MouseManager.CurrentMouseState.
@@ -2580,16 +2579,6 @@
         <member name="P:Glib.XNA.SpriteLib.SpriteManager.SpriteBatch">
             <summary>
             Gets the SpriteBatch drawn to.
-            </summary>
-        </member>
-        <member name="E:Glib.XNA.SpriteLib.SpriteManager.SpriteClick">
-            <summary>
-            An event called when a sprite is clicked on.
-            </summary>
-        </member>
-        <member name="E:Glib.XNA.SpriteLib.SpriteManager.KeyDown">
-            <summary>
-            An event called when a key is down.
             </summary>
         </member>
         <member name="P:Glib.XNA.SpriteLib.SpriteManager.Item(System.Int32)">
