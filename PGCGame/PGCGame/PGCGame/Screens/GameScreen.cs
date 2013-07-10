@@ -291,11 +291,14 @@ namespace PGCGame.Screens
             }
             if (playerShip.GetType() == typeof(FighterCarrier))
             {
-                foreach (Bullet b in playerShip.Cast<FighterCarrier>().DroneBullets)
+                foreach (Drone drone in playerShip.Cast<FighterCarrier>().Drones)
                 {
-                    Sprites.SpriteBatch.Draw(b);
-                }
+                    foreach (Bullet b in drone.FlyingBullets)
+                    {
+                        Sprites.SpriteBatch.Draw(b);
+                    }
 
+                }
             }
 
             if (playerShip.ActiveSpaceMine != null && playerShip.ActiveSpaceMine.SpaceMineState != SpaceMineState.Stowed)
@@ -366,14 +369,17 @@ namespace PGCGame.Screens
             if (playerShip.GetType() == typeof(FighterCarrier))
             {
                 FighterCarrier ship = playerShip.Cast<FighterCarrier>();
-                for (int i = 0; i < ship.DroneBullets.Count; i++)
+                foreach (Drone drone in ship.Drones)
                 {
-                    if (ship.DroneBullets[i].IsDead || ship.DroneBullets[i].X <= 0 || ship.DroneBullets[i].X >= bg.TotalWidth || ship.DroneBullets[i].Y <= 0 || ship.DroneBullets[i].Y >= bg.TotalHeight)
+                    for (int i = 0; i < drone.FlyingBullets.Count; i++)
                     {
-                        ship.DroneBullets.RemoveAt(i);
-                        i--;
+                        if (drone.FlyingBullets[i].IsDead || drone.FlyingBullets[i].X <= 0 || drone.FlyingBullets[i].X >= bg.TotalWidth || drone.FlyingBullets[i].Y <= 0 || drone.FlyingBullets[i].Y >= bg.TotalHeight)
+                        {
+                            drone.FlyingBullets.RemoveAt(i);
+                            i--;
+                        }
                     }
-                }
+                }                
             }
 
             Vector2 camMove = Vector2.Zero;

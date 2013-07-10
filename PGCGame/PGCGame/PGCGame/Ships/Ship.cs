@@ -94,7 +94,6 @@ namespace PGCGame
         protected int _initHealth;
 
         public event EventHandler TierChanged;
-        public event EventHandler BulletFired;
 
         protected bool _isDead;
 
@@ -197,13 +196,6 @@ namespace PGCGame
         #endregion PublicProperties
 
         #region PublicMethod
-        protected void FireBulletEvent()
-        {
-            if (BulletFired != null)
-            {
-                BulletFired(this, EventArgs.Empty);
-            }
-        }
 
         public virtual void Shoot()
         {
@@ -214,8 +206,6 @@ namespace PGCGame
             bullet.Damage = DamagePerShot;
 
             FlyingBullets.Add(bullet);
-
-            FireBulletEvent();
         }
 
         Rectangle WCRectangle = new Rectangle();

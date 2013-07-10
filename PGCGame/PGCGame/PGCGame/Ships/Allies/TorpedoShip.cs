@@ -55,7 +55,6 @@ namespace PGCGame
                 DistanceToNose = .5f;
             }
         }
-        //public event EventHandler BulletFired;
 
         public override void Shoot()
         {
@@ -66,13 +65,10 @@ namespace PGCGame
             bullet.UseCenterAsOrigin = true;
             bullet.Rotation = Rotation;
             bullet.Damage = DamagePerShot;
-            //Vector2 mousePos = new Vector2(ms.X, ms.Y);
-            //Vector2 slope = mousePos - Position;
-            //slope.Normalize();
-            //bullet.Speed = slope;
+
             FlyingBullets.Add(bullet);
-            FireBulletEvent();
         }
+
         public override ShipType ShipType
         {
             get { return ShipType.TorpedoShip; }

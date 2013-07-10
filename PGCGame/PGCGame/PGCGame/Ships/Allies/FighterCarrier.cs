@@ -26,9 +26,10 @@ namespace PGCGame
             //UseCenterAsOrigin = true;
 
             //Init drones
-            Drones.Add(new Drone(droneTexture, Vector2.Zero, spriteBatch, this) { DroneState = CoreTypes.DroneState.Stowed });
+            Drones.Add(new Drone(droneTexture, location, spriteBatch, this) { DroneState = CoreTypes.DroneState.Stowed });
             Drones[0].Rotation.Radians = MathHelper.Pi;
-            Drones.Add(new Drone(droneTexture, Vector2.Zero, spriteBatch, this) { DroneState = CoreTypes.DroneState.Stowed });
+
+            Drones.Add(new Drone(droneTexture, location, spriteBatch, this) { DroneState = CoreTypes.DroneState.Stowed });
             Drones[1].Rotation.Radians = MathHelper.TwoPi;
 
             BulletTexture = GameContent.GameAssets.Images.Ships.Bullets[ShipType.FighterCarrier, ShipTier.Tier1];
@@ -66,16 +67,14 @@ namespace PGCGame
      
         public List<Drone> Drones = new List<Drone>();
 
-
-        public List<Bullet> DroneBullets = new List<Bullet>();
-
         public override void Update(GameTime gt)
         {
             base.Update(gt);
 
-            foreach (Drone d in Drones)
+            for(int d = 0; d < Drones.Count; d++)
             {
-                d.Update(gt);
+                Drones[d].WorldCoords = WorldCoords + (d == 0 ? Origin : -Origin);
+                Drones[d].Update(gt);
             }
         }
 
