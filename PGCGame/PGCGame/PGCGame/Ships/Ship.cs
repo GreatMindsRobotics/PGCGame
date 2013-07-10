@@ -247,7 +247,7 @@ namespace PGCGame
             {
                 foreach (Bullet b in ship.FlyingBullets)
                 {
-                    if (ship.PlayerType != this.PlayerType)
+                    if (ship.PlayerType != this.PlayerType && this.CurrentHealth > 0)
                     {
                         WCRectangle = new Rectangle(this.WorldCoords.X.ToInt(), this.WorldCoords.Y.ToInt(), this.Width.ToInt(), this.Height.ToInt());
                         if (b.Rectangle.Intersects(WCRectangle))
