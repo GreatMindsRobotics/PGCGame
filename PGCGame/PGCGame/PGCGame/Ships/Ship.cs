@@ -47,12 +47,18 @@ namespace PGCGame
             _healthBar = new ProgressBar(new Vector2(X, Y), Color.DarkGreen, Color.Red, spriteBatch);
             _healthBar.WidthScale = 1;
             _healthBar.HeightScale = 10;
+            Moved += new EventHandler(Ship_Moved);
             _shipID = Guid.NewGuid();
             _initHealth = 100;
             _isDead = false;
 
             _currentHealth = _initHealth;
             _cost = new KeyValuePair<int, ShipTier>[4];
+        }
+
+        void Ship_Moved(object sender, EventArgs e)
+        {
+            _healthBar.Position = new Vector2(X - (_healthBar.Width / 2), Y - (Height / 1.5f));
         }
 
         public PlayerType PlayerType { get; set; }
@@ -218,7 +224,6 @@ namespace PGCGame
 
             if (_isFirstUpdate)
             {
-                _healthBar.Position = new Vector2(X - (_healthBar.Width / 2), Y - (Height / 1.5f));
                 CurrentHealth = InitialHealth;
                 _isFirstUpdate = false;
                 
