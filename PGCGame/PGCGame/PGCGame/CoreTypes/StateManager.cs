@@ -23,6 +23,7 @@ namespace PGCGame
         private static ScreenType _screenState = ScreenType.Title;
         private static GraphicsDeviceManager _gfx;
         private static Guid _enemyID = Guid.NewGuid();
+        private static int _spaceBucks = 100000;
         #endregion Private Fields
 
         #region Public Fields
@@ -88,6 +89,8 @@ namespace PGCGame
                 SwitchScreen(value);
             }
         }
+
+        public static int SpaceBucks { get { return _spaceBucks; } set { _spaceBucks = value; } }
 
         public static Guid EnemyID
         {
