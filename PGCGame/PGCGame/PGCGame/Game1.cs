@@ -59,6 +59,7 @@ namespace PGCGame
         {
             StateManager.GraphicsManager = graphics;
             StateManager.IsWindowFocused = new Delegates.CheckIfWindowFocused(() => IsActive);
+            StateManager.Exit = new Delegates.QuitFunction(() => Exit());
 
             IsMouseVisible = true;
             Components.Add(new InputManagerComponent(this));

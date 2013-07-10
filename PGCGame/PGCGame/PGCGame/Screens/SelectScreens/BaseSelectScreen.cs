@@ -24,9 +24,91 @@ namespace PGCGame.Screens
             : base(spriteBatch, Color.Black)
         {
             items = new List<KeyValuePair<Sprite, TextSprite>>();
+#if XBOX
+            GamePadManager.One.Buttons.LeftShoulderPressed += new EventHandler(Buttons_LeftShoulderPressed);
+            GamePadManager.One.Buttons.RightShoulderPressed += new EventHandler(Buttons_RightShoulderPressed);
+            GamePadManager.One.Buttons.BButtonPressed += new EventHandler(Buttons_BButtonPressed);
+#endif
         }
 
-        
+#if XBOX
+        void Buttons_BButtonPressed(object sender, EventArgs e)
+        {
+            if (Visible)
+            {
+                StateManager.GoBack();
+            }
+        }
+
+        void Buttons_LeftShoulderPressed(object sender, EventArgs e)
+        {
+            if (Visible)
+            {
+                items[selected].Key.Color = Color.Transparent;
+                items[selected].Value.Color = Color.Transparent;
+
+                /*
+                    selected++;
+                    if (selected == items.Count)
+                    {
+                        selected -= items.Count;
+                    }
+                }
+                else
+                {
+                 */
+                    selected--;
+                    if (selected < 0)
+                    {
+                        selected += items.Count;
+                    }
+
+                items[selected].Key.Color = Color.White;
+                items[selected].Value.Color = Color.White;
+
+                if (ChangeItem != null)
+                {
+                    ChangeItem(this, new EventArgs());
+                }
+            }
+        }
+
+        void Buttons_RightShoulderPressed(object sender, EventArgs e)
+        {
+            if (Visible)
+            {
+                items[selected].Key.Color = Color.Transparent;
+                items[selected].Value.Color = Color.Transparent;
+                selected++;
+                if (selected == items.Count)
+                {
+                    selected -= items.Count;
+                }
+
+                items[selected].Key.Color = Color.White;
+                items[selected].Value.Color = Color.White;
+                if (ChangeItem != null)
+                {
+                    ChangeItem(this, new EventArgs());
+                }
+                /*
+                selected--;
+                if (selected < 0)
+                {
+                    selected += items.Count;
+                }
+
+                items[selected].Key.Color = Color.White;
+                items[selected].Value.Color = Color.White;
+
+                if (ChangeItem != null)
+                {
+                    ChangeItem(this, new EventArgs());
+                }
+                 */
+            }
+        }
+#endif
         protected TextSprite acceptLabel;
         protected TextSprite backLabel;
         protected TextSprite leftLabel;

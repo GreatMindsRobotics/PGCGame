@@ -28,6 +28,8 @@ namespace PGCGame
 
         public static Delegates.CheckIfWindowFocused IsWindowFocused;
 
+        public static Delegates.QuitFunction Exit;
+
         /// <summary>
         /// Keeps track of active ships in the game. This info can be used for mini-map, collision detection, etc
         /// </summary>
@@ -194,6 +196,11 @@ namespace PGCGame
         public static void GoBack()
         {
             _screenStack.Pop();
+            if (_screenStack.Count == 0)
+            {
+                StateManager.Exit();
+                return;
+            }
             _screenState = _screenStack.Peek();
             SwitchScreen(_screenState);
         }

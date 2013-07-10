@@ -38,6 +38,10 @@ namespace PGCGame.Screens
         Sprite ExitButton;
         TextSprite ExitLabel;
 
+#if XBOX
+        GamePadButtonEnumerator ButtonManagement;
+#endif
+
 
         public override void InitScreen(ScreenType screenName)
         {
@@ -104,7 +108,26 @@ namespace PGCGame.Screens
             ExitLabel.NonHoverColor = Color.White;
             ExitLabel.HoverColor = Color.MediumAquamarine;
             AdditionalSprites.Add(ExitLabel);
+
+#if XBOX
+            ButtonManagement = new GamePadButtonEnumerator(new TextSprite[,] { { PlayLabel }, { ExitLabel } }, InputType.LeftJoystick);
+            ButtonManagement.ButtonPress += new EventHandler(ButtonManagement_ButtonPress);
+#endif
         }
+
+#if XBOX
+        void ButtonManagement_ButtonPress(object sender, EventArgs e)
+        {
+            if (ExitLabel.IsSelected)
+            {
+                _exit();
+            }
+            else if (PlayLabel.IsSelected)
+            {
+                StateManager.ScreenState = ScreenType.MainMenu;
+            }
+        }
+#endif
 
         void PlayButton_MouseLeave(object sender, EventArgs e)
         {
@@ -155,6 +178,7 @@ namespace PGCGame.Screens
 
             lastMouseState = currentMoustState;
 #elif XBOX
+            /*
             Vector2 lJoystick = GamePadManager.One.Current.ThumbSticks.Left;
             if (lJoystick.Y <= -0.6f || lJoystick.Y >= 0.6f)
             {
@@ -177,6 +201,8 @@ namespace PGCGame.Screens
                     StateManager.ScreenState = ScreenType.MainMenu;
                 }
             }
+            */
+            ButtonManagement.Update(gameTime);
 #endif
             base.Update(gameTime);
         }

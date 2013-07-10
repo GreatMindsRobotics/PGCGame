@@ -14,6 +14,7 @@ using Glib.XNA;
 using Glib.XNA.SpriteLib;
 
 using PGCGame.CoreTypes;
+using Glib.XNA.InputLib;
 
 namespace PGCGame.Screens
 {
@@ -22,7 +23,7 @@ namespace PGCGame.Screens
         public ShipSelect(SpriteBatch spriteBatch)
             : base(spriteBatch)
         {
-            
+
         }
 
         Sprite ship1;

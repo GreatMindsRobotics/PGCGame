@@ -215,15 +215,37 @@ namespace PGCGame.Screens
             CreditsLabel.HoverColor = Color.MediumAquamarine;
             AdditionalSprites.Add(CreditsLabel);
 #if XBOX
-            _screenButtons.Add(Vector2.Zero, SinglePlayerLabel);
-            _screenButtons.Add(new Vector2(0, 1), MultiPlayerLabel);
-            _screenButtons.Add(new Vector2(0, 2), BackLabel);
-            _screenButtons.Add(new Vector2(1, 0), OptionsLabel);
-            _screenButtons.Add(Vector2.One, CreditsLabel);
-
+            AllButtons = new GamePadButtonEnumerator(new TextSprite[,] { { SinglePlayerLabel, OptionsLabel }, { MultiPlayerLabel, CreditsLabel }, { BackLabel, null } }, InputType.LeftJoystick);
+            AllButtons.ButtonPress += new EventHandler(AllButtons_ButtonPress);
             SinglePlayerLabel.IsSelected = true;
 #endif
         }
+
+#if XBOX
+        void AllButtons_ButtonPress(object sender, EventArgs e)
+        {
+            if (BackLabel.IsSelected)
+            {
+                _exit();
+            }
+            else if (SinglePlayerLabel.IsSelected)
+            {
+                StateManager.ScreenState = ScreenType.ShipSelect;
+            }
+            else if (MultiPlayerLabel.IsSelected)
+            {
+                //TODO: Multiplayer
+            }
+            else if (OptionsLabel.IsSelected)
+            {
+                StateManager.ScreenState = ScreenType.Options;
+            }
+            else if (CreditsLabel.IsSelected)
+            {
+                StateManager.ScreenState = ScreenType.Credits;
+            }
+        }
+#endif
 
         void Options_MusicStateChanged(object sender, EventArgs e)
         {
@@ -258,6 +280,9 @@ namespace PGCGame.Screens
             }
         }
 
+#if XBOX
+        GamePadButtonEnumerator AllButtons;
+#endif
         //credits button
         void CreditsButton_MouseLeave(object sender, EventArgs e)
         {
@@ -305,12 +330,6 @@ namespace PGCGame.Screens
         }
 
         MouseState lastMouseState;
-
-#if XBOX
-        TimeSpan elapsedControllerDelayTime = TimeSpan.Zero;
-        TimeSpan totalControllerDelayTime = TimeSpan.FromMilliseconds(250);
-#endif
-
         public override void Update(GameTime gameTime)
         {
 #if WINDOWS
@@ -336,104 +355,10 @@ namespace PGCGame.Screens
 
             lastMouseState = currentMouseState;
 #elif XBOX 
-            Vector2 lJoystick = GamePadManager.One.Current.ThumbSticks.Left;
-
-            elapsedControllerDelayTime += gameTime.ElapsedGameTime;
-
-            //If enough time passed... 
-            if (elapsedControllerDelayTime > totalControllerDelayTime)
-            {
-                elapsedControllerDelayTime = TimeSpan.Zero;
-
-                //Determine total buttons for this column
-                int totalButtons = _screenButtons.Count<KeyValuePair<Vector2, TextSprite>>(v => v.Key.X == _currentlySelectedButton.X);
-
-                //Check Y position
-                if (lJoystick.Y <= 0.6f)
-                {
-                    _currentlySelectedButton.Y--;
-                    if (_currentlySelectedButton.Y < 0)
-                    {
-                        _currentlySelectedButton.Y = totalButtons - 1;
-                    }
-                }
-                else if (lJoystick.Y >= -0.6f)
-                {
-                    _currentlySelectedButton.Y++;
-                    if (_currentlySelectedButton.Y == totalButtons)
-                    {
-                        _currentlySelectedButton.Y = 0;
-                    }
-                }
-
-                //Determine total buttons for this row
-                totalButtons = _screenButtons.Count<KeyValuePair<Vector2, TextSprite>>(v => v.Key.Y == _currentlySelectedButton.Y);
-                
-                //Check X position
-                if (lJoystick.X <= -0.6f)
-                {
-                    _currentlySelectedButton.X--;
-                    if (_currentlySelectedButton.X < 0)
-                    {
-                        _currentlySelectedButton.X = totalButtons - 1;
-                    }
-                }
-                else if (lJoystick.X >= 0.6f)
-                {
-                    _currentlySelectedButton.X++;
-                    if (_currentlySelectedButton.X == totalButtons)
-                    {
-                        _currentlySelectedButton.X = 0;
-                    }
-                }
-            }
-
-
-            //De-select all buttons
-            foreach (var button in _screenButtons)
-            {
-                button.Value.IsSelected = false;
-            }
-
-            //Select the right button
-            _screenButtons[_currentlySelectedButton].IsSelected = true;
-
-
-            //if (GamePadManager.One.Current.IsButtonDown(Buttons.A) && !GamePadManager.One.Last.IsButtonDown(Buttons.A))
-
-            //TODO: Switch to Glib.GamePadManager once ready
+            
+            AllButtons.Update(gameTime);
 
             currentGamePad = GamePad.GetState(PlayerIndex.One);
-
-            //Check for exit via "B" button
-            if (currentGamePad.IsButtonDown(Buttons.B) && !lastGamePad.IsButtonDown(Buttons.B))
-            {
-                _exit();
-            }
-
-            if(currentGamePad.IsButtonDown(Buttons.A) && !lastGamePad.IsButtonDown(Buttons.A))
-            {
-                if (BackLabel.IsSelected)
-                {
-                    _exit();
-                }
-                else if (SinglePlayerLabel.IsSelected)
-                {
-                    StateManager.ScreenState = ScreenType.ShipSelect;
-                }
-                else if (MultiPlayerLabel.IsSelected)
-                { 
-                    //TODO: Multiplayer
-                }
-                else if (OptionsLabel.IsSelected)
-                {
-                    StateManager.ScreenState = ScreenType.Options;
-                }
-                else if (CreditsLabel.IsSelected)
-                {
-                    StateManager.ScreenState = ScreenType.Credits;
-                }
-            }            
 
             lastGamePad = currentGamePad;
 
