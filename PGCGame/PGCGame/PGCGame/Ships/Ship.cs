@@ -25,7 +25,7 @@ namespace PGCGame
         protected const bool CanHoldShootKey = true;
 
         #region StaticProperties
-        
+
         public static Texture2D DroneBullet;
         public static Texture2D BattleCruiserBullet;
         public static Texture2D FighterCarrierBullet;
@@ -34,7 +34,7 @@ namespace PGCGame
 
         private static KeyValuePair<int, ShipTier>[] _cost;
         public static KeyValuePair<int, ShipTier>[] Cost { get { return _cost; } set { _cost = value; } }
-        
+
         public abstract ShipType ShipType { get; }
 
         #endregion StaticProperties
@@ -117,10 +117,10 @@ namespace PGCGame
 
         public Guid ShipID
         {
-             get
-             {
-                 return _shipID;
-             }
+            get
+            {
+                return _shipID;
+            }
         }
 
         public virtual Vector2 WorldCoords
@@ -152,20 +152,20 @@ namespace PGCGame
             set { _movementSpeed = value; }
         }
 
-        public int CurrentHealth 
+        public int CurrentHealth
         {
             get { return _currentHealth; }
             set { _currentHealth = value; }
         }
 
-        
+
 
         public int InitialHealth
         {
             get { return _initHealth; }
             set { _initHealth = value; }
         }
-        
+
 
         public int Shield { get; set; }
 
@@ -218,6 +218,8 @@ namespace PGCGame
             FireBulletEvent();
         }
 
+        Rectangle WCRectangle = new Rectangle();
+
         public virtual void Update(GameTime gt)
         {
             base.Update();
@@ -226,7 +228,7 @@ namespace PGCGame
             {
                 CurrentHealth = InitialHealth;
                 _isFirstUpdate = false;
-                
+
             }
 
             if (CurrentHealth <= 0)
@@ -240,6 +242,22 @@ namespace PGCGame
             foreach (Bullet b in FlyingBullets)
             {
                 b.Update();
+            }
+            foreach (Ship ship in StateManager.ActiveShips)
+            {
+                foreach (Bullet b in ship.FlyingBullets)
+                {
+                    if (ship.PlayerType != this.PlayerType)
+                    {
+                        WCRectangle = new Rectangle(this.WorldCoords.X.ToInt(), this.WorldCoords.Y.ToInt(), this.Width.ToInt(), this.Height.ToInt());
+                        if (b.Rectangle.Intersects(WCRectangle))
+                        {
+                            this.CurrentHealth -= b.Damage;
+                            b.IsDead = true;
+
+                        }
+                    }
+                }
             }
         }
 

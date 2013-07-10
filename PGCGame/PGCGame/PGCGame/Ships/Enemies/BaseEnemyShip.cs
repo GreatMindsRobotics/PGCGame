@@ -67,11 +67,6 @@ namespace PGCGame.Ships.Enemies
                         {
                             activated = true;
                         }
-                        if (b.Rectangle.Intersects(this.Rectangle))
-                        {
-                            this.CurrentHealth -= b.Damage;
-                            b.IsDead = true;
-                        }
                         
                     }
                     if (!shipDistance.HasValue && !closestAllyShipDistance.HasValue)
