@@ -10,6 +10,7 @@ using PGCGame.CoreTypes;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using Glib.XNA.InputLib;
 
 namespace PGCGame
 {
@@ -25,6 +26,10 @@ namespace PGCGame
         #endregion Private Fields
 
         #region Public Fields
+
+        public static ShipType SelectedShip;
+        public static ShipTier SelectedTier;
+
 
         public static Delegates.CheckIfWindowFocused IsWindowFocused;
 
@@ -190,6 +195,25 @@ namespace PGCGame
             AllScreens[ScreenType.Game.ToString()].Cast<Screens.GameScreen>().InitializeScreen<T>(tier);
         }
 
+        public static void InitializeSingleplayerGameScreen(ShipType type, ShipTier tier)
+        {
+            switch (type)
+            {
+                case ShipType.BattleCruiser:
+                    InitializeSingleplayerGameScreen<BattleCruiser>(tier);
+                    return;
+                case ShipType.FighterCarrier:
+                    InitializeSingleplayerGameScreen<FighterCarrier>(tier);
+                    return;
+                case ShipType.TorpedoShip:
+                    InitializeSingleplayerGameScreen<TorpedoShip>(tier);
+                    return;
+                default:
+                    throw new NotImplementedException("Not a supported ship.");
+
+            }
+        }
+
         /// <summary>
         /// Returns to previous screen
         /// </summary>
@@ -214,6 +238,7 @@ namespace PGCGame
         {
             public static bool ShouldMove(MoveDirection direction)
             {
+#if WINDOWS
                 Keys[] pressed = Keyboard.GetState().GetPressedKeys();
                 switch (direction)
                 {
@@ -228,6 +253,21 @@ namespace PGCGame
                     default:
                         throw new NotImplementedException("The specified direction is not implemented.");
                 }
+#elif XBOX
+                switch (direction)
+                {
+                    case MoveDirection.Down:
+                        return GamePadManager.One.Current.ThumbSticks.Left.Y < 0;
+                    case MoveDirection.Left:
+                        return GamePadManager.One.Current.ThumbSticks.Left.X < 0;
+                    case MoveDirection.Right:
+                        return GamePadManager.One.Current.ThumbSticks.Left.X > 0;
+                    case MoveDirection.Up:
+                        return GamePadManager.One.Current.ThumbSticks.Left.Y > 0;
+                    default:
+                        throw new NotImplementedException("The specified direction is not implemented.");
+                }
+#endif
             }
         }
 
