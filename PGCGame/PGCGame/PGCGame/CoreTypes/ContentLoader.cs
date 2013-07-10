@@ -230,10 +230,37 @@ namespace PGCGame.CoreTypes
                 public readonly Texture2D Title;
                 public readonly Texture2D Button;
 
+                public readonly Texture2D AButton;
+                public readonly Texture2D BButton;
+                public readonly Texture2D YButton;
+                public readonly Texture2D XButton;
+
+                public readonly Texture2D LeftTrigger;
+                public readonly Texture2D RightTrigger;
+                public readonly Texture2D LeftBumper;
+                public readonly Texture2D RightBumper;
+
+                public readonly Texture2D StartButton;
+                public readonly Texture2D BackButton;
+
+                public readonly Texture2D DPad;
+
+
                 internal GameControls(ContentManager content)
                 {
                     Title = content.Load<Texture2D>("Images\\Controls\\Gametitle");
                     Button = content.Load<Texture2D>("Images\\Controls\\Button");
+                    AButton = content.Load<Texture2D>("Images\\Controls\\XBOXButtons\\AButton");
+                    BButton = content.Load<Texture2D>("Images\\Controls\\XBOXButtons\\BButton");
+                    YButton = content.Load<Texture2D>("Images\\Controls\\XBOXButtons\\YButton");
+                    XButton = content.Load<Texture2D>("Images\\Controls\\XBOXButtons\\XButton");
+                    LeftTrigger = content.Load<Texture2D>("Images\\Controls\\XBOXButtons\\LeftTrigger");
+                    RightTrigger = content.Load<Texture2D>("Images\\Controls\\XBOXButtons\\RightTrigger");
+                    LeftBumper = content.Load<Texture2D>("Images\\Controls\\XBOXButtons\\LeftBumper");
+                    RightBumper = content.Load<Texture2D>("Images\\Controls\\XBOXButtons\\RightBumper");
+                    StartButton = content.Load<Texture2D>("Images\\Controls\\XBOXButtons\\StartButton");
+                    BackButton = content.Load<Texture2D>("Images\\Controls\\XBOXButtons\\BackButton");
+                    DPad = content.Load<Texture2D>("Images\\Controls\\XBOXButtons\\DPad");
                 }
             }
 

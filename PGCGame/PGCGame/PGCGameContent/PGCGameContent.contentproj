@@ -207,67 +207,67 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Images\Controls\XBOX Buttons\AButton.png">
+    <Compile Include="Images\Controls\XBOXButtons\AButton.png">
       <Name>AButton</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Images\Controls\XBOX Buttons\BackButton.png">
+    <Compile Include="Images\Controls\XBOXButtons\BackButton.png">
       <Name>BackButton</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Images\Controls\XBOX Buttons\BButton.png">
+    <Compile Include="Images\Controls\XBOXButtons\BButton.png">
       <Name>BButton</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Images\Controls\XBOX Buttons\DPad.png">
+    <Compile Include="Images\Controls\XBOXButtons\DPad.png">
       <Name>DPad</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Images\Controls\XBOX Buttons\LeftBumper.png">
+    <Compile Include="Images\Controls\XBOXButtons\LeftBumper.png">
       <Name>LeftBumper</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Images\Controls\XBOX Buttons\LeftThumbstick.png">
+    <Compile Include="Images\Controls\XBOXButtons\LeftThumbstick.png">
       <Name>LeftThumbstick</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Images\Controls\XBOX Buttons\LeftTrigger.png">
+    <Compile Include="Images\Controls\XBOXButtons\LeftTrigger.png">
       <Name>LeftTrigger</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Images\Controls\XBOX Buttons\RightBumper.png">
+    <Compile Include="Images\Controls\XBOXButtons\RightBumper.png">
       <Name>RightBumper</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Images\Controls\XBOX Buttons\RightThumbstick.png">
+    <Compile Include="Images\Controls\XBOXButtons\RightThumbstick.png">
       <Name>RightThumbstick</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Images\Controls\XBOX Buttons\RightTrigger.png">
+    <Compile Include="Images\Controls\XBOXButtons\RightTrigger.png">
       <Name>RightTrigger</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Images\Controls\XBOX Buttons\StartButton.png">
+    <Compile Include="Images\Controls\XBOXButtons\StartButton.png">
       <Name>StartButton</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Images\Controls\XBOX Buttons\XButton.png">
+    <Compile Include="Images\Controls\XBOXButtons\XButton.png">
       <Name>XButton</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Images\Controls\XBOX Buttons\YButton.png">
+    <Compile Include="Images\Controls\XBOXButtons\YButton.png">
       <Name>YButton</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
