@@ -53,7 +53,6 @@ namespace PGCGame.Screens
              Texture2D button = GameContent.GameAssets.Images.Controls.Button;
              SpriteFont font = GameContent.GameAssets.Fonts.NormalText;
 
-             
 #if XBOX
              MoveLabel = new TextSprite(Sprites.SpriteBatch, font, ("Move: Right Joystick"));
              MoveLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f);
@@ -63,9 +62,9 @@ namespace PGCGame.Screens
              
 #if WINDOWS
              MoveLabel = new TextSprite(Sprites.SpriteBatch, font, String.Format("Move:{0}", StateManager.Options.LeftButtonEnabled ? "Arrow Keys" : "WASD"));
-             MoveLabel.Color = Color.White;
              MoveButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f), Sprites.SpriteBatch);
              MoveLabel.Position = new Vector2((MoveButton.X + MoveButton.Width / 2) - MoveLabel.Width / 2, (MoveButton.Y + MoveButton.Height / 2) - MoveLabel.Height / 2);
+             MoveLabel.Color = Color.White;
              MoveLabel.IsManuallySelectable = true;
              MoveLabel.IsHoverable = true;
              MoveLabel.HoverColor = Color.MediumAquamarine;
@@ -76,17 +75,17 @@ namespace PGCGame.Screens
 #endif
 
 #if XBOX
-
              FireLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, font, ("Fire: RTrigger"));
              FireLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .35f);
+             FireLabel.Color = Color.White;
 #endif
              
              
 #if WINDOWS             
              FireLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, font, String.Format("Fire:{0}", StateManager.Options.ArrowKeysEnabled ? "LClick" : "Space"));
-             FireLabel.Color = Color.White;
              FireButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .35f), Sprites.SpriteBatch);
              FireLabel.Position = new Vector2(FireButton.Position.X + (FireButton.Width / 2 - FireLabel.Width / 2), FireButton.Position.Y + (FireButton.Height / 2 - FireLabel.Height / 2));
+             FireLabel.Color = Color.White;
              FireLabel.IsManuallySelectable = true;
              FireLabel.IsHoverable = true;
              FireLabel.HoverColor = Color.MediumAquamarine;
@@ -98,32 +97,35 @@ namespace PGCGame.Screens
 
 #if WINDOWS
              SecondWeapLabel = new TextSprite(Sprites.SpriteBatch, font, ("Use Secondary Weapon: RClick"));
-             SecondWeapLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .4f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .10f);
+             SecondWeapLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .4f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f);
+             SecondWeapLabel.Color = Color.White;
 #endif
 
 #if XBOX
              SecondWeapLabel = new TextSprite(Sprites.SpriteBatch, font, ("Use Secondary Weapon: LTrigger"));
              SecondWeapLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .3f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .10f);
+             SecondWeapLabel.Color = Color.White;
 #endif 
 
 
 
 #if WINDOWS
              SwitchSecondWeapLabel = new TextSprite(Sprites.SpriteBatch, font, ("Switch Secondary Weapons: Scroll Wheel"));
-             SecondWeapLabel.Color = Color.White;
              SwitchSecondWeapLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .4f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .35f);
+             SwitchSecondWeapLabel.Color = Color.White;
 #endif
 
 #if XBOX
              SwitchSecondWeapLabel = new TextSprite(Sprites.SpriteBatch, font, ("Switch Secondary Weapons: Left and Right Bumpers"));
              SwitchSecondWeapLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .3f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .35f);
+             SwitchSecondWeapLabel.Color = Color.White;
 #endif
 
 
 #if WINDOWS
              DeployDronesLabel = new TextSprite(Sprites.SpriteBatch, font, ("Deploy Fighter Carrier Drones: LShift"));
              DeployDronesLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .4f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .6f);
-             SwitchSecondWeapLabel.Color = Color.White; 
+             DeployDronesLabel.Color = Color.White; 
 #endif
 
 #if XBOX
@@ -131,9 +133,6 @@ namespace PGCGame.Screens
              DeployDronesLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .3f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .60f);
              DeployDronesLabel.Color = Color.White;
 #endif
-
-
-
              BackButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .60f), Sprites.SpriteBatch);
              BackLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .139f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .62f), GameContent.GameAssets.Fonts.NormalText, "Back");
              BackLabel.Position = new Vector2((BackButton.X + BackButton.Width / 2) - BackLabel.Width / 2, (BackButton.Y + BackButton.Height / 2) - BackLabel.Height / 2);
