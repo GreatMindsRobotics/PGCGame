@@ -224,7 +224,7 @@ namespace PGCGame
                 
             }
 
-            if (CurrentHealth == 0)
+            if (CurrentHealth <= 0)
             {
                 StateManager.ActiveShips.Remove(this);
             }
