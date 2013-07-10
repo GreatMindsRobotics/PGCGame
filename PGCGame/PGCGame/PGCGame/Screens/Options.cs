@@ -2,13 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Glib.XNA.SpriteLib;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
+
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+
+using Glib;
+using Glib.XNA;
+using Glib.XNA.SpriteLib;
+
 using PGCGame.CoreTypes;
 using Glib.XNA.InputLib;
+using Microsoft.Xna.Framework.Media;
+
 
 namespace PGCGame.Screens
 {
@@ -137,11 +144,47 @@ namespace PGCGame.Screens
             AdditionalSprites.Add(SFXLabel);
             AdditionalSprites.Add(BackLabel);
             AdditionalSprites.Add(MusicVolumeLabel);
-       
+
+#if XBOX
+            AllButtons = new GamePadButtonEnumerator(new TextSprite[,] { { ControlLabel,  SFXLabel}, { GFXLabel,  MusicVolumeLabel}, { BackLabel, null } }, InputType.LeftJoystick);
+            AllButtons.ButtonPress += new EventHandler(AllButtons_ButtonPress);
+            ControlLabel.IsSelected = true;
+#endif
+
             StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
 
         }
 
+#if XBOX
+        void AllButtons_ButtonPress(object sender, EventArgs e)
+        { 
+          if (ControlLabel.IsSelected)
+          {
+              StateManager.ScreenState = ScreenType.ControlScreen;
+          }
+          else if (SFXLabel.IsSelected)
+          {
+              StateManager.Options.SFXEnabled = !StateManager.Options.SFXEnabled;
+              SFXLabel.Text = String.Format("SFX: {0}", StateManager.Options.SFXEnabled ? "On" : "Off");
+          }
+          else if (GFXLabel.IsSelected)
+          {
+              StateManager.Options.ToggleFullscreen();
+          }
+          else if (MusicVolumeLabel.IsSelected)
+          {
+              StateManager.Options.MusicEnabled = !StateManager.Options.MusicEnabled;
+              MusicVolumeLabel.Text = String.Format("Music: {0}", StateManager.Options.MusicEnabled ? "On" : "Off");
+          }
+          else if (BackLabel.IsSelected)
+          {
+             
+          }
+        }
+#endif
+#if XBOX
+        GamePadButtonEnumerator AllButtons;
+#endif
         void Options_ScreenResolutionChanged(object sender, EventArgs e)
         {
             //RESET THE LOCATION OF EVERY SPRITE ON THE SCREEN!
@@ -222,7 +265,6 @@ namespace PGCGame.Screens
 
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
 #if WINDOWS
             MouseState currentMs = MouseManager.CurrentMouseState;
             if (lastMs.LeftButton == ButtonState.Released && currentMs.LeftButton == ButtonState.Pressed)
@@ -244,8 +286,6 @@ namespace PGCGame.Screens
                 if (mouseOnGraphicButton)
                 {
                     StateManager.Options.ToggleFullscreen();
-
-                    
                 }
                 if (ControlLabel.IsSelected)
                 {
@@ -253,7 +293,19 @@ namespace PGCGame.Screens
                 }
             }
             lastMs = currentMs;
+#elif XBOX
+            AllButtons.Update(gameTime);
+
+            currentGamePad = GamePad.GetState(PlayerIndex.One);
+
+            lastGamePad = currentGamePad;
+
 #endif
-        } 
+            base.Update(gameTime);
+        }
+#if XBOX
+        GamePadState currentGamePad;
+        GamePadState lastGamePad = new GamePadState(Vector2.Zero, Vector2.Zero, 0, 0, Buttons.A);
+#endif
     }
 }

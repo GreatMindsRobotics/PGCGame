@@ -75,7 +75,6 @@ namespace PGCGame.Screens
             Sprites.Add(PlayButton);
 
             PlayLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Play");
-            //PlayLabel.Position = new Vector2(PlayButton.X + (PlayButton.Width / 2 - PlayLabel.Width / 2), PlayButton.Y + (PlayButton.Height / 2 - PlayLabel.Height / 2));
             
             PlayLabel.IsHoverable = true;
             
@@ -103,6 +102,10 @@ namespace PGCGame.Screens
             PlayLabel.Clicked += new EventHandler(PlayLabel_Clicked);
             PlayLabel.ParentSprite = PlayButton;
 #elif XBOX
+            PlayLabel.Position = new Vector2(PlayButton.X + (PlayButton.Width / 2 - PlayLabel.Width / 2), PlayButton.Y + (PlayButton.Height / 2 - PlayLabel.Height / 2));
+            ExitLabel.Position = new Vector2(ExitButton.X + (ExitButton.Width / 2 - ExitLabel.Width / 2), ExitButton.Y + (ExitButton.Height / 2 - ExitLabel.Height / 2));
+
+
             ButtonManagement = new GamePadButtonEnumerator(new TextSprite[,] { { PlayLabel }, { ExitLabel } }, InputType.LeftJoystick);
             ButtonManagement.ButtonPress += new EventHandler(ButtonManagement_ButtonPress);
 #endif
@@ -144,30 +147,6 @@ namespace PGCGame.Screens
             }
             
 #if XBOX
-            /*
-            Vector2 lJoystick = GamePadManager.One.Current.ThumbSticks.Left;
-            if (lJoystick.Y <= -0.6f || lJoystick.Y >= 0.6f)
-            {
-                elapsedControllerDelayTime += gameTime.ElapsedGameTime;
-                if (elapsedControllerDelayTime > totalControllerDelayTime)
-                {
-                    elapsedControllerDelayTime = TimeSpan.Zero;
-                    ExitLabel.IsSelected = !ExitLabel.IsSelected;
-                    PlayLabel.IsSelected = !PlayLabel.IsSelected;
-                }
-            }
-            if (GamePadManager.One.Current.IsButtonDown(Buttons.A))
-            {
-                if (ExitLabel.IsSelected)
-                {
-                    _exit();
-                }
-                else if (PlayLabel.IsSelected)
-                {
-                    StateManager.ScreenState = ScreenType.MainMenu;
-                }
-            }
-            */
             ButtonManagement.Update(gameTime);
 #endif
             base.Update(gameTime);
