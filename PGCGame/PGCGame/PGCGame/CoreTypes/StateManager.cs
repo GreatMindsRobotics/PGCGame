@@ -23,7 +23,7 @@ namespace PGCGame
         private static ScreenType _screenState = ScreenType.Title;
         private static GraphicsDeviceManager _gfx;
         private static Guid _enemyID = Guid.NewGuid();
-        private static int _spaceBucks = 100000;
+        private static int _spaceBucks = 200000;
         #endregion Private Fields
 
         #region Public Fields

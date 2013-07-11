@@ -24,6 +24,8 @@ namespace PGCGame.Screens.SelectScreens
 
         }
 
+        string nocredits = "You Have no more credits";
+        TextSprite Credits;
         //This screen needs sprites for each tier of ship and descriptions for each tier.
         Dictionary<Sprite, int> itemsShown = new Dictionary<Sprite, int>();
 
@@ -35,6 +37,12 @@ namespace PGCGame.Screens.SelectScreens
             Texture2D buttonImage = GameContent.GameAssets.Images.Controls.Button;
             SpriteFont SegoeUIMono = GameContent.GameAssets.Fonts.NormalText;
 
+
+
+
+            Credits = new TextSprite(Sprites.SpriteBatch, SegoeUIMono, String.Format("You Have {0} Credits", StateManager.SpaceBucks));
+            Credits.Position = new Vector2(5, 5);
+            Credits.Color = Color.White;
 
             battleCruiser = new Sprite(GameContent.GameAssets.Images.Ships[ShipType.BattleCruiser, ShipTier.Tier2], Vector2.Zero, Sprites.SpriteBatch);
             TextSprite text1 = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "\n\n This is the strongest class \n in the fleet, but also the slowest.\n What it lacks in speed it makes \n up for in strength.\n\n Damage Per Shot: 20\n Amount of Health: 120");
@@ -65,22 +73,40 @@ namespace PGCGame.Screens.SelectScreens
             ChangeItem += new EventHandler(TierSelect_ChangeItem);
             nextButtonClicked += new EventHandler(TierSelect_nextButtonClicked);
 
+
+
+            AdditionalSprites.Add(Credits);
             base.InitScreen(screenType);
+
 
             acceptLabel.Text = "Buy";
         }
 
         void TierSelect_nextButtonClicked(object sender, EventArgs e)
         {
+            bool bought = false;
+
             foreach (KeyValuePair<Sprite, int> kvp in itemsShown)
             {
                 Sprite ship = kvp.Key;
                 int cost = kvp.Value;
 
-                if (ship.Texture == items[selected].Key.Texture && cost <= StateManager.SpaceBucks)
+                if (bought == false)
                 {
-                    StateManager.SpaceBucks -= cost;
+                    if (StateManager.SpaceBucks - cost < 0)
+                    {
+                        Credits.Text = nocredits;
+                    }
+                   
+                    if (ship.Texture == items[selected].Key.Texture && cost <= StateManager.SpaceBucks)
+                    {
+                        StateManager.SpaceBucks -= cost;
+                        Credits.Text = String.Format("You Have {0} Credits", StateManager.SpaceBucks);
+                        bought = true;
+                    }
                 }
+
+
             }
         }
 
