@@ -29,7 +29,7 @@ namespace PGCGame
             BulletTexture = GameContent.GameAssets.Images.Ships.Bullets[ShipType.BattleCruiser, ShipTier.Tier1];
             DelayBetweenShots = TimeSpan.FromSeconds(1);
             DamagePerShot = 20;
-            MovementSpeed = Vector2.One;
+            MovementSpeed = new Vector2(.7f);
             InitialHealth = 120;
             PlayerType = CoreTypes.PlayerType.Ally;
             this.TierChanged += new EventHandler(BattleCruiser_TierChanged);
