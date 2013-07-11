@@ -13,7 +13,8 @@ namespace PGCGame
         public EMP(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
             : base(texture, location, spriteBatch)
         {
-
+            Cost = 1000;
+            Name = "EMP";
         }
 
         public int Radius { get; set; }

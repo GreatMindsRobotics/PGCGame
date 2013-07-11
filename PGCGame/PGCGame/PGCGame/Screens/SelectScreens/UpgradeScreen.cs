@@ -48,7 +48,7 @@ namespace PGCGame.Screens.SelectScreens
             TextSprite text4 = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.1f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 1.5f), font, "Scanner", Color.White);
             text4.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.01f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.01f); 
            Scanner.Scale = new Vector2(0.5f, 0.5f);
-            itemsShown.Add(new KeyValuePair<Sprite, string>(Scanner, text4.ToString()));
+            itemsShown.Add(new KeyValuePair<Sprite, string>(Scanner, StateManager.SpaceBucks.ToString()));
             items.Add(new KeyValuePair<Sprite, TextSprite>(Scanner, text4));
 
            //repair
@@ -66,9 +66,23 @@ namespace PGCGame.Screens.SelectScreens
 
            ChangeItem += new EventHandler(UpgradeScreen_ChangeItem);
 
+           nextButtonClicked += new EventHandler(UpgradeScreen_nextButtonClicked);
+
            base.InitScreen(screenType);
 
            acceptLabel.Text = "Buy";
+       }
+
+       void UpgradeScreen_nextButtonClicked(object sender, EventArgs e)
+       {
+           foreach (KeyValuePair<Sprite, string> item in itemsShown)
+           {
+               if (item.Key == items[selected].Key)
+               {
+                   //todo: buying logic.
+                   break;
+               }
+           }
        }
 
        void UpgradeScreen_ChangeItem(object sender, EventArgs e)

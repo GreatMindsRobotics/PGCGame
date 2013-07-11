@@ -13,6 +13,7 @@ namespace PGCGame
         public int Cost { get; set; }
         public int Damage { get; set; }
         public bool SingleUse { get; set; }
+        public string Name { get; set; }
        
         public SecondaryWeapon(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
             : base(texture, location, spriteBatch)

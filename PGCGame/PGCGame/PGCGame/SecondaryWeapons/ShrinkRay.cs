@@ -12,7 +12,8 @@ namespace PGCGame
         public ShrinkRay(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
             : base(texture, location, spriteBatch)
         {
-
+            Cost = 2000;
+            Name = "ShrinkRay";
         }
         
         public ShrinkBullet ShotBullet { get; set; }

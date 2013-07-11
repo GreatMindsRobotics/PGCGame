@@ -26,8 +26,8 @@ namespace PGCGame.Screens.SelectScreens
 
         }
 
-        List<KeyValuePair<Sprite, string>> itemsShown = new List<KeyValuePair<Sprite, string>>();
-        
+        List<SecondaryWeapon> itemsShown = new List<SecondaryWeapon>();
+        TextSprite SpaceBucksAmount;
 
         public override void InitScreen(ScreenType screenType)
         {
@@ -36,30 +36,34 @@ namespace PGCGame.Screens.SelectScreens
             Texture2D RayGun = GameContent.GameAssets.Images.SecondaryWeapon[SecondaryWeaponType.ShrinkRay, TextureDisplayType.ShopDisplay];
             Texture2D Bomb = GameContent.GameAssets.Images.SecondaryWeapon[SecondaryWeaponType.SpaceMine, TextureDisplayType.ShopDisplay];
 
-            
+            SpaceBucksAmount = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, string.Format("You have {0} credits", StateManager.SpaceBucks), Color.White);
+            SpaceBucksAmount.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width / 2 - SpaceBucksAmount.Width, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f);
+            AdditionalSprites.Add(SpaceBucksAmount);
 
             SpriteFont font = GameContent.GameAssets.Fonts.NormalText;
+            
 
             //EMP
-            Sprite weapon1 = new Sprite(EMP, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.6f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.1f), Sprites.SpriteBatch);
+            EMP weapon1 = new EMP(EMP, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.6f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.1f), Sprites.SpriteBatch);
             TextSprite text1 = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.01f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.1f), font, "\n\nAn electro magnetic pulse. \nThis device disables all \nnearby enemy ships \nwithin your ship's range. \n\ncost: 1000 credits", Color.White);
             weapon1.Scale = new Vector2(0.5f, 0.5f);
+           
+            
+            itemsShown.Add(weapon1);
 
-            itemsShown.Add(new KeyValuePair<Sprite, string>(weapon1, "EMP"));
 
-            items.Add(new KeyValuePair<Sprite, TextSprite>(weapon1, text1));
 
             //Ray Gun
-            Sprite weapon2 = new Sprite(RayGun, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.60f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.2f), Sprites.SpriteBatch);
+            ShrinkRay weapon2 = new ShrinkRay(RayGun, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.60f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.2f), Sprites.SpriteBatch);
             weapon2.Scale = new Vector2(0.5f, 0.5f);
 
-            itemsShown.Add(new KeyValuePair<Sprite, string>(weapon2, "Ray Gun"));
+            itemsShown.Add(weapon2);
 
             //Space Mine
-            Sprite weapon3 = new Sprite(Bomb, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.69f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.3f), Sprites.SpriteBatch);
+            SpaceMine weapon3 = new SpaceMine(Bomb, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.69f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.3f), Sprites.SpriteBatch);
             weapon3.Scale = new Vector2(2f, 2f);
 
-            itemsShown.Add(new KeyValuePair<Sprite, string>(weapon3, "Space Mine"));
+            itemsShown.Add(weapon3);
 
             TextSprite text2 = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.01f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.1f), font, "\n\nThis weapon causes the targeted enemy\n to shrink losing 33% of their health. \nThis does not affect bosses.\n\ncost: 2000 credits", Color.White);
             TextSprite text3 = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.01f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.1f), font, "\n\nYou place this mine anywhere in space \nand when an enemy crashes into it the mine \nexplodes \n\ncost: 500 credits.", Color.White);
@@ -68,8 +72,10 @@ namespace PGCGame.Screens.SelectScreens
             items.Add(new KeyValuePair<Sprite, TextSprite>(weapon3, text3));
 
             
+            ChangeItem +=new EventHandler(WeaponSelectScreen_ChangeItem);
 
-
+            items.Add(new KeyValuePair<Sprite, TextSprite>(weapon1, text1));
+            
             base.InitScreen(screenType);
 
             acceptLabel.Text = "Buy";
@@ -79,20 +85,26 @@ namespace PGCGame.Screens.SelectScreens
 
         void WeaponSelectScreen_nextButtonClicked(object sender, EventArgs e)
         {
-            if (itemsShown[selected].Value == "Scanner")
+            foreach (SecondaryWeapon item in itemsShown)
             {
-                StateManager.HasBoughtScanner = true;
+                if (item.Texture == items[selected].Key.Texture && item.Cost <= StateManager.SpaceBucks)
+                {
+                    StateManager.SpaceBucks -= item.Cost;
+                    SpaceBucksAmount.Text = string.Format("You have {0} credits", StateManager.SpaceBucks);
+                    break;
+                }
             }
         }
 
 
         void WeaponSelectScreen_ChangeItem(object sender, EventArgs e)
         {
-            foreach (KeyValuePair<Sprite, string> item in itemsShown)
+            foreach (SecondaryWeapon item in itemsShown)
             {
-                if (item.Key == items[selected].Key)
+                if (item.Texture == items[selected].Key.Texture)
                 {
-                    nameLabel.Text = item.Value;
+                    nameLabel.Text = item.Name;
+
                     break;
                 }
             }
@@ -100,6 +112,7 @@ namespace PGCGame.Screens.SelectScreens
 
         public override void Update(GameTime gameTime)
         {
+
             base.Update(gameTime);
         }
     }
