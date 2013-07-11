@@ -36,8 +36,22 @@ namespace PGCGame.Screens
             worldCam = new Camera2DMatrix();
             playerSb = new SpriteBatch(spriteBatch.GraphicsDevice);
 
+#if XBOX
+            GamePadManager.One.Buttons.YButtonPressed += new EventHandler(Buttons_YButtonPressed);
+#endif
+
             _playableAreaOffset = new Vector2(500);
         }
+
+#if XBOX
+        void Buttons_YButtonPressed(object sender, EventArgs e)
+        {
+            if (Visible)
+            {
+                miniMap.Color = miniMap.Color == Color.White ? Color.Transparent : Color.White;
+            }
+        }
+#endif
 
         void Options_MusicStateChanged(object sender, EventArgs e)
         {
@@ -215,7 +229,6 @@ namespace PGCGame.Screens
 
         void miniMap_Updated(object sender, EventArgs e)
         {
-#if WINDOWS
             foreach (Sprite s in miniShips)
             {
                 playerSbObjects.Remove(s);
@@ -242,10 +255,13 @@ namespace PGCGame.Screens
                     Sprite miniShip = new Sprite(GameContent.GameAssets.Images.MiniShips[s.PlayerType], miniMap.Position + (s.WorldCoords / MinimapDivAmount), playerSb);
                     miniShip.UseCenterAsOrigin = true;
                     miniShips.Add(miniShip);
+#if WINDOWS
+                    //TODO: Minimap ship info showing up on Xbox
                     if (miniShip.Intersects(MouseManager.CurrentMouseState) && activeMiniShipDisplay == null)
                     {
                         activeMiniShipDisplay = s;
                     }
+#endif
                 }
                 miniShipInfoBg.Color = activeMiniShipDisplay != null ? Color.White : Color.Transparent;
                 if (activeMiniShipDisplay != null)
@@ -266,14 +282,15 @@ namespace PGCGame.Screens
 
                 }
 
-                playerSbObjects.AddRange(miniShips);
+                //This extension method (IEnumerable cast, NOT Glib cast) shouldn't be neccesary on XBOX, but I think it may be
+                //Casting the Sprites to ISprites
+                playerSbObjects.AddRange(miniShips.Cast<ISprite>());
             }
             else
             {
                 miniShipInfoBg.Color = Color.Transparent;
 
             }
-#endif
         }
 
         void bgspr_Drawn(object sender, EventArgs e)
@@ -449,11 +466,13 @@ namespace PGCGame.Screens
                 }
             }
 
+#if WINDOWS
             if (_lastState.IsKeyUp(Keys.M) && keyboard.IsKeyDown(Keys.M))
             {
                 miniMap.Color = miniMap.Color == Color.White ? Color.Transparent : Color.White;
 
             }
+#endif
 
             if (_lastState.IsKeyUp(Keys.F11) && keyboard.IsKeyDown(Keys.F11))
             {
