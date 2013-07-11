@@ -405,7 +405,7 @@ namespace PGCGame.Screens
             {
                 foreach (Ship hitShip in StateManager.ActiveShips)
                 {
-                    if (shootShip != hitShip && shootShip.PlayerType != hitShip.PlayerType)
+                    if (shootShip != hitShip && shootShip.PlayerType != hitShip.PlayerType && hitShip.CurrentHealth > 0)
                     {
                         if (hitShip.PlayerType == PlayerType.MyShip && shootShip.PlayerType == PlayerType.Ally)
                         {
