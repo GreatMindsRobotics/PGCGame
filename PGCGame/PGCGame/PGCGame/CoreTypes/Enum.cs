@@ -79,7 +79,11 @@ namespace PGCGame.CoreTypes
         BattleCruiser,
         FighterCarrier,
         TorpedoShip,
-        Drone
+        Drone,
+        EnemyBattleCruiser,
+        EnemyFighterCarrier,
+        EnemyTorpedoShip,
+        EnemyDrone
     }
 
     public enum MoveDirection

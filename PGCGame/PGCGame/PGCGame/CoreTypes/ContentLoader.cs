@@ -166,6 +166,15 @@ namespace PGCGame.CoreTypes
                     _shipTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.Drone, ShipTier.Tier1), content.Load<Texture2D>("Images\\Ships\\Allies\\FighterCarrier\\Drones\\Tier1"));
                     _shipTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.Drone, ShipTier.Tier2), content.Load<Texture2D>("Images\\Ships\\Allies\\FighterCarrier\\Drones\\Tier2"));
 
+
+                    _shipTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.EnemyBattleCruiser, ShipTier.Tier1), content.Load<Texture2D>("Images\\Ships\\Enemies\\BattleCruiser1"));
+                    _shipTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.EnemyBattleCruiser, ShipTier.Tier2), content.Load<Texture2D>("Images\\Ships\\Enemies\\Battlecruiser2"));
+                    _shipTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.EnemyBattleCruiser, ShipTier.Tier3), content.Load<Texture2D>("Images\\Ships\\Enemies\\Battlecruiser3"));
+                    _shipTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.EnemyBattleCruiser, ShipTier.Tier4), content.Load<Texture2D>("Images\\Ships\\Enemies\\Battlecruiser4"));
+                    _shipTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.EnemyFighterCarrier, ShipTier.Tier4), content.Load<Texture2D>("Images\\Ships\\Enemies\\Mothership"));
+                    _shipTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.EnemyDrone, ShipTier.Tier1), content.Load<Texture2D>("Images\\Ships\\Enemies\\Scout"));
+
+
                     Bullets = new ShipBullets(content);
                 }
 
