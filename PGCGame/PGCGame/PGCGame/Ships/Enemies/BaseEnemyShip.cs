@@ -22,6 +22,19 @@ namespace PGCGame.Ships.Enemies
             
         }
 
+
+        public virtual void Shoot()
+        {
+            Bullet bullet = new Bullet(BulletTexture, WorldCoords - new Vector2(Height * -DistanceToNose, Height * -DistanceToNose) * Rotation.Vector, WorldSb);
+            bullet.Speed = Rotation.Vector * 3f;
+            bullet.UseCenterAsOrigin = true;
+            bullet.Rotation = Rotation;
+            bullet.Damage = DamagePerShot;
+            bullet.Color = Color.Red;
+
+            FlyingBullets.Add(bullet);
+        }
+
         Boolean activated = false;
 
         TimeSpan _elapsedRotationDelay = TimeSpan.Zero;

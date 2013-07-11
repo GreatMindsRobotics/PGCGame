@@ -302,11 +302,15 @@ namespace PGCGame.CoreTypes
             {
                 public readonly Texture2D Planet;
                 public readonly Texture2D AltPlanet;
-
+                public readonly Texture2D Planet4;
+                public readonly Texture2D Planet3;
                 internal NonPlayingGameObjects(ContentManager content)
                 {
                     Planet = content.Load<Texture2D>("Images\\NonPlayingObjects\\Planet");
                     AltPlanet = content.Load<Texture2D>("Images\\NonPlayingObjects\\AlternativePlanet");
+                    Planet3 = content.Load<Texture2D>("Images\\NonPlayingObjects\\Planet3");
+                    Planet4 = content.Load<Texture2D>("Images\\NonPlayingObjects\\Planet4");
+ 
                 }
             }
 
