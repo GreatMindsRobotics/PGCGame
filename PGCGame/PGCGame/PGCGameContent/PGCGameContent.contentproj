@@ -331,18 +331,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Images\MiniMap\WhiteCircle3x3.png">
-      <Name>WhiteCircle3x3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Images\MiniMap\WhiteTriangle3x3.png">
-      <Name>WhiteTriangle3x3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Images\MiniMap\WhiteCircle100x100.png">
       <Name>WhiteCircle100x100</Name>
       <Importer>TextureImporter</Importer>

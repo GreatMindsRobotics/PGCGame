@@ -251,6 +251,8 @@ namespace PGCGame.CoreTypes
                     _miniShipTextures.Add(PlayerType.Solo, new PlainTexture2D(StateManager.GraphicsManager.GraphicsDevice, 3, 3, Color.Crimson));
 
                     _miniShipTexturesByShipType.Add(ShipType.FighterCarrier, content.Load<Texture2D>("Images\\MiniMap\\WhiteCircle100x100"));
+                    _miniShipTexturesByShipType.Add(ShipType.BattleCruiser, content.Load<Texture2D>("Images\\MiniMap\\WhiteCircle100x100"));
+                    _miniShipTexturesByShipType.Add(ShipType.TorpedoShip, content.Load<Texture2D>("Images\\MiniMap\\WhiteCircle100x100"));
                     _miniShipTexturesByShipType.Add(ShipType.Drone, content.Load<Texture2D>("Images\\MiniMap\\WhiteTriangle100x100"));
                 }
             }
