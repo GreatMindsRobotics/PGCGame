@@ -17,14 +17,12 @@ using Glib.XNA.InputLib;
 
 namespace PGCGame.Screens
 {
-    class ControlScreen : BaseScreen
+    public class ControlScreen : BaseScreen
     {
-         private Delegates.QuitFunction _exit;
 
-         public ControlScreen(SpriteBatch spriteBatch, Delegates.QuitFunction exit)
+         public ControlScreen(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
          {
-             _exit = exit;
          }
 
          TextSprite MoveLabel;

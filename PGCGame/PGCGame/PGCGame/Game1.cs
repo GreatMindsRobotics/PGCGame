@@ -91,10 +91,10 @@ namespace PGCGame
             shopScreen = new Shop(spriteBatch);
             shopScreen.InitScreen(ScreenType.Shop);
 
-            controlScreen = new ControlScreen(spriteBatch, new Delegates.QuitFunction(Exit));
+            controlScreen = new ControlScreen(spriteBatch);
             controlScreen.InitScreen(ScreenType.ControlScreen);
 
-            mainMenuScreen = new MainMenu(spriteBatch, new Delegates.QuitFunction(Exit));
+            mainMenuScreen = new MainMenu(spriteBatch);
             mainMenuScreen.InitScreen(ScreenType.MainMenu);
 
             creditsScreen = new Credits(spriteBatch);
