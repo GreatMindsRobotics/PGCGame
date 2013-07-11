@@ -188,8 +188,10 @@ namespace PGCGame.Screens
             
 
              lastMS = currentMouseState;
-             base.Update(game);
+#elif XBOX
+             
 #endif
+             base.Update(game);
          }
 
          public bool FireSelected

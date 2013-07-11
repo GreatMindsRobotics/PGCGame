@@ -39,6 +39,10 @@ namespace PGCGame.Screens
         }
 #endif
 
+#if XBOX
+        Sprite bButton;
+#endif
+
         Sprite TitleSprite;
 
 
@@ -97,6 +101,8 @@ namespace PGCGame.Screens
             Texture2D altPlanetTexture = GameContent.GameAssets.Images.NonPlayingObjects.AltPlanet;
             Texture2D buttonImage = GameContent.GameAssets.Images.Controls.Button;
             SpriteFont SegoeUIMono = GameContent.GameAssets.Fonts.NormalText;
+
+
 
             StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
 
@@ -177,6 +183,10 @@ namespace PGCGame.Screens
             CreditsLabel.NonHoverColor = Color.White;
             CreditsLabel.HoverColor = Color.MediumAquamarine;
             AdditionalSprites.Add(CreditsLabel);
+
+#if XBOX
+            
+#endif
 #if XBOX
             AllButtons = new GamePadButtonEnumerator(new TextSprite[,] { { SinglePlayerLabel, OptionsLabel }, { MultiPlayerLabel, CreditsLabel }, { BackLabel, null } }, InputType.LeftJoystick);
             AllButtons.ButtonPress += new EventHandler(AllButtons_ButtonPress);

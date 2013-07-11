@@ -32,7 +32,9 @@ namespace PGCGame.Screens
         Sprite ControlButton;
         TextSprite ControlLabel;
 
+#if WINDOWS
         TextSprite GFXLabel;
+#endif
         TextSprite SFXLabel;
         TextSprite MusicVolumeLabel;
         TextSprite BackLabel;
@@ -51,7 +53,9 @@ namespace PGCGame.Screens
             Texture2D button = GameContent.GameAssets.Images.Controls.Button;
             SpriteFont font = GameContent.GameAssets.Fonts.NormalText;
 
+#if WINDOWS
             StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
+#endif
 
             //Move Controls (aka Controls)
             ControlButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f), Sprites.SpriteBatch);
@@ -70,12 +74,14 @@ namespace PGCGame.Screens
 
                                                                                                                                                                              
 
+            
+#if WINDOWS
             //GFX
             Sprite GraphicsButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .35f), Sprites.SpriteBatch);
-#if WINDOWS
+
             GraphicsButton.MouseEnter +=new EventHandler(GraphicsButton_MouseEnter);
             GraphicsButton.MouseLeave +=new EventHandler(GraphicsButton_MouseLeave);
-#endif
+
 
             GFXLabel = new TextSprite(Sprites.SpriteBatch, font, String.Format("GFX: {0}", StateManager.GraphicsManager.IsFullScreen ? "Full" : "Standard"));
             GFXLabel.Position = new Vector2((GraphicsButton.X + GraphicsButton.Width / 2) - GFXLabel.Width / 2, (GraphicsButton.Y + GraphicsButton.Height / 2) - GFXLabel.Height / 2);
@@ -84,7 +90,7 @@ namespace PGCGame.Screens
             GFXLabel.IsHoverable = true;
             GFXLabel.HoverColor = Color.MediumAquamarine;
             GFXLabel.NonHoverColor = Color.White;
-
+#endif
 
             //SFX
             Sprite SFXButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .5f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .10f), Sprites.SpriteBatch);
@@ -103,8 +109,13 @@ namespace PGCGame.Screens
 
 
             //Back button
+#if WINDOWS
             Sprite BackButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .60f), Sprites.SpriteBatch);
-            BackLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .139f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .62f), GameContent.GameAssets.Fonts.NormalText, "Back");
+#elif XBOX
+            Sprite BackButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .35f), Sprites.SpriteBatch);
+#endif
+            BackLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "Back");
+            BackLabel.Position = new Vector2((BackButton.X + BackButton.Width/2) - BackLabel.Width/2, (BackButton.Y + BackButton.Height/2) - BackLabel.Height/2);
             BackLabel.Color = Color.White;
 
 #if WINDOWS
@@ -133,25 +144,29 @@ namespace PGCGame.Screens
 
             //Add all buttons
             Sprites.Add(ControlButton);
-            Sprites.Add(GraphicsButton);
             Sprites.Add(SFXButton);
             Sprites.Add(BackButton);
             Sprites.Add(MusicButton);
 
             //Add all text sprites
             AdditionalSprites.Add(ControlLabel);
+#if WINDOWS
+            Sprites.Add(GraphicsButton);
             AdditionalSprites.Add(GFXLabel);
+#endif
             AdditionalSprites.Add(SFXLabel);
             AdditionalSprites.Add(BackLabel);
             AdditionalSprites.Add(MusicVolumeLabel);
 
 #if XBOX
-            AllButtons = new GamePadButtonEnumerator(new TextSprite[,] { { ControlLabel,  SFXLabel}, { GFXLabel,  MusicVolumeLabel}, { BackLabel, null } }, InputType.LeftJoystick);
+            AllButtons = new GamePadButtonEnumerator(new TextSprite[,] { { ControlLabel,  SFXLabel}, { BackLabel,  MusicVolumeLabel}}, InputType.LeftJoystick);
             AllButtons.ButtonPress += new EventHandler(AllButtons_ButtonPress);
             ControlLabel.IsSelected = true;
 #endif
 
+#if WINDOWS
             StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
+#endif
 
         }
 
@@ -167,10 +182,12 @@ namespace PGCGame.Screens
               StateManager.Options.SFXEnabled = !StateManager.Options.SFXEnabled;
               SFXLabel.Text = String.Format("SFX: {0}", StateManager.Options.SFXEnabled ? "On" : "Off");
           }
+#if WINDOWS
           else if (GFXLabel.IsSelected)
           {
               StateManager.Options.ToggleFullscreen();
           }
+#endif
           else if (MusicVolumeLabel.IsSelected)
           {
               StateManager.Options.MusicEnabled = !StateManager.Options.MusicEnabled;
@@ -185,12 +202,15 @@ namespace PGCGame.Screens
 #if XBOX
         GamePadButtonEnumerator AllButtons;
 #endif
+
+#if WINDOWS
         void Options_ScreenResolutionChanged(object sender, EventArgs e)
         {
             //RESET THE LOCATION OF EVERY SPRITE ON THE SCREEN!
             GFXLabel.Text = String.Format("GFX: {0}", StateManager.GraphicsManager.IsFullScreen ? "Full" : "Standard");
 
         }
+#endif
 
         //Controls
         void ControlButton_MouseLeave(object sender, EventArgs e)
@@ -215,12 +235,11 @@ namespace PGCGame.Screens
 
         //standard
         //Full
-
+#if WINDOWS
         void GraphicsButton_MouseLeave(object sender, EventArgs e)
         {
             GFXLabel.IsSelected = false;
         }
-
         void GraphicsButton_MouseEnter(object sender, EventArgs e)
         {
             GFXLabel.IsSelected = true;
@@ -233,8 +252,11 @@ namespace PGCGame.Screens
                 return GFXLabel.IsSelected;
             }
         }
+#endif
 
-        
+
+
+
 
         void MusicButton_MouseLeave(object sender, EventArgs e)
         {

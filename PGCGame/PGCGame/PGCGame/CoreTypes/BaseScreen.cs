@@ -23,6 +23,12 @@ namespace PGCGame.CoreTypes
 
 
 #if XBOX
+        protected Sprite bButton;
+        protected TextSprite bLabel;
+
+        protected Sprite aButton;
+        protected TextSprite aLabel;
+
         TimeSpan elapsedBackButtonTime = TimeSpan.Zero;
         TimeSpan requiredBackButtonTime = TimeSpan.FromMilliseconds(250);
 
@@ -46,6 +52,7 @@ namespace PGCGame.CoreTypes
             }
         }
 #endif
+
 
         private static bool _debugBackground = false;
         public static bool DebugBackground
@@ -85,6 +92,22 @@ namespace PGCGame.CoreTypes
 
         public virtual void InitScreen(ScreenType screenName)
         {
+#if XBOX
+            bButton = new Sprite(GameContent.GameAssets.Images.Controls.BButton, new Vector2(50, 420), Sprites.SpriteBatch);
+            bButton.Scale = new Vector2(0.5f);
+
+            string backButtonText = "Back";
+            if (screenName == ScreenType.MainMenu || screenName == ScreenType.Title)
+            {
+                backButtonText =  "Exit";
+            }
+            
+            bLabel = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, backButtonText);
+            bLabel.Color = Color.White;
+            bLabel.Position = new Vector2(90, 425);
+            Sprites.Add(bButton);
+            AdditionalSprites.Add(bLabel);
+#endif
             _screenType = screenName;
             base.Name = screenName.ToString();
         }
