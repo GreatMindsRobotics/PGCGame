@@ -103,6 +103,19 @@ namespace PGCGame.Ships.Allies
             PlayerType = CoreTypes.PlayerType.Ally;
         }
 
+        protected static Dictionary<ShipTier, int> _cost;
+        public static Dictionary<ShipTier, int> Cost { get { return _cost; } set { _cost = value; } }
+
+        static BaseAllyShip()
+        {
+            _cost = new Dictionary<ShipTier, int>();
+
+            _cost.Add(ShipTier.Tier1, 100000);
+            _cost.Add(ShipTier.Tier2, 200000);
+            _cost.Add(ShipTier.Tier3, 300000);
+            _cost.Add(ShipTier.Tier4, 400000);
+        }
+
         public override void Update(GameTime gt)
         {
             if (CurrentHealth <= 0)

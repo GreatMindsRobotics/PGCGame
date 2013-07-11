@@ -68,6 +68,12 @@ namespace PGCGame
             DamagePerShot = 1;
         }
 
+        static Drone()
+        {
+            _cost[ShipTier.Tier1] = 5000;
+            _cost[ShipTier.Tier2] = 10000;
+        }
+
         #endregion Public Ctors
 
         #region Public Methods

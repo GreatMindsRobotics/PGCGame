@@ -32,9 +32,6 @@ namespace PGCGame
         public static Texture2D Torpedo;
         public static Texture2D SpaceMine;
 
-        private static KeyValuePair<int, ShipTier>[] _cost;
-        public static KeyValuePair<int, ShipTier>[] Cost { get { return _cost; } set { _cost = value; } }
-
         public abstract ShipType ShipType { get; }
 
         #endregion StaticProperties
@@ -53,7 +50,6 @@ namespace PGCGame
             _isDead = false;
 
             _currentHealth = _initHealth;
-            _cost = new KeyValuePair<int, ShipTier>[4];
         }
 
         void Ship_Moved(object sender, EventArgs e)
