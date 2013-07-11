@@ -40,6 +40,7 @@ namespace PGCGame
             MovementSpeed = Vector2.One;
             this.TierChanged += new EventHandler(FighterCarrier_TierChanged);
             DamagePerShot = 2;
+            this.PlayerType = PlayerType.Ally;
         }
 
         void FighterCarrier_TierChanged(object sender, EventArgs e)

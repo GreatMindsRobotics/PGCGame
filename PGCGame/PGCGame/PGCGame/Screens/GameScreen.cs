@@ -343,6 +343,8 @@ namespace PGCGame.Screens
 
             base.Update(gameTime);
 
+            
+
             BackgroundSprite bg = BackgroundSprite.Cast<BackgroundSprite>();
             //TODO: UPDATE SPRITES
             KeyboardState keyboard = Keyboard.GetState();
@@ -396,7 +398,36 @@ namespace PGCGame.Screens
                             i--;
                         }
                     }
-                }                
+                }
+            }
+
+            foreach (Ship shootShip in StateManager.ActiveShips)
+            {
+                foreach (Ship hitShip in StateManager.ActiveShips)
+                {
+                    if (shootShip != hitShip)
+                    {
+                        foreach (Bullet b in shootShip.FlyingBullets)
+                        {
+                            if (shootShip.PlayerType != hitShip.PlayerType && shootShip.PlayerType != PlayerType.MyShip && hitShip.PlayerType != PlayerType.MyShip && b.Rectangle.Intersects(hitShip.Rectangle))
+                            {
+                                hitShip.CurrentHealth -= b.Damage;
+                                b.IsDead = true;
+
+                            }
+                            else if (shootShip.PlayerType == PlayerType.MyShip && hitShip.PlayerType != PlayerType.Ally && b.Rectangle.Intersects(hitShip.Rectangle))
+                            {
+                                hitShip.CurrentHealth -= b.Damage;
+                                b.IsDead = true;
+                            }
+                            else if (shootShip.PlayerType != PlayerType.Ally && hitShip.PlayerType == PlayerType.MyShip && b.Rectangle.Intersects(hitShip.Rectangle))
+                            {
+                                hitShip.CurrentHealth -= b.Damage;
+                                b.IsDead = true;
+                            }
+                        }
+                    }
+                }
             }
 
             Vector2 camMove = Vector2.Zero;
@@ -407,7 +438,7 @@ namespace PGCGame.Screens
                 ymoveAmount *= Math.Abs(GamePadManager.One.Current.ThumbSticks.Left.Y);
 #endif
 
-                if (worldCam.Pos.Y + ymoveAmount>= bg.Height / 2)
+                if (worldCam.Pos.Y + ymoveAmount >= bg.Height / 2)
                 {
                     camMove.Y = ymoveAmount;
                 }

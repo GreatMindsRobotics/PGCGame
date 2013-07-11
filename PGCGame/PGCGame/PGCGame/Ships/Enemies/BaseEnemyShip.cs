@@ -83,6 +83,10 @@ namespace PGCGame.Ships.Enemies
                             closestAllyShip = allyShip;
                         }
                     }
+                    if (closestAllyShipDistance.Value.LengthSquared() < Math.Pow(600, 2))
+                    {
+                        activated = true;
+                    }
                 }
             }
 
@@ -90,7 +94,7 @@ namespace PGCGame.Ships.Enemies
 
             if (_elapsedRotationDelay > _rotationDelay)
             {
-                if (closestAllyShipDistance.HasValue && closestAllyShip != null && closestAllyShipDistance.Value.LengthSquared() < Math.Pow(600, 2) || closestAllyShipDistance.HasValue && closestAllyShip != null && activated)
+                if (closestAllyShipDistance.HasValue && closestAllyShip != null && activated)
                 {
                     float angle = closestAllyShipDistance.Value.ToAngle();
 
