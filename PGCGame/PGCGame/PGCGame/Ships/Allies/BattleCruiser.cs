@@ -25,11 +25,11 @@ namespace PGCGame
         public BattleCruiser(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
             : base(texture, location, spriteBatch)
         {
-            MovementSpeed = Vector2.One / 2;
+            MovementSpeed = Vector2.One;
             BulletTexture = GameContent.GameAssets.Images.Ships.Bullets[ShipType.BattleCruiser, ShipTier.Tier1];
             DelayBetweenShots = TimeSpan.FromSeconds(1);
             DamagePerShot = 20;
-            MovementSpeed = new Vector2(.375f);
+            MovementSpeed = Vector2.One;
             InitialHealth = 120;
             PlayerType = CoreTypes.PlayerType.Ally;
             this.TierChanged += new EventHandler(BattleCruiser_TierChanged);
