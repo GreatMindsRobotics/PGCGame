@@ -227,21 +227,31 @@ namespace PGCGame.CoreTypes
             public readonly GameMiniShips MiniShips;
             public class GameMiniShips
             {
-                public readonly Dictionary<PlayerType, Texture2D> _miniShipTextures;
+                private readonly Dictionary<PlayerType, Texture2D> _miniShipTextures;
+                private readonly Dictionary<ShipType, Texture2D> _miniShipTexturesByShipType;
 
                 public Texture2D this[PlayerType index]
                 {
                     get { return _miniShipTextures[index]; }
                 }
 
+                public Texture2D this[ShipType index]
+                {
+                    get { return _miniShipTexturesByShipType[index]; }
+                }
+
                 internal GameMiniShips(ContentManager content)
                 {
                     _miniShipTextures = new Dictionary<PlayerType, Texture2D>();
+                    _miniShipTexturesByShipType = new Dictionary<ShipType, Texture2D>();
 
                     _miniShipTextures.Add(PlayerType.MyShip, new PlainTexture2D(StateManager.GraphicsManager.GraphicsDevice, 3, 3, Color.Lime));
                     _miniShipTextures.Add(PlayerType.Enemy, new PlainTexture2D(StateManager.GraphicsManager.GraphicsDevice, 3, 3, Color.Red));
                     _miniShipTextures.Add(PlayerType.Ally, new PlainTexture2D(StateManager.GraphicsManager.GraphicsDevice, 3, 3, Color.CornflowerBlue));
                     _miniShipTextures.Add(PlayerType.Solo, new PlainTexture2D(StateManager.GraphicsManager.GraphicsDevice, 3, 3, Color.Crimson));
+
+                    _miniShipTexturesByShipType.Add(ShipType.FighterCarrier, content.Load<Texture2D>("Images\\MiniMap\\WhiteCircle100x100"));
+                    _miniShipTexturesByShipType.Add(ShipType.Drone, content.Load<Texture2D>("Images\\MiniMap\\WhiteTriangle100x100"));
                 }
             }
 

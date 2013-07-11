@@ -252,7 +252,10 @@ namespace PGCGame.Screens
                     {
                         continue;
                     }
-                    Sprite miniShip = new Sprite(GameContent.GameAssets.Images.MiniShips[s.PlayerType], miniMap.Position + (s.WorldCoords / MinimapDivAmount), playerSb);
+                    //Sprite miniShip = new Sprite(GameContent.GameAssets.Images.MiniShips[s.PlayerType], miniMap.Position + (s.WorldCoords / MinimapDivAmount), playerSb);
+                    Sprite miniShip = new Sprite(GameContent.GameAssets.Images.MiniShips[s.ShipType], miniMap.Position + (s.WorldCoords / MinimapDivAmount), playerSb);
+                    miniShip.Scale = s.PlayerType == PlayerType.MyShip ? new Vector2(.1f) : new Vector2(.07f);
+                    miniShip.Color = s.PlayerType == PlayerType.MyShip ? Color.Green : Color.Red;
                     miniShip.UseCenterAsOrigin = true;
                     miniShips.Add(miniShip);
 #if WINDOWS
