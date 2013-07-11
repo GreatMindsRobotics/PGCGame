@@ -95,22 +95,21 @@ namespace PGCGame.Screens
             ExitLabel.NonHoverColor = Color.White;
             ExitLabel.HoverColor = Color.MediumAquamarine;
             AdditionalSprites.Add(ExitLabel);
+            ExitLabel.ParentSprite = ExitButton;
+            PlayLabel.ParentSprite = PlayButton;
 
 #if WINDOWS
-            ExitLabel.ParentSprite = ExitButton;
+            
             ExitLabel.Clicked += new EventHandler(ExitLabel_Clicked);
             PlayLabel.Clicked += new EventHandler(PlayLabel_Clicked);
-            PlayLabel.ParentSprite = PlayButton;
+            
 #elif XBOX
-            PlayLabel.Position = new Vector2(PlayButton.X + (PlayButton.Width / 2 - PlayLabel.Width / 2), PlayButton.Y + (PlayButton.Height / 2 - PlayLabel.Height / 2));
-            ExitLabel.Position = new Vector2(ExitButton.X + (ExitButton.Width / 2 - ExitLabel.Width / 2), ExitButton.Y + (ExitButton.Height / 2 - ExitLabel.Height / 2));
-
-
             ButtonManagement = new GamePadButtonEnumerator(new TextSprite[,] { { PlayLabel }, { ExitLabel } }, InputType.LeftJoystick);
             ButtonManagement.ButtonPress += new EventHandler(ButtonManagement_ButtonPress);
 #endif
         }
 
+#if WINDOWS
         void ExitLabel_Clicked(object sender, EventArgs e)
         {
             _exit();
@@ -121,7 +120,7 @@ namespace PGCGame.Screens
             StateManager.ScreenState = CoreTypes.ScreenType.MainMenu;
         }
 
-#if XBOX
+#elif XBOX
         void ButtonManagement_ButtonPress(object sender, EventArgs e)
         {
             if (ExitLabel.IsSelected)

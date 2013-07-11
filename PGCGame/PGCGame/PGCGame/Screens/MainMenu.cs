@@ -21,13 +21,23 @@ namespace PGCGame.Screens
     public class MainMenu : BaseScreen
     {
 
-        private Delegates.QuitFunction _exit;
-
-        public MainMenu(SpriteBatch spriteBatch, Delegates.QuitFunction exit)
+        public MainMenu(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
         {
-            _exit = exit;
+#if WINDOWS
+            StateManager.ScreenStateChanged += new EventHandler(StateManager_ScreenStateChanged);
+#endif
         }
+
+#if WINDOWS
+        void StateManager_ScreenStateChanged(object sender, EventArgs e)
+        {
+            if(Visible)
+            {
+                elapsedButtonDelay = TimeSpan.Zero;
+            }
+        }
+#endif
 
         Sprite TitleSprite;
 
@@ -107,110 +117,63 @@ namespace PGCGame.Screens
 
 
             SinglePlayerButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .21f), Sprites.SpriteBatch);
-            SinglePlayerButton.Moved += new EventHandler(delegate(object src, EventArgs v)
-            {
-                SinglePlayerLabel.Position = new Vector2(SinglePlayerButton.X + (SinglePlayerButton.Width / 2 - SinglePlayerLabel.Width / 2), SinglePlayerButton.Y + (SinglePlayerButton.Height / 2 - SinglePlayerLabel.Height / 2));
-            });
-
-#if WINDOWS
-            SinglePlayerButton.MouseEnter += new EventHandler(SinglePlayerButton_MouseEnter);
-            SinglePlayerButton.MouseLeave += new EventHandler(SinglePlayerButton_MouseLeave);
-#endif
 
             Sprites.Add(SinglePlayerButton);
 
             SinglePlayerLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Singleplayer");
-            SinglePlayerLabel.Position = new Vector2(SinglePlayerButton.X + (SinglePlayerButton.Width / 2 - SinglePlayerLabel.Width / 2), SinglePlayerButton.Y + (SinglePlayerButton.Height / 2 - SinglePlayerLabel.Height / 2));
             SinglePlayerLabel.IsHoverable = true;
-            SinglePlayerLabel.IsManuallySelectable = true;
             SinglePlayerLabel.NonHoverColor = Color.White;
             SinglePlayerLabel.HoverColor = Color.MediumAquamarine;
+
+            SinglePlayerLabel.ParentSprite = SinglePlayerButton;
+
             AdditionalSprites.Add(SinglePlayerLabel);
 
 
             MultiPlayerButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .405f), Sprites.SpriteBatch);
-            MultiPlayerButton.Moved += new EventHandler(delegate(object src, EventArgs v)
-            {
-                MultiPlayerLabel.Position = new Vector2(MultiPlayerButton.X + (MultiPlayerButton.Width / 2 - MultiPlayerLabel.Width / 2), MultiPlayerButton.Y + (MultiPlayerButton.Height / 2 - MultiPlayerLabel.Height / 2));
-            });
 
-#if WINDOWS
-            MultiPlayerButton.MouseEnter += new EventHandler(MultiPlayerButton_MouseEnter);
-            MultiPlayerButton.MouseLeave += new EventHandler(MultiPlayerButton_MouseLeave);
-#endif
             Sprites.Add(MultiPlayerButton);
 
             MultiPlayerLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Multiplayer");
-            MultiPlayerLabel.Position = new Vector2(MultiPlayerButton.X + (MultiPlayerButton.Width / 2 - MultiPlayerLabel.Width / 2), MultiPlayerButton.Y + (MultiPlayerButton.Height / 2 - MultiPlayerLabel.Height / 2));
             MultiPlayerLabel.IsHoverable = true;
-            MultiPlayerLabel.IsManuallySelectable = true;
             MultiPlayerLabel.NonHoverColor = Color.White;
             MultiPlayerLabel.HoverColor = Color.MediumAquamarine;
+            MultiPlayerLabel.ParentSprite = MultiPlayerButton;
             AdditionalSprites.Add(MultiPlayerLabel);
 
 
             BackButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .60f), Sprites.SpriteBatch);
-            BackButton.Moved += new EventHandler(delegate(object src, EventArgs v)
-            {
-                BackLabel.Position = new Vector2((BackButton.X + BackButton.Width / 2) - BackLabel.Width / 2, (BackButton.Y + BackButton.Height / 2) - BackLabel.Height / 2);
-            });
-
-#if WINDOWS
-            BackButton.MouseEnter += new EventHandler(BackButton_MouseEnter);
-            BackButton.MouseLeave += new EventHandler(BackButton_MouseLeave);
-#endif
 
             Sprites.Add(BackButton);
 
             BackLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Exit");
-            BackLabel.Position = new Vector2((BackButton.X + BackButton.Width / 2) - BackLabel.Width / 2, (BackButton.Y + BackButton.Height / 2) - BackLabel.Height / 2);
             BackLabel.IsHoverable = true;
-            BackLabel.IsManuallySelectable = true;
+            BackLabel.ParentSprite = BackButton;
             BackLabel.NonHoverColor = Color.White;
             BackLabel.HoverColor = Color.MediumAquamarine;
             AdditionalSprites.Add(BackLabel);
 
 
             OptionsButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .362f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .21f), Sprites.SpriteBatch);
-            OptionsButton.Moved += new EventHandler(delegate(object src, EventArgs ea)
-            {
-                OptionsLabel.Position = new Vector2(OptionsButton.X + (OptionsButton.Width / 2 - OptionsLabel.Width / 2), OptionsButton.Y + (OptionsButton.Height / 2 - OptionsLabel.Height / 2));
-            });
-
-#if WINDOWS
-            OptionsButton.MouseEnter += new EventHandler(OptionsButton_MouseEnter);
-            OptionsButton.MouseLeave += new EventHandler(OptionsButton_MouseLeave);
-#endif
 
             Sprites.Add(OptionsButton);
 
             OptionsLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Options");
-            OptionsLabel.Position = new Vector2(OptionsButton.X + (OptionsButton.Width / 2 - OptionsLabel.Width / 2), OptionsButton.Y + (OptionsButton.Height / 2 - OptionsLabel.Height / 2));
+            OptionsLabel.ParentSprite = OptionsButton;
             OptionsLabel.IsHoverable = true;
-            OptionsLabel.IsManuallySelectable = true;
             OptionsLabel.NonHoverColor = Color.White;
             OptionsLabel.HoverColor = Color.MediumAquamarine;
             AdditionalSprites.Add(OptionsLabel);
 
 
             CreditsButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .362f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .405f), Sprites.SpriteBatch);
-            CreditsButton.Moved += new EventHandler(delegate(object src, EventArgs ea)
-            {
-                CreditsLabel.Position = new Vector2((CreditsButton.X + CreditsButton.Width / 2) - CreditsLabel.Width / 2, (CreditsButton.Y + CreditsButton.Height / 2) - CreditsLabel.Height / 2);
-            });
-
-#if WINDOWS
-            CreditsButton.MouseEnter += new EventHandler(CreditsButton_MouseEnter);
-            CreditsButton.MouseLeave += new EventHandler(CreditsButton_MouseLeave);
-#endif
 
             Sprites.Add(CreditsButton);
 
 
             CreditsLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Credits");
-            CreditsLabel.Position = new Vector2(CreditsButton.X + (CreditsButton.Width / 2 - CreditsLabel.Width / 2), CreditsButton.Y + (CreditsButton.Height / 2 - CreditsLabel.Height / 2));
             CreditsLabel.IsHoverable = true;
-            CreditsLabel.IsManuallySelectable = true;
+            CreditsLabel.ParentSprite = CreditsButton;
             CreditsLabel.NonHoverColor = Color.White;
             CreditsLabel.HoverColor = Color.MediumAquamarine;
             AdditionalSprites.Add(CreditsLabel);
@@ -218,6 +181,11 @@ namespace PGCGame.Screens
             AllButtons = new GamePadButtonEnumerator(new TextSprite[,] { { SinglePlayerLabel, OptionsLabel }, { MultiPlayerLabel, CreditsLabel }, { BackLabel, null } }, InputType.LeftJoystick);
             AllButtons.ButtonPress += new EventHandler(AllButtons_ButtonPress);
             SinglePlayerLabel.IsSelected = true;
+#elif WINDOWS
+            BackLabel.Clicked += new EventHandler(delegate(object src, EventArgs e) { if (elapsedButtonDelay > totalButtonDelay) { StateManager.Exit(); } });
+            CreditsLabel.Clicked += new EventHandler(delegate(object src, EventArgs e) {if (elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.Credits; }});
+            OptionsLabel.Clicked += new EventHandler(delegate(object src, EventArgs e) {if (elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.Options; }});
+            SinglePlayerLabel.Clicked += new EventHandler(delegate(object src, EventArgs e) { if (elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.ShipSelect; } });
 #endif
         }
 
@@ -226,7 +194,7 @@ namespace PGCGame.Screens
         {
             if (BackLabel.IsSelected)
             {
-                _exit();
+                StateManager.Exit();
             }
             else if (SinglePlayerLabel.IsSelected)
             {
@@ -282,78 +250,16 @@ namespace PGCGame.Screens
 
 #if XBOX
         GamePadButtonEnumerator AllButtons;
+#elif WINDOWS
+        //Preventing clickthrus
+        TimeSpan elapsedButtonDelay = TimeSpan.Zero;
+        TimeSpan totalButtonDelay = TimeSpan.FromMilliseconds(250);
 #endif
-        //credits button
-        void CreditsButton_MouseLeave(object sender, EventArgs e)
-        {
-            CreditsLabel.IsSelected = false;
-        }
-        void CreditsButton_MouseEnter(object sender, EventArgs e)
-        {
-            CreditsLabel.IsSelected = true;
-        }
 
-        void OptionsButton_MouseLeave(object sender, EventArgs e)
-        {
-            OptionsLabel.IsSelected = false;
-        }
-        void OptionsButton_MouseEnter(object sender, EventArgs e)
-        {
-            OptionsLabel.IsSelected = true;
-        }
-
-        void MultiPlayerButton_MouseLeave(object sender, EventArgs e)
-        {
-            MultiPlayerLabel.IsSelected = false;
-        }
-        void MultiPlayerButton_MouseEnter(object sender, EventArgs e)
-        {
-            MultiPlayerLabel.IsSelected = true;
-        }
-
-        void BackButton_MouseLeave(object sender, EventArgs e)
-        {
-            BackLabel.IsSelected = false;
-        }
-        void BackButton_MouseEnter(object sender, EventArgs e)
-        {
-            BackLabel.IsSelected = true;
-        }
-
-        void SinglePlayerButton_MouseLeave(object sender, EventArgs e)
-        {
-            SinglePlayerLabel.IsSelected = false;
-        }
-        void SinglePlayerButton_MouseEnter(object sender, EventArgs e)
-        {
-            SinglePlayerLabel.IsSelected = true;
-        }
-
-        MouseState lastMouseState;
         public override void Update(GameTime gameTime)
         {
 #if WINDOWS
-            MouseState currentMouseState = MouseManager.CurrentMouseState;
-
-            if (BackLabel.IsSelected && BackButton.ClickCheck(currentMouseState) && !BackButton.ClickCheck(lastMouseState))
-            {
-                //StateManager.GoBack();
-                _exit();
-            }
-            else if (CreditsLabel.IsSelected && CreditsButton.ClickCheck(currentMouseState) && !CreditsButton.ClickCheck(lastMouseState))
-            {
-                StateManager.ScreenState = ScreenType.Credits;
-            }
-            else if (OptionsLabel.IsSelected && OptionsButton.ClickCheck(currentMouseState) && !OptionsButton.ClickCheck(lastMouseState))
-            {
-                StateManager.ScreenState = ScreenType.Options;
-            }
-            else if (SinglePlayerLabel.IsSelected && SinglePlayerButton.ClickCheck(currentMouseState) && !SinglePlayerButton.ClickCheck(lastMouseState))
-            {
-                StateManager.ScreenState = ScreenType.ShipSelect;
-            }
-
-            lastMouseState = currentMouseState;
+            elapsedButtonDelay += gameTime.ElapsedGameTime;
 #elif XBOX 
             
             AllButtons.Update(gameTime);
