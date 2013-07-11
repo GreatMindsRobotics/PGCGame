@@ -328,6 +328,8 @@ namespace PGCGame.Screens
         //bool _allowMusicHandling = false;
         KeyboardState _lastState = new KeyboardState();
 
+        Rectangle WCrectangle;
+
         public override void Update(GameTime gameTime)
         {
             if (!_gameHasStarted)
@@ -415,9 +417,10 @@ namespace PGCGame.Screens
                         }
                         else
                         {
+                            WCrectangle = new Rectangle(hitShip.WorldCoords.X.ToInt(), hitShip.WorldCoords.Y.ToInt(), hitShip.Width.ToInt(), hitShip.Height.ToInt());
                             foreach (Bullet b in shootShip.FlyingBullets)
                             {
-                                if (b.Rectangle.Intersects(hitShip.Rectangle))
+                                if (b.Rectangle.Intersects(WCrectangle))
                                 {
                                     hitShip.CurrentHealth -= b.Damage;
                                     b.IsDead = true;
