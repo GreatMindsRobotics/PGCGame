@@ -79,7 +79,7 @@ namespace PGCGame.Screens.SelectScreens
            {
                if (item.Key == items[selected].Key)
                {
-                   //todo: buying logic.
+                   //todo: buying logic
                    break;
                }
            }

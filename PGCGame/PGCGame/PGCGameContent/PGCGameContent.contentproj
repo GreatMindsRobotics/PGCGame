@@ -190,7 +190,6 @@
     <Folder Include="Images\Ships\Allies\FighterCarrier\Bullets\" />
     <Folder Include="Images\Ships\Allies\FighterCarrier\Drones\Bullets\" />
     <Folder Include="Images\Ships\Allies\TorpedoShip\Bullets\" />
-    <Folder Include="Images\Ships\Enemies\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Images\Equipment\Scanner\Scanner.png">
@@ -295,6 +294,38 @@
   <ItemGroup>
     <Compile Include="Images\Equipment\HealthPack\HealthPack.png">
       <Name>HealthPack</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\Ships\Enemies\BattleCruiser1.png">
+      <Name>BattleCruiser1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Images\Ships\Enemies\Battlecruiser2.png">
+      <Name>Battlecruiser2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Images\Ships\Enemies\Battlecruiser3.png">
+      <Name>Battlecruiser3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Images\Ships\Enemies\Battlecruiser4.png">
+      <Name>Battlecruiser4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Images\Ships\Enemies\Mothership.png">
+      <Name>Mothership</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Images\Ships\Enemies\Scout.png">
+      <Name>Scout</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
