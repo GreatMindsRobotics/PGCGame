@@ -343,7 +343,7 @@ namespace PGCGame.Screens
 
             base.Update(gameTime);
 
-            
+
 
             BackgroundSprite bg = BackgroundSprite.Cast<BackgroundSprite>();
             //TODO: UPDATE SPRITES
@@ -405,30 +405,29 @@ namespace PGCGame.Screens
             {
                 foreach (Ship hitShip in StateManager.ActiveShips)
                 {
-                    if (shootShip != hitShip)
+                    if (shootShip != hitShip && shootShip.PlayerType != hitShip.PlayerType)
                     {
-                        foreach (Bullet b in shootShip.FlyingBullets)
+                        if (hitShip.PlayerType == PlayerType.MyShip && shootShip.PlayerType == PlayerType.Ally)
                         {
-                            if (shootShip.PlayerType != hitShip.PlayerType && shootShip.PlayerType != PlayerType.MyShip && hitShip.PlayerType != PlayerType.MyShip && b.Rectangle.Intersects(hitShip.Rectangle))
+                        }
+                        else if (shootShip.PlayerType == PlayerType.MyShip && hitShip.PlayerType == PlayerType.Ally)
+                        {
+                        }
+                        else
+                        {
+                            foreach (Bullet b in shootShip.FlyingBullets)
                             {
-                                hitShip.CurrentHealth -= b.Damage;
-                                b.IsDead = true;
-
-                            }
-                            else if (shootShip.PlayerType == PlayerType.MyShip && hitShip.PlayerType != PlayerType.Ally && b.Rectangle.Intersects(hitShip.Rectangle))
-                            {
-                                hitShip.CurrentHealth -= b.Damage;
-                                b.IsDead = true;
-                            }
-                            else if (shootShip.PlayerType != PlayerType.Ally && hitShip.PlayerType == PlayerType.MyShip && b.Rectangle.Intersects(hitShip.Rectangle))
-                            {
-                                hitShip.CurrentHealth -= b.Damage;
-                                b.IsDead = true;
+                                if (b.Rectangle.Intersects(hitShip.Rectangle))
+                                {
+                                    hitShip.CurrentHealth -= b.Damage;
+                                    b.IsDead = true;
+                                }
                             }
                         }
                     }
                 }
             }
+
 
             Vector2 camMove = Vector2.Zero;
             if (StateManager.InputManager.ShouldMove(MoveDirection.Up))
