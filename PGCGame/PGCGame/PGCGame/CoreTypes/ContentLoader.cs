@@ -322,6 +322,8 @@ namespace PGCGame.CoreTypes
 
                     _EquipmentTextures.Add(new KeyValuePair<EquipmentType, TextureDisplayType>(EquipmentType.Scanner, TextureDisplayType.ShopDisplay), content.Load<Texture2D>("Images\\Equipment\\Scanner\\Scanner"));
                     _EquipmentTextures.Add(new KeyValuePair<EquipmentType, TextureDisplayType>(EquipmentType.Scanner, TextureDisplayType.InGameUse), content.Load<Texture2D>("Images\\Equipment\\Scanner\\Scanner"));
+                    _EquipmentTextures.Add(new KeyValuePair<EquipmentType, TextureDisplayType>(EquipmentType.HealthPack, TextureDisplayType.InGameUse), content.Load<Texture2D>("Images\\Equipment\\HealthPack\\HealthPack"));
+                    _EquipmentTextures.Add(new KeyValuePair<EquipmentType, TextureDisplayType>(EquipmentType.HealthPack, TextureDisplayType.ShopDisplay), content.Load<Texture2D>("Images\\Equipment\\HealthPack\\HealthPack"));
                 }
             }
         

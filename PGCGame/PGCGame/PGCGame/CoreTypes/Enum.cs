@@ -154,6 +154,7 @@ namespace PGCGame.CoreTypes
 
     public enum EquipmentType
     { 
-        Scanner
+        Scanner,
+        HealthPack
     }
 }
