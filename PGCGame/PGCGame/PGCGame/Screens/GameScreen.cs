@@ -159,7 +159,7 @@ namespace PGCGame.Screens
             for (int i = 0; i < 4; i++)
             {
                 Texture2D enemyTexture = GameContent.GameAssets.Images.Ships[ShipType.Drone, StateManager.RandomGenerator.NextShipTier(ShipTier.Tier1, ShipTier.Tier2)];
-                EnemyDrone enemy = new EnemyDrone(enemyTexture, Vector2.Zero, Sprites.SpriteBatch);
+                EnemyDrone enemy = new EnemyDrone(GameContent.GameAssets.Images.Ships[ShipType.EnemyBattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
 
                 enemy.WorldCoords = StateManager.RandomGenerator.NextVector2(minSpawnArea, maxSpawnArea);
 
