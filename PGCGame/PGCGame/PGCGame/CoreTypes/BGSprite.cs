@@ -14,11 +14,23 @@ namespace PGCGame.CoreTypes
         List<Sprite> _bgList = new List<Sprite>();
         private Viewport vp;
 
-        public static HorizontalMenuBGSprite CurrentBG = null;
+        private static HorizontalMenuBGSprite _currentBG = null;
+        public static HorizontalMenuBGSprite CurrentBG
+        {
+            get 
+            {
+                if(_currentBG == null)
+                {
+                    throw new NullReferenceException("HorizontalMenuBGSprite is not initialized. Please create a new instance.");
+                }
+
+                return _currentBG;
+            }
+        }
 
         public HorizontalMenuBGSprite(Texture2D bg, SpriteBatch sb)
         {
-            if (HorizontalMenuBGSprite.CurrentBG != null)
+            if (_currentBG != null)
             {
                 throw new Exception("This class is a singleton; use HorizontalMenuBGSprite.CurrentBG.");
             }
@@ -34,21 +46,27 @@ namespace PGCGame.CoreTypes
             _bgList.Add(spr2);
             
             //spr1.Moved += new EventHandler(spr1_Moved);
-            HorizontalMenuBGSprite.CurrentBG = this;
+            
+            _currentBG = this;
         }
 
-        void Options_ScreenResolutionChanged(object sender, EventArgs e)
+        private void Options_ScreenResolutionChanged(object sender, EventArgs e)
         {
             vp = ((ViewportEventArgs)e).Viewport;
         }
 
-        void spr1_Moved(object sender, EventArgs e)
+        private void spr1_Moved(object sender, EventArgs e)
         {
             _bgList[1].Y = _bgList[0].Y - _bgList[1].Height;
         }
 
         public void Update()
         {
+            if (_currentBG == null)
+            {
+                throw new NullReferenceException("HorizontalMenuBGSprite is not initialized. Please create a new instance.");
+            }
+
             foreach (Sprite s in _bgList)
             {
                 s.Update();
@@ -68,6 +86,11 @@ namespace PGCGame.CoreTypes
 
         public void Draw()
         {
+            if (_currentBG == null)
+            {
+                throw new NullReferenceException("HorizontalMenuBGSprite is not initialized. Please create a new instance.");
+            }
+
             foreach (Sprite s in _bgList)
             {
                 s.DrawNonAuto();

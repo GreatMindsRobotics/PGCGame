@@ -48,8 +48,8 @@ namespace PGCGame.Screens
             base.InitScreen(screenName);
 
             Viewport viewPort = Sprites.SpriteBatch.GraphicsDevice.Viewport;
-            
-            this.BackgroundSprite = new HorizontalMenuBGSprite(GameContent.GameAssets.Images.Backgrounds.Screens[ScreenBackgrounds.GlobalScrollingBg], Sprites.SpriteBatch);
+
+            this.BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
 
             Texture2D planetTexture = GameContent.GameAssets.Images.NonPlayingObjects.Planet;
             Texture2D buttonTexture = GameContent.GameAssets.Images.Controls.Button;

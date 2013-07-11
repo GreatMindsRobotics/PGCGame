@@ -78,7 +78,12 @@ namespace PGCGame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            //Title screen calls HorizontalMenuBGSprite ctor
+            //Instantiate the singleton class HorizontalMenuBGSprite
+            HorizontalMenuBGSprite scrollingBG = new HorizontalMenuBGSprite(GameContent.GameAssets.Images.Backgrounds.Screens[ScreenBackgrounds.GlobalScrollingBg], spriteBatch);
+
+            
+            //Initialize screens
+
             titleScreen = new Title(spriteBatch, new Delegates.QuitFunction(Exit));
             titleScreen.InitScreen(ScreenType.Title);
             titleScreen.Visible = true;

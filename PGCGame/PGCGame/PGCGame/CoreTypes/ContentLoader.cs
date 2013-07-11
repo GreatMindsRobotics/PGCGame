@@ -16,11 +16,23 @@ namespace PGCGame.CoreTypes
     /// </summary>
     public class GameContent
     {
-        public static GameContent GameAssets = null;
+        private static GameContent _gameAssets = null;
+        public static GameContent GameAssets
+        {
+            get
+            {
+                if (_gameAssets == null)
+                {
+                    throw new NullReferenceException("GameContent is not initialized. Please create new GameContent instance");
+                }
+
+                return _gameAssets;
+            }
+        }
 
         public GameContent(ContentManager content)
         {
-            if (GameAssets != null)
+            if (_gameAssets != null)
             {
                 throw new Exception("This class is a singleton; use GameContent.GameAssets.");
             }
@@ -29,7 +41,7 @@ namespace PGCGame.CoreTypes
             Images = new GameImages(content);
             Music = new GameMusic(content);
 
-            GameAssets = this;
+            _gameAssets = this;
         }
 
         public readonly GameMusic Music;
