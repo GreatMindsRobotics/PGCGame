@@ -80,6 +80,10 @@ namespace PGCGame.Ships.Enemies
                         {
                             activated = true;
                         }
+                        else
+                        {
+                            activated = false;
+                        }
                         
                     }
                     if (!shipDistance.HasValue && !closestAllyShipDistance.HasValue)
@@ -91,14 +95,18 @@ namespace PGCGame.Ships.Enemies
                     else
                     {
                         shipDistance = allyShip.WorldCoords - this.WorldCoords;
-                        if (shipDistance.Value.LengthSquared() < closestAllyShipDistance.Value.LengthSquared())
+                        if (shipDistance.Value.LengthSquared() < closestAllyShipDistance.Value.LengthSquared() && allyShip.CurrentHealth > 0)
                         {
                             closestAllyShip = allyShip;
                         }
                     }
-                    if (closestAllyShipDistance.Value.LengthSquared() < Math.Pow(600, 2))
+                    if (closestAllyShipDistance.Value.LengthSquared() < Math.Pow(600, 2) && closestAllyShip.CurrentHealth > 0)
                     {
                         activated = true;
+                    }
+                    else
+                    {
+                        activated = false;
                     }
                 }
             }

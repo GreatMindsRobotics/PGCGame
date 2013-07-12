@@ -163,6 +163,8 @@ namespace PGCGame.Screens
 
                 enemy.WorldCoords = StateManager.RandomGenerator.NextVector2(minSpawnArea, maxSpawnArea);
 
+                enemy.DistanceToNose = .5f;
+
                 enemy.Tier = ShipTier.Tier1;
 
                 Sprites.Add(enemy);
