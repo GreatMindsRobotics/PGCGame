@@ -105,8 +105,25 @@ namespace PGCGame.CoreTypes
             bLabel = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, backButtonText);
             bLabel.Color = Color.White;
             bLabel.Position = new Vector2(90, 425);
+
             Sprites.Add(bButton);
             AdditionalSprites.Add(bLabel);
+
+            aButton = new Sprite(GameContent.GameAssets.Images.Controls.AButton, new Vector2(160, 420), Sprites.SpriteBatch);
+            aButton.Scale = new Vector2(0.5f);
+
+            aLabel = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, "Select");
+            aLabel.Position = new Vector2(200, 425);
+            aLabel.Color = Color.White;
+
+            if(screenName ==  ScreenType.Credits)
+            {
+                aLabel.Color = Color.Transparent;
+                aButton.Color = Color.Transparent;
+            }
+
+            Sprites.Add(aButton);
+            AdditionalSprites.Add(aLabel);
 #endif
             _screenType = screenName;
             base.Name = screenName.ToString();
