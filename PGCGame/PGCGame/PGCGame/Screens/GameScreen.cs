@@ -163,8 +163,6 @@ namespace PGCGame.Screens
 
                 enemy.WorldCoords = StateManager.RandomGenerator.NextVector2(minSpawnArea, maxSpawnArea);
 
-                //TODO: Different texture
-                enemy.Color = Color.Green;
                 enemy.Tier = ShipTier.Tier1;
 
                 Sprites.Add(enemy);
