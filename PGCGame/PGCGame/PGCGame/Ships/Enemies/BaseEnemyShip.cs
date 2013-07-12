@@ -71,13 +71,15 @@ namespace PGCGame.Ships.Enemies
             {
                 if (allyShip.PlayerType != CoreTypes.PlayerType.Enemy)
                 {
+                    Boolean isActivated = false;
                     foreach (Bullet b in allyShip.FlyingBullets)
                     {
                         bulletDistanceX = Math.Abs(Math.Abs(b.X) - Math.Abs(this.X));
                         bulletDistanceY = Math.Abs(Math.Abs(b.Y) - Math.Abs(this.Y));
                         bulletDistance = bulletDistanceX + bulletDistanceY;
-                        if (Math.Pow(bulletDistance.Value, 2) < Math.Pow(300, 2))
+                        if (Math.Pow(bulletDistance.Value, 2) < Math.Pow(600, 2))
                         {
+                            isActivated = true;
                             activated = true;
                         }
                         else
@@ -102,9 +104,10 @@ namespace PGCGame.Ships.Enemies
                     }
                     if (closestAllyShipDistance.Value.LengthSquared() < Math.Pow(600, 2) && closestAllyShip.CurrentHealth > 0)
                     {
+                        isActivated = true;
                         activated = true;
                     }
-                    else
+                    else if (!isActivated)
                     {
                         activated = false;
                     }
@@ -121,31 +124,23 @@ namespace PGCGame.Ships.Enemies
 
                     if (Rotation.Radians > angle)
                     {
-                        if (Rotation.Radians + .025f > angle + .025f)
+                        if (Rotation.Radians + .025f > angle)
                         {
                             Rotation.Radians -= .025f;
                         }
-                        else
-                        {
-                            Rotation.Radians = angle;
-                        }
                     }
-                    else if (Rotation.Radians < angle + .025f)
+                    else if (Rotation.Radians < angle)
                     {
                         if (Rotation.Radians + .025f < angle)
                         {
                             Rotation.Radians += .025f;
-                        }
-                        else
-                        {
-                            Rotation.Radians = angle;
                         }
                     }
                     if (closestAllyShipDistance.Value.LengthSquared() > Math.Pow(400, 2))
                     {
                         //Rotation.Vector.Normalize();
                         //Rotation.Vector *= .1f;
-                        this.Speed = new Vector2(Rotation.Vector.X * .5f, Rotation.Vector.Y * .5f);
+                        this.Speed = new Vector2(Rotation.Vector.X * .5f, Rotation.Vector.X * .5f);
                     }
                     else
                     {
