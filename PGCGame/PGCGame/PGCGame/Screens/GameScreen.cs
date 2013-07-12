@@ -337,7 +337,6 @@ namespace PGCGame.Screens
             {
                 StateManager.ScreenState = ScreenType.Pause;
                 //_allowMusicHandling = false;
-                MediaPlayer.Pause();
             }
 
             for (int i = 0; i < playerShip.FlyingBullets.Count; i++)

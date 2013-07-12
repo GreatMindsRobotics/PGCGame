@@ -172,7 +172,10 @@ namespace PGCGame
                     break; 
                
                 case ScreenType.Credits:
-                    activeScreen.Cast<PGCGame.Screens.Credits>().PlayMusic();
+                    if (StateManager.Options.MusicEnabled)
+                    {
+                        activeScreen.Cast<PGCGame.Screens.Credits>().PlayMusic();
+                    }
                     break;
             }
 
