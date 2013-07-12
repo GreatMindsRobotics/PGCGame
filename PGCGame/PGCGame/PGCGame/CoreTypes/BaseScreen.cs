@@ -121,6 +121,14 @@ namespace PGCGame.CoreTypes
                 aLabel.Color = Color.Transparent;
                 aButton.Color = Color.Transparent;
             }
+            else if (screenName == ScreenType.ShipSelect)
+            {
+                aLabel.Text = "Next";
+            }
+            else if (screenName == ScreenType.LevelSelect)
+            {
+                aLabel.Text = "Play";
+            }
 
             Sprites.Add(aButton);
             AdditionalSprites.Add(aLabel);
