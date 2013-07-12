@@ -17,6 +17,7 @@ using Glib.XNA.SpriteLib;
 
 using PGCGame.CoreTypes;
 using PGCGame.Ships.Allies;
+using Glib.XNA.InputLib;
 
 namespace PGCGame
 {
@@ -25,7 +26,11 @@ namespace PGCGame
         #region Private Fields
 
         //TODO: Make this a selectable key in options 
+#if WINDOWS
         private Keys _deployKey = Keys.LeftShift;
+#elif XBOX
+        private bool _xboxDroneDeployTriggered = false;
+#endif
 
         #endregion Private Fields
 
@@ -36,7 +41,12 @@ namespace PGCGame
         #endregion Private Methods
 
         #region Private Events
-
+#if XBOX
+        void Buttons_XButtonPressed(object sender, EventArgs e)
+        {
+            _xboxDroneDeployTriggered = true;
+        }
+#endif
         #endregion Private Events
 
         #region Public Properties
@@ -66,6 +76,9 @@ namespace PGCGame
             _initHealth = 10;
             BulletTexture = GameContent.GameAssets.Images.Ships.Bullets[ShipType.Drone, ShipTier.Tier1];
             DamagePerShot = 1;
+#if XBOX
+            GamePadManager.One.Buttons.XButtonPressed += new EventHandler(Buttons_XButtonPressed);
+#endif
         }
 
         static Drone()
@@ -139,17 +152,24 @@ namespace PGCGame
                     default:
                     case CoreTypes.DroneState.Stowed:
                         //Drone is stowed on the Figher Carrier; wait for deploy command. This is the default state
-
+#if WINDOWS
                         if (keyboard.IsKeyDown(_deployKey) && _lastKs != null && !_lastKs.IsKeyDown(Keys.LeftShift))
                         {
                             DroneState = DroneState.Deploying;
                         }
-
+#elif XBOX
+                        if(_xboxDroneDeployTriggered)
+                        {
+                            DroneState = DroneState.Deploying;
+                            _xboxDroneDeployTriggered = false;
+                        }
+#endif
                         break;
 
                     case CoreTypes.DroneState.Deploying:
                         //Deploy command was given; allow "Stow" command (same key as deploy); else, continue deploying
 
+#if WINDOWS
                         if (keyboard.IsKeyDown(_deployKey) && _lastKs != null && !_lastKs.IsKeyDown(Keys.LeftShift))
                         {
                             DroneState = DroneState.Stowing;
@@ -157,6 +177,14 @@ namespace PGCGame
                             _lastKs = keyboard;
                             return;
                         }
+#elif XBOX
+                        if(_xboxDroneDeployTriggered)
+                        {
+                            DroneState = DroneState.Stowing;
+                            _xboxDroneDeployTriggered = false;
+                            return;
+                        }
+#endif
 
                         //Push the drones out by changing origin slowly
                         Vector2 distanceToParentOrigin = ParentShip.Origin - Origin;
@@ -184,6 +212,7 @@ namespace PGCGame
 
                     case CoreTypes.DroneState.Deployed:
                         //Drone is deployed; monitor for enemies, and listen for "Stow" command (same key as deploy)s
+#if WINDOWS
                         if (keyboard.IsKeyDown(_deployKey) && _lastKs != null && !_lastKs.IsKeyDown(Keys.LeftShift))
                         {
                             DroneState = DroneState.Stowing;
@@ -191,7 +220,15 @@ namespace PGCGame
                             _lastKs = keyboard;
                             return;
                         }
+#elif XBOX
+                        if(_xboxDroneDeployTriggered)
+                        {
+                            DroneState = DroneState.Stowing;
+                            _xboxDroneDeployTriggered = false;
 
+                            return;
+                        }
+#endif
                         //TODO: DEBUG: Show monitoring radius                    
                         if (isEnemyDetected())
                         {
@@ -228,6 +265,7 @@ namespace PGCGame
                         //Drone received a stow command (either while it began deployment, or was fully deployed)
                         //Monitor for re-deployment command (same key as stow)
 
+#if WINDOWS
                         if (keyboard.IsKeyDown(_deployKey) && _lastKs != null && !_lastKs.IsKeyDown(Keys.LeftShift))
                         {
 
@@ -236,6 +274,14 @@ namespace PGCGame
                             _lastKs = keyboard;
                             return;
                         }
+#elif XBOX
+                        if(_xboxDroneDeployTriggered)
+                        {
+                            DroneState = DroneState.Deploying;
+                            _xboxDroneDeployTriggered = false;
+                            return;
+                        }
+#endif
 
                         //Pull the drones back by changing origin slowly
                         Vector2 distanceToParentCenter = Origin - new Vector2(Width / 2, Height / 2);

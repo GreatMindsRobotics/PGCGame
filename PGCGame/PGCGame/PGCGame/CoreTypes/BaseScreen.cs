@@ -34,7 +34,7 @@ namespace PGCGame.CoreTypes
 
         void Buttons_BButtonPressed(object sender, EventArgs e)
         {
-            if (_screenType != ScreenType.MainMenu && Visible && elapsedBackButtonTime > requiredBackButtonTime)
+            if (_screenType != ScreenType.MainMenu && _screenType != ScreenType.Game && Visible && elapsedBackButtonTime > requiredBackButtonTime)
             {
                 StateManager.GoBack();
             }

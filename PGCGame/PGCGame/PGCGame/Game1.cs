@@ -147,13 +147,7 @@ namespace PGCGame
         {
             base.Update(gameTime);
 
-            // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
-
             screenManager.Update(gameTime);
-
-
         }
 
         /// <summary>
