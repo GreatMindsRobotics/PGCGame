@@ -191,10 +191,10 @@ namespace PGCGame.Screens
             AllButtons.ButtonPress += new EventHandler(AllButtons_ButtonPress);
             SinglePlayerLabel.IsSelected = true;
 #elif WINDOWS
-            BackLabel.Clicked += new EventHandler(delegate(object src, EventArgs e) { if (elapsedButtonDelay > totalButtonDelay) { StateManager.Exit(); } });
-            CreditsLabel.Clicked += new EventHandler(delegate(object src, EventArgs e) {if (elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.Credits; }});
-            OptionsLabel.Clicked += new EventHandler(delegate(object src, EventArgs e) {if (elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.Options; }});
-            SinglePlayerLabel.Clicked += new EventHandler(delegate(object src, EventArgs e) { if (elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.ShipSelect; } });
+            BackLabel.Clicked += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.Exit(); } });
+            CreditsLabel.Clicked += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.Credits; } });
+            OptionsLabel.Clicked += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.Options; } });
+            SinglePlayerLabel.Clicked += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.ShipSelect; } });
 #endif
         }
 

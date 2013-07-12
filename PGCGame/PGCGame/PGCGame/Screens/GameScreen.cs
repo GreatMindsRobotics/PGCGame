@@ -332,7 +332,8 @@ namespace PGCGame.Screens
 
             BackgroundSprite bg = BackgroundSprite.Cast<BackgroundSprite>();
             //TODO: UPDATE SPRITES
-            KeyboardState keyboard = Keyboard.GetState();
+            KeyboardState keyboard = Keyboard.GetState();            
+            
             if (_lastState.IsKeyUp(Keys.Escape) && keyboard.IsKeyDown(Keys.Escape))
             {
                 StateManager.ScreenState = ScreenType.Pause;

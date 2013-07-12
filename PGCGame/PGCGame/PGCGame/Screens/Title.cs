@@ -112,11 +112,21 @@ namespace PGCGame.Screens
 #if WINDOWS
         void ExitLabel_Clicked(object sender, EventArgs e)
         {
+            if (!this.Visible)
+            {
+                return;
+            }
+
             _exit();
         }
 
         void PlayLabel_Clicked(object sender, EventArgs e)
         {
+            if (!this.Visible)
+            {
+                return;
+            }
+
             StateManager.ScreenState = CoreTypes.ScreenType.MainMenu;
         }
 
@@ -125,10 +135,21 @@ namespace PGCGame.Screens
         {
             if (ExitLabel.IsSelected)
             {
+                if (!this.Visible)
+                {
+                    return;
+                }
+
+
                 _exit();
             }
             else if (PlayLabel.IsSelected)
             {
+                if (!this.Visible)
+                {
+                    return;
+                }
+
                 StateManager.ScreenState = ScreenType.MainMenu;
             }
         }
