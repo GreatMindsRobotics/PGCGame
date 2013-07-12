@@ -1177,22 +1177,22 @@
             <summary>
             Checks whether the given point intersects with the sprite.
             </summary>
-            <param name="pos">The position to check</param>
-            <returns></returns>
+            <param name="pos">The position to check.</param>
+            <returns>Whether or not the specified position intersects with this Sprite.</returns>
         </member>
         <member name="M:Glib.XNA.SpriteLib.Sprite.Intersects(Microsoft.Xna.Framework.Rectangle)">
             <summary>
             Checks whether the given rectangle intersects with this sprite.
             </summary>
             <param name="r">The rectangle to check intersection against</param>
-            <returns></returns>
+            <returns>Whether or not the specified rectangle intersects with this Sprite.</returns>
         </member>
         <member name="M:Glib.XNA.SpriteLib.Sprite.Intersects(Glib.XNA.SpriteLib.Sprite)">
             <summary>
-            Checks whether the given sprte intersects with this sprite.
+            Checks whether the given sprite intersects with this sprite.
             </summary>
-            <param name="s">The sprite to check intersection against</param>
-            <returns></returns>
+            <param name="s">The sprite to check intersection against.</param>
+            <returns>Whether or not the rectangle of the specified Sprite intersects with this Sprite.</returns>
         </member>
         <member name="M:Glib.XNA.SpriteLib.Sprite.EdgesPast">
             <summary>
