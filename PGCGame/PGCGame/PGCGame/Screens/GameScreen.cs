@@ -36,22 +36,8 @@ namespace PGCGame.Screens
             worldCam = new Camera2DMatrix();
             playerSb = new SpriteBatch(spriteBatch.GraphicsDevice);
 
-#if XBOX
-            GamePadManager.One.Buttons.YButtonPressed += new EventHandler(Buttons_YButtonPressed);
-#endif
-
             _playableAreaOffset = new Vector2(500);
         }
-
-#if XBOX
-        void Buttons_YButtonPressed(object sender, EventArgs e)
-        {
-            if (Visible)
-            {
-                miniMap.Color = miniMap.Color == Color.White ? Color.Transparent : Color.White;
-            }
-        }
-#endif
 
         void Options_MusicStateChanged(object sender, EventArgs e)
         {
@@ -173,7 +159,7 @@ namespace PGCGame.Screens
 
             miniMap = new Sprite(new PlainTexture2D(Sprites.SpriteBatch.GraphicsDevice, 1, 1, new Color(Color.Navy.R, Color.Navy.G, Color.Navy.B, 128)), Vector2.Zero, playerSb);
             miniMap.Width = bgspr.TotalWidth / MinimapDivAmount;
-            miniMap.Color = Color.Transparent;
+            miniMap.Color = Color.White;
             miniMap.Height = bgspr.TotalHeight / MinimapDivAmount;
             miniMap.Y = Graphics.Viewport.TitleSafeArea.Y + 7.5f;
             miniMap.X = Graphics.Viewport.TitleSafeArea.X + Graphics.Viewport.TitleSafeArea.Width - miniMap.Width - 7.5f;
@@ -243,57 +229,51 @@ namespace PGCGame.Screens
             }
             miniShips.Clear();
 
-            if (miniMap.Color == Color.White)
+            Ship activeMiniShipDisplay = null;
+            foreach (Ship s in StateManager.ActiveShips)
             {
-                Ship activeMiniShipDisplay = null;
-                foreach (Ship s in StateManager.ActiveShips)
+                if (s.GetType() == typeof(Drone))
                 {
-                    if (s.GetType() == typeof(Drone))
-                    {
-                        continue;
-                    }
-                    //Sprite miniShip = new Sprite(GameContent.GameAssets.Images.MiniShips[s.PlayerType], miniMap.Position + (s.WorldCoords / MinimapDivAmount), playerSb);
-                    Sprite miniShip = new Sprite(GameContent.GameAssets.Images.MiniShips[s.ShipType], miniMap.Position + (s.WorldCoords / MinimapDivAmount), playerSb);
-                    miniShip.Scale = s.PlayerType == PlayerType.MyShip ? new Vector2(.1f) : new Vector2(.07f);
-                    miniShip.Color = s.PlayerType == PlayerType.MyShip ? Color.Green : Color.Red;
-                    miniShip.UseCenterAsOrigin = true;
-                    miniShips.Add(miniShip);
+                    continue;
+                }
+                //Sprite miniShip = new Sprite(GameContent.GameAssets.Images.MiniShips[s.PlayerType], miniMap.Position + (s.WorldCoords / MinimapDivAmount), playerSb);
+                Sprite miniShip = new Sprite(GameContent.GameAssets.Images.MiniShips[s.ShipType], miniMap.Position + (s.WorldCoords / MinimapDivAmount), playerSb);
+                miniShip.Scale = s.PlayerType == PlayerType.MyShip ? new Vector2(.1f) : new Vector2(.07f);
+                miniShip.Color = s.PlayerType == PlayerType.MyShip ? Color.Green : Color.Red;
+                miniShip.UseCenterAsOrigin = true;
+                miniShips.Add(miniShip);
 #if WINDOWS
-                    //TODO: Minimap ship info showing up on Xbox
-                    if (miniShip.Intersects(MouseManager.CurrentMouseState) && activeMiniShipDisplay == null)
-                    {
-                        activeMiniShipDisplay = s;
-                    }
-#endif
-                }
-                miniShipInfoBg.Color = activeMiniShipDisplay != null ? Color.White : Color.Transparent;
-                if (activeMiniShipDisplay != null)
+                //TODO: Minimap ship info showing up on Xbox
+                if (miniShip.Intersects(MouseManager.CurrentMouseState) && activeMiniShipDisplay == null)
                 {
-                    miniShipInfoTitle = new TextSprite(playerSb, bold, activeMiniShipDisplay.FriendlyName);
-                    miniShipInfoTitle.Color = Color.White;
-                    miniShipInfoTitle.Position = new Vector2(miniShipInfoBg.X + (miniShipInfoBg.Width / 2f) - (miniShipInfoTitle.Width / 2f), miniShipInfoBg.Y + (miniShipInfoBg.Height / 12.5f));
-                    playerSbObjects.Add(miniShipInfoTitle);
-                    miniShipInfoBg.Height = (miniShipInfoTitle.Y - miniShipInfoBg.Y) + miniShipInfoTitle.Height + (miniShipInfoTitle.Y - miniShipInfoBg.Y);
-                    miniShipInfo = new TextSprite(playerSb, normal, string.Format("HP: {0}/{1}\nDamage: {2}", activeMiniShipDisplay.CurrentHealth, activeMiniShipDisplay.InitialHealth, activeMiniShipDisplay.DamagePerShot));
-                    miniShipInfo.Color = Color.White;
-                    miniShipInfo.Position = new Vector2(miniShipInfoBg.X + (miniShipInfoBg.Width / 2f) - (miniShipInfo.Width / 2f), miniShipInfoTitle.Y + bold.LineSpacing);
-                    if (StateManager.HasBoughtScanner)
-                    {
-                        miniShipInfoBg.Height += miniShipInfo.Height;
-                        playerSbObjects.Add(miniShipInfo);
-                    }
+                    activeMiniShipDisplay = s;
+                }
+#endif
+            }
 
+            miniShipInfoBg.Color = activeMiniShipDisplay != null ? Color.White : Color.Transparent;
+            if (activeMiniShipDisplay != null)
+            {
+                miniShipInfoTitle = new TextSprite(playerSb, bold, activeMiniShipDisplay.FriendlyName);
+                miniShipInfoTitle.Color = Color.White;
+                miniShipInfoTitle.Position = new Vector2(miniShipInfoBg.X + (miniShipInfoBg.Width / 2f) - (miniShipInfoTitle.Width / 2f), miniShipInfoBg.Y + (miniShipInfoBg.Height / 12.5f));
+                playerSbObjects.Add(miniShipInfoTitle);
+                miniShipInfoBg.Height = (miniShipInfoTitle.Y - miniShipInfoBg.Y) + miniShipInfoTitle.Height + (miniShipInfoTitle.Y - miniShipInfoBg.Y);
+                miniShipInfo = new TextSprite(playerSb, normal, string.Format("HP: {0}/{1}\nDamage: {2}", activeMiniShipDisplay.CurrentHealth, activeMiniShipDisplay.InitialHealth, activeMiniShipDisplay.DamagePerShot));
+                miniShipInfo.Color = Color.White;
+                miniShipInfo.Position = new Vector2(miniShipInfoBg.X + (miniShipInfoBg.Width / 2f) - (miniShipInfo.Width / 2f), miniShipInfoTitle.Y + bold.LineSpacing);
+                if (StateManager.HasBoughtScanner)
+                {
+                    miniShipInfoBg.Height += miniShipInfo.Height;
+                    playerSbObjects.Add(miniShipInfo);
                 }
 
-                //This extension method (IEnumerable cast, NOT Glib cast) shouldn't be neccesary on XBOX, but I think it may be
-                //Casting the Sprites to ISprites
-                playerSbObjects.AddRange(miniShips.Cast<ISprite>());
             }
-            else
-            {
-                miniShipInfoBg.Color = Color.Transparent;
 
-            }
+            //This extension method (IEnumerable cast, NOT Glib cast) shouldn't be neccesary on XBOX, but I think it may be
+            //Casting the Sprites to ISprites
+            playerSbObjects.AddRange(miniShips.Cast<ISprite>());
+
         }
 
         void bgspr_Drawn(object sender, EventArgs e)
@@ -501,14 +481,6 @@ namespace PGCGame.Screens
                     camMove.X = bg.Width / 2 - worldCam.Pos.X;
                 }
             }
-
-#if WINDOWS
-            if (_lastState.IsKeyUp(Keys.M) && keyboard.IsKeyDown(Keys.M))
-            {
-                miniMap.Color = miniMap.Color == Color.White ? Color.Transparent : Color.White;
-
-            }
-#endif
 
             if (_lastState.IsKeyUp(Keys.F11) && keyboard.IsKeyDown(Keys.F11))
             {
