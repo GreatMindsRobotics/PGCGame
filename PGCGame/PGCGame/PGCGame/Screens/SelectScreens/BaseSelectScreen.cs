@@ -123,7 +123,9 @@ namespace PGCGame.Screens
         }
 #endif
         protected TextSprite acceptLabel;
+#if WINDOWS
         protected TextSprite backLabel;
+#endif
         protected TextSprite leftLabel;
         protected TextSprite rightLabel;
         protected TextSprite nameLabel;
@@ -159,6 +161,7 @@ namespace PGCGame.Screens
             Sprites.Add(acceptButton);
             AdditionalSprites.Add(acceptLabel);
 
+#if WINDOWS
             Sprite backButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .8f), Sprites.SpriteBatch);
             backLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Back");
             backLabel.Position = new Vector2((backButton.X + backButton.Width / 2) - backLabel.Width / 2, (backButton.Y + backButton.Height / 2) - backLabel.Height / 2);
@@ -168,13 +171,14 @@ namespace PGCGame.Screens
             backLabel.NonHoverColor = Color.White;
             backLabel.HoverColor = Color.MediumAquamarine;
 
-#if WINDOWS
             backButton.MouseEnter += new EventHandler(backButton_MouseEnter);
             backButton.MouseLeave += new EventHandler(backButton_MouseLeave);
-#endif
 
             Sprites.Add(backButton);
             AdditionalSprites.Add(backLabel);
+#endif
+
+
 
             Sprite leftButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .5f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .5f), Sprites.SpriteBatch);
             leftButton.Scale = new Vector2(0.5f, 1);
@@ -282,7 +286,7 @@ namespace PGCGame.Screens
                 return leftLabel.IsSelected;
             }
         }
-
+#if WINDOWS
         bool mouseInbackButton = false;
         //backbutton
         void backButton_MouseLeave(object sender, EventArgs e)
@@ -295,6 +299,7 @@ namespace PGCGame.Screens
             backLabel.IsSelected = true;
             mouseInbackButton = true;
         }
+#endif
 
         //Same length arrays, when you hit the arrow key, i++ (in both of them)
 
