@@ -73,7 +73,7 @@ namespace PGCGame.Screens
         {
             foreach (KeyValuePair<Sprite, string> item in itemsShown)
             {
-                if (item.Key == items[selected].Key)
+                if (item.Key.Texture == items[selected].Key.Texture)
                 {
                     nameLabel.Text = item.Value;
                     break;

@@ -70,7 +70,17 @@ namespace PGCGame
         //private TimeSpan _elapsedShotTime = new TimeSpan();
         protected KeyboardState _lastKs = new KeyboardState();
 
-        public abstract string FriendlyName { get; }
+        protected static string _friendlyName;
+
+        public static string ShipFriendlyName 
+        { 
+            get { return _friendlyName; } 
+        }
+
+        public string FriendlyName
+        {
+            get { return _friendlyName; }
+        }
 
         //current tier of the ship
         private ShipTier _shipTier = ShipTier.Tier1;

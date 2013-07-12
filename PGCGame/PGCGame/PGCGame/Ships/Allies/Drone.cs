@@ -51,10 +51,6 @@ namespace PGCGame
 
         #region Public Properties
 
-        public override string FriendlyName
-        {
-            get { return "Drone"; }
-        }
 
         public FighterCarrier ParentShip { get; set; }
         public DroneState DroneState { get; set; }
@@ -85,6 +81,8 @@ namespace PGCGame
         {
             _cost[ShipTier.Tier1] = 5000;
             _cost[ShipTier.Tier2] = 10000;
+
+            _friendlyName = "Drone";
         }
 
         #endregion Public Ctors

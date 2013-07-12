@@ -96,9 +96,9 @@ namespace PGCGame
             get { return ShipType.FighterCarrier; }
         }
 
-        public override string FriendlyName
+        static FighterCarrier()
         {
-            get { return "Fighter Carrier"; }
+            _friendlyName = "Fighter Carrier";
         }
     }
 }

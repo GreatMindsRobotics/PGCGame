@@ -23,7 +23,7 @@ namespace PGCGame.Ships.Enemies
         }
 
 
-        public virtual void Shoot()
+        public override void Shoot()
         {
             Bullet bullet = new Bullet(BulletTexture, WorldCoords - new Vector2(Height * -DistanceToNose, Height * -DistanceToNose) * Rotation.Vector, WorldSb);
             bullet.Speed = Rotation.Vector * 3f;

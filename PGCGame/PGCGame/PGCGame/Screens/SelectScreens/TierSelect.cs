@@ -27,7 +27,7 @@ namespace PGCGame.Screens.SelectScreens
         string nocredits = "You Have no more credits";
         TextSprite Credits;
         //This screen needs sprites for each tier of ship and descriptions for each tier.
-        Dictionary<Sprite, int> itemsShown = new Dictionary<Sprite, int>();
+        Dictionary<Sprite, KeyValuePair<int, string>> itemsShown = new Dictionary<Sprite, KeyValuePair<int, string>>();
 
         public override void InitScreen(ScreenType screenType)
         {
@@ -51,7 +51,7 @@ namespace PGCGame.Screens.SelectScreens
             battleCruiser.Rotation = new SpriteRotation(90);
 
             items.Add(new KeyValuePair<Sprite, TextSprite>(battleCruiser, text1));
-            itemsShown.Add(battleCruiser, BattleCruiser.Cost[ShipTier.Tier2]);
+            itemsShown.Add(battleCruiser, new KeyValuePair<int, string>(BattleCruiser.Cost[ShipTier.Tier2], BattleCruiser.ShipFriendlyName));
 
 
             fighterCarrier = new Sprite(GameContent.GameAssets.Images.Ships[ShipType.FighterCarrier, ShipTier.Tier2], Vector2.Zero, Sprites.SpriteBatch);
@@ -60,7 +60,7 @@ namespace PGCGame.Screens.SelectScreens
             fighterCarrier.Rotation = new SpriteRotation(90);
 
             items.Add(new KeyValuePair<Sprite, TextSprite>(fighterCarrier, text2));
-            itemsShown.Add(fighterCarrier, FighterCarrier.Cost[ShipTier.Tier2]);
+            itemsShown.Add(fighterCarrier, new KeyValuePair<int, string>(FighterCarrier.Cost[ShipTier.Tier2], FighterCarrier.ShipFriendlyName));
 
             torpedoShip = new Sprite(GameContent.GameAssets.Images.Ships[ShipType.TorpedoShip, ShipTier.Tier2], Vector2.Zero, Sprites.SpriteBatch);
             TextSprite text3 = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "\n\n This class is the most balanced\n ship in the game. The torpedos do\n a lot of damage and \n are hard to dodge!\n\n Damege Per Shot: 5\n Amount of Health: 110");
@@ -68,7 +68,7 @@ namespace PGCGame.Screens.SelectScreens
             torpedoShip.Rotation = new SpriteRotation(90);
 
             items.Add(new KeyValuePair<Sprite, TextSprite>(torpedoShip, text3));
-            itemsShown.Add(torpedoShip, TorpedoShip.Cost[ShipTier.Tier2]);
+            itemsShown.Add(torpedoShip, new KeyValuePair<int, string>(TorpedoShip.Cost[ShipTier.Tier2], TorpedoShip.ShipFriendlyName));
 
             ChangeItem += new EventHandler(TierSelect_ChangeItem);
             nextButtonClicked += new EventHandler(TierSelect_nextButtonClicked);
@@ -86,10 +86,11 @@ namespace PGCGame.Screens.SelectScreens
         {
             bool bought = false;
 
-            foreach (KeyValuePair<Sprite, int> kvp in itemsShown)
+            foreach (KeyValuePair<Sprite, KeyValuePair<int, string>> kvp in itemsShown)
             {
                 Sprite ship = kvp.Key;
-                int cost = kvp.Value;
+                int cost = kvp.Value.Key;
+                string name = kvp.Value.Value;
 
                 if (bought == false)
                 {
@@ -112,7 +113,18 @@ namespace PGCGame.Screens.SelectScreens
 
         void TierSelect_ChangeItem(object sender, EventArgs e)
         {
-
+            foreach (KeyValuePair<Sprite, KeyValuePair<int, string>> kvp in itemsShown)
+            {
+                Sprite ship = kvp.Key;
+                int cost = kvp.Value.Key;
+                string name = kvp.Value.Value;
+                
+                if (ship.Texture == items[selected].Key.Texture)
+                {
+                    nameLabel.Text = string.Format("Tier2\n{0}\n{1}", name, cost);
+                    break;
+                }
+            }
         }
 
         public override void Update(GameTime gameTime)

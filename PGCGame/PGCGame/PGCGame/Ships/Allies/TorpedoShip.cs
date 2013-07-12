@@ -32,6 +32,11 @@ namespace PGCGame
             DamagePerShot = 5;
         }
 
+        static TorpedoShip()
+        {
+            _friendlyName = "Torpedo Ship";
+        }
+
         void TorpedoShip_TierChanged(object sender, EventArgs e)
         {
             if (Tier == ShipTier.Tier1)
@@ -72,11 +77,6 @@ namespace PGCGame
         public override ShipType ShipType
         {
             get { return ShipType.TorpedoShip; }
-        }
-
-        public override string FriendlyName
-        {
-            get { return "Torpedo Ship"; }
         }
     }
 }

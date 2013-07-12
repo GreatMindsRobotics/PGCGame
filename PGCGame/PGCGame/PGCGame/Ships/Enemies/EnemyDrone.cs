@@ -29,9 +29,9 @@ namespace PGCGame.Ships.Enemies
             get { return ShipType.Drone; }
         }
 
-        public override string FriendlyName
+        static EnemyDrone()
         {
-            get { return "Enemy Ship"; }
+            _friendlyName = "Enemy Ship";
         }
     }
 }

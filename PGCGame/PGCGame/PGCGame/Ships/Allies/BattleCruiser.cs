@@ -67,9 +67,9 @@ namespace PGCGame
             get { return ShipType.BattleCruiser; }
         }
 
-        public override string FriendlyName
+        static BattleCruiser()
         {
-            get { return "Battle Cruiser"; }
+            _friendlyName = "Battle Cruiser";
         }
     }
 }
