@@ -156,11 +156,19 @@ namespace PGCGame.Ships.Allies
 
             if (CanShoot)
             {
+#if WINDOWS
                 if ((StateManager.Options.LeftButtonEnabled && ms.LeftButton == ButtonState.Pressed) || (!StateManager.Options.LeftButtonEnabled && ks.IsKeyDown(Keys.Space)))
                 {
                     Shoot();
                     _elapsedShotTime = TimeSpan.Zero;
                 }
+#elif XBOX
+                if (GamePadManager.One.Current.Triggers.Right > 0.875f)
+                {
+                    Shoot();
+                    _elapsedShotTime = TimeSpan.Zero;
+                }
+#endif
             }
 
             //Deploy mine?
