@@ -121,7 +121,7 @@ namespace PGCGame.Ships.Enemies
 
                     if (Rotation.Radians > angle)
                     {
-                        if (Rotation.Radians + .025f > angle)
+                        if (Rotation.Radians + .025f > angle + .025f)
                         {
                             Rotation.Radians -= .025f;
                         }
@@ -130,7 +130,7 @@ namespace PGCGame.Ships.Enemies
                             Rotation.Radians = angle;
                         }
                     }
-                    else if (Rotation.Radians < angle)
+                    else if (Rotation.Radians < angle + .025f)
                     {
                         if (Rotation.Radians + .025f < angle)
                         {
