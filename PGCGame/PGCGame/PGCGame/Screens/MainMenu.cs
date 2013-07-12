@@ -43,6 +43,8 @@ namespace PGCGame.Screens
         Sprite bButton;
 #endif
 
+        
+
         Sprite TitleSprite;
 
 
@@ -75,6 +77,7 @@ namespace PGCGame.Screens
             base.InitScreen(screnType);
 
             _gameSong = GameContent.GameAssets.Music[ScreenMusic.Level1];
+          
             StateManager.Options.MusicStateChanged += new EventHandler(Options_MusicStateChanged);
             StateManager.ScreenStateChanged += new EventHandler(delegate(object src, EventArgs arg)
             {
@@ -82,11 +85,7 @@ namespace PGCGame.Screens
                 {
                     if (StateManager.Options.MusicEnabled)
                     {
-                        if (MediaPlayer.State == MediaState.Paused)
-                        {
-                            MediaPlayer.Resume();
-                        }
-                        else
+                        if(MediaPlayer.State != MediaState.Playing)
                         {
                             MediaPlayer.Play(_gameSong);
                         }
