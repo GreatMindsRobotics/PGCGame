@@ -131,8 +131,8 @@ namespace PGCGame.Screens
             }
             if (miniMap != null)
             {
-                miniMap.Y = 7.5f;
-                miniMap.X = playerSb.GraphicsDevice.Viewport.Width - miniMap.Width - 7.5f;
+                miniMap.Y = Graphics.Viewport.TitleSafeArea.Y + 7.5f;
+                miniMap.X = Graphics.Viewport.TitleSafeArea.X + Graphics.Viewport.TitleSafeArea.Width - miniMap.Width - 7.5f;
                 miniShipInfoBg.X = miniMap.X - miniShipInfoBg.Width - 7.5f;
             }
         }
@@ -175,10 +175,9 @@ namespace PGCGame.Screens
             miniMap.Width = bgspr.TotalWidth / MinimapDivAmount;
             miniMap.Color = Color.Transparent;
             miniMap.Height = bgspr.TotalHeight / MinimapDivAmount;
-            miniMap.Y = 7.5f;
+            miniMap.Y = Graphics.Viewport.TitleSafeArea.Y + 7.5f;
+            miniMap.X = Graphics.Viewport.TitleSafeArea.X + Graphics.Viewport.TitleSafeArea.Width - miniMap.Width - 7.5f;
             miniMap.Updated += new EventHandler(miniMap_Updated);
-            miniMap.X = playerSb.GraphicsDevice.Viewport.Width - miniMap.Width - 7.5f;
-            miniShipInfoBg = new Sprite(new PlainTexture2D(Sprites.SpriteBatch.GraphicsDevice, 1, 1, new Color(0, 0, 0, 192)), new Vector2(7.5f, miniMap.Y), playerSb);
             miniShipInfoBg.Height = 0.01f;
             miniShipInfoBg.Width = 767.5f - miniShipInfoBg.X - 7.5f - miniMap.Width - 266.6666667f;
             miniShipInfoBg.X = miniMap.X - miniShipInfoBg.Width - 7.5f;
