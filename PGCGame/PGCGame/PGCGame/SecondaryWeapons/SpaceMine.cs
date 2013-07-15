@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Glib.XNA;
+using Glib;
 using PGCGame.CoreTypes;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -14,19 +15,46 @@ namespace PGCGame
         public int ExplosionRadius { get; set; }
         public int ExplosionDiameter { get; set; }
 
-        public TimeSpan RemainingArmTime = TimeSpan.FromMilliseconds(2000);
+        public TimeSpan RemainingArmTime = TimeSpan.FromMilliseconds(4000);
 
-        public SpaceMineState SpaceMineState { get; set; }
-        public Ship ParentShip { get; set; }
+        private SpaceMineState _spaceMineState;
+
+        public SpaceMineState SpaceMineState
+        {
+            get { return _spaceMineState; }
+            set
+            {
+                _spaceMineState = value;
+                if (_spaceMineState == CoreTypes.SpaceMineState.RIP)
+                {
+                    FireKilledEvent();
+                }
+            }
+        }
+
+
+
+        public override bool ShouldDraw
+        {
+            get
+            {
+                return SpaceMineState != CoreTypes.SpaceMineState.Stowed;
+            }
+            set
+            {
+                base.ShouldDraw = value;
+            }
+        }
 
         public SpaceMine(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
             : base(texture, location, spriteBatch)
         {
             Cost = 500;
+            Damage = 50;
             Name = "SpaceMine";
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             switch (SpaceMineState)
             {
@@ -58,13 +86,31 @@ namespace PGCGame
                     break;
 
                 case CoreTypes.SpaceMineState.Armed:
-                    //Mine is armed; TODO: Wait for enemy
+                    //Mine is armed; Wait for enemy
                     Rotation.Radians += .2f;
+                    foreach (Ship ship in StateManager.ActiveShips)
+                    {
+                        if (ship is Drone)
+                        {
+                            if (ship.Cast<Drone>().DroneState == DroneState.Stowed || ship.Cast<Drone>().DroneState == DroneState.RIP)
+                            {
+                                continue;
+                            }
+                        }
+
+
+
+                        if (Intersects(ship.WCrectangle))
+                        {
+                            ship.CurrentHealth -= this.Damage;
+                            SpaceMineState = CoreTypes.SpaceMineState.RIP;
+                        }
+                    }
 
                     break;
 
                 case CoreTypes.SpaceMineState.RIP:
-                    //Mine is detonated; //TODO: remove from list
+                    //Mine is detonated; Removed from list in BaseAllyShip
                     break;
 
             }

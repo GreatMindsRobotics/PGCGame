@@ -97,6 +97,14 @@ namespace PGCGame
 
         #endregion Private Fields
 
+        public Rectangle WCrectangle
+        {
+            get
+            {
+                return new Rectangle(WorldCoords.X.ToInt(), WorldCoords.Y.ToInt(), Width.ToInt(), Height.ToInt());
+            }
+        }
+
         protected int _initHealth;
 
         public event EventHandler TierChanged;

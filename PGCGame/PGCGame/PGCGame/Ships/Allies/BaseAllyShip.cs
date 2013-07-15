@@ -27,8 +27,6 @@ namespace PGCGame.Ships.Allies
         protected bool _isPlayerShip;
         protected bool _rotateTowardMouse;
 
-        protected Stack<SpaceMine> _spaceMines = new Stack<SpaceMine>();
-
         public bool IsPlayerShip
         {
             get
@@ -81,19 +79,7 @@ namespace PGCGame.Ships.Allies
             }
         }
 
-        public SpaceMine ActiveSpaceMine { get; set; }
-
-        public Stack<SpaceMine> SpaceMines
-        {
-            get
-            {
-                return _spaceMines;
-            }
-            set
-            {
-                _spaceMines = value;
-            }
-        }
+        public SecondaryWeapon ActiveSecondaryWeapon { get; set; }
 
         public List<SecondaryWeapon> SecondaryWeapons;
 
@@ -171,22 +157,37 @@ namespace PGCGame.Ships.Allies
 #endif
             }
 
-            //Deploy mine?
-            if (SpaceMines.Count > 0 && ks.IsKeyDown(Keys.RightShift) && _lastKs != null && !_lastKs.IsKeyDown(Keys.RightShift))
+            //Deploy secondary weapon
+            if (ActiveSecondaryWeapon == null && StateManager.PowerUps.Count > 0 && ks.IsKeyDown(Keys.RightShift) && _lastKs != null && !_lastKs.IsKeyDown(Keys.RightShift))
             {
-                ActiveSpaceMine = SpaceMines.Pop();
-                ActiveSpaceMine.SpaceMineState = SpaceMineState.Deploying;
-                ActiveSpaceMine.Update(gt);
+                ActiveSecondaryWeapon = StateManager.PowerUps.Pop();
+                ActiveSecondaryWeapon.ParentShip = this;
+                ActiveSecondaryWeapon.Killed += new EventHandler(ActiveSecondaryWeapon_Killed);
+                //Specifics of certain secondary weapons
+                //TODO: Finish   
+                switch(ActiveSecondaryWeapon.GetType().FullName){
+
+                    case "PGCGame.SpaceMine":
+                        ActiveSecondaryWeapon.Cast<SpaceMine>().SpaceMineState = SpaceMineState.Deploying;
+                        break;
             }
 
-            if (ActiveSpaceMine != null)
+                ActiveSecondaryWeapon.Update(gt);
+            }
+
+            if (ActiveSecondaryWeapon != null)
             {
-                ActiveSpaceMine.Update(gt);
+                ActiveSecondaryWeapon.Update(gt);
             }
 
             _lastKs = ks;
 
             base.Update(gt);
+        }
+
+        void ActiveSecondaryWeapon_Killed(object sender, EventArgs e)
+        {
+            ActiveSecondaryWeapon = null;
         }
     }
 }

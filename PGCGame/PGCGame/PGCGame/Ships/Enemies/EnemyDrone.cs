@@ -18,7 +18,7 @@ namespace PGCGame.Ships.Enemies
             Scale = new Vector2(.75f);
 
             DamagePerShot = 5;
-
+            MovementSpeed = new Vector2(.9f);
             _initHealth = 1;
 
             BulletTexture = GameContent.GameAssets.Images.Ships.Bullets[CoreTypes.ShipType.Drone, ShipTier.Tier1];

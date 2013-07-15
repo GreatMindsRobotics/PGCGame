@@ -28,9 +28,12 @@ namespace PGCGame
 
         #region Public Fields
 
+        public static Boolean isWSFirstUpdate = true;
+
         public static ShipType SelectedShip;
         public static ShipTier SelectedTier;
 
+        public static Stack<SecondaryWeapon> PowerUps = new Stack<SecondaryWeapon>();
 
         public static Delegates.CheckIfWindowFocused IsWindowFocused;
 
@@ -45,6 +48,20 @@ namespace PGCGame
         /// Identifies the player in the network game
         /// </summary>
         public static readonly Guid PlayerID = Guid.NewGuid();
+
+        /// <summary>
+        /// Resets fields
+        /// </summary>
+        public static void Reset()
+        {
+        _hasBoughtScanner = false;
+        Stack<ScreenType> _screenStack = new Stack<ScreenType>();
+        Guid _enemyID = Guid.NewGuid();
+        _spaceBucks = 200000;
+        SpaceBucks = _spaceBucks;
+        isWSFirstUpdate = true;
+        PowerUps = new Stack<SecondaryWeapon>();
+        }
 
         /// <summary>
         /// Manages all screens in the game
@@ -166,11 +183,11 @@ namespace PGCGame
                 case ScreenType.Game:
                     activeScreen.Cast<PGCGame.Screens.GameScreen>().ResetLastKS(Keys.Escape);
                     break;
-                
+
                 case ScreenType.Pause:
                     activeScreen.Cast<PGCGame.Screens.PauseScreen>().lastState = new KeyboardState(Keys.Escape);
-                    break; 
-               
+                    break;
+
                 case ScreenType.Credits:
                     if (StateManager.Options.MusicEnabled)
                     {
@@ -292,7 +309,8 @@ namespace PGCGame
             public static bool MusicEnabled
             {
                 get { return _musicEnabled; }
-                set {
+                set
+                {
                     if (value != _musicEnabled)
                     {
                         _musicEnabled = value;

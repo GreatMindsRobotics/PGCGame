@@ -77,11 +77,13 @@ namespace PGCGame.Screens.SelectScreens
             items.Add(new KeyValuePair<Sprite, TextSprite>(weapon1, text1));
             
             base.InitScreen(screenType);
-
+            
             acceptLabel.Text = "Buy";
             //In clicked code
             this.nextButtonClicked += new EventHandler(WeaponSelectScreen_nextButtonClicked);
         }
+
+
 
         void WeaponSelectScreen_nextButtonClicked(object sender, EventArgs e)
         {
@@ -91,6 +93,10 @@ namespace PGCGame.Screens.SelectScreens
                 {
                     StateManager.SpaceBucks -= item.Cost;
                     SpaceBucksAmount.Text = string.Format("You have {0} credits", StateManager.SpaceBucks);
+                    if (item.GetType() == typeof(SpaceMine))
+                    {
+                        StateManager.PowerUps.Push(new SpaceMine(item.Texture, Vector2.Zero, Sprites.SpriteBatch));
+                    }
                     break;
                 }
             }
@@ -112,7 +118,11 @@ namespace PGCGame.Screens.SelectScreens
 
         public override void Update(GameTime gameTime)
         {
-
+            if (StateManager.isWSFirstUpdate == true)
+            {
+                SpaceBucksAmount.Text = string.Format("You have {0} credits", StateManager.SpaceBucks);
+                StateManager.isWSFirstUpdate = false;
+            }
             base.Update(gameTime);
         }
     }

@@ -14,7 +14,29 @@ namespace PGCGame
         public int Damage { get; set; }
         public bool SingleUse { get; set; }
         public string Name { get; set; }
-       
+        public Ship ParentShip { get; set; }
+
+        private bool _shouldShow;
+
+        public event EventHandler Killed;
+
+        protected void FireKilledEvent()
+        {
+            if (Killed != null)
+            {
+                Killed(this, EventArgs.Empty);
+            }
+        }
+
+        public virtual bool ShouldDraw
+        {
+            get { return _shouldShow; }
+            set { _shouldShow = value; }
+        }
+        
+
+        public abstract void Update(GameTime currentGameTime);
+
         public SecondaryWeapon(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
             : base(texture, location, spriteBatch)
         {

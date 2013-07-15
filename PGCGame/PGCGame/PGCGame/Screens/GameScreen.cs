@@ -317,9 +317,9 @@ namespace PGCGame.Screens
                 }
             }
 
-            if (playerShip.ActiveSpaceMine != null && playerShip.ActiveSpaceMine.SpaceMineState != SpaceMineState.Stowed)
+            if (playerShip.ActiveSecondaryWeapon != null && playerShip.ActiveSecondaryWeapon.ShouldDraw)
             {
-                Sprites.SpriteBatch.Draw(playerShip.ActiveSpaceMine);
+                Sprites.SpriteBatch.Draw(playerShip.ActiveSecondaryWeapon);
             }
         }
 
@@ -418,10 +418,10 @@ namespace PGCGame.Screens
                         }
                         else
                         {
-                            WCrectangle = new Rectangle(hitShip.WorldCoords.X.ToInt(), hitShip.WorldCoords.Y.ToInt(), hitShip.Width.ToInt(), hitShip.Height.ToInt());
+                            
                             foreach (Bullet b in shootShip.FlyingBullets)
                             {
-                                if (b.Rectangle.Intersects(WCrectangle))
+                                if (b.Rectangle.Intersects(hitShip.WCrectangle))
                                 {
                                     hitShip.CurrentHealth -= b.Damage;
                                     b.IsDead = true;

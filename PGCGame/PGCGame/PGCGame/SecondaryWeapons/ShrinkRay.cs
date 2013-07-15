@@ -17,5 +17,10 @@ namespace PGCGame
         }
         
         public ShrinkBullet ShotBullet { get; set; }
+
+        public override void Update(GameTime currentGameTime)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -31,5 +31,10 @@ namespace PGCGame
         }
 
         public Ship LaunchingShip { get; set; }
+
+        public override void Update(GameTime currentGameTime)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
