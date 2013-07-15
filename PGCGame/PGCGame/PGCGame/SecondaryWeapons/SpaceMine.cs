@@ -38,7 +38,7 @@ namespace PGCGame
         {
             get
             {
-                return SpaceMineState != CoreTypes.SpaceMineState.Stowed;
+                return _spaceMineState != CoreTypes.SpaceMineState.Stowed && _spaceMineState != CoreTypes.SpaceMineState.RIP;
             }
             set
             {
@@ -110,7 +110,8 @@ namespace PGCGame
                     break;
 
                 case CoreTypes.SpaceMineState.RIP:
-                    //Mine is detonated; Removed from list in BaseAllyShip
+
+                    FireKilledEvent();
                     break;
 
             }

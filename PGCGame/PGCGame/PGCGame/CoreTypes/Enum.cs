@@ -143,6 +143,13 @@ namespace PGCGame.CoreTypes
         RIP
     }
 
+    public enum EMPState
+    {
+        Stowed,
+        Deployed,
+        RIP
+    }
+
     public enum SecondaryWeaponType
     { 
         EMP,

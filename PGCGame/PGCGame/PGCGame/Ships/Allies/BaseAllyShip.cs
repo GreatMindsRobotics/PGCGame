@@ -27,6 +27,9 @@ namespace PGCGame.Ships.Allies
         protected bool _isPlayerShip;
         protected bool _rotateTowardMouse;
 
+        public SecondaryWeaponType _SecondaryWeaponType;
+        SecondaryWeapon previousSecondaryWeapon;
+
         public bool IsPlayerShip
         {
             get
@@ -81,7 +84,6 @@ namespace PGCGame.Ships.Allies
 
         public SecondaryWeapon ActiveSecondaryWeapon { get; set; }
 
-        public List<SecondaryWeapon> SecondaryWeapons;
 
         public BaseAllyShip(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
             : base(texture, location, spriteBatch)
@@ -156,21 +158,59 @@ namespace PGCGame.Ships.Allies
                 }
 #endif
             }
+            
+            else if (StateManager.PowerUps.Count > 0 && ks.IsKeyDown(Keys.Q) && _lastKs != null && !_lastKs.IsKeyDown(Keys.Q))
+            {
+                foreach (var secondaryWeapon in StateManager.PowerUps)
+                {
+                    if (ActiveSecondaryWeapon.GetType() != secondaryWeapon.GetType())
+                    {
+                        previousSecondaryWeapon = ActiveSecondaryWeapon;
+                        ActiveSecondaryWeapon = secondaryWeapon;
+                        break;
+                    }
+                }
+            }
+            else if (StateManager.PowerUps.Count > 0 && ks.IsKeyDown(Keys.Q) && _lastKs != null && !_lastKs.IsKeyDown(Keys.E))
+            {
+                if (previousSecondaryWeapon != null)
+                {
+                    ActiveSecondaryWeapon = previousSecondaryWeapon;
+                }
+                else
+                {
+                    foreach (var secondaryWeapon in StateManager.PowerUps)
+                    {
+                        if (ActiveSecondaryWeapon.GetType() != secondaryWeapon.GetType())
+                        {
+                            previousSecondaryWeapon = ActiveSecondaryWeapon;
+                            ActiveSecondaryWeapon = secondaryWeapon;
+                            break;
+                        }
+                    }
+                }
+            }
 
             //Deploy secondary weapon
             if (ActiveSecondaryWeapon == null && StateManager.PowerUps.Count > 0 && ks.IsKeyDown(Keys.RightShift) && _lastKs != null && !_lastKs.IsKeyDown(Keys.RightShift))
             {
-                ActiveSecondaryWeapon = StateManager.PowerUps.Pop();
+                ActiveSecondaryWeapon = StateManager.PowerUps.First();
+                StateManager.PowerUps.Remove(ActiveSecondaryWeapon);
                 ActiveSecondaryWeapon.ParentShip = this;
                 ActiveSecondaryWeapon.Killed += new EventHandler(ActiveSecondaryWeapon_Killed);
-                //Specifics of certain secondary weapons
-                //TODO: Finish   
-                switch(ActiveSecondaryWeapon.GetType().FullName){
+                //Specifics of certain secondary weapons 
+                switch (ActiveSecondaryWeapon.GetType().FullName)
+                {
 
                     case "PGCGame.SpaceMine":
                         ActiveSecondaryWeapon.Cast<SpaceMine>().SpaceMineState = SpaceMineState.Deploying;
                         break;
-            }
+                    case "PGCGame.EMP":
+                        ActiveSecondaryWeapon.Cast<EMP>().PublicEMPState = EMPState.Deployed;
+                        break;
+                    case "PGCGame.ShrinkRay":
+                        break;
+                }
 
                 ActiveSecondaryWeapon.Update(gt);
             }
@@ -183,10 +223,12 @@ namespace PGCGame.Ships.Allies
             _lastKs = ks;
 
             base.Update(gt);
+
         }
 
         void ActiveSecondaryWeapon_Killed(object sender, EventArgs e)
         {
+            StateManager.PowerUps.Remove(ActiveSecondaryWeapon);
             ActiveSecondaryWeapon = null;
         }
     }

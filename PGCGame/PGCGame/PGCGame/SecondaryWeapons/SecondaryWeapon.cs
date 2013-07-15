@@ -22,10 +22,7 @@ namespace PGCGame
 
         protected void FireKilledEvent()
         {
-            if (Killed != null)
-            {
-                Killed(this, EventArgs.Empty);
-            }
+            Killed(this, EventArgs.Empty);
         }
 
         public virtual bool ShouldDraw
@@ -33,7 +30,7 @@ namespace PGCGame
             get { return _shouldShow; }
             set { _shouldShow = value; }
         }
-        
+
 
         public abstract void Update(GameTime currentGameTime);
 

@@ -319,6 +319,8 @@ namespace PGCGame.Screens
 
             if (playerShip.ActiveSecondaryWeapon != null && playerShip.ActiveSecondaryWeapon.ShouldDraw)
             {
+                
+
                 Sprites.SpriteBatch.Draw(playerShip.ActiveSecondaryWeapon);
             }
         }

@@ -33,7 +33,7 @@ namespace PGCGame
         public static ShipType SelectedShip;
         public static ShipTier SelectedTier;
 
-        public static Stack<SecondaryWeapon> PowerUps = new Stack<SecondaryWeapon>();
+        public static LinkedList<SecondaryWeapon> PowerUps = new LinkedList<SecondaryWeapon>();
 
         public static Delegates.CheckIfWindowFocused IsWindowFocused;
 
@@ -60,7 +60,7 @@ namespace PGCGame
         _spaceBucks = 200000;
         SpaceBucks = _spaceBucks;
         isWSFirstUpdate = true;
-        PowerUps = new Stack<SecondaryWeapon>();
+        PowerUps = new LinkedList<SecondaryWeapon>();
         }
 
         /// <summary>

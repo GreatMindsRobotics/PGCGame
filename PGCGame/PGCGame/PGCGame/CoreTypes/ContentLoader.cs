@@ -332,7 +332,7 @@ namespace PGCGame.CoreTypes
                     _secondaryWeaponTextures = new Dictionary<KeyValuePair<SecondaryWeaponType, TextureDisplayType>, Texture2D>();
 
                     _secondaryWeaponTextures.Add(new KeyValuePair<SecondaryWeaponType, TextureDisplayType>(SecondaryWeaponType.EMP, TextureDisplayType.ShopDisplay), content.Load<Texture2D>("Images\\SecondaryWeapons\\EMP\\EMP"));
-                    _secondaryWeaponTextures.Add(new KeyValuePair<SecondaryWeaponType, TextureDisplayType>(SecondaryWeaponType.EMP, TextureDisplayType.InGameUse), content.Load<Texture2D>("Images\\SecondaryWeapons\\EMP\\EMP"));
+                    _secondaryWeaponTextures.Add(new KeyValuePair<SecondaryWeaponType, TextureDisplayType>(SecondaryWeaponType.EMP, TextureDisplayType.InGameUse), content.Load<Texture2D>("Images\\SecondaryWeapons\\EMP\\EMPInGame"));
 
                     _secondaryWeaponTextures.Add(new KeyValuePair<SecondaryWeaponType, TextureDisplayType>(SecondaryWeaponType.ShrinkRay, TextureDisplayType.ShopDisplay), content.Load<Texture2D>("Images\\SecondaryWeapons\\ShrinkRay\\ShrinkRay"));
                     _secondaryWeaponTextures.Add(new KeyValuePair<SecondaryWeaponType, TextureDisplayType>(SecondaryWeaponType.ShrinkRay, TextureDisplayType.InGameUse), content.Load<Texture2D>("Images\\SecondaryWeapons\\ShrinkRay\\ShrinkRay"));
