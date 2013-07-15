@@ -57,14 +57,6 @@ namespace PGCGame.CoreTypes
         Level3,
         Level4
     }
-
-    public enum SecondaryWeaponState
-    {
-        Ready,
-        Charging,
-        Fired
-    }
-
     public enum ShipTier
     {
         Tier1,

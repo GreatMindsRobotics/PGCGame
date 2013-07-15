@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Glib;
 
 namespace PGCGame
 {
@@ -20,7 +21,14 @@ namespace PGCGame
 
         public override void Update(GameTime currentGameTime)
         {
-            throw new NotImplementedException();
+            foreach (Ship ship in StateManager.ActiveShips)
+            {
+                if(Intersects(ship))
+                {
+                    ship.CurrentHealth = (ship.CurrentHealth * .66f).Round();
+                    FireKilledEvent();
+                }
+            }
         }
     }
 }
