@@ -37,6 +37,15 @@ namespace PGCGame.Screens
             playerSb = new SpriteBatch(spriteBatch.GraphicsDevice);
 
             _playableAreaOffset = new Vector2(500);
+
+#if XBOX
+            GamePadManager.One.Buttons.StartButtonPressed += new EventHandler(delegate(object src, EventArgs e){
+                if (Visible)
+                {
+                    StateManager.ScreenState = CoreTypes.ScreenType.Pause;
+                }
+            });
+#endif
         }
 
         void Options_MusicStateChanged(object sender, EventArgs e)
@@ -341,11 +350,13 @@ namespace PGCGame.Screens
             //TODO: UPDATE SPRITES
             KeyboardState keyboard = Keyboard.GetState();
 
+#if WINDOWS
             if (_lastState.IsKeyUp(Keys.Escape) && keyboard.IsKeyDown(Keys.Escape))
             {
                 StateManager.ScreenState = ScreenType.Pause;
                 //_allowMusicHandling = false;
             }
+#endif
 
             for (int i = 0; i < playerShip.FlyingBullets.Count; i++)
             {
