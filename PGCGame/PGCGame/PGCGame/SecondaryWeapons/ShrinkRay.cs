@@ -16,8 +16,10 @@ namespace PGCGame
             Cost = 2000;
             Name = "ShrinkRay";
         }
-        
-        public ShrinkBullet ShotBullet { get; set; }
+
+        public List<Bullet> ShrinkRayBullets = new List<Bullet>();
+
+        public Boolean ShotBullet = false;
 
         public override void Update(GameTime currentGameTime)
         {
@@ -25,9 +27,14 @@ namespace PGCGame
             {
                 if(Intersects(ship))
                 {
+                    ship.Scale *= .66f;
                     ship.CurrentHealth = (ship.CurrentHealth * .66f).Round();
                     FireKilledEvent();
                 }
+            }
+            if (ShotBullet && !ShouldDraw)
+            {
+                ShouldDraw = true;
             }
         }
     }

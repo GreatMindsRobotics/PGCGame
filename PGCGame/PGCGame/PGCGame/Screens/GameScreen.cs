@@ -319,9 +319,23 @@ namespace PGCGame.Screens
 
             if (playerShip.ActiveSecondaryWeapon != null && playerShip.ActiveSecondaryWeapon.ShouldDraw)
             {
+                switch (playerShip.ActiveSecondaryWeapon.GetType().FullName)
+                {
+                    case "PGCGame.SpaceMine":
+                        Sprites.SpriteBatch.Draw(playerShip.ActiveSecondaryWeapon);
+                        break;
+                    case "PGCGame.EMP":
+                        Sprites.SpriteBatch.Draw(playerShip.ActiveSecondaryWeapon);
+                        break;
+                    case "PGCGame.ShrinkRay":
+                        foreach (Bullet b in playerShip.ActiveSecondaryWeapon.Cast<ShrinkRay>().ShrinkRayBullets)
+                        {
+                            b.Update();
+                            Sprites.SpriteBatch.Draw(b);
+                        }
+                        break;
+                }
                 
-
-                Sprites.SpriteBatch.Draw(playerShip.ActiveSecondaryWeapon);
             }
         }
 

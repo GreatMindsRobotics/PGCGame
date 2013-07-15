@@ -111,7 +111,6 @@
     <Compile Include="Ships\Enemies\BaseEnemyShip.cs" />
     <Compile Include="Ships\Enemies\EnemyDrone.cs" />
     <Compile Include="Ships\Ship.cs" />
-    <Compile Include="Bullets\ShrinkBullet.cs" />
     <Compile Include="SecondaryWeapons\ShrinkRay.cs" />
     <Compile Include="SecondaryWeapons\SpaceMine.cs" />
     <Compile Include="Ships\Allies\TorpedoShip.cs" />

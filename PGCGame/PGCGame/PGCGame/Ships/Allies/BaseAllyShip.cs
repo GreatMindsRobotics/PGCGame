@@ -43,6 +43,19 @@ namespace PGCGame.Ships.Allies
         }
 
 
+        public virtual void ShrinkRayShoot()
+        {
+            Bullet bullet = new Bullet(BulletTexture, WorldCoords - new Vector2(Height * -DistanceToNose, Height * -DistanceToNose) * Rotation.Vector, WorldSb);
+            bullet.Speed = Rotation.Vector * 3f;
+            bullet.UseCenterAsOrigin = true;
+            bullet.Rotation = Rotation;
+            bullet.Damage = 0;
+            bullet.Color = Color.White;
+            ActiveSecondaryWeapon.Cast<ShrinkRay>().ShotBullet = true;
+
+            ActiveSecondaryWeapon.Cast<ShrinkRay>().ShrinkRayBullets.Add(bullet);
+        }
+
         public override Vector2 WorldCoords
         {
             get
@@ -158,7 +171,7 @@ namespace PGCGame.Ships.Allies
                 }
 #endif
             }
-            
+
             else if (StateManager.PowerUps.Count > 0 && ks.IsKeyDown(Keys.Q) && _lastKs != null && !_lastKs.IsKeyDown(Keys.Q))
             {
                 foreach (var secondaryWeapon in StateManager.PowerUps)
@@ -209,6 +222,12 @@ namespace PGCGame.Ships.Allies
                         ActiveSecondaryWeapon.Cast<EMP>().PublicEMPState = EMPState.Deployed;
                         break;
                     case "PGCGame.ShrinkRay":
+                        if (ActiveSecondaryWeapon.Cast<ShrinkRay>().ShotBullet == false)
+                        {
+                            
+                            ActiveSecondaryWeapon.Position = ActiveSecondaryWeapon.ParentShip.WorldCoords;
+                            ShrinkRayShoot();
+                        }
                         break;
                 }
 
