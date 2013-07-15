@@ -103,21 +103,24 @@ namespace PGCGame
 
         public override void Shoot()
         {
-            //Glen's experiment
-            Vector2 realWc = WorldCoords;
-            WorldCoords = ParentShip.WorldCoords;
-            Bullet bullet = new Bullet(BulletTexture, WorldCoords, WorldSb);
-            Vector2 normalizedDistance = this.closestEnemyShipDistance.Value;
-            normalizedDistance.Normalize();
-            normalizedDistance *= 3f;
-            bullet.Speed = normalizedDistance;
-            bullet.UseCenterAsOrigin = true;
-            //bullet.Rotation = Rotation;
-            bullet.Damage = DamagePerShot;
+            if (closestEnemyShipDistance.HasValue)
+            {
+                //Glen's experiment
+                Vector2 realWc = WorldCoords;
+                WorldCoords = ParentShip.WorldCoords;
+                Bullet bullet = new Bullet(BulletTexture, WorldCoords, WorldSb);
+                Vector2 normalizedDistance = this.closestEnemyShipDistance.Value;
+                normalizedDistance.Normalize();
+                normalizedDistance *= 3f;
+                bullet.Speed = normalizedDistance;
+                bullet.UseCenterAsOrigin = true;
+                //bullet.Rotation = Rotation;
+                bullet.Damage = DamagePerShot;
 
-            FlyingBullets.Add(bullet);
+                FlyingBullets.Add(bullet);
 
-            WorldCoords = realWc;
+                WorldCoords = realWc;
+            }
         }
 
         private bool isEnemyDetected()
