@@ -77,7 +77,7 @@ namespace PGCGame.Ships.Allies
         {
             get
             {
-                return _elapsedShotTime >= DelayBetweenShots;
+                return _elapsedShotTime >= DelayBetweenShots && IsPlayerShip;
             }
         }
 
