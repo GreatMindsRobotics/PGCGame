@@ -103,7 +103,21 @@ namespace PGCGame
 
         public override void Shoot()
         {
-            base.Shoot();
+            //Glen's experiment
+            Vector2 realWc = WorldCoords;
+            WorldCoords = ParentShip.WorldCoords;
+            Bullet bullet = new Bullet(BulletTexture, WorldCoords, WorldSb);
+            Vector2 normalizedDistance = this.closestEnemyShipDistance.Value;
+            normalizedDistance.Normalize();
+            normalizedDistance *= 3f;
+            bullet.Speed = normalizedDistance;
+            bullet.UseCenterAsOrigin = true;
+            //bullet.Rotation = Rotation;
+            bullet.Damage = DamagePerShot;
+
+            FlyingBullets.Add(bullet);
+
+            WorldCoords = realWc;
         }
 
         private bool isEnemyDetected()
@@ -144,7 +158,7 @@ namespace PGCGame
 
             if (_elapsedRotationDelay > _rotationDelay)
             {
-                //Drone AI FSM
+#region Drone AI FSM
                 switch (DroneState)
                 {
                     default:
@@ -306,6 +320,7 @@ namespace PGCGame
                         break;
 
                 }
+#endregion
 
 
 
