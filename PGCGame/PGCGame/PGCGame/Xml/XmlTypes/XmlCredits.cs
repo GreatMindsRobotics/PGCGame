@@ -26,14 +26,49 @@ namespace PGCGame.Xml.XmlTypes
             public List<KeyValuePair<int, string>> Topics = new List<KeyValuePair<int, string>>();
         }
 
+        public struct Helper
+        {
+            public int ID;
+
+            public string LastName;
+            public string FirstName;
+
+            public string FullName
+            {
+                get
+                {
+                    return string.Format("{0} {1}", FirstName, LastName);
+                }
+            }
+
+            public string Job;
+
+            public Helper(XElement helperElement)
+            {
+                ID = helperElement.Attribute(XName.Get("id")).Value.ToInt();
+                Job = helperElement.Element(XName.Get("Job")).Value;
+                FirstName = helperElement.Element(XName.Get("FirstName")).Value;
+                LastName = helperElement.Element(XName.Get("FullLastName")).Value;
+            }
+        }
+
         /// <summary>
         /// List of Key-Value pairs; int WeekID, struct Student
         /// </summary>
         public List<KeyValuePair<Week, Student>> Students = new List<KeyValuePair<Week, Student>>();
 
+        public List<Helper> AllHelpers = new List<Helper>();
+
         public void LoadData()
         {
-            foreach (XElement xmlWeek in _xml.Element(XName.Get("Credits")).Descendants(XName.Get("Week")))
+            XElement rootElement = _xml.Element(XName.Get("Credits"));
+
+            foreach (XElement xmlHelper in rootElement.Element(XName.Get("UnderlyingHelpers")).Descendants(XName.Get("Helper")))
+            {
+                AllHelpers.Add(new Helper(xmlHelper));
+            }
+
+            foreach (XElement xmlWeek in rootElement.Descendants(XName.Get("Week")))
             {
                 Week week = new Week();
                 week.ID = xmlWeek.Attribute(XName.Get("id")).Value.ToInt();

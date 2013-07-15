@@ -115,6 +115,10 @@
         <FirstName>Michael</FirstName>
         <LastName>K.</LastName>
       </Student>
+      <Student id="8">
+        <FirstName>Glen</FirstName>
+        <LastName>H.</LastName>
+      </Student>
     </Students>
     <Topic id="7">Xbox Conversion</Topic>
   </Week>
@@ -126,12 +130,12 @@
       <FullLastName>Husman</FullLastName>
     </Helper>
     <Helper id="2">
-      <Job>Help Programming</Job>
+      <Job>Instructor</Job>
       <FirstName>Stan</FirstName>
       <FullLastName>Khaykin</FullLastName>
     </Helper>
     <Helper id="3">
-      <Job>Music Creation</Job>
+      <Job>Music Creator</Job>
       <FirstName>Kevin</FirstName>
       <FullLastName>MacLeod</FullLastName>
       <Songs>

@@ -18,6 +18,27 @@ using PGCGame.Xml.XmlTypes;
 
 namespace PGCGame.Screens
 {
+    class SizableCfg : ISizable
+    {
+
+        private float _height;
+
+        public float Height
+        {
+            get { return _height; }
+            set { _height = value; }
+        }
+
+        private float _width;
+
+        public float Width
+        {
+            get { return _width; }
+            set { _width = value; }
+        }
+        
+    }
+
     public class Credits : BaseScreen
     {
         private List<TextSprite> credits = new List<TextSprite>();
@@ -162,6 +183,29 @@ namespace PGCGame.Screens
                 student.Color = Color.White;
                 student.Y = credits[credits.Count - 1].Y + credits[credits.Count - 1].Height + (_creditsFont.LineSpacing - _creditsFont.MeasureString("A").Y);
                 credits.Add(student);
+            }
+
+
+
+            TextSprite helperLabel = new TextSprite(Sprites.SpriteBatch, _boldCreditsFont, "\n\n\n\nHelpers\n", Color.White);
+            helperLabel.X = helperLabel.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X;
+            helperLabel.Y = credits[credits.Count - 1].Y + credits[credits.Count - 1].Height + (_creditsFont.LineSpacing - _creditsFont.MeasureString("A").Y);
+            credits.Add(helperLabel);
+
+            foreach (PGCGame.Xml.XmlTypes.XmlCredits.Helper assistant in _xmlCredits.AllHelpers)
+            {
+                float targetY = credits[credits.Count - 1].Y + credits[credits.Count - 1].Height + (_creditsFont.LineSpacing - _creditsFont.MeasureString("A").Y);
+                TextSprite name = new TextSprite(Sprites.SpriteBatch, new Vector2(0, targetY), _boldCreditsFont, assistant.FullName, Color.White);
+                TextSprite job = new TextSprite(Sprites.SpriteBatch, new Vector2(0, targetY), _creditsFont, string.Format(" - {0}\n", assistant.Job), Color.White);
+                SizableCfg temp = new SizableCfg();
+                temp.Width = name.Width + job.Width;
+                temp.Height = (name.Height + job.Height) / 2;
+                name.X = temp.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X;
+                job.X = name.X + name.Width;
+                name.Y = targetY;
+                job.Y = targetY;
+                credits.Add(name);
+                credits.Add(job);
             }
 
             //The IEnumerable cast method
