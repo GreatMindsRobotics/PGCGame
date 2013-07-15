@@ -178,16 +178,23 @@ namespace PGCGame.Screens
             }
 
             TShip ship = null;
-            if (typeof(TShip) == typeof(FighterCarrier))
+            
+            //Can't compare on a type
+            //These are full type names, if we change a namespace, this must change
+            switch (typeof(TShip).FullName)
             {
-                ship = new FighterCarrier(null, Vector2.Zero, playerSb, GameContent.GameAssets.Images.Ships[ShipType.Drone, ShipTier.Tier1]).Cast<TShip>();
-            }
-            else
-            {
-                ship = Activator.CreateInstance(typeof(TShip), null, Vector2.Zero, playerSb).Cast<TShip>();
+                case "PGCGame.BattleCruiser":
+                    ship = new BattleCruiser(GameContent.GameAssets.Images.Ships[ShipType.BattleCruiser, tier], Vector2.Zero, this.playerSb).Cast<TShip>();
+                    break;
+                case "PGCGame.FighterCarrier":
+                    ship = new FighterCarrier(GameContent.GameAssets.Images.Ships[ShipType.FighterCarrier, tier], Vector2.Zero, playerSb, GameContent.GameAssets.Images.Ships[ShipType.Drone, ShipTier.Tier1]).Cast<TShip>();
+                    break;
+                case "PGCGame.TorpedoShip":
+                    ship = new TorpedoShip(GameContent.GameAssets.Images.Ships[ShipType.TorpedoShip, tier], Vector2.Zero, playerSb).Cast<TShip>();
+                    break;
             }
 
-            ship.Texture = GameContent.GameAssets.Images.Ships[ship.ShipType, ShipTier.Tier1];
+
             ship.UseCenterAsOrigin = true;
             ship.WorldSb = Sprites.SpriteBatch;
             ship.Tier = tier;
@@ -332,8 +339,8 @@ namespace PGCGame.Screens
 
             BackgroundSprite bg = BackgroundSprite.Cast<BackgroundSprite>();
             //TODO: UPDATE SPRITES
-            KeyboardState keyboard = Keyboard.GetState();            
-            
+            KeyboardState keyboard = Keyboard.GetState();
+
             if (_lastState.IsKeyUp(Keys.Escape) && keyboard.IsKeyDown(Keys.Escape))
             {
                 StateManager.ScreenState = ScreenType.Pause;
