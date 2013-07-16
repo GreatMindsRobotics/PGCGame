@@ -25,11 +25,15 @@ namespace PGCGame
         {
             foreach (Ship ship in StateManager.ActiveShips)
             {
-                if(Intersects(ship))
+                foreach (Bullet b in ShrinkRayBullets)
                 {
-                    ship.Scale *= .66f;
-                    ship.CurrentHealth = (ship.CurrentHealth * .66f).Round();
-                    FireKilledEvent();
+                    if (b.Intersects(ship))
+                    {
+                        ship.Scale *= .66f;
+                        ship.CurrentHealth = (ship.CurrentHealth * .66f).Round();
+                        b.IsDead = true;
+                        FireKilledEvent();
+                    }
                 }
             }
             if (ShotBullet && !ShouldDraw)
