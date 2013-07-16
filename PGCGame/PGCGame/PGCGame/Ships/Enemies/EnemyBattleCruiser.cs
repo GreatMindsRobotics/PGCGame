@@ -10,9 +10,9 @@ using PGCGame.CoreTypes;
 
 namespace PGCGame.Ships.Enemies
 {
-    public class EnemyDrone : BaseEnemyShip
+    public class EnemyBattleCruiser : BaseEnemyShip
     {
-        public EnemyDrone(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
+        public EnemyBattleCruiser(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
             : base(texture, location, spriteBatch)
         {
             Scale = new Vector2(.75f);
@@ -26,10 +26,10 @@ namespace PGCGame.Ships.Enemies
 
         public override ShipType ShipType
         {
-            get { return ShipType.Drone; }
+            get { return ShipType.EnemyBattleCruiser; }
         }
 
-        static EnemyDrone()
+        static EnemyBattleCruiser()
         {
             _friendlyName = "Enemy Ship";
         }
