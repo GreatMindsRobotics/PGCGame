@@ -57,33 +57,6 @@ namespace PGCGame
             _healthBar.Position = new Vector2(X - (_healthBar.Width / 2), Y - (Height / 1.5f));
         }
 
-        public bool DronesShooting()
-        {
-            Boolean hasReturned = false;
-            foreach (Ship d in StateManager.ActiveShips)
-            {
-                if (d.ShipType == ShipType.Drone && d.PlayerType == CoreTypes.PlayerType.Ally)
-                {
-                    if (hasReturned == false)
-                    {
-                        return (d.Cast<Drone>().DroneState == DroneState.TargetAcquired);
-                    }
-                    if (d.Cast<Drone>().DroneState == DroneState.TargetAcquired)
-                    {
-                        hasReturned = true;
-                    }
-                }
-            }
-            if (!hasReturned)
-            {
-                return (false);
-            }
-            else
-            {
-                return (true);
-            }
-        }
-
         public PlayerType PlayerType { get; set; }
 
 
