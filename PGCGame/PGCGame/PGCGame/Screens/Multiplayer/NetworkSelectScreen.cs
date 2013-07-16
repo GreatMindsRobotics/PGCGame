@@ -156,7 +156,7 @@ namespace PGCGame.Screens.Multiplayer
         }
 
 #if XBOX
-        GamePadButtonEnumerator AllButtons
+        GamePadButtonEnumerator AllButtons;
 #elif WINDOWS
         //Preventing clickthrus
        // TimeSpan elapsedButtonDelay = TimeSpan.Zero;
