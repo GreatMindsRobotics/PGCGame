@@ -17,11 +17,11 @@ namespace PGCGame.Ships.Enemies
         {
             Scale = new Vector2(.75f);
 
-            DamagePerShot = 5;
-            MovementSpeed = new Vector2(.9f);
-            _initHealth = 1;
+            DamagePerShot = 10;
+            MovementSpeed = new Vector2(.7f);
+            _initHealth = 80;
 
-            BulletTexture = GameContent.GameAssets.Images.Ships.Bullets[CoreTypes.ShipType.Drone, ShipTier.Tier1];
+            BulletTexture = GameContent.GameAssets.Images.Ships.Bullets[ShipType.BattleCruiser, ShipTier.Tier1];
         }
 
         public override ShipType ShipType

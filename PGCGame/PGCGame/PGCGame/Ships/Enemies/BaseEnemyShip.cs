@@ -77,20 +77,14 @@ namespace PGCGame.Ships.Enemies
                 {
                     if (allyShip.PlayerType != CoreTypes.PlayerType.Enemy)
                     {
-                        Boolean isActivated = false;
                         foreach (Bullet b in allyShip.FlyingBullets)
                         {
-                            bulletDistanceX = Math.Abs(Math.Abs(b.X) - Math.Abs(this.X));
-                            bulletDistanceY = Math.Abs(Math.Abs(b.Y) - Math.Abs(this.Y));
+                            bulletDistanceX = Math.Abs(b.X - this.X);
+                            bulletDistanceY = Math.Abs(b.Y - this.Y);
                             bulletDistance = bulletDistanceX + bulletDistanceY;
                             if (Math.Pow(bulletDistance.Value, 2) < Math.Pow(600, 2))
                             {
-                                isActivated = true;
                                 activated = true;
-                            }
-                            else
-                            {
-                                activated = false;
                             }
 
                         }
@@ -110,21 +104,17 @@ namespace PGCGame.Ships.Enemies
                         }
                         if (closestAllyShipDistance.Value.LengthSquared() < Math.Pow(600, 2) && closestAllyShip.CurrentHealth > 0)
                         {
-                            isActivated = true;
                             activated = true;
-                        }
-                        else if (!isActivated)
-                        {
-                            activated = false;
                         }
                     }
                 }
 
-                _elapsedRotationDelay += gt.ElapsedGameTime;
 
-                if (_elapsedRotationDelay > _rotationDelay)
+                if (closestAllyShipDistance.HasValue && closestAllyShip != null && activated)
                 {
-                    if (closestAllyShipDistance.HasValue && closestAllyShip != null && activated)
+                    _elapsedRotationDelay += gt.ElapsedGameTime;
+
+                    if (_elapsedRotationDelay > _rotationDelay)
                     {
                         float angle = closestAllyShipDistance.Value.ToAngle();
 
@@ -142,36 +132,36 @@ namespace PGCGame.Ships.Enemies
                                 Rotation.Radians += .025f;
                             }
                         }
-                        if (closestAllyShipDistance.Value.LengthSquared() > Math.Pow(400, 2))
+                    }
+                    if (closestAllyShipDistance.Value.LengthSquared() > Math.Pow(400, 2))
+                    {
+                        //Rotation.Vector.Normalize();
+                        //Rotation.Vector *= .1f;
+                        this.Speed = MovementSpeed * Rotation.Vector;
+                    }
+                    else
+                    {
+                        this.Speed = Vector2.Zero;
+                        if (!_delayTillNextFire.HasValue)
                         {
-                            //Rotation.Vector.Normalize();
-                            //Rotation.Vector *= .1f;
-                            this.Speed = MovementSpeed * Rotation.Vector;
+                            _delayTillNextFire = StateManager.RandomGenerator.NextTimeSpan(_minFireRate, _maxFireRate);
+                        }
+                        else if (_delayTillNextFire.Value.Milliseconds <= 0)
+                        {
+                            Shoot();
+                            _delayTillNextFire = null;
                         }
                         else
                         {
-                            this.Speed = Vector2.Zero;
-                            if (!_delayTillNextFire.HasValue)
-                            {
-                                _delayTillNextFire = StateManager.RandomGenerator.NextTimeSpan(_minFireRate, _maxFireRate);
-                            }
-                            else if (_delayTillNextFire.Value.Milliseconds <= 0)
-                            {
-                                Shoot();
-                                _delayTillNextFire = null;
-                            }
-                            else
-                            {
-                                _delayTillNextFire -= gt.ElapsedGameTime;
-                            }
-
-
+                            _delayTillNextFire -= gt.ElapsedGameTime;
                         }
                     }
 
-                    _elapsedRotationDelay = TimeSpan.Zero;
                 }
+
+                _elapsedRotationDelay = TimeSpan.Zero;
             }
+
             else
             {
                 this.Speed = Vector2.Zero;
@@ -181,9 +171,10 @@ namespace PGCGame.Ships.Enemies
                     isEMPed = false;
                     _elapsedEMPDelay = TimeSpan.Zero;
                 }
- 
+
             }
             base.Update(gt);
         }
     }
 }
+
