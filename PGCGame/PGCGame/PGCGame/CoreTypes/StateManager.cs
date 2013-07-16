@@ -28,7 +28,8 @@ namespace PGCGame
 
         #region Public Fields
 
-        public static Boolean isWSFirstUpdate = true;
+        public static bool IsWSFirstUpdate = true;
+        public static bool IsShipUpgraded = false;
 
         public static ShipType SelectedShip;
         public static ShipTier SelectedTier;
@@ -59,7 +60,7 @@ namespace PGCGame
         Guid _enemyID = Guid.NewGuid();
         _spaceBucks = 200000;
         SpaceBucks = _spaceBucks;
-        isWSFirstUpdate = true;
+        IsWSFirstUpdate = true;
         PowerUps = new LinkedList<SecondaryWeapon>();
         }
 
@@ -215,6 +216,9 @@ namespace PGCGame
         /// <param name="tier">Ship tier</param>
         public static void InitializeSingleplayerGameScreen<T>(ShipTier tier) where T : PGCGame.Ships.Allies.BaseAllyShip
         {
+            //Save current tier
+            SelectedTier = tier;
+            
             AllScreens[ScreenType.Game.ToString()].Cast<Screens.GameScreen>().InitializeScreen<T>(tier);
         }
 

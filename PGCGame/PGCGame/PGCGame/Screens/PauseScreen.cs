@@ -243,6 +243,14 @@ namespace PGCGame.Screens
                     }
                     if (mouseInShopButton)
                     {
+                        //If we previously upgraded the ship, refresh shop screen to reflect the upgrade
+                        if (StateManager.IsShipUpgraded)
+                        {
+                            StateManager.AllScreens[ScreenType.TierSelect.ToString()].Cast<BaseSelectScreen>().InitScreen(CoreTypes.ScreenType.TierSelect);
+                            StateManager.IsShipUpgraded = false;
+                        }
+
+                        //Go to shop
                         StateManager.ScreenState = ScreenType.Shop;
                         ShopLabel.IsSelected = false;
                     }

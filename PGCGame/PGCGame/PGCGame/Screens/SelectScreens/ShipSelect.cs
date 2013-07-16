@@ -95,6 +95,7 @@ namespace PGCGame.Screens
             {
                 StateManager.SelectedShip = ShipType.TorpedoShip;
             }
+
             //TODO: Tiers
             StateManager.SelectedTier = ShipTier.Tier1;
 

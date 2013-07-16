@@ -136,6 +136,9 @@ namespace PGCGame.Screens
 
         public void InitializeScreen<TShip>(ShipTier tier) where TShip : BaseAllyShip
         {
+            //Reset any active ships, since we're re-initializing the game screen
+            StateManager.ActiveShips.Clear();
+
             //Reset music
             _gameHasStarted = false;
             //_allowMusicHandling = false;
