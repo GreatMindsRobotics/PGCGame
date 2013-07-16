@@ -19,7 +19,8 @@ namespace PGCGame.CoreTypes
         UpgradeScreen,
         TierSelect,
         LevelSelect,
-        ControlScreen
+        ControlScreen,
+        NetworkSelectScreen
     }
 
     public enum ScreenBackgrounds

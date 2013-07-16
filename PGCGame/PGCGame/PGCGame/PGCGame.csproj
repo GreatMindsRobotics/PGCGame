@@ -88,6 +88,7 @@
     <Compile Include="Screens\Credits.cs" />
     <Compile Include="Screens\GameScreen.cs" />
     <Compile Include="Screens\MainMenu.cs" />
+    <Compile Include="Screens\Multiplayer\NetworkSelectScreen.cs" />
     <Compile Include="Screens\Options.cs" />
     <Compile Include="Screens\PauseScreen.cs" />
     <Compile Include="Screens\SelectScreens\BaseSelectScreen.cs" />

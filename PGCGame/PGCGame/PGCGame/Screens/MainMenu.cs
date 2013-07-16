@@ -184,9 +184,6 @@ namespace PGCGame.Screens
             AdditionalSprites.Add(CreditsLabel);
 
 #if XBOX
-            
-#endif
-#if XBOX
             AllButtons = new GamePadButtonEnumerator(new TextSprite[,] { { SinglePlayerLabel, OptionsLabel }, { MultiPlayerLabel, CreditsLabel }, { BackLabel, null } }, InputType.LeftJoystick);
             AllButtons.ButtonPress += new EventHandler(AllButtons_ButtonPress);
             SinglePlayerLabel.IsSelected = true;
@@ -195,6 +192,7 @@ namespace PGCGame.Screens
             CreditsLabel.Clicked += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.Credits; } });
             OptionsLabel.Clicked += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.Options; } });
             SinglePlayerLabel.Clicked += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.ShipSelect; } });
+            MultiPlayerLabel.Clicked += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.NetworkSelectScreen; } });
 #endif
         }
 

@@ -17,6 +17,7 @@ using PGCGame.Screens;
 using PGCGame.Screens.SelectScreens;
 using Glib.XNA.InputLib;
 using PGCGame.CoreTypes;
+using PGCGame.Screens.Multiplayer;
 
 namespace PGCGame
 {
@@ -43,6 +44,7 @@ namespace PGCGame
         GameScreen gameScreen;
         Shop shopScreen;
         ControlScreen controlScreen;
+        NetworkSelectScreen networkScreen;
 
 
         public Game1()
@@ -124,7 +126,10 @@ namespace PGCGame
             levelSelectScreen = new LevelSelect(spriteBatch);
             levelSelectScreen.InitScreen(ScreenType.LevelSelect);
 
-            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen, shipSelectScreen, weaponSelectScreen, upgradeScreen, tierSelectScreen, levelSelectScreen, controlScreen);
+            networkScreen = new NetworkSelectScreen(spriteBatch);
+            networkScreen.InitScreen(ScreenType.NetworkSelectScreen);
+
+            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen, shipSelectScreen, weaponSelectScreen, upgradeScreen, tierSelectScreen, levelSelectScreen, controlScreen, networkScreen);
             StateManager.AllScreens = screenManager;
             StateManager.ScreenState = CoreTypes.ScreenType.Title;
         }
