@@ -34,7 +34,6 @@ namespace PGCGame.Screens.SelectScreens
 
            Texture2D tempImage = GameContent.GameAssets.Images.NonPlayingObjects.Planet;
            Texture2D ScannerImage = GameContent.GameAssets.Images.Equipment[EquipmentType.Scanner, TextureDisplayType.ShopDisplay];
-           Texture2D HealthPack = GameContent.GameAssets.Images.Equipment[EquipmentType.HealthPack, TextureDisplayType.ShopDisplay];
            SpriteFont font = GameContent.GameAssets.Fonts.NormalText;
 
           
@@ -51,19 +50,6 @@ namespace PGCGame.Screens.SelectScreens
             itemsShown.Add(new KeyValuePair<Sprite, string>(Scanner, StateManager.SpaceBucks.ToString()));
             items.Add(new KeyValuePair<Sprite, TextSprite>(Scanner, text4));
 
-           //repair
-
-            Sprite Repair = new Sprite(HealthPack, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.6f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.1f), Sprites.SpriteBatch);
-            TextSprite text5 = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.1f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 1.5f), font, "Repair", Color.White);
-            text5.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.01f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.01f);
-            Repair.Scale = new Vector2(0.5f, 0.5f);
-            itemsShown.Add(new KeyValuePair<Sprite, string>(Repair, text5.ToString()));
-            items.Add(new KeyValuePair<Sprite, TextSprite>(Repair, text5));
-
-
-           
-
-
            ChangeItem += new EventHandler(UpgradeScreen_ChangeItem);
 
            nextButtonClicked += new EventHandler(UpgradeScreen_nextButtonClicked);
@@ -79,7 +65,7 @@ namespace PGCGame.Screens.SelectScreens
            {
                if (item.Key == items[selected].Key)
                {
-                   //todo: buying logic
+                   StateManager.HasBoughtScanner = true;
                    break;
                }
            }
