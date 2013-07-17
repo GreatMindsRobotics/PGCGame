@@ -20,6 +20,10 @@ namespace PGCGame.Screens
 {
     public class PauseScreen : BaseScreen
     {
+#if XBOX
+        GamePadButtonEnumerator AllButtons;
+#endif
+
         TextSprite ExitLabel;
         TextSprite PauseLabel;
         TextSprite ResumeLabel;
@@ -48,77 +52,107 @@ namespace PGCGame.Screens
             PauseLabel.Color = Color.White;
             AdditionalSprites.Add(PauseLabel);
 
+
             ResumeButton = new Sprite(button, Vector2.Zero, Sprites.SpriteBatch);
             ResumeButton.Position = new Vector2(ResumeButton.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .2f);
-#if WINDOWS
-            ResumeButton.MouseEnter += new EventHandler(ResumeButton_MouseEnter);
-            ResumeButton.MouseLeave += new EventHandler(ResumeButton_MouseLeave);
-#endif 
             Sprites.Add(ResumeButton);
 
-
-
-            ExitButton = new Sprite(button, new Vector2(ResumeButton.X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .8f), Sprites.SpriteBatch);
-            
-#if WINDOWS
-            ExitButton.MouseEnter += new EventHandler(BackButton_MouseEnter);
-            ExitButton.MouseLeave += new EventHandler(BackButton_MouseLeave);
-#endif 
-            Sprites.Add(ExitButton);
-
             ResumeLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "Resume");
-            ResumeLabel.Position = new Vector2(ResumeLabel.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X, ResumeButton.Y + (ResumeButton.Height / 2 - ResumeLabel.Height / 2));
+            ResumeLabel.ParentSprite = ResumeButton;
             ResumeLabel.Color = Color.White;
             ResumeLabel.IsHoverable = true;
-            ResumeLabel.IsManuallySelectable = true;
             ResumeLabel.HoverColor = Color.MediumAquamarine;
             ResumeLabel.NonHoverColor = Color.White;
             AdditionalSprites.Add(ResumeLabel);
 
+            ExitButton = new Sprite(button, new Vector2(ResumeButton.X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .8f), Sprites.SpriteBatch);
+            Sprites.Add(ExitButton);
+
+            
+
             ExitLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "Exit");
-            ExitLabel.Position = new Vector2(ExitLabel.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X, ExitButton.Y + (ExitButton.Height / 2 - ExitLabel.Height / 2));
             ExitLabel.Color = Color.White;
             ExitLabel.IsHoverable = true;
-            ExitLabel.IsManuallySelectable = true;
+            ExitLabel.ParentSprite = ExitButton;
             ExitLabel.HoverColor = Color.MediumAquamarine;
             ExitLabel.NonHoverColor = Color.White;
             AdditionalSprites.Add(ExitLabel);
 
             ShopButton = new Sprite(button, Vector2.Zero, Sprites.SpriteBatch);
             ShopButton.Position = new Vector2(ResumeButton.X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .53f);
-            
-#if WINDOWS
-            ShopButton.MouseEnter += new EventHandler(ShopButton_MouseEnter);
-            ShopButton.MouseLeave += new EventHandler(ShopButton_MouseLeave);
-#endif 
             Sprites.Add(ShopButton);
 
             ShopLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "Shop");
-            ShopLabel.Position = new Vector2(ShopLabel.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X, ShopButton.Y + (ShopButton.Height / 2 - ShopLabel.Height / 2));
             ShopLabel.Color = Color.White;
             ShopLabel.IsHoverable = true;
-            ShopLabel.IsManuallySelectable = true;
+            ShopLabel.ParentSprite = ShopButton;
             ShopLabel.HoverColor = Color.MediumAquamarine;
             ShopLabel.NonHoverColor = Color.White;
             AdditionalSprites.Add(ShopLabel);
 
             OptionButton = new Sprite(button, Vector2.Zero, Sprites.SpriteBatch);
             OptionButton.Position = new Vector2(ResumeButton.X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .37f);
-            
-#if WINDOWS
-            OptionButton.MouseEnter += new EventHandler(OptionButton_MouseEnter);
-            OptionButton.MouseLeave += new EventHandler(OptionButton_MouseLeave);
-#endif 
             Sprites.Add(OptionButton);
 
             OptionsLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "Options");
-            OptionsLabel.Position = new Vector2(OptionsLabel.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X, OptionButton.Y + (OptionButton.Height / 2 - OptionsLabel.Height / 2));
+            OptionsLabel.ParentSprite = OptionButton;
             OptionsLabel.Color = Color.White;
             OptionsLabel.IsHoverable = true;
-            OptionsLabel.IsManuallySelectable = true;
             OptionsLabel.HoverColor = Color.MediumAquamarine;
             OptionsLabel.NonHoverColor = Color.White;
             AdditionalSprites.Add(OptionsLabel);
+#if XBOX
+            AllButtons = new GamePadButtonEnumerator(new TextSprite[,]
+                {
+                    {ResumeLabel},
+                    {OptionsLabel},
+                    {ShopLabel},
+                    {ExitLabel}
+                }, InputType.LeftJoystick);
+            AllButtons.FireTextSpritePressed = true;
+
+            ResumeLabel.Pressed += new EventHandler(ResumeLabel_Pressed);
+            ExitLabel.Pressed += new EventHandler(ExitLabel_Pressed);
+            ShopLabel.Pressed += new EventHandler(ShopLabel_Pressed);
+            OptionsLabel.Pressed += new EventHandler(OptionsLabel_Pressed);
+#elif WINDOWS
+            ResumeLabel.Clicked += new EventHandler(ResumeLabel_Pressed);
+            ExitLabel.Clicked += new EventHandler(ExitLabel_Pressed);
+            ShopLabel.Clicked += new EventHandler(ShopLabel_Pressed);
+            OptionsLabel.Clicked += new EventHandler(OptionsLabel_Pressed);
+#endif
+        }
+
+        void OptionsLabel_Pressed(object sender, EventArgs e)
+        {
+            StateManager.ScreenState = ScreenType.Options;
+            OptionsLabel.IsSelected = false;
+        }
+
+        void ShopLabel_Pressed(object sender, EventArgs e)
+        {
+            //If we previously upgraded the ship, refresh shop screen to reflect the upgrade
+            if (StateManager.IsShipUpgraded)
+            {
+                StateManager.AllScreens[ScreenType.TierSelect.ToString()].Cast<BaseSelectScreen>().InitScreen(CoreTypes.ScreenType.TierSelect);
+                StateManager.IsShipUpgraded = false;
+            }
+
+            //Go to shop
+            StateManager.ScreenState = ScreenType.Shop;
+            ShopLabel.IsSelected = false;
+        }
+
+        void ExitLabel_Pressed(object sender, EventArgs e)
+        {
+            StateManager.ScreenState = ScreenType.MainMenu;
+            StateManager.Reset();
+            StateManager.ActiveShips.Clear();
+        }
+
+        void ResumeLabel_Pressed(object sender, EventArgs e)
+        {
+            StateManager.GoBack();
         }
 
         public KeyboardState lastState;
@@ -140,79 +174,6 @@ namespace PGCGame.Screens
             OptionsLabel.Position = new Vector2(OptionsLabel.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X, OptionButton.Y + (OptionButton.Height / 2 - OptionsLabel.Height / 2));
         }
 
-        void OptionButton_MouseLeave(object sender, EventArgs e)
-        {
-            OptionsLabel.IsSelected = false;
-        }
-
-        void OptionButton_MouseEnter(object sender, EventArgs e)
-        {
-            OptionsLabel.IsSelected = true;   
-        }
-
-        void ShopButton_MouseLeave(object sender, EventArgs e)
-        {
-            ShopLabel.IsSelected = false;
-        }
-
-        void ShopButton_MouseEnter(object sender, EventArgs e)
-        {
-            ShopLabel.IsSelected = true;
-        }
-
-        void ResumeButton_MouseLeave(object sender, EventArgs e)
-        {
-            ResumeLabel.IsSelected = false;
-        }
-
-        void ResumeButton_MouseEnter(object sender, EventArgs e)
-        {
-            ResumeLabel.IsSelected = true;
-        }
-
-        public bool mouseInExitButton
-        {
-            get
-            {
-                return ExitLabel.IsSelected;
-            }
-        }
-
-        public bool mouseInResumeButton
-        {
-            get
-            {
-                return ResumeLabel.IsSelected;
-            }
-        }
-
-        public bool mouseInShopButton
-        {
-            get
-            {
-                return ShopLabel.IsSelected;
-            }
-        }
-
-        public bool mouseInOptionsButton
-        {
-            get
-            {
-                return OptionsLabel.IsSelected;
-            }
-        }
-
-        void BackButton_MouseLeave(object sender, EventArgs e)
-        {
-            ExitLabel.IsSelected = false;
-        }
-
-        void BackButton_MouseEnter(object sender, EventArgs e)
-        {
-            ExitLabel.IsSelected = true;
-        }
-
-
 
         public override void Update(GameTime gameTime)
         {
@@ -223,47 +184,8 @@ namespace PGCGame.Screens
                 StateManager.GoBack();
                 return;
             }
-
-#if WINDOWS
-            if (mouseInResumeButton || mouseInExitButton || mouseInShopButton || mouseInOptionsButton)
-            {
-                MouseState ms = MouseManager.CurrentMouseState;
-                if (ms.LeftButton == ButtonState.Pressed)
-                {
-                    if (mouseInResumeButton)
-                    {
-                        StateManager.GoBack();
-                    }
-
-                    if (mouseInExitButton)
-                    {
-                        StateManager.ScreenState = ScreenType.MainMenu;
-                        StateManager.Reset();
-                        StateManager.ActiveShips.Clear();
-                    }
-                    if (mouseInShopButton)
-                    {
-                        //If we previously upgraded the ship, refresh shop screen to reflect the upgrade
-                        if (StateManager.IsShipUpgraded)
-                        {
-                            StateManager.AllScreens[ScreenType.TierSelect.ToString()].Cast<BaseSelectScreen>().InitScreen(CoreTypes.ScreenType.TierSelect);
-                            StateManager.IsShipUpgraded = false;
-                        }
-
-                        //Go to shop
-                        StateManager.ScreenState = ScreenType.Shop;
-                        ShopLabel.IsSelected = false;
-                    }
-
-                    if (mouseInOptionsButton)
-                    {
-                        StateManager.ScreenState = ScreenType.Options;
-                        OptionsLabel.IsSelected = false;
-                    }
-
-                }
-
-            }
+#if XBOX
+            AllButtons.Update(gameTime);
 #endif
             lastState = current;
         }
