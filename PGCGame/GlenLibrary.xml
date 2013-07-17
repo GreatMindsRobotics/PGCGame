@@ -155,7 +155,7 @@
         </member>
         <member name="M:Glib.Services.Service.Main">
             <summary>
-            The main service code. that runs repeatedly every tick of ServiceTimer.
+            The main service code, that runs repeatedly every tick of ServiceTimer.
             </summary>
         </member>
         <member name="F:Glib.Services.Service.ServiceTimer">

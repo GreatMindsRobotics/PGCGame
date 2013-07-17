@@ -135,6 +135,11 @@
             Does not begin or end the SpriteBatch.
             </summary>
         </member>
+        <member name="E:Glib.XNA.SpriteLib.TextSprite.Pressed">
+            <summary>
+            If this button is in a GamePadButtonEnumerator, an event fired when the TextSprite is pressed.
+            </summary>
+        </member>
         <member name="P:Glib.XNA.SpriteLib.TextSprite.ParentSprite">
             <summary>
             Gets or sets the parent sprite (such as a button image) of this TextSprite.
@@ -2578,6 +2583,11 @@
             <remarks>
             This class depends on the GamePadManager. Ensure you have an InputManagerComponent in your Game before using this class.
             </remarks>
+        </member>
+        <member name="F:Glib.XNA.InputLib.GamePadButtonEnumerator.FireTextSpritePressed">
+            <summary>
+            If this boolean is true, instead of firing ButtonPress, the GamePadButtonEnumerator will fire Pressed on the TextSprite selected at the time of button press.
+            </summary>
         </member>
         <member name="F:Glib.XNA.InputLib.GamePadButtonEnumerator.Input">
             <summary>
