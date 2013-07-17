@@ -230,6 +230,7 @@ namespace PGCGame
                             else
                             {
                                 distanceToParentOrigin.Normalize();
+                                OriginType = SpriteOriginType.Custom;
                                 Origin += distanceToParentOrigin;
                             }
                         }
@@ -329,6 +330,7 @@ namespace PGCGame
                         else
                         {
                             distanceToParentCenter.Normalize();
+                            OriginType = SpriteOriginType.Custom;
                             Origin -= distanceToParentCenter;
                         }
                         break;
