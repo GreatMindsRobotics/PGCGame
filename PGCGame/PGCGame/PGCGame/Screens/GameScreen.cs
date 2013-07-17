@@ -136,6 +136,9 @@ namespace PGCGame.Screens
 
         public void InitializeScreen<TShip>(ShipTier tier) where TShip : BaseAllyShip
         {
+            //Reset any active ships, since we're re-initializing the game screen
+            StateManager.ActiveShips.Clear();
+
             //Reset music
             _gameHasStarted = false;
             //_allowMusicHandling = false;
@@ -154,7 +157,7 @@ namespace PGCGame.Screens
             for (int i = 0; i < 4; i++)
             {
                 Texture2D enemyTexture = GameContent.GameAssets.Images.Ships[ShipType.Drone, StateManager.RandomGenerator.NextShipTier(ShipTier.Tier1, ShipTier.Tier2)];
-                EnemyDrone enemy = new EnemyDrone(GameContent.GameAssets.Images.Ships[ShipType.EnemyBattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
+                EnemyBattleCruiser enemy = new EnemyBattleCruiser(GameContent.GameAssets.Images.Ships[ShipType.EnemyBattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
 
                 enemy.WorldCoords = StateManager.RandomGenerator.NextVector2(minSpawnArea, maxSpawnArea);
 
@@ -213,7 +216,8 @@ namespace PGCGame.Screens
             playerShip.RotateTowardsMouse = true;
             playerSbObjects.Add(ship);
 
-            playerShip.InitialHealth = 100;
+            //TODO: Tier change event handles this
+            //playerShip.InitialHealth = 100;
 
             //Set as own ship
             playerShip.PlayerType = PlayerType.MyShip;

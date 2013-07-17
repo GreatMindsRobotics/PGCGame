@@ -155,7 +155,7 @@
         </member>
         <member name="M:Glib.Services.Service.Main">
             <summary>
-            The main service code. that runs repeatedly every tick of ServiceTimer.
+            The main service code, that runs repeatedly every tick of ServiceTimer.
             </summary>
         </member>
         <member name="F:Glib.Services.Service.ServiceTimer">
@@ -497,6 +497,11 @@
         <member name="E:Glib.XNA.SpriteLib.TextSprite.Clicked">
             <summary>
             An event fired after every click of this TextSprite.
+            </summary>
+        </member>
+        <member name="E:Glib.XNA.SpriteLib.TextSprite.Pressed">
+            <summary>
+            An event fired after every click or keyboard selection of this TextSprite.
             </summary>
         </member>
         <member name="P:Glib.XNA.SpriteLib.TextSprite.IsSelected">
@@ -1334,7 +1339,7 @@
             <summary>
             The scale-sensitive center of the sprite.
             Setting this property is experimental.
-            This property will break with UseCenterAsOrigin.
+            This property will break with OriginType as Center or Custom.
             </summary>
         </member>
         <member name="P:Glib.XNA.SpriteLib.Sprite.X">
@@ -1380,6 +1385,11 @@
         <member name="P:Glib.XNA.SpriteLib.Sprite.Rectangle">
             <summary>
             Gets an approximate Rectangle representing the area covered by this Sprite.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.Sprite.OriginType">
+            <summary>
+            Gets or sets an enum representing the type of the origin of this Sprite.
             </summary>
         </member>
         <member name="P:Glib.XNA.SpriteLib.Sprite.Origin">
@@ -2142,6 +2152,26 @@
             Update this ISprite.
             </summary>
             <param name="updating">The ISprite to update.</param>
+        </member>
+        <member name="T:Glib.XNA.SpriteLib.SpriteOriginType">
+            <summary>
+            An enum indicating the origin type of a Sprite.
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.SpriteLib.SpriteOriginType.Zero">
+            <summary>
+            The origin is located at 0,0 relative to the Sprite. This is the default.
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.SpriteLib.SpriteOriginType.Center">
+            <summary>
+            The origin is located at the center of the Sprite.
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.SpriteLib.SpriteOriginType.Custom">
+            <summary>
+            The origin is a user-specified value.
+            </summary>
         </member>
         <member name="T:Glib.XNA.InputLib.ScreenRegion">
             <summary>

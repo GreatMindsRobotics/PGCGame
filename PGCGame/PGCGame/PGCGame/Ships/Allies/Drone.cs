@@ -179,7 +179,7 @@ namespace PGCGame
                     case CoreTypes.DroneState.Stowed:
                         //Drone is stowed on the Figher Carrier; wait for deploy command. This is the default state
 #if WINDOWS
-                        if (keyboard.IsKeyDown(_deployKey) && _lastKs != null && !_lastKs.IsKeyDown(Keys.LeftShift))
+                        if (keyboard.IsKeyDown(_deployKey) && _lastKs != null && _lastKs.IsKeyUp(_deployKey))
                         {
                             DroneState = DroneState.Deploying;
                         }
@@ -196,7 +196,7 @@ namespace PGCGame
                         //Deploy command was given; allow "Stow" command (same key as deploy); else, continue deploying
 
 #if WINDOWS
-                        if (keyboard.IsKeyDown(_deployKey) && _lastKs != null && !_lastKs.IsKeyDown(Keys.LeftShift) && OtherDroneShooting())
+                        if (keyboard.IsKeyDown(_deployKey) && _lastKs != null && _lastKs.IsKeyUp(_deployKey) && !OtherDroneShooting())
                         {
                             DroneState = DroneState.Stowing;
 
@@ -204,7 +204,7 @@ namespace PGCGame
                             return;
                         }
 #elif XBOX
-                        if(_xboxDroneDeployTriggered && OtherDroneShooting())
+                        if(_xboxDroneDeployTriggered && !OtherDroneShooting())
                         {
                             DroneState = DroneState.Stowing;
                             _xboxDroneDeployTriggered = false;
@@ -239,7 +239,7 @@ namespace PGCGame
                     case CoreTypes.DroneState.Deployed:
                         //Drone is deployed; monitor for enemies, and listen for "Stow" command (same key as deploy)s
 #if WINDOWS
-                        if (keyboard.IsKeyDown(_deployKey) && _lastKs != null && !_lastKs.IsKeyDown(Keys.LeftShift) && OtherDroneShooting())
+                        if (keyboard.IsKeyDown(_deployKey) && _lastKs != null && _lastKs.IsKeyUp(_deployKey) && !OtherDroneShooting())
                         {
                             DroneState = DroneState.Stowing;
 
@@ -247,7 +247,7 @@ namespace PGCGame
                             return;
                         }
 #elif XBOX
-                        if(_xboxDroneDeployTriggered && OtherDroneShooting())
+                        if(_xboxDroneDeployTriggered && !OtherDroneShooting())
                         {
                             DroneState = DroneState.Stowing;
                             _xboxDroneDeployTriggered = false;
@@ -255,7 +255,8 @@ namespace PGCGame
                             return;
                         }
 #endif
-                        //TODO: DEBUG: Show monitoring radius                    
+                        //TODO: DEBUG: Show monitoring radius
+                        //OtherDroneShooting() or !OtherDroneShooting() ?
                         if (isEnemyDetected() || OtherDroneShooting())
                         {
                             DroneState = DroneState.TargetAcquired;
@@ -265,7 +266,8 @@ namespace PGCGame
 
                     case CoreTypes.DroneState.TargetAcquired:
 
-                        if (!isEnemyDetected() || !OtherDroneShooting())
+                        //OtherDroneShooting() or !OtherDroneShooting() ?
+                        if (!isEnemyDetected() || OtherDroneShooting())
                         {
                             DroneState = DroneState.Deployed;
                         }
@@ -292,7 +294,7 @@ namespace PGCGame
                         //Monitor for re-deployment command (same key as stow)
 
 #if WINDOWS
-                        if (keyboard.IsKeyDown(_deployKey) && _lastKs != null && !_lastKs.IsKeyDown(Keys.LeftShift))
+                        if (keyboard.IsKeyDown(_deployKey) && _lastKs != null && _lastKs.IsKeyUp(_deployKey))
                         {
 
                             DroneState = DroneState.Deploying;

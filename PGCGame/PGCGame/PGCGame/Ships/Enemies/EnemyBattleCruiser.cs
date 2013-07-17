@@ -10,26 +10,26 @@ using PGCGame.CoreTypes;
 
 namespace PGCGame.Ships.Enemies
 {
-    public class EnemyDrone : BaseEnemyShip
+    public class EnemyBattleCruiser : BaseEnemyShip
     {
-        public EnemyDrone(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
+        public EnemyBattleCruiser(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
             : base(texture, location, spriteBatch)
         {
             Scale = new Vector2(.75f);
 
-            DamagePerShot = 5;
-            MovementSpeed = new Vector2(.9f);
-            _initHealth = 1;
+            DamagePerShot = 10;
+            MovementSpeed = new Vector2(.7f);
+            _initHealth = 80;
 
-            BulletTexture = GameContent.GameAssets.Images.Ships.Bullets[CoreTypes.ShipType.Drone, ShipTier.Tier1];
+            BulletTexture = GameContent.GameAssets.Images.Ships.Bullets[ShipType.BattleCruiser, ShipTier.Tier1];
         }
 
         public override ShipType ShipType
         {
-            get { return ShipType.Drone; }
+            get { return ShipType.EnemyBattleCruiser; }
         }
 
-        static EnemyDrone()
+        static EnemyBattleCruiser()
         {
             _friendlyName = "Enemy Ship";
         }

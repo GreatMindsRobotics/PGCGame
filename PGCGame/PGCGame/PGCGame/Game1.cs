@@ -153,6 +153,11 @@ namespace PGCGame
             base.Update(gameTime);
 
             screenManager.Update(gameTime);
+
+            if (StateManager.DebugData.InfiniteMoney)
+            {
+                StateManager.SpaceBucks = int.MaxValue;
+            }
         }
 
         /// <summary>

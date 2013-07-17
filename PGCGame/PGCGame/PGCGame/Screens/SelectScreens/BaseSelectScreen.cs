@@ -20,6 +20,8 @@ namespace PGCGame.Screens
 {
     public abstract class BaseSelectScreen : BaseScreen
     {
+        protected bool _firstTimeInit = true;
+
         public BaseSelectScreen(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
         {
@@ -239,6 +241,8 @@ namespace PGCGame.Screens
             {
                 ChangeItem(this, new EventArgs());
             }
+
+            _firstTimeInit = false;
         }
 
         //buybutton

@@ -126,10 +126,10 @@ namespace PGCGame.Screens.SelectScreens
 
         public override void Update(GameTime gameTime)
         {
-            if (StateManager.isWSFirstUpdate == true)
+            if (StateManager.IsWSFirstUpdate == true)
             {
                 SpaceBucksAmount.Text = string.Format("You have {0} credits", StateManager.SpaceBucks);
-                StateManager.isWSFirstUpdate = false;
+                StateManager.IsWSFirstUpdate = false;
             }
             base.Update(gameTime);
         }

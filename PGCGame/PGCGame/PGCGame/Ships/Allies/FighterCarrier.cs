@@ -49,21 +49,29 @@ namespace PGCGame
             {
                 Scale = new Vector2(.55f);
                 DistanceToNose = .4f;
+                InitialHealth = 100;
+                DamagePerShot = 2;
             }
             else if (Tier == ShipTier.Tier2)
             {
                 Scale = new Vector2(.55f);
                 DistanceToNose = .155f;
+                InitialHealth = 120;
+                DamagePerShot = 3;
             }
             else if (Tier == ShipTier.Tier3)
             {
                 Scale = new Vector2(.55f);
                 DistanceToNose = .28f;
+                InitialHealth = 140;
+                DamagePerShot = 4;
             }
             else if (Tier == ShipTier.Tier4)
             {
                 Scale = new Vector2(.55f);
                 DistanceToNose = .5f;
+                InitialHealth = 160;
+                DamagePerShot = 5;
             }
         }
      

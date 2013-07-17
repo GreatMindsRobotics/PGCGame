@@ -253,7 +253,10 @@ namespace PGCGame.CoreTypes
                     _miniShipTexturesByShipType.Add(ShipType.FighterCarrier, content.Load<Texture2D>("Images\\MiniMap\\WhiteCircle100x100"));
                     _miniShipTexturesByShipType.Add(ShipType.BattleCruiser, content.Load<Texture2D>("Images\\MiniMap\\WhiteCircle100x100"));
                     _miniShipTexturesByShipType.Add(ShipType.TorpedoShip, content.Load<Texture2D>("Images\\MiniMap\\WhiteCircle100x100"));
-                    _miniShipTexturesByShipType.Add(ShipType.Drone, content.Load<Texture2D>("Images\\MiniMap\\WhiteTriangle100x100"));
+                    _miniShipTexturesByShipType.Add(ShipType.EnemyDrone, content.Load<Texture2D>("Images\\MiniMap\\WhiteTriangle100x100"));
+                    _miniShipTexturesByShipType.Add(ShipType.EnemyBattleCruiser, content.Load<Texture2D>("Images\\MiniMap\\WhiteTriangle100x100"));
+                    _miniShipTexturesByShipType.Add(ShipType.EnemyFighterCarrier, content.Load<Texture2D>("Images\\MiniMap\\WhiteTriangle100x100"));
+                    _miniShipTexturesByShipType.Add(ShipType.EnemyTorpedoShip, content.Load<Texture2D>("Images\\MiniMap\\WhiteTriangle100x100"));
                 }
             }
 
