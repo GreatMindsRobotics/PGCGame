@@ -16,6 +16,8 @@ namespace PGCGame
         public string Name { get; set; }
         public Ship ParentShip { get; set; }
 
+        public Boolean fired = false;
+
         private bool _shouldShow;
 
         public event EventHandler Killed;

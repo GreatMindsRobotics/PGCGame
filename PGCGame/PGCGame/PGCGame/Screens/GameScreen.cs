@@ -134,6 +134,8 @@ namespace PGCGame.Screens
 
         Sprite miniMap;
 
+        TextSprite secondaryWeaponLabel;
+
         public void InitializeScreen<TShip>(ShipTier tier) where TShip : BaseAllyShip
         {
             //Reset any active ships, since we're re-initializing the game screen
@@ -145,6 +147,14 @@ namespace PGCGame.Screens
             playerSbObjects.Clear();
             Sprites.Sprites.Clear();
             enemies.Clear();
+
+            SpriteFont SegoeUIMono = GameContent.GameAssets.Fonts.NormalText;
+
+            secondaryWeaponLabel = new TextSprite(playerSb, SegoeUIMono, "No Weapon");
+            secondaryWeaponLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .1f - secondaryWeaponLabel.Width / 2, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f - secondaryWeaponLabel.Height / 2);
+            secondaryWeaponLabel.Color = Color.White;
+            playerSbObjects.Add(secondaryWeaponLabel);
+
 
             BackgroundSprite bgspr = new BackgroundSprite(bgImg, Sprites.SpriteBatch, 10, 2);
             bgspr.Drawn += new EventHandler(bgspr_Drawn);
@@ -363,6 +373,16 @@ namespace PGCGame.Screens
             }
 
             base.Update(gameTime);
+
+            if (StateManager.PowerUps.Count > 0)
+            {
+                secondaryWeaponLabel.Text = StateManager.PowerUps.First().Name;
+            }
+            else
+            {
+                secondaryWeaponLabel.Text = "No Weapon";
+            }
+            
 
             if (playerShip.CurrentHealth <= 0)
             {

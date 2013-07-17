@@ -51,6 +51,7 @@ namespace PGCGame.Ships.Allies
             bullet.Rotation = Rotation;
             bullet.Damage = 0;
             bullet.Color = Color.White;
+            bullet.MaximumDistance = new Vector2(100f);
             ActiveSecondaryWeapon.Cast<ShrinkRay>().ShotBullet = true;
 
             ActiveSecondaryWeapon.Cast<ShrinkRay>().ShrinkRayBullets.Add(bullet);
@@ -95,7 +96,7 @@ namespace PGCGame.Ships.Allies
             }
         }
 
-        public SecondaryWeapon ActiveSecondaryWeapon { get; set; }
+        public SecondaryWeapon ActiveSecondaryWeapon;
 
 
         public BaseAllyShip(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
@@ -172,7 +173,7 @@ namespace PGCGame.Ships.Allies
 #endif
             }
 
-            else if (StateManager.PowerUps.Count > 0 && ks.IsKeyDown(Keys.Q) && _lastKs != null && !_lastKs.IsKeyDown(Keys.Q))
+            if (StateManager.PowerUps.Count > 0 && ks.IsKeyDown(Keys.Q) && _lastKs != null && !_lastKs.IsKeyDown(Keys.Q) && ActiveSecondaryWeapon.fired == false)
             {
                 foreach (var secondaryWeapon in StateManager.PowerUps)
                 {
@@ -184,7 +185,7 @@ namespace PGCGame.Ships.Allies
                     }
                 }
             }
-            else if (StateManager.PowerUps.Count > 0 && ks.IsKeyDown(Keys.Q) && _lastKs != null && !_lastKs.IsKeyDown(Keys.E))
+            else if (StateManager.PowerUps.Count > 0 && ks.IsKeyDown(Keys.Q) && _lastKs != null && !_lastKs.IsKeyDown(Keys.E) && ActiveSecondaryWeapon.fired == false)
             {
                 if (previousSecondaryWeapon != null)
                 {
@@ -203,11 +204,15 @@ namespace PGCGame.Ships.Allies
                     }
                 }
             }
-
-            //Deploy secondary weapon
-            if (ActiveSecondaryWeapon == null && StateManager.PowerUps.Count > 0 && ks.IsKeyDown(Keys.RightShift) && _lastKs != null && !_lastKs.IsKeyDown(Keys.RightShift))
+            if (ActiveSecondaryWeapon == null && StateManager.PowerUps.Count > 0)
             {
                 ActiveSecondaryWeapon = StateManager.PowerUps.First();
+            }
+
+            //Deploy secondary weapon
+            else if (ActiveSecondaryWeapon != null && ks.IsKeyDown(Keys.RightShift) && _lastKs != null && !_lastKs.IsKeyDown(Keys.RightShift) && ActiveSecondaryWeapon.fired == false)
+            {
+                ActiveSecondaryWeapon.fired = true;
                 StateManager.PowerUps.Remove(ActiveSecondaryWeapon);
                 ActiveSecondaryWeapon.ParentShip = this;
                 ActiveSecondaryWeapon.Killed += new EventHandler(ActiveSecondaryWeapon_Killed);
@@ -224,7 +229,7 @@ namespace PGCGame.Ships.Allies
                     case "PGCGame.ShrinkRay":
                         if (ActiveSecondaryWeapon.Cast<ShrinkRay>().ShotBullet == false)
                         {
-                            
+
                             ActiveSecondaryWeapon.Position = ActiveSecondaryWeapon.ParentShip.WorldCoords;
                             ShrinkRayShoot();
                         }
