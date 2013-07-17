@@ -261,6 +261,13 @@ namespace PGCGame
 
         #region Public Classes
 
+
+        public static class DebugData
+        {
+            public static bool InfiniteMoney = true;
+            public static bool ShowBGStitches = false;
+        }
+
         public static class InputManager
         {
             public static bool ShouldMove(MoveDirection direction)

@@ -12,7 +12,7 @@ namespace PGCGame.CoreTypes
     public abstract class BaseScreen : Glib.XNA.SpriteLib.Screen
     {
         public BaseScreen(SpriteBatch spriteBatch, Color color)
-            : base(spriteBatch, _debugBackground ? Color.Red : color)
+            : base(spriteBatch, StateManager.DebugData.ShowBGStitches ? Color.Red : color)
         {
 #if XBOX
             StateManager.ScreenStateChanged += new EventHandler(StateManager_ScreenStateChanged);
@@ -52,16 +52,6 @@ namespace PGCGame.CoreTypes
             }
         }
 #endif
-
-
-        private static bool _debugBackground = false;
-        public static bool DebugBackground
-        {
-            get
-            {
-                return _debugBackground;
-            }
-        }
 
         public PGCGame.CoreTypes.Delegates.NextRun RunNextUpdate = null;
 
