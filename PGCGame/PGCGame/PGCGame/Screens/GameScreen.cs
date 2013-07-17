@@ -216,7 +216,8 @@ namespace PGCGame.Screens
             playerShip.RotateTowardsMouse = true;
             playerSbObjects.Add(ship);
 
-            playerShip.InitialHealth = 100;
+            //TODO: Tier change event handles this
+            //playerShip.InitialHealth = 100;
 
             //Set as own ship
             playerShip.PlayerType = PlayerType.MyShip;
