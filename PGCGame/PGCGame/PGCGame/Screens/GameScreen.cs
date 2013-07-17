@@ -190,7 +190,7 @@ namespace PGCGame.Screens
             }
 
             TShip ship = null;
-            
+
             //Can't compare on a type
             //These are full type names, if we change a namespace, this must change
             switch (typeof(TShip).FullName)
@@ -339,7 +339,7 @@ namespace PGCGame.Screens
                         }
                         break;
                 }
-                
+
             }
         }
 
@@ -364,10 +364,28 @@ namespace PGCGame.Screens
 
             base.Update(gameTime);
 
-            if (playerShip.CurrentHealth <= 0) 
+            if (playerShip.CurrentHealth <= 0)
             {
-                StateManager.lives -= 1;
-                InitializeScreen<BattleCruiser>(playerShip.Tier);
+                if (StateManager.lives > 0)
+                {
+                    StateManager.lives -= 1;
+                    if (playerShip.ShipType == ShipType.BattleCruiser)
+                    {
+                        InitializeScreen<BattleCruiser>(playerShip.Tier);
+                    }
+                    else if (playerShip.ShipType == ShipType.FighterCarrier)
+                    {
+                        InitializeScreen<FighterCarrier>(playerShip.Tier);
+                    }
+                    else if (playerShip.ShipType == ShipType.TorpedoShip)
+                    {
+                        InitializeScreen<TorpedoShip>(playerShip.Tier);
+                    }
+                }
+                else
+                {
+                    //TODO: Game Over
+                }
             }
 
             BackgroundSprite bg = BackgroundSprite.Cast<BackgroundSprite>();
@@ -442,7 +460,7 @@ namespace PGCGame.Screens
                         }
                         else
                         {
-                            
+
                             foreach (Bullet b in shootShip.FlyingBullets)
                             {
                                 if (b.Rectangle.Intersects(hitShip.WCrectangle))
