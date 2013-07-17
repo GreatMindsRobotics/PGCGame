@@ -39,9 +39,9 @@ namespace PGCGame
 
         #region Private Methods
 
-        private bool OtherDroneShooting()
+        private bool OtherDroneDetects()
         {
-            return ParentShip.Drones.First<Drone>(d => d.ShipID != this.ShipID).DroneState == DroneState.TargetAcquired;
+            return ParentShip.Drones.First<Drone>(d => d.ShipID != this.ShipID).isEnemyDetected();
         }
 
         #endregion Private Methods
@@ -106,7 +106,6 @@ namespace PGCGame
         Vector2? closestEnemyShipDistance = null;
         Vector2? shipDistance = null;
 
-
         public override void Shoot()
         {
             if (closestEnemyShipDistance.HasValue)
@@ -161,6 +160,7 @@ namespace PGCGame
 
         public override void Update(GameTime gameTime)
         {
+
             KeyboardState keyboard = Keyboard.GetState();
 
             if (CurrentHealth <= 0)
@@ -196,7 +196,7 @@ namespace PGCGame
                         //Deploy command was given; allow "Stow" command (same key as deploy); else, continue deploying
 
 #if WINDOWS
-                        if (keyboard.IsKeyDown(_deployKey) && _lastKs != null && _lastKs.IsKeyUp(_deployKey) && !OtherDroneShooting())
+                        if (keyboard.IsKeyDown(_deployKey) && _lastKs != null && _lastKs.IsKeyUp(_deployKey) && !OtherDroneDetects())
                         {
                             DroneState = DroneState.Stowing;
 
@@ -204,7 +204,7 @@ namespace PGCGame
                             return;
                         }
 #elif XBOX
-                        if(_xboxDroneDeployTriggered && !OtherDroneShooting())
+                        if(_xboxDroneDeployTriggered && !OtherDroneDetects())
                         {
                             DroneState = DroneState.Stowing;
                             _xboxDroneDeployTriggered = false;
@@ -239,7 +239,7 @@ namespace PGCGame
                     case CoreTypes.DroneState.Deployed:
                         //Drone is deployed; monitor for enemies, and listen for "Stow" command (same key as deploy)s
 #if WINDOWS
-                        if (keyboard.IsKeyDown(_deployKey) && _lastKs != null && _lastKs.IsKeyUp(_deployKey) && !OtherDroneShooting())
+                        if (keyboard.IsKeyDown(_deployKey) && _lastKs != null && _lastKs.IsKeyUp(_deployKey) && !OtherDroneDetects())
                         {
                             DroneState = DroneState.Stowing;
 
@@ -247,7 +247,7 @@ namespace PGCGame
                             return;
                         }
 #elif XBOX
-                        if(_xboxDroneDeployTriggered && !OtherDroneShooting())
+                        if(_xboxDroneDeployTriggered && !OtherDroneDetects())
                         {
                             DroneState = DroneState.Stowing;
                             _xboxDroneDeployTriggered = false;
@@ -257,7 +257,7 @@ namespace PGCGame
 #endif
                         //TODO: DEBUG: Show monitoring radius
                         //OtherDroneShooting() or !OtherDroneShooting() ?
-                        if (isEnemyDetected() || OtherDroneShooting())
+                        if (isEnemyDetected() || OtherDroneDetects())
                         {
                             DroneState = DroneState.TargetAcquired;
                         }
@@ -267,7 +267,7 @@ namespace PGCGame
                     case CoreTypes.DroneState.TargetAcquired:
 
                         //OtherDroneShooting() or !OtherDroneShooting() ?
-                        if (!isEnemyDetected() || OtherDroneShooting())
+                        if (!isEnemyDetected() && !OtherDroneDetects())
                         {
                             DroneState = DroneState.Deployed;
                         }
