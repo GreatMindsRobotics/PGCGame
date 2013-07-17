@@ -50,18 +50,21 @@ namespace PGCGame
         /// </summary>
         public static readonly Guid PlayerID = Guid.NewGuid();
 
+        public static int lives = 5;
+
         /// <summary>
         /// Resets fields
         /// </summary>
         public static void Reset()
         {
-        _hasBoughtScanner = false;
-        Stack<ScreenType> _screenStack = new Stack<ScreenType>();
-        Guid _enemyID = Guid.NewGuid();
-        _spaceBucks = 200000;
-        SpaceBucks = _spaceBucks;
-        IsWSFirstUpdate = true;
-        PowerUps = new LinkedList<SecondaryWeapon>();
+            _hasBoughtScanner = false;
+            Stack<ScreenType> _screenStack = new Stack<ScreenType>();
+            Guid _enemyID = Guid.NewGuid();
+            _spaceBucks = 200000;
+            SpaceBucks = _spaceBucks;
+            IsWSFirstUpdate = true;
+            PowerUps = new LinkedList<SecondaryWeapon>();
+            lives = 5;
         }
 
         /// <summary>
@@ -218,7 +221,7 @@ namespace PGCGame
         {
             //Save current tier
             SelectedTier = tier;
-            
+
             AllScreens[ScreenType.Game.ToString()].Cast<Screens.GameScreen>().InitializeScreen<T>(tier);
         }
 

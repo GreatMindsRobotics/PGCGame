@@ -364,7 +364,11 @@ namespace PGCGame.Screens
 
             base.Update(gameTime);
 
-
+            if (playerShip.CurrentHealth <= 0) 
+            {
+                StateManager.lives -= 1;
+                InitializeScreen<BattleCruiser>(playerShip.Tier);
+            }
 
             BackgroundSprite bg = BackgroundSprite.Cast<BackgroundSprite>();
             //TODO: UPDATE SPRITES
