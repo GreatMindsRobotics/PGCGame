@@ -179,7 +179,7 @@ namespace PGCGame.Screens
         {
             base.Update(gameTime);
             KeyboardState current = Keyboard.GetState();
-            if (lastState.IsKeyUp(Keys.Escape) && current.IsKeyDown(Keys.Escape))
+            if (lastState.IsKeyUp(Keys.Escape) && current.IsKeyDown(Keys.Escape) && this.Visible == true)
             {
                 StateManager.GoBack();
                 return;
