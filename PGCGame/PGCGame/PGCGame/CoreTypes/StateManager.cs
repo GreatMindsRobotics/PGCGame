@@ -188,6 +188,10 @@ namespace PGCGame
                     activeScreen.Cast<PGCGame.Screens.GameScreen>().ResetLastKS(Keys.Escape);
                     break;
 
+                case ScreenType.GameOver:
+                    activeScreen.Cast<PGCGame.Screens.GameOver>();
+                    break;
+
                 case ScreenType.Pause:
                     activeScreen.Cast<PGCGame.Screens.PauseScreen>().lastState = new KeyboardState(Keys.Escape);
                     break;

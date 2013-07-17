@@ -74,8 +74,10 @@
     <Compile Include="CoreTypes\Enum.cs" />
     <Compile Include="CoreTypes\Extensions.cs" />
     <Compile Include="CoreTypes\ViewportEventArgs.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Screens\ControlScreen.cs" />
     <Compile Include="Screens\Credits.cs" />
+    <Compile Include="Screens\GameOver.cs" />
     <Compile Include="Screens\GameScreen.cs" />
     <Compile Include="Screens\MainMenu.cs" />
     <Compile Include="Screens\Multiplayer\NetworkSelectScreen.cs" />
@@ -96,7 +98,6 @@
     <Compile Include="SecondaryWeapons\EMP.cs" />
     <Compile Include="Ships\Allies\FighterCarrier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="SecondaryWeapons\SecondaryWeapon.cs" />
     <Compile Include="Ships\Enemies\BaseEnemyShip.cs" />

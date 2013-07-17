@@ -76,6 +76,7 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Program.cs" />
     <Compile Include="CoreTypes\BaseScreen.cs" />
     <Compile Include="CoreTypes\BGSprite.cs" />
     <Compile Include="CoreTypes\Camera2DMatrix.cs" />
@@ -106,7 +107,7 @@
     <Compile Include="SecondaryWeapons\EMP.cs" />
     <Compile Include="Ships\Allies\FighterCarrier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Screens\GameOver.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="SecondaryWeapons\SecondaryWeapon.cs" />
     <Compile Include="Ships\Enemies\BaseEnemyShip.cs" />

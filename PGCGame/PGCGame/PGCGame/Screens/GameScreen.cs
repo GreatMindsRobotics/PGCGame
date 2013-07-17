@@ -384,7 +384,7 @@ namespace PGCGame.Screens
                 }
                 else
                 {
-                    //TODO: Game Over
+                    StateManager.ScreenState = ScreenType.GameOver;
                 }
             }
 

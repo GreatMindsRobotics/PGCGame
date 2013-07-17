@@ -43,6 +43,7 @@ namespace PGCGame
         LevelSelect levelSelectScreen;
         GameScreen gameScreen;
         Shop shopScreen;
+        GameOver gameOver;
         ControlScreen controlScreen;
         NetworkSelectScreen networkScreen;
 
@@ -90,6 +91,9 @@ namespace PGCGame
             titleScreen.InitScreen(ScreenType.Title);
             titleScreen.Visible = true;
 
+            gameOver = new GameOver(spriteBatch);
+            gameOver.InitScreen(ScreenType.GameOver);
+
             shopScreen = new Shop(spriteBatch);
             shopScreen.InitScreen(ScreenType.Shop);
 
@@ -129,7 +133,7 @@ namespace PGCGame
             networkScreen = new NetworkSelectScreen(spriteBatch);
             networkScreen.InitScreen(ScreenType.NetworkSelectScreen);
 
-            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen, shipSelectScreen, weaponSelectScreen, upgradeScreen, tierSelectScreen, levelSelectScreen, controlScreen, networkScreen);
+            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen, shipSelectScreen, weaponSelectScreen, upgradeScreen, tierSelectScreen, levelSelectScreen, controlScreen, networkScreen, gameOver);
             StateManager.AllScreens = screenManager;
             StateManager.ScreenState = CoreTypes.ScreenType.Title;
         }
