@@ -74,7 +74,7 @@ namespace PGCGame.Screens
             MouseState currentMs = MouseManager.CurrentMouseState;
             if (currentMs.LeftButton == ButtonState.Pressed)
             {
-                if (mouseInMainMenuButton)
+                if (mouseInMainMenuButton && this.Visible)
                 {
                     StateManager.ScreenState = ScreenType.MainMenu;
                 }

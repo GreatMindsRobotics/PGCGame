@@ -68,7 +68,7 @@ namespace PGCGame.Screens
             ExitButton = new Sprite(button, new Vector2(ResumeButton.X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .8f), Sprites.SpriteBatch);
             Sprites.Add(ExitButton);
 
-            
+
 
             ExitLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "Exit");
             ExitLabel.Color = Color.White;
@@ -152,7 +152,10 @@ namespace PGCGame.Screens
 
         void ResumeLabel_Pressed(object sender, EventArgs e)
         {
-            StateManager.GoBack();
+            if (this.Visible)
+            {
+                StateManager.GoBack();
+            }
         }
 
         public KeyboardState lastState;
@@ -179,7 +182,7 @@ namespace PGCGame.Screens
         {
             base.Update(gameTime);
             KeyboardState current = Keyboard.GetState();
-            if (lastState.IsKeyUp(Keys.Escape) && current.IsKeyDown(Keys.Escape))
+            if (lastState.IsKeyUp(Keys.Escape) && current.IsKeyDown(Keys.Escape) && this.Visible == true)
             {
                 StateManager.GoBack();
                 return;
