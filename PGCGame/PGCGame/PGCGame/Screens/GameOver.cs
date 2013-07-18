@@ -79,8 +79,8 @@ namespace PGCGame.Screens
                     StateManager.ScreenState = ScreenType.MainMenu;
                 }
                 lastMs = currentMs;
-#endif
             }
+#endif
         }
     }
 }
