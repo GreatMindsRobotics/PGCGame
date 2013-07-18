@@ -52,6 +52,9 @@ namespace PGCGame
 
         public static int lives = 5;
 
+        public static GameLevel level = GameLevel.Level1;
+        public static Boolean nextLevel = false;
+
         /// <summary>
         /// Resets fields
         /// </summary>

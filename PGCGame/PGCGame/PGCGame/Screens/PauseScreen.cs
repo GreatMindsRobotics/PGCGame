@@ -27,11 +27,9 @@ namespace PGCGame.Screens
         TextSprite ExitLabel;
         TextSprite PauseLabel;
         TextSprite ResumeLabel;
-        TextSprite ShopLabel;
         Sprite ResumeButton;
         TextSprite OptionsLabel;
         Sprite ExitButton;
-        Sprite ShopButton;
 
         public PauseScreen(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
@@ -78,18 +76,6 @@ namespace PGCGame.Screens
             ExitLabel.NonHoverColor = Color.White;
             AdditionalSprites.Add(ExitLabel);
 
-            ShopButton = new Sprite(button, Vector2.Zero, Sprites.SpriteBatch);
-            ShopButton.Position = new Vector2(ResumeButton.X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .53f);
-            Sprites.Add(ShopButton);
-
-            ShopLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "Shop");
-            ShopLabel.Color = Color.White;
-            ShopLabel.IsHoverable = true;
-            ShopLabel.ParentSprite = ShopButton;
-            ShopLabel.HoverColor = Color.MediumAquamarine;
-            ShopLabel.NonHoverColor = Color.White;
-            AdditionalSprites.Add(ShopLabel);
-
             OptionButton = new Sprite(button, Vector2.Zero, Sprites.SpriteBatch);
             OptionButton.Position = new Vector2(ResumeButton.X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .37f);
             Sprites.Add(OptionButton);
@@ -118,7 +104,6 @@ namespace PGCGame.Screens
 #elif WINDOWS
             ResumeLabel.Clicked += new EventHandler(ResumeLabel_Pressed);
             ExitLabel.Clicked += new EventHandler(ExitLabel_Pressed);
-            ShopLabel.Clicked += new EventHandler(ShopLabel_Pressed);
             OptionsLabel.Clicked += new EventHandler(OptionsLabel_Pressed);
 #endif
         }
@@ -127,20 +112,6 @@ namespace PGCGame.Screens
         {
             StateManager.ScreenState = ScreenType.Options;
             OptionsLabel.IsSelected = false;
-        }
-
-        void ShopLabel_Pressed(object sender, EventArgs e)
-        {
-            //If we previously upgraded the ship, refresh shop screen to reflect the upgrade
-            if (StateManager.IsShipUpgraded)
-            {
-                StateManager.AllScreens[ScreenType.TierSelect.ToString()].Cast<BaseSelectScreen>().InitScreen(CoreTypes.ScreenType.TierSelect);
-                StateManager.IsShipUpgraded = false;
-            }
-
-            //Go to shop
-            StateManager.ScreenState = ScreenType.Shop;
-            ShopLabel.IsSelected = false;
         }
 
         void ExitLabel_Pressed(object sender, EventArgs e)
@@ -170,10 +141,8 @@ namespace PGCGame.Screens
             ResumeButton.Position = new Vector2(ResumeButton.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .2f);
             ExitButton.Position = new Vector2(ResumeButton.X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .8f);
             ExitLabel.Position = new Vector2(ExitLabel.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X, ExitButton.Y + (ExitButton.Height / 2 - ExitLabel.Height / 2));
-            ShopButton.Position = new Vector2(ResumeButton.X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .53f);
             ResumeLabel.Position = new Vector2(ResumeLabel.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X, ResumeButton.Y + (ResumeButton.Height / 2 - ResumeLabel.Height / 2));
             OptionButton.Position = new Vector2(ResumeButton.X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .37f);
-            ShopLabel.Position = new Vector2(ShopLabel.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X, ShopButton.Y + (ShopButton.Height / 2 - ShopLabel.Height / 2));
             OptionsLabel.Position = new Vector2(OptionsLabel.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X, OptionButton.Y + (OptionButton.Height / 2 - OptionsLabel.Height / 2));
         }
 

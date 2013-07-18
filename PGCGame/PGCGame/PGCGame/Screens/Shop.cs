@@ -25,7 +25,7 @@ namespace PGCGame.Screens
         TextSprite upgradeEquipmentLabel;
         TextSprite shipLabel;
         TextSprite weaponsLabel;
-        TextSprite backLabel;
+        TextSprite nextLevelLabel;
 
         public override void InitScreen(ScreenType screenName)
         {
@@ -89,22 +89,22 @@ namespace PGCGame.Screens
             Sprites.Add(weaponsButton);
             AdditionalSprites.Add(weaponsLabel);
 
-            Sprite backButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .4f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .65f), Sprites.SpriteBatch);
-            backLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Back");
-            backLabel.Position = new Vector2((backButton.X + backButton.Width / 2) - backLabel.Width / 2, (backButton.Y + backButton.Height / 2) - backLabel.Height / 2);
-            backLabel.Color = Color.White;
-            backLabel.IsHoverable = true;
-            backLabel.IsManuallySelectable = true;
-            backLabel.NonHoverColor = Color.White;
-            backLabel.HoverColor = Color.MediumAquamarine;
+            Sprite nextLevelButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .4f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .65f), Sprites.SpriteBatch);
+            nextLevelLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Next Level");
+            nextLevelLabel.Position = new Vector2((nextLevelButton.X + nextLevelButton.Width / 2) - nextLevelLabel.Width / 2, (nextLevelButton.Y + nextLevelButton.Height / 2) - nextLevelLabel.Height / 2);
+            nextLevelLabel.Color = Color.White;
+            nextLevelLabel.IsHoverable = true;
+            nextLevelLabel.IsManuallySelectable = true;
+            nextLevelLabel.NonHoverColor = Color.White;
+            nextLevelLabel.HoverColor = Color.MediumAquamarine;
 
 #if WINDOWS
-            backButton.MouseEnter += new EventHandler(backButton_MouseEnter);
-            backButton.MouseLeave += new EventHandler(backButton_MouseLeave);
+            nextLevelButton.MouseEnter += new EventHandler(nextLevelButton_MouseEnter);
+            nextLevelButton.MouseLeave += new EventHandler(nextLevelButton_MouseLeave);
 #endif
 
-            Sprites.Add(backButton);
-            AdditionalSprites.Add(backLabel);
+            Sprites.Add(nextLevelButton);
+            AdditionalSprites.Add(nextLevelLabel);
         }
 
         void Options_ScreenResolutionChanged(object sender, EventArgs e)
@@ -112,19 +112,19 @@ namespace PGCGame.Screens
             //relocate all the sprites and labels to the correct position
         }
 
-        bool mouseInBackButton = false;
+        bool mouseInNextLevelButton = false;
 
         //backbutton
-        void backButton_MouseLeave(object sender, EventArgs e)
+        void nextLevelButton_MouseLeave(object sender, EventArgs e)
         {
-            backLabel.IsSelected = false;
-            mouseInBackButton = false;
+            nextLevelLabel.IsSelected = false;
+            mouseInNextLevelButton = false;
         }
-        void backButton_MouseEnter(object sender, EventArgs e)
+        void nextLevelButton_MouseEnter(object sender, EventArgs e)
         {
-            backLabel.IsSelected = true;
-            mouseInBackButton = true;
-            
+            nextLevelLabel.IsSelected = true;
+            mouseInNextLevelButton = true;
+
         }
 
         //weaponsbutton
@@ -181,7 +181,7 @@ namespace PGCGame.Screens
             upgradeEquipmentLabel.IsSelected = true;
         }
 
-        
+
 
         MouseState lastMs = new MouseState(0, 0, 0, ButtonState.Pressed, ButtonState.Released, ButtonState.Released, ButtonState.Released, ButtonState.Released);
 
@@ -192,9 +192,25 @@ namespace PGCGame.Screens
             MouseState currentMs = MouseManager.CurrentMouseState;
             if (lastMs.LeftButton == ButtonState.Released && currentMs.LeftButton == ButtonState.Pressed)
             {
-                if (mouseInBackButton)
+                if (mouseInNextLevelButton)
                 {
-                    StateManager.GoBack();
+                    if (StateManager.level == GameLevel.Level1)
+                    {
+                        StateManager.level = GameLevel.Level2;
+                    }
+                    else if (StateManager.level == GameLevel.Level2)
+                    {
+                        StateManager.level = GameLevel.Level3;
+                    }
+                    else if (StateManager.level == GameLevel.Level3)
+                    {
+                        StateManager.level = GameLevel.Level4;
+                    }
+                    else
+                    {
+                        //TODO: Win Code;
+                    }
+                    StateManager.ScreenState = ScreenType.Game;
                 }
                 if (mouseInWeaponButton)
                 {
@@ -208,7 +224,7 @@ namespace PGCGame.Screens
                 {
                     StateManager.ScreenState = ScreenType.TierSelect;
                 }
-                
+
             }
             lastMs = currentMs;
 #endif
