@@ -54,7 +54,7 @@ namespace PGCGame
 
         public static int lives = 5;
 
-        public static GameLevel level = GameLevel.Level1;
+        public static GameLevel level;
         public static Boolean nextLevel = false;
 
         /// <summary>
