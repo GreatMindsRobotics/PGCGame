@@ -108,7 +108,7 @@ namespace PGCGame.Screens
 
 
 #if WINDOWS
-             SwitchSecondWeapLabel = new TextSprite(Sprites.SpriteBatch, font, ("Switch Secondary Weapons: Scroll Wheel"));
+             SwitchSecondWeapLabel = new TextSprite(Sprites.SpriteBatch, font, ("Switch Secondary Weapons: Q and E"));
              SwitchSecondWeapLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .4f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .35f);
              SwitchSecondWeapLabel.Color = Color.White;
 #endif
