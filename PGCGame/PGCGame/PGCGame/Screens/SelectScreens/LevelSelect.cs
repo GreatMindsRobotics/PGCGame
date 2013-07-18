@@ -27,6 +27,7 @@ namespace PGCGame.Screens.SelectScreens
         TextSprite level2Label;
         TextSprite level3Label;
         TextSprite level4Label;
+         public TextSprite Playlabel;
 
         public override void InitScreen(ScreenType screenType)
         {
@@ -36,7 +37,7 @@ namespace PGCGame.Screens.SelectScreens
         Texture2D planet4 = GameContent.GameAssets.Images.NonPlayingObjects.Planet4;
             
 
-
+           
             //level1
             Sprite level1 = new Sprite(planet1, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.68f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.22f), Sprites.SpriteBatch);
             level1Label = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "");
@@ -58,6 +59,8 @@ namespace PGCGame.Screens.SelectScreens
             level3Label = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "");
             level3.Scale = new Vector2(0.6f);
 
+          
+
             itemsShown.Add(new KeyValuePair<Sprite,string>(level3, "   Level 3"));
             items.Add(new KeyValuePair<Sprite, TextSprite>(level3, level3Label));
 
@@ -71,7 +74,10 @@ namespace PGCGame.Screens.SelectScreens
             nextButtonClicked += new EventHandler(LevelSelect_nextButtonClicked);
             ChangeItem += new System.EventHandler(LevelSelect_ChangeItem);
 
+            
             base.InitScreen(screenType);
+            acceptLabel.Text = "Shop";
+
         }
 
         void LevelSelect_ChangeItem(object sender, System.EventArgs e)
@@ -89,8 +95,10 @@ namespace PGCGame.Screens.SelectScreens
         void LevelSelect_nextButtonClicked(object sender, EventArgs e)
         {
             StateManager.InitializeSingleplayerGameScreen(StateManager.SelectedShip, StateManager.SelectedTier);
-            StateManager.ScreenState = ScreenType.Game;
+            StateManager.ScreenState = ScreenType.Shop;         
         }
+
+        
 
         public override void Update(GameTime gameTime)
         {
