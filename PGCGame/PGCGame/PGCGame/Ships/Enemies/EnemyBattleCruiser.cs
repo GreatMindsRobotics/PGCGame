@@ -21,6 +21,8 @@ namespace PGCGame.Ships.Enemies
             MovementSpeed = new Vector2(.7f);
             _initHealth = 80;
 
+            killWorth = 10;
+
             BulletTexture = GameContent.GameAssets.Images.Ships.Bullets[ShipType.BattleCruiser, ShipTier.Tier1];
         }
 

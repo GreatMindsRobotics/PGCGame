@@ -22,6 +22,7 @@ namespace PGCGame.Ships.Enemies
 
         }
 
+        public int killWorth;
 
         public override void Shoot()
         {
@@ -36,6 +37,8 @@ namespace PGCGame.Ships.Enemies
         }
 
         Boolean activated = false;
+
+        Boolean firstDeathCheck = true;
 
         public Boolean isEMPed = false;
         TimeSpan _EMPDelay = new TimeSpan(0, 0, 5);
@@ -59,6 +62,10 @@ namespace PGCGame.Ships.Enemies
                     if (FlyingBullets.Count == 0)
                     {
                         _isDead = true;
+                    }
+                    if (firstDeathCheck)
+                    {
+                        StateManager.SpacePoints += killWorth;
                     }
 
                     return;
