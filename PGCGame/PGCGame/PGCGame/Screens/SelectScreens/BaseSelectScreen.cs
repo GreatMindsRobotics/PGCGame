@@ -303,7 +303,6 @@ namespace PGCGame.Screens
             backLabel.IsSelected = true;
             mouseInbackButton = true;
         }
-#endif
 
         //Same length arrays, when you hit the arrow key, i++ (in both of them)
 
@@ -321,6 +320,7 @@ namespace PGCGame.Screens
         }
 
         private MouseState lastMs = new MouseState(0, 0, 0, ButtonState.Pressed, ButtonState.Released, ButtonState.Released, ButtonState.Released, ButtonState.Released);
+#endif
 
         public event EventHandler ChangeItem;
 

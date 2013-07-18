@@ -51,6 +51,8 @@ namespace PGCGame.Screens
             MainMenuButton.MouseLeave +=new EventHandler(MainMenuButton_MouseLeave);
 #endif
         }
+
+#if WINDOWS
         bool mouseInMainMenuButton = false;
 
         void MainMenuButton_MouseLeave(object sender, EventArgs e)
@@ -66,6 +68,7 @@ namespace PGCGame.Screens
         }
         
         MouseState lastMs = new MouseState(0, 0, 0, ButtonState.Pressed, ButtonState.Released, ButtonState.Released, ButtonState.Released, ButtonState.Released);
+#endif
 
         public override void Update(GameTime gameTime)
         {

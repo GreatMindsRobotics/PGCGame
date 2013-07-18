@@ -33,14 +33,16 @@ namespace PGCGame.Screens
         TextSprite ControlLabel;
 
 #if WINDOWS
+        bool mouseInBackButton = false;
+
         TextSprite GFXLabel;
 #endif
+        
         TextSprite SFXLabel;
         TextSprite MusicVolumeLabel;
         TextSprite BackLabel;
         
 
-        bool mouseInBackButton = false;
         
 
         public override void InitScreen(ScreenType screenType)
@@ -252,10 +254,6 @@ namespace PGCGame.Screens
                 return GFXLabel.IsSelected;
             }
         }
-#endif
-
-
-
 
 
         void MusicButton_MouseLeave(object sender, EventArgs e)
@@ -281,9 +279,11 @@ namespace PGCGame.Screens
             mouseInBackButton = true;
         }
 
-        
-                                                    
         MouseState lastMs = new MouseState(0, 0, 0, ButtonState.Pressed, ButtonState.Released, ButtonState.Released, ButtonState.Released, ButtonState.Released);
+
+#endif
+
+
 
         public override void Update(GameTime gameTime)
         {

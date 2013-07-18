@@ -401,8 +401,6 @@ namespace PGCGame.Screens
         //bool _allowMusicHandling = false;
         KeyboardState _lastState = new KeyboardState();
 
-        Rectangle WCrectangle;
-
         public override void Update(GameTime gameTime)
         {
             if (!_gameHasStarted)

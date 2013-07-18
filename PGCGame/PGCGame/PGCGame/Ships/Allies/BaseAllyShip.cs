@@ -20,8 +20,10 @@ namespace PGCGame.Ships.Allies
     {
         private TimeSpan _elapsedShotTime = TimeSpan.Zero;
 
+#if WINDOWS
         private MouseState ms;
         private MouseState lastms;
+#endif
 
         protected Vector2 _worldPos;
         protected bool _isPlayerShip;

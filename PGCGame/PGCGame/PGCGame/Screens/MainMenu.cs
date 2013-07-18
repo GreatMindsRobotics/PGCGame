@@ -39,12 +39,6 @@ namespace PGCGame.Screens
         }
 #endif
 
-#if XBOX
-        Sprite bButton;
-#endif
-
-        
-
         Sprite TitleSprite;
 
 

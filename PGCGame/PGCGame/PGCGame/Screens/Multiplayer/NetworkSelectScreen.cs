@@ -37,10 +37,6 @@ namespace PGCGame.Screens.Multiplayer
             }
         }
 
-#if XBOX
-        Sprite bButton;
-#endif
-
         Sprite LANButton;
         TextSprite LANLabel;
 

@@ -112,6 +112,7 @@ namespace PGCGame.Screens
             //relocate all the sprites and labels to the correct position
         }
 
+#if WINDOWS
         bool mouseInNextLevelButton = false;
 
         //backbutton
@@ -124,8 +125,8 @@ namespace PGCGame.Screens
         {
             nextLevelLabel.IsSelected = true;
             mouseInNextLevelButton = true;
-
         }
+#endif
 
         //weaponsbutton
         void weaponsButton_MouseLeave(object sender, EventArgs e)
