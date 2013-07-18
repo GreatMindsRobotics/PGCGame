@@ -333,10 +333,13 @@ namespace PGCGame.Screens
                 miniShipInfoTitle.Position = new Vector2(miniShipInfoBg.X + (miniShipInfoBg.Width / 2f) - (miniShipInfoTitle.Width / 2f), miniShipInfoBg.Y + (miniShipInfoBg.Height / 12.5f));
                 playerSbObjects.Add(miniShipInfoTitle);
                 miniShipInfoBg.Height = (miniShipInfoTitle.Y - miniShipInfoBg.Y) + miniShipInfoTitle.Height + (miniShipInfoTitle.Y - miniShipInfoBg.Y);
-                miniShipInfo = new TextSprite(playerSb, normal, string.Format("HP: {0}/{1}\nDamage: {2}", activeMiniShipDisplay.CurrentHealth, activeMiniShipDisplay.InitialHealth, activeMiniShipDisplay.DamagePerShot));
+                string shipIdStr = activeMiniShipDisplay.ShipID.ToString();
+                string[] digits = shipIdStr.Split('-');
+                shipIdStr = digits[0] + "..." + digits[digits.Length - 1];
+                miniShipInfo = new TextSprite(playerSb, normal, string.Format("HP: {0}/{1}\nDamage: {2}{3}", activeMiniShipDisplay.CurrentHealth, activeMiniShipDisplay.InitialHealth, activeMiniShipDisplay.DamagePerShot, StateManager.DebugData.ShowShipIDs ? "\nID: "+shipIdStr : ""));
                 miniShipInfo.Color = Color.White;
                 miniShipInfo.Position = new Vector2(miniShipInfoBg.X + (miniShipInfoBg.Width / 2f) - (miniShipInfo.Width / 2f), miniShipInfoTitle.Y + bold.LineSpacing);
-                if (StateManager.HasBoughtScanner)
+                if (StateManager.HasBoughtScanner || StateManager.DebugData.ShowShipIDs)
                 {
                     miniShipInfoBg.Height += miniShipInfo.Height;
                     playerSbObjects.Add(miniShipInfo);
