@@ -113,7 +113,7 @@ namespace PGCGame
                 //Glen's experiment
                 Vector2 realWc = WorldCoords;
                 WorldCoords = ParentShip.WorldCoords;
-                Bullet bullet = new Bullet(BulletTexture, WorldCoords, WorldSb);
+                Bullet bullet = new Bullet(BulletTexture, WorldCoords, WorldSb, this);
                 Vector2 normalizedDistance = this.closestEnemyShipDistance.Value;
                 normalizedDistance.Normalize();
                 normalizedDistance *= 3f;

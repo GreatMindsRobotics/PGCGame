@@ -281,8 +281,9 @@ namespace PGCGame
         public static class DebugData
         {
             public static bool InfiniteMoney = true;
-            public static bool ShowBGStitches = false;
+            public static bool DebugBackground = false;
             public static bool ShipSpeedIncrease = false;
+            public static bool OPBullets = false;
             public static bool ShowShipIDs = true;
         }
 

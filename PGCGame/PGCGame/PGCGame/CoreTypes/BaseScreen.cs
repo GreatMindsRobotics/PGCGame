@@ -12,7 +12,7 @@ namespace PGCGame.CoreTypes
     public abstract class BaseScreen : Glib.XNA.SpriteLib.Screen
     {
         public BaseScreen(SpriteBatch spriteBatch, Color color)
-            : base(spriteBatch, StateManager.DebugData.ShowBGStitches ? Color.Red : color)
+            : base(spriteBatch, StateManager.DebugData.DebugBackground ? Color.Red : color)
         {
 #if XBOX
             StateManager.ScreenStateChanged += new EventHandler(StateManager_ScreenStateChanged);

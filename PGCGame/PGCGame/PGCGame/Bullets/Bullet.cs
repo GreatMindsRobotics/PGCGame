@@ -26,12 +26,23 @@ namespace PGCGame
         /// </summary>
         public Vector2? MaximumDistance = new Vector2(4000f);
 
+        public Ship ParentShip;
 
-        public Bullet(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
+        public Bullet(Texture2D texture, Vector2 location, SpriteBatch spriteBatch, Ship parentShip)
             : base(texture, location, spriteBatch)
         {
+            this.ParentShip = parentShip;
         }
-        public int Damage { get; set; }
+        private int _damage;
+
+        public int Damage
+        {
+            get { 
+                 return _damage * (StateManager.DebugData.OPBullets && ParentShip is PGCGame.Ships.Allies.BaseAllyShip ? 1000 : 1 ); 
+            }
+            set { _damage = value; }
+        }
+        
 
         private bool _isDead = false;
 
