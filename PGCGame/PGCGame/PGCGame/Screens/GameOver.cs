@@ -28,7 +28,7 @@ namespace PGCGame.Screens
             SpriteFont SegoeUIMono = GameContent.GameAssets.Fonts.NormalText;
             BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
 
-            gameOverLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .5f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f), SegoeUIMono, "GAME OVER");
+            gameOverLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .5f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f), SegoeUIMono, string.Format("GAME OVER\n you had {0} points,\n {1} spacebucks,\n and was on level {2}", StateManager.points, StateManager.SpaceBucks, StateManager.SpaceBucks));
             gameOverLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .5f - gameOverLabel.Width / 2, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f - gameOverLabel.Height / 2);
             gameOverLabel.Color = Color.Red;
 
