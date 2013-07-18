@@ -37,7 +37,7 @@ namespace PGCGame
             DelayBetweenShots = TimeSpan.FromMilliseconds(100);
             DamagePerShot = 100;
             _initHealth = 100;
-            MovementSpeed = new Vector2(20f);
+            MovementSpeed = Vector2.One * 2f;
             this.TierChanged += new EventHandler(FighterCarrier_TierChanged);
             DamagePerShot = 2;
             this.PlayerType = PlayerType.Ally;

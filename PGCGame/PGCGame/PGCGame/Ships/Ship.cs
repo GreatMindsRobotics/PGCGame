@@ -161,8 +161,12 @@ namespace PGCGame
 
         public Vector2 MovementSpeed
         {
-            get { return _movementSpeed; }
-            set { _movementSpeed = value; }
+            get {
+                return _movementSpeed * (StateManager.DebugData.ShipSpeedIncrease && this is BaseAllyShip ? 10 : 1); 
+            }
+            set {
+                _movementSpeed = value; 
+            }
         }
 
         public int CurrentHealth

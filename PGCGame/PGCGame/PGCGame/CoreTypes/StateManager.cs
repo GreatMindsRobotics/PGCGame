@@ -282,6 +282,7 @@ namespace PGCGame
         {
             public static bool InfiniteMoney = true;
             public static bool ShowBGStitches = false;
+            public static bool ShipSpeedIncrease = false;
         }
 
         public static class InputManager

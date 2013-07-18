@@ -44,7 +44,6 @@ namespace PGCGame.Ships.Allies
             }
         }
 
-
         public virtual void ShrinkRayShoot()
         {
             Bullet bullet = new Bullet(BulletTexture, WorldCoords - new Vector2(Height * -DistanceToNose, Height * -DistanceToNose) * Rotation.Vector, WorldSb);
