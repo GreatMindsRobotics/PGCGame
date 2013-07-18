@@ -54,7 +54,7 @@ namespace PGCGame
 
         public static int lives = 5;
 
-        public static GameLevel level;
+        public static GameLevel level = GameLevel.Level1;
         public static Boolean nextLevel = false;
 
         /// <summary>
@@ -62,6 +62,10 @@ namespace PGCGame
         /// </summary>
         public static void Reset()
         {
+            Screens.Shop.firstShop = true;
+            nextLevel = false;
+            level = GameLevel.Level1;
+            SpacePoints = 0;
             _hasBoughtScanner = false;
             Stack<ScreenType> _screenStack = new Stack<ScreenType>();
             Guid _enemyID = Guid.NewGuid();

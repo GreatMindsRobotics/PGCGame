@@ -27,7 +27,7 @@ namespace PGCGame.Screens
         TextSprite weaponsLabel;
         TextSprite nextLevelLabel;
 
-        Boolean firstShop = true;
+        public static Boolean firstShop = true;
 
         public override void InitScreen(ScreenType screenName)
         {
