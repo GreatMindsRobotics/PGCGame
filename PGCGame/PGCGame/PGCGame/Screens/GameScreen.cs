@@ -448,7 +448,10 @@ namespace PGCGame.Screens
                     {
                         StateManager.nextLevel = false;
                     }
-                    StateManager.lives -= 1;
+                    else
+                    {
+                        StateManager.lives -= 1;
+                    }
                     if (playerShip.ShipType == ShipType.BattleCruiser)
                     {
                         InitializeScreen<BattleCruiser>(playerShip.Tier);

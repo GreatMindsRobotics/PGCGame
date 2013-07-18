@@ -27,6 +27,8 @@ namespace PGCGame.Screens
         TextSprite weaponsLabel;
         TextSprite nextLevelLabel;
 
+        Boolean firstShop = true;
+
         public override void InitScreen(ScreenType screenName)
         {
             base.InitScreen(screenName);
@@ -193,7 +195,7 @@ namespace PGCGame.Screens
             MouseState currentMs = MouseManager.CurrentMouseState;
             if (lastMs.LeftButton == ButtonState.Released && currentMs.LeftButton == ButtonState.Pressed)
             {
-                if (mouseInNextLevelButton)
+                if (mouseInNextLevelButton && !firstShop)
                 {
                     if (StateManager.level == GameLevel.Level1)
                     {
@@ -212,6 +214,12 @@ namespace PGCGame.Screens
                         //TODO: Win Code;
                     }
                     StateManager.nextLevel = true;
+                    StateManager.ScreenState = ScreenType.Game;
+                }
+                else if (mouseInNextLevelButton && firstShop)
+                {
+                    StateManager.level = GameLevel.Level1;
+                    firstShop = false;
                     StateManager.ScreenState = ScreenType.Game;
                 }
                 if (mouseInWeaponButton)
