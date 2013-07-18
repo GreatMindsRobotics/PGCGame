@@ -34,6 +34,8 @@ namespace PGCGame
         public static ShipType SelectedShip;
         public static ShipTier SelectedTier;
 
+        public static int SpacePoints = 0;
+
         public static LinkedList<SecondaryWeapon> PowerUps = new LinkedList<SecondaryWeapon>();
 
         public static Delegates.CheckIfWindowFocused IsWindowFocused;

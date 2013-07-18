@@ -427,7 +427,7 @@ namespace PGCGame.Screens
                 }
             }
 
-            if (allEnemiesDead == true && StateManager.nextLevel == false)
+            if (allEnemiesDead == true && !StateManager.nextLevel)
             {
                 StateManager.ScreenState = ScreenType.Shop;
             }
@@ -442,10 +442,11 @@ namespace PGCGame.Screens
             }
 
 
-            if (playerShip.CurrentHealth <= 0)
+            if (playerShip.CurrentHealth <= 0 || StateManager.nextLevel)
             {
-                if (StateManager.lives > 0)
+                if (StateManager.lives > 0 || StateManager.nextLevel)
                 {
+                    StateManager.nextLevel = false;
                     StateManager.lives -= 1;
                     if (playerShip.ShipType == ShipType.BattleCruiser)
                     {

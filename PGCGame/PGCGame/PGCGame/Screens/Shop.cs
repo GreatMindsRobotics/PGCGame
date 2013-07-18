@@ -210,6 +210,7 @@ namespace PGCGame.Screens
                     {
                         //TODO: Win Code;
                     }
+                    StateManager.nextLevel = true;
                     StateManager.ScreenState = ScreenType.Game;
                 }
                 if (mouseInWeaponButton)
