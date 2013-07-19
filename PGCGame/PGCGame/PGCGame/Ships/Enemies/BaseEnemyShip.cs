@@ -79,7 +79,7 @@ namespace PGCGame.Ships.Enemies
                 Vector2? closestAllyShipDistance = null;
                 Vector2? shipDistance = null;
 
-                //finds the closes ship 
+                //finds the closest ship 
                 foreach (Ship allyShip in StateManager.ActiveShips)
                 {
                     if (allyShip.PlayerType != CoreTypes.PlayerType.Enemy)
@@ -144,7 +144,17 @@ namespace PGCGame.Ships.Enemies
                     {
                         //Rotation.Vector.Normalize();
                         //Rotation.Vector *= .1f;
-                        this.Speed = MovementSpeed * Rotation.Vector;
+                        if ((this.Position + MovementSpeed * Rotation.Vector).X > StateManager.WorldSize.Width || 
+                            (this.Position + MovementSpeed * Rotation.Vector).X < 0 ||
+                            (this.Position + MovementSpeed * Rotation.Vector).Y > StateManager.WorldSize.Height ||
+                            (this.Position + MovementSpeed * Rotation.Vector).Y < 0)
+                        {
+                            this.Speed = Vector2.Zero;
+                        }
+                        else
+                        {
+                            this.Speed = MovementSpeed * Rotation.Vector;
+                        }
                     }
                     else
                     {

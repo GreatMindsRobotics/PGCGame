@@ -157,6 +157,7 @@ namespace PGCGame
             set { _hasBoughtScanner = value; }
         }
 
+        public static Rectangle WorldSize { get; set; }
 
         #endregion Public Properties
 

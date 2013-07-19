@@ -156,10 +156,14 @@ namespace PGCGame.Screens
             playerSbObjects.Add(secondaryWeaponLabel);
 
 
+            //Initialize the game map (world)
             BackgroundSprite bgspr = new BackgroundSprite(bgImg, Sprites.SpriteBatch, 10, 2);
             bgspr.Drawn += new EventHandler(bgspr_Drawn);
             worldCam.Pos = new Vector2(bgspr.TotalWidth / 2, bgspr.TotalHeight - (bgspr.Height / 2));
             BackgroundSprite = bgspr;
+
+            //Set the world size in StateManager for later access
+            StateManager.WorldSize = new Rectangle(0, 0, (int)bgspr.TotalWidth, (int)bgspr.TotalHeight);
 
             Vector2 minSpawnArea = _playableAreaOffset;
             Vector2 maxSpawnArea = new Vector2(bgspr.TotalWidth, bgspr.TotalHeight) - _playableAreaOffset;
