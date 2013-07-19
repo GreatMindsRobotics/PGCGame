@@ -127,17 +127,9 @@ namespace PGCGame.Screens
         {
             if (!firstShop)
             {
-                if (StateManager.level == GameLevel.Level1)
+                if (StateManager.level != GameLevel.Level4)
                 {
-                    StateManager.level = GameLevel.Level2;
-                }
-                else if (StateManager.level == GameLevel.Level2)
-                {
-                    StateManager.level = GameLevel.Level3;
-                }
-                else if (StateManager.level == GameLevel.Level3)
-                {
-                    StateManager.level = GameLevel.Level4;
+                    StateManager.level++;
                 }
                 else
                 {
