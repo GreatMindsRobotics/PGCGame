@@ -101,6 +101,8 @@
     <Compile Include="Game1.cs" />
     <Compile Include="SecondaryWeapons\SecondaryWeapon.cs" />
     <Compile Include="Ships\Enemies\BaseEnemyShip.cs" />
+    <Compile Include="Ships\Enemies\Bosses\CloneBoss.cs" />
+    <Compile Include="Ships\Enemies\Bosses\CloneBossesClone.cs" />
     <Compile Include="Ships\Enemies\EnemyBattleCruiser.cs" />
     <Compile Include="Ships\Ship.cs" />
     <Compile Include="SecondaryWeapons\ShrinkRay.cs" />

@@ -28,6 +28,10 @@ namespace PGCGame
             killWorth = 100;
         }
 
+        public override ShipType ShipType
+        {
+            get { return ShipType.EnemyBoss; }
+        }
 
         public override void Shoot()
         {

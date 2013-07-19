@@ -76,6 +76,8 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ships\Enemies\Bosses\CloneBossesClone.cs" />
+    <Compile Include="Ships\Enemies\Bosses\CloneBoss.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="CoreTypes\BaseScreen.cs" />
     <Compile Include="CoreTypes\BGSprite.cs" />
