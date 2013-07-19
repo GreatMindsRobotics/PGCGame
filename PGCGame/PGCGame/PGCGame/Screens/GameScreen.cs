@@ -150,8 +150,8 @@ namespace PGCGame.Screens
 
             SpriteFont SegoeUIMono = GameContent.GameAssets.Fonts.NormalText;
 
-            secondaryWeaponLabel = new TextSprite(playerSb, SegoeUIMono, "No Weapon");
-            secondaryWeaponLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .1f - secondaryWeaponLabel.Width / 2, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f - secondaryWeaponLabel.Height / 2);
+            secondaryWeaponLabel = new TextSprite(playerSb, SegoeUIMono, "No Secondary Weapon");
+            secondaryWeaponLabel.Position = new Vector2((Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .1f - secondaryWeaponLabel.Width / 2 ) + 30 , Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f - secondaryWeaponLabel.Height / 2);
             secondaryWeaponLabel.Color = Color.White;
             playerSbObjects.Add(secondaryWeaponLabel);
 
@@ -439,7 +439,7 @@ namespace PGCGame.Screens
             }
             else
             {
-                secondaryWeaponLabel.Text = "No Weapon";
+                secondaryWeaponLabel.Text = "No Secondary Weapon";
             }
 
 
