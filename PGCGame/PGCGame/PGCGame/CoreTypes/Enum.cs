@@ -77,7 +77,9 @@ namespace PGCGame.CoreTypes
         EnemyBattleCruiser,
         EnemyFighterCarrier,
         EnemyTorpedoShip,
-        EnemyDrone
+        EnemyDrone,
+        EnemyBoss,
+        EnemyBossesClones
     }
 
     public enum MoveDirection
