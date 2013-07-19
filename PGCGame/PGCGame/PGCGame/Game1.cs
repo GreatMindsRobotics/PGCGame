@@ -53,6 +53,16 @@ namespace PGCGame
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             Window.Title = "Plequarius: Galactic Commanders";
+
+#if XBOX
+            graphics.IsFullScreen = true;
+            graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferHeight = 1080;
+            graphics.ApplyChanges();
+
+            graphics.GraphicsDevice.Viewport = new Viewport(0, 0, 1920, 1080) { MinDepth = 0, MaxDepth = 1 };
+#endif
+
         }
 
         /// <summary>
