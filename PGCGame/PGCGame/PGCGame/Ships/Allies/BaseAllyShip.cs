@@ -199,25 +199,30 @@ namespace PGCGame.Ships.Allies
                 CurrentHealth = InitialHealth;
             }
 
-            if (ks.IsKeyDown(Keys.E) && _lastKs.IsKeyUp(Keys.E))
+            if (StateManager.PowerUps[0].Count > 0 || StateManager.PowerUps[1].Count > 0 || StateManager.PowerUps[2].Count > 0)
             {
-                int selCount = 0;
-                do{
-                secondaryWeaponIndex++;
-                secondaryWeaponIndex %= StateManager.PowerUps.Length;
-                }while(StateManager.PowerUps[secondaryWeaponIndex].Count == 0 && selCount < StateManager.PowerUps.Length);
-            }
-            if (ks.IsKeyDown(Keys.Q) && _lastKs.IsKeyUp(Keys.Q))
-            {
-                int selCount = 0;
-                do
+
+                if (ks.IsKeyDown(Keys.E) && _lastKs.IsKeyUp(Keys.E))
                 {
-                    secondaryWeaponIndex--;
-                    if (secondaryWeaponIndex < 0)
+                    int selCount = 0;
+                    do
                     {
-                        secondaryWeaponIndex = StateManager.PowerUps.Length + secondaryWeaponIndex;
-                    }
-                } while (StateManager.PowerUps[secondaryWeaponIndex].Count == 0 && selCount < StateManager.PowerUps.Length);
+                        secondaryWeaponIndex++;
+                        secondaryWeaponIndex %= StateManager.PowerUps.Length;
+                    } while (StateManager.PowerUps[secondaryWeaponIndex].Count == 0 && selCount < StateManager.PowerUps.Length);
+                }
+                if (ks.IsKeyDown(Keys.Q) && _lastKs.IsKeyUp(Keys.Q))
+                {
+                    int selCount = 0;
+                    do
+                    {
+                        secondaryWeaponIndex--;
+                        if (secondaryWeaponIndex < 0)
+                        {
+                            secondaryWeaponIndex = StateManager.PowerUps.Length + secondaryWeaponIndex;
+                        }
+                    } while (StateManager.PowerUps[secondaryWeaponIndex].Count == 0 && selCount < StateManager.PowerUps.Length);
+                }
             }
 
             /*
@@ -260,17 +265,17 @@ namespace PGCGame.Ships.Allies
                 ActiveSecondaryWeapon = StateManager.PowerUps.First();
             }
             */
-            
+
             //Deploy secondary weapon
             if (ActiveSecondaryWeapon != null && ks.IsKeyDown(Keys.RightShift) && _lastKs != null && !_lastKs.IsKeyDown(Keys.RightShift) && ActiveSecondaryWeapon.fired == false)
             {
                 ActiveSecondaryWeapon.fired = true;
-                
+
                 //StateManager.PowerUps.Remove(ActiveSecondaryWeapon);
-                
+
                 ActiveSecondaryWeapon.ParentShip = this;
-                
-               
+
+
                 //Specifics of certain secondary weapons 
                 switch (ActiveSecondaryWeapon.GetType().FullName)
                 {
@@ -293,7 +298,7 @@ namespace PGCGame.Ships.Allies
 
                 ActiveSecondaryWeapon.Update(gt);
                 StateManager.PowerUps[secondaryWeaponIndex].Pop();
-                
+
             }
 
             if (ActiveSecondaryWeapon != null)
