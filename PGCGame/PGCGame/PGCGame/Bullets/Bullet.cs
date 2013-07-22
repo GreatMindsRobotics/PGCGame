@@ -42,7 +42,19 @@ namespace PGCGame
             }
             set { _damage = value; }
         }
-        
+
+        internal void DoSpeedPlus()
+        {
+
+        }
+
+        public Vector2 TraveledDistance
+        {
+            get
+            {
+                return _traveledDistance;
+            }
+        }
 
         private bool _isDead = false;
 
@@ -54,12 +66,7 @@ namespace PGCGame
         public override void Update()
         {         
             base.Update();
-
-
-            //Position += Speed;
-
-
-            _traveledDistance += Speed;
+            DoSpeedPlus();
             if (MaximumDistance.HasValue)
             {
                 if (_traveledDistance.LengthSquared() >= MaximumDistance.Value.LengthSquared())

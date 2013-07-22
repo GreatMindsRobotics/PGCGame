@@ -27,7 +27,18 @@ namespace PGCGame
             {
                 foreach (Bullet b in ShrinkRayBullets)
                 {
-                    if (b.Intersects(ship))
+                    b.Color = Color.Purple;
+                    b.DoSpeedPlus();
+                    b.MaximumDistance = new Vector2(875);
+                    if (b.MaximumDistance.HasValue)
+                    {
+                        if (b.TraveledDistance.LengthSquared() >= b.MaximumDistance.Value.LengthSquared())
+                        {
+                            b.IsDead = true;
+                            FireKilledEvent();
+                        }
+                    }
+                    if (!b.IsDead && b.Intersects(ship))
                     {
                         ship.Scale *= .66f;
                         ship.CurrentHealth = (ship.CurrentHealth * .66f).Round();

@@ -129,6 +129,8 @@ namespace PGCGame.Ships.Allies
         protected static Dictionary<ShipTier, int> _cost;
         public static Dictionary<ShipTier, int> Cost { get { return _cost; } set { _cost = value; } }
 
+        bool canDeploySecWeap = true;
+
         static BaseAllyShip()
         {
             _cost = new Dictionary<ShipTier, int>();
@@ -267,13 +269,14 @@ namespace PGCGame.Ships.Allies
             */
 
             //Deploy secondary weapon
-            if (ActiveSecondaryWeapon != null && ks.IsKeyDown(Keys.RightShift) && _lastKs != null && !_lastKs.IsKeyDown(Keys.RightShift) && ActiveSecondaryWeapon.fired == false)
+            if (canDeploySecWeap && ActiveSecondaryWeapon != null && ks.IsKeyDown(Keys.RightShift) && _lastKs != null && !_lastKs.IsKeyDown(Keys.RightShift) && ActiveSecondaryWeapon.fired == false)
             {
                 ActiveSecondaryWeapon.fired = true;
-
+                canDeploySecWeap = false;
                 //StateManager.PowerUps.Remove(ActiveSecondaryWeapon);
 
                 ActiveSecondaryWeapon.ParentShip = this;
+                ActiveSecondaryWeapon.Killed += new EventHandler(ActiveSecondaryWeapon_Killed);
 
 
                 //Specifics of certain secondary weapons 
@@ -297,7 +300,6 @@ namespace PGCGame.Ships.Allies
                 }
 
                 ActiveSecondaryWeapon.Update(gt);
-                StateManager.PowerUps[secondaryWeaponIndex].Pop();
 
             }
 
@@ -310,6 +312,12 @@ namespace PGCGame.Ships.Allies
 
             base.Update(gt);
 
+        }
+
+        void ActiveSecondaryWeapon_Killed(object sender, EventArgs e)
+        {
+            StateManager.PowerUps[secondaryWeaponIndex].Pop();
+            canDeploySecWeap = true;
         }
     }
 }
