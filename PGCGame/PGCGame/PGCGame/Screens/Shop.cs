@@ -104,7 +104,7 @@ namespace PGCGame.Screens
 #if XBOX
             AllButtons = new GamePadButtonEnumerator(new TextSprite[,] { 
             {upgradeEquipmentLabel, shipLabel, weaponsLabel},
-            {null, nextLevelLabel, null}
+            {null, PlayLabel, null}
             }, InputType.LeftJoystick);
             AllButtons.FireTextSpritePressed = true;
 #endif

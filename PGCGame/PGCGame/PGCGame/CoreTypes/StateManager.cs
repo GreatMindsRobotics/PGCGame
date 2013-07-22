@@ -36,7 +36,14 @@ namespace PGCGame
 
         public static int SpacePoints = 0;
 
-        public static LinkedList<SecondaryWeapon> PowerUps = new LinkedList<SecondaryWeapon>();
+        public static Stack<SecondaryWeapon>[] PowerUps = new Stack<SecondaryWeapon>[]{
+            //0: SpaceMine
+            new Stack<SecondaryWeapon>(),
+            //1: ShrinkRay
+            new Stack<SecondaryWeapon>(),
+            //2: EMP
+            new Stack<SecondaryWeapon>()
+        };
 
         public static Delegates.CheckIfWindowFocused IsWindowFocused;
 
@@ -72,7 +79,9 @@ namespace PGCGame
             _spaceBucks = 200000;
             SpaceBucks = _spaceBucks;
             IsWSFirstUpdate = true;
-            PowerUps = new LinkedList<SecondaryWeapon>();
+            PowerUps = new Stack<SecondaryWeapon>[]{
+
+            };
             lives = 5;
         }
 
@@ -286,6 +295,7 @@ namespace PGCGame
             public static bool ShipSpeedIncrease = false;
             public static bool OPBullets = false;
             public static bool ShowShipIDs = true;
+            public static bool EmergencyHeal = true;
         }
 
         public static class InputManager

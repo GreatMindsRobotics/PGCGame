@@ -34,12 +34,19 @@ namespace PGCGame
         }
 
 
+        public bool IsDead = false;
+
         public abstract void Update(GameTime currentGameTime);
 
         public SecondaryWeapon(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
             : base(texture, location, spriteBatch)
         {
+            this.Killed += new EventHandler(SecondaryWeapon_Killed);
+        }
 
+        private void SecondaryWeapon_Killed(object sender, EventArgs e)
+        {
+            IsDead = true;
         }
     }
 }

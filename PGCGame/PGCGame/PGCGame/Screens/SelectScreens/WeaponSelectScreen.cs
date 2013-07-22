@@ -95,15 +95,15 @@ namespace PGCGame.Screens.SelectScreens
                     SpaceBucksAmount.Text = string.Format("You have {0} credits", StateManager.SpaceBucks);
                     if (item.GetType() == typeof(SpaceMine))
                     {
-                        StateManager.PowerUps.AddLast(new SpaceMine(item.Texture, Vector2.Zero, Sprites.SpriteBatch));
+                        StateManager.PowerUps[0].Push(new SpaceMine(item.Texture, Vector2.Zero, Sprites.SpriteBatch));
                     }
                     else if (item.GetType() == typeof(EMP))
                     {
-                        StateManager.PowerUps.AddLast(new EMP(GameContent.GameAssets.Images.SecondaryWeapon[SecondaryWeaponType.EMP, TextureDisplayType.InGameUse], Vector2.Zero, Sprites.SpriteBatch));
+                        StateManager.PowerUps[2].Push(new EMP(GameContent.GameAssets.Images.SecondaryWeapon[SecondaryWeaponType.EMP, TextureDisplayType.InGameUse], Vector2.Zero, Sprites.SpriteBatch));
                     }
                     if (item.GetType() == typeof(ShrinkRay))
                     {
-                        StateManager.PowerUps.AddLast(new ShrinkRay(item.Texture, Vector2.Zero, Sprites.SpriteBatch));
+                        StateManager.PowerUps[1].Push(new ShrinkRay(item.Texture, Vector2.Zero, Sprites.SpriteBatch));
                     }
                     break;
                 }

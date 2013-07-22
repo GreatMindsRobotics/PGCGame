@@ -437,13 +437,11 @@ namespace PGCGame.Screens
                 StateManager.ScreenState = ScreenType.Shop;
             }
 
-            if (StateManager.PowerUps.Count > 0)
+            secondaryWeaponLabel.Text = "No Secondary Weapon";
+
+            if (playerShip.ActiveSecondaryWeapon != null)
             {
-                secondaryWeaponLabel.Text = StateManager.PowerUps.First().Name;
-            }
-            else
-            {
-                secondaryWeaponLabel.Text = "No Secondary Weapon";
+                secondaryWeaponLabel.Text = playerShip.ActiveSecondaryWeapon.Name;
             }
 
 
