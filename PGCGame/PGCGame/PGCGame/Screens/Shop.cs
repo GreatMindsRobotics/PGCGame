@@ -21,11 +21,17 @@ namespace PGCGame.Screens
         {
             //TODO: BACKGROUND
         }
-
+        Sprite upgradeEquipmentButton;
         TextSprite upgradeEquipmentLabel;
+
+        Sprite shipButton;
         TextSprite shipLabel;
+
+        Sprite weaponsButton;
         TextSprite weaponsLabel;
-        TextSprite nextLevelLabel;
+
+        Sprite PlayButton;
+        TextSprite PlayLabel;
 
         public static Boolean firstShop = true;
 
@@ -44,7 +50,7 @@ namespace PGCGame.Screens
             Sprites[0].Scale = new Vector2((float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Width / (float)Sprites[0].Texture.Width, (float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Height / (float)Sprites[0].Texture.Height);
 
 
-            Sprite upgradeEquipmentButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .1f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .4f), Sprites.SpriteBatch);
+            upgradeEquipmentButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .1f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .4f), Sprites.SpriteBatch);
             upgradeEquipmentLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Equipment");
             upgradeEquipmentLabel.Color = Color.White;
             upgradeEquipmentLabel.IsHoverable = true;
@@ -55,7 +61,7 @@ namespace PGCGame.Screens
             Sprites.Add(upgradeEquipmentButton);
             AdditionalSprites.Add(upgradeEquipmentLabel);
 
-            Sprite shipButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .400f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .4f), Sprites.SpriteBatch);
+            shipButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .400f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .4f), Sprites.SpriteBatch);
             shipLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Ship");
             shipLabel.Color = Color.White;
             shipLabel.IsHoverable = true;
@@ -67,7 +73,7 @@ namespace PGCGame.Screens
             Sprites.Add(shipButton);
             AdditionalSprites.Add(shipLabel);
 
-            Sprite weaponsButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .7f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .4f), Sprites.SpriteBatch);
+            weaponsButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .7f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .4f), Sprites.SpriteBatch);
             weaponsLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Weapons");
             weaponsLabel.ParentSprite = weaponsButton;
             weaponsLabel.Color = Color.White;
@@ -78,19 +84,19 @@ namespace PGCGame.Screens
             Sprites.Add(weaponsButton);
             AdditionalSprites.Add(weaponsLabel);
 
-            Sprite nextLevelButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .4f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .65f), Sprites.SpriteBatch);
-            nextLevelLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Play");
-            nextLevelLabel.Color = Color.White;
-            nextLevelLabel.IsHoverable = true;
-            nextLevelLabel.ParentSprite = nextLevelButton;
-            nextLevelLabel.NonHoverColor = Color.White;
-            nextLevelLabel.HoverColor = Color.MediumAquamarine;
+            PlayButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .4f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .65f), Sprites.SpriteBatch);
+            PlayLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Play");
+            PlayLabel.Color = Color.White;
+            PlayLabel.IsHoverable = true;
+            PlayLabel.ParentSprite = PlayButton;
+            PlayLabel.NonHoverColor = Color.White;
+            PlayLabel.HoverColor = Color.MediumAquamarine;
 
-            Sprites.Add(nextLevelButton);
-            AdditionalSprites.Add(nextLevelLabel);
+            Sprites.Add(PlayButton);
+            AdditionalSprites.Add(PlayLabel);
 
 
-            nextLevelLabel.Pressed += new EventHandler(nextLevelLabel_Pressed);
+            PlayLabel.Pressed += new EventHandler(nextLevelLabel_Pressed);
             weaponsLabel.Pressed += new EventHandler(weaponsLabel_Pressed);
             upgradeEquipmentLabel.Pressed += new EventHandler(upgradeEquipmentLabel_Pressed);
             shipLabel.Pressed += new EventHandler(shipLabel_Pressed);
@@ -150,7 +156,10 @@ namespace PGCGame.Screens
         {
             //relocate all the sprites and labels to the correct position
             Sprites[0].Scale = new Vector2((float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Width / (float)Sprites[0].Texture.Width, (float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Height / (float)Sprites[0].Texture.Height);
-
+            shipButton.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .5f - (shipButton.Width / 2), Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .5f);
+            upgradeEquipmentButton.Position = new Vector2(shipButton.X - (1.5f * shipButton.Width), Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .5f);      
+            weaponsButton.Position = new Vector2(shipButton.X + (1.5f * shipButton.Width), Sprites.SpriteBatch.GraphicsDevice.Viewport.Height *.5f);
+            PlayButton.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .5f - (PlayButton.Width / 2), Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .6f + (.5f * PlayButton.Height));
         }
 
 
