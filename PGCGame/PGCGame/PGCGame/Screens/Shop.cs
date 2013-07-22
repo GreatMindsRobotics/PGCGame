@@ -79,7 +79,7 @@ namespace PGCGame.Screens
             AdditionalSprites.Add(weaponsLabel);
 
             Sprite nextLevelButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .4f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .65f), Sprites.SpriteBatch);
-            nextLevelLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Next Level");
+            nextLevelLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Play");
             nextLevelLabel.Color = Color.White;
             nextLevelLabel.IsHoverable = true;
             nextLevelLabel.ParentSprite = nextLevelButton;
@@ -149,6 +149,8 @@ namespace PGCGame.Screens
         void Options_ScreenResolutionChanged(object sender, EventArgs e)
         {
             //relocate all the sprites and labels to the correct position
+            Sprites[0].Scale = new Vector2((float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Width / (float)Sprites[0].Texture.Width, (float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Height / (float)Sprites[0].Texture.Height);
+
         }
 
 
