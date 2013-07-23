@@ -151,7 +151,7 @@ namespace PGCGame.Screens
             SpriteFont SegoeUIMono = GameContent.GameAssets.Fonts.NormalText;
 
             secondaryWeaponLabel = new TextSprite(playerSb, SegoeUIMono, "No Secondary Weapon");
-            secondaryWeaponLabel.Position = new Vector2((Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .1f - secondaryWeaponLabel.Width / 2 ) + 30 , Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f - secondaryWeaponLabel.Height / 2);
+            secondaryWeaponLabel.Position = new Vector2((Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .1f - secondaryWeaponLabel.Width / 2) + 30, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f - secondaryWeaponLabel.Height / 2);
             secondaryWeaponLabel.Color = Color.White;
             playerSbObjects.Add(secondaryWeaponLabel);
 
@@ -168,63 +168,21 @@ namespace PGCGame.Screens
             Vector2 minSpawnArea = _playableAreaOffset;
             Vector2 maxSpawnArea = new Vector2(bgspr.TotalWidth, bgspr.TotalHeight) - _playableAreaOffset;
 
-
-
-            if (StateManager.level == GameLevel.Level1)
+            for (int i = 0; i < 4*StateManager.level.ToInt(); i++)
             {
-                for (int i = 0; i < 4; i++)
-                {
-                    Texture2D enemyTexture = GameContent.GameAssets.Images.Ships[ShipType.Drone, StateManager.RandomGenerator.NextShipTier(ShipTier.Tier1, ShipTier.Tier2)];
-                    EnemyBattleCruiser enemy = new EnemyBattleCruiser(GameContent.GameAssets.Images.Ships[ShipType.EnemyBattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
+                Texture2D enemyTexture = GameContent.GameAssets.Images.Ships[ShipType.Drone, StateManager.RandomGenerator.NextShipTier(ShipTier.Tier1, ShipTier.Tier2)];
+                EnemyBattleCruiser enemy = new EnemyBattleCruiser(GameContent.GameAssets.Images.Ships[ShipType.EnemyBattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
 
-                    enemy.WorldCoords = StateManager.RandomGenerator.NextVector2(minSpawnArea, maxSpawnArea);
+                enemy.WorldCoords = StateManager.RandomGenerator.NextVector2(minSpawnArea, maxSpawnArea);
 
-                    enemy.DistanceToNose = .5f;
+                enemy.DistanceToNose = .5f;
 
-                    enemy.Tier = ShipTier.Tier1;
+                enemy.Tier = ShipTier.Tier1;
 
-                    Sprites.Add(enemy);
-                    enemies.Add(enemy);
-                }
+                Sprites.Add(enemy);
+                enemies.Add(enemy);
             }
-            else if (StateManager.level == GameLevel.Level2)
-            {
-                for (int i = 0; i < 8; i++)
-                {
-                    Texture2D enemyTexture = GameContent.GameAssets.Images.Ships[ShipType.Drone, StateManager.RandomGenerator.NextShipTier(ShipTier.Tier1, ShipTier.Tier2)];
-                    EnemyBattleCruiser enemy = new EnemyBattleCruiser(GameContent.GameAssets.Images.Ships[ShipType.EnemyBattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
 
-                    enemy.WorldCoords = StateManager.RandomGenerator.NextVector2(minSpawnArea, maxSpawnArea);
-
-                    enemy.DistanceToNose = .5f;
-
-                    enemy.Tier = ShipTier.Tier1;
-
-                    Sprites.Add(enemy);
-                    enemies.Add(enemy);
-                }
-            }
-            else if (StateManager.level == GameLevel.Level3)
-            {
-                for (int i = 0; i < 12; i++)
-                {
-                    Texture2D enemyTexture = GameContent.GameAssets.Images.Ships[ShipType.Drone, StateManager.RandomGenerator.NextShipTier(ShipTier.Tier1, ShipTier.Tier2)];
-                    EnemyBattleCruiser enemy = new EnemyBattleCruiser(GameContent.GameAssets.Images.Ships[ShipType.EnemyBattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
-
-                    enemy.WorldCoords = StateManager.RandomGenerator.NextVector2(minSpawnArea, maxSpawnArea);
-
-                    enemy.DistanceToNose = .5f;
-
-                    enemy.Tier = ShipTier.Tier1;
-
-                    Sprites.Add(enemy);
-                    enemies.Add(enemy);
-                }
-            }
-            else
-            {
-                //TODO: Boss Code
-            }
 
 
             miniMap = new Sprite(new PlainTexture2D(Sprites.SpriteBatch.GraphicsDevice, 1, 1, new Color(Color.Navy.R, Color.Navy.G, Color.Navy.B, 128)), Vector2.Zero, playerSb);
@@ -340,7 +298,7 @@ namespace PGCGame.Screens
                 string shipIdStr = activeMiniShipDisplay.ShipID.ToString();
                 string[] digits = shipIdStr.Split('-');
                 shipIdStr = digits[0] + "..." + digits[digits.Length - 1];
-                miniShipInfo = new TextSprite(playerSb, normal, string.Format("HP: {0}/{1}\nDamage: {2}{3}", activeMiniShipDisplay.CurrentHealth, activeMiniShipDisplay.InitialHealth, activeMiniShipDisplay.DamagePerShot, StateManager.DebugData.ShowShipIDs ? "\nID: "+shipIdStr : ""));
+                miniShipInfo = new TextSprite(playerSb, normal, string.Format("HP: {0}/{1}\nDamage: {2}{3}", activeMiniShipDisplay.CurrentHealth, activeMiniShipDisplay.InitialHealth, activeMiniShipDisplay.DamagePerShot, StateManager.DebugData.ShowShipIDs ? "\nID: " + shipIdStr : ""));
                 miniShipInfo.Color = Color.White;
                 miniShipInfo.Position = new Vector2(miniShipInfoBg.X + (miniShipInfoBg.Width / 2f) - (miniShipInfo.Width / 2f), miniShipInfoTitle.Y + bold.LineSpacing);
                 if (StateManager.HasBoughtScanner || StateManager.DebugData.ShowShipIDs)
