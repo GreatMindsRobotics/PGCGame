@@ -80,7 +80,12 @@ namespace PGCGame
             SpaceBucks = _spaceBucks;
             IsWSFirstUpdate = true;
             PowerUps = new Stack<SecondaryWeapon>[]{
-
+                //0: SpaceMine
+            new Stack<SecondaryWeapon>(),
+            //1: ShrinkRay
+            new Stack<SecondaryWeapon>(),
+            //2: EMP
+            new Stack<SecondaryWeapon>()
             };
             lives = 5;
         }
