@@ -296,6 +296,7 @@ namespace PGCGame
             public static bool OPBullets = false;
             public static bool ShowShipIDs = true;
             public static bool EmergencyHeal = true;
+            public static bool KillAll = true;
         }
 
         public static class InputManager

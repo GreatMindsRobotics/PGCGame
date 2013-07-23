@@ -422,10 +422,14 @@ namespace PGCGame.Screens
             }
 
             base.Update(gameTime);
-
+            KeyboardState keyboard = Keyboard.GetState();
             Boolean allEnemiesDead = true;
             foreach (BaseEnemyShip enemyShip in enemies)
             {
+                if (StateManager.DebugData.KillAll && _lastState.IsKeyUp(Keys.F7) && keyboard.IsKeyDown(Keys.F7))
+                {
+                    enemyShip.CurrentHealth = (keyboard.IsKeyDown(Keys.LeftAlt) || keyboard.IsKeyDown(Keys.RightAlt)) && enemyShip.CurrentHealth > 0 ? 1 : 0;
+                }
                 if (enemyShip.CurrentHealth > 0)
                 {
                     allEnemiesDead = false;
@@ -478,7 +482,7 @@ namespace PGCGame.Screens
 
             BackgroundSprite bg = BackgroundSprite.Cast<BackgroundSprite>();
             //TODO: UPDATE SPRITES
-            KeyboardState keyboard = Keyboard.GetState();
+            
 
 #if WINDOWS
             if (_lastState.IsKeyUp(Keys.Escape) && keyboard.IsKeyDown(Keys.Escape))

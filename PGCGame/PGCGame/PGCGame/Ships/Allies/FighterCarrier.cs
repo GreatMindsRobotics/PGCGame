@@ -21,6 +21,8 @@ namespace PGCGame
 {
     public class FighterCarrier : BaseAllyShip
     {
+        public static float DroneLength = 0f;
+
         public FighterCarrier(Texture2D texture, Vector2 location, SpriteBatch spriteBatch, Texture2D droneTexture)
             : base(texture, location, spriteBatch)
         {
@@ -107,6 +109,8 @@ namespace PGCGame
         static FighterCarrier()
         {
             _friendlyName = "Fighter Carrier";
+            //TODO: Better drone length
+            DroneLength = 0;
         }
     }
 }
