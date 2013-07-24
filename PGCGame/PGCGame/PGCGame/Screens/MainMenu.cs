@@ -121,6 +121,7 @@ namespace PGCGame.Screens
 
             SinglePlayerLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Singleplayer");
             SinglePlayerLabel.IsHoverable = true;
+            SinglePlayerLabel.CallKeyboardClickEvent = false;
             SinglePlayerLabel.NonHoverColor = Color.White;
             SinglePlayerLabel.HoverColor = Color.MediumAquamarine;
 
@@ -135,6 +136,7 @@ namespace PGCGame.Screens
 
             MultiPlayerLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Multiplayer");
             MultiPlayerLabel.IsHoverable = true;
+            MultiPlayerLabel.CallKeyboardClickEvent = false;
             MultiPlayerLabel.NonHoverColor = Color.White;
             MultiPlayerLabel.HoverColor = Color.MediumAquamarine;
             MultiPlayerLabel.ParentSprite = MultiPlayerButton;
@@ -147,6 +149,7 @@ namespace PGCGame.Screens
 
             BackLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Exit");
             BackLabel.IsHoverable = true;
+            BackLabel.CallKeyboardClickEvent = false;
             BackLabel.ParentSprite = BackButton;
             BackLabel.NonHoverColor = Color.White;
             BackLabel.HoverColor = Color.MediumAquamarine;
@@ -158,6 +161,7 @@ namespace PGCGame.Screens
             Sprites.Add(OptionsButton);
 
             OptionsLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Options");
+            OptionsLabel.CallKeyboardClickEvent = false;
             OptionsLabel.ParentSprite = OptionsButton;
             OptionsLabel.IsHoverable = true;
             OptionsLabel.NonHoverColor = Color.White;
@@ -172,6 +176,7 @@ namespace PGCGame.Screens
 
             CreditsLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Credits");
             CreditsLabel.IsHoverable = true;
+            CreditsLabel.CallKeyboardClickEvent = false;
             CreditsLabel.ParentSprite = CreditsButton;
             CreditsLabel.NonHoverColor = Color.White;
             CreditsLabel.HoverColor = Color.MediumAquamarine;

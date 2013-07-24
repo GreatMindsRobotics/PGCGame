@@ -71,6 +71,7 @@ namespace PGCGame.Screens.Multiplayer
 
             BackLabel = new TextSprite(Sprites.SpriteBatch, Vector2.One * 10, SegoeUIMono, "Back");
             BackLabel.IsHoverable = true;
+            BackLabel.CallKeyboardClickEvent = false;
             BackLabel.ParentSprite = BackButton;
             BackLabel.NonHoverColor = Color.White;
             BackLabel.HoverColor = Color.MediumAquamarine;
@@ -81,6 +82,7 @@ namespace PGCGame.Screens.Multiplayer
             LANLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Scan for LAN sectors");
             LANLabel.IsHoverable = true;
             LANLabel.ParentSprite = LANButton;
+            LANLabel.CallKeyboardClickEvent = false;
             LANLabel.NonHoverColor = Color.White;
             LANLabel.HoverColor = Color.MediumAquamarine;
             AdditionalSprites.Add(LANLabel);
@@ -89,6 +91,7 @@ namespace PGCGame.Screens.Multiplayer
             HostButton.Scale = new Vector2(1.1f, 1);
             HostLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Host LAN sector");
             HostLabel.IsHoverable = true;
+            HostLabel.CallKeyboardClickEvent = false;
             HostLabel.ParentSprite = HostButton;
             HostLabel.NonHoverColor = Color.White;
             HostLabel.HoverColor = Color.MediumAquamarine;
@@ -106,7 +109,7 @@ namespace PGCGame.Screens.Multiplayer
             AllButtons.ButtonPress += new EventHandler(AllButtons_ButtonPress);
             BackLabel.IsSelected = true;
 #elif WINDOWS
-            BackLabel.Clicked += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.GoBack(); } });
+            BackLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.GoBack(); } });
             
 #endif
         }
