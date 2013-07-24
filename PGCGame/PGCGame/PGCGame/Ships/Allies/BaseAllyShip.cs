@@ -212,7 +212,7 @@ namespace PGCGame.Ships.Allies
             if (StateManager.PowerUps[0].Count > 0 || StateManager.PowerUps[1].Count > 0 || StateManager.PowerUps[2].Count > 0)
             {
 
-                if (ks.IsKeyDown(Keys.E) && _lastKs.IsKeyUp(Keys.E))
+                if ( StateManager.PowerUps[SecondaryWeaponIndex].Count == 0 || (ks.IsKeyDown(Keys.E) && _lastKs.IsKeyUp(Keys.E)) )
                 {
                     int selCount = 0;
                     do
