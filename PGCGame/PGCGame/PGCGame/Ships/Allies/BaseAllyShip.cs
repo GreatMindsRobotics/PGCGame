@@ -140,7 +140,7 @@ namespace PGCGame.Ships.Allies
             }
             set
             {
-                if (StateManager.DebugData.Invincible && value < CurrentHealth)
+                if (StateManager.DebugData.Invincible && value < InitialHealth)
                 {
                     return;
                 }

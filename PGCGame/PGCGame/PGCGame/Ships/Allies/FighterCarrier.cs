@@ -85,7 +85,7 @@ namespace PGCGame
 
             for(int d = 0; d < Drones.Count; d++)
             {
-                Drones[d].WorldCoords = WorldCoords + Drones[d].Origin * Drones[d].Rotation.Radians.AngleToVector();
+                Drones[d].WorldCoords = WorldCoords + Drones[d].Origin * Drones[d].Rotation.Vector;
                 Drones[d].Update(gt);
             }
         }

@@ -57,7 +57,6 @@ namespace PGCGame
 
         #region Public Properties
 
-
         public FighterCarrier ParentShip { get; set; }
         public DroneState DroneState { get; set; }
 
@@ -111,8 +110,7 @@ namespace PGCGame
             if (closestEnemyShipDistance.HasValue)
             {
                 //Glen's experiment
-                Vector2 realWc = WorldCoords;
-                WorldCoords = ParentShip.WorldCoords;
+                
                 Bullet bullet = new Bullet(BulletTexture, WorldCoords, WorldSb, this);
                 Vector2 normalizedDistance = this.closestEnemyShipDistance.Value;
                 normalizedDistance.Normalize();
@@ -121,10 +119,7 @@ namespace PGCGame
                 bullet.UseCenterAsOrigin = true;
                 //bullet.Rotation = Rotation;
                 bullet.Damage = DamagePerShot;
-
                 FlyingBullets.Add(bullet);
-
-                WorldCoords = realWc;
             }
         }
 
