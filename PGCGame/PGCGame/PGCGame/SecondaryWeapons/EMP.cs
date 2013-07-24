@@ -39,6 +39,8 @@ namespace PGCGame
         TimeSpan updateDelay = new TimeSpan(0, 0, 0, 0, 1);
         TimeSpan elapsedUpdateDelay = TimeSpan.Zero;
 
+
+        private Vector2 _pointOfOrigin;
         private Boolean firstShouldDraw = true;
 
         private EMPState _EMPState;
@@ -58,13 +60,13 @@ namespace PGCGame
         TimeSpan maxTime = new TimeSpan(0, 0, 5);
         TimeSpan elapsedMaxTime = TimeSpan.Zero;
 
-        public Ship LaunchingShip { get; set; }
+        private bool _hasDeployInited = false;
 
         public override void Update(GameTime currentGameTime)
         {
             foreach (Ship ship in StateManager.ActiveShips)
             {
-                if (ship != ParentShip && ship.PlayerType == PlayerType.Enemy)
+                if (ship != ParentShip && ship.PlayerType == PlayerType.Enemy && ship.Intersects(this))
                 {
                     ship.Cast<Ships.Enemies.BaseEnemyShip>().isEMPed = true;
                 }
@@ -78,6 +80,11 @@ namespace PGCGame
 
                 case CoreTypes.EMPState.Deployed:
 
+                    if (!_hasDeployInited)
+                    {
+                        _pointOfOrigin = ParentShip.WorldCoords;
+                        _hasDeployInited = true;
+                    }
                     
                     ShouldDraw = true;
 
