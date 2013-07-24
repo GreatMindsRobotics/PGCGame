@@ -279,7 +279,7 @@ namespace PGCGame.Ships.Allies
             //Deploy secondary weapon
             if (StateManager.PowerUps[SecondaryWeaponIndex].Count > 0 && ks.IsKeyDown(Keys.RightShift) && _lastKs != null && _lastKs.IsKeyUp(Keys.RightShift))
             {
-                SecondaryWeapon fired = StateManager.PowerUps[SecondaryWeaponIndex].Pop();
+                SecondaryWeapon fired = StateManager.DebugData.InfiniteSecondaryWeapons ? StateManager.PowerUps[SecondaryWeaponIndex].Peek() : StateManager.PowerUps[SecondaryWeaponIndex].Pop();
                 fired.fired = true;
                 //canDeploySecWeap = false;
                 //StateManager.PowerUps.Remove(ActiveSecondaryWeapon);
@@ -311,6 +311,7 @@ namespace PGCGame.Ships.Allies
 
             }
 
+            
             for(_updateI = 0; _updateI < ActiveSecondaryWeapons.Count; _updateI++)
             {
                 ActiveSecondaryWeapons[_updateI].Update(gt);

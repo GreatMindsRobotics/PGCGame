@@ -305,6 +305,7 @@ namespace PGCGame
             public static bool EmergencyHeal = true;
             public static bool KillAll = true;
             public static bool Invincible = true;
+            public static bool InfiniteSecondaryWeapons = true;
         }
 
         public static class InputManager
