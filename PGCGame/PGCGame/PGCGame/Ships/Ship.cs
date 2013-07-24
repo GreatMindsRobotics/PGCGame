@@ -150,6 +150,11 @@ namespace PGCGame
 
         public int DamagePerShot { get; set; }
 
+        public void Kill(bool brutally)
+        {
+            this.CurrentHealth = brutally ? int.MinValue : 0;
+        }
+
         public List<Bullet> FlyingBullets
         {
             get { return _flyingBullets; }

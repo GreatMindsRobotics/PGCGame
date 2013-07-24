@@ -47,7 +47,15 @@ namespace PGCGame
                             ship.Scale *= .66f;
                             ship.ShrinkCount++;
                         }
-                        ship.CurrentHealth = (ship.CurrentHealth * .66f).Round();
+                        if (ship.CurrentHealth > 1)
+                        {
+                            ship.CurrentHealth = (ship.CurrentHealth * .66f).Round();
+                        }
+                        else
+                        {
+                            //Ship is at 1 health - MURDER IT!!!!
+                            ship.Kill(true);
+                        }
                         b.IsDead = true;
                         FireKilledEvent();
                     }
