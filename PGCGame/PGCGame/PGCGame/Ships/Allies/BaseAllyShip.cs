@@ -311,11 +311,22 @@ namespace PGCGame.Ships.Allies
 
             }
 
-            
-            for(_updateI = 0; _updateI < ActiveSecondaryWeapons.Count; _updateI++)
-            {
-                ActiveSecondaryWeapons[_updateI].Update(gt);
 
+            if (ActiveSecondaryWeapons.Count > 0)
+            {
+                _updateI = 0;
+                for (; _updateI < ActiveSecondaryWeapons.Count; _updateI++)
+                {
+                    if (_updateI < 0 && ActiveSecondaryWeapons.Count <= 0)
+                    {
+                        break;
+                    }
+                    else if (_updateI < 0)
+                    {
+                        _updateI = 0;
+                    }
+                    ActiveSecondaryWeapons[_updateI].Update(gt);
+                }
             }
 
             _lastKs = ks;
