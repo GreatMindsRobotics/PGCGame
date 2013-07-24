@@ -169,6 +169,8 @@ namespace PGCGame
             }
         }
 
+        public int ShrinkCount = 0;
+
         public virtual int CurrentHealth
         {
             get { return _currentHealth; }

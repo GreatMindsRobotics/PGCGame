@@ -10,6 +10,8 @@ namespace PGCGame
 {
     public class ShrinkRay : SecondaryWeapon
     {
+        public const int MaxShrinks = 2;
+
         public ShrinkRay(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
             : base(texture, location, spriteBatch)
         {
@@ -40,7 +42,11 @@ namespace PGCGame
                     }
                     if (!b.IsDead && b.Intersects(ship))
                     {
-                        ship.Scale *= .66f;
+                        if (ship.ShrinkCount < MaxShrinks)
+                        {
+                            ship.Scale *= .66f;
+                            ship.ShrinkCount++;
+                        }
                         ship.CurrentHealth = (ship.CurrentHealth * .66f).Round();
                         b.IsDead = true;
                         FireKilledEvent();
