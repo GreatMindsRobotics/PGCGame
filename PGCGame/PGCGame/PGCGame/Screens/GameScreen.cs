@@ -340,25 +340,29 @@ namespace PGCGame.Screens
                 }
             }
 
-            if (playerShip.ActiveSecondaryWeapon != null && playerShip.ActiveSecondaryWeapon.ShouldDraw)
+            foreach (SecondaryWeapon activeWeapon in playerShip.ActiveSecondaryWeapons)
             {
-                switch (playerShip.ActiveSecondaryWeapon.GetType().FullName)
-                {
-                    case "PGCGame.SpaceMine":
-                        Sprites.SpriteBatch.Draw(playerShip.ActiveSecondaryWeapon);
-                        break;
-                    case "PGCGame.EMP":
-                        Sprites.SpriteBatch.Draw(playerShip.ActiveSecondaryWeapon);
-                        break;
-                    case "PGCGame.ShrinkRay":
-                        foreach (Bullet b in playerShip.ActiveSecondaryWeapon.Cast<ShrinkRay>().ShrinkRayBullets)
-                        {
-                            b.Update();
-                            Sprites.SpriteBatch.Draw(b);
-                        }
-                        break;
-                }
 
+                if (activeWeapon != null && activeWeapon.ShouldDraw)
+                {
+                    switch (activeWeapon.GetType().FullName)
+                    {
+                        case "PGCGame.SpaceMine":
+                            Sprites.SpriteBatch.Draw(activeWeapon);
+                            break;
+                        case "PGCGame.EMP":
+                            Sprites.SpriteBatch.Draw(activeWeapon);
+                            break;
+                        case "PGCGame.ShrinkRay":
+                            foreach (Bullet b in activeWeapon.Cast<ShrinkRay>().ShrinkRayBullets)
+                            {
+                                b.Update();
+                                Sprites.SpriteBatch.Draw(b);
+                            }
+                            break;
+                    }
+
+                }
             }
         }
 
@@ -401,9 +405,9 @@ namespace PGCGame.Screens
 
             secondaryWeaponLabel.Text = "No Secondary Weapon";
 
-            if (playerShip.ActiveSecondaryWeapon != null)
+            if (playerShip.CurrentWeaponName != null)
             {
-                secondaryWeaponLabel.Text = playerShip.ActiveSecondaryWeapon.Name;
+                secondaryWeaponLabel.Text = playerShip.CurrentWeaponName;
             }
 
 
