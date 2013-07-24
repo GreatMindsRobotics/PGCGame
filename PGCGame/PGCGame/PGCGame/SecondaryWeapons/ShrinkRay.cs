@@ -29,7 +29,7 @@ namespace PGCGame
             {
                 foreach (Bullet b in ShrinkRayBullets)
                 {
-                    b.Color = Color.Purple;
+                    b.Color = Color.MediumPurple;
                     b.DoSpeedPlus();
                     b.MaximumDistance = new Vector2(875);
                     if (b.MaximumDistance.HasValue)
