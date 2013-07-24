@@ -37,7 +37,7 @@ namespace PGCGame
 
             BulletTexture = GameContent.GameAssets.Images.Ships.Bullets[ShipType.FighterCarrier, ShipTier.Tier1];
             DelayBetweenShots = TimeSpan.FromMilliseconds(100);
-            DamagePerShot = 100;
+            DamagePerShot = 2;
             _initHealth = 100;
             MovementSpeed = Vector2.One * 2f;
             this.TierChanged += new EventHandler(FighterCarrier_TierChanged);
