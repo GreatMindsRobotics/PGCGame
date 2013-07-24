@@ -169,7 +169,7 @@ namespace PGCGame
             }
         }
 
-        public int CurrentHealth
+        public virtual int CurrentHealth
         {
             get { return _currentHealth; }
             set { _currentHealth = value; }

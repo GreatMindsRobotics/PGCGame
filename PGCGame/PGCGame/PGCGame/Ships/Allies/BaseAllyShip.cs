@@ -132,6 +132,23 @@ namespace PGCGame.Ships.Allies
             }
         }
 
+        public override int CurrentHealth
+        {
+            get
+            {
+                return base.CurrentHealth;
+            }
+            set
+            {
+                if (StateManager.DebugData.Invincible && value < CurrentHealth)
+                {
+                    return;
+                }
+
+                base.CurrentHealth = value;
+            }
+        }
+
         public override void Update(GameTime gt)
         {
             if (CurrentHealth <= 0)
