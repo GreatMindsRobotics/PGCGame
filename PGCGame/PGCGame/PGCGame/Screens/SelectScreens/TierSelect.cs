@@ -53,7 +53,6 @@ namespace PGCGame.Screens.SelectScreens
             Texture2D buttonImage = GameContent.GameAssets.Images.Controls.Button;
             SpriteFont SegoeUIMono = GameContent.GameAssets.Fonts.NormalText;
 
-            //Determine upgrade tier
             ShipTier upgradeTier = StateManager.SelectedTier == ShipTier.Tier4 ? ShipTier.Tier4 : StateManager.SelectedTier + 1;
 
             //Configure current credit balance display

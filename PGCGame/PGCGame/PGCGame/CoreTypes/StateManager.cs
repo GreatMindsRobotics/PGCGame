@@ -300,12 +300,14 @@ namespace PGCGame
             public static bool InfiniteMoney = true;
             public static bool DebugBackground = false;
             public static bool ShipSpeedIncrease = true;
-            public static bool OPBullets = true;
+            public static bool OPBullets = false;
             public static bool ShowShipIDs = true;
             public static bool EmergencyHeal = true;
             public static bool KillAll = true;
             public static bool Invincible = true;
-            //Buggy
+            /// <summary>
+            /// Buggy - due to reference passing
+            /// </summary>
             public static bool InfiniteSecondaryWeapons = false;
         }
 
