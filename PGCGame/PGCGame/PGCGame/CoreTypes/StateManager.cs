@@ -19,6 +19,7 @@ namespace PGCGame
         #region Private Fields
 
         private static bool _hasBoughtScanner = false;
+        public static int HealthPacks = 0;
         private static Stack<ScreenType> _screenStack = new Stack<ScreenType>();
         private static ScreenType _screenState = ScreenType.Title;
         private static GraphicsDeviceManager _gfx;
@@ -170,6 +171,7 @@ namespace PGCGame
             get { return _hasBoughtScanner; }
             set { _hasBoughtScanner = value; }
         }
+
 
         public static Rectangle WorldSize { get; set; }
 
