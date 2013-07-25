@@ -112,7 +112,6 @@ namespace PGCGame.Screens.SelectScreens
 
             torpedoShip.Type = ShipType.TorpedoShip;
             torpedoShip.Tier = upgradeTier;
-
             torpedoShip.Description = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "\n\n This class is the most balanced\n ship in the game. The torpedos do\n a lot of damage and \n are hard to dodge!\n\n Damege Per Shot: 5\n Amount of Health: 110");
             torpedoShip.Description.Color = Color.White;
 
