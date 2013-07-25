@@ -45,7 +45,7 @@ namespace PGCGame
 
         internal void DoSpeedPlus()
         {
-
+            _traveledDistance += Speed;
         }
 
         public Vector2 TraveledDistance
