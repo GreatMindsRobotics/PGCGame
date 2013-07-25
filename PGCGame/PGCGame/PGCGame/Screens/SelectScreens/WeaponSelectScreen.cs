@@ -35,6 +35,7 @@ namespace PGCGame.Screens.SelectScreens
             Texture2D EMP = GameContent.GameAssets.Images.SecondaryWeapon[SecondaryWeaponType.EMP, TextureDisplayType.ShopDisplay];
             Texture2D RayGun = GameContent.GameAssets.Images.SecondaryWeapon[SecondaryWeaponType.ShrinkRay, TextureDisplayType.ShopDisplay];
             Texture2D Bomb = GameContent.GameAssets.Images.SecondaryWeapon[SecondaryWeaponType.SpaceMine, TextureDisplayType.ShopDisplay];
+            Texture2D HealthPack = GameContent.GameAssets.Images.Equipment[EquipmentType.HealthPack, TextureDisplayType.ShopDisplay];
 
             SpaceBucksAmount = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, string.Format("You have {0} credits", StateManager.SpaceBucks), Color.White);
             SpaceBucksAmount.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width / 2 - SpaceBucksAmount.Width, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f);
@@ -71,7 +72,17 @@ namespace PGCGame.Screens.SelectScreens
             items.Add(new KeyValuePair<Sprite, TextSprite>(weapon2, text2));
             items.Add(new KeyValuePair<Sprite, TextSprite>(weapon3, text3));
 
-            
+
+            //HealthPack
+
+            HealthPack weapon4 = new HealthPack(HealthPack, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.6f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.1f), Sprites.SpriteBatch);
+            TextSprite text4 = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.1f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 1.5f), font, "\n\n\nThis power up regenerates\nyour health up\nby 50%\n\nCost: "+weapon4.Cost, Color.White);
+            text4.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.01f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.01f);
+            weapon4.Scale = new Vector2(0.5f, 0.5f);
+
+            items.Add(new KeyValuePair<Sprite, TextSprite>(weapon4, text4));
+            itemsShown.Add(weapon4);
+
             ChangeItem +=new EventHandler(WeaponSelectScreen_ChangeItem);
 
             items.Add(new KeyValuePair<Sprite, TextSprite>(weapon1, text1));
@@ -101,9 +112,13 @@ namespace PGCGame.Screens.SelectScreens
                     {
                         StateManager.PowerUps[2].Push(new EMP(GameContent.GameAssets.Images.SecondaryWeapon[SecondaryWeaponType.EMP, TextureDisplayType.InGameUse],Vector2.Zero, Sprites.SpriteBatch));
                     }
-                    if (item.GetType() == typeof(ShrinkRay))
+                    else if (item.GetType() == typeof(ShrinkRay))
                     {
                         StateManager.PowerUps[1].Push(new ShrinkRay(item.Texture, Vector2.Zero, Sprites.SpriteBatch));
+                    }
+                    else if (item.GetType() == typeof(HealthPack))
+                    {
+                        StateManager.PowerUps[3].Push(new HealthPack(item.Texture, Vector2.Zero, Sprites.SpriteBatch));
                     }
                     break;
                 }

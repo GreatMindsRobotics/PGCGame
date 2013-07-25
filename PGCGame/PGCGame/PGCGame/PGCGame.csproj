@@ -76,6 +76,7 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SecondaryWeapons\HealthPack.cs" />
     <Compile Include="Ships\Enemies\Bosses\CloneBossesClone.cs" />
     <Compile Include="Ships\Enemies\Bosses\CloneBoss.cs" />
     <Compile Include="Program.cs" />

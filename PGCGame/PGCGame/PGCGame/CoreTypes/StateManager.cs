@@ -43,6 +43,8 @@ namespace PGCGame
             //1: ShrinkRay
             new Stack<SecondaryWeapon>(),
             //2: EMP
+            new Stack<SecondaryWeapon>(),
+            //3: HealthPack
             new Stack<SecondaryWeapon>()
         };
 
@@ -81,13 +83,15 @@ namespace PGCGame
             SpaceBucks = _spaceBucks;
             IsWSFirstUpdate = true;
             PowerUps = new Stack<SecondaryWeapon>[]{
-                //0: SpaceMine
+            //0: SpaceMine
             new Stack<SecondaryWeapon>(),
             //1: ShrinkRay
             new Stack<SecondaryWeapon>(),
             //2: EMP
+            new Stack<SecondaryWeapon>(),
+            //3: HealthPack
             new Stack<SecondaryWeapon>()
-            };
+        };
             lives = 5;
         }
 
@@ -304,7 +308,7 @@ namespace PGCGame
             public static bool ShowShipIDs = true;
             public static bool EmergencyHeal = true;
             public static bool KillAll = true;
-            public static bool Invincible = true;
+            public static bool Invincible = false;
             /// <summary>
             /// Buggy - due to reference passing
             /// </summary>

@@ -209,7 +209,7 @@ namespace PGCGame.Ships.Allies
                 CurrentHealth = InitialHealth;
             }
 
-            if (StateManager.PowerUps[0].Count > 0 || StateManager.PowerUps[1].Count > 0 || StateManager.PowerUps[2].Count > 0)
+            if (StateManager.PowerUps[0].Count > 0 || StateManager.PowerUps[1].Count > 0 || StateManager.PowerUps[2].Count > 0 || StateManager.PowerUps[3].Count > 0)
             {
 
                 if ( StateManager.PowerUps[SecondaryWeaponIndex].Count == 0 || (ks.IsKeyDown(Keys.E) && _lastKs.IsKeyUp(Keys.E)) )
@@ -289,6 +289,7 @@ namespace PGCGame.Ships.Allies
 
 
                 //Specifics of certain secondary weapons 
+                ActiveSecondaryWeapons.Add(fired);
                 switch (fired.GetType().FullName)
                 {
 
@@ -306,8 +307,11 @@ namespace PGCGame.Ships.Allies
                             ShrinkRayShoot(fired.Cast<ShrinkRay>());
                         }
                         break;
+                    case "PGCGame.HealthPack":
+
+                        break;
                 }
-                ActiveSecondaryWeapons.Add(fired);
+                
 
             }
 
