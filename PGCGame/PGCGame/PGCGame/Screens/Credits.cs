@@ -234,7 +234,7 @@ namespace PGCGame.Screens
             {
                 MediaPlayer.Stop();
                 _elapsedTime = TimeSpan.Zero;
-                StateManager.GoBack();
+                StateManager.ScreenState = ScreenType.Title;
                 
                 float offset = Sprites.SpriteBatch.GraphicsDevice.Viewport.Height - Sprites[0].Position.Y;
                 Sprites[0].Y += offset;
