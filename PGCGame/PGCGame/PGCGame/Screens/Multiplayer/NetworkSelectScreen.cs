@@ -71,7 +71,9 @@ namespace PGCGame.Screens.Multiplayer
 
             BackLabel = new TextSprite(Sprites.SpriteBatch, Vector2.One * 10, SegoeUIMono, "Back");
             BackLabel.IsHoverable = true;
+#if WINDOWS
             BackLabel.CallKeyboardClickEvent = false;
+#endif
             BackLabel.ParentSprite = BackButton;
             BackLabel.NonHoverColor = Color.White;
             BackLabel.HoverColor = Color.MediumAquamarine;
@@ -82,7 +84,9 @@ namespace PGCGame.Screens.Multiplayer
             LANLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Scan for LAN sectors");
             LANLabel.IsHoverable = true;
             LANLabel.ParentSprite = LANButton;
+#if WINDOWS
             LANLabel.CallKeyboardClickEvent = false;
+#endif
             LANLabel.NonHoverColor = Color.White;
             LANLabel.HoverColor = Color.MediumAquamarine;
             AdditionalSprites.Add(LANLabel);
@@ -91,7 +95,9 @@ namespace PGCGame.Screens.Multiplayer
             HostButton.Scale = new Vector2(1.1f, 1);
             HostLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Host LAN sector");
             HostLabel.IsHoverable = true;
+#if WINDOWS
             HostLabel.CallKeyboardClickEvent = false;
+#endif
             HostLabel.ParentSprite = HostButton;
             HostLabel.NonHoverColor = Color.White;
             HostLabel.HoverColor = Color.MediumAquamarine;

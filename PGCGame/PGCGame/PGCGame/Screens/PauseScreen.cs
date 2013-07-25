@@ -58,7 +58,9 @@ namespace PGCGame.Screens
             ResumeLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "Resume");
             ResumeLabel.ParentSprite = ResumeButton;
             ResumeLabel.Color = Color.White;
+#if WINDOWS
             ResumeLabel.CallKeyboardClickEvent = false;
+#endif
             ResumeLabel.IsHoverable = true;
             ResumeLabel.HoverColor = Color.MediumAquamarine;
             ResumeLabel.NonHoverColor = Color.White;
@@ -72,7 +74,9 @@ namespace PGCGame.Screens
             ExitLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "Exit");
             ExitLabel.Color = Color.White;
             ExitLabel.IsHoverable = true;
+#if WINDOWS
             ExitLabel.CallKeyboardClickEvent = false;
+#endif
             ExitLabel.ParentSprite = ExitButton;
             ExitLabel.HoverColor = Color.MediumAquamarine;
             ExitLabel.NonHoverColor = Color.White;
@@ -86,7 +90,9 @@ namespace PGCGame.Screens
             OptionsLabel.ParentSprite = OptionButton;
             OptionsLabel.Color = Color.White;
             OptionsLabel.IsHoverable = true;
+#if WINDOWS
             OptionsLabel.CallKeyboardClickEvent = false;
+#endif
             OptionsLabel.HoverColor = Color.MediumAquamarine;
             OptionsLabel.NonHoverColor = Color.White;
             AdditionalSprites.Add(OptionsLabel);

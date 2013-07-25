@@ -70,7 +70,9 @@ namespace PGCGame.Screens
             ControlLabel.Position = new Vector2(ControlButton.Position.X + (ControlButton.Width / 2 - ControlLabel.Width / 2), ControlButton.Position.Y + (ControlButton.Height / 2 - ControlLabel.Height / 2));
             ControlLabel.Color = Color.White;
             ControlLabel.IsManuallySelectable = true;
+#if WINDOWS
             ControlLabel.CallKeyboardClickEvent = false;
+#endif
             ControlLabel.IsHoverable = true;
             ControlLabel.HoverColor = Color.MediumAquamarine;
             ControlLabel.NonHoverColor = Color.White;
@@ -107,7 +109,9 @@ namespace PGCGame.Screens
             SFXLabel.Position = new Vector2((SFXButton.X + SFXButton.Width / 2) - SFXLabel.Width / 2, (SFXButton.Y + SFXButton.Height / 2) - SFXLabel.Height / 2);
             SFXLabel.Color = Color.White;
             SFXLabel.IsHoverable = true;
+#if WINDOWS
             SFXLabel.CallKeyboardClickEvent = false;
+#endif
             SFXLabel.IsManuallySelectable = true;
             SFXLabel.HoverColor = Color.MediumAquamarine;
             SFXLabel.NonHoverColor = Color.White;
@@ -121,7 +125,9 @@ namespace PGCGame.Screens
 #endif
             BackLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "Back");
             BackLabel.Position = new Vector2((BackButton.X + BackButton.Width/2) - BackLabel.Width/2, (BackButton.Y + BackButton.Height/2) - BackLabel.Height/2);
+#if WINDOWS
             BackLabel.CallKeyboardClickEvent = false;
+#endif
             BackLabel.Color = Color.White;
 
 #if WINDOWS
@@ -142,7 +148,9 @@ namespace PGCGame.Screens
             MusicVolumeLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, font, "Music: " + (StateManager.Options.MusicEnabled ? "On" : "Off"));
             MusicVolumeLabel.Position = new Vector2((MusicButton.X + MusicButton.Width / 2) - MusicVolumeLabel.Width / 2, (MusicButton.Y + MusicButton.Height / 2) - MusicVolumeLabel.Height / 2);
             MusicVolumeLabel.Color = Color.White;
+#if WINDOWS
             MusicVolumeLabel.CallKeyboardClickEvent = false;
+#endif
             MusicVolumeLabel.IsHoverable = true;
             MusicVolumeLabel.IsManuallySelectable = true;
             MusicVolumeLabel.HoverColor = Color.MediumAquamarine;

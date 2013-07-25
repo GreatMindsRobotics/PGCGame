@@ -36,7 +36,9 @@ namespace PGCGame.Screens
             MainMenuButton.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .5f - MainMenuButton.Width / 2, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .5f - MainMenuButton.Height / 2);
             mainMenuLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Main Menu");
             mainMenuLabel.Position = new Vector2((MainMenuButton.X + MainMenuButton.Width / 2) - mainMenuLabel.Width / 2, (MainMenuButton.Y + MainMenuButton.Height / 2) - mainMenuLabel.Height / 2);
+#if WINDOWS
             mainMenuLabel.CallKeyboardClickEvent = false;
+#endif
             mainMenuLabel.Color = Color.White;
             mainMenuLabel.IsHoverable = true;
             mainMenuLabel.IsManuallySelectable = true;
