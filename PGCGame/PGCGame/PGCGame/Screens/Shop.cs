@@ -136,13 +136,13 @@ namespace PGCGame.Screens
                 if (StateManager.level != GameLevel.Level4)
                 {
                     StateManager.level++;
+                    StateManager.nextLevel = true;
+                    StateManager.ScreenState = ScreenType.Game;
                 }
                 else
                 {
                     //TODO: Win Code;
                 }
-                StateManager.nextLevel = true;
-                StateManager.ScreenState = ScreenType.Game;
             }
             else
             {

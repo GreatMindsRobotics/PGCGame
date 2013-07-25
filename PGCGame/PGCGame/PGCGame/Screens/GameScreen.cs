@@ -398,9 +398,13 @@ namespace PGCGame.Screens
                 }
             }
 
-            if (allEnemiesDead == true && !StateManager.nextLevel)
+            if (allEnemiesDead == true && !StateManager.nextLevel && StateManager.level != GameLevel.Level4)
             {
                 StateManager.ScreenState = ScreenType.Shop;
+            }
+            else if (StateManager.level == GameLevel.Level4)
+            {
+                StateManager.ScreenState = ScreenType.Credits;
             }
 
             secondaryWeaponLabel.Text = "No Secondary Weapon";
