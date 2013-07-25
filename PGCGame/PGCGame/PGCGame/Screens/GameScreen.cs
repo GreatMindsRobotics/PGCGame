@@ -276,6 +276,10 @@ namespace PGCGame.Screens
                 Sprite miniShip = new Sprite(GameContent.GameAssets.Images.MiniShips[s.ShipType], miniMap.Position + (s.WorldCoords / MinimapDivAmount), playerSb);
                 miniShip.Scale = s.PlayerType == PlayerType.MyShip ? new Vector2(.1f) : new Vector2(.07f);
                 miniShip.Color = s.PlayerType == PlayerType.MyShip ? Color.Green : Color.Red;
+                if (StateManager.HasBoughtScanner)
+                {
+                    miniShip.Rotation = s.Rotation;
+                }
                 miniShip.UseCenterAsOrigin = true;
                 miniShips.Add(miniShip);
 #if WINDOWS
