@@ -94,7 +94,7 @@ namespace PGCGame.Screens
 #endif
 
 #if WINDOWS
-             SecondWeapLabel = new TextSprite(Sprites.SpriteBatch, font, ("Use Secondary Weapon: RSHIFT"));
+             SecondWeapLabel = new TextSprite(Sprites.SpriteBatch, font, ("Use Secondary Weapon: R"));
              SecondWeapLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .4f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f);
              SecondWeapLabel.Color = Color.White;
 #endif

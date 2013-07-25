@@ -277,7 +277,7 @@ namespace PGCGame.Ships.Allies
             */
 
             //Deploy secondary weapon
-            if (StateManager.PowerUps[SecondaryWeaponIndex].Count > 0 && ks.IsKeyDown(Keys.RightShift) && _lastKs != null && _lastKs.IsKeyUp(Keys.RightShift))
+            if (StateManager.PowerUps[SecondaryWeaponIndex].Count > 0 && ks.IsKeyDown(Keys.R) && _lastKs != null && _lastKs.IsKeyUp(Keys.RightShift))
             {
                 SecondaryWeapon fired = StateManager.DebugData.InfiniteSecondaryWeapons ? StateManager.PowerUps[SecondaryWeaponIndex].Peek() : StateManager.PowerUps[SecondaryWeaponIndex].Pop();
                 fired.fired = true;
