@@ -113,6 +113,7 @@ namespace PGCGame
                 
                 Bullet bullet = new Bullet(BulletTexture, WorldCoords, WorldSb, this);
                 Vector2 normalizedDistance = this.closestEnemyShipDistance.Value;
+                bullet.Rotation = new SpriteRotation(normalizedDistance.ToAngle(), AngleType.Radians);
                 normalizedDistance.Normalize();
                 normalizedDistance *= 3f;
                 bullet.Speed = normalizedDistance;
