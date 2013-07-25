@@ -279,40 +279,38 @@ namespace PGCGame.Ships.Allies
             //Deploy secondary weapon
             if (StateManager.PowerUps[SecondaryWeaponIndex].Count > 0 && ks.IsKeyDown(Keys.R) && _lastKs != null && _lastKs.IsKeyUp(Keys.R))
             {
-                SecondaryWeapon fired = StateManager.DebugData.InfiniteSecondaryWeapons ? StateManager.PowerUps[SecondaryWeaponIndex].Peek() : StateManager.PowerUps[SecondaryWeaponIndex].Pop();
-                fired.fired = true;
-                //canDeploySecWeap = false;
-                //StateManager.PowerUps.Remove(ActiveSecondaryWeapon);
-
-                fired.ParentShip = this;
-                fired.Killed += new EventHandler(ActiveSecondaryWeapon_Killed);
-
-
-                //Specifics of certain secondary weapons 
-                ActiveSecondaryWeapons.Add(fired);
-                switch (fired.GetType().FullName)
+                if (  (CurrentHealth < InitialHealth && StateManager.PowerUps[SecondaryWeaponIndex].Peek().GetType() == typeof(HealthPack)) || StateManager.PowerUps[SecondaryWeaponIndex].Peek().GetType() != typeof(HealthPack))
                 {
+                    SecondaryWeapon fired = StateManager.DebugData.InfiniteSecondaryWeapons ? StateManager.PowerUps[SecondaryWeaponIndex].Peek() : StateManager.PowerUps[SecondaryWeaponIndex].Pop();
+                    fired.fired = true;
+                    //canDeploySecWeap = false;
+                    //StateManager.PowerUps.Remove(ActiveSecondaryWeapon);
 
-                    case "PGCGame.SpaceMine":
-                        fired.Cast<SpaceMine>().SpaceMineState = SpaceMineState.Deploying;
-                        break;
-                    case "PGCGame.EMP":
-                        fired.Cast<EMP>().PublicEMPState = EMPState.Deployed;
-                        break;
-                    case "PGCGame.ShrinkRay":
-                        if (!fired.Cast<ShrinkRay>().ShotBullet)
-                        {
+                    fired.ParentShip = this;
+                    fired.Killed += new EventHandler(ActiveSecondaryWeapon_Killed);
 
-                            fired.Position = fired.ParentShip.WorldCoords;
-                            ShrinkRayShoot(fired.Cast<ShrinkRay>());
-                        }
-                        break;
-                    case "PGCGame.HealthPack":
 
-                        break;
+                    //Specifics of certain secondary weapons 
+                    ActiveSecondaryWeapons.Add(fired);
+                    switch (fired.GetType().FullName)
+                    {
+
+                        case "PGCGame.SpaceMine":
+                            fired.Cast<SpaceMine>().SpaceMineState = SpaceMineState.Deploying;
+                            break;
+                        case "PGCGame.EMP":
+                            fired.Cast<EMP>().PublicEMPState = EMPState.Deployed;
+                            break;
+                        case "PGCGame.ShrinkRay":
+                            if (!fired.Cast<ShrinkRay>().ShotBullet)
+                            {
+
+                                fired.Position = fired.ParentShip.WorldCoords;
+                                ShrinkRayShoot(fired.Cast<ShrinkRay>());
+                            }
+                            break;
+                    }
                 }
-                
-
             }
 
 
