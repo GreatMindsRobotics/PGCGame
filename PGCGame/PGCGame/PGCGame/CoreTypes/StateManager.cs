@@ -64,8 +64,25 @@ namespace PGCGame
 
         public static int lives = 5;
 
-        public static GameLevel level = GameLevel.Level1;
+        private static GameLevel _level = GameLevel.Level1;
+
+        public static GameLevel Level
+        {
+            get { return _level; }
+            set {
+                if (value != _level)
+                {
+                    _level = value;
+                    if (levelCompleted != null)
+                    {
+                        levelCompleted(null, EventArgs.Empty);
+                    }
+                }
+            }
+        }
+        
         public static Boolean nextLevel = false;
+        public static event EventHandler levelCompleted;
 
         /// <summary>
         /// Resets fields
@@ -74,7 +91,7 @@ namespace PGCGame
         {
             Screens.Shop.firstShop = true;
             nextLevel = false;
-            level = GameLevel.Level1;
+            Level = GameLevel.Level1;
             SpacePoints = 0;
             _hasBoughtScanner = false;
             Stack<ScreenType> _screenStack = new Stack<ScreenType>();

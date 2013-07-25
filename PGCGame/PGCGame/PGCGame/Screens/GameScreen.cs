@@ -168,7 +168,7 @@ namespace PGCGame.Screens
             Vector2 minSpawnArea = _playableAreaOffset;
             Vector2 maxSpawnArea = new Vector2(bgspr.TotalWidth, bgspr.TotalHeight) - _playableAreaOffset;
 
-            for (int i = 0; i < 4*StateManager.level.ToInt(); i++)
+            for (int i = 0; i < 4*StateManager.Level.ToInt(); i++)
             {
                 Texture2D enemyTexture = GameContent.GameAssets.Images.Ships[ShipType.Drone, StateManager.RandomGenerator.NextShipTier(ShipTier.Tier1, ShipTier.Tier2)];
                 EnemyBattleCruiser enemy = new EnemyBattleCruiser(GameContent.GameAssets.Images.Ships[ShipType.EnemyBattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
@@ -402,11 +402,11 @@ namespace PGCGame.Screens
                 }
             }
 
-            if (allEnemiesDead && !StateManager.nextLevel && StateManager.level != GameLevel.Level4)
+            if (allEnemiesDead && !StateManager.nextLevel && StateManager.Level != GameLevel.Level4)
             {
                 StateManager.ScreenState = ScreenType.Shop;
             }
-            else if (StateManager.level == GameLevel.Level4 && allEnemiesDead && !StateManager.nextLevel)
+            else if (StateManager.Level == GameLevel.Level4 && allEnemiesDead && !StateManager.nextLevel)
             {
                 StateManager.ScreenState = ScreenType.Credits;
             }
