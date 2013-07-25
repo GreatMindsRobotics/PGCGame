@@ -402,11 +402,11 @@ namespace PGCGame.Screens
                 }
             }
 
-            if (allEnemiesDead == true && !StateManager.nextLevel && StateManager.level != GameLevel.Level4)
+            if (allEnemiesDead && !StateManager.nextLevel && StateManager.level != GameLevel.Level4)
             {
                 StateManager.ScreenState = ScreenType.Shop;
             }
-            else if (StateManager.level == GameLevel.Level4)
+            else if (StateManager.level == GameLevel.Level4 && allEnemiesDead && !StateManager.nextLevel)
             {
                 StateManager.ScreenState = ScreenType.Credits;
             }
