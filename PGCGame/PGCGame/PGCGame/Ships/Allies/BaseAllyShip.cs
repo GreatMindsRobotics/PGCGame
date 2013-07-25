@@ -128,7 +128,8 @@ namespace PGCGame.Ships.Allies
         {
             get
             {
-                return StateManager.PowerUps[SecondaryWeaponIndex].Count == 0 ? null : StateManager.PowerUps[SecondaryWeaponIndex].Peek().Name;
+                string returnVal = StateManager.PowerUps[SecondaryWeaponIndex].Count == 0 ? null : StateManager.PowerUps[SecondaryWeaponIndex].Peek().Name;
+                return returnVal == null ? returnVal : returnVal + " ×" + StateManager.PowerUps[SecondaryWeaponIndex].Count;
             }
         }
 
