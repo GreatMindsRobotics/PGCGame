@@ -75,7 +75,7 @@ namespace PGCGame.Screens.SelectScreens
 
             //HealthPack
 
-            HealthPack weapon4 = new HealthPack(HealthPack, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.6f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.1f), Sprites.SpriteBatch);
+            HealthPack weapon4 = new HealthPack(HealthPack, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.7f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.3f), Sprites.SpriteBatch);
             TextSprite text4 = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.1f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 1.5f), font, "\n\n\nThis power up regenerates\nyour health up\nby 50%\n\nCost: "+weapon4.Cost, Color.White);
             text4.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.01f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.01f);
             weapon4.Scale = new Vector2(0.5f, 0.5f);
