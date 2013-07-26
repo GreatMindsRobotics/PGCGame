@@ -18,6 +18,10 @@ namespace GitPracticeAgain
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        ScrollingBackground bg;
+        Enemy enemy;
+        Asteroid asteroid;
+        Ship ship;
 
         public Game1()
         {
@@ -27,13 +31,22 @@ namespace GitPracticeAgain
 
         protected override void Initialize()
         {
-   
+            bg = new ScrollingBackground();
+            enemy = new Enemy();
+            asteroid = new Asteroid(GraphicsDevice.Viewport);
+            ship = new Ship();
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-
+            bg.LoadContent(Vector2.Zero, Content.Load<Texture2D>("space_background"), Color.White, 5);
+            enemy.LoadContent(new Vector2(GraphicsDevice.Viewport.Width, 100), Content.Load<Texture2D>("EnemyShip2"), Color.White);
+            enemy.Speed = new Vector2(5, 0);
+            ship.LoadContent(Vector2.Zero, Content.Load<Texture2D>("EnemyShip2"), Color.Blue);
+         
+            asteroid.LoadContent(Content.Load<Texture2D>("asteroid_use"), Color.White);
+            
             spriteBatch = new SpriteBatch(GraphicsDevice);
         }
 
@@ -46,14 +59,22 @@ namespace GitPracticeAgain
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
-
+            bg.Update();
+            enemy.move();
+            asteroid.Update();
+            ship.Update(Keyboard.GetState());
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            spriteBatch.Begin();
+            bg.Draw(spriteBatch);
+            enemy.Draw(spriteBatch);
+            asteroid.Draw(spriteBatch);
+            ship.Draw(spriteBatch);
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }

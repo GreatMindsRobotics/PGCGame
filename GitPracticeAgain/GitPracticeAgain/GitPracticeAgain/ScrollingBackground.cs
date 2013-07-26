@@ -16,7 +16,7 @@ namespace GitPracticeAgain
         public void Update()
         {
 
-            if (_position.X + _texture.Width == 0)
+            if (_position.X + _texture.Width <= 0)
             {
                 _position.X = 0;
             }
@@ -37,7 +37,7 @@ namespace GitPracticeAgain
             _speed = speed;
         }
     
-        public void Draw(SpriteBatch batch)
+        public new void Draw(SpriteBatch batch)
         {
             batch.Draw(_texture, _position, _tintColor);
             batch.Draw(_texture, new Vector2(_position.X + _texture.Width, _position.Y), _tintColor);
