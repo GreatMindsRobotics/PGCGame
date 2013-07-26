@@ -33,7 +33,6 @@ namespace PGCGame
         public static List<Bullet> DudBullets = new List<Bullet>();
 
         public static bool IsWSFirstUpdate = true;
-        public static bool IsShipUpgraded = false;
 
         public static ShipType SelectedShip;
         public static ShipTier SelectedTier;

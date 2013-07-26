@@ -150,8 +150,11 @@ namespace PGCGame.Screens.SelectScreens
                         StateManager.SpaceBucks -= shipInfo.Cost;
                         Credits.Text = String.Format("You Have {0} Credits", StateManager.SpaceBucks);
 
+                        //Save purchased ship info
+                        StateManager.SelectedShip = shipInfo.Type;
+                        StateManager.SelectedTier = shipInfo.Tier;
+
                         StateManager.InitializeSingleplayerGameScreen(shipInfo.Type, shipInfo.Tier);
-                        StateManager.IsShipUpgraded = true;
 
                         bought = true;
                     }

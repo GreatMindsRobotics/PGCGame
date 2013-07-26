@@ -14,7 +14,6 @@ namespace PGCGame.CoreTypes
         Options,
         Shop,
         Pause,
-        ShipSelect,
         WeaponSelect,
         UpgradeScreen,
         TierSelect,
@@ -61,6 +60,7 @@ namespace PGCGame.CoreTypes
     }
     public enum ShipTier
     {
+        NoShip = 0, 
         Tier1,
         Tier2,
         Tier3,
@@ -70,6 +70,7 @@ namespace PGCGame.CoreTypes
 
     public enum ShipType
     {
+        NoShip,
         BattleCruiser,
         FighterCarrier,
         TorpedoShip,

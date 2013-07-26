@@ -200,7 +200,7 @@ namespace PGCGame.Screens
             BackLabel.Clicked += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.Exit(); } });
             CreditsLabel.Clicked += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.Credits; } });
             OptionsLabel.Clicked += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.Options; } });
-            SinglePlayerLabel.Clicked += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.ShipSelect; } });
+            SinglePlayerLabel.Clicked += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.Shop; } });
             MultiPlayerLabel.Clicked += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.NetworkSelectScreen; } });
 #endif
         }
@@ -214,7 +214,7 @@ namespace PGCGame.Screens
             }
             else if (SinglePlayerLabel.IsSelected)
             {
-                StateManager.ScreenState = ScreenType.ShipSelect;
+                StateManager.ScreenState = ScreenType.Shop;
             }
             else if (MultiPlayerLabel.IsSelected)
             {
