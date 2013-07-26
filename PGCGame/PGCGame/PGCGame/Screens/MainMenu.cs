@@ -24,12 +24,9 @@ namespace PGCGame.Screens
         public MainMenu(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
         {
-#if WINDOWS
             StateManager.ScreenStateChanged += new EventHandler(StateManager_ScreenStateChanged);
-#endif
         }
 
-#if WINDOWS
         void StateManager_ScreenStateChanged(object sender, EventArgs e)
         {
             if(Visible)
@@ -37,7 +34,6 @@ namespace PGCGame.Screens
                 elapsedButtonDelay = TimeSpan.Zero;
             }
         }
-#endif
 
         Sprite TitleSprite;
 
@@ -153,6 +149,7 @@ namespace PGCGame.Screens
 
             BackLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Exit");
             BackLabel.IsHoverable = true;
+
 #if WINDOWS
             BackLabel.CallKeyboardClickEvent = false;
 #endif
@@ -194,44 +191,17 @@ namespace PGCGame.Screens
 
 #if XBOX
             AllButtons = new GamePadButtonEnumerator(new TextSprite[,] { { SinglePlayerLabel, OptionsLabel }, { MultiPlayerLabel, CreditsLabel }, { BackLabel, null } }, InputType.LeftJoystick);
-            AllButtons.ButtonPress += new EventHandler(AllButtons_ButtonPress);
             SinglePlayerLabel.IsSelected = true;
-#elif WINDOWS
-            BackLabel.Clicked += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.Exit(); } });
-            CreditsLabel.Clicked += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.Credits; } });
-            OptionsLabel.Clicked += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.Options; } });
-            SinglePlayerLabel.Clicked += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.ShipSelect; } });
-            MultiPlayerLabel.Clicked += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.NetworkSelectScreen; } });
+            AllButtons.FireTextSpritePressed = true;
 #endif
+            BackLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.Exit(); } });
+            CreditsLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.Credits; } });
+            OptionsLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.Options; } });
+            SinglePlayerLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.Shop; } });
+            MultiPlayerLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.NetworkSelectScreen; } });
         }
 
-#if XBOX
-        void AllButtons_ButtonPress(object sender, EventArgs e)
-        {
-            if (BackLabel.IsSelected)
-            {
-                StateManager.Exit();
-            }
-            else if (SinglePlayerLabel.IsSelected)
-            {
-                StateManager.ScreenState = ScreenType.ShipSelect;
-            }
-            else if (MultiPlayerLabel.IsSelected)
-            {
-                //TODO: Multiplayer
-            }
-            else if (OptionsLabel.IsSelected)
-            {
-                StateManager.ScreenState = ScreenType.Options;
-            }
-            else if (CreditsLabel.IsSelected)
-            {
-                StateManager.ScreenState = ScreenType.Credits;
-            }
-        }
-#endif
-
-        void Options_MusicStateChanged(object sender, EventArgs e)
+    void Options_MusicStateChanged(object sender, EventArgs e)
         {
             if (MediaPlayer.State == MediaState.Playing)
             {
@@ -266,17 +236,15 @@ namespace PGCGame.Screens
 
 #if XBOX
         GamePadButtonEnumerator AllButtons;
-#elif WINDOWS
+#endif
         //Preventing clickthrus
         TimeSpan elapsedButtonDelay = TimeSpan.Zero;
         TimeSpan totalButtonDelay = TimeSpan.FromMilliseconds(250);
-#endif
 
         public override void Update(GameTime gameTime)
         {
-#if WINDOWS
             elapsedButtonDelay += gameTime.ElapsedGameTime;
-#elif XBOX 
+#if XBOX 
             
             AllButtons.Update(gameTime);
 

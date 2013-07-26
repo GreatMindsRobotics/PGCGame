@@ -137,7 +137,7 @@ namespace PGCGame.Screens.Multiplayer
             }
             else if (LANLabel.IsSelected)
             {
-                StateManager.ScreenState = ScreenType.ShipSelect;
+                //TODO
             }
 
         }

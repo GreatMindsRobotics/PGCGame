@@ -36,7 +36,6 @@ namespace PGCGame
         Credits creditsScreen;
         Options optionScreen;
         PauseScreen pauseScreen;
-        ShipSelect shipSelectScreen;
         WeaponSelectScreen weaponSelectScreen;
         UpgradeScreen upgradeScreen;
         TierSelect tierSelectScreen;
@@ -125,9 +124,6 @@ namespace PGCGame
             pauseScreen = new PauseScreen(spriteBatch);
             pauseScreen.InitScreen(ScreenType.Pause);
 
-            shipSelectScreen = new ShipSelect(spriteBatch);
-            shipSelectScreen.InitScreen(ScreenType.ShipSelect);
-
             weaponSelectScreen = new WeaponSelectScreen(spriteBatch);
             weaponSelectScreen.InitScreen(ScreenType.WeaponSelect);
 
@@ -143,7 +139,7 @@ namespace PGCGame
             networkScreen = new NetworkSelectScreen(spriteBatch);
             networkScreen.InitScreen(ScreenType.NetworkSelectScreen);
 
-            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen, shipSelectScreen, weaponSelectScreen, upgradeScreen, tierSelectScreen, levelSelectScreen, controlScreen, networkScreen, gameOver);
+            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen, weaponSelectScreen, upgradeScreen, tierSelectScreen, levelSelectScreen, controlScreen, networkScreen, gameOver);
             StateManager.AllScreens = screenManager;
             StateManager.ScreenState = CoreTypes.ScreenType.Title;
         }

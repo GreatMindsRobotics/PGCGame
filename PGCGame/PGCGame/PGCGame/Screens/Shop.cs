@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 
 using Glib.XNA.SpriteLib;
+using Glib;
+using Glib.XNA;
 
 using PGCGame.CoreTypes;
 using Glib.XNA.InputLib;
@@ -29,6 +31,7 @@ namespace PGCGame.Screens
 
         Sprite weaponsButton;
         TextSprite weaponsLabel;
+        TextSprite noShipLabel;
 
         Sprite PlayButton;
         TextSprite PlayLabel;
@@ -92,7 +95,12 @@ namespace PGCGame.Screens
             PlayLabel.NonHoverColor = Color.White;
             PlayLabel.HoverColor = Color.MediumAquamarine;
 
+            noShipLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(0, PlayLabel.Y), SegoeUIMono, "You must buy a ship");
+            noShipLabel.Color = Color.White;
+            noShipLabel.X = noShipLabel.GetCenterPosition(Graphics.Viewport).X;
+
             Sprites.Add(PlayButton);
+            AdditionalSprites.Add(noShipLabel);
             AdditionalSprites.Add(PlayLabel);
 
 
@@ -131,6 +139,8 @@ namespace PGCGame.Screens
 
         void nextLevelLabel_Pressed(object sender, EventArgs e)
         {
+
+
             if (!firstShop)
             {
                 if (StateManager.Level != GameLevel.Level4)
@@ -170,9 +180,16 @@ namespace PGCGame.Screens
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
+            
+
 #if XBOX
             AllButtons.Update(gameTime);
 #endif
+
+            PlayButton.Color = StateManager.SelectedTier == ShipTier.NoShip ? Color.Transparent : Color.White;
+            PlayLabel.Visible = PlayButton.Color.A > 0;
+            noShipLabel.Visible = !PlayLabel.Visible;
         }
     }
 }

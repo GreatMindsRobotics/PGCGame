@@ -193,7 +193,7 @@ namespace PGCGame
             get { return _initHealth; }
             set { _initHealth = value; }
         }
-
+         
 
         public int Shield { get; set; }
 
