@@ -187,9 +187,9 @@ namespace PGCGame.Screens
             AllButtons.Update(gameTime);
 #endif
 
-            PlayButton.Visible = StateManager.SelectedTier != ShipTier.NoShip;
-            PlayLabel.Visible = PlayButton.Visible;
-            noShipLabel.Visible = !PlayButton.Visible;
+            PlayButton.Color = StateManager.SelectedTier == ShipTier.NoShip ? Color.Transparent : Color.White;
+            PlayLabel.Visible = PlayButton.Color.A > 0;
+            noShipLabel.Visible = !PlayLabel.Visible;
         }
     }
 }
