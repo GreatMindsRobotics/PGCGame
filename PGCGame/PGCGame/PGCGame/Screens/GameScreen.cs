@@ -145,7 +145,7 @@ namespace PGCGame.Screens
             _gameHasStarted = false;
             //_allowMusicHandling = false;
             playerSbObjects.Clear();
-            Sprites.Sprites.Clear();
+            Sprites.Clear();
             enemies.Clear();
 
             SpriteFont SegoeUIMono = GameContent.GameAssets.Fonts.NormalText;

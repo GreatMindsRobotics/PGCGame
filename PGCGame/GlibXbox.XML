@@ -2062,82 +2062,130 @@
             Manages multiple <seealso cref="T:Glib.XNA.SpriteLib.Sprite"/> objects on the same SpriteBatch.
             </summary>
         </member>
-        <member name="F:Glib.XNA.SpriteLib.SpriteManager.Sprites">
-            <summary>
-            The list of sprites managed by this SpriteManager.
-            </summary>
-        </member>
         <member name="M:Glib.XNA.SpriteLib.SpriteManager.AddNewSprite(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Graphics.Texture2D)">
             <summary>
-            Add a new sprite with the specified position and texture.
+            Add a new <seealso cref="T:Glib.XNA.SpriteLib.Sprite"/> with the specified position and texture.
             </summary>
-            <param name="position">The position of the new Sprite.</param>
-            <param name="texture">The texture of the new sprite.</param>
+            <param name="position">The position of the new <seealso cref="T:Glib.XNA.SpriteLib.Sprite"/>.</param>
+            <param name="texture">The texture of the new <seealso cref="T:Glib.XNA.SpriteLib.Sprite"/>.</param>
         </member>
         <member name="M:Glib.XNA.SpriteLib.SpriteManager.RemoveSelf(Glib.XNA.SpriteLib.Sprite)">
             <summary>
-            Remove a sprite from this SpriteManager.
+            Remove a <seealso cref="T:Glib.XNA.SpriteLib.Sprite"/> from this SpriteManager.
             Safe to call during Update() or Draw() (or from their corresponding events).
             </summary>
-            <param name="spr">The sprite to remove</param>
+            <param name="spr">The <seealso cref="T:Glib.XNA.SpriteLib.Sprite"/> to remove.</param>
         </member>
         <member name="M:Glib.XNA.SpriteLib.SpriteManager.Add(Glib.XNA.SpriteLib.Sprite)">
             <summary>
-            Add a sprite to this SpriteManager.
+            Add a <seealso cref="T:Glib.XNA.SpriteLib.Sprite"/> to this SpriteManager.
             </summary>
-            <param name="spr">The sprite to add</param>
+            <param name="spr">The <seealso cref="T:Glib.XNA.SpriteLib.Sprite"/> to add.</param>
         </member>
         <member name="M:Glib.XNA.SpriteLib.SpriteManager.Remove(Glib.XNA.SpriteLib.Sprite)">
             <summary>
-            Remove a given sprite, that is NOT the sprite being updated.
+            Remove a given <seealso cref="T:Glib.XNA.SpriteLib.Sprite"/>, that is NOT the <seealso cref="T:Glib.XNA.SpriteLib.Sprite"/> being updated.
             </summary>
-            <param name="spr">The sprite to remove</param>
+            <param name="spr">The <seealso cref="T:Glib.XNA.SpriteLib.Sprite"/> to remove.</param>
         </member>
         <member name="M:Glib.XNA.SpriteLib.SpriteManager.#ctor(Microsoft.Xna.Framework.Graphics.SpriteBatch,Glib.XNA.SpriteLib.Sprite[])">
             <summary>
             Construct a new SpriteManager.
             </summary>
             <param name="sb">The SpriteBatch to use.</param>
-            <param name="sprites">The sprites to add to the SpriteManager.</param>
+            <param name="sprites">The <seealso cref="T:Glib.XNA.SpriteLib.Sprite"/>s to add to the SpriteManager.</param>
         </member>
         <member name="M:Glib.XNA.SpriteLib.SpriteManager.Draw">
             <summary>
-            Draw all sprites managed by this SpriteManager.
+            Draw all <seealso cref="T:Glib.XNA.SpriteLib.Sprite"/>s managed by this SpriteManager.
             </summary>
         </member>
         <member name="M:Glib.XNA.SpriteLib.SpriteManager.DrawNonAuto">
             <summary>
-            Draw all sprites managed by this SpriteManager, without opening or closing the SpriteBatch.
+            Draw all <seealso cref="T:Glib.XNA.SpriteLib.Sprite"/>s managed by this SpriteManager, without opening or closing the SpriteBatch.
             </summary>
         </member>
         <member name="M:Glib.XNA.SpriteLib.SpriteManager.Update">
             <summary>
-            Update all sprites managed by this SpriteManager.
+            Update all <seealso cref="T:Glib.XNA.SpriteLib.Sprite"/>s managed by this <seealso cref="T:Glib.XNA.SpriteLib.SpriteManager"/>.
             </summary>
             <remarks>
             Does not call Update(GameTime) on subclasses of Sprite implementing ITimerSprite.
+            The MouseState for click checking is InputLib.Mouse.MouseManager.CurrentMouseState.
             </remarks>
         </member>
         <member name="M:Glib.XNA.SpriteLib.SpriteManager.Update(Microsoft.Xna.Framework.GameTime)">
             <summary>
-            Update all Sprites managed by this SpriteManager, calling Update(GameTime) on ITimerSprites where neccesary.
+            Update all <seealso cref="T:Glib.XNA.SpriteLib.Sprite"/>s managed by this <seealso cref="T:Glib.XNA.SpriteLib.SpriteManager"/>, calling Update(GameTime) on ITimerSprites where neccesary.
             </summary>
+            <remarks>
+            Uses InputLib.Mouse.MouseManager.CurrentMouseState.
+            </remarks>
             <param name="gameTime">The current game time.</param>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteManager.Clear">
+            <summary>
+            Removes all Sprites from this <seealso cref="T:Glib.XNA.SpriteLib.SpriteManager"/>.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteManager.Contains(Glib.XNA.SpriteLib.Sprite)">
+            <summary>
+            Determines whether the specified <seealso cref="T:Glib.XNA.SpriteLib.Sprite"/> is in this <seealso cref="T:Glib.XNA.SpriteLib.SpriteManager"/>.
+            </summary>
+            <param name="item">The <seealso cref="T:Glib.XNA.SpriteLib.Sprite"/> to locate in this <seealso cref="T:Glib.XNA.SpriteLib.SpriteManager"/>.</param>
+            <returns>Whether or not this <seealso cref="T:Glib.XNA.SpriteLib.SpriteManager"/> contains the specified <seealso cref="T:Glib.XNA.SpriteLib.Sprite"/>.</returns>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteManager.CopyTo(Glib.XNA.SpriteLib.Sprite[],System.Int32)">
+            <summary>
+            Copies the entire <seealso cref="T:Glib.XNA.SpriteLib.SpriteManager"/> into the specified array, beginning at the specified index.
+            </summary>
+            <param name="array">The one-dimensional array of <seealso cref="T:Glib.XNA.SpriteLib.Sprite"/>s to copy into.</param>
+            <param name="arrayIndex">The zero-based index in the array at which copying begins.</param>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteManager.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through this <seealso cref="T:Glib.XNA.SpriteLib.SpriteManager"/>.
+            </summary>
+            <returns>An enumerator that iterates through this <seealso cref="T:Glib.XNA.SpriteLib.SpriteManager"/>.</returns>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteManager.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through this <seealso cref="T:Glib.XNA.SpriteLib.SpriteManager"/>.
+            </summary>
+            <returns>An enumerator that iterates through this <seealso cref="T:Glib.XNA.SpriteLib.SpriteManager"/>.</returns>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.SpriteManager.Sprites">
+            <summary>
+            Gets the list of <seealso cref="T:Glib.XNA.SpriteLib.Sprite"/>s managed by this SpriteManager.
+            </summary>
         </member>
         <member name="P:Glib.XNA.SpriteLib.SpriteManager.SpriteBatch">
             <summary>
-            Gets the SpriteBatch drawn to.
+            Gets the <seealso cref="P:Glib.XNA.SpriteLib.SpriteManager.SpriteBatch"/> drawn to.
             </summary>
         </member>
         <member name="P:Glib.XNA.SpriteLib.SpriteManager.Item(System.Int32)">
             <summary>
-            Get or set the sprite with the specified index in the Sprites list.
+            Get or set the <seealso cref="T:Glib.XNA.SpriteLib.Sprite"/> with the specified index in the Sprites list.
             </summary>
             <remarks>
-            Returns null if the index is out of bounds of the array.
+            Returns null if the index is out of bounds of the array, instead of throwing an exception.
             </remarks>
             <param name="index">The index in the Sprites list.</param>
-            <returns>The sprite with the specified index in the Sprites list.</returns>
+            <returns>The <seealso cref="T:Glib.XNA.SpriteLib.Sprite"/> with the specified index in the Sprites list.</returns>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.SpriteManager.Count">
+            <summary>
+            Gets the number of <seealso cref="T:Glib.XNA.SpriteLib.Sprite"/>s in this <seealso cref="T:Glib.XNA.SpriteLib.SpriteManager"/>.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.SpriteManager.IsReadOnly">
+            <summary>
+            Gets a value indicating whether or not this <seealso cref="T:Glib.XNA.SpriteLib.SpriteManager"/> is read-only.
+            </summary>
+            <remarks>
+            For a <seealso cref="T:Glib.XNA.SpriteLib.SpriteManager"/>, this value is always false.
+            </remarks>
         </member>
         <member name="T:Glib.XNA.SpriteLib.SpriteMoveEventHandler">
             <summary>

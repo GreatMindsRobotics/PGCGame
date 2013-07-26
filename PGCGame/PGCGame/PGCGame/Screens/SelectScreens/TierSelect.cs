@@ -46,7 +46,7 @@ namespace PGCGame.Screens.SelectScreens
             if (!_firstTimeInit)
             {
                 items.Clear();
-                Sprites.Sprites.Clear();
+                Sprites.Clear();
                 AdditionalSprites.Clear();
             }
 
