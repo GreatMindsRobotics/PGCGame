@@ -9,26 +9,32 @@ namespace GitPracticeAgain
 {
     class Ship : BaseSprite
     {
-        private Vector2 Speed = new Vector2(0,0);
+         Vector2 Speed = new Vector2(5,5);
         
         
         public void Update(KeyboardState keyboardState)
         {
-
-        }
-
-
-        
-        private void move(KeyboardState keyboardState)
-        {
             if (keyboardState.IsKeyDown(Keys.Up))
             {
-                Speed.X = 3;
+                _position.Y -= Speed.Y;
             }
-            else if (keyboardState.IsKeyDown(Keys.Up))
-            {
 
+            if (keyboardState.IsKeyDown(Keys.Right))
+            {
+                _position.X -= Speed.X;
             }
+
+            if (keyboardState.IsKeyDown(Keys.Left))
+            {
+                _position.X += Speed.X;
+            }
+            else if (keyboardState.IsKeyDown(Keys.Down))
+            {
+                _position.Y += Speed.Y;
+            }
+
+            
         }
+
     }
 }
