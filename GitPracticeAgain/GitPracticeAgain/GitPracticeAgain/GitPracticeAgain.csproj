@@ -109,6 +109,7 @@
   <ItemGroup>
     <Compile Include="BaseSprite.cs" />
     <Compile Include="Enemy.cs" />
+    <Compile Include="Ship.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
