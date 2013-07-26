@@ -174,17 +174,27 @@ namespace PGCGame
             }
         }
 
+        protected override bool BeginDraw()
+        {
+            screenManager.BeginDraw();
+            return base.BeginDraw();
+        }
+
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
             screenManager.Draw();
 
             base.Draw(gameTime);
+        }
+
+        protected override void EndDraw()
+        {
+            screenManager.EndDraw();
+            base.EndDraw();
         }
     }
 }

@@ -2947,9 +2947,19 @@
             Update all the Screen's sprites.
             </summary>
         </member>
+        <member name="M:Glib.XNA.SpriteLib.ScreenManager.BeginDraw">
+            <summary>
+            Prepares to draw all the Screens.
+            </summary>
+        </member>
         <member name="M:Glib.XNA.SpriteLib.ScreenManager.Draw">
             <summary>
             Draws all the visible screens.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.ScreenManager.EndDraw">
+            <summary>
+            Ends drawing of all Screens.
             </summary>
         </member>
         <member name="M:Glib.XNA.SpriteLib.ScreenManager.Add(Glib.XNA.SpriteLib.Screen)">
@@ -3605,7 +3615,7 @@
             <summary>
             Returns a SpriteRotation representing the specified value in degrees.
             </summary>
-            <param name="radians">The number of degrees to represent in the new SpriteRotation.</param>
+            <param name="degrees">The number of degrees to represent in the new SpriteRotation.</param>
             <returns>A new SpriteRotation representing the specified value in degrees.</returns>
         </member>
         <member name="M:Glib.XNA.SpriteLib.SpriteRotation.op_Addition(Glib.XNA.SpriteLib.SpriteRotation,Glib.XNA.SpriteLib.SpriteRotation)">
