@@ -29,6 +29,9 @@ namespace PGCGame
 
         #region Public Fields
 
+        public static List<Bullet> LegitBullets = new List<Bullet>();
+        public static List<Bullet> DudBullets = new List<Bullet>();
+
         public static bool IsWSFirstUpdate = true;
         public static bool IsShipUpgraded = false;
 
@@ -136,6 +139,7 @@ namespace PGCGame
         #endregion Public Fields
 
         #region Public Properties
+
 
         /// <summary>
         /// Gets or sets ScreenState for the game, indicating the currently visible screen.

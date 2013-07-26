@@ -42,7 +42,7 @@ namespace PGCGame
             bullet.Damage = DamagePerShot;
             bullet.Color = Color.Red;
 
-            FlyingBullets.Add(bullet);
+            StateManager.LegitBullets.Add(bullet);
         }
 
         public override void Update(GameTime gt)

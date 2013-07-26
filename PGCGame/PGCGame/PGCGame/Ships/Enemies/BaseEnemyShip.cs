@@ -33,7 +33,7 @@ namespace PGCGame.Ships.Enemies
             bullet.Damage = DamagePerShot;
             bullet.Color = Color.Red;
 
-            FlyingBullets.Add(bullet);
+            StateManager.LegitBullets.Add(bullet);
         }
 
         Boolean activated = false;
@@ -59,10 +59,7 @@ namespace PGCGame.Ships.Enemies
                 {
                     base.Update(gt);
 
-                    if (FlyingBullets.Count == 0)
-                    {
-                        _isDead = true;
-                    }
+                    _isDead = true;
                     if (firstDeathCheck)
                     {
                         StateManager.SpacePoints += killWorth;
@@ -80,6 +77,7 @@ namespace PGCGame.Ships.Enemies
                 Vector2? shipDistance = null;
 
                 //finds the closest ship 
+                /*
                 foreach (Ship allyShip in StateManager.ActiveShips)
                 {
                     if (allyShip.PlayerType != CoreTypes.PlayerType.Enemy)
@@ -115,6 +113,7 @@ namespace PGCGame.Ships.Enemies
                         }
                     }
                 }
+                */
 
 
                 if (closestAllyShipDistance.HasValue && closestAllyShip != null && activated)

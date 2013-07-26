@@ -168,7 +168,7 @@ namespace PGCGame.Screens
             Vector2 minSpawnArea = _playableAreaOffset;
             Vector2 maxSpawnArea = new Vector2(bgspr.TotalWidth, bgspr.TotalHeight) - _playableAreaOffset;
 
-            for (int i = 0; i < 4*StateManager.Level.ToInt(); i++)
+            for (int i = 0; i < 4 * StateManager.Level.ToInt(); i++)
             {
                 Texture2D enemyTexture = GameContent.GameAssets.Images.Ships[ShipType.Drone, StateManager.RandomGenerator.NextShipTier(ShipTier.Tier1, ShipTier.Tier2)];
                 EnemyBattleCruiser enemy = new EnemyBattleCruiser(GameContent.GameAssets.Images.Ships[ShipType.EnemyBattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
@@ -321,27 +321,36 @@ namespace PGCGame.Screens
 
         void bgspr_Drawn(object sender, EventArgs e)
         {
-            foreach (Bullet b in playerShip.FlyingBullets)
+            //foreach (Bullet b in playerShip.FlyingBullets)
+            //{
+            //    Sprites.SpriteBatch.Draw(b);
+            //}
+            //foreach (var enemy in enemies)
+            //{
+            //    foreach (Bullet b in enemy.FlyingBullets)
+            //    {
+            //        Sprites.SpriteBatch.Draw(b);
+            //    }
+            //}
+            //if (playerShip.GetType() == typeof(FighterCarrier))
+            //{
+            //    foreach (Drone drone in playerShip.Cast<FighterCarrier>().Drones)
+            //    {
+            //        foreach (Bullet b in drone.FlyingBullets)
+            //        {
+            //            Sprites.SpriteBatch.Draw(b);
+            //        }
+
+            //    }
+            //}
+
+            foreach (Bullet b in StateManager.LegitBullets)
             {
                 Sprites.SpriteBatch.Draw(b);
             }
-            foreach (var enemy in enemies)
+            foreach (Bullet b in StateManager.DudBullets)
             {
-                foreach (Bullet b in enemy.FlyingBullets)
-                {
-                    Sprites.SpriteBatch.Draw(b);
-                }
-            }
-            if (playerShip.GetType() == typeof(FighterCarrier))
-            {
-                foreach (Drone drone in playerShip.Cast<FighterCarrier>().Drones)
-                {
-                    foreach (Bullet b in drone.FlyingBullets)
-                    {
-                        Sprites.SpriteBatch.Draw(b);
-                    }
-
-                }
+                Sprites.SpriteBatch.Draw(b);
             }
 
             foreach (SecondaryWeapon activeWeapon in playerShip.ActiveSecondaryWeapons)
@@ -455,7 +464,7 @@ namespace PGCGame.Screens
 
             BackgroundSprite bg = BackgroundSprite.Cast<BackgroundSprite>();
             //TODO: UPDATE SPRITES
-            
+
 
 #if WINDOWS
             if (_lastState.IsKeyUp(Keys.Escape) && keyboard.IsKeyDown(Keys.Escape))
@@ -464,7 +473,7 @@ namespace PGCGame.Screens
                 //_allowMusicHandling = false;
             }
 #endif
-
+            /*
             for (int i = 0; i < playerShip.FlyingBullets.Count; i++)
             {
                 Bullet b = playerShip.FlyingBullets[i];
@@ -474,6 +483,7 @@ namespace PGCGame.Screens
                     i--;
                 }
             }
+            */
 
             for (int e = 0; e < enemies.Count; e++)
             {
@@ -483,61 +493,76 @@ namespace PGCGame.Screens
                 {
                     enemies.Remove(enemy);
                 }
-
-                for (int i = 0; i < enemy.FlyingBullets.Count; i++)
-                {
-                    Bullet b = enemy.FlyingBullets[i];
-                    if (b.IsDead || b.X <= 0 || b.X >= bg.TotalWidth || b.Y <= 0 || b.Y >= bg.TotalHeight)
-                    {
-                        enemy.FlyingBullets.RemoveAt(i);
-                        i--;
-                    }
-                }
             }
 
             if (playerShip.GetType() == typeof(FighterCarrier))
             {
                 FighterCarrier ship = playerShip.Cast<FighterCarrier>();
-                foreach (Drone drone in ship.Drones)
-                {
-                    for (int i = 0; i < drone.FlyingBullets.Count; i++)
-                    {
-                        if (drone.FlyingBullets[i].IsDead || drone.FlyingBullets[i].X <= 0 || drone.FlyingBullets[i].X >= bg.TotalWidth || drone.FlyingBullets[i].Y <= 0 || drone.FlyingBullets[i].Y >= bg.TotalHeight)
-                        {
-                            drone.FlyingBullets.RemoveAt(i);
-                            i--;
-                        }
-                    }
-                }
             }
 
-            foreach (Ship shootShip in StateManager.ActiveShips)
+            for (int i = 0; i < StateManager.LegitBullets.Count; i++)
             {
-                foreach (Ship hitShip in StateManager.ActiveShips)
+                Bullet b = StateManager.LegitBullets[i];
+                b.Update();
+                foreach (Ship s in StateManager.ActiveShips)
                 {
-                    if (shootShip != hitShip && shootShip.PlayerType != hitShip.PlayerType && hitShip.CurrentHealth > 0)
+                    if (!b.IsDead && s.ShipID != b.ParentShip.ShipID && !s.IsAllyWith(b.ParentShip.PlayerType) && b.Intersects(s.WCrectangle))
                     {
-                        if (hitShip.PlayerType == PlayerType.MyShip && shootShip.PlayerType == PlayerType.Ally)
-                        {
-                        }
-                        else if (shootShip.PlayerType == PlayerType.MyShip && hitShip.PlayerType == PlayerType.Ally)
-                        {
-                        }
-                        else
-                        {
-
-                            foreach (Bullet b in shootShip.FlyingBullets)
-                            {
-                                if (b.Rectangle.Intersects(hitShip.WCrectangle))
-                                {
-                                    hitShip.CurrentHealth -= b.Damage;
-                                    b.IsDead = true;
-                                }
-                            }
-                        }
+                        s.CurrentHealth -= b.Damage;
+                        b.IsDead = true;
                     }
                 }
+                b.IsDead = b.IsDead || b.X <= 0 || b.X >= bg.TotalWidth || b.Y <= 0 || b.Y >= bg.TotalHeight;
+                if (b.IsDead)
+                {
+                    StateManager.LegitBullets.RemoveAt(i);
+                    i--;
+                }
+
             }
+            
+
+            for (int i = 0; i < StateManager.DudBullets.Count; i++)
+            {
+                Bullet b = StateManager.DudBullets[i];
+                b.Update();
+                b.IsDead = b.IsDead || b.X <= 0 || b.X >= bg.TotalWidth || b.Y <= 0 || b.Y >= bg.TotalHeight;
+                if (b.IsDead)
+                {
+                    StateManager.DudBullets.RemoveAt(i);
+                    i--;
+                }
+            }
+
+
+
+            //foreach (Ship shootShip in StateManager.ActiveShips)
+            //{
+            //    foreach (Ship hitShip in StateManager.ActiveShips)
+            //    {
+            //        if (shootShip != hitShip && shootShip.PlayerType != hitShip.PlayerType && hitShip.CurrentHealth > 0)
+            //        {
+            //            if (hitShip.PlayerType == PlayerType.MyShip && shootShip.PlayerType == PlayerType.Ally)
+            //            {
+            //            }
+            //            else if (shootShip.PlayerType == PlayerType.MyShip && hitShip.PlayerType == PlayerType.Ally)
+            //            {
+            //            }
+            //            else
+            //            {
+
+            //                foreach (Bullet b in shootShip.FlyingBullets)
+            //                {
+            //                    if (b.Rectangle.Intersects(hitShip.WCrectangle))
+            //                    {
+            //                        hitShip.CurrentHealth -= b.Damage;
+            //                        b.IsDead = true;
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
 
 
             Vector2 camMove = Vector2.Zero;

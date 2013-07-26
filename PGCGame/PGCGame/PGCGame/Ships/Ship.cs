@@ -157,12 +157,14 @@ namespace PGCGame
             this.CurrentHealth = brutally ? int.MinValue : 0;
         }
 
+        /*
         public List<Bullet> FlyingBullets
         {
             get { return _flyingBullets; }
             set { _flyingBullets = value; }
 
         }
+        */
 
         public TimeSpan DelayBetweenShots { get; set; }
 
@@ -232,7 +234,7 @@ namespace PGCGame
             bullet.Rotation = Rotation;
             bullet.Damage = DamagePerShot;
 
-            FlyingBullets.Add(bullet);
+            StateManager.LegitBullets.Add(bullet);
         }
 
 
@@ -258,11 +260,22 @@ namespace PGCGame
             _healthBar.Denominator = InitialHealth;
             _healthBar.Value = CurrentHealth;
 
-            foreach (Bullet b in FlyingBullets)
-            {
-                b.Update();
-            }
+        }
 
+        public bool IsAllyWith(PlayerType pt)
+        {
+            switch (this.PlayerType)
+            {
+                case CoreTypes.PlayerType.Enemy:
+                    return pt == CoreTypes.PlayerType.Enemy;
+                case CoreTypes.PlayerType.Ally:
+                    return pt == CoreTypes.PlayerType.Ally || pt == CoreTypes.PlayerType.MyShip;
+                case CoreTypes.PlayerType.Solo:
+                    return false;
+                case CoreTypes.PlayerType.MyShip:
+                    return pt == CoreTypes.PlayerType.Ally || pt == CoreTypes.PlayerType.MyShip;
+            }
+            return false;
         }
 
         public override void DrawNonAuto()

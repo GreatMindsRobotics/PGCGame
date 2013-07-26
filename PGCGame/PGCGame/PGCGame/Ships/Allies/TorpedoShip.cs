@@ -75,7 +75,7 @@ namespace PGCGame
             bullet.Rotation = Rotation;
             bullet.Damage = DamagePerShot;
 
-            FlyingBullets.Add(bullet);
+            StateManager.LegitBullets.Add(bullet);
         }
 
         public override ShipType ShipType

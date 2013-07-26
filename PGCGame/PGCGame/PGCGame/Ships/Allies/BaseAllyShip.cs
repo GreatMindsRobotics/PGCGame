@@ -156,10 +156,7 @@ namespace PGCGame.Ships.Allies
             {
                 base.Update(gt);
 
-                if (FlyingBullets.Count == 0)
-                {
-                    _isDead = true;
-                }
+                _isDead = true;
 
                 return;
             }
