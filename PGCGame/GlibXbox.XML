@@ -1371,6 +1371,11 @@
             Gets or sets a boolean representing whether or not this Screen is visible.
             </summary>
         </member>
+        <member name="P:Glib.XNA.SpriteLib.Screen.SpriteCount">
+            <summary>
+            Gets the total count of ISprites in this Screen.
+            </summary>
+        </member>
         <member name="P:Glib.XNA.SpriteLib.Screen.CenterOrigin">
             <summary>
             Gets or sets a value indicating whether or not to use the center of the Screen as the origin when drawing.

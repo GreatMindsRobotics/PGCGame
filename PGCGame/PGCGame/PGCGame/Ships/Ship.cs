@@ -17,9 +17,11 @@ using Glib.XNA.SpriteLib;
 
 using PGCGame.CoreTypes;
 using PGCGame.Ships.Allies;
+using System.Diagnostics;
 
 namespace PGCGame
 {
+    [DebuggerDisplay("ShipID = {ShipID}")]
     public abstract class Ship : Sprite, ITimerSprite
     {
         protected const bool CanHoldShootKey = true;

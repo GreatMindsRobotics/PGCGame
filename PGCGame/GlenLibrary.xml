@@ -317,6 +317,39 @@
             The string value of the text box, which is the value of the SQL parameter.
             </summary>
         </member>
+        <member name="T:Glib.XNA.SpriteLib.MouseFollowParams">
+            <summary>
+            The parameters to use for automatically following the mouse every update.
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.SpriteLib.MouseFollowParams.MouseFollowSpeed">
+            <summary>
+            The speed of mouse following.
+            </summary>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.MouseFollowParams.#ctor(System.Single)">
+            <summary>
+            Creates a new MouseFollowParams.
+            </summary>
+            <param name="speed">The speed of mouse following.</param>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.MouseFollowParams.#ctor(System.Single,Glib.XNA.SpriteLib.SpriteRotation)">
+            <summary>
+            Creates a new MouseFollowParams.
+            </summary>
+            <param name="speed">The speed of mouse following.</param>
+            <param name="initialRotation">The initial rotation of the Sprite.</param>
+        </member>
+        <member name="F:Glib.XNA.SpriteLib.MouseFollowParams.InitialRotation">
+            <summary>
+            The initial rotation of the Sprite.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.MouseFollowParams.DoesFollow">
+            <summary>
+            Gets a boolean indicating whether or not the mouse is being followed.
+            </summary>
+        </member>
         <member name="T:Glib.XNA.SpriteLib.UpdateParamaters">
             <summary>
             A structure representing things to automatically do when Update() is called on a Sprite.
@@ -325,6 +358,11 @@
         <member name="F:Glib.XNA.SpriteLib.UpdateParamaters.UpdateX">
             <summary>
             Whether or not to acknowledge the XIncrease value.
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.SpriteLib.UpdateParamaters.MouseFollow">
+            <summary>
+            The parameters for automatic mouse following.
             </summary>
         </member>
         <member name="F:Glib.XNA.SpriteLib.UpdateParamaters.UpdateY">
@@ -344,6 +382,14 @@
             <param name="UpdateXParam">Whether or not to acknowledge the XIncrease value.</param>
             <param name="UpdateYParam">Whether or not to acknowledge the YIncrease value.</param>
             <param name="FixEdgeOffParam">Whether or not to automatically fix the sprite from going off the edge.</param>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.UpdateParamaters.#ctor(System.Boolean,System.Boolean,Glib.XNA.SpriteLib.MouseFollowParams)">
+            <summary>
+            Create a new UpdateParamaters with the values specified.
+            </summary>
+            <param name="UpdateXParam">Whether or not to acknowledge the XIncrease value.</param>
+            <param name="UpdateYParam">Whether or not to acknowledge the YIncrease value.</param>
+            <param name="followParams">The parameters for mouse following.</param>
         </member>
         <member name="M:Glib.XNA.SpriteLib.UpdateParamaters.#ctor(System.Boolean,System.Boolean)">
             <summary>
@@ -2763,6 +2809,11 @@
         <member name="P:Glib.XNA.SpriteLib.Screen.Visible">
             <summary>
             Gets or sets a boolean representing whether or not this Screen is visible.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.Screen.SpriteCount">
+            <summary>
+            Gets the total count of ISprites in this Screen.
             </summary>
         </member>
         <member name="P:Glib.XNA.SpriteLib.Screen.CenterOrigin">
