@@ -18,7 +18,7 @@ namespace GitPracticeAgain
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
+        ScrollingBackground background;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -27,7 +27,7 @@ namespace GitPracticeAgain
 
         protected override void Initialize()
         {
-
+            background = new ScrollingBackground();
             base.Initialize();
         }
 
@@ -35,7 +35,8 @@ namespace GitPracticeAgain
         {
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            background.LoadContent(new Vector2(0, 0), Content.Load<Texture2D>("space_background"), Color.White, 1);
+            
 
         }
 
@@ -49,6 +50,8 @@ namespace GitPracticeAgain
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
+            //for Background
+            background.Update();
             base.Update(gameTime);
         }
 
@@ -56,7 +59,10 @@ namespace GitPracticeAgain
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-
+            spriteBatch.Begin();
+            background.Draw(spriteBatch);
+            spriteBatch.End();
+            
             base.Draw(gameTime);
         }
     }
