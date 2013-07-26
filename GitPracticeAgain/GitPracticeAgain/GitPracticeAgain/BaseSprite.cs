@@ -9,7 +9,7 @@ namespace GitPracticeAgain
 {
     class BaseSprite
     {
-        private Vector2 _position;
+        protected Vector2 _position;
 
         public Vector2 Position
         {
@@ -17,7 +17,7 @@ namespace GitPracticeAgain
             set { _position = value; }
         }
 
-        private Texture2D _texture;
+        protected Texture2D _texture;
 
         public Texture2D Texture
         {
@@ -25,7 +25,7 @@ namespace GitPracticeAgain
             set { _texture = value; }
         }
 
-        private Color _tintColor;
+        protected Color _tintColor;
 
         public Color Color
         {
