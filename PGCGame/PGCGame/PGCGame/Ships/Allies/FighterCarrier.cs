@@ -87,6 +87,10 @@ namespace PGCGame
             {
                 Drones[d].WorldCoords = WorldCoords + Drones[d].Origin * Drones[d].Rotation.Vector;
                 Drones[d].Update(gt);
+                if (StateManager.DebugData.BringDronesBack)
+                {
+                    Drones[d].CurrentHealth = Drones[d].InitialHealth;
+                }
             }
         }
 
