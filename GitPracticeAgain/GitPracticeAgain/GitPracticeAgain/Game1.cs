@@ -18,7 +18,7 @@ namespace GitPracticeAgain
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -35,9 +35,6 @@ namespace GitPracticeAgain
         {
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
-         
-            
-
         }
 
         protected override void UnloadContent()
@@ -50,13 +47,13 @@ namespace GitPracticeAgain
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+
             base.Draw(gameTime);
         }
     }
