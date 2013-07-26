@@ -419,7 +419,7 @@ namespace PGCGame.Screens
             }
 
 
-            secondaryWeaponLabel.Text += "\n" + StateManager.lives + " lives";
+            secondaryWeaponLabel.Text += "\n" + StateManager.lives + " lives remaining";
 
 
             if (playerShip.CurrentHealth <= 0 || StateManager.nextLevel)
