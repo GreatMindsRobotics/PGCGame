@@ -107,6 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Asteroid.cs" />
     <Compile Include="BaseSprite.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="Ship.cs" />
