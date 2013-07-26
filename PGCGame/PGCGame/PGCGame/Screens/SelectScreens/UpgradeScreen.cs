@@ -27,6 +27,7 @@ namespace PGCGame.Screens.SelectScreens
         Texture2D ScannerImage = GameContent.GameAssets.Images.Equipment[EquipmentType.Scanner, TextureDisplayType.ShopDisplay];
         SpriteFont font = GameContent.GameAssets.Fonts.NormalText;
         List<KeyValuePair<Sprite, string>> itemsShown = new List<KeyValuePair<Sprite, string>>();
+        TextSprite text4;
 
         public override void InitScreen(ScreenType screenType)
         {
@@ -40,7 +41,7 @@ namespace PGCGame.Screens.SelectScreens
 
             Sprite Scanner = new Sprite(ScannerImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.6f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.1f), Sprites.SpriteBatch);
             TextSprite scannerText = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.1f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 1.5f), font, "Scanner", Color.White);
-            TextSprite text4 = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.1f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 1.5f), font,
+            text4 = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.1f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 1.5f), font,
             "You have " + StateManager.SpaceBucks + " credits\n\nScanner\nCost: 2500\nShows enemy health bars as well as\ntheir health and rotation on the minimap\nCurrently lasts until game ends", Color.White);
             text4.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.01f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.01f);
             Scanner.Scale = new Vector2(0.5f, 0.5f);
@@ -65,6 +66,7 @@ namespace PGCGame.Screens.SelectScreens
                 {
                     StateManager.HasBoughtScanner = true;
                     StateManager.SpaceBucks -= 2500;
+                    text4.Text = "You have " + StateManager.SpaceBucks + " credits\n\nScanner\nCost: 2500\nShows enemy health bars as well as\ntheir health and rotation on the minimap\nCurrently lasts until game ends";
                     break;
                 }
                 else if (item.Key == items[selected].Key)
