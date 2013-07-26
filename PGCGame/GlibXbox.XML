@@ -135,6 +135,11 @@
             Does not begin or end the SpriteBatch.
             </summary>
         </member>
+        <member name="P:Glib.XNA.SpriteLib.TextSprite.Visible">
+            <summary>
+            Gets or sets a boolean indicating whether or not this TextSprite is visible.
+            </summary>
+        </member>
         <member name="E:Glib.XNA.SpriteLib.TextSprite.Pressed">
             <summary>
             If this button is in a GamePadButtonEnumerator, an event fired when the TextSprite is pressed.
@@ -1592,6 +1597,20 @@
             A structure representing the rotation of a sprite.
             </summary>
         </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteRotation.FromRadians(System.Single)">
+            <summary>
+            Returns a SpriteRotation representing the specified value in radians.
+            </summary>
+            <param name="radians">The number of radians to represent in the new SpriteRotation.</param>
+            <returns>A new SpriteRotation representing the specified value in radians.</returns>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.SpriteRotation.FromDegrees(System.Single)">
+            <summary>
+            Returns a SpriteRotation representing the specified value in degrees.
+            </summary>
+            <param name="radians">The number of degrees to represent in the new SpriteRotation.</param>
+            <returns>A new SpriteRotation representing the specified value in degrees.</returns>
+        </member>
         <member name="M:Glib.XNA.SpriteLib.SpriteRotation.op_Addition(Glib.XNA.SpriteLib.SpriteRotation,Glib.XNA.SpriteLib.SpriteRotation)">
             <summary>
             Add two SpriteRotations.
@@ -1689,7 +1708,7 @@
         </member>
         <member name="P:Glib.XNA.SpriteLib.SpriteRotation.Radians">
             <summary>
-            Gets or sets he rotation of the sprite in radians.
+            Gets or sets the rotation of the sprite in radians.
             </summary>
         </member>
         <member name="T:Glib.XNA.XnaExtensions">
