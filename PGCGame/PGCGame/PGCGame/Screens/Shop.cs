@@ -139,7 +139,10 @@ namespace PGCGame.Screens
 
         void nextLevelLabel_Pressed(object sender, EventArgs e)
         {
-
+            if (!this.Visible)
+            {
+                return;
+            }
 
             if (!firstShop)
             {
