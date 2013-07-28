@@ -124,16 +124,28 @@ namespace PGCGame.Screens
 
         void shipLabel_Pressed(object sender, EventArgs e)
         {
+            if (!this.Visible)
+            {
+                return;
+            }
             StateManager.ScreenState = ScreenType.TierSelect;
         }
 
         void upgradeEquipmentLabel_Pressed(object sender, EventArgs e)
         {
+            if (!this.Visible)
+            {
+                return;
+            }
             StateManager.ScreenState = ScreenType.UpgradeScreen;
         }
 
         void weaponsLabel_Pressed(object sender, EventArgs e)
         {
+            if (!this.Visible)
+            {
+                return;
+            }
             StateManager.ScreenState = ScreenType.WeaponSelect;
         }
 
