@@ -184,7 +184,7 @@ namespace PGCGame.Ships.Allies
             KeyboardState ks = Keyboard.GetState();
             _elapsedShotTime += gt.ElapsedGameTime;
             //Shoot w/ space key
-
+            
             if (CanShoot)
             {
 #if WINDOWS
@@ -306,7 +306,6 @@ namespace PGCGame.Ships.Allies
                         case "PGCGame.ShrinkRay":
                             if (!fired.Cast<ShrinkRay>().ShotBullet)
                             {
-
                                 fired.Position = fired.ParentShip.WorldCoords;
                                 ShrinkRayShoot(fired.Cast<ShrinkRay>());
                             }

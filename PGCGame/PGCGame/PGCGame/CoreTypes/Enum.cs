@@ -165,4 +165,13 @@ namespace PGCGame.CoreTypes
         Scanner,
         HealthPack
     }
+
+    public enum ShipState
+    {
+        Idle,
+        Moving,
+        Firing,
+        Dead,
+        Exploding,
+    }
 }

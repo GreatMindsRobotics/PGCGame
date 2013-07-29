@@ -1,15 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 
 using Glib.XNA;
 using Glib;
@@ -33,10 +27,11 @@ namespace PGCGame
         public static Texture2D FighterCarrierBullet;
         public static Texture2D Torpedo;
         public static Texture2D SpaceMine;
+        public static Texture2D Explosion;
 
         public abstract ShipType ShipType { get; }
 
-        #endregion StaticProperties
+        #endregion StaticProperties 
         #region Private Fields
 
         public Ship(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
@@ -50,7 +45,8 @@ namespace PGCGame
             _shipID = Guid.NewGuid();
             _initHealth = 100;
             _isDead = false;
-
+            Explosion = GameContent.GameAssets.Images.SpriteSheets["Explosion"];
+            _explosionSheet = new SpriteSheet(GameContent.GameAssets.Images.SpriteSheets["Explosion"], new Rectangle(0, 0, 256 / 4, 256 / 4), this.Position, spriteBatch);
             _currentHealth = _initHealth;
         }
 
@@ -71,6 +67,8 @@ namespace PGCGame
         public SpriteBatch WorldSb;
         //private TimeSpan _elapsedShotTime = new TimeSpan();
         protected KeyboardState _lastKs = new KeyboardState();
+
+       
 
         protected static string _friendlyName;
 
@@ -93,6 +91,8 @@ namespace PGCGame
         private ProgressBar _healthBar;
 
         private Vector2 _movementSpeed = Vector2.One;
+
+        protected SpriteSheet _explosionSheet;
 
         private Guid _shipID;
         private bool _isFirstUpdate = true;
@@ -234,6 +234,7 @@ namespace PGCGame
             bullet.Rotation = Rotation;
             bullet.Damage = DamagePerShot;
 
+
             StateManager.LegitBullets.Add(bullet);
         }
 
@@ -254,6 +255,7 @@ namespace PGCGame
 
             if (CurrentHealth <= 0)
             {
+                
                 StateManager.ActiveShips.Remove(this);
             }
 

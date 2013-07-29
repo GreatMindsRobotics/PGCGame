@@ -31,8 +31,6 @@ namespace PGCGame.Screens
 
         Sprite TitleSprite;
 
-
-
         Sprite planet;
         Sprite planettwo;
 

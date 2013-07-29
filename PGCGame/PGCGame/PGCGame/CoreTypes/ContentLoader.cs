@@ -87,6 +87,7 @@ namespace PGCGame.CoreTypes
                 NonPlayingObjects = new NonPlayingGameObjects(content);
                 SecondaryWeapon = new GameSecondaryWeapon(content);
                 Equipment = new GameEquipment(content);
+                SpriteSheets = new SpriteSheet(content);
             }
 
             public readonly GameBackgrounds Backgrounds;
@@ -366,6 +367,24 @@ namespace PGCGame.CoreTypes
                     _EquipmentTextures.Add(new KeyValuePair<EquipmentType, TextureDisplayType>(EquipmentType.Scanner, TextureDisplayType.InGameUse), content.Load<Texture2D>("Images\\Equipment\\Scanner\\Scanner"));
                     _EquipmentTextures.Add(new KeyValuePair<EquipmentType, TextureDisplayType>(EquipmentType.HealthPack, TextureDisplayType.InGameUse), content.Load<Texture2D>("Images\\Equipment\\HealthPack\\HealthPack"));
                     _EquipmentTextures.Add(new KeyValuePair<EquipmentType, TextureDisplayType>(EquipmentType.HealthPack, TextureDisplayType.ShopDisplay), content.Load<Texture2D>("Images\\Equipment\\HealthPack\\HealthPack"));
+                }
+            }
+
+            public readonly SpriteSheet SpriteSheets;
+            public class SpriteSheet
+            {
+                private readonly Dictionary<string, Texture2D> _spriteSheetTextures;
+
+                public Texture2D this[string name]
+                {
+                    get { return _spriteSheetTextures[name]; }
+                }
+
+                internal SpriteSheet(ContentManager content)
+                {
+                    _spriteSheetTextures = new Dictionary<string, Texture2D>();
+
+                    _spriteSheetTextures.Add("Explosion", content.Load<Texture2D>("Images\\SpriteSheets\\Explosion"));
                 }
             }
         
