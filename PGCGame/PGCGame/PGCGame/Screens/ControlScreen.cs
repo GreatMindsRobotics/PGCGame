@@ -104,6 +104,7 @@ namespace PGCGame.Screens
              SecondWeapLabel.IsHoverable = true;
              SecondWeapLabel.HoverColor = Color.MediumAquamarine;
              SecondWeapLabel.NonHoverColor = Color.White;
+             SecondWeap.Scale.X = 1.2f;
 
              SecondWeap.MouseEnter += new EventHandler(SecondWeap_MouseEnter);
              SecondWeap.MouseLeave += new EventHandler(SecondWeap_MouseLeave);
@@ -126,6 +127,7 @@ namespace PGCGame.Screens
              SwitchSecondWeapLabel.IsHoverable = true;
              SwitchSecondWeapLabel.HoverColor = Color.MediumAquamarine;
              SwitchSecondWeapLabel.NonHoverColor = Color.White;
+             SwitchWeap.Scale.X = 1.3f;
 
              SwitchWeap.MouseEnter += new EventHandler(SwitchWeap_MouseEnter);
              SwitchWeap.MouseLeave += new EventHandler(SwitchWeap_MouseLeave);
