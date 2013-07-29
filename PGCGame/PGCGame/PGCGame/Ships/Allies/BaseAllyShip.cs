@@ -277,9 +277,9 @@ namespace PGCGame.Ships.Allies
             //Deploy secondary weapon
             //StateManager.PowerUps[SecondaryWeaponIndex].Count > 0 && ks.IsKeyDown(Keys.R) && _lastKs != null && _lastKs.IsKeyUp(Keys.R)
             //(StateManager.Options.SecondaryButtonEnabled && ks.IsKeyDown(Keys.R)) || (!StateManager.Options.SecondaryButtonEnabled && ks.IsKeyDown(Keys.RightShift))
-            if (StateManager.PowerUps[SecondaryWeaponIndex].Count > 0 && (StateManager.Options.SecondaryButtonEnabled && ks.IsKeyDown(Keys.R) && _lastKs != null && _lastKs.IsKeyUp(Keys.R)) || (!StateManager.Options.SecondaryButtonEnabled && ks.IsKeyDown(Keys.RightShift) && _lastKs != null && _lastKs.IsKeyUp(Keys.RightShift)))
+            if (StateManager.PowerUps[SecondaryWeaponIndex].Count > 0 && (StateManager.Options.SecondaryButtonEnabled && ks.IsKeyDown(Keys.R) && _lastKs != null && _lastKs.IsKeyUp(Keys.R)) || (!StateManager.Options.SecondaryButtonEnabled && ks.IsKeyDown(Keys.RightShift) && _lastKs != null && _lastKs.IsKeyUp(Keys.RightShift) && StateManager.PowerUps[SecondaryWeaponIndex].Count > 0))
             {
-                if (  (CurrentHealth < InitialHealth && StateManager.PowerUps[SecondaryWeaponIndex].Peek().GetType() == typeof(HealthPack)) || StateManager.PowerUps[SecondaryWeaponIndex].Peek().GetType() != typeof(HealthPack))
+                if ((CurrentHealth < InitialHealth && StateManager.PowerUps[SecondaryWeaponIndex].Peek().GetType() == typeof(HealthPack)) || StateManager.PowerUps[SecondaryWeaponIndex].Peek().GetType() != typeof(HealthPack))
                 {
                     SecondaryWeapon fired = StateManager.DebugData.InfiniteSecondaryWeapons ? StateManager.PowerUps[SecondaryWeaponIndex].Peek() : StateManager.PowerUps[SecondaryWeaponIndex].Pop();
                     fired.fired = true;
