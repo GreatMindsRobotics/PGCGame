@@ -19,12 +19,12 @@ namespace GitPracticeAgain
                 _position.Y -= Speed.Y;
             }
 
-            if (keyboardState.IsKeyDown(Keys.Right))
+            if (keyboardState.IsKeyDown(Keys.Left))
             {
                 _position.X -= Speed.X;
             }
 
-            if (keyboardState.IsKeyDown(Keys.Left))
+            if (keyboardState.IsKeyDown(Keys.Right))
             {
                 _position.X += Speed.X;
             }

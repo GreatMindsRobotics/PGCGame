@@ -40,10 +40,10 @@ namespace GitPracticeAgain
 
         protected override void LoadContent()
         {
-            bg.LoadContent(Vector2.Zero, Content.Load<Texture2D>("space_background"), Color.White, 5);
+            bg.LoadContent(Vector2.Zero, Content.Load<Texture2D>("space_background"), Color.White, 70);
             enemy.LoadContent(new Vector2(GraphicsDevice.Viewport.Width, 100), Content.Load<Texture2D>("EnemyShip2"), Color.White);
-            enemy.Speed = new Vector2(5, 0);
-            ship.LoadContent(Vector2.Zero, Content.Load<Texture2D>("EnemyShip2"), Color.Blue);
+            enemy.Speed = new Vector2(4, 0);
+            ship.LoadContent(Vector2.Zero, Content.Load<Texture2D>("GoodShip"), Color.White);
          
             asteroid.LoadContent(Content.Load<Texture2D>("asteroid_use"), Color.White);
             
