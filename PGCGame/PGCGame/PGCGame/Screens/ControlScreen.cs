@@ -98,14 +98,14 @@ namespace PGCGame.Screens
 
 #if WINDOWS
              SecondWeap = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .4f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f), Sprites.SpriteBatch);
-             SecondWeapLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, font, String.Format("SecWeap:{0}", StateManager.Options.SecondaryButtonEnabled ? "RShift" : "R"));
+             SecondWeapLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, font, String.Format("Use Weapon:{0}", StateManager.Options.SecondaryButtonEnabled ? "RShift" : "R"));
              SecondWeapLabel.Position = new Vector2(SecondWeap.Position.X + (SecondWeap.Width / 2 - SecondWeapLabel.Width / 2), SecondWeap.Position.Y + (SecondWeap.Height / 2 - SecondWeapLabel.Height / 2));
              SecondWeapLabel.Color = Color.White;
              SecondWeapLabel.IsManuallySelectable = true;
              SecondWeapLabel.IsHoverable = true;
              SecondWeapLabel.HoverColor = Color.MediumAquamarine;
              SecondWeapLabel.NonHoverColor = Color.White;
-             SecondWeap.Scale.X = 1.2f;
+             SecondWeap.Scale.X = 1.4f;
 
              SecondWeap.MouseEnter += new EventHandler(SecondWeap_MouseEnter);
              SecondWeap.MouseLeave += new EventHandler(SecondWeap_MouseLeave);
@@ -121,14 +121,14 @@ namespace PGCGame.Screens
 
 #if WINDOWS
              SwitchWeap = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .4f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .35f), Sprites.SpriteBatch);
-             SwitchSecondWeapLabel = new TextSprite(Sprites.SpriteBatch, font, String.Format("Switch:{0}", StateManager.Options.LeftButtonEnabled ? "PgUp/PgDn" : "Q/E"));
-             SwitchSecondWeapLabel.Position = new Vector2(SwitchWeap.Position.X + (SwitchWeap.Width / 2 - SwitchSecondWeapLabel.Width / 2), SwitchWeap.Position.Y + (SwitchWeap.Height / 2 - SwitchSecondWeapLabel.Height / 2));
+             SwitchSecondWeapLabel = new TextSprite(Sprites.SpriteBatch, font, String.Format("Switch Weapon:{0}", StateManager.Options.LeftButtonEnabled ? "PgUp/PgDn" : "Q/E"));
              SwitchSecondWeapLabel.Color = Color.White;
              SwitchSecondWeapLabel.IsManuallySelectable = true;
              SwitchSecondWeapLabel.IsHoverable = true;
              SwitchSecondWeapLabel.HoverColor = Color.MediumAquamarine;
              SwitchSecondWeapLabel.NonHoverColor = Color.White;
-             SwitchWeap.Scale.X = 1.3f;
+             SwitchWeap.Scale.X = 1.4f;
+             SwitchSecondWeapLabel.Position = new Vector2(SwitchWeap.Position.X + (SwitchWeap.Width / 2 - SwitchSecondWeapLabel.Width / 2), SwitchWeap.Position.Y + (SwitchWeap.Height / 2 - SwitchSecondWeapLabel.Height / 2));
 
              SwitchWeap.MouseEnter += new EventHandler(SwitchWeap_MouseEnter);
              SwitchWeap.MouseLeave += new EventHandler(SwitchWeap_MouseLeave);
@@ -221,13 +221,14 @@ namespace PGCGame.Screens
              if (SecondWeapLabel.IsSelected && currentMouseState.LeftButton == ButtonState.Pressed && lastMS.LeftButton != ButtonState.Pressed)
              {
                  StateManager.Options.SecondaryButtonEnabled = !StateManager.Options.SecondaryButtonEnabled;
-                 SecondWeapLabel.Text = String.Format("SecWeap:{0}", StateManager.Options.SecondaryButtonEnabled ? "RShift" : "R");
+                 SecondWeapLabel.Text = String.Format("Use Weapon:{0}", StateManager.Options.SecondaryButtonEnabled ? "RShift" : "R");
              }
 
              if (SwitchSecondWeapLabel.IsSelected && currentMouseState.LeftButton == ButtonState.Pressed && lastMS.LeftButton != ButtonState.Pressed)
              {
                  StateManager.Options.SwitchButtonEnabled = !StateManager.Options.SwitchButtonEnabled;
-                 SwitchSecondWeapLabel.Text = String.Format("Switch:{0}", StateManager.Options.SwitchButtonEnabled ? "PgUp/PgDn" : "Q/E");
+                 SwitchWeap.Scale.X = 1.7f;
+                 SwitchSecondWeapLabel.Text = String.Format("Switch Weapon:{0}", StateManager.Options.SwitchButtonEnabled ? "PgUp/PgDn" : "Q/E");
              }
 
              if (DeployDronesLabel.IsSelected && currentMouseState.LeftButton == ButtonState.Pressed && lastMS.LeftButton != ButtonState.Pressed)
@@ -236,7 +237,27 @@ namespace PGCGame.Screens
                  DeployDronesLabel.Text = String.Format("Drones:{0}", StateManager.Options.DeployDronesEnabled ? "RControl" : "LShift");
                  Drone.DeployKey = StateManager.Options.DeployDronesEnabled ? Keys.RightControl : Keys.LeftShift;
              }
-            
+
+             if (SwitchSecondWeapLabel.Text == "Switch Weapon:PgUp/PgDn")
+             {
+                 SwitchWeap.Scale.X = 1.6f;
+                 SwitchSecondWeapLabel.Position = new Vector2(SwitchWeap.Position.X + (SwitchWeap.Width / 2 - SwitchSecondWeapLabel.Width / 2), SwitchWeap.Position.Y + (SwitchWeap.Height / 2 - SwitchSecondWeapLabel.Height / 2));
+             }
+             else
+             {
+                 SwitchWeap.Scale.X = 1.4f;
+                 SwitchSecondWeapLabel.Position = new Vector2(SwitchWeap.Position.X + (SwitchWeap.Width / 2 - SwitchSecondWeapLabel.Width / 2), SwitchWeap.Position.Y + (SwitchWeap.Height / 2 - SwitchSecondWeapLabel.Height / 2));
+             }
+             if (SecondWeapLabel.Text == "Use Weapon:RShift")
+             {
+                 SecondWeap.Scale.X = 1.6f;
+                 SecondWeapLabel.Position = new Vector2(SecondWeap.Position.X + (SecondWeap.Width / 2 - SecondWeapLabel.Width / 2), SecondWeap.Position.Y + (SecondWeap.Height / 2 - SecondWeapLabel.Height / 2));
+             }
+             else
+             {
+                 SecondWeap.Scale.X = 1.4f;
+                 SecondWeapLabel.Position = new Vector2(SecondWeap.Position.X + (SecondWeap.Width / 2 - SecondWeapLabel.Width / 2), SecondWeap.Position.Y + (SecondWeap.Height / 2 - SecondWeapLabel.Height / 2));
+             }
 
              lastMS = currentMouseState;
 #elif XBOX
