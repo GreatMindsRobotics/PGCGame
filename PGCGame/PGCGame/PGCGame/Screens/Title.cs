@@ -14,6 +14,7 @@ using Microsoft.Xna.Framework.Input;
 
 using PGCGame.CoreTypes;
 using Glib.XNA.InputLib;
+using Microsoft.Xna.Framework.Media;
 
 namespace PGCGame.Screens
 {
@@ -38,6 +39,8 @@ namespace PGCGame.Screens
         Sprite ExitButton;
         TextSprite ExitLabel;
 
+        Song _gameSong;
+
 #if XBOX
         GamePadButtonEnumerator ButtonManagement;
 #endif
@@ -46,6 +49,27 @@ namespace PGCGame.Screens
         public override void InitScreen(ScreenType screenName)
         {
             base.InitScreen(screenName);
+
+            _gameSong = GameContent.GameAssets.Music[ScreenMusic.Level1];
+
+            StateManager.Options.MusicStateChanged += new EventHandler(Options_MusicStateChanged);
+            StateManager.ScreenStateChanged += new EventHandler(delegate(object src, EventArgs arg)
+            {
+                if (Visible)
+                {
+                    if (StateManager.Options.MusicEnabled)
+                    {
+                        if (MediaPlayer.State != MediaState.Playing)
+                        {
+                            MediaPlayer.Play(_gameSong);
+                        }
+                    }
+                    else
+                    {
+                        MediaPlayer.Stop();
+                    }
+                }
+            });
 
             Viewport viewPort = Sprites.SpriteBatch.GraphicsDevice.Viewport;
 
@@ -158,8 +182,19 @@ namespace PGCGame.Screens
         TimeSpan totalControllerDelayTime = TimeSpan.FromMilliseconds(250);
 #endif
 
+        void Options_MusicStateChanged(object sender, EventArgs e)
+        {
+            if (MediaPlayer.State == MediaState.Playing)
+            {
+                MediaPlayer.Stop();
+            }
+        }
+
+
         public override void Update(GameTime gameTime)
         {
+            
+            
             if (!StateManager.IsWindowFocused())
             {
                 //Not active window

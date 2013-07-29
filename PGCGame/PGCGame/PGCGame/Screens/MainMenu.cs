@@ -1,19 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 using Glib;
 using Glib.XNA;
 using Glib.XNA.SpriteLib;
 
 using PGCGame.CoreTypes;
-using Glib.XNA.InputLib;
 using Microsoft.Xna.Framework.Media;
 
 namespace PGCGame.Screens
@@ -29,7 +23,7 @@ namespace PGCGame.Screens
 
         void StateManager_ScreenStateChanged(object sender, EventArgs e)
         {
-            if(Visible)
+            if (Visible)
             {
                 elapsedButtonDelay = TimeSpan.Zero;
             }
@@ -57,7 +51,7 @@ namespace PGCGame.Screens
         Sprite CreditsButton;
         TextSprite CreditsLabel;
 
-        Song _gameSong;
+
 
 
 
@@ -66,26 +60,7 @@ namespace PGCGame.Screens
         {
             base.InitScreen(screnType);
 
-            _gameSong = GameContent.GameAssets.Music[ScreenMusic.Level1];
-          
-            StateManager.Options.MusicStateChanged += new EventHandler(Options_MusicStateChanged);
-            StateManager.ScreenStateChanged += new EventHandler(delegate(object src, EventArgs arg)
-            {
-                if (Visible)
-                {
-                    if (StateManager.Options.MusicEnabled)
-                    {
-                        if(MediaPlayer.State != MediaState.Playing)
-                        {
-                            MediaPlayer.Play(_gameSong);
-                        }
-                    }
-                    else
-                    {
-                        MediaPlayer.Stop();
-                    }
-                }
-            });
+
             Texture2D planetTexture = GameContent.GameAssets.Images.NonPlayingObjects.Planet;
             Texture2D altPlanetTexture = GameContent.GameAssets.Images.NonPlayingObjects.AltPlanet;
             Texture2D buttonImage = GameContent.GameAssets.Images.Controls.Button;
@@ -201,13 +176,6 @@ namespace PGCGame.Screens
             MultiPlayerLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.NetworkSelectScreen; } });
         }
 
-    void Options_MusicStateChanged(object sender, EventArgs e)
-        {
-            if (MediaPlayer.State == MediaState.Playing)
-            {
-                MediaPlayer.Stop();
-            }
-        }
 
 
 

@@ -291,7 +291,7 @@ namespace PGCGame.Ships.Allies
 
 
                     //Specifics of certain secondary weapons 
-                    ActiveSecondaryWeapons.Add(fired);
+                    ActiveSecondaryWeapons.Add(fired); ;
                     switch (fired.GetType().FullName)
                     {
 
