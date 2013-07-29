@@ -41,9 +41,6 @@ namespace PGCGame.Screens
         TextSprite SFXLabel;
         TextSprite MusicVolumeLabel;
         TextSprite BackLabel;
-        
-
-        
 
         public override void InitScreen(ScreenType screenType)
         {
@@ -155,7 +152,6 @@ namespace PGCGame.Screens
             MusicVolumeLabel.IsManuallySelectable = true;
             MusicVolumeLabel.HoverColor = Color.MediumAquamarine;
             MusicVolumeLabel.NonHoverColor = Color.White;
-
 
             //Add all buttons
             Sprites.Add(ControlButton);

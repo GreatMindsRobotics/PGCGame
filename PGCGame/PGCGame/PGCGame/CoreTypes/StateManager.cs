@@ -382,6 +382,7 @@ namespace PGCGame
             public static bool SFXEnabled { get; set; }
             public static bool ArrowKeysEnabled { get; set; }
             public static bool LeftButtonEnabled { get; set; }
+            public static bool SecondaryButtonEnabled { get; set; }
 
             public static event EventHandler MusicStateChanged;
 

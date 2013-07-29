@@ -35,6 +35,7 @@ namespace PGCGame.Screens
 #if WINDOWS
          Sprite MoveButton;
          Sprite FireButton;
+         Sprite SecondWeap;
 
          MouseState lastMS;
 #endif
@@ -94,16 +95,24 @@ namespace PGCGame.Screens
 #endif
 
 #if WINDOWS
-             SecondWeapLabel = new TextSprite(Sprites.SpriteBatch, font, ("Use Secondary Weapon: R"));
-             SecondWeapLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .4f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f);
+             SecondWeap = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .4f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f), Sprites.SpriteBatch);
+             SecondWeapLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, font, String.Format("SecWeap:{0}", StateManager.Options.SecondaryButtonEnabled ? "RShift" : "R"));
+             SecondWeapLabel.Position = new Vector2(SecondWeap.Position.X + (SecondWeap.Width / 2 - SecondWeapLabel.Width / 2), SecondWeap.Position.Y + (SecondWeap.Height / 2 - SecondWeapLabel.Height / 2));
              SecondWeapLabel.Color = Color.White;
+             SecondWeapLabel.IsManuallySelectable = true;
+             SecondWeapLabel.IsHoverable = true;
+             SecondWeapLabel.HoverColor = Color.MediumAquamarine;
+             SecondWeapLabel.NonHoverColor = Color.White;
+
+             SecondWeap.MouseEnter += new EventHandler(SecondWeap_MouseEnter);
+             SecondWeap.MouseLeave += new EventHandler(SecondWeap_MouseLeave);
 #endif
 
 #if XBOX
              SecondWeapLabel = new TextSprite(Sprites.SpriteBatch, font, ("Use Secondary Weapon: LTrigger"));
              SecondWeapLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .4f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .10f);
              SecondWeapLabel.Color = Color.White;
-#endif 
+#endif
 
 
 
@@ -147,6 +156,7 @@ namespace PGCGame.Screens
 #if WINDOWS
              Sprites.Add(MoveButton);
              Sprites.Add(FireButton);
+             Sprites.Add(SecondWeap);
 #endif
              Sprites.Add(BackButton);
 
@@ -171,7 +181,6 @@ namespace PGCGame.Screens
              if (BackLabel.IsSelected && BackButton.ClickCheck(currentMouseState) && !BackButton.ClickCheck(lastMS))
              {
                  StateManager.GoBack();
-        
              }
 
              if (MoveLabel.IsSelected && currentMouseState.LeftButton == ButtonState.Pressed && lastMS.LeftButton != ButtonState.Pressed)
@@ -184,6 +193,12 @@ namespace PGCGame.Screens
              {
                  StateManager.Options.LeftButtonEnabled = !StateManager.Options.LeftButtonEnabled;
                  FireLabel.Text = String.Format("Fire:{0}", StateManager.Options.LeftButtonEnabled ? "LClick" : "Space");
+             }
+
+             if (SecondWeapLabel.IsSelected && currentMouseState.LeftButton == ButtonState.Pressed && lastMS.LeftButton != ButtonState .Pressed)
+             {
+                 StateManager.Options.SecondaryButtonEnabled = !StateManager.Options.SecondaryButtonEnabled;
+                 SecondWeapLabel.Text = String.Format("SecWeap:{0}", StateManager.Options.SecondaryButtonEnabled ? "RShift" : "R");
              }
             
 
@@ -200,6 +215,16 @@ namespace PGCGame.Screens
              {
                  return FireLabel.IsSelected;
              }
+         }
+
+         void SecondWeap_MouseEnter(object sender, EventArgs e)
+         {
+             SecondWeapLabel.IsSelected = true;
+         }
+
+         void SecondWeap_MouseLeave(object sender, EventArgs e)
+         {
+             SecondWeapLabel.IsSelected = false;
          }
 
          void FireButton_MouseEnter(object sender, EventArgs e)

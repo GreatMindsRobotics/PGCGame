@@ -159,8 +159,6 @@ namespace PGCGame.Screens.SelectScreens
                         bought = true;
                     }
                 }
-
-
             }
         }
 

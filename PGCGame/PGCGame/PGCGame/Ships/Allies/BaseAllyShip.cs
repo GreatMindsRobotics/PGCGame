@@ -275,7 +275,9 @@ namespace PGCGame.Ships.Allies
             */
 
             //Deploy secondary weapon
-            if (StateManager.PowerUps[SecondaryWeaponIndex].Count > 0 && ks.IsKeyDown(Keys.R) && _lastKs != null && _lastKs.IsKeyUp(Keys.R))
+            //StateManager.PowerUps[SecondaryWeaponIndex].Count > 0 && ks.IsKeyDown(Keys.R) && _lastKs != null && _lastKs.IsKeyUp(Keys.R)
+            //(StateManager.Options.SecondaryButtonEnabled && ks.IsKeyDown(Keys.R)) || (!StateManager.Options.SecondaryButtonEnabled && ks.IsKeyDown(Keys.RightShift))
+            if (StateManager.PowerUps[SecondaryWeaponIndex].Count > 0 && (StateManager.Options.SecondaryButtonEnabled && ks.IsKeyDown(Keys.R) && _lastKs != null && _lastKs.IsKeyUp(Keys.R)) || (!StateManager.Options.SecondaryButtonEnabled && ks.IsKeyDown(Keys.RightShift) && _lastKs != null && _lastKs.IsKeyUp(Keys.RightShift)))
             {
                 if (  (CurrentHealth < InitialHealth && StateManager.PowerUps[SecondaryWeaponIndex].Peek().GetType() == typeof(HealthPack)) || StateManager.PowerUps[SecondaryWeaponIndex].Peek().GetType() != typeof(HealthPack))
                 {
