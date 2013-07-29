@@ -36,6 +36,7 @@ namespace PGCGame.Screens
          Sprite MoveButton;
          Sprite FireButton;
          Sprite SecondWeap;
+         Sprite SwitchWeap;
 
          MouseState lastMS;
 #endif
@@ -117,9 +118,17 @@ namespace PGCGame.Screens
 
 
 #if WINDOWS
-             SwitchSecondWeapLabel = new TextSprite(Sprites.SpriteBatch, font, ("Switch Secondary Weapons: Q and E"));
-             SwitchSecondWeapLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .4f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .35f);
+             SwitchWeap = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .4f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .35f), Sprites.SpriteBatch);
+             SwitchSecondWeapLabel = new TextSprite(Sprites.SpriteBatch, font, String.Format("Switch:{0}", StateManager.Options.LeftButtonEnabled ? "PgUp/PgDn" : "Q/E"));
+             SwitchSecondWeapLabel.Position = new Vector2(SwitchWeap.Position.X + (SwitchWeap.Width / 2 - SwitchSecondWeapLabel.Width / 2), SwitchWeap.Position.Y + (SwitchWeap.Height / 2 - SwitchSecondWeapLabel.Height / 2));
              SwitchSecondWeapLabel.Color = Color.White;
+             SwitchSecondWeapLabel.IsManuallySelectable = true;
+             SwitchSecondWeapLabel.IsHoverable = true;
+             SwitchSecondWeapLabel.HoverColor = Color.MediumAquamarine;
+             SwitchSecondWeapLabel.NonHoverColor = Color.White;
+
+             SwitchWeap.MouseEnter += new EventHandler(SwitchWeap_MouseEnter);
+             SwitchWeap.MouseLeave += new EventHandler(SwitchWeap_MouseLeave);
 #endif
 
 #if XBOX
@@ -157,6 +166,7 @@ namespace PGCGame.Screens
              Sprites.Add(MoveButton);
              Sprites.Add(FireButton);
              Sprites.Add(SecondWeap);
+             Sprites.Add(SwitchWeap);
 #endif
              Sprites.Add(BackButton);
 
@@ -195,10 +205,16 @@ namespace PGCGame.Screens
                  FireLabel.Text = String.Format("Fire:{0}", StateManager.Options.LeftButtonEnabled ? "LClick" : "Space");
              }
 
-             if (SecondWeapLabel.IsSelected && currentMouseState.LeftButton == ButtonState.Pressed && lastMS.LeftButton != ButtonState .Pressed)
+             if (SecondWeapLabel.IsSelected && currentMouseState.LeftButton == ButtonState.Pressed && lastMS.LeftButton != ButtonState.Pressed)
              {
                  StateManager.Options.SecondaryButtonEnabled = !StateManager.Options.SecondaryButtonEnabled;
                  SecondWeapLabel.Text = String.Format("SecWeap:{0}", StateManager.Options.SecondaryButtonEnabled ? "RShift" : "R");
+             }
+
+             if (SwitchSecondWeapLabel.IsSelected && currentMouseState.LeftButton == ButtonState.Pressed && lastMS.LeftButton != ButtonState.Pressed)
+             {
+                 StateManager.Options.SwitchButtonEnabled = !StateManager.Options.SwitchButtonEnabled;
+                 SwitchSecondWeapLabel.Text = String.Format("Switch:{0}", StateManager.Options.SwitchButtonEnabled ? "PgUp/PgDn" : "Q/E");
              }
             
 
@@ -215,6 +231,16 @@ namespace PGCGame.Screens
              {
                  return FireLabel.IsSelected;
              }
+         }
+
+         void SwitchWeap_MouseEnter(object sender, EventArgs e)
+         {
+             SwitchSecondWeapLabel.IsSelected = true;
+         }
+
+         void SwitchWeap_MouseLeave(object sender, EventArgs e)
+         {
+             SwitchSecondWeapLabel.IsSelected = false;
          }
 
          void SecondWeap_MouseEnter(object sender, EventArgs e)
