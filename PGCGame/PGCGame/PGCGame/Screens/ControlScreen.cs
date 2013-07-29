@@ -37,6 +37,7 @@ namespace PGCGame.Screens
          Sprite FireButton;
          Sprite SecondWeap;
          Sprite SwitchWeap;
+         Sprite DeployDrones;
 
          MouseState lastMS;
 #endif
@@ -141,12 +142,21 @@ namespace PGCGame.Screens
 
 
 #if WINDOWS
-             DeployDronesLabel = new TextSprite(Sprites.SpriteBatch, font, ("Deploy Fighter Carrier Drones: LShift"));
-             DeployDronesLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .4f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .6f);
-             DeployDronesLabel.Color = Color.White; 
-#endif
+             DeployDrones = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .4f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .6f), Sprites.SpriteBatch);
+             DeployDronesLabel = new TextSprite(Sprites.SpriteBatch, font, String.Format("Drones:{0}", StateManager.Options.LeftButtonEnabled ? "RControl" : "LShift"));
+             DeployDronesLabel.Position = new Vector2(DeployDrones.Position.X + (DeployDrones.Width / 2 - DeployDronesLabel.Width / 2), DeployDrones.Position.Y + (DeployDrones.Height / 2 - DeployDronesLabel.Height / 2));
+             DeployDronesLabel.Color = Color.White;
+             DeployDronesLabel.IsManuallySelectable = true;
+             DeployDronesLabel.IsHoverable = true;
+             DeployDronesLabel.HoverColor = Color.MediumAquamarine;
+             DeployDronesLabel.NonHoverColor = Color.White;
+             DeployDrones.Scale.X = 1.1f;
 
-#if XBOX
+             DeployDrones.MouseEnter +=new EventHandler(DeployDrones_MouseEnter);
+             DeployDrones.MouseLeave +=new EventHandler(DeployDrones_MouseLeave);
+
+
+#elif XBOX
              DeployDronesLabel = new TextSprite(Sprites.SpriteBatch, font, ("Deploy Fighter Carrier Drones: A Button"));
              DeployDronesLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .4f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .60f);
              DeployDronesLabel.Color = Color.White;
@@ -169,6 +179,7 @@ namespace PGCGame.Screens
              Sprites.Add(FireButton);
              Sprites.Add(SecondWeap);
              Sprites.Add(SwitchWeap);
+             Sprites.Add(DeployDrones);
 #endif
              Sprites.Add(BackButton);
 
@@ -218,6 +229,13 @@ namespace PGCGame.Screens
                  StateManager.Options.SwitchButtonEnabled = !StateManager.Options.SwitchButtonEnabled;
                  SwitchSecondWeapLabel.Text = String.Format("Switch:{0}", StateManager.Options.SwitchButtonEnabled ? "PgUp/PgDn" : "Q/E");
              }
+
+             if (DeployDronesLabel.IsSelected && currentMouseState.LeftButton == ButtonState.Pressed && lastMS.LeftButton != ButtonState.Pressed)
+             {
+                 StateManager.Options.DeployDronesEnabled = !StateManager.Options.DeployDronesEnabled;
+                 DeployDronesLabel.Text = String.Format("Drones:{0}", StateManager.Options.DeployDronesEnabled ? "RControl" : "LShift");
+                 Drone.DeployKey = StateManager.Options.DeployDronesEnabled ? Keys.RightControl : Keys.LeftShift;
+             }
             
 
              lastMS = currentMouseState;
@@ -233,6 +251,16 @@ namespace PGCGame.Screens
              {
                  return FireLabel.IsSelected;
              }
+         }
+
+         void  DeployDrones_MouseEnter(object sender, EventArgs e)
+         {
+ 	          DeployDronesLabel.IsSelected = true;
+         }
+
+         void  DeployDrones_MouseLeave(object sender, EventArgs e)
+         {
+ 	           DeployDronesLabel.IsSelected = false;
          }
 
          void SwitchWeap_MouseEnter(object sender, EventArgs e)

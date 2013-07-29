@@ -27,7 +27,9 @@ namespace PGCGame
 
         //TODO: Make this a selectable key in options 
 #if WINDOWS
-        private Keys _deployKey = Keys.LeftShift;
+        public static Keys DeployKey = Keys.LeftShift;
+
+      
 #elif XBOX
         private bool _xboxDroneDeployTriggered = false;
 #endif
@@ -175,7 +177,7 @@ namespace PGCGame
                     case CoreTypes.DroneState.Stowed:
                         //Drone is stowed on the Figher Carrier; wait for deploy command. This is the default state
 #if WINDOWS
-                        if (keyboard.IsKeyDown(_deployKey) && _lastKs != null && _lastKs.IsKeyUp(_deployKey))
+                        if (keyboard.IsKeyDown(DeployKey) && _lastKs != null && _lastKs.IsKeyUp(DeployKey))
                         {
                             DroneState = DroneState.Deploying;
                         }
@@ -192,7 +194,7 @@ namespace PGCGame
                         //Deploy command was given; allow "Stow" command (same key as deploy); else, continue deploying
 
 #if WINDOWS
-                        if (keyboard.IsKeyDown(_deployKey) && _lastKs != null && _lastKs.IsKeyUp(_deployKey) && !OtherDroneDetects())
+                        if (keyboard.IsKeyDown(DeployKey) && _lastKs != null && _lastKs.IsKeyUp(DeployKey) && !OtherDroneDetects())
                         {
                             DroneState = DroneState.Stowing;
 
@@ -235,7 +237,7 @@ namespace PGCGame
                     case CoreTypes.DroneState.Deployed:
                         //Drone is deployed; monitor for enemies, and listen for "Stow" command (same key as deploy)s
 #if WINDOWS
-                        if (keyboard.IsKeyDown(_deployKey) && _lastKs != null && _lastKs.IsKeyUp(_deployKey) && !OtherDroneDetects())
+                        if (keyboard.IsKeyDown(DeployKey) && _lastKs != null && _lastKs.IsKeyUp(DeployKey) && !OtherDroneDetects())
                         {
                             DroneState = DroneState.Stowing;
 
@@ -290,7 +292,7 @@ namespace PGCGame
                         //Monitor for re-deployment command (same key as stow)
 
 #if WINDOWS
-                        if (keyboard.IsKeyDown(_deployKey) && _lastKs != null && _lastKs.IsKeyUp(_deployKey))
+                        if (keyboard.IsKeyDown(DeployKey) && _lastKs != null && _lastKs.IsKeyUp(DeployKey))
                         {
 
                             DroneState = DroneState.Deploying;

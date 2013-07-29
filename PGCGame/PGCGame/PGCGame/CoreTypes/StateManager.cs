@@ -384,6 +384,7 @@ namespace PGCGame
             public static bool LeftButtonEnabled { get; set; }
             public static bool SecondaryButtonEnabled { get; set; }
             public static bool SwitchButtonEnabled { get; set; }
+            public static bool DeployDronesEnabled { get; set; }
 
             public static event EventHandler MusicStateChanged;
 
