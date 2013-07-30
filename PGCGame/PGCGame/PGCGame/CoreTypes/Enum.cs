@@ -166,6 +166,11 @@ namespace PGCGame.CoreTypes
         HealthPack
     }
 
+    public enum SpriteSheetType
+    {
+        Explosion
+    }
+
     public enum ShipState
     {
         Idle,

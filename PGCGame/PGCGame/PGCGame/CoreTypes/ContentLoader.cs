@@ -373,18 +373,18 @@ namespace PGCGame.CoreTypes
             public readonly SpriteSheet SpriteSheets;
             public class SpriteSheet
             {
-                private readonly Dictionary<string, Texture2D> _spriteSheetTextures;
+                private readonly Dictionary<SpriteSheetType, Texture2D> _spriteSheetTextures;
 
-                public Texture2D this[string name]
+                public Texture2D this[SpriteSheetType sheet]
                 {
-                    get { return _spriteSheetTextures[name]; }
+                    get { return _spriteSheetTextures[sheet]; }
                 }
 
                 internal SpriteSheet(ContentManager content)
                 {
-                    _spriteSheetTextures = new Dictionary<string, Texture2D>();
+                    _spriteSheetTextures = new Dictionary<SpriteSheetType, Texture2D>();
 
-                    _spriteSheetTextures.Add("Explosion", content.Load<Texture2D>("Images\\SpriteSheets\\Explosion"));
+                    _spriteSheetTextures.Add(SpriteSheetType.Explosion, content.Load<Texture2D>("Images\\SpriteSheets\\Explosion"));
                 }
             }
         

@@ -44,9 +44,10 @@ namespace PGCGame
             Moved += new EventHandler(Ship_Moved);
             _shipID = Guid.NewGuid();
             _initHealth = 100;
+            
             _isDead = false;
-            Explosion = GameContent.GameAssets.Images.SpriteSheets["Explosion"];
-            _explosionSheet = new SpriteSheet(GameContent.GameAssets.Images.SpriteSheets["Explosion"], new Rectangle(0, 0, 256 / 4, 256 / 4), this.Position, spriteBatch);
+            Explosion = GameContent.GameAssets.Images.SpriteSheets[SpriteSheetType.Explosion];
+            _explosionSheet = new SpriteSheet(GameContent.GameAssets.Images.SpriteSheets[SpriteSheetType.Explosion], new Rectangle(0, 0, 256 / 4, 256 / 4), this.Position, spriteBatch);
             _currentHealth = _initHealth;
         }
 
