@@ -77,7 +77,7 @@ namespace GitPractice
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             spaceShip.LoadContent(Content, "ship");
-            spaceShip.Speed = new Vector2(5, 5);
+            spaceShip.Speed = new Vector2(7, 7);
 
             font = Content.Load<SpriteFont>("SpriteFont1");
             scorePosition = new Vector2(0, 0);
