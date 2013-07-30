@@ -209,7 +209,7 @@ namespace PGCGame.Screens
              if (MoveLabel.IsSelected && currentMouseState.LeftButton == ButtonState.Pressed && lastMS.LeftButton != ButtonState.Pressed)
              {
                  StateManager.Options.ArrowKeysEnabled = !StateManager.Options.ArrowKeysEnabled;
-                 MoveLabel.Text = String.Format("Move: {0}", StateManager.Options.ArrowKeysEnabled ? "Arrow" : "WASD");
+                 MoveLabel.Text = String.Format("Move:{0}", StateManager.Options.ArrowKeysEnabled ? "Arrow" : "WASD");
              }
 
              if (FireLabel.IsSelected && currentMouseState.LeftButton == ButtonState.Pressed && lastMS.LeftButton != ButtonState.Pressed)
@@ -240,24 +240,15 @@ namespace PGCGame.Screens
 
              if (SwitchSecondWeapLabel.Text == "Switch Weapon:PgUp/PgDn")
              {
-                 SwitchWeap.Scale.X = 1.6f;
-                 SwitchSecondWeapLabel.Position = new Vector2(SwitchWeap.Position.X + (SwitchWeap.Width / 2 - SwitchSecondWeapLabel.Width / 2), SwitchWeap.Position.Y + (SwitchWeap.Height / 2 - SwitchSecondWeapLabel.Height / 2));
+                 SwitchWeap.Scale.X = 1.7f;
              }
              else
              {
                  SwitchWeap.Scale.X = 1.4f;
+             }
+                 SecondWeapLabel.Position = new Vector2(SecondWeap.Position.X + (SecondWeap.Width / 2 - SecondWeapLabel.Width / 2), SecondWeap.Position.Y + (SecondWeap.Height / 2 - SecondWeapLabel.Height / 2));
                  SwitchSecondWeapLabel.Position = new Vector2(SwitchWeap.Position.X + (SwitchWeap.Width / 2 - SwitchSecondWeapLabel.Width / 2), SwitchWeap.Position.Y + (SwitchWeap.Height / 2 - SwitchSecondWeapLabel.Height / 2));
-             }
-             if (SecondWeapLabel.Text == "Use Weapon:RShift")
-             {
-                 SecondWeap.Scale.X = 1.6f;
-                 SecondWeapLabel.Position = new Vector2(SecondWeap.Position.X + (SecondWeap.Width / 2 - SecondWeapLabel.Width / 2), SecondWeap.Position.Y + (SecondWeap.Height / 2 - SecondWeapLabel.Height / 2));
-             }
-             else
-             {
-                 SecondWeap.Scale.X = 1.4f;
-                 SecondWeapLabel.Position = new Vector2(SecondWeap.Position.X + (SecondWeap.Width / 2 - SecondWeapLabel.Width / 2), SecondWeap.Position.Y + (SecondWeap.Height / 2 - SecondWeapLabel.Height / 2));
-             }
+                 MoveLabel.Position = new Vector2((MoveButton.X + MoveButton.Width / 2) - MoveLabel.Width / 2, (MoveButton.Y + MoveButton.Height / 2) - MoveLabel.Height / 2);
 
              lastMS = currentMouseState;
 #elif XBOX
