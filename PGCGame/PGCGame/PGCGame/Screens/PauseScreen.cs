@@ -104,15 +104,12 @@ namespace PGCGame.Screens
                     {ExitLabel}
                 }, InputType.LeftJoystick);
             AllButtons.FireTextSpritePressed = true;
-
+#endif
             ResumeLabel.Pressed += new EventHandler(ResumeLabel_Pressed);
             ExitLabel.Pressed += new EventHandler(ExitLabel_Pressed);
             OptionsLabel.Pressed += new EventHandler(OptionsLabel_Pressed);
-#elif WINDOWS
-            ResumeLabel.Clicked += new EventHandler(ResumeLabel_Pressed);
-            ExitLabel.Clicked += new EventHandler(ExitLabel_Pressed);
-            OptionsLabel.Clicked += new EventHandler(OptionsLabel_Pressed);
-#endif
+
+
         }
 
         void OptionsLabel_Pressed(object sender, EventArgs e)
