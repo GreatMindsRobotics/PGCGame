@@ -28,6 +28,7 @@ namespace GitPractice
         Ship spaceShip;
         VerticalEnemy enemy;
         HorizontalEnemy horizontalEnemy;
+        coin3 _coin3;
 
         Song bgMusic;
 
@@ -52,6 +53,7 @@ namespace GitPractice
             spaceShip = new Ship();
             enemy = new VerticalEnemy();
             horizontalEnemy = new HorizontalEnemy();
+            _coin3 = new coin3();
 
             base.Initialize();
         }
@@ -70,13 +72,17 @@ namespace GitPractice
 
 
             enemy.LoadContent(Content, "coin");
-            enemy.Speed = new Vector2(0, 5);
+            enemy.Speed = new Vector2(0, 0);
             enemy.MoveDirection = MoveDirection.Down;
 
             horizontalEnemy.LoadContent(Content, "coin");
-            horizontalEnemy.Speed = new Vector2(5, 0);
+            horizontalEnemy.Speed = new Vector2(0, 0);
             horizontalEnemy.MoveDirection = MoveDirection.Right;
 
+            
+            _coin3.LoadContent(Content, "coin");
+            _coin3.Speed = new Vector2(5, 0);
+            _coin3.MoveDirection = MoveDirection.Right;
 
             bgMusic = Content.Load<Song>("bgMusic");
             MediaPlayer.Play(bgMusic);
@@ -109,6 +115,7 @@ namespace GitPractice
             spaceShip.Update(Keyboard.GetState(), gameTime, GameState.Playing, graphics.GraphicsDevice.Viewport);
             enemy.Update(gameTime, GameState.Playing, MoveDirection.Down, graphics.GraphicsDevice.Viewport);
             horizontalEnemy.Update(gameTime, GameState.Playing, MoveDirection.Right, graphics.GraphicsDevice.Viewport);
+            _coin3.Update(gameTime, GameState.Playing, MoveDirection.Right, graphics.GraphicsDevice.Viewport);
 
             base.Update(gameTime);
         }
@@ -119,7 +126,7 @@ namespace GitPractice
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Aquamarine);
 
             spriteBatch.Begin();
 
@@ -128,6 +135,8 @@ namespace GitPractice
             enemy.Draw(spriteBatch);
 
             horizontalEnemy.Draw(spriteBatch);
+
+            _coin3.Draw(spriteBatch);
 
             spaceShip.Draw(spriteBatch);
 

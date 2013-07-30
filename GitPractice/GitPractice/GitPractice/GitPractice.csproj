@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="BaseEnemy.cs" />
     <Compile Include="BaseSprite.cs" />
+    <Compile Include="coin3.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="GameStateManager.cs" />
     <Compile Include="HorizontalEnemy.cs" />
