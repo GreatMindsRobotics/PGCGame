@@ -14,14 +14,20 @@ namespace GitPractice
          * CANNOT move offscreen
          * 
          */
+        Vector2 newSpeed = new Vector2(6, 15);
 
         public override void Update(GameTime gameTime, GameState gameState, MoveDirection moveDirection, Viewport viewport)
         {
-            Location = Location + Speed;
+            _tintColor = Color.Green;
+            Location = Location + newSpeed;
 
             if (Location.Y < 0 || Location.Y + Texture.Height > viewport.Height)
             {
-                Speed *= -1;
+                newSpeed.Y *= -1;
+            }
+            if (Location.X < 0 || Location.X + Texture.Width > viewport.Width)
+            {
+                newSpeed.X *= -1;
             }
         }
 
