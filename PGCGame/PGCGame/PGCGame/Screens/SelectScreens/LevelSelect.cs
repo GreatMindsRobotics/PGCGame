@@ -126,7 +126,7 @@ namespace PGCGame.Screens.SelectScreens
 
         void LevelSelect_nextButtonClicked(object sender, EventArgs e)
         {
-            StateManager.InitializeSingleplayerGameScreen(StateManager.SelectedShip, StateManager.SelectedTier);
+            //StateManager.InitializeSingleplayerGameScreen(StateManager.SelectedShip, StateManager.SelectedTier);
             StateManager.ScreenState = ScreenType.Shop;         
         }
 

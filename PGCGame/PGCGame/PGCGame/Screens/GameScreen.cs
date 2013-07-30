@@ -412,7 +412,7 @@ namespace PGCGame.Screens
 
             if (allEnemiesDead && !StateManager.nextLevel && StateManager.Level != GameLevel.Level4)
             {
-                StateManager.ScreenState = ScreenType.Shop;
+                StateManager.ScreenState = ScreenType.LevelSelect;
             }
             else if (StateManager.Level == GameLevel.Level4 && allEnemiesDead && !StateManager.nextLevel)
             {
