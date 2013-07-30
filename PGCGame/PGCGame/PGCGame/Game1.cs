@@ -172,7 +172,14 @@ namespace PGCGame
 
         protected override bool BeginDraw()
         {
-            screenManager.BeginDraw();
+            //Fixes windows key crash in full screen
+            try
+            {
+                screenManager.BeginDraw();
+            }  
+            catch(InvalidOperationException)
+            {
+            }
             return base.BeginDraw();
         }
 
