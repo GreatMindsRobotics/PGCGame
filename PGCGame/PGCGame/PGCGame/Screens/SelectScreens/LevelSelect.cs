@@ -96,6 +96,7 @@ namespace PGCGame.Screens.SelectScreens
                     break;
                 }
             }
+
             switch (StateManager.Level)
             {
                 case GameLevel.Level1:
@@ -127,7 +128,9 @@ namespace PGCGame.Screens.SelectScreens
         void LevelSelect_nextButtonClicked(object sender, EventArgs e)
         {
             //StateManager.InitializeSingleplayerGameScreen(StateManager.SelectedShip, StateManager.SelectedTier);
-            StateManager.ScreenState = ScreenType.Shop;         
+            StateManager.ScreenState = ScreenType.Shop;
+            StateManager.CurrentLevel = (GameLevel)selected + 1;
+            
         }
 
         public override void Update(GameTime gameTime)

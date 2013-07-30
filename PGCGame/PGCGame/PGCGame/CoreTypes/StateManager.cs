@@ -78,10 +78,16 @@ namespace PGCGame
                     if (levelCompleted != null)
                     {
                         levelCompleted(null, EventArgs.Empty);
+                        if (CurrentLevel == _level)
+                        {
+                            _level++;
+                        }
                     }
                 }
             }
         }
+
+        public static GameLevel CurrentLevel;
         
         public static Boolean nextLevel = false;
         public static event EventHandler levelCompleted;
