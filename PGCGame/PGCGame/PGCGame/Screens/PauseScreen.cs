@@ -126,6 +126,7 @@ namespace PGCGame.Screens
             StateManager.ScreenState = ScreenType.MainMenu;
             StateManager.Reset();
             StateManager.ActiveShips.Clear();
+            StateManager.SelectedTier = ShipTier.NoShip;
         }
 
         void ResumeLabel_Pressed(object sender, EventArgs e)
