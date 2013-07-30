@@ -25,6 +25,15 @@ namespace GitPractice
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        SpriteFont font;
+        Vector2 scorePosition;
+        String text;
+
+        String scoreNumber;
+        Vector2 number;
+
+
+
         Ship spaceShip;
         VerticalEnemy enemy;
         HorizontalEnemy horizontalEnemy;
@@ -69,6 +78,12 @@ namespace GitPractice
 
             spaceShip.LoadContent(Content, "ship");
             spaceShip.Speed = new Vector2(5, 5);
+
+            font = Content.Load<SpriteFont>("SpriteFont1");
+            scorePosition = new Vector2(0, 0);
+            text = "Score: ";
+            scoreNumber = "";
+            number = new Vector2(10, 0);
 
 
             enemy.LoadContent(Content, "coin");
@@ -134,7 +149,8 @@ namespace GitPractice
 
             enemy.Draw(spriteBatch);
 
-            horizontalEnemy.Draw(spriteBatch);
+            spriteBatch.DrawString(font, text, scorePosition, Color.Black);
+            spriteBatch.DrawString(font, scoreNumber, number, Color.Black); horizontalEnemy.Draw(spriteBatch);
 
             _coin3.Draw(spriteBatch);
 
