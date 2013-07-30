@@ -30,6 +30,7 @@ namespace PGCGame.Screens
         Sprite ResumeButton;
         TextSprite OptionsLabel;
         Sprite ExitButton;
+        TextSprite LevelLabel;
 
         public PauseScreen(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
@@ -50,6 +51,10 @@ namespace PGCGame.Screens
             PauseLabel.Color = Color.White;
             AdditionalSprites.Add(PauseLabel);
 
+            LevelLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero,GameContent.GameAssets.Fonts.NormalText, "Current Level: Level " + StateManager.CurrentLevel.ToInt() + "\n" + StateManager.lives + " lives remaining\nYou have " + StateManager.SpaceBucks + " credits");
+            LevelLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width / 2 - LevelLabel.Width / 2, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .55f);
+            LevelLabel.Color = Color.White;
+            AdditionalSprites.Add(LevelLabel);
 
             ResumeButton = new Sprite(button, Vector2.Zero, Sprites.SpriteBatch);
             ResumeButton.Position = new Vector2(ResumeButton.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .2f);

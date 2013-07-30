@@ -179,6 +179,7 @@ namespace PGCGame
             }  
             catch(InvalidOperationException)
             {
+                //TODO: Do something here?
             }
             return base.BeginDraw();
             
