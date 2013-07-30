@@ -15,20 +15,26 @@ namespace GitPractice
          * 
          */
 
+        Vector2 newSpeed = new Vector2(4, 3);
+
         public override void Update(GameTime gameTime, GameState gameState, MoveDirection moveDirection, Viewport viewport)
         {
-
             if (gameState == GameState.Playing)
             {
+                _tintColor = Color.Maroon;
 
                 if (Location.X < 0 || Location.X + Texture.Width > viewport.Width)
                 {
                     moveDirection = moveDirection == MoveDirection.Left ? MoveDirection.Right : MoveDirection.Left;
-                    Speed *= -1;
+                    newSpeed.X *= -1;
                 }
 
+                if(Location.Y + Texture.Height > viewport.Height || Location.Y < 0)
+                {
+                    newSpeed.Y *= -1;
+                }
 
-                Location = Location + Speed;
+                Location = Location + newSpeed;
 
                 
             }
