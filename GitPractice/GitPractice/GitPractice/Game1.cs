@@ -32,12 +32,11 @@ namespace GitPractice
         String scoreNumber;
         Vector2 number;
 
-
-
         Ship spaceShip;
         VerticalEnemy enemy;
         HorizontalEnemy horizontalEnemy;
         coin3 _coin3;
+        coin4 _coin4;
 
         Song bgMusic;
 
@@ -63,6 +62,7 @@ namespace GitPractice
             enemy = new VerticalEnemy();
             horizontalEnemy = new HorizontalEnemy();
             _coin3 = new coin3();
+            _coin4 = new coin4();
 
             base.Initialize();
         }
@@ -85,7 +85,6 @@ namespace GitPractice
             scoreNumber = "";
             number = new Vector2(10, 0);
 
-
             enemy.LoadContent(Content, "coin");
             enemy.Speed = new Vector2(0, 0);
             enemy.MoveDirection = MoveDirection.Down;
@@ -94,10 +93,13 @@ namespace GitPractice
             horizontalEnemy.Speed = new Vector2(0, 0);
             horizontalEnemy.MoveDirection = MoveDirection.Right;
 
-            
             _coin3.LoadContent(Content, "coin");
-            _coin3.Speed = new Vector2(5, 0);
+            _coin3.Speed = new Vector2(0, 0);
             _coin3.MoveDirection = MoveDirection.Right;
+
+            _coin4.LoadContent(Content, "coin");
+            _coin4.Speed = new Vector2(0, 0);
+            _coin4.MoveDirection = MoveDirection.Right;
 
             bgMusic = Content.Load<Song>("bgMusic");
             MediaPlayer.Play(bgMusic);
@@ -131,6 +133,7 @@ namespace GitPractice
             enemy.Update(gameTime, GameState.Playing, MoveDirection.Down, graphics.GraphicsDevice.Viewport);
             horizontalEnemy.Update(gameTime, GameState.Playing, MoveDirection.Right, graphics.GraphicsDevice.Viewport);
             _coin3.Update(gameTime, GameState.Playing, MoveDirection.Right, graphics.GraphicsDevice.Viewport);
+            _coin4.Update(gameTime, GameState.Playing, MoveDirection.Right, graphics.GraphicsDevice.Viewport);
 
             base.Update(gameTime);
         }
@@ -153,6 +156,8 @@ namespace GitPractice
             spriteBatch.DrawString(font, scoreNumber, number, Color.Black); horizontalEnemy.Draw(spriteBatch);
 
             _coin3.Draw(spriteBatch);
+
+            _coin4.Draw(spriteBatch);
 
             spaceShip.Draw(spriteBatch);
 
