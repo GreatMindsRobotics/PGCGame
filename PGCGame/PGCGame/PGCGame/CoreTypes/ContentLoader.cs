@@ -383,7 +383,7 @@ namespace PGCGame.CoreTypes
                 internal SpriteSheet(ContentManager content)
                 {
                     _spriteSheetTextures = new Dictionary<SpriteSheetType, Texture2D>();
-                    _spriteSheetTextures.Add(SpriteSheetType.Explosion, content.Load<Texture2D>("Images\\SpriteSheets\\Explosion"));
+                    _spriteSheetTextures.Add(SpriteSheetType.Explosion, content.Load<Texture2D>("Images\\SpriteSheets\\explosion2"));
 
                 }
             }

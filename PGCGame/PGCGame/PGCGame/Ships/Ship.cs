@@ -48,10 +48,10 @@ namespace PGCGame
             _isDead = false;
 
             Explosion = GameContent.GameAssets.Images.SpriteSheets[SpriteSheetType.Explosion];
-            _explosionSheet = new SpriteSheet(GameContent.GameAssets.Images.SpriteSheets[SpriteSheetType.Explosion], new Rectangle(0, 0, 256 / 4, 256 / 4), this.Position, spriteBatch);
+            _explosionSheet = new SpriteSheet(GameContent.GameAssets.Images.SpriteSheets[SpriteSheetType.Explosion], new Rectangle(0, 0, 50, 50), this.Position, spriteBatch, 8, 9);
 
             _explosionSheet.IsAnimated = true;
-            _explosionSheet.Scale = new Vector2(3);
+            _explosionSheet.Scale = new Vector2(1.5f);
             _explosionSheet.RestartAnimation = false;
             _currentHealth = _initHealth;
         }
@@ -290,11 +290,14 @@ namespace PGCGame
 
         public override void DrawNonAuto()
         {
-            if (CurrentHealth <= 0 && shipState != ShipState.Exploding && shipState != ShipState.Dead)
+            if (shipState != ShipState.Dead)
             {
-                shipState = ShipState.Exploding;
- }
-                if (shipState == ShipState.Exploding && shipState != ShipState.Dead)
+                if (CurrentHealth <= 0 && shipState != ShipState.Exploding)
+                {
+                    shipState = ShipState.Exploding;
+                    return;
+                }
+                else if (shipState == ShipState.Exploding && shipState != ShipState.Dead)
                 {
                     _explosionSheet.Update();
                     _explosionSheet.Position = this.Position;
@@ -303,15 +306,17 @@ namespace PGCGame
                     {
                         shipState = ShipState.Dead;
                     }
-               
-                return;
-            }
+                    return;
+                }
 
-            base.DrawNonAuto();
 
-            if (!(this is Drone) && (StateManager.HasBoughtScanner || (this is BaseAllyShip && this.Cast<BaseAllyShip>().IsPlayerShip)))
-            {
-                _healthBar.DrawNonAuto();
+
+                base.DrawNonAuto();
+
+                if (!(this is Drone) && (StateManager.HasBoughtScanner || (this is BaseAllyShip && this.Cast<BaseAllyShip>().IsPlayerShip)))
+                {
+                    _healthBar.DrawNonAuto();
+                }
             }
         }
         #endregion PublicMethod
