@@ -107,6 +107,7 @@ namespace PGCGame.Ships.Allies
             : base(texture, location, spriteBatch)
         {
             PlayerType = CoreTypes.PlayerType.Ally;
+            shipState = ShipState.Alive;
         }
 
         protected static Dictionary<ShipTier, int> _cost;

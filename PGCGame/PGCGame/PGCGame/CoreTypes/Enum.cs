@@ -178,5 +178,6 @@ namespace PGCGame.CoreTypes
         Firing,
         Dead,
         Exploding,
+        Alive
     }
 }

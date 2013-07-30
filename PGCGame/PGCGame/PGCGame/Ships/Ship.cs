@@ -46,8 +46,13 @@ namespace PGCGame
             _initHealth = 100;
             
             _isDead = false;
+
             Explosion = GameContent.GameAssets.Images.SpriteSheets[SpriteSheetType.Explosion];
             _explosionSheet = new SpriteSheet(GameContent.GameAssets.Images.SpriteSheets[SpriteSheetType.Explosion], new Rectangle(0, 0, 256 / 4, 256 / 4), this.Position, spriteBatch);
+
+            _explosionSheet.IsAnimated = true;
+            _explosionSheet.Scale = new Vector2(3);
+            _explosionSheet.RestartAnimation = false;
             _currentHealth = _initHealth;
         }
 
@@ -69,7 +74,7 @@ namespace PGCGame
         //private TimeSpan _elapsedShotTime = new TimeSpan();
         protected KeyboardState _lastKs = new KeyboardState();
 
-       
+        protected ShipState shipState;
 
         protected static string _friendlyName;
 
@@ -243,26 +248,28 @@ namespace PGCGame
 
         public virtual void Update(GameTime gt)
         {
-            base.Update();
-
-            if (_isFirstUpdate)
+            if (shipState != ShipState.Dead && shipState != ShipState.Exploding)
             {
-                CurrentHealth = InitialHealth;
-                _isFirstUpdate = false;
+                base.Update();
 
+                if (_isFirstUpdate)
+                {
+                    CurrentHealth = InitialHealth;
+                    _isFirstUpdate = false;
+
+                }
+
+
+
+                if (CurrentHealth <= 0)
+                {
+                    shipState = ShipState.Dead;
+                    StateManager.ActiveShips.Remove(this);
+                }
+
+                _healthBar.Denominator = InitialHealth;
+                _healthBar.Value = CurrentHealth;
             }
-
-
-
-            if (CurrentHealth <= 0)
-            {
-                
-                StateManager.ActiveShips.Remove(this);
-            }
-
-            _healthBar.Denominator = InitialHealth;
-            _healthBar.Value = CurrentHealth;
-
         }
 
         public bool IsAllyWith(PlayerType pt)
@@ -283,8 +290,20 @@ namespace PGCGame
 
         public override void DrawNonAuto()
         {
-            if (CurrentHealth <= 0)
+            if (CurrentHealth <= 0 && shipState != ShipState.Exploding && shipState != ShipState.Dead)
             {
+                shipState = ShipState.Exploding;
+ }
+                if (shipState == ShipState.Exploding && shipState != ShipState.Dead)
+                {
+                    _explosionSheet.Update();
+                    _explosionSheet.Position = this.Position;
+                    _explosionSheet.DrawNonAuto();
+                    if (_explosionSheet.IsComplete)
+                    {
+                        shipState = ShipState.Dead;
+                    }
+               
                 return;
             }
 

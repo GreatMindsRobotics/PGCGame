@@ -17,9 +17,10 @@ namespace PGCGame.Ships.Enemies
         public BaseEnemyShip(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
             : base(texture, location, spriteBatch)
         {
+
             PlayerType = CoreTypes.PlayerType.Enemy;
             UseCenterAsOrigin = true;
-
+            shipState = ShipState.Alive;
         }
 
         public int killWorth;

@@ -22,6 +22,7 @@ namespace PGCGame.Ships.Enemies
             _initHealth = 80;
 
             killWorth = 10;
+            shipState = ShipState.Alive;
 
             BulletTexture = GameContent.GameAssets.Images.Ships.Bullets[ShipType.BattleCruiser, ShipTier.Tier1];
         }
