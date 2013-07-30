@@ -14,7 +14,7 @@ namespace GitPractice
          * CANNOT move offscreen
          * 
          */
-        Vector2 newSpeed = new Vector2(6, 15);
+        Vector2 newSpeed = new Vector2(5, 14);
 
         public override void Update(GameTime gameTime, GameState gameState, MoveDirection moveDirection, Viewport viewport)
         {
