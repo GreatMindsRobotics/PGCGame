@@ -118,6 +118,7 @@ namespace PGCGame.Screens.SelectScreens
             items.Add(new KeyValuePair<Sprite, TextSprite>(torpedoShip.Image, torpedoShip.Description));
             
             upgradeShips.Add(torpedoShip);
+          
 
             //Add event handlers
             if (_firstTimeInit)
@@ -130,6 +131,7 @@ namespace PGCGame.Screens.SelectScreens
             base.InitScreen(screenType);
 
             acceptLabel.Text = "Buy";
+            nameLabel.X -= 40;
         }
 
         void TierSelect_nextButtonClicked(object sender, EventArgs e)
@@ -168,7 +170,7 @@ namespace PGCGame.Screens.SelectScreens
             {
                 if (shipInfo.Image.Texture == items[selected].Key.Texture)
                 {
-                    nameLabel.Text = string.Format("{0}\n{1}\n{2}", shipInfo.Tier, shipInfo.Name, shipInfo.Cost);
+                    nameLabel.Text = string.Format("Ship:{0}\nShip Tier:{1}\nCost:{2} Credits", shipInfo.Type, shipInfo.Tier, shipInfo.Cost);
                     break;
                 }
             }
