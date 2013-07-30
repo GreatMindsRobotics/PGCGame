@@ -10,6 +10,13 @@ using Glib.XNA.SpriteLib;
 using PGCGame.CoreTypes;
 using Microsoft.Xna.Framework.Media;
 
+#if XBOX
+
+using Glib.XNA.InputLib;
+using Microsoft.Xna.Framework.Input;
+
+#endif
+
 namespace PGCGame.Screens
 {
     public class MainMenu : BaseScreen
@@ -210,8 +217,8 @@ namespace PGCGame.Screens
         public override void Update(GameTime gameTime)
         {
             elapsedButtonDelay += gameTime.ElapsedGameTime;
-#if XBOX 
-            
+#if XBOX
+
             AllButtons.Update(gameTime);
 
             currentGamePad = GamePad.GetState(PlayerIndex.One);

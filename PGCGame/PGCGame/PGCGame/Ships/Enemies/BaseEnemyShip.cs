@@ -68,16 +68,16 @@ namespace PGCGame.Ships.Enemies
                     return;
                 }
 
-                float bulletDistanceX;
-                float bulletDistanceY;
-                float? bulletDistance = null;
-
                 Ship closestAllyShip = null;
                 Vector2? closestAllyShipDistance = null;
-                Vector2? shipDistance = null;
 
                 //finds the closest ship 
                 /*
+                float bulletDistanceX;
+                float bulletDistanceY;
+                float? bulletDistance = null;
+                Vector2? shipDistance = null;
+
                 foreach (Ship allyShip in StateManager.ActiveShips)
                 {
                     if (allyShip.PlayerType != CoreTypes.PlayerType.Enemy)
