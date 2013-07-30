@@ -181,6 +181,7 @@ namespace PGCGame
             {
             }
             return base.BeginDraw();
+            
         }
 
         /// <summary>

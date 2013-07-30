@@ -78,7 +78,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SecondaryWeapons\HealthPack.cs" />
-    <Compile Include="Ships\Enemies\Bosses\CloneBossesClone.cs" />
     <Compile Include="Ships\Enemies\Bosses\CloneBoss.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="CoreTypes\BaseScreen.cs" />

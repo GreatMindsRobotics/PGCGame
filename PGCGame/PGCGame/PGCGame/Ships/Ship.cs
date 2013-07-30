@@ -75,6 +75,7 @@ namespace PGCGame
         protected KeyboardState _lastKs = new KeyboardState();
 
         protected ShipState shipState;
+        public ShipState ShipState { get { return shipState; } set { shipState = value; } }
 
         protected static string _friendlyName;
 
@@ -256,7 +257,6 @@ namespace PGCGame
                 {
                     CurrentHealth = InitialHealth;
                     _isFirstUpdate = false;
-
                 }
 
 
@@ -314,7 +314,7 @@ namespace PGCGame
                 base.DrawNonAuto();
 
                 if (!(this is Drone) && (StateManager.HasBoughtScanner || (this is BaseAllyShip && this.Cast<BaseAllyShip>().IsPlayerShip)))
-                {
+                { 
                     _healthBar.DrawNonAuto();
                 }
             }

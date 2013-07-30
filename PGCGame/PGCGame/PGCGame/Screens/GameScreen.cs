@@ -456,7 +456,7 @@ namespace PGCGame.Screens
                         InitializeScreen<TorpedoShip>(playerShip.Tier);
                     }
                 }
-                else
+                else if(playerShip.ShipState == ShipState.Dead)
                 {
                     StateManager.ScreenState = ScreenType.GameOver;
                 }
