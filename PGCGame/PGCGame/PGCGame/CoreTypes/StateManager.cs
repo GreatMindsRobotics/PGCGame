@@ -330,6 +330,7 @@ namespace PGCGame
             public static bool KillAll = true;
             public static bool Invincible = false;
             public static bool BringDronesBack = true;
+            public static bool KillYourSelf = true;
             /// <summary>
             /// Buggy - due to reference passing
             /// </summary>

@@ -207,6 +207,11 @@ namespace PGCGame.Ships.Allies
                 CurrentHealth = InitialHealth;
             }
 
+            if (StateManager.DebugData.KillYourSelf && ks.IsKeyDown(Keys.F3) && _lastKs.IsKeyUp(Keys.F3))
+            {
+                CurrentHealth = 0;
+            }
+
             if (StateManager.PowerUps[0].Count > 0 || StateManager.PowerUps[1].Count > 0 || StateManager.PowerUps[2].Count > 0 || StateManager.PowerUps[3].Count > 0)
             {
 
