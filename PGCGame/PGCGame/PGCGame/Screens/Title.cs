@@ -124,8 +124,8 @@ namespace PGCGame.Screens
 
 #if WINDOWS
             
-            ExitLabel.Clicked += new EventHandler(ExitLabel_Clicked);
-            PlayLabel.Clicked += new EventHandler(PlayLabel_Clicked);
+            ExitLabel.Pressed += new EventHandler(ExitLabel_Clicked);
+            PlayLabel.Pressed += new EventHandler(PlayLabel_Clicked);
             
 #elif XBOX
             ButtonManagement = new GamePadButtonEnumerator(new TextSprite[,] { { PlayLabel }, { ExitLabel } }, InputType.LeftJoystick);
