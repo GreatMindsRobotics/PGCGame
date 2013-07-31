@@ -154,6 +154,11 @@ namespace PGCGame.Ships.Allies
 
         public override void Update(GameTime gt)
         {
+            if (shipState != CoreTypes.ShipState.Alive)
+            {
+                return;
+            }
+
             if (CurrentHealth <= 0)
             {
                 base.Update(gt);

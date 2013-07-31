@@ -430,9 +430,13 @@ namespace PGCGame.Screens
 
             secondaryWeaponLabel.Text += "\n" + StateManager.lives + " lives remaining";
 
-            if (playerShip.CurrentHealth <= 0 || StateManager.nextLevel)
+            if (playerShip.CurrentHealth <= 0 || StateManager.nextLevel || playerShip.ShipState == ShipState.Dead)
             {
-                if (StateManager.lives > 0 || StateManager.nextLevel)
+                if (playerShip.ShipState == ShipState.Dead && StateManager.lives <= 0)
+                {
+                    StateManager.ScreenState = ScreenType.GameOver;
+                }
+                else if (StateManager.lives > 0 || StateManager.nextLevel || playerShip.ShipState == ShipState.Dead)
                 {
                     if (StateManager.nextLevel)
                     {
@@ -444,7 +448,6 @@ namespace PGCGame.Screens
                     }
                     if (playerShip.ShipType == ShipType.BattleCruiser)
                     {
-                        InitializeScreen<BattleCruiser>(playerShip.Tier); 
                     }
                     else if (playerShip.ShipType == ShipType.FighterCarrier)
                     {
@@ -455,10 +458,7 @@ namespace PGCGame.Screens
                         InitializeScreen<TorpedoShip>(playerShip.Tier);
                     }
                 }
-                else if(playerShip.ShipState == ShipState.Dead && playerShip.ShipState != ShipState.Exploding)
-                {
-                    StateManager.ScreenState = ScreenType.GameOver;
-                }
+
             }
 
             BackgroundSprite bg = BackgroundSprite.Cast<BackgroundSprite>();
@@ -564,72 +564,75 @@ namespace PGCGame.Screens
             //}
 
 
-            Vector2 camMove = Vector2.Zero;
-            if (StateManager.InputManager.ShouldMove(MoveDirection.Up))
+            if (playerShip.ShipState == ShipState.Alive)
             {
-                float ymoveAmount = -playerShip.MovementSpeed.Y;
+                Vector2 camMove = Vector2.Zero;
+                if (StateManager.InputManager.ShouldMove(MoveDirection.Up))
+                {
+                    float ymoveAmount = -playerShip.MovementSpeed.Y;
 #if XBOX
                 ymoveAmount *= Math.Abs(GamePadManager.One.Current.ThumbSticks.Left.Y);
 #endif
 
-                if (worldCam.Pos.Y + ymoveAmount >= bg.Height / 2)
-                {
-                    camMove.Y = ymoveAmount;
+                    if (worldCam.Pos.Y + ymoveAmount >= bg.Height / 2)
+                    {
+                        camMove.Y = ymoveAmount;
+                    }
+                    else
+                    {
+                        camMove.Y = bg.Height / 2 - worldCam.Pos.Y;
+                    }
                 }
-                else
+                else if (StateManager.InputManager.ShouldMove(MoveDirection.Down))
                 {
-                    camMove.Y = bg.Height / 2 - worldCam.Pos.Y;
-                }
-            }
-            else if (StateManager.InputManager.ShouldMove(MoveDirection.Down))
-            {
-                float ymoveAmount = playerShip.MovementSpeed.Y;
+                    float ymoveAmount = playerShip.MovementSpeed.Y;
 #if XBOX
                 ymoveAmount *= Math.Abs(GamePadManager.One.Current.ThumbSticks.Left.Y);
 #endif
 
-                if (worldCam.Pos.Y + ymoveAmount <= bg.TotalHeight - (bg.Height / 2))
-                {
-                    camMove.Y = ymoveAmount;
+                    if (worldCam.Pos.Y + ymoveAmount <= bg.TotalHeight - (bg.Height / 2))
+                    {
+                        camMove.Y = ymoveAmount;
+                    }
+                    else
+                    {
+                        camMove.Y = (bg.TotalHeight - (bg.Height / 2)) - worldCam.Pos.Y;
+                    }
                 }
-                else
-                {
-                    camMove.Y = (bg.TotalHeight - (bg.Height / 2)) - worldCam.Pos.Y;
-                }
-            }
 
-            if (StateManager.InputManager.ShouldMove(MoveDirection.Right))
-            {
-                float xmoveAmount = playerShip.MovementSpeed.X;
+                if (StateManager.InputManager.ShouldMove(MoveDirection.Right))
+                {
+                    float xmoveAmount = playerShip.MovementSpeed.X;
 #if XBOX
                 xmoveAmount *= Math.Abs(GamePadManager.One.Current.ThumbSticks.Left.X);
 #endif
 
-                if (worldCam.Pos.X + xmoveAmount <= bg.TotalWidth - (bg.Width / 2))
-                {
-                    camMove.X = xmoveAmount;
+                    if (worldCam.Pos.X + xmoveAmount <= bg.TotalWidth - (bg.Width / 2))
+                    {
+                        camMove.X = xmoveAmount;
+                    }
+                    else
+                    {
+                        camMove.X = (bg.TotalWidth - (bg.Width / 2)) - worldCam.Pos.X;
+                    }
                 }
-                else
+                else if (StateManager.InputManager.ShouldMove(MoveDirection.Left))
                 {
-                    camMove.X = (bg.TotalWidth - (bg.Width / 2)) - worldCam.Pos.X;
-                }
-            }
-            else if (StateManager.InputManager.ShouldMove(MoveDirection.Left))
-            {
-                float xmoveAmount = -playerShip.MovementSpeed.X;
+                    float xmoveAmount = -playerShip.MovementSpeed.X;
 #if XBOX
                 xmoveAmount *= Math.Abs(GamePadManager.One.Current.ThumbSticks.Left.X);
 #endif
 
-                if (worldCam.Pos.X + xmoveAmount >= bg.Width / 2)
-                {
-                    camMove.X = xmoveAmount;
+                    if (worldCam.Pos.X + xmoveAmount >= bg.Width / 2)
+                    {
+                        camMove.X = xmoveAmount;
+                    }
+                    else
+                    {
+                        camMove.X = bg.Width / 2 - worldCam.Pos.X;
+                    }
                 }
-                else
-                {
-                    camMove.X = bg.Width / 2 - worldCam.Pos.X;
-                }
-            }
+        
 
             if (_lastState.IsKeyUp(Keys.F11) && keyboard.IsKeyDown(Keys.F11))
             {
@@ -638,7 +641,7 @@ namespace PGCGame.Screens
 
             worldCam.Move(camMove);
             playerShip.WorldCoords = worldCam.Pos;
-
+    }
             foreach (ISprite s in playerSbObjects)
             {
                 if (s != miniMap)

@@ -160,7 +160,6 @@ namespace PGCGame.Screens
             {
                 if (StateManager.Level != GameLevel.Level4)
                 {
-                    StateManager.Level++;
                     StateManager.nextLevel = true;
                     StateManager.ScreenState = ScreenType.Game;
                 }
