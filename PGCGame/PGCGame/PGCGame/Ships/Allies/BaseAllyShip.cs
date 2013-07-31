@@ -110,6 +110,7 @@ namespace PGCGame.Ships.Allies
             shipState = ShipState.Alive;
         }
 
+
         protected static Dictionary<ShipTier, int> _cost;
         public static Dictionary<ShipTier, int> Cost { get { return _cost; } set { _cost = value; } }
 
@@ -210,7 +211,7 @@ namespace PGCGame.Ships.Allies
 
             if (StateManager.DebugData.KillYourSelf && ks.IsKeyDown(Keys.F3) && _lastKs.IsKeyUp(Keys.F3))
             {
-                CurrentHealth = 0;
+                this.shipState = CoreTypes.ShipState.Exploding;
             }
 
             if (StateManager.PowerUps[0].Count > 0 || StateManager.PowerUps[1].Count > 0 || StateManager.PowerUps[2].Count > 0 || StateManager.PowerUps[3].Count > 0)

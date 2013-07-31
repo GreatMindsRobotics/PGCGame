@@ -444,7 +444,7 @@ namespace PGCGame.Screens
                     }
                     if (playerShip.ShipType == ShipType.BattleCruiser)
                     {
-                        InitializeScreen<BattleCruiser>(playerShip.Tier);
+                        InitializeScreen<BattleCruiser>(playerShip.Tier); 
                     }
                     else if (playerShip.ShipType == ShipType.FighterCarrier)
                     {
@@ -455,7 +455,7 @@ namespace PGCGame.Screens
                         InitializeScreen<TorpedoShip>(playerShip.Tier);
                     }
                 }
-                else if(playerShip.ShipState == ShipState.Dead)
+                else if(playerShip.ShipState == ShipState.Dead && playerShip.ShipState != ShipState.Exploding)
                 {
                     StateManager.ScreenState = ScreenType.GameOver;
                 }
