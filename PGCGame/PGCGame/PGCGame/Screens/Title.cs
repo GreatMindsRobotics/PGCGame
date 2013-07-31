@@ -39,6 +39,8 @@ namespace PGCGame.Screens
         Sprite ExitButton;
         TextSprite ExitLabel;
 
+        Sprite ship;
+
         Song _gameSong;
 
 #if XBOX
@@ -71,7 +73,7 @@ namespace PGCGame.Screens
                 }
             });
 
-            Viewport viewPort = Sprites.SpriteBatch.GraphicsDevice.Viewport;
+            Viewport viewport = Sprites.SpriteBatch.GraphicsDevice.Viewport;
 
             this.BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
 
@@ -79,10 +81,12 @@ namespace PGCGame.Screens
             Texture2D buttonTexture = GameContent.GameAssets.Images.Controls.Button;
             SpriteFont SegoeUIMono = GameContent.GameAssets.Fonts.NormalText;
             Texture2D altPlanetTexture = GameContent.GameAssets.Images.NonPlayingObjects.AltPlanet;
+            Texture2D fighterCarrier = GameContent.GameAssets.Images.Ships[ShipType.FighterCarrier, ShipTier.Tier1];
+
 
             planet = new Sprite(planetTexture, Vector2.Zero, Sprites.SpriteBatch);
             planet.Scale = new Vector2(.7f);
-            planet.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.1f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .16f);
+            planet.Position = new Vector2(viewport.Width * 0.1f, viewport.Height * .16f);
             Sprites.Add(planet);
 
             planettwo = new Sprite(altPlanetTexture, Vector2.Zero, Sprites.SpriteBatch);
@@ -90,12 +94,16 @@ namespace PGCGame.Screens
             planettwo.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.8f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .75f);
             Sprites.Add(planettwo);
 
+            setupTitleShip();
+
+            Sprites.Add(ship);
+
             //title image
             TitleImage = new Sprite(GameContent.GameAssets.Images.Controls.Title, Vector2.Zero, Sprites.SpriteBatch);
-            TitleImage.Position = new Vector2(viewPort.Width / 2 - TitleImage.Texture.Width / 2, viewPort.Height * 0.2f);
+            TitleImage.Position = new Vector2(viewport.Width / 2 - TitleImage.Texture.Width / 2, viewport.Height * 0.2f);
             Sprites.Add(TitleImage);
 
-            PlayButton = new Sprite(buttonTexture, new Vector2(viewPort.Width * 0.375f, viewPort.Height * 0.4f), Sprites.SpriteBatch);
+            PlayButton = new Sprite(buttonTexture, new Vector2(viewport.Width * 0.375f, viewport.Height * 0.4f), Sprites.SpriteBatch);
             Sprites.Add(PlayButton);
 
             PlayLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Play");
@@ -181,6 +189,27 @@ namespace PGCGame.Screens
         TimeSpan elapsedControllerDelayTime = TimeSpan.Zero;
         TimeSpan totalControllerDelayTime = TimeSpan.FromMilliseconds(250);
 #endif
+        private void setupTitleShip()
+        {
+            ShipType type = (ShipType)StateManager.RandomGenerator.Next(1, 4);
+            ShipTier tier = StateManager.RandomGenerator.NextShipTier(ShipTier.Tier1, ShipTier.Tier4);
+
+            if (ship == null)
+            {
+                ship = new Sprite(GameContent.GameAssets.Images.Ships[type, tier], Vector2.Zero, Sprites.SpriteBatch);
+            }
+            else
+            { 
+                ship.Texture = GameContent.GameAssets.Images.Ships[type, tier];
+            }
+
+            ship.Position = new Vector2(-ship.Texture.Width / 2, Graphics.Viewport.Height);
+            ship.Scale = new Vector2(0.8f);
+            ship.XSpeed = 1.5f;
+            ship.YSpeed = -ship.XSpeed * .8f;
+            ship.Rotation.Degrees = 0;
+        }
+
 
         void Options_MusicStateChanged(object sender, EventArgs e)
         {
@@ -193,8 +222,32 @@ namespace PGCGame.Screens
 
         public override void Update(GameTime gameTime)
         {
-            
-            
+            if (ship.Position.X < Graphics.Viewport.Width * 3)
+            {
+                if (ship.Rotation.Degrees <= 90)
+                {
+                    ship.Rotation.Radians = (new Vector2(Graphics.Viewport.Width / 2, Graphics.Viewport.Height / 2) - ship.Position).ToAngle();
+                    ship.YSpeed -= .0008f;
+                    ship.Scale.X -= .001f;
+                    ship.Scale.Y -= .001f;
+                }
+                else
+                {
+                    ship.XSpeed += .1f;
+                    ship.YSpeed = 0;
+                    if (ship.Scale.X >= .005f)
+                    {
+                        ship.Scale.X -= .003f;
+                        ship.Scale.Y -= .003f;
+                    }
+                }
+            }
+            else
+            {
+                setupTitleShip(); 
+            }
+
+
             if (!StateManager.IsWindowFocused())
             {
                 //Not active window
