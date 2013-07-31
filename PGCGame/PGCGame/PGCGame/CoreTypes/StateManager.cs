@@ -137,6 +137,7 @@ namespace PGCGame
         /// </summary>
         public static event EventHandler ScreenStateChanged;
 
+
         /// <summary>
         /// Random generator to use throughout the game; ensures no concurrent seeding of two Random objects
         /// </summary>

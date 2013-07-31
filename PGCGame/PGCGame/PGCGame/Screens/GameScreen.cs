@@ -27,6 +27,7 @@ namespace PGCGame.Screens
 
         private Vector2 _playableAreaOffset;
 
+        public static event EventHandler Paused;
         public static readonly ScreenType[] ScreensToAllowMusicProcessing = new ScreenType[] { ScreenType.Game, ScreenType.Options, ScreenType.Pause, ScreenType.Shop, ScreenType.UpgradeScreen, ScreenType.WeaponSelect };
 
         public GameScreen(SpriteBatch spriteBatch)
@@ -83,6 +84,7 @@ namespace PGCGame.Screens
         Texture2D bgImg;
         Song _gameSong;
         List<ISprite> playerSbObjects = new List<ISprite>();
+  
 
         public override void InitScreen(ScreenType screenType)
         {
@@ -468,6 +470,7 @@ namespace PGCGame.Screens
 #if WINDOWS
             if (_lastState.IsKeyUp(Keys.Escape) && keyboard.IsKeyDown(Keys.Escape))
             {
+                Paused(null, null);
                 StateManager.ScreenState = ScreenType.Pause;
                 //_allowMusicHandling = false;
             }

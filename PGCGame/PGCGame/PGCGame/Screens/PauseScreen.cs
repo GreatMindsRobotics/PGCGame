@@ -32,6 +32,7 @@ namespace PGCGame.Screens
         Sprite ExitButton;
         TextSprite LevelLabel;
 
+       
         public PauseScreen(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
         {
@@ -41,7 +42,7 @@ namespace PGCGame.Screens
         public override void InitScreen(ScreenType screenType)
         {
             base.InitScreen(screenType);
-
+            GameScreen.Paused += new EventHandler(GameScreen_Paused);
             Texture2D button = GameContent.GameAssets.Images.Controls.Button;
 
             StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
@@ -51,8 +52,8 @@ namespace PGCGame.Screens
             PauseLabel.Color = Color.White;
             AdditionalSprites.Add(PauseLabel);
 
-            LevelLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero,GameContent.GameAssets.Fonts.NormalText, "Current Level: Level " + StateManager.CurrentLevel.ToInt() + "\n" + StateManager.lives + " lives remaining\nYou have " + StateManager.SpaceBucks + " credits");
-            LevelLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width / 2 - LevelLabel.Width / 2, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .55f);
+            LevelLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero,GameContent.GameAssets.Fonts.NormalText, "Points:"+ StateManager.SpacePoints +"\nCurrent Level: Level " + StateManager.CurrentLevel.ToInt() + "\n" + StateManager.lives + " lives remaining\nYou have " + StateManager.SpaceBucks + " credits");
+            LevelLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width / 2 - LevelLabel.Width / 2, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .50f);
             LevelLabel.Color = Color.White;
             AdditionalSprites.Add(LevelLabel);
 
@@ -115,6 +116,11 @@ namespace PGCGame.Screens
             OptionsLabel.Pressed += new EventHandler(OptionsLabel_Pressed);
 
 
+        }
+
+        void GameScreen_Paused(object sender, EventArgs e)
+        {
+            LevelLabel.Text = String.Format("Points:{0}\nCurrent Level: Level {1}\n{2} lives remaining\nYou have {3} credits",StateManager.SpacePoints,StateManager.CurrentLevel.ToInt(), StateManager.lives,StateManager.SpaceBucks);
         }
 
         void OptionsLabel_Pressed(object sender, EventArgs e)

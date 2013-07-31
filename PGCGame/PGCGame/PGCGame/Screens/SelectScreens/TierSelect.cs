@@ -170,7 +170,7 @@ namespace PGCGame.Screens.SelectScreens
             {
                 if (shipInfo.Image.Texture == items[selected].Key.Texture)
                 {
-                    nameLabel.Text = string.Format("Ship:{0}\nShip Tier:{1}\nCost:{2} Credits", shipInfo.Type, shipInfo.Tier, shipInfo.Cost);
+                    nameLabel.Text = string.Format("Ship:{0}\nShip Tier:Tier {1}\nCost:{2} Credits", shipInfo.Type, shipInfo.Tier.ToInt(), shipInfo.Cost);
                     break;
                 }
             }
