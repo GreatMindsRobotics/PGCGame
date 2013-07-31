@@ -120,7 +120,7 @@ namespace PGCGame.Screens
 
         void GameScreen_Paused(object sender, EventArgs e)
         {
-            LevelLabel.Text = String.Format("Points:{0}\nCurrent Level: Level {1}\n{2} lives remaining\nYou have {3} credits",StateManager.SpacePoints,StateManager.CurrentLevel.ToInt(), StateManager.lives,StateManager.SpaceBucks);
+            LevelLabel.Text = String.Format("Points:{0}\nCurrent Level: Level {1}\n{2} lives remaining\nYou have {3} credits\nEnemies this level:{4}",StateManager.SpacePoints,StateManager.CurrentLevel.ToInt(), StateManager.lives,StateManager.SpaceBucks,StateManager.CurrentLevel.ToInt() * 4);
         }
 
         void OptionsLabel_Pressed(object sender, EventArgs e)
