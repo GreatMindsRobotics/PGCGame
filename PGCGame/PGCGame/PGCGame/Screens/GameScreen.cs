@@ -406,7 +406,7 @@ namespace PGCGame.Screens
                 {
                     enemyShip.CurrentHealth = (keyboard.IsKeyDown(Keys.LeftAlt) || keyboard.IsKeyDown(Keys.RightAlt)) && enemyShip.CurrentHealth > 0 ? 1 : 0;
                 }
-                if (enemyShip.CurrentHealth > 0)
+                if (enemyShip.ShipState != ShipState.Dead)
                 {
                     allEnemiesDead = false;
                 }
@@ -491,7 +491,7 @@ namespace PGCGame.Screens
             {
                 BaseEnemyShip enemy = enemies[e];
 
-                if (enemy.IsDead)
+                if (enemy.ShipState == ShipState.Dead)
                 {
                     enemies.Remove(enemy);
                 }
