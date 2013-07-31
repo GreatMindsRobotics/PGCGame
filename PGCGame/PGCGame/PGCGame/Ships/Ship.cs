@@ -305,6 +305,7 @@ namespace PGCGame
                     if (_explosionSheet.IsComplete)
                     {
                         shipState = ShipState.Dead;
+                        StateManager.ActiveShips.Remove(this);
                     }
                     return;
                 }
