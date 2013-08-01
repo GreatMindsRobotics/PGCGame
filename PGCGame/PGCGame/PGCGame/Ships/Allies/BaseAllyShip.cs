@@ -44,7 +44,6 @@ namespace PGCGame.Ships.Allies
             }
         }
 
-
         //int weaponIndex = 0;
 
         public virtual void ShrinkRayShoot(ShrinkRay bulletShooter)
@@ -164,7 +163,6 @@ namespace PGCGame.Ships.Allies
                 base.Update(gt);
 
                 _isDead = true;
-
                 return;
             }
 

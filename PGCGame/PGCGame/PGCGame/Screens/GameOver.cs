@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Glib.XNA.SpriteLib;
 using Microsoft.Xna.Framework.Input;
 using Glib.XNA.InputLib;
+using PGCGame.Ships.Allies;
 
 namespace PGCGame.Screens
 {
@@ -23,7 +24,7 @@ namespace PGCGame.Screens
         public override void InitScreen(ScreenType screenName)
         {
             base.InitScreen(screenName);
-
+            BaseAllyShip.Dead += new EventHandler(BaseAllyShip_Dead);
             Texture2D buttonImage = GameContent.GameAssets.Images.Controls.Button;
             SpriteFont SegoeUIMono = GameContent.GameAssets.Fonts.NormalText;
             BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
@@ -53,6 +54,11 @@ namespace PGCGame.Screens
             MainMenuButton.MouseEnter +=new EventHandler(MainMenuButton_MouseEnter);
             MainMenuButton.MouseLeave +=new EventHandler(MainMenuButton_MouseLeave);
 #endif
+        }
+
+        void BaseAllyShip_Dead(object sender, EventArgs e)
+        {
+            gameOverLabel.Text = string.Format("\n    GAME OVER\nYou had {0} points.\nYou had {1} Credits.\nYou Were On Level {2}", StateManager.SpacePoints, StateManager.SpaceBucks, Convert.ToInt32(StateManager.Level));
         }
 
 #if WINDOWS

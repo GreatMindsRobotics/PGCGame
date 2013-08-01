@@ -28,6 +28,7 @@ namespace PGCGame
         public static Texture2D Torpedo;
         public static Texture2D SpaceMine;
         public static Texture2D Explosion;
+        public static event EventHandler Dead;
 
         public abstract ShipType ShipType { get; }
 
@@ -300,6 +301,7 @@ namespace PGCGame
                 else if (shipState == ShipState.Exploding && shipState != ShipState.Dead)
                 {
                     _explosionSheet.Update();
+                    Dead(null, null);
                     _explosionSheet.Position = this.Position;
                     _explosionSheet.DrawNonAuto();
                     if (_explosionSheet.IsComplete)
