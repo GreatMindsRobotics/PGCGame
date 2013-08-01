@@ -74,10 +74,6 @@ namespace PGCGame
             set {
                 if (value != _level)
                 {        
-                    if (CurrentLevel == _level)
-                        {
-                            _level++;
-                        }
                     _level = value;
                     if (levelCompleted != null)
                     {
@@ -87,7 +83,6 @@ namespace PGCGame
                 }
             }
         }
-
         public static GameLevel CurrentLevel = GameLevel.Level1;
         
         public static Boolean nextLevel = false;

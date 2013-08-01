@@ -156,8 +156,6 @@ namespace PGCGame.Screens.SelectScreens
                         StateManager.SelectedShip = shipInfo.Type;
                         StateManager.SelectedTier = shipInfo.Tier;
 
-                        StateManager.InitializeSingleplayerGameScreen(shipInfo.Type, shipInfo.Tier);
-
                         bought = true;
                     }
                 }

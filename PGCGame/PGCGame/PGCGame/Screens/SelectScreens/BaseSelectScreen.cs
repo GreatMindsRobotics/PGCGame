@@ -154,6 +154,7 @@ namespace PGCGame.Screens
             acceptLabel.IsManuallySelectable = true;
             acceptLabel.NonHoverColor = Color.White;
             acceptLabel.HoverColor = Color.MediumAquamarine;
+            acceptLabel.ParentSprite = acceptButton;
 
 #if WINDOWS
             acceptButton.MouseEnter += new EventHandler(playButton_MouseEnter);

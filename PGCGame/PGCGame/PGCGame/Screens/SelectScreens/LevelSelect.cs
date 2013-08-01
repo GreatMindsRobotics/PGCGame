@@ -21,13 +21,19 @@ namespace PGCGame.Screens.SelectScreens
 
         }
 
-        List<KeyValuePair<Sprite, string>> itemsShown = new List<KeyValuePair<Sprite, string>>();
-
         TextSprite level1Label;
         TextSprite level2Label;
         TextSprite level3Label;
         TextSprite level4Label;
-         public TextSprite Playlabel;
+
+        Color lockedColor = new Color(10, 10, 10, 255);
+
+        bool canPlayLevel = false;
+        
+
+        GameLevel selectedLevel = GameLevel.Level1;
+
+        public TextSprite Playlabel;
 
          Sprite level1;
          Sprite level2;
@@ -36,101 +42,133 @@ namespace PGCGame.Screens.SelectScreens
 
         public override void InitScreen(ScreenType screenType)
         {
+            ChangeItem +=new EventHandler(LevelSelect_ChangeItem);
         Texture2D planet1 = GameContent.GameAssets.Images.NonPlayingObjects.Planet;
         Texture2D planet2 = GameContent.GameAssets.Images.NonPlayingObjects.AltPlanet;
         Texture2D planet3 = GameContent.GameAssets.Images.NonPlayingObjects.Planet3;
         Texture2D planet4 = GameContent.GameAssets.Images.NonPlayingObjects.Planet4;
-           
+
             //level1
             level1 = new Sprite(planet1, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.68f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.22f), Sprites.SpriteBatch);
-            level1Label = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "");
+            level1Label = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "  Level 1");
             level1.Scale = new Vector2(0.7f);
+            level1Label.Color = Color.Transparent;
             level1.Color = Color.White;
 
-            itemsShown.Add(new KeyValuePair<Sprite,string>(level1, "   Level 1"));
-            items.Add(new KeyValuePair<Sprite, TextSprite>(level1, level1Label));
+           
             
             //level2
             level2 = new Sprite(planet2, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.60f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.1f), Sprites.SpriteBatch);
-            level2Label = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "");
+            level2Label = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "  Level 2");
             level2.Scale = new Vector2(0.7f);
-            level2.Color = Color.Black;
-            itemsShown.Add(new KeyValuePair<Sprite,string>(level2, "   Level 2"));
-            items.Add(new KeyValuePair<Sprite, TextSprite>(level2, level2Label));
+
+
+
 
             //level3
             level3 = new Sprite(planet3, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.58f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.1f), Sprites.SpriteBatch);
-            level3Label = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "");
+            level3Label = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "  Level 3");
+            level3Label.Color = Color.Transparent;
             level3.Scale = new Vector2(0.6f);
-            level3.Color = Color.Black;
-          
 
-            itemsShown.Add(new KeyValuePair<Sprite,string>(level3, "   Level 3"));
-            items.Add(new KeyValuePair<Sprite, TextSprite>(level3, level3Label));
+
+
 
             //level4
             level4 = new Sprite(planet4, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.63f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.1f), Sprites.SpriteBatch);
-            level4Label = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "");
+            level4Label = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "  Level 4");
             level4.Scale = new Vector2(0.4f);
-            itemsShown.Add(new KeyValuePair<Sprite, string>(level4, "   Level 4"));
-            items.Add(new KeyValuePair<Sprite, TextSprite>(level4, level3Label));
-            level4.Color = Color.Black;
+
+
+
+            items.Add(new KeyValuePair<Sprite, TextSprite>(level1, level1Label));
+            items.Add(new KeyValuePair<Sprite, TextSprite>(level2, level2Label));
+            items.Add(new KeyValuePair<Sprite, TextSprite>(level3, level3Label));
+            items.Add(new KeyValuePair<Sprite, TextSprite>(level4, level4Label));
 
             nextButtonClicked += new EventHandler(LevelSelect_nextButtonClicked);
             ChangeItem += new System.EventHandler(LevelSelect_ChangeItem);
-            
 
-            
             base.InitScreen(screenType);
             acceptLabel.Text = "Shop";
 
+            level1Label.Position = nameLabel.Position;
+            level2Label.Position = nameLabel.Position;
+            level3Label.Position = nameLabel.Position;
+            level4Label.Position = nameLabel.Position;
         }
 
         void LevelSelect_ChangeItem(object sender, System.EventArgs e)
         {
-            foreach (KeyValuePair<Sprite, string> item in itemsShown)
+            int counter = 0;
+            foreach (KeyValuePair<Sprite, TextSprite> item in items)
             {
                 if (item.Key == items[selected].Key)
                 {
-                    nameLabel.Text = item.Value;
+                    nameLabel.Text = item.Value.Text;
+                    selectedLevel = (GameLevel)(counter + 1);
                     break;
                 }
+                counter++;
             }
 
-            switch (StateManager.Level)
+            if (selectedLevel > StateManager.Level)
             {
-                case GameLevel.Level1:
-                    {
-                        level2.Color = level2.Color.A > 0 ? (StateManager.Level >= GameLevel.Level2 ? Color.White : Color.Black) : Color.Transparent;
-                        level3.Color = level3.Color.A > 0 ? (StateManager.Level >= GameLevel.Level3 ? Color.White : Color.Black) : Color.Transparent;
-                        level4.Color = level4.Color.A > 0 ? (StateManager.Level >= GameLevel.Level4 ? Color.White : Color.Black) : Color.Transparent;
-                        break;
-                    }
+                acceptLabel.Text = "Locked";
+                canPlayLevel = false;
+                switch (selectedLevel)
+                {
+                    case GameLevel.Level2:
+                        {
+                            if (selectedLevel > StateManager.Level)
+                            {
+                                level2.Color = lockedColor;
+                            }
+                            break;
+                        }
 
-                case GameLevel.Level2:
-                    {
-                        level3.Color = level3.Color.A > 0 ? (StateManager.Level >= GameLevel.Level3 ? Color.White : Color.Black) : Color.Transparent;
-                        level4.Color = level4.Color.A > 0 ? (StateManager.Level >= GameLevel.Level4 ? Color.White : Color.Black) : Color.Transparent;
-                        break;
-                    }
-                case GameLevel.Level3:
-                    {
-                        level4.Color = level4.Color.A > 0 ? (StateManager.Level >= GameLevel.Level4 ? Color.White : Color.Black) : Color.Transparent;
-                        break;
-                    }
-                case GameLevel.Level4:
-                    {
-                        break;
-                    }
+                    case GameLevel.Level3:
+                        {
+                            if (selectedLevel > StateManager.Level)
+                            {
+                                level3.Color = lockedColor;
+                            }
+
+                            break;
+                        }
+                    case GameLevel.Level4:
+                        {
+                            if (selectedLevel > StateManager.Level)
+                            {
+                                level4.Color = lockedColor;
+                            }
+                            break;
+                        }
+                }
+
+                return;
             }
+            else
+            {
+                acceptLabel.Text = "Shop";
+                canPlayLevel = true;
+            }
+
+            
+
+            
         }
 
         void LevelSelect_nextButtonClicked(object sender, EventArgs e)
         {
             //StateManager.InitializeSingleplayerGameScreen(StateManager.SelectedShip, StateManager.SelectedTier);
+            if (!canPlayLevel)
+            {
+                return;
+            }
+
             StateManager.ScreenState = ScreenType.Shop;
-            StateManager.CurrentLevel = (GameLevel)selected + 1;
-            
+            StateManager.CurrentLevel = (GameLevel)(selected + 1);
         }
 
         public override void Update(GameTime gameTime)

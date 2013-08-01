@@ -155,26 +155,8 @@ namespace PGCGame.Screens
             {
                 return;
             }
-
-            if (!firstShop)
-            {
-                if (StateManager.Level != GameLevel.Level4)
-                {
-                    StateManager.nextLevel = true;
-                    StateManager.ScreenState = ScreenType.Game;
-                }
-                else
-                {
-                    //TODO: Win Code;
-                    //Currently takes you to credits
-                }
-            }
-            else
-            {
-                StateManager.Level = GameLevel.Level1;
-                firstShop = false;
-                StateManager.ScreenState = ScreenType.Game;
-            }
+            StateManager.InitializeSingleplayerGameScreen(StateManager.SelectedShip, StateManager.SelectedTier);
+            StateManager.ScreenState = ScreenType.Game;
         }
 
         void Options_ScreenResolutionChanged(object sender, EventArgs e)
