@@ -41,7 +41,7 @@ namespace PGCGame
             if (Tier == ShipTier.Tier1)
             {
                 Scale = new Vector2(.85f);
-                //Effect = SpriteEffects.FlipVertically;
+                Effect = SpriteEffects.FlipVertically;
                 DistanceToNose = .5f;
                 DamagePerShot = 20;
             }
