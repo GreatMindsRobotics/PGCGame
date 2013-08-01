@@ -289,7 +289,7 @@ namespace PGCGame.Screens
                 miniShips.Add(miniShip);
 
 #if WINDOWS
-                //TODO: Minimap ship info showing up on Xbox
+                //TODO: Minimap ship nfo showing up on Xbox
                 if (miniShip.Intersects(MouseManager.CurrentMouseState) && activeMiniShipDisplay == null)
                 {
                     activeMiniShipDisplay = s;
@@ -327,28 +327,30 @@ namespace PGCGame.Screens
 
         void bgspr_Drawn(object sender, EventArgs e)
         {
-            //foreach (Bullet b in playerShip.FlyingBullets)
-            //{
-            //    Sprites.SpriteBatch.Draw(b);
-            //}
-            //foreach (var enemy in enemies)
-            //{
-            //    foreach (Bullet b in enemy.FlyingBullets)
-            //    {
-            //        Sprites.SpriteBatch.Draw(b);
-            //    }
-            //}
-            //if (playerShip.GetType() == typeof(FighterCarrier))
-            //{
-            //    foreach (Drone drone in playerShip.Cast<FighterCarrier>().Drones)
-            //    {
-            //        foreach (Bullet b in drone.FlyingBullets)
-            //        {
-            //            Sprites.SpriteBatch.Draw(b);
-            //        }
+            /*
+            foreach (Bullet b in playerShip.FlyingBullets)
+            {
+                Sprites.SpriteBatch.Draw(b);
+            }
+            foreach (var enemy in enemies)
+            {
+                foreach (Bullet b in enemy.FlyingBullets)
+                {
+                    Sprites.SpriteBatch.Draw(b);
+                }
+            }
+            if (playerShip.GetType() == typeof(FighterCarrier))
+            {
+                foreach (Drone drone in playerShip.Cast<FighterCarrier>().Drones)
+                {
+                    foreach (Bullet b in drone.FlyingBullets)
+                    {
+                        Sprites.SpriteBatch.Draw(b);
+                    }
 
-            //    }
-            //}
+                }
+            }
+            */
 
             foreach (Bullet b in StateManager.LegitBullets)
             {
@@ -723,6 +725,7 @@ namespace PGCGame.Screens
         {
             if (_allowMusicHandling && ScreensToAllowMusicProcessing.Contains(StateManager.ScreenState))
             {
+            
                 //This is an expensive call (unmanaged code transition), better to only call it once
                 MediaState currentState = MediaPlayer.State;
 

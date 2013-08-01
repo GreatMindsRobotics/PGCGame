@@ -45,6 +45,7 @@ namespace PGCGame
         GameOver gameOver;
         ControlScreen controlScreen;
         NetworkSelectScreen networkScreen;
+        TransitionScreen transitionScreen;
 
 
         public Game1()
@@ -139,7 +140,10 @@ namespace PGCGame
             networkScreen = new NetworkSelectScreen(spriteBatch);
             networkScreen.InitScreen(ScreenType.NetworkSelectScreen);
 
-            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen, weaponSelectScreen, upgradeScreen, tierSelectScreen, levelSelectScreen, controlScreen, networkScreen, gameOver);
+            transitionScreen = new TransitionScreen(spriteBatch);
+            transitionScreen.InitScreen(ScreenType.TransitionScreen);
+
+            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen, weaponSelectScreen, upgradeScreen, tierSelectScreen, levelSelectScreen, controlScreen, networkScreen, gameOver, transitionScreen);
             StateManager.AllScreens = screenManager;
             StateManager.ScreenState = CoreTypes.ScreenType.Title;
         }

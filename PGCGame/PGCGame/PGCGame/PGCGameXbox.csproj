@@ -90,6 +90,7 @@
     <Compile Include="Screens\SelectScreens\WeaponSelectScreen.cs" />
     <Compile Include="Screens\Shop.cs" />
     <Compile Include="Screens\Title.cs" />
+    <Compile Include="Screens\TransitionScreen.cs" />
     <Compile Include="SecondaryWeapons\HealthPack.cs" />
     <Compile Include="Ships\Allies\BaseAllyShip.cs" />
     <Compile Include="Ships\Allies\BattleCruiser.cs" />

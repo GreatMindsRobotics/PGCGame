@@ -156,7 +156,7 @@ namespace PGCGame.Screens
                 return;
             }
             StateManager.InitializeSingleplayerGameScreen(StateManager.SelectedShip, StateManager.SelectedTier);
-            StateManager.ScreenState = ScreenType.Game;
+            StateManager.ScreenState = ScreenType.TransitionScreen;
         }
 
         void Options_ScreenResolutionChanged(object sender, EventArgs e)

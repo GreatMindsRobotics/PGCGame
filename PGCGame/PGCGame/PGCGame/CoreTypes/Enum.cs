@@ -20,7 +20,8 @@ namespace PGCGame.CoreTypes
         LevelSelect,
         ControlScreen,
         NetworkSelectScreen,
-        GameOver
+        GameOver,
+        TransitionScreen
     }
 
     public enum ScreenBackgrounds
