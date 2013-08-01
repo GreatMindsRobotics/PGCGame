@@ -29,7 +29,7 @@ namespace PGCGame.Screens
             SpriteFont SegoeUIMono = GameContent.GameAssets.Fonts.NormalText;
             BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
 
-            gameOverLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .5f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f), SegoeUIMono, string.Format("\n    GAME OVER\n you had {0} points,\n {1} spacebucks,\n and was on {2}", StateManager.SpacePoints, StateManager.SpaceBucks, StateManager.Level));
+            gameOverLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .5f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f), SegoeUIMono, string.Format("\n    GAME OVER\n you had {0} points,\n {1} spacebucks,\n and was on {2}", StateManager.SpacePoints, StateManager.SpaceBucks, StateManager.HighestUnlockedLevel));
             gameOverLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .5f - gameOverLabel.Width / 2, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f - gameOverLabel.Height / 2);
             gameOverLabel.Color = Color.Red;
 
@@ -58,7 +58,7 @@ namespace PGCGame.Screens
 
         void BaseAllyShip_Dead(object sender, EventArgs e)
         {
-            gameOverLabel.Text = string.Format("\n    GAME OVER\nYou had {0} points.\nYou had {1} Credits.\nYou Were On Level {2}", StateManager.SpacePoints, StateManager.SpaceBucks, Convert.ToInt32(StateManager.Level));
+            gameOverLabel.Text = string.Format("\n    GAME OVER\nYou had {0} points.\nYou had {1} Credits.\nYou Were On Level {2}", StateManager.SpacePoints, StateManager.SpaceBucks, Convert.ToInt32(StateManager.HighestUnlockedLevel));
         }
 
 #if WINDOWS

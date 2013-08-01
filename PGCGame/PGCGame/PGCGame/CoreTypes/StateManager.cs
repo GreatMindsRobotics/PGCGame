@@ -68,7 +68,7 @@ namespace PGCGame
 
         private static GameLevel _level = GameLevel.Level1;
 
-        public static GameLevel Level
+        public static GameLevel HighestUnlockedLevel
         {
             get { return _level; }
             set {
@@ -95,7 +95,7 @@ namespace PGCGame
         {
             Screens.Shop.firstShop = true;
             nextLevel = false;
-            Level = GameLevel.Level1;
+            HighestUnlockedLevel = GameLevel.Level1;
             SpacePoints = 0;
             _hasBoughtScanner = false;
             Stack<ScreenType> _screenStack = new Stack<ScreenType>();

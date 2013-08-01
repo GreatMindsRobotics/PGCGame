@@ -112,7 +112,7 @@ namespace PGCGame.Screens.SelectScreens
                 counter++;
             }
 
-            if (selectedLevel > StateManager.Level)
+            if (selectedLevel > StateManager.HighestUnlockedLevel)
             {
                 acceptLabel.Text = "Locked";
                 canPlayLevel = false;
@@ -120,7 +120,7 @@ namespace PGCGame.Screens.SelectScreens
                 {
                     case GameLevel.Level2:
                         {
-                            if (selectedLevel > StateManager.Level)
+                            if (selectedLevel > StateManager.HighestUnlockedLevel)
                             {
                                 level2.Color = lockedColor;
                             }
@@ -129,7 +129,7 @@ namespace PGCGame.Screens.SelectScreens
 
                     case GameLevel.Level3:
                         {
-                            if (selectedLevel > StateManager.Level)
+                            if (selectedLevel > StateManager.HighestUnlockedLevel)
                             {
                                 level3.Color = lockedColor;
                             }
@@ -138,7 +138,7 @@ namespace PGCGame.Screens.SelectScreens
                         }
                     case GameLevel.Level4:
                         {
-                            if (selectedLevel > StateManager.Level)
+                            if (selectedLevel > StateManager.HighestUnlockedLevel)
                             {
                                 level4.Color = lockedColor;
                             }
@@ -151,7 +151,7 @@ namespace PGCGame.Screens.SelectScreens
             else
             {
                 acceptLabel.Text = "Shop";
-                StateManager.Level = selectedLevel;
+                StateManager.CurrentLevel = selectedLevel;
                 canPlayLevel = true;
             }
 
