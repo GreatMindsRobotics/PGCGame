@@ -151,6 +151,7 @@ namespace PGCGame.Screens.SelectScreens
             else
             {
                 acceptLabel.Text = "Shop";
+                StateManager.Level = selectedLevel;
                 canPlayLevel = true;
             }
 

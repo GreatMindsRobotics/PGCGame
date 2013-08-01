@@ -414,15 +414,11 @@ namespace PGCGame.Screens
 
             if (allEnemiesDead && !StateManager.nextLevel && StateManager.Level != GameLevel.Level4)
             {
-                if (StateManager.CurrentLevel == StateManager.Level)
-                {
-                    StateManager.Level++;
-                }
+                StateManager.Level++;
                 StateManager.ScreenState = ScreenType.LevelSelect;
             }
             else if (StateManager.Level == GameLevel.Level4 && allEnemiesDead && !StateManager.nextLevel)
             {
-
                 StateManager.ScreenState = ScreenType.Credits;
             }
 
