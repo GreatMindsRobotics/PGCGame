@@ -84,7 +84,7 @@ namespace PGCGame.Screens
         Texture2D bgImg;
         Song _gameSong;
         List<ISprite> playerSbObjects = new List<ISprite>();
-  
+
 
         public override void InitScreen(ScreenType screenType)
         {
@@ -422,8 +422,8 @@ namespace PGCGame.Screens
             }
             else if (StateManager.Level == GameLevel.Level4 && allEnemiesDead && !StateManager.nextLevel)
             {
-                
-              StateManager.ScreenState = ScreenType.Credits;
+
+                StateManager.ScreenState = ScreenType.Credits;
             }
 
             secondaryWeaponLabel.Text = "No Secondary Weapon";
@@ -526,7 +526,7 @@ namespace PGCGame.Screens
                 }
 
             }
-            
+
 
             for (int i = 0; i < StateManager.DudBullets.Count; i++)
             {
@@ -541,34 +541,35 @@ namespace PGCGame.Screens
             }
 
 
+            /*
+            foreach (Ship shootShip in StateManager.ActiveShips)
+            {
+                foreach (Ship hitShip in StateManager.ActiveShips)
+                {
+                    if (shootShip != hitShip && shootShip.PlayerType != hitShip.PlayerType && hitShip.CurrentHealth > 0)
+                    {
+                        if (hitShip.PlayerType == PlayerType.MyShip && shootShip.PlayerType == PlayerType.Ally)
+                        {
+                        }
+                        else if (shootShip.PlayerType == PlayerType.MyShip && hitShip.PlayerType == PlayerType.Ally)
+                        {
+                        }
+                        else
+                        {
 
-            //foreach (Ship shootShip in StateManager.ActiveShips)
-            //{
-            //    foreach (Ship hitShip in StateManager.ActiveShips)
-            //    {
-            //        if (shootShip != hitShip && shootShip.PlayerType != hitShip.PlayerType && hitShip.CurrentHealth > 0)
-            //        {
-            //            if (hitShip.PlayerType == PlayerType.MyShip && shootShip.PlayerType == PlayerType.Ally)
-            //            {
-            //            }
-            //            else if (shootShip.PlayerType == PlayerType.MyShip && hitShip.PlayerType == PlayerType.Ally)
-            //            {
-            //            }
-            //            else
-            //            {
-
-            //                foreach (Bullet b in shootShip.FlyingBullets)
-            //                {
-            //                    if (b.Rectangle.Intersects(hitShip.WCrectangle))
-            //                    {
-            //                        hitShip.CurrentHealth -= b.Damage;
-            //                        b.IsDead = true;
-            //                    }
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
+                           foreach (Bullet b in shootShip.FlyingBullets)
+                           {
+                               if (b.Rectangle.Intersects(hitShip.WCrectangle))
+                               {
+                                    hitShip.CurrentHealth -= b.Damage;
+                                   b.IsDead = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+             */
 
 
             if (playerShip.ShipState == ShipState.Alive)
@@ -718,5 +719,5 @@ namespace PGCGame.Screens
          
         }
          */
+        }
     }
-}
