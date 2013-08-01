@@ -82,6 +82,7 @@ namespace PGCGame.Screens
         SpriteFont normal;
         SpriteFont bold;
         Texture2D bgImg;
+        SpriteFont SegoeUIMono = GameContent.GameAssets.Fonts.NormalText;
         Song _gameSong;
         List<ISprite> playerSbObjects = new List<ISprite>();
 
@@ -134,9 +135,11 @@ namespace PGCGame.Screens
             }
         }
 
+
         Sprite miniMap;
 
         TextSprite secondaryWeaponLabel;
+        BackgroundSprite bgspr;
 
         public void InitializeScreen<TShip>(ShipTier tier) where TShip : BaseAllyShip
         {
@@ -159,7 +162,7 @@ namespace PGCGame.Screens
 
 
             //Initialize the game map (world)
-            BackgroundSprite bgspr = new BackgroundSprite(bgImg, Sprites.SpriteBatch, 10, 2);
+            bgspr = new BackgroundSprite(bgImg, Sprites.SpriteBatch, 10, 2);
             bgspr.Drawn += new EventHandler(bgspr_Drawn);
             worldCam.Pos = new Vector2(bgspr.TotalWidth / 2, bgspr.TotalHeight - (bgspr.Height / 2));
             BackgroundSprite = bgspr;
@@ -284,6 +287,7 @@ namespace PGCGame.Screens
                 }
                 miniShip.UseCenterAsOrigin = true;
                 miniShips.Add(miniShip);
+
 #if WINDOWS
                 //TODO: Minimap ship info showing up on Xbox
                 if (miniShip.Intersects(MouseManager.CurrentMouseState) && activeMiniShipDisplay == null)
@@ -412,6 +416,32 @@ namespace PGCGame.Screens
                 }
             }
 
+
+            if (playerShip.ShipState == ShipState.Exploding)
+            {
+                bgspr.Color = Color.Red;
+                if (StateManager.lives != 0)
+                {
+                    secondaryWeaponLabel.Text = String.Format("         You Died!!!\nYou Have {0} Extra Lives Remaining", StateManager.lives - 1);
+                    secondaryWeaponLabel.Position = new Vector2(StateManager.GraphicsManager.GraphicsDevice.Viewport.Width * .3f, StateManager.GraphicsManager.GraphicsDevice.Viewport.Height * .1f);
+                }
+                else
+                {
+                    secondaryWeaponLabel.Text = "       You Died!!!\n  You Are Out of Lives\n       Game Over";
+                    secondaryWeaponLabel.Position = new Vector2(StateManager.GraphicsManager.GraphicsDevice.Viewport.Width * .35f, StateManager.GraphicsManager.GraphicsDevice.Viewport.Height * .1f);
+                }
+            }
+            else
+            {
+                secondaryWeaponLabel.Position = new Vector2(StateManager.GraphicsManager.GraphicsDevice.Viewport.Width * .01f, StateManager.GraphicsManager.GraphicsDevice.Viewport.Height * .1f - secondaryWeaponLabel.Height / 2);
+                secondaryWeaponLabel.Text = "No Secondary Weapon";
+                if (playerShip.CurrentWeaponName != null)
+                {
+                    secondaryWeaponLabel.Text = playerShip.CurrentWeaponName;
+                }
+                secondaryWeaponLabel.Text += String.Format("\n{0} Extra Lives Remaining", StateManager.lives);
+            }
+
             if (allEnemiesDead && !StateManager.nextLevel && StateManager.HighestUnlockedLevel != GameLevel.Level4)
             {
                 if (StateManager.CurrentLevel == StateManager.HighestUnlockedLevel)
@@ -424,16 +454,6 @@ namespace PGCGame.Screens
             {
                 StateManager.ScreenState = ScreenType.Credits;
             }
-
-            secondaryWeaponLabel.Text = "No Secondary Weapon";
-
-            if (playerShip.CurrentWeaponName != null)
-            {
-                secondaryWeaponLabel.Text = playerShip.CurrentWeaponName;
-            }
-
-
-            secondaryWeaponLabel.Text += "\n" + StateManager.lives + " lives remaining";
 
             if (playerShip.CurrentHealth <= 0 || StateManager.nextLevel || playerShip.ShipState == ShipState.Dead)
             {
