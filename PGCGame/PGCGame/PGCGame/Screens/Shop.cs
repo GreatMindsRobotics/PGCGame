@@ -64,7 +64,7 @@ namespace PGCGame.Screens
             Sprites.Add(upgradeEquipmentButton);
             AdditionalSprites.Add(upgradeEquipmentLabel);
 
-            shipButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .400f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .4f), Sprites.SpriteBatch);
+            shipButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .4f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .4f), Sprites.SpriteBatch);
             shipLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Ship");
             shipLabel.Color = Color.White;
             shipLabel.IsHoverable = true;

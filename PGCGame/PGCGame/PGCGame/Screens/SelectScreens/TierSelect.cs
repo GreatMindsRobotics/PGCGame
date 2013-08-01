@@ -38,6 +38,7 @@ namespace PGCGame.Screens.SelectScreens
         TextSprite Credits;
         //This screen needs sprites for each tier of ship and descriptions for each tier.
         List<ShipInfo> upgradeShips;
+        ShipInfo fighterCarrier = new ShipInfo();
 
         public override void InitScreen(ScreenType screenType)
         {
@@ -82,7 +83,7 @@ namespace PGCGame.Screens.SelectScreens
 
 
             //Configure Fighter Carrier
-            ShipInfo fighterCarrier = new ShipInfo();
+           
             fighterCarrier.Image = new Sprite(GameContent.GameAssets.Images.Ships[ShipType.FighterCarrier, upgradeTier], Vector2.Zero, Sprites.SpriteBatch);
             fighterCarrier.Image.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.85f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .01f);
             fighterCarrier.Image.Rotation = new SpriteRotation(90);
