@@ -46,6 +46,7 @@ namespace PGCGame
         ControlScreen controlScreen;
         NetworkSelectScreen networkScreen;
         TransitionScreen transitionScreen;
+        LevelCompleteScreen levelCompleteScreen;
 
 
         public Game1()
@@ -103,6 +104,9 @@ namespace PGCGame
 
             gameOver = new GameOver(spriteBatch);
             gameOver.InitScreen(ScreenType.GameOver);
+
+            levelCompleteScreen = new LevelCompleteScreen(spriteBatch);
+            levelCompleteScreen.InitScreen(ScreenType.LevelCompleteScreen);
 
             shopScreen = new Shop(spriteBatch);
             shopScreen.InitScreen(ScreenType.Shop);

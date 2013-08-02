@@ -6,7 +6,8 @@ using System.Text;
 namespace PGCGame.CoreTypes
 {
     public enum ScreenType
-    {
+    {   
+        LevelCompleteScreen,
         Title,
         MainMenu,
         Credits,
