@@ -12,18 +12,22 @@ using Glib.XNA;
 using Glib.XNA.SpriteLib;
 using PGCGame.CoreTypes;
 using PGCGame.Screens;
+
+#if XBOX
+using Glib.XNA.InputLib;
+#endif
+
 namespace PGCGame
 {
     public class TransitionScreen : BaseScreen
     {
-        Sprite planet;
-   Sprite ship;
+        Sprite ship;
 
-   bool isfirstUpdate = true;
+        bool isfirstUpdate = true;
         public TransitionScreen(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.White)
         {
-            
+
         }
 
         private void setupTitleShip()
@@ -32,7 +36,7 @@ namespace PGCGame
         }
 
         public override void InitScreen(ScreenType screenName)
-        { 
+        {
 
 
             base.InitScreen(screenName);
@@ -123,16 +127,9 @@ namespace PGCGame
                 StateManager.ScreenState = CoreTypes.ScreenType.Game;
             }
 
-              
-
-
-            
-#if XBOX
-            ButtonManagement.Update(gameTime);
-#endif
             base.Update(gameTime);
         }
 
-             
-       }
+
     }
+}
