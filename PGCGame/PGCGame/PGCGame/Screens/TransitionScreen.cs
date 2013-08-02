@@ -50,12 +50,10 @@ namespace PGCGame
 
         void Shop_levelBegin(object sender, EventArgs e)
         {
-
+            //WILL BREAK UNTIL PLANETTEXTURE IS SET
             Sprites.Clear();
 
             ship = new Sprite(GameContent.GameAssets.Images.Ships[StateManager.SelectedShip, StateManager.SelectedTier], Vector2.Zero, Sprites.SpriteBatch);
-
-
 
             ship.Position = new Vector2(-ship.Texture.Width / 2, Graphics.Viewport.Height);
             ship.Scale = new Vector2(0.8f);
@@ -63,28 +61,24 @@ namespace PGCGame
             ship.YSpeed = -ship.XSpeed * .8f;
             ship.Rotation.Degrees = 0;
 
-
+            Sprites.Add(ship);
 
             Sprites.AddNewSprite(Vector2.Zero, planetTexture);
-            Sprites[0].Scale = new Vector2((float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Width / (float)Sprites[0].Texture.Width, (float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Height / (float)Sprites[0].Texture.Height);
-            Sprites[0].Position = new Vector2((float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Width - (float)Sprites[0].Texture.Width / 2, (float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Height / 2 - 200);
+            Sprites[1].Scale = new Vector2((float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Width / (float)Sprites[1].Texture.Width, (float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Height / (float)Sprites[1].Texture.Height);
+            Sprites[1].Position = new Vector2((float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Width - (float)Sprites[1].Texture.Width / 2, (float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Height / 2 - 200);
 
 
             this.BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
             Sprites.AddNewSprite(Vector2.Zero, GameContent.GameAssets.Images.NonPlayingObjects.ShopBackground);
-            Sprites[1].Scale = new Vector2((float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Width / (float)Sprites[1].Texture.Width, (float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Height / (float)Sprites[1].Texture.Height);
-            Sprites[1].YSpeed = -2;
+            Sprites[2].Scale = new Vector2((float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Width / (float)Sprites[2].Texture.Width, (float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Height / (float)Sprites[2].Texture.Height);
+            Sprites[2].YSpeed = -2;
 
-
-            ship.Position = new Vector2(-ship.Texture.Width / 2, Graphics.Viewport.Height);
-            ship.Scale = new Vector2(0.8f);
-            ship.XSpeed = 1.5f;
-            ship.YSpeed = -ship.XSpeed * .8f;
+            this.BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
+            Sprites.AddNewSprite(Vector2.Zero, GameContent.GameAssets.Images.NonPlayingObjects.ShopBackground);
+            Sprites[3].Scale = new Vector2((float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Width / (float)Sprites[3].Texture.Width, (float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Height / (float)Sprites[3].Texture.Height);
+            Sprites[3].YSpeed = -2;
 
              ship.Rotation.Degrees = 0;
-
-
-
 
             if (ship.Position.X < Graphics.Viewport.Width * 3)
             {
@@ -92,8 +86,8 @@ namespace PGCGame
                 {
                     ship.Rotation.Radians = (new Vector2(Graphics.Viewport.Width / 2, Graphics.Viewport.Height / 2) - ship.Position).ToAngle();
                     ship.YSpeed -= .0008f;
-                    ship.Scale.X -= .001f;
-                    ship.Scale.Y -= .001f;
+                    ship.Scale.X -= .0001f;
+                    ship.Scale.Y -= .0001f;
                 }
                 else
                 {
@@ -107,8 +101,17 @@ namespace PGCGame
                 }
 
             }
-            Sprites.Add(ship);
             isfirstUpdate = false;
+
+
+
+
+
+        }
+
+        void Options_ScreenResolutionChanged(object sender, EventArgs e)
+        {
+            ship.Scale = new Vector2(3);
         }
 
         public override void Update(GameTime gameTime)
@@ -120,8 +123,6 @@ namespace PGCGame
                     //Not active window
                     return;
                 }
-
-
 
                 if (ship.Position.X < Graphics.Viewport.Width * 3)
                 {
