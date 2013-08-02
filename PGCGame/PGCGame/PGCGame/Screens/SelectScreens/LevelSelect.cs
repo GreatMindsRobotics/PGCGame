@@ -106,6 +106,7 @@ namespace PGCGame.Screens.SelectScreens
             {
                 if (item.Key == items[selected].Key)
                 {
+                    //TransitionScreen.planetTexture = item.Key;
                     nameLabel.Text = item.Value.Text;
                     selectedLevel = (GameLevel)(counter + 1);
                     break;
@@ -156,9 +157,18 @@ namespace PGCGame.Screens.SelectScreens
                 canPlayLevel = true;
             }
 
-            
+            StateManager.levelCompleted += new EventHandler(StateManager_levelCompleted);
 
             
+        }
+
+        void StateManager_levelCompleted(object sender, EventArgs e)
+        {
+            selected = StateManager.HighestUnlockedLevel.ToInt() - 1;
+            for (int i = 0; i < StateManager.HighestUnlockedLevel.ToInt();i++ )
+            {
+                LevelSelect_ChangeItem(null,null);
+            }
         }
 
         void LevelSelect_nextButtonClicked(object sender, EventArgs e)

@@ -169,6 +169,9 @@ namespace PGCGame.Screens
             upgradeEquipmentButton.Position = new Vector2(shipButton.X - (1.5f * shipButton.Width), Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .5f);      
             weaponsButton.Position = new Vector2(shipButton.X + (1.5f * shipButton.Width), Sprites.SpriteBatch.GraphicsDevice.Viewport.Height *.5f);
             PlayButton.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .5f - (PlayButton.Width / 2), Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .6f + (.5f * PlayButton.Height));
+            noShipLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .5f - (noShipLabel.Width / 2), Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .6f + (.5f * noShipLabel.Height));
+            noShipLabel.Y = Graphics.Viewport.Height / 2 + 100;
+            noShipLabel.X = noShipLabel.GetCenterPosition(Graphics.Viewport).X;
         }
 
 
