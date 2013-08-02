@@ -38,13 +38,13 @@ namespace PGCGame
         {
 
         }
+        public static Texture2D planetTexture;
 
         public override void InitScreen(ScreenType screenName)
         {
             Shop.levelBegin += new EventHandler(Shop_levelBegin);
             
             base.InitScreen(screenName);
-
 
         }
 
@@ -64,7 +64,8 @@ namespace PGCGame
             ship.Rotation.Degrees = 0;
 
 
-            Sprites.AddNewSprite(Vector2.Zero, GameContent.GameAssets.Images.NonPlayingObjects.Planet);
+
+            Sprites.AddNewSprite(Vector2.Zero, planetTexture);
             Sprites[0].Scale = new Vector2((float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Width / (float)Sprites[0].Texture.Width, (float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Height / (float)Sprites[0].Texture.Height);
             Sprites[0].Position = new Vector2((float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Width - (float)Sprites[0].Texture.Width / 2, (float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Height / 2 - 200);
 
@@ -80,7 +81,7 @@ namespace PGCGame
             ship.XSpeed = 1.5f;
             ship.YSpeed = -ship.XSpeed * .8f;
 
-            ship.Rotation.Degrees = 0;
+             ship.Rotation.Degrees = 0;
 
 
 
