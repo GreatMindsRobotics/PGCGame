@@ -120,6 +120,7 @@ namespace PGCGame.Screens
 
         void GameScreen_Paused(object sender, EventArgs e)
         {
+            LevelLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width / 2 - LevelLabel.Width / 2, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .50f);
             LevelLabel.Text = String.Format("Points:{0}\nCurrent Level: Level {1}\n{2} extra lives remaining\nYou have {3} credits\nEnemies this level:{4}",StateManager.SpacePoints,StateManager.CurrentLevel.ToInt(), StateManager.lives,StateManager.SpaceBucks,StateManager.CurrentLevel.ToInt() * 4);
         }
 
