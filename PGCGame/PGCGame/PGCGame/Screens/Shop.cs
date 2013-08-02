@@ -23,6 +23,7 @@ namespace PGCGame.Screens
         {
             //TODO: BACKGROUND
         }
+        public static event EventHandler levelBegin;
         Sprite upgradeEquipmentButton;
         TextSprite upgradeEquipmentLabel;
 
@@ -155,6 +156,7 @@ namespace PGCGame.Screens
             {
                 return;
             }
+            levelBegin(null, null);
             StateManager.InitializeSingleplayerGameScreen(StateManager.SelectedShip, StateManager.SelectedTier);
             StateManager.ScreenState = ScreenType.TransitionScreen;
         }
