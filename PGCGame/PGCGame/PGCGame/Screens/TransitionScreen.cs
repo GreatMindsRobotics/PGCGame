@@ -64,8 +64,7 @@ namespace PGCGame
             Sprites.Add(ship);
 
             Sprites.AddNewSprite(Vector2.Zero, planetTexture);
-            Sprites[1].Scale = new Vector2((float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Width / (float)Sprites[1].Texture.Width, (float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Height / (float)Sprites[1].Texture.Height);
-            Sprites[1].Position = new Vector2((float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Width - (float)Sprites[1].Texture.Width / 2, (float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Height / 2 - 200);
+            Sprites[1].Position = new Vector2((float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Width - (float)Sprites[1].Texture.Width / 2, (float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Height / 2 - 70);
 
 
             this.BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
