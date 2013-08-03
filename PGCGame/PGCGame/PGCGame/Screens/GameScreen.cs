@@ -144,7 +144,8 @@ namespace PGCGame.Screens
         public void InitializeScreen<TShip>(ShipTier tier) where TShip : BaseAllyShip
         {
             //Reset any active ships, since we're re-initializing the game screen
-            StateManager.ActiveShips.Clear();
+            StateManager.EnemyShips.Clear();
+            StateManager.AllyShips.Clear();
 
             //Reset music
             _gameHasStarted = false;
@@ -270,32 +271,18 @@ namespace PGCGame.Screens
             }
             miniShips.Clear();
 
-            Ship activeMiniShipDisplay = null;
-            foreach (Ship s in StateManager.ActiveShips)
+            Ship activeMiniShipDisplay = null;          
+            
+            foreach (Ship ship in StateManager.AllyShips)
             {
-                if (s.GetType() == typeof(Drone))
-                {
-                    continue;
-                }
-                //Sprite miniShip = new Sprite(GameContent.GameAssets.Images.MiniShips[s.PlayerType], miniMap.Position + (s.WorldCoords / MinimapDivAmount), playerSb);
-                Sprite miniShip = new Sprite(GameContent.GameAssets.Images.MiniShips[s.ShipType], miniMap.Position + (s.WorldCoords / MinimapDivAmount), playerSb);
-                miniShip.Scale = s.PlayerType == PlayerType.MyShip ? new Vector2(.1f) : new Vector2(.07f);
-                miniShip.Color = s.PlayerType == PlayerType.MyShip ? Color.Green : Color.Red;
-                if (StateManager.HasBoughtScanner)
-                {
-                    miniShip.Rotation = s.Rotation;
-                }
-                miniShip.UseCenterAsOrigin = true;
-                miniShips.Add(miniShip);
-
-#if WINDOWS
-                //TODO: Minimap ship nfo showing up on Xbox
-                if (miniShip.Intersects(MouseManager.CurrentMouseState) && activeMiniShipDisplay == null)
-                {
-                    activeMiniShipDisplay = s;
-                }
-#endif
+                addShipToMinimap(ship, activeMiniShipDisplay);
             }
+
+            foreach (Ship ship in StateManager.EnemyShips)
+            {
+                addShipToMinimap(ship, activeMiniShipDisplay);
+            }
+
 
             miniShipInfoBg.Color = activeMiniShipDisplay != null ? Color.White : Color.Transparent;
             if (activeMiniShipDisplay != null)
@@ -322,6 +309,33 @@ namespace PGCGame.Screens
             //This extension method (IEnumerable cast, NOT Glib cast) shouldn't be neccesary on XBOX, but I think it may be
             //Casting the Sprites to ISprites
             playerSbObjects.AddRange(miniShips.Cast<ISprite>());
+
+        }
+
+        private void addShipToMinimap(Ship ship, Ship activeMiniShipDisplay)
+        {
+            if (ship.GetType() == typeof(Drone))
+            {
+                return;
+            }
+
+            Sprite miniShip = new Sprite(GameContent.GameAssets.Images.MiniShips[ship.ShipType], miniMap.Position + (ship.WorldCoords / MinimapDivAmount), playerSb);
+            miniShip.Scale = ship.PlayerType == PlayerType.MyShip ? new Vector2(.1f) : new Vector2(.07f);
+            miniShip.Color = ship.PlayerType == PlayerType.MyShip ? Color.Green : Color.Red;
+            if (StateManager.HasBoughtScanner)
+            {
+                miniShip.Rotation = ship.Rotation;
+            }
+            miniShip.UseCenterAsOrigin = true;
+            miniShips.Add(miniShip);
+
+#if WINDOWS
+            //TODO: Minimap ship info showing up on Xbox
+            if (miniShip.Intersects(MouseManager.CurrentMouseState) && activeMiniShipDisplay == null)
+            {
+                activeMiniShipDisplay = ship;
+            }
+#endif
 
         }
 
@@ -527,18 +541,33 @@ namespace PGCGame.Screens
                 FighterCarrier ship = playerShip.Cast<FighterCarrier>();
             }
 
+            //TODO: Separate bullets into EnemyBullets and AllyBullets to reduce total loop iterations
             for (int i = 0; i < StateManager.LegitBullets.Count; i++)
             {
                 Bullet b = StateManager.LegitBullets[i];
                 b.Update();
-                foreach (Ship s in StateManager.ActiveShips)
+                
+                foreach (Ship s in StateManager.EnemyShips)
                 {
+                    //Once bullet list is separated, IsAllyWith call will be deprecated
                     if (!b.IsDead && s.ShipID != b.ParentShip.ShipID && !s.IsAllyWith(b.ParentShip.PlayerType) && b.Intersects(s.WCrectangle))
                     {
                         s.CurrentHealth -= b.Damage;
                         b.IsDead = true;
                     }
                 }
+
+                foreach (Ship s in StateManager.AllyShips)
+                {
+                    //Once bullet list is separated, IsAllyWith call will be deprecated
+                    if (!b.IsDead && s.ShipID != b.ParentShip.ShipID && !s.IsAllyWith(b.ParentShip.PlayerType) && b.Intersects(s.WCrectangle))
+                    {
+                        s.CurrentHealth -= b.Damage;
+                        b.IsDead = true;
+                    }
+                }
+
+
                 b.IsDead = b.IsDead || b.X <= 0 || b.X >= bg.TotalWidth || b.Y <= 0 || b.Y >= bg.TotalHeight;
                 if (b.IsDead)
                 {

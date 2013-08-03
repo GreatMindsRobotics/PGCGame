@@ -24,7 +24,6 @@ namespace PGCGame
 
         Sprite ship;
 
-        bool isfirstUpdate = true;
         public TransitionScreen(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.White)
         {
@@ -100,9 +99,6 @@ namespace PGCGame
                 }
 
             }
-            isfirstUpdate = false;
-
-
 
 
 

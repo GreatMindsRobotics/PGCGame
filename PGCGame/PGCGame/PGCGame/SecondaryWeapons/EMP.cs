@@ -64,10 +64,11 @@ namespace PGCGame
 
         public override void Update(GameTime currentGameTime)
         {
-            foreach (Ship ship in StateManager.ActiveShips)
+            foreach (Ship ship in StateManager.EnemyShips)
             {
-                if (ship != ParentShip && ship.PlayerType == PlayerType.Enemy && ship.Intersects(this))
+                if (ship.Intersects(this))
                 {
+                    //TODO: Consider storing BaseEnemyShip in StateManager.EnemyShips to avoid casting
                     ship.Cast<Ships.Enemies.BaseEnemyShip>().isEMPed = true;
                 }
             }

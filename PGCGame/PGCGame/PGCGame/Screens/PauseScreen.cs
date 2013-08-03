@@ -134,7 +134,8 @@ namespace PGCGame.Screens
         {
             StateManager.ScreenState = ScreenType.MainMenu;
             StateManager.Reset();
-            StateManager.ActiveShips.Clear();
+            StateManager.EnemyShips.Clear();
+            StateManager.AllyShips.Clear();
             StateManager.SelectedTier = ShipTier.NoShip;
         }
 

@@ -129,24 +129,21 @@ namespace PGCGame
         private bool isEnemyDetected()
         {
             //finds the closes ship 
-            foreach (Ship allyShip in StateManager.ActiveShips)
+            foreach (Ship enemyShip in StateManager.EnemyShips)
             {
-                if (allyShip.PlayerType == CoreTypes.PlayerType.Enemy)
+                if (!shipDistance.HasValue && !closestEnemyShipDistance.HasValue)
                 {
-                    if (!shipDistance.HasValue && !closestEnemyShipDistance.HasValue)
+                    shipDistance = enemyShip.WorldCoords - this.WorldCoords;
+                    closestEnemyShipDistance = shipDistance;
+                    closestEnemyShip = enemyShip;
+                }
+                else
+                {
+                    shipDistance = enemyShip.WorldCoords - this.WorldCoords;
+                    if (shipDistance.Value.LengthSquared() < closestEnemyShipDistance.Value.LengthSquared())
                     {
-                        shipDistance = allyShip.WorldCoords - this.WorldCoords;
                         closestEnemyShipDistance = shipDistance;
-                        closestEnemyShip = allyShip;
-                    }
-                    else
-                    {
-                        shipDistance = allyShip.WorldCoords - this.WorldCoords;
-                        if (shipDistance.Value.LengthSquared() < closestEnemyShipDistance.Value.LengthSquared())
-                        {
-                            closestEnemyShipDistance = shipDistance;
-                            closestEnemyShip = allyShip;
-                        }
+                        closestEnemyShip = enemyShip;
                     }
                 }
             }

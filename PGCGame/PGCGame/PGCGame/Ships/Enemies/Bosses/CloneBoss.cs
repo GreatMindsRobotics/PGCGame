@@ -51,11 +51,11 @@ namespace PGCGame
             regenClonesDelay += gt.ElapsedGameTime;
             if (regenClonesDelay >= regenClones)
             {
-                for (int i = 0; i < StateManager.ActiveShips.Count; i++)
+                for (int i = 0; i < StateManager.EnemyShips.Count; i++)
                 {
-                    if(StateManager.ActiveShips[i].ShipType == CoreTypes.ShipType.EnemyBossesClones)
+                    if(StateManager.EnemyShips[i].ShipType == CoreTypes.ShipType.EnemyBossesClones)
                     {
-                        StateManager.ActiveShips.RemoveAt(i);
+                        StateManager.EnemyShips.RemoveAt(i);
                     }
                 }
             }

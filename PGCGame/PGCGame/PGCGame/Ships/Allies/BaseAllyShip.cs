@@ -105,6 +105,8 @@ namespace PGCGame.Ships.Allies
         public BaseAllyShip(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
             : base(texture, location, spriteBatch)
         {
+            StateManager.AllyShips.Add(this);
+
             PlayerType = CoreTypes.PlayerType.Ally;
             shipState = ShipState.Alive;
         }

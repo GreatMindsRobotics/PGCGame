@@ -17,6 +17,7 @@ namespace PGCGame.Ships.Enemies
         public BaseEnemyShip(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
             : base(texture, location, spriteBatch)
         {
+            StateManager.EnemyShips.Add(this);
 
             PlayerType = CoreTypes.PlayerType.Enemy;
             UseCenterAsOrigin = true;

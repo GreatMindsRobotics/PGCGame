@@ -57,7 +57,8 @@ namespace PGCGame
         /// <summary>
         /// Keeps track of active ships in the game. This info can be used for mini-map, collision detection, etc
         /// </summary>
-        public static readonly List<Ship> ActiveShips = new List<Ship>();
+        public static readonly List<Ship> EnemyShips = new List<Ship>();
+        public static readonly List<Ship> AllyShips = new List<Ship>();
 
         /// <summary>
         /// Identifies the player in the network game
@@ -73,7 +74,7 @@ namespace PGCGame
             get { return _level; }
             set {
                 if (value != _level)
-                {        
+                {
                     _level = value;
                     if (levelCompleted != null)
                     {

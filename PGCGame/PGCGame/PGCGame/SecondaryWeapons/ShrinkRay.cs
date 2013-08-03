@@ -25,45 +25,50 @@ namespace PGCGame
 
         public override void Update(GameTime currentGameTime)
         {
-            foreach (Ship ship in StateManager.ActiveShips)
+            foreach (Ship ship in StateManager.EnemyShips)
             {
-                foreach (Bullet b in ShrinkRayBullets)
-                {
-                    b.Color = Color.Purple;
-                    b.DoSpeedPlus();
-                    b.MaximumDistance = new Vector2(875);
-                    if (b.MaximumDistance.HasValue)
-                    {
-                        if (b.TraveledDistance.LengthSquared() >= b.MaximumDistance.Value.LengthSquared())
-                        {
-                            b.IsDead = true;
-                            FireKilledEvent();
-                        }
-                    }
-                    if (!b.IsDead && b.Intersects(ship))
-                    {
-                        if (ship.ShrinkCount < MaxShrinks)
-                        {
-                            ship.Scale *= .66f;
-                            ship.ShrinkCount++;
-                        }
-                        if (ship.CurrentHealth > 1)
-                        {
-                            ship.CurrentHealth = (ship.CurrentHealth * .66f).Round();
-                        }
-                        else
-                        {
-                            //Ship is at 1 health - MURDER IT!!!!
-                            ship.Kill(true);
-                        }
-                        b.IsDead = true;
-                        FireKilledEvent();
-                    }
-                }
+                processShrinkBullets(ship);
             }
             if (ShotBullet && !ShouldDraw)
             {
                 ShouldDraw = true;
+            }
+        }
+
+        private void processShrinkBullets(Ship ship)
+        {
+            foreach (Bullet b in ShrinkRayBullets)
+            {
+                b.Color = Color.Purple;
+                b.DoSpeedPlus();
+                b.MaximumDistance = new Vector2(875);
+                if (b.MaximumDistance.HasValue)
+                {
+                    if (b.TraveledDistance.LengthSquared() >= b.MaximumDistance.Value.LengthSquared())
+                    {
+                        b.IsDead = true;
+                        FireKilledEvent();
+                    }
+                }
+                if (!b.IsDead && b.Intersects(ship))
+                {
+                    if (ship.ShrinkCount < MaxShrinks)
+                    {
+                        ship.Scale *= .66f;
+                        ship.ShrinkCount++;
+                    }
+                    if (ship.CurrentHealth > 1)
+                    {
+                        ship.CurrentHealth = (ship.CurrentHealth * .66f).Round();
+                    }
+                    else
+                    {
+                        //Ship is at 1 health - MURDER IT!!!!
+                        ship.Kill(true);
+                    }
+                    b.IsDead = true;
+                    FireKilledEvent();
+                }
             }
         }
     }

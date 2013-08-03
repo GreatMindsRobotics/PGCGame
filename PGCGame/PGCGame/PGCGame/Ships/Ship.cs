@@ -38,7 +38,6 @@ namespace PGCGame
         public Ship(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
             : base(texture, location, spriteBatch)
         {
-            StateManager.ActiveShips.Add(this);
             _healthBar = new ProgressBar(new Vector2(X, Y), Color.DarkGreen, Color.Red, spriteBatch);
             _healthBar.WidthScale = 1;
             _healthBar.HeightScale = 10;
@@ -265,7 +264,15 @@ namespace PGCGame
                 if (CurrentHealth <= 0)
                 {
                     shipState = ShipState.Dead;
-                    StateManager.ActiveShips.Remove(this);
+
+                    if (PlayerType == CoreTypes.PlayerType.Enemy || PlayerType == CoreTypes.PlayerType.Solo)
+                    {
+                        StateManager.EnemyShips.Remove(this);
+                    }
+                    else
+                    {
+                        StateManager.AllyShips.Remove(this);    
+                    }                    
                 }
 
                 _healthBar.Denominator = InitialHealth;
@@ -307,7 +314,15 @@ namespace PGCGame
                     if (_explosionSheet.IsComplete)
                     {
                         shipState = ShipState.Dead;
-                        StateManager.ActiveShips.Remove(this);
+
+                        if (PlayerType == CoreTypes.PlayerType.Enemy || PlayerType == CoreTypes.PlayerType.Solo)
+                        {
+                            StateManager.EnemyShips.Remove(this);
+                        }
+                        else
+                        {
+                            StateManager.AllyShips.Remove(this);
+                        }                        
                     }
                     return;
                 }

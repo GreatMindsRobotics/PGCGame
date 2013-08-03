@@ -88,23 +88,15 @@ namespace PGCGame
                 case CoreTypes.SpaceMineState.Armed:
                     //Mine is armed; Wait for enemy
                     Rotation.Radians += .2f;
-                    foreach (Ship ship in StateManager.ActiveShips)
+                    foreach (Ship ship in StateManager.EnemyShips)
                     {
-                        if (ship is Drone)
-                        {
-                            if (ship.Cast<Drone>().DroneState == DroneState.Stowed || ship.Cast<Drone>().DroneState == DroneState.RIP)
-                            {
-                                continue;
-                            }
-                        }
+                        checkIfShipHitMine(ship);
+                    }
 
-
-
-                        if (Intersects(ship.WCrectangle))
-                        {
-                            ship.CurrentHealth -= this.Damage;
-                            SpaceMineState = CoreTypes.SpaceMineState.RIP;
-                        }
+                    //Ally and player ships can also be hurt by the mine
+                    foreach (Ship ship in StateManager.AllyShips)
+                    {
+                        checkIfShipHitMine(ship);
                     }
 
                     break;
@@ -117,6 +109,23 @@ namespace PGCGame
             }
 
             base.Update();
+        }
+
+        private void checkIfShipHitMine(Ship ship)
+        {
+            if (ship is Drone)
+            {
+                if (ship.Cast<Drone>().DroneState == DroneState.Stowed || ship.Cast<Drone>().DroneState == DroneState.RIP)
+                {
+                    return;
+                }
+            }
+
+            if (Intersects(ship.WCrectangle))
+            {
+                ship.CurrentHealth -= this.Damage;
+                SpaceMineState = CoreTypes.SpaceMineState.RIP;
+            }
         }
     }
 }
