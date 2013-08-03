@@ -24,6 +24,7 @@ namespace PGCGame.Screens
             //TODO: BACKGROUND
         }
         public static event EventHandler levelBegin;
+        public static event EventHandler selectedTierSelect;
         Sprite upgradeEquipmentButton;
         TextSprite upgradeEquipmentLabel;
 
@@ -129,7 +130,9 @@ namespace PGCGame.Screens
             {
                 return;
             }
+            selectedTierSelect(null, null);
             StateManager.ScreenState = ScreenType.TierSelect;
+            
         }
 
         void upgradeEquipmentLabel_Pressed(object sender, EventArgs e)

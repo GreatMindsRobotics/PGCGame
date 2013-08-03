@@ -39,10 +39,12 @@ namespace PGCGame.Screens.SelectScreens
         //This screen needs sprites for each tier of ship and descriptions for each tier.
         List<ShipInfo> upgradeShips;
         ShipInfo fighterCarrier = new ShipInfo();
-
+        ShipInfo torpedoShip;
+        ShipInfo battleCruiser;
         public override void InitScreen(ScreenType screenType)
         {
             upgradeShips = new List<ShipInfo>();
+            Shop.selectedTierSelect +=new EventHandler(Shop_selectedTierSelect);
 
             if (!_firstTimeInit)
             {
@@ -63,7 +65,7 @@ namespace PGCGame.Screens.SelectScreens
 
 
             //Configure Battle Cruiser
-            ShipInfo battleCruiser = new ShipInfo();
+            battleCruiser = new ShipInfo();
             battleCruiser.Image = new Sprite(GameContent.GameAssets.Images.Ships[ShipType.BattleCruiser, upgradeTier], Vector2.Zero, Sprites.SpriteBatch);
             battleCruiser.Image.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.81f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .12f);
             battleCruiser.Image.Rotation = new SpriteRotation(90);
@@ -103,7 +105,7 @@ namespace PGCGame.Screens.SelectScreens
 
 
             //Configure Torpedo Ship
-            ShipInfo torpedoShip = new ShipInfo();
+            torpedoShip = new ShipInfo();
             torpedoShip.Image = new Sprite(GameContent.GameAssets.Images.Ships[ShipType.TorpedoShip, upgradeTier], Vector2.Zero, Sprites.SpriteBatch);
             torpedoShip.Image.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.81f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .12f);
             torpedoShip.Image.Rotation = new SpriteRotation(90);
@@ -135,6 +137,11 @@ namespace PGCGame.Screens.SelectScreens
             nameLabel.X -= 40;
         }
 
+        void Shop_selectedTierSelect(object sender, EventArgs e)
+        {
+            
+        }
+
         void TierSelect_nextButtonClicked(object sender, EventArgs e)
         {
             bool bought = false;
@@ -155,11 +162,83 @@ namespace PGCGame.Screens.SelectScreens
 
                         //Save purchased ship info
                         StateManager.SelectedShip = shipInfo.Type;
+                        
                         StateManager.SelectedTier = shipInfo.Tier;
 
                         bought = true;
                     }
+
+                    
+
                 }
+            }
+             
+            if (bought)
+            {
+                            //setting up next tiers based on the ship purchased.
+            switch (StateManager.SelectedShip)
+            {
+                case ShipType.BattleCruiser:
+                    {
+                        if (battleCruiser.Tier < ShipTier.Tier4)
+                        {
+                            battleCruiser.Tier++;
+                            StateManager.SelectedShip = battleCruiser.Type;
+                            StateManager.SelectedTier = battleCruiser.Tier;
+                        }
+
+                        if (battleCruiser.Tier > fighterCarrier.Tier + 1)
+                        {
+                            fighterCarrier.Tier = battleCruiser.Tier - 1;
+                        }
+                        if (battleCruiser.Tier > torpedoShip.Tier + 1)
+                        {
+                            torpedoShip.Tier = battleCruiser.Tier - 1;
+                        }
+
+                        break;
+                    }
+                case ShipType.FighterCarrier:
+                    {
+                        if (fighterCarrier.Tier < ShipTier.Tier4)
+                        {
+                            fighterCarrier.Tier++;
+                            StateManager.SelectedShip = fighterCarrier.Type;
+                            StateManager.SelectedTier = fighterCarrier.Tier;
+                        }
+                        if (fighterCarrier.Tier > torpedoShip.Tier + 1)
+                        {
+                            torpedoShip.Tier = fighterCarrier.Tier - 1;
+                        }
+                        if (fighterCarrier.Tier > battleCruiser.Tier + 1)
+                        {
+                            battleCruiser.Tier = fighterCarrier.Tier - 1;
+                        }
+                        break;
+                    }
+                case ShipType.TorpedoShip:
+                    {
+                        if (torpedoShip.Tier < ShipTier.Tier4)
+                        {
+                            torpedoShip.Tier++;
+                            StateManager.SelectedShip = torpedoShip.Type;
+                            StateManager.SelectedTier = torpedoShip.Tier;
+                        }
+                        if (torpedoShip.Tier > fighterCarrier.Tier + 1)
+                        {
+                            fighterCarrier.Tier = torpedoShip.Tier - 1;
+                        }
+                        if (torpedoShip.Tier > battleCruiser.Tier + 1)
+                        {
+                            battleCruiser.Tier = torpedoShip.Tier - 1;
+                        }
+                        break;
+                    }
+            }
+
+            battleCruiser.Image.Texture = GameContent.GameAssets.Images.Ships[battleCruiser.Type, battleCruiser.Tier];
+            fighterCarrier.Image.Texture = GameContent.GameAssets.Images.Ships[fighterCarrier.Type, fighterCarrier.Tier];
+            torpedoShip.Image.Texture = GameContent.GameAssets.Images.Ships[torpedoShip.Type, torpedoShip.Tier];
             }
         }
 
