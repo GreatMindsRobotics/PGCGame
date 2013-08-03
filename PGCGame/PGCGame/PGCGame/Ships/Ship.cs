@@ -111,7 +111,7 @@ namespace PGCGame
         {
             get
             {
-                return new Rectangle(WorldCoords.X.ToInt(), WorldCoords.Y.ToInt(), Width.ToInt(), Height.ToInt());
+                return new Rectangle((WorldCoords.X - Origin.X * Scale.X).ToInt(), (WorldCoords.Y - Origin.Y * Scale.Y).ToInt(), Width.ToInt(), Height.ToInt());
             }
         }
 
