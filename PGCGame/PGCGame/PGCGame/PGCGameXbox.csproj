@@ -73,6 +73,7 @@
     <Compile Include="CoreTypes\Delegates.cs" />
     <Compile Include="CoreTypes\Enum.cs" />
     <Compile Include="CoreTypes\Extensions.cs" />
+    <Compile Include="CoreTypes\ShipCollection.cs" />
     <Compile Include="CoreTypes\ViewportEventArgs.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Screens\ControlScreen.cs" />

@@ -57,8 +57,8 @@ namespace PGCGame
         /// <summary>
         /// Keeps track of active ships in the game. This info can be used for mini-map, collision detection, etc
         /// </summary>
-        public static readonly List<Ship> EnemyShips = new List<Ship>();
-        public static readonly List<Ship> AllyShips = new List<Ship>();
+        public static readonly ShipCollection EnemyShips = new ShipCollection();
+        public static readonly ShipCollection AllyShips = new ShipCollection();
 
         /// <summary>
         /// Identifies the player in the network game
