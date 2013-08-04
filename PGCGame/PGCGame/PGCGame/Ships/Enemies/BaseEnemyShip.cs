@@ -1,4 +1,4 @@
-﻿ using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -74,48 +74,56 @@ namespace PGCGame.Ships.Enemies
                 Vector2? closestAllyShipDistance = null;
 
                 //finds the closest ship 
-                /*
                 float bulletDistanceX;
                 float bulletDistanceY;
                 float? bulletDistance = null;
                 Vector2? shipDistance = null;
 
-                foreach (Ship allyShip in StateManager.ActiveShips)
+                foreach (Bullet b in StateManager.LegitBullets)
                 {
-                    if (allyShip.PlayerType != CoreTypes.PlayerType.Enemy)
+                    bulletDistanceX = Math.Abs(b.X - this.X);
+                    bulletDistanceY = Math.Abs(b.Y - this.Y);
+                    bulletDistance = bulletDistanceX + bulletDistanceY;
+                    if (Math.Pow(bulletDistance.Value, 2) < Math.Pow(600, 2))
                     {
-                        foreach (Bullet b in allyShip.FlyingBullets)
-                        {
-                            bulletDistanceX = Math.Abs(b.X - this.X);
-                            bulletDistanceY = Math.Abs(b.Y - this.Y);
-                            bulletDistance = bulletDistanceX + bulletDistanceY;
-                            if (Math.Pow(bulletDistance.Value, 2) < Math.Pow(600, 2))
-                            {
-                                activated = true;
-                            }
+                        activated = true;
+                    }
+                }
 
-                        }
-                        if (!shipDistance.HasValue && !closestAllyShipDistance.HasValue)
-                        {
-                            shipDistance = allyShip.WorldCoords - this.WorldCoords;
-                            closestAllyShipDistance = shipDistance;
-                            closestAllyShip = allyShip;
-                        }
-                        else
-                        {
-                            shipDistance = allyShip.WorldCoords - this.WorldCoords;
-                            if (shipDistance.Value.LengthSquared() < closestAllyShipDistance.Value.LengthSquared() && allyShip.CurrentHealth > 0)
-                            {
-                                closestAllyShip = allyShip;
-                            }
-                        }
-                        if (closestAllyShipDistance.Value.LengthSquared() < Math.Pow(600, 2) && closestAllyShip.CurrentHealth > 0)
+                foreach (Ship allyShip in StateManager.AllyShips)
+                {
+                    /*
+                    foreach (Bullet b in allyShip.FlyingBullets)
+                    {
+                        bulletDistanceX = Math.Abs(b.X - this.X);
+                        bulletDistanceY = Math.Abs(b.Y - this.Y);
+                        bulletDistance = bulletDistanceX + bulletDistanceY;
+                        if (Math.Pow(bulletDistance.Value, 2) < Math.Pow(600, 2))
                         {
                             activated = true;
                         }
+
+                    }
+                    */
+                    if (!shipDistance.HasValue && !closestAllyShipDistance.HasValue)
+                    {
+                        shipDistance = allyShip.WorldCoords - this.WorldCoords;
+                        closestAllyShipDistance = shipDistance;
+                        closestAllyShip = allyShip;
+                    }
+                    else
+                    {
+                        shipDistance = allyShip.WorldCoords - this.WorldCoords;
+                        if (shipDistance.Value.LengthSquared() < closestAllyShipDistance.Value.LengthSquared() && allyShip.CurrentHealth > 0)
+                        {
+                            closestAllyShip = allyShip;
+                        }
+                    }
+                    if (closestAllyShipDistance.Value.LengthSquared() < Math.Pow(600, 2) && closestAllyShip.CurrentHealth > 0)
+                    {
+                        activated = true;
                     }
                 }
-                */
 
 
                 if (closestAllyShipDistance.HasValue && closestAllyShip != null && activated)
@@ -145,7 +153,7 @@ namespace PGCGame.Ships.Enemies
                     {
                         //Rotation.Vector.Normalize();
                         //Rotation.Vector *= .1f;
-                        if ((this.Position + MovementSpeed * Rotation.Vector).X > StateManager.WorldSize.Width || 
+                        if ((this.Position + MovementSpeed * Rotation.Vector).X > StateManager.WorldSize.Width ||
                             (this.Position + MovementSpeed * Rotation.Vector).X < 0 ||
                             (this.Position + MovementSpeed * Rotation.Vector).Y > StateManager.WorldSize.Height ||
                             (this.Position + MovementSpeed * Rotation.Vector).Y < 0)
