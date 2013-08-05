@@ -66,7 +66,7 @@ namespace PGCGame
         {
             foreach (Ship ship in StateManager.EnemyShips)
             {
-                if (ship.Intersects(this))
+                if (ship.Intersects(this) && ship.ShipType != ShipType.EnemyBoss && ship.ShipType != ShipType.EnemyBossesClones)
                 {
                     //TODO: Consider storing BaseEnemyShip in StateManager.EnemyShips to avoid casting
                     ship.Cast<Ships.Enemies.BaseEnemyShip>().isEMPed = true;

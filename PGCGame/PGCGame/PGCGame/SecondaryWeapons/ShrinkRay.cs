@@ -27,7 +27,10 @@ namespace PGCGame
         {
             foreach (Ship ship in StateManager.EnemyShips)
             {
-                processShrinkBullets(ship);
+                if (ship.ShipType != CoreTypes.ShipType.EnemyBoss && ship.ShipType != CoreTypes.ShipType.EnemyBoss)
+                {
+                    processShrinkBullets(ship);
+                }
             }
             if (ShotBullet && !ShouldDraw)
             {

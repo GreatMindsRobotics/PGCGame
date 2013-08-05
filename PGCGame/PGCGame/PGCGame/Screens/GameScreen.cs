@@ -174,10 +174,13 @@ namespace PGCGame.Screens
             Vector2 minSpawnArea = _playableAreaOffset;
             Vector2 maxSpawnArea = new Vector2(bgspr.TotalWidth, bgspr.TotalHeight) - _playableAreaOffset;
 
+            CloneBoss enemyBoss;
+
+            /*
             for (int i = 0; i < 4 * StateManager.CurrentLevel.ToInt(); i++)
             {
                 Texture2D enemyTexture = GameContent.GameAssets.Images.Ships[ShipType.Drone, StateManager.RandomGenerator.NextShipTier(ShipTier.Tier1, ShipTier.Tier2)];
-                EnemyBattleCruiser enemy = new EnemyBattleCruiser(GameContent.GameAssets.Images.Ships[ShipType.EnemyBattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
+                CloneBoss enemy = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyBattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
 
                 enemy.WorldCoords = StateManager.RandomGenerator.NextVector2(minSpawnArea, maxSpawnArea);
 
@@ -188,6 +191,21 @@ namespace PGCGame.Screens
                 Sprites.Add(enemy);
                 enemies.Add(enemy);
             }
+            */
+            if (StateManager.CurrentLevel.ToInt() == 1)
+            {
+                enemyBoss = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyBattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
+
+                enemyBoss.WorldCoords = StateManager.RandomGenerator.NextVector2(minSpawnArea, maxSpawnArea);
+
+                enemyBoss.DistanceToNose = .5f;
+
+                enemyBoss.Tier = ShipTier.Tier1;
+
+                Sprites.Add(enemyBoss);
+                enemies.Add(enemyBoss);
+            }
+
 
 
 
