@@ -164,6 +164,7 @@ namespace PGCGame.Screens.SelectScreens
                         StateManager.SelectedShip = shipInfo.Type;
                         
                         StateManager.SelectedTier = shipInfo.Tier;
+                        
 
                         bought = true;
                     }
@@ -180,11 +181,11 @@ namespace PGCGame.Screens.SelectScreens
             {
                 case ShipType.BattleCruiser:
                     {
+                        StateManager.SelectedShip = battleCruiser.Type;
+                        StateManager.SelectedTier = battleCruiser.Tier;
                         if (battleCruiser.Tier < ShipTier.Tier4)
                         {
                             battleCruiser.Tier++;
-                            StateManager.SelectedShip = battleCruiser.Type;
-                            StateManager.SelectedTier = battleCruiser.Tier;
                         }
 
                         if (battleCruiser.Tier > fighterCarrier.Tier + 1)
@@ -200,11 +201,11 @@ namespace PGCGame.Screens.SelectScreens
                     }
                 case ShipType.FighterCarrier:
                     {
+                        StateManager.SelectedShip = fighterCarrier.Type;
+                        StateManager.SelectedTier = fighterCarrier.Tier;
                         if (fighterCarrier.Tier < ShipTier.Tier4)
                         {
                             fighterCarrier.Tier++;
-                            StateManager.SelectedShip = fighterCarrier.Type;
-                            StateManager.SelectedTier = fighterCarrier.Tier;
                         }
                         if (fighterCarrier.Tier > torpedoShip.Tier + 1)
                         {
@@ -218,11 +219,11 @@ namespace PGCGame.Screens.SelectScreens
                     }
                 case ShipType.TorpedoShip:
                     {
+                        StateManager.SelectedShip = torpedoShip.Type;
+                        StateManager.SelectedTier = torpedoShip.Tier;
                         if (torpedoShip.Tier < ShipTier.Tier4)
                         {
                             torpedoShip.Tier++;
-                            StateManager.SelectedShip = torpedoShip.Type;
-                            StateManager.SelectedTier = torpedoShip.Tier;
                         }
                         if (torpedoShip.Tier > fighterCarrier.Tier + 1)
                         {
