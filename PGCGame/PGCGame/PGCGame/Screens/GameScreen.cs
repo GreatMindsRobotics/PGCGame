@@ -174,27 +174,10 @@ namespace PGCGame.Screens
             Vector2 minSpawnArea = _playableAreaOffset;
             Vector2 maxSpawnArea = new Vector2(bgspr.TotalWidth, bgspr.TotalHeight) - _playableAreaOffset;
 
-            CloneBoss enemyBoss;
 
-            /*
-            for (int i = 0; i < 4 * StateManager.CurrentLevel.ToInt(); i++)
+            if (StateManager.CurrentLevel.ToInt() == 4)
             {
-                Texture2D enemyTexture = GameContent.GameAssets.Images.Ships[ShipType.Drone, StateManager.RandomGenerator.NextShipTier(ShipTier.Tier1, ShipTier.Tier2)];
-                CloneBoss enemy = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyBattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
-
-                enemy.WorldCoords = StateManager.RandomGenerator.NextVector2(minSpawnArea, maxSpawnArea);
-
-                enemy.DistanceToNose = .5f;
-
-                enemy.Tier = ShipTier.Tier1;
-
-                Sprites.Add(enemy);
-                enemies.Add(enemy);
-            }
-            */
-            if (StateManager.CurrentLevel.ToInt() == 1)
-            {
-                enemyBoss = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyBattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
+                CloneBoss enemyBoss = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyBattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
 
                 enemyBoss.WorldCoords = StateManager.RandomGenerator.NextVector2(minSpawnArea, maxSpawnArea);
 
@@ -205,6 +188,24 @@ namespace PGCGame.Screens
                 Sprites.Add(enemyBoss);
                 enemies.Add(enemyBoss);
             }
+            else
+            {
+                for (int i = 0; i < 4 * StateManager.CurrentLevel.ToInt(); i++)
+                {
+                    Texture2D enemyTexture = GameContent.GameAssets.Images.Ships[ShipType.Drone, StateManager.RandomGenerator.NextShipTier(ShipTier.Tier1, ShipTier.Tier2)];
+                    EnemyBattleCruiser enemy = new EnemyBattleCruiser(GameContent.GameAssets.Images.Ships[ShipType.EnemyBattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
+
+                    enemy.WorldCoords = StateManager.RandomGenerator.NextVector2(minSpawnArea, maxSpawnArea);
+
+                    enemy.DistanceToNose = .5f;
+
+                    enemy.Tier = ShipTier.Tier1;
+
+                    Sprites.Add(enemy);
+                    enemies.Add(enemy);
+                }
+            }
+
 
 
 
@@ -289,8 +290,8 @@ namespace PGCGame.Screens
             }
             miniShips.Clear();
 
-            Ship activeMiniShipDisplay = null;          
-            
+            Ship activeMiniShipDisplay = null;
+
             foreach (Ship ship in StateManager.AllyShips)
             {
                 addShipToMinimap(ship, activeMiniShipDisplay);
@@ -564,7 +565,7 @@ namespace PGCGame.Screens
             {
                 Bullet b = StateManager.LegitBullets[i];
                 b.Update();
-                
+
                 foreach (Ship s in StateManager.EnemyShips)
                 {
                     //Once bullet list is separated, IsAllyWith call will be deprecated
@@ -708,16 +709,16 @@ namespace PGCGame.Screens
                         camMove.X = bg.Width / 2 - worldCam.Pos.X;
                     }
                 }
-        
 
-            if (_lastState.IsKeyUp(Keys.F11) && keyboard.IsKeyDown(Keys.F11))
-            {
-                StateManager.Options.ToggleFullscreen();
+
+                if (_lastState.IsKeyUp(Keys.F11) && keyboard.IsKeyDown(Keys.F11))
+                {
+                    StateManager.Options.ToggleFullscreen();
+                }
+
+                worldCam.Move(camMove);
+                playerShip.WorldCoords = worldCam.Pos;
             }
-
-            worldCam.Move(camMove);
-            playerShip.WorldCoords = worldCam.Pos;
-    }
             foreach (ISprite s in playerSbObjects)
             {
                 if (s != miniMap)
@@ -790,4 +791,4 @@ namespace PGCGame.Screens
          */
 
     }
-    }
+}
