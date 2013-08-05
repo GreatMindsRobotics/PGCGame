@@ -17,7 +17,7 @@ using PGCGame.Screens;
 using Glib.XNA.InputLib;
 #endif
 
-namespace PGCGame
+namespace PGCGame 
 {
     public class TransitionScreen : BaseScreen
     {
@@ -49,7 +49,6 @@ namespace PGCGame
 
         void Shop_levelBegin(object sender, EventArgs e)
         {
-            //WILL BREAK UNTIL PLANETTEXTURE IS SET
             Sprites.Clear();
 
             ship = new Sprite(GameContent.GameAssets.Images.Ships[StateManager.SelectedShip, StateManager.SelectedTier], Vector2.Zero, Sprites.SpriteBatch);

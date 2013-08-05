@@ -7,6 +7,7 @@ namespace PGCGame.CoreTypes
 {
     public enum ScreenType
     {   
+
         LevelCompleteScreen,
         Title,
         MainMenu,
@@ -22,7 +23,7 @@ namespace PGCGame.CoreTypes
         ControlScreen,
         NetworkSelectScreen,
         GameOver,
-        TransitionScreen
+        TransitionScreen,
     }
 
     public enum ScreenBackgrounds

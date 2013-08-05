@@ -15,7 +15,7 @@ namespace PGCGame.Screens
         public GameOver(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
         {
-            //TODO: BACKGROUND
+
         }
 
         TextSprite mainMenuLabel;
