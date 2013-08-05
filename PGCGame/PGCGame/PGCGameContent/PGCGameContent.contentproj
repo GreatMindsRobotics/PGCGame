@@ -190,6 +190,8 @@
     <Folder Include="Images\Ships\Allies\FighterCarrier\Bullets\" />
     <Folder Include="Images\Ships\Allies\FighterCarrier\Drones\Bullets\" />
     <Folder Include="Images\Ships\Allies\TorpedoShip\Bullets\" />
+    <Folder Include="SFX\Ships\FighterCarrier\" />
+    <Folder Include="SFX\Ships\TorpedoShip\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Images\Equipment\Scanner\Scanner.png">
@@ -382,6 +384,50 @@
       <Name>explosion2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SFX\SecondaryWeapons\SpaceMine\countdown.wav">
+      <Name>countdown</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="SFX\SecondaryWeapons\SpaceMine\explosionSpaceMine.wav">
+      <Name>explosionSpaceMine</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SFX\SecondaryWeapons\Emp\24297__noisecollector__004aciddeathray.wav">
+      <Name>24297__noisecollector__004aciddeathray</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="SFX\SecondaryWeapons\Emp\EMPSound.mp3">
+      <Name>EMPSound</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
+    <Compile Include="SFX\Ships\BattleCruiser\BattleCruiserBulletSFX.wav">
+      <Name>BattleCruiserBulletSFX</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="SFX\SecondaryWeapons\ShrinkRay\ShrinkRayBullet.wav">
+      <Name>ShrinkRayBullet</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="SFX\SpaceDoor\SpaceShipLeaving.wav">
+      <Name>SpaceShipLeaving</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="SFX\SpaceDoor\GarageDoorOpening.wav">
+      <Name>GarageDoorOpening</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
