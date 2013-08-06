@@ -277,10 +277,12 @@ namespace PGCGame
 
                     if (PlayerType == CoreTypes.PlayerType.Enemy || PlayerType == CoreTypes.PlayerType.Solo)
                     {
-                        StateManager.EnemyShips.Remove(this);
+                        //Done in DrawNonAuto() ?!?!?!?
+                        //StateManager.EnemyShips.Remove(this);
                     }
                     else
                     {
+                        //This code isn't called consistently
                         if (PlayerType == CoreTypes.PlayerType.MyShip)
                         {
                             StateManager.AllyBullets.Legit.Clear();
@@ -288,8 +290,9 @@ namespace PGCGame
                             StateManager.EnemyBullets.Legit.Clear();
                             StateManager.EnemyBullets.Dud.Clear();
                         }
-                        StateManager.AllyShips.Remove(this);    
-                    }                    
+                        //Done in DrawNonAuto() ?!?!?!?
+                        //StateManager.AllyShips.Remove(this);    
+                    }
                 }
 
                 _healthBar.Denominator = InitialHealth;
@@ -325,7 +328,7 @@ namespace PGCGame
                 else if (shipState == ShipState.Exploding)
                 {
                     _explosionSheet.Update();
-                    Dead(null, null);
+                    Dead(this, EventArgs.Empty);
                     _explosionSheet.Position = this.Position;
                     _explosionSheet.DrawNonAuto();
                     if (_explosionSheet.IsComplete)
