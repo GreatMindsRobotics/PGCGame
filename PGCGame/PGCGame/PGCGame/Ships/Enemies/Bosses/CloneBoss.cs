@@ -63,7 +63,7 @@ namespace PGCGame
             bullet.Damage = DamagePerShot;
             bullet.Color = Color.Red;
 
-            StateManager.LegitBullets.Add(bullet);
+            StateManager.EnemyBullets.Legit.Add(bullet);
         }
 
         public override void Update(GameTime gt)

@@ -9,12 +9,26 @@ namespace PGCGame.CoreTypes
     {
         public void ClearAllies()
         {
-            RemoveAll(s => s.PlayerType == PlayerType.Ally || s.PlayerType == PlayerType.MyShip);
+            for (int i = 0; i < Count; i++)
+            {
+                if (this[i].PlayerType == PlayerType.Ally || this[i].PlayerType == PlayerType.MyShip)
+                {
+                    RemoveAt(i);
+                    i--;
+                }
+            }
         }
 
         public void ClearEnemies()
         {
-            RemoveAll(s => s.PlayerType == PlayerType.Enemy);
+            for (int i = 0; i < Count; i++)
+            {
+                if (this[i].PlayerType == PlayerType.Enemy)
+                {
+                    RemoveAt(i);
+                    i--;
+                }
+            }
         }
 
         public Ship this[Guid shipId]

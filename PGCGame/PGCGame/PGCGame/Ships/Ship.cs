@@ -242,7 +242,8 @@ namespace PGCGame
             bullet.Damage = DamagePerShot;
 
 
-            StateManager.LegitBullets.Add(bullet);
+            //BaseEnemyShip overrides this
+            StateManager.AllyBullets.Legit.Add(bullet);
         }
 
 

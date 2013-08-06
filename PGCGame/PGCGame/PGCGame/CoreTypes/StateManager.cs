@@ -29,8 +29,8 @@ namespace PGCGame
 
         #region Public Fields
 
-        public static List<Bullet> LegitBullets = new List<Bullet>();
-        public static List<Bullet> DudBullets = new List<Bullet>();
+        public static BulletCollection EnemyBullets = new BulletCollection();
+        public static BulletCollection AllyBullets = new BulletCollection();
 
         public static bool IsWSFirstUpdate = true;
 

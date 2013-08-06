@@ -122,7 +122,7 @@ namespace PGCGame
                 bullet.UseCenterAsOrigin = true;
                 //bullet.Rotation = Rotation;
                 bullet.Damage = DamagePerShot;
-                StateManager.LegitBullets.Add(bullet);
+                StateManager.AllyBullets.Legit.Add(bullet);
             }
         }
 

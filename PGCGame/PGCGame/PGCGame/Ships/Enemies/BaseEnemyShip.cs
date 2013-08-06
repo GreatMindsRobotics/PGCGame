@@ -35,7 +35,7 @@ namespace PGCGame.Ships.Enemies
             bullet.Damage = DamagePerShot;
             bullet.Color = Color.Red;
 
-            StateManager.LegitBullets.Add(bullet);
+            StateManager.EnemyBullets.Legit.Add(bullet);
         }
 
         Boolean activated = false;
@@ -79,7 +79,7 @@ namespace PGCGame.Ships.Enemies
                 float? bulletDistance = null;
                 Vector2? shipDistance = null;
 
-                foreach (Bullet b in StateManager.LegitBullets)
+                foreach (Bullet b in StateManager.AllyBullets.Legit)
                 {
                     bulletDistanceX = Math.Abs(b.X - this.X);
                     bulletDistanceY = Math.Abs(b.Y - this.Y);

@@ -385,14 +385,8 @@ namespace PGCGame.Screens
             }
             */
 
-            foreach (Bullet b in StateManager.LegitBullets)
-            {
-                Sprites.SpriteBatch.Draw(b);
-            }
-            foreach (Bullet b in StateManager.DudBullets)
-            {
-                Sprites.SpriteBatch.Draw(b);
-            }
+            StateManager.AllyBullets.DrawAll(Sprites.SpriteBatch);
+            StateManager.EnemyBullets.DrawAll(Sprites.SpriteBatch);
 
             foreach (SecondaryWeapon activeWeapon in playerShip.ActiveSecondaryWeapons)
             {
@@ -560,51 +554,73 @@ namespace PGCGame.Screens
                 FighterCarrier ship = playerShip.Cast<FighterCarrier>();
             }
 
-            //TODO: Separate bullets into EnemyBullets and AllyBullets to reduce total loop iterations
-            for (int i = 0; i < StateManager.LegitBullets.Count; i++)
+            for (int i = 0; i < StateManager.AllyBullets.Legit.Count; i++)
             {
-                Bullet b = StateManager.LegitBullets[i];
+                Bullet b = StateManager.AllyBullets.Legit[i];
                 b.Update();
 
                 foreach (Ship s in StateManager.EnemyShips)
                 {
                     //Once bullet list is separated, IsAllyWith call will be deprecated
-                    if (!b.IsDead && s.ShipID != b.ParentShip.ShipID && !s.IsAllyWith(b.ParentShip.PlayerType) && b.Intersects(s.WCrectangle))
+                    if (!b.IsDead && b.Intersects(s.WCrectangle))
                     {
                         s.CurrentHealth -= b.Damage;
                         b.IsDead = true;
                     }
                 }
+
+                b.IsDead = b.IsDead || b.X <= 0 || b.X >= bg.TotalWidth || b.Y <= 0 || b.Y >= bg.TotalHeight;
+                if (b.IsDead)
+                {
+                    StateManager.AllyBullets.Legit.RemoveAt(i);
+                    i--;
+                }
+            }
+
+            for (int i = 0; i < StateManager.EnemyBullets.Legit.Count; i++)
+            {
+                Bullet b = StateManager.EnemyBullets.Legit[i];
+                b.Update();
 
                 foreach (Ship s in StateManager.AllyShips)
                 {
                     //Once bullet list is separated, IsAllyWith call will be deprecated
-                    if (!b.IsDead && s.ShipID != b.ParentShip.ShipID && !s.IsAllyWith(b.ParentShip.PlayerType) && b.Intersects(s.WCrectangle))
+                    if (!b.IsDead && b.Intersects(s.WCrectangle))
                     {
                         s.CurrentHealth -= b.Damage;
                         b.IsDead = true;
                     }
                 }
 
-
                 b.IsDead = b.IsDead || b.X <= 0 || b.X >= bg.TotalWidth || b.Y <= 0 || b.Y >= bg.TotalHeight;
                 if (b.IsDead)
                 {
-                    StateManager.LegitBullets.RemoveAt(i);
+                    StateManager.EnemyBullets.Legit.RemoveAt(i);
                     i--;
                 }
-
             }
 
 
-            for (int i = 0; i < StateManager.DudBullets.Count; i++)
+            for (int i = 0; i < StateManager.AllyBullets.Dud.Count; i++)
             {
-                Bullet b = StateManager.DudBullets[i];
+                Bullet b = StateManager.AllyBullets.Dud[i];
                 b.Update();
                 b.IsDead = b.IsDead || b.X <= 0 || b.X >= bg.TotalWidth || b.Y <= 0 || b.Y >= bg.TotalHeight;
                 if (b.IsDead)
                 {
-                    StateManager.DudBullets.RemoveAt(i);
+                    StateManager.AllyBullets.Dud.RemoveAt(i);
+                    i--;
+                }
+            }
+
+            for (int i = 0; i < StateManager.EnemyBullets.Dud.Count; i++)
+            {
+                Bullet b = StateManager.EnemyBullets.Dud[i];
+                b.Update();
+                b.IsDead = b.IsDead || b.X <= 0 || b.X >= bg.TotalWidth || b.Y <= 0 || b.Y >= bg.TotalHeight;
+                if (b.IsDead)
+                {
+                    StateManager.EnemyBullets.Dud.RemoveAt(i);
                     i--;
                 }
             }
