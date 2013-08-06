@@ -83,6 +83,7 @@ namespace PGCGame.CoreTypes
                 _gameSFX.Add(SoundEffectType.SpaceDoorOpening, content.Load<SoundEffect>("SFX\\SpaceDoor\\Alarm"));
                 _gameSFX.Add(SoundEffectType.SpaceShipLeaving, content.Load<SoundEffect>("SFX\\SpaceDoor\\SpaceShipLeaving"));
                 _gameSFX.Add(SoundEffectType.BattleCruiserFire, content.Load<SoundEffect>("SFX\\Ships\\BattleCruiser\\BattleCruiserBulletSFX"));
+                _gameSFX.Add(SoundEffectType.FighterCarrierFire, content.Load<SoundEffect>("SFX\\Ships\\FighterCarrier\\FighterCarrier"));
             }
         }
 

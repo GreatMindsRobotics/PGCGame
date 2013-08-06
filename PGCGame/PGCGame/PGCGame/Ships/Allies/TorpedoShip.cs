@@ -30,6 +30,7 @@ namespace PGCGame
             _initHealth = 110;
             this.TierChanged += new EventHandler(TorpedoShip_TierChanged);
             DamagePerShot = 5;
+            ShootSound = GameContent.GameAssets.Sound[SoundEffectType.BattleCruiserFire];
         }
 
         static TorpedoShip()

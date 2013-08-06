@@ -23,11 +23,13 @@ namespace PGCGame
     {
 
         Sprite ship;
+        bool hasPlayedSound = false;
 
         public TransitionScreen(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.White)
         {
-
+            DeploySound = GameContent.GameAssets.Sound[SoundEffectType.SpaceDoorOpening];
+            SpaceShipLeaving = GameContent.GameAssets.Sound[SoundEffectType.SpaceShipLeaving];
         }
         public void Reset()
         {
@@ -50,7 +52,7 @@ namespace PGCGame
         void Shop_levelBegin(object sender, EventArgs e)
         {
             Sprites.Clear();
-
+            hasPlayedSound = false;
             ship = new Sprite(GameContent.GameAssets.Images.Ships[StateManager.SelectedShip, StateManager.SelectedTier], Vector2.Zero, Sprites.SpriteBatch);
 
             ship.Position = new Vector2(-ship.Texture.Width / 2, Graphics.Viewport.Height);
@@ -75,33 +77,16 @@ namespace PGCGame
             Sprites[3].Scale = new Vector2((float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Width / (float)Sprites[3].Texture.Width, (float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Height / (float)Sprites[3].Texture.Height);
             Sprites[3].YSpeed = -2;
 
-             ship.Rotation.Degrees = 0;
-
-            if (ship.Position.X < Graphics.Viewport.Width * 3)
-            {
-                if (ship.Rotation.Degrees <= 90)
+                if (StateManager.Options.SFXEnabled)
                 {
-                    ship.Rotation.Radians = (new Vector2(Graphics.Viewport.Width / 2, Graphics.Viewport.Height / 2) - ship.Position).ToAngle();
-                    ship.YSpeed -= .0008f;
-                    ship.Scale.X -= .0001f;
-                    ship.Scale.Y -= .0001f;
-                }
-                else
-                {
-                    ship.XSpeed += .1f;
-                    ship.YSpeed = 0;
-                    if (ship.Scale.X >= .005f)
-                    {
-                        ship.Scale.X -= .003f;
-                        ship.Scale.Y -= .003f;
-                    }
+                    DeploySound.Play();
                 }
 
             }
 
 
 
-        }
+        
 
         void Options_ScreenResolutionChanged(object sender, EventArgs e)
         {
@@ -136,6 +121,12 @@ namespace PGCGame
                             ship.Scale.X -= .003f;
                             ship.Scale.Y -= .003f;
                         }
+                    }
+                    if (StateManager.Options.SFXEnabled && ship.Rotation.Degrees > 75 && !hasPlayedSound)
+                    {
+                        
+                        SpaceShipLeaving.Play();
+                        hasPlayedSound = true;
                     }
                 }
 

@@ -43,6 +43,7 @@ namespace PGCGame
             this.TierChanged += new EventHandler(FighterCarrier_TierChanged);
             DamagePerShot = 2;
             this.PlayerType = PlayerType.Ally;
+            ShootSound = GameContent.GameAssets.Sound[SoundEffectType.FighterCarrierFire];
         }
 
         void FighterCarrier_TierChanged(object sender, EventArgs e)

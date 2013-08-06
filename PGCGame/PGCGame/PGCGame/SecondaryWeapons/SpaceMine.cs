@@ -8,6 +8,7 @@ using Glib;
 using PGCGame.CoreTypes;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 namespace PGCGame
 {
@@ -70,7 +71,10 @@ namespace PGCGame
 
                 case CoreTypes.SpaceMineState.Deploying:
                     //Mine is deploying - set position, rotation, etc
-
+                    if (StateManager.Options.SFXEnabled)
+                    {
+                        DeploySound.Play();
+                    }
                     Position = ParentShip.WorldCoords;
                     UseCenterAsOrigin = true;
 
@@ -128,6 +132,10 @@ namespace PGCGame
             if (Intersects(ship.WCrectangle))
             {
                 ship.CurrentHealth -= this.Damage;
+                if(StateManager.Options.SFXEnabled)
+                {
+                    ExplosionSound.Play();
+                }
                 SpaceMineState = CoreTypes.SpaceMineState.RIP;
             }
         }

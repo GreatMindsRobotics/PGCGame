@@ -84,6 +84,10 @@ namespace PGCGame
                     if (!_hasDeployInited)
                     {
                         _pointOfOrigin = ParentShip.WorldCoords;
+                        if (StateManager.Options.SFXEnabled)
+                        {
+                            DeploySound.Play();
+                        }
                         _hasDeployInited = true;
                     }
                     

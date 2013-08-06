@@ -113,7 +113,6 @@ namespace PGCGame.Screens
             SFXLabel.HoverColor = Color.MediumAquamarine;
             SFXLabel.NonHoverColor = Color.White;
 
-
             //Back button
 #if WINDOWS
             Sprite BackButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .60f), Sprites.SpriteBatch);

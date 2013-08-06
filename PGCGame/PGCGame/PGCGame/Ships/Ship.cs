@@ -12,6 +12,7 @@ using Glib.XNA.SpriteLib;
 using PGCGame.CoreTypes;
 using PGCGame.Ships.Allies;
 using System.Diagnostics;
+using Microsoft.Xna.Framework.Audio;
 
 namespace PGCGame
 {
@@ -114,6 +115,7 @@ namespace PGCGame
                 return _wcRect;
             }
         }
+        public SoundEffect ShootSound { get; set; }
 
         private Rectangle _wcRect;
 
@@ -252,6 +254,11 @@ namespace PGCGame
 
             //BaseEnemyShip overrides this
             StateManager.AllyBullets.Legit.Add(bullet);
+            
+            if (StateManager.Options.SFXEnabled)
+            {
+                ShootSound.Play();
+            }
         }
 
 

@@ -190,7 +190,6 @@
     <Folder Include="Images\Ships\Allies\FighterCarrier\Bullets\" />
     <Folder Include="Images\Ships\Allies\FighterCarrier\Drones\Bullets\" />
     <Folder Include="Images\Ships\Allies\TorpedoShip\Bullets\" />
-    <Folder Include="SFX\Ships\FighterCarrier\" />
     <Folder Include="SFX\Ships\TorpedoShip\" />
   </ItemGroup>
   <ItemGroup>
@@ -431,6 +430,13 @@
   <ItemGroup>
     <Compile Include="SFX\SpaceDoor\SpaceShipLeaving.mp3">
       <Name>SpaceShipLeaving</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SFX\Ships\FighterCarrier\FighterCarrier.mp3">
+      <Name>FighterCarrier</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>

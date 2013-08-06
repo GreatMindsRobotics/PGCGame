@@ -36,6 +36,10 @@ namespace PGCGame
             }
             if (ShotBullet && !ShouldDraw)
             {
+                if (StateManager.Options.SFXEnabled)
+                {
+                    DeploySound.Play();
+                }
                 ShouldDraw = true;
             }
         }

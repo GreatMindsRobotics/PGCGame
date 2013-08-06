@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Glib.XNA.SpriteLib;
 using Glib.XNA.InputLib;
+using Microsoft.Xna.Framework.Audio;
 
 namespace PGCGame.CoreTypes
 {
@@ -66,6 +67,9 @@ namespace PGCGame.CoreTypes
             get { return _screenType.ToString(); }
             private set { }
         }
+
+        public SoundEffect DeploySound{ get; set; }
+        public SoundEffect SpaceShipLeaving { get; set; } 
 
         public override void Update(GameTime game)
         {
