@@ -80,19 +80,29 @@ namespace PGCGame
                 Clones[1].Parent = this;
                 Clones[1].Color = Color.White;
 
-                StateManager.EnemyShips.Add(Clones[0]);
-                StateManager.EnemyShips.Add(Clones[1]);
-
                 StateManager.AllScreens[ScreenType.Game.ToString()].Sprites.Add(Clones[0]);
                 StateManager.AllScreens[ScreenType.Game.ToString()].Sprites.Add(Clones[1]);
 
-                while (Clones[0].Pos == Clones[1].Pos || Clones[0].Pos == this.Pos || Clones[1].Pos == this.Pos)
+                this.Pos = PosGenerator.Next(3);
+                switch (this.Pos)
                 {
-                    Clones[0].Pos = PosGenerator.Next(3);
-                    Clones[1].Pos = PosGenerator.Next(3);
-                    this.Pos = PosGenerator.Next(3);
+                    default:
+                    case (0):
+                        Clones[0].Pos = 1;
+                        Clones[1].Pos = 2;
+                        break;
+                    case (1):
+                        Clones[0].Pos = 0;
+                        Clones[1].Pos = 2;
+                        break;
+                    case (2):
+                        Clones[0].Pos = 0;
+                        Clones[1].Pos = 1;
+                        break;
                 }
             }
+
+
             if (Pos == 0)
             {
                 if (!isClone)
@@ -101,7 +111,7 @@ namespace PGCGame
                     {
                         if (clone.Pos == 1)
                         {
-                            if (this.WorldCoords.Y > clone.WorldCoords.Y - 100)
+                            if (this.WorldCoords.Y > clone.WorldCoords.Y - 1000)
                             {
                                 this.YSpeed = -1;
                             }
@@ -118,7 +128,7 @@ namespace PGCGame
                     {
                         if (clone.Pos == 1)
                         {
-                            if (this.WorldCoords.Y > clone.WorldCoords.Y - 100)
+                            if (this.WorldCoords.Y > clone.WorldCoords.Y - 1000)
                             {
                                 this.YSpeed = -1;
                             }
@@ -142,7 +152,7 @@ namespace PGCGame
                     {
                         if (clone.Pos == 1)
                         {
-                            if (this.WorldCoords.Y < clone.WorldCoords.Y + 100)
+                            if (this.WorldCoords.Y < clone.WorldCoords.Y + 1000)
                             {
                                 this.YSpeed = +1;
                             }
@@ -159,7 +169,7 @@ namespace PGCGame
                     {
                         if (clone.Pos == 1)
                         {
-                            if (this.WorldCoords.Y < clone.WorldCoords.Y + 100)
+                            if (this.WorldCoords.Y < clone.WorldCoords.Y + 1000)
                             {
                                 this.YSpeed = +1;
                             }
@@ -171,37 +181,49 @@ namespace PGCGame
                     }
                 }
             }
-            regenClonesDelay += gt.ElapsedGameTime;
-            if (regenClonesDelay >= regenClones)
+            if (!isClone)
             {
-                for (int i = 0; i < StateManager.EnemyShips.Count; i++)
+                regenClonesDelay += gt.ElapsedGameTime;
+                if (regenClonesDelay >= regenClones)
                 {
-                    if (StateManager.EnemyShips[i].ShipType == CoreTypes.ShipType.EnemyBossesClones)
+                    regenClonesDelay = new TimeSpan(0);
+                    for (int i = 0; i < StateManager.EnemyShips.Count; i++)
                     {
-                        StateManager.EnemyShips[i].CurrentHealth = 0;
+                        if (StateManager.EnemyShips[i].ShipType == CoreTypes.ShipType.EnemyBossesClones)
+                        {
+                            StateManager.EnemyShips[i].CurrentHealth = 0;
+                        }
                     }
-                }
-                Clones[0] = new CloneBoss(this.Texture, this.WorldCoords, this.SpriteBatch);
-                Clones[0].isClone = true;
-                Clones[0].Parent = this;
-                Clones[0].Color = Color.White;
+                    Clones[0] = new CloneBoss(this.Texture, this.WorldCoords, this.SpriteBatch);
+                    Clones[0].isClone = true;
+                    Clones[0].Parent = this;
+                    Clones[0].Color = Color.White;
 
-                Clones[1] = new CloneBoss(this.Texture, this.WorldCoords, this.SpriteBatch);
-                Clones[1].isClone = true;
-                Clones[1].Parent = this;
-                Clones[1].Color = Color.White;
+                    Clones[1] = new CloneBoss(this.Texture, this.WorldCoords, this.SpriteBatch);
+                    Clones[1].isClone = true;
+                    Clones[1].Parent = this;
+                    Clones[1].Color = Color.White;
 
-                StateManager.EnemyShips.Add(Clones[0]);
-                StateManager.EnemyShips.Add(Clones[1]);
+                    StateManager.AllScreens[ScreenType.Game.ToString()].Sprites.Add(Clones[0]);
+                    StateManager.AllScreens[ScreenType.Game.ToString()].Sprites.Add(Clones[1]);
 
-                StateManager.AllScreens[ScreenType.Game.ToString()].Sprites.Add(Clones[0]);
-                StateManager.AllScreens[ScreenType.Game.ToString()].Sprites.Add(Clones[1]);
-
-                while (Clones[0].Pos == Clones[1].Pos || Clones[0].Pos == this.Pos || Clones[1].Pos == this.Pos)
-                {
-                    Clones[0].Pos = PosGenerator.Next(3);
-                    Clones[1].Pos = PosGenerator.Next(3);
                     this.Pos = PosGenerator.Next(3);
+                    switch (this.Pos)
+                    {
+                        default:
+                        case (0):
+                            Clones[0].Pos = 1;
+                            Clones[1].Pos = 2;
+                            break;
+                        case (1):
+                            Clones[0].Pos = 0;
+                            Clones[1].Pos = 2;
+                            break;
+                        case (2):
+                            Clones[0].Pos = 0;
+                            Clones[1].Pos = 1;
+                            break;
+                    }
                 }
             }
             if (isClone && isFirstUpdate)
@@ -220,12 +242,11 @@ namespace PGCGame
                 Clones[0].Update();
                 Clones[1].Update();
             }
+
+            //this.WorldCoords += new Vector2(XSpeed, YSpeed);
         }
 
         public TimeSpan regenClones = new TimeSpan(0, 0, 30);
         public TimeSpan regenClonesDelay = new TimeSpan();
-
-
-        public int killWorth { get; set; }
     }
 }
