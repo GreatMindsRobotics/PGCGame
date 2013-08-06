@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Glib;
+using PGCGame.CoreTypes;
 
 namespace PGCGame
 {
@@ -17,6 +18,7 @@ namespace PGCGame
         {
             Cost = 2000;
             Name = "ShrinkRay";
+            DeploySound = GameContent.GameAssets.Sound[SoundEffectType.DeployShrinkRay];
         }
 
         public List<Bullet> ShrinkRayBullets = new List<Bullet>();

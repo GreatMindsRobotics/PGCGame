@@ -20,7 +20,7 @@ namespace PGCGame
             Scale = Vector2.Zero;
             Cost = 1000;
             Name = "EMP";
-            
+            DeploySound = GameContent.GameAssets.Sound[SoundEffectType.DeployEMP];
         }
 
         public int Radius { get; set; }

@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework;
 using Glib.XNA;
+using Microsoft.Xna.Framework.Audio;
 
 namespace PGCGame.CoreTypes
 {
@@ -59,6 +60,28 @@ namespace PGCGame.CoreTypes
                 _gameMusic = new Dictionary<ScreenMusic, Song>();
                 _gameMusic.Add(ScreenMusic.Level1, content.Load<Song>("Songs\\Movement Proposition"));
                 _gameMusic.Add(ScreenMusic.Credits, content.Load<Song>("Songs\\Failing Defense"));
+            }
+        }
+        public readonly GameSound Sound;
+        public class GameSound
+        {
+            private readonly Dictionary<SoundEffectType, SoundEffect> _gameSFX;
+
+            public SoundEffect this[SoundEffectType index]
+            {
+                get { return _gameSFX[index]; }
+            }
+
+            internal GameSound(ContentManager content)
+            {
+                _gameSFX = new Dictionary<SoundEffectType, SoundEffect>();
+                _gameSFX.Add(SoundEffectType.DeployEMP, content.Load<SoundEffect>("SFX\\Emp\\EMPSound"));
+                _gameSFX.Add(SoundEffectType.DeployShrinkRay, content.Load<SoundEffect>("SFX\\ShrinkRay\\ShrinkRayBullet"));
+                _gameSFX.Add(SoundEffectType.ExplodeSpaceMine, content.Load<SoundEffect>("SFX\\SpaceMine\\explosionSpaceMine"));
+                _gameSFX.Add(SoundEffectType.DeploySpaceMine, content.Load<SoundEffect>("SFX\\SpaceMine\\countdown"));
+                _gameSFX.Add(SoundEffectType.SpaceDoorOpening, content.Load<SoundEffect>("SFX\\SpaceDoor\\Alarm"));
+                _gameSFX.Add(SoundEffectType.SpaceShipLeaving, content.Load<SoundEffect>("SFX\\SpaceDoor\\SpaceShipLeaving"));
+                _gameSFX.Add(SoundEffectType.BattleCruiserFire, content.Load<SoundEffect>("SFX\\Ships\\BattleCruiser\\BattleCruiserBulletSFX"));
             }
         }
 

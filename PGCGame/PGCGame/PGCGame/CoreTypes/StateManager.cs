@@ -101,7 +101,7 @@ namespace PGCGame
             _hasBoughtScanner = false;
             Stack<ScreenType> _screenStack = new Stack<ScreenType>();
             Guid _enemyID = Guid.NewGuid();
-            _spaceBucks = 200000;
+            _spaceBucks = 10000;
             SpaceBucks = _spaceBucks;
             IsWSFirstUpdate = true;
             PowerUps = new Stack<SecondaryWeapon>[]{
