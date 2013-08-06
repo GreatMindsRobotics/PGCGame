@@ -165,9 +165,10 @@ namespace PGCGame.CoreTypes
 
     public enum SecondaryWeaponType
     { 
-        EMP,
+        SpaceMine = 0,
         ShrinkRay,
-        SpaceMine
+        EMP,
+        HealthPack
     }
 
     public enum TextureDisplayType

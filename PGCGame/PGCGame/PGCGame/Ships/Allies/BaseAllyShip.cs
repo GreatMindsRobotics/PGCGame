@@ -119,7 +119,7 @@ namespace PGCGame.Ships.Allies
         protected static Dictionary<ShipTier, int> _cost;
         public static Dictionary<ShipTier, int> Cost { get { return _cost; } set { _cost = value; } }
 
-        public int SecondaryWeaponIndex = 0;
+        public SecondaryWeaponType SecondaryWeaponIndex = SecondaryWeaponType.SpaceMine;
 
         static BaseAllyShip()
         {
@@ -135,8 +135,8 @@ namespace PGCGame.Ships.Allies
         {
             get
             {
-                string returnVal = StateManager.PowerUps[SecondaryWeaponIndex].Count == 0 ? null : StateManager.PowerUps[SecondaryWeaponIndex].Peek().Name;
-                return returnVal == null ? returnVal : returnVal + " X" + StateManager.PowerUps[SecondaryWeaponIndex].Count;
+                string returnVal = StateManager.PowerUps[SecondaryWeaponIndex.ToInt()].Count == 0 ? null : StateManager.PowerUps[SecondaryWeaponIndex.ToInt()].Peek().Name;
+                return returnVal == null ? returnVal : returnVal + " X" + StateManager.PowerUps[SecondaryWeaponIndex.ToInt()].Count;
             }
         }
 
@@ -233,17 +233,17 @@ namespace PGCGame.Ships.Allies
             if (StateManager.PowerUps[0].Count > 0 || StateManager.PowerUps[1].Count > 0 || StateManager.PowerUps[2].Count > 0 || StateManager.PowerUps[3].Count > 0)
             {
 
-                if ( StateManager.PowerUps[SecondaryWeaponIndex].Count == 0 || (!StateManager.Options.SwitchButtonEnabled && (ks.IsKeyDown(Keys.E) && _lastKs.IsKeyUp(Keys.E)))
+                if ( StateManager.PowerUps[SecondaryWeaponIndex.ToInt()].Count == 0 || (!StateManager.Options.SwitchButtonEnabled && (ks.IsKeyDown(Keys.E) && _lastKs.IsKeyUp(Keys.E)))
                     || (StateManager.Options.SwitchButtonEnabled && (ks.IsKeyDown(Keys.PageUp) && _lastKs.IsKeyUp(Keys.PageUp))))
                 {
                     int selCount = 0;
                     do
                     {
                         SecondaryWeaponIndex++;
-                        SecondaryWeaponIndex %= StateManager.PowerUps.Length;
-                    } while (StateManager.PowerUps[SecondaryWeaponIndex].Count == 0 && selCount < StateManager.PowerUps.Length);
+                        SecondaryWeaponIndex = (SecondaryWeaponType)(SecondaryWeaponIndex.ToInt() % StateManager.PowerUps.Length);
+                    } while (StateManager.PowerUps[SecondaryWeaponIndex.ToInt()].Count == 0 && selCount < StateManager.PowerUps.Length);
                 }
-                if (StateManager.PowerUps[SecondaryWeaponIndex].Count == 0 || (!StateManager.Options.SwitchButtonEnabled && (ks.IsKeyDown(Keys.Q) && _lastKs.IsKeyUp(Keys.Q)))
+                if (StateManager.PowerUps[SecondaryWeaponIndex.ToInt()].Count == 0 || (!StateManager.Options.SwitchButtonEnabled && (ks.IsKeyDown(Keys.Q) && _lastKs.IsKeyUp(Keys.Q)))
                     || (StateManager.Options.SwitchButtonEnabled && (ks.IsKeyDown(Keys.PageDown) && _lastKs.IsKeyUp(Keys.PageDown))))
                 {
                     int selCount = 0;
@@ -254,7 +254,7 @@ namespace PGCGame.Ships.Allies
                         {
                             SecondaryWeaponIndex = StateManager.PowerUps.Length + SecondaryWeaponIndex;
                         }
-                    } while (StateManager.PowerUps[SecondaryWeaponIndex].Count == 0 && selCount < StateManager.PowerUps.Length);
+                    } while (StateManager.PowerUps[SecondaryWeaponIndex.ToInt()].Count == 0 && selCount < StateManager.PowerUps.Length);
                 }
             }
 
@@ -302,11 +302,11 @@ namespace PGCGame.Ships.Allies
             //Deploy secondary weapon
             //StateManager.PowerUps[SecondaryWeaponIndex].Count > 0 && ks.IsKeyDown(Keys.R) && _lastKs != null && _lastKs.IsKeyUp(Keys.R)
             //(StateManager.Options.SecondaryButtonEnabled && ks.IsKeyDown(Keys.R)) || (!StateManager.Options.SecondaryButtonEnabled && ks.IsKeyDown(Keys.RightShift))
-            if (StateManager.PowerUps[SecondaryWeaponIndex].Count > 0 && (StateManager.Options.SecondaryButtonEnabled && ks.IsKeyDown(Keys.RightShift) && _lastKs != null && _lastKs.IsKeyUp(Keys.RightShift)) || (!StateManager.Options.SecondaryButtonEnabled && ks.IsKeyDown(Keys.R) && _lastKs != null && _lastKs.IsKeyUp(Keys.R) && StateManager.PowerUps[SecondaryWeaponIndex].Count > 0))
+            if (StateManager.PowerUps[SecondaryWeaponIndex.ToInt()].Count > 0 && (StateManager.Options.SecondaryButtonEnabled && ks.IsKeyDown(Keys.RightShift) && _lastKs != null && _lastKs.IsKeyUp(Keys.RightShift)) || (!StateManager.Options.SecondaryButtonEnabled && ks.IsKeyDown(Keys.R) && _lastKs != null && _lastKs.IsKeyUp(Keys.R) && StateManager.PowerUps[SecondaryWeaponIndex.ToInt()].Count > 0))
             {
-                if ((CurrentHealth < InitialHealth && StateManager.PowerUps[SecondaryWeaponIndex].Peek().GetType() == typeof(HealthPack)) || StateManager.PowerUps[SecondaryWeaponIndex].Peek().GetType() != typeof(HealthPack))
+                if ((CurrentHealth < InitialHealth && StateManager.PowerUps[SecondaryWeaponIndex.ToInt()].Peek().GetType() == typeof(HealthPack)) || StateManager.PowerUps[SecondaryWeaponIndex.ToInt()].Peek().GetType() != typeof(HealthPack))
                 {
-                    SecondaryWeapon fired = StateManager.DebugData.InfiniteSecondaryWeapons ? StateManager.PowerUps[SecondaryWeaponIndex].Peek() : StateManager.PowerUps[SecondaryWeaponIndex].Pop();
+                    SecondaryWeapon fired = StateManager.DebugData.InfiniteSecondaryWeapons ? StateManager.PowerUps[SecondaryWeaponIndex.ToInt()].Peek() : StateManager.PowerUps[SecondaryWeaponIndex.ToInt()].Pop();
                     fired.fired = true;
                     //canDeploySecWeap = false;
                     //StateManager.PowerUps.Remove(ActiveSecondaryWeapon);
