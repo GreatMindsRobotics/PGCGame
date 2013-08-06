@@ -332,7 +332,7 @@ namespace PGCGame
             public static bool ShowShipIDs = false;
             public static bool EmergencyHeal = true;
             public static bool KillAll = false;
-            public static bool Invincible = false;
+            public static bool Invincible = true;
             public static bool BringDronesBack = false;
             public static bool KillYourSelf = false;
             /// <summary>

@@ -20,26 +20,12 @@ namespace PGCGame.CoreTypes
         {
             foreach (Bullet b in Legit)
             {
-                if (b.GetType().Implements(typeof(ITimerSprite)))
-                {
-                    b.Cast<ITimerSprite>().Update(gt);
-                }
-                else
-                {
-                    b.Update();
-                }
+                b.Update();
 
             }
             foreach (Bullet b in Dud)
             {
-                if (b.GetType().Implements(typeof(ITimerSprite)))
-                {
-                    b.Cast<ITimerSprite>().Update(gt);
-                }
-                else
-                {
-                    b.Update();
-                }
+                b.Update();
             }
         }
 

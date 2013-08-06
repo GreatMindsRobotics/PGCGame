@@ -67,13 +67,17 @@ namespace PGCGame.Ships.Allies
             }
             set
             {
-                if (!IsPlayerShip)
+                if (value != (IsPlayerShip ? _worldPos : Position))
                 {
-                    Position = value;
-                }
-                else
-                {
-                    _worldPos = value;
+                    if (!IsPlayerShip)
+                    {
+                        Position = value;
+                    }
+                    else
+                    {
+                        _worldPos = value;
+                        UpdateWcPos();
+                    }
                 }
             }
         }

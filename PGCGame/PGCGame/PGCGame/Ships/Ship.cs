@@ -59,6 +59,7 @@ namespace PGCGame
         void Ship_Moved(object sender, EventArgs e)
         {
             _healthBar.Position = new Vector2(X - (_healthBar.Width / 2), Y - (Height / 1.5f));
+            UpdateWcPos();
         }
 
         public PlayerType PlayerType { get; set; }
@@ -110,9 +111,11 @@ namespace PGCGame
         {
             get
             {
-                return new Rectangle((WorldCoords.X - Origin.X * Scale.X).ToInt(), (WorldCoords.Y - Origin.Y * Scale.Y).ToInt(), Width.ToInt(), Height.ToInt());
+                return _wcRect;
             }
         }
+
+        private Rectangle _wcRect;
 
         protected int _initHealth;
 
@@ -143,6 +146,11 @@ namespace PGCGame
             {
                 return _shipID;
             }
+        }
+
+        protected void UpdateWcPos()
+        {
+            _wcRect = new Rectangle((WorldCoords.X - Origin.X * Scale.X).ToInt(), (WorldCoords.Y - Origin.Y * Scale.Y).ToInt(), Width.ToInt(), Height.ToInt());
         }
 
         public virtual Vector2 WorldCoords
@@ -257,6 +265,7 @@ namespace PGCGame
                 if (_isFirstUpdate)
                 {
                     CurrentHealth = InitialHealth;
+                    UpdateWcPos();
                     _isFirstUpdate = false;
                 }
 

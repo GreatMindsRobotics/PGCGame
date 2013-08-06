@@ -360,30 +360,6 @@ namespace PGCGame.Screens
 
         void bgspr_Drawn(object sender, EventArgs e)
         {
-            /*
-            foreach (Bullet b in playerShip.FlyingBullets)
-            {
-                Sprites.SpriteBatch.Draw(b);
-            }
-            foreach (var enemy in enemies)
-            {
-                foreach (Bullet b in enemy.FlyingBullets)
-                {
-                    Sprites.SpriteBatch.Draw(b);
-                }
-            }
-            if (playerShip.GetType() == typeof(FighterCarrier))
-            {
-                foreach (Drone drone in playerShip.Cast<FighterCarrier>().Drones)
-                {
-                    foreach (Bullet b in drone.FlyingBullets)
-                    {
-                        Sprites.SpriteBatch.Draw(b);
-                    }
-
-                }
-            }
-            */
 
             StateManager.AllyBullets.DrawAll(Sprites.SpriteBatch);
             StateManager.EnemyBullets.DrawAll(Sprites.SpriteBatch);
@@ -527,17 +503,6 @@ namespace PGCGame.Screens
                 //_allowMusicHandling = false;
             }
 #endif
-            /*
-            for (int i = 0; i < playerShip.FlyingBullets.Count; i++)
-            {
-                Bullet b = playerShip.FlyingBullets[i];
-                if (b.IsDead || b.X <= 0 || b.X >= bg.TotalWidth || b.Y <= 0 || b.Y >= bg.TotalHeight)
-                {
-                    playerShip.FlyingBullets.RemoveAt(i);
-                    i--;
-                }
-            }
-            */
 
             for (int e = 0; e < enemies.Count; e++)
             {
