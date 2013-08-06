@@ -333,7 +333,7 @@ namespace PGCGame.Screens
 
         private void addShipToMinimap(Ship ship, Ship activeMiniShipDisplay)
         {
-            if (ship.GetType() == typeof(Drone))
+            if (ship.GetType() == typeof(Drone) || ship.ShipState == ShipState.Exploding)
             {
                 return;
             }
