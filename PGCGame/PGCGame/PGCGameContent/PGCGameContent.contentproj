@@ -390,49 +390,49 @@
     <Compile Include="SFX\SecondaryWeapons\Emp\EMPSound.mp3">
       <Name>EMPSound</Name>
       <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
+      <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SFX\SecondaryWeapons\ShrinkRay\ShrinkRayBullet.mp3">
       <Name>ShrinkRayBullet</Name>
       <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
+      <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SFX\SecondaryWeapons\SpaceMine\explosionSpaceMine.mp3">
       <Name>explosionSpaceMine</Name>
       <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
+      <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SFX\SecondaryWeapons\SpaceMine\countdown.mp3">
       <Name>countdown</Name>
       <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
+      <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SFX\Ships\BattleCruiser\BattleCruiserBulletSFX.mp3">
       <Name>BattleCruiserBulletSFX</Name>
       <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
+      <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SFX\SpaceDoor\Alarm.mp3">
       <Name>Alarm</Name>
       <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
+      <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SFX\SpaceDoor\SpaceShipLeaving.mp3">
       <Name>SpaceShipLeaving</Name>
       <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
+      <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

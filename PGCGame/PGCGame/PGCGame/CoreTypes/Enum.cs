@@ -61,6 +61,19 @@ namespace PGCGame.CoreTypes
         Level3,
         Level4
     }
+    public enum SoundEffectType
+    {
+        DeployEMP,
+        DeploySpaceMine,
+        ExplodeSpaceMine,
+        DeployHealthPack,
+        DeployShrinkRay,
+        SpaceDoorOpening,
+        SpaceShipLeaving,
+        BattleCruiserFire,
+        FighterCarrierFire,
+        TorpedoShipFire
+    }
     public enum ShipTier
     {
         NoShip = 0, 

@@ -7,6 +7,7 @@ using Glib.XNA;
 using Glib;
 using PGCGame.CoreTypes;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
 
 namespace PGCGame
 {
@@ -14,6 +15,7 @@ namespace PGCGame
     {
         public int ExplosionRadius { get; set; }
         public int ExplosionDiameter { get; set; }
+        public SoundEffect ExplosionSound { get; set; }
 
         public TimeSpan RemainingArmTime = TimeSpan.FromMilliseconds(4000);
 
@@ -52,6 +54,8 @@ namespace PGCGame
             Cost = 500;
             Damage = 50;
             Name = "SpaceMine";
+            ExplosionSound = GameContent.GameAssets.Sound[SoundEffectType.ExplodeSpaceMine];
+            DeploySound = GameContent.GameAssets.Sound[SoundEffectType.DeploySpaceMine];
         }
 
         public override void Update(GameTime gameTime)

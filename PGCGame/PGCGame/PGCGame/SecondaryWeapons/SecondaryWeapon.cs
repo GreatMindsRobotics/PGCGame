@@ -5,6 +5,7 @@ using System.Text;
 using Glib.XNA.SpriteLib;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 
 namespace PGCGame
 {
@@ -15,6 +16,7 @@ namespace PGCGame
         public bool SingleUse { get; set; }
         public string Name { get; set; }
         public Ship ParentShip { get; set; }
+        public SoundEffect DeploySound { get; set; }
 
         public Boolean fired = false;
 
