@@ -281,6 +281,13 @@ namespace PGCGame
                     }
                     else
                     {
+                        if (PlayerType == CoreTypes.PlayerType.MyShip)
+                        {
+                            StateManager.AllyBullets.Legit.Clear();
+                            StateManager.AllyBullets.Dud.Clear();
+                            StateManager.EnemyBullets.Legit.Clear();
+                            StateManager.EnemyBullets.Dud.Clear();
+                        }
                         StateManager.AllyShips.Remove(this);    
                     }                    
                 }
@@ -315,7 +322,7 @@ namespace PGCGame
                     shipState = ShipState.Exploding;
                     return;
                 }
-                else if (shipState == ShipState.Exploding && shipState != ShipState.Dead)
+                else if (shipState == ShipState.Exploding)
                 {
                     _explosionSheet.Update();
                     Dead(null, null);
