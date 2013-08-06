@@ -217,10 +217,12 @@ namespace PGCGame.CoreTypes
                     {
                         _bulletTextures = new Dictionary<KeyValuePair<ShipType, ShipTier>, Texture2D>();
 
+                        TextureFactory tf = new TextureFactory(StateManager.GraphicsManager.GraphicsDevice);
+
                         //TEMP
                         _bulletTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.BattleCruiser, ShipTier.Tier1), content.Load<Texture2D>("Images\\TempBullets\\Laser"));
                         _bulletTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.FighterCarrier, ShipTier.Tier1), content.Load<Texture2D>("Images\\TempBullets\\Laser"));
-                        _bulletTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.TorpedoShip, ShipTier.Tier1), new PlainTexture2D(StateManager.GraphicsManager.GraphicsDevice, 5, 3, Color.Red));
+                        _bulletTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.TorpedoShip, ShipTier.Tier1), tf.CreateRectangle(5, 3, Color.Red));
                         _bulletTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.Drone, ShipTier.Tier1), content.Load<Texture2D>("Images\\TempBullets\\Laser"));
 
                         /*
@@ -270,10 +272,12 @@ namespace PGCGame.CoreTypes
                     _miniShipTextures = new Dictionary<PlayerType, Texture2D>();
                     _miniShipTexturesByShipType = new Dictionary<ShipType, Texture2D>();
 
-                    _miniShipTextures.Add(PlayerType.MyShip, new PlainTexture2D(StateManager.GraphicsManager.GraphicsDevice, 3, 3, Color.Lime));
-                    _miniShipTextures.Add(PlayerType.Enemy, new PlainTexture2D(StateManager.GraphicsManager.GraphicsDevice, 3, 3, Color.Red));
-                    _miniShipTextures.Add(PlayerType.Ally, new PlainTexture2D(StateManager.GraphicsManager.GraphicsDevice, 3, 3, Color.CornflowerBlue));
-                    _miniShipTextures.Add(PlayerType.Solo, new PlainTexture2D(StateManager.GraphicsManager.GraphicsDevice, 3, 3, Color.Crimson));
+                    TextureFactory textureCreator = new TextureFactory(StateManager.GraphicsManager.GraphicsDevice);
+
+                    _miniShipTextures.Add(PlayerType.MyShip, textureCreator.CreateSquare(3, Color.Lime));
+                    _miniShipTextures.Add(PlayerType.Enemy, textureCreator.CreateSquare(3, Color.Red));
+                    _miniShipTextures.Add(PlayerType.Ally, textureCreator.CreateSquare(3, Color.CornflowerBlue));
+                    _miniShipTextures.Add(PlayerType.Solo, textureCreator.CreateSquare(3, Color.Crimson));
 
                     _miniShipTexturesByShipType.Add(ShipType.FighterCarrier, content.Load<Texture2D>("Images\\MiniMap\\WhiteCircle100x100"));
                     _miniShipTexturesByShipType.Add(ShipType.BattleCruiser, content.Load<Texture2D>("Images\\MiniMap\\WhiteCircle100x100"));
@@ -413,7 +417,7 @@ namespace PGCGame.CoreTypes
 
                 }
             }
-        
+
         }
     }
 }

@@ -208,16 +208,16 @@ namespace PGCGame.Screens
 
 
 
+            TextureFactory creator = new TextureFactory(Graphics);
 
-
-            miniMap = new Sprite(new PlainTexture2D(Sprites.SpriteBatch.GraphicsDevice, 1, 1, new Color(Color.Navy.R, Color.Navy.G, Color.Navy.B, 128)), Vector2.Zero, playerSb);
+            miniMap = new Sprite(creator.CreateSquare(1, new Color(Color.Navy.R, Color.Navy.G, Color.Navy.B, 128)), Vector2.Zero, playerSb);
             miniMap.Width = bgspr.TotalWidth / MinimapDivAmount;
             miniMap.Color = Color.White;
             miniMap.Height = bgspr.TotalHeight / MinimapDivAmount;
             miniMap.Y = Graphics.Viewport.TitleSafeArea.Y + 7.5f;
             miniMap.X = Graphics.Viewport.TitleSafeArea.X + Graphics.Viewport.TitleSafeArea.Width - miniMap.Width - 7.5f;
             miniMap.Updated += new EventHandler(miniMap_Updated);
-            miniShipInfoBg = new Sprite(new PlainTexture2D(Sprites.SpriteBatch.GraphicsDevice, 1, 1, new Color(0, 0, 0, 192)), new Vector2(7.5f, miniMap.Y), playerSb);
+            miniShipInfoBg = new Sprite(creator.CreateSquare(1, new Color(0, 0, 0, 192)), new Vector2(7.5f, miniMap.Y), playerSb);
             miniShipInfoBg.Height = 0.01f;
             miniShipInfoBg.Width = 767.5f - miniShipInfoBg.X - 7.5f - miniMap.Width - 266.6666667f;
             miniShipInfoBg.X = miniMap.X - miniShipInfoBg.Width - 7.5f;
