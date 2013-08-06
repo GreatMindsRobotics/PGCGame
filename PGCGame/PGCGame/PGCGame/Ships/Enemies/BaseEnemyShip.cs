@@ -79,6 +79,8 @@ namespace PGCGame.Ships.Enemies
                 float? bulletDistance = null;
                 Vector2? shipDistance = null;
 
+                /*
+                //Bullet avoiding logic
                 foreach (Bullet b in StateManager.AllyBullets.Legit)
                 {
                     bulletDistanceX = Math.Abs(b.X - this.X);
@@ -89,6 +91,7 @@ namespace PGCGame.Ships.Enemies
                         activated = true;
                     }
                 }
+                */
 
                 foreach (Ship allyShip in StateManager.AllyShips)
                 {
