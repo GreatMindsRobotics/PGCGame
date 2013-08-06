@@ -41,6 +41,7 @@ namespace PGCGame.CoreTypes
             Fonts = new GameFonts(content);
             Images = new GameImages(content);
             Music = new GameMusic(content);
+            Sound = new GameSound(content);
 
             _gameAssets = this;
         }
@@ -75,10 +76,10 @@ namespace PGCGame.CoreTypes
             internal GameSound(ContentManager content)
             {
                 _gameSFX = new Dictionary<SoundEffectType, SoundEffect>();
-                _gameSFX.Add(SoundEffectType.DeployEMP, content.Load<SoundEffect>("SFX\\Emp\\EMPSound"));
-                _gameSFX.Add(SoundEffectType.DeployShrinkRay, content.Load<SoundEffect>("SFX\\ShrinkRay\\ShrinkRayBullet"));
-                _gameSFX.Add(SoundEffectType.ExplodeSpaceMine, content.Load<SoundEffect>("SFX\\SpaceMine\\explosionSpaceMine"));
-                _gameSFX.Add(SoundEffectType.DeploySpaceMine, content.Load<SoundEffect>("SFX\\SpaceMine\\countdown"));
+                _gameSFX.Add(SoundEffectType.DeployEMP, content.Load<SoundEffect>("SFX\\SecondaryWeapons\\Emp\\EMPSound"));
+                _gameSFX.Add(SoundEffectType.DeployShrinkRay, content.Load<SoundEffect>("SFX\\SecondaryWeapons\\ShrinkRay\\ShrinkRayBullet"));
+                _gameSFX.Add(SoundEffectType.ExplodeSpaceMine, content.Load<SoundEffect>("SFX\\SecondaryWeapons\\SpaceMine\\explosionSpaceMine"));
+                _gameSFX.Add(SoundEffectType.DeploySpaceMine, content.Load<SoundEffect>("SFX\\SecondaryWeapons\\SpaceMine\\countdown"));
                 _gameSFX.Add(SoundEffectType.SpaceDoorOpening, content.Load<SoundEffect>("SFX\\SpaceDoor\\Alarm"));
                 _gameSFX.Add(SoundEffectType.SpaceShipLeaving, content.Load<SoundEffect>("SFX\\SpaceDoor\\SpaceShipLeaving"));
                 _gameSFX.Add(SoundEffectType.BattleCruiserFire, content.Load<SoundEffect>("SFX\\Ships\\BattleCruiser\\BattleCruiserBulletSFX"));
