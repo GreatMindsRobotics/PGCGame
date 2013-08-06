@@ -218,10 +218,17 @@ namespace PGCGame.Ships.Allies
                 CurrentHealth = InitialHealth;
             }
 
-            if (StateManager.DebugData.KillYourSelf && ks.IsKeyDown(Keys.F3) && _lastKs.IsKeyUp(Keys.F3))
+#if WINDOWS
+            if (StateManager.DebugData.KillYourSelf && shipState != CoreTypes.ShipState.Exploding && shipState != CoreTypes.ShipState.Dead && ks.IsKeyDown(Keys.F3) && _lastKs.IsKeyUp(Keys.F3))
             {
                 this.shipState = CoreTypes.ShipState.Exploding;
             }
+#elif XBOX
+            if (StateManager.DebugData.KillYourSelf && shipState != CoreTypes.ShipState.Exploding && shipState != CoreTypes.ShipState.Dead && GamePadManager.One.Current.IsButtonDown(Buttons.RightStick) && GamePadManager.One.Current.IsButtonDown(Buttons.LeftStick))
+            {
+                this.shipState = CoreTypes.ShipState.Exploding;
+            }
+#endif
 
             if (StateManager.PowerUps[0].Count > 0 || StateManager.PowerUps[1].Count > 0 || StateManager.PowerUps[2].Count > 0 || StateManager.PowerUps[3].Count > 0)
             {
