@@ -28,6 +28,7 @@ namespace PGCGame.Screens.SelectScreens
 
         List<SecondaryWeapon> itemsShown = new List<SecondaryWeapon>();
         TextSprite SpaceBucksAmount;
+        TextSprite ItemAmount;
 
         public override void InitScreen(ScreenType screenType)
         {
@@ -39,7 +40,12 @@ namespace PGCGame.Screens.SelectScreens
 
             SpaceBucksAmount = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, string.Format("You have {0} credits", StateManager.SpaceBucks), Color.White);
             SpaceBucksAmount.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width / 2 - SpaceBucksAmount.Width, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f);
+
+            ItemAmount = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, string.Format("You have x{0} EMPs", StateManager.PowerUps[2].Count), Color.White);
+            ItemAmount.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width / 2 - SpaceBucksAmount.Width, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .15f);
+
             AdditionalSprites.Add(SpaceBucksAmount);
+            AdditionalSprites.Add(ItemAmount);
 
             SpriteFont font = GameContent.GameAssets.Fonts.NormalText;
             
@@ -47,6 +53,8 @@ namespace PGCGame.Screens.SelectScreens
             //EMP
             EMP weapon1 = new EMP(EMP, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.75f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.3f), Sprites.SpriteBatch);
             TextSprite text1 = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.01f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.1f), font, "\n\nAn electro magnetic pulse. \nThis device disables all \nnearby enemy ships \nwithin your ship's range. \n\ncost: 1000 credits", Color.White);
+                        
+            
             weapon1.Scale = new Vector2(0.5f, 0.5f);
            
             
@@ -66,7 +74,7 @@ namespace PGCGame.Screens.SelectScreens
 
             itemsShown.Add(weapon3);
 
-            TextSprite text2 = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.01f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.1f), font, "\n\nThis weapon causes the targeted enemy\n to shrink losing 33% of their health. \nThis does not affect bosses.\n\ncost: 2000 credits", Color.White);
+            TextSprite text2 = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.01f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.1f), font, "\n\nThis weapon causes the targeted enemy\nto shrink losing 33% of their health. \nThis does not affect bosses.\n\ncost: 2000 credits", Color.White);
             TextSprite text3 = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.01f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.1f), font, "\n\nYou place this mine anywhere in space \nand when an enemy crashes into it the mine \nexplodes \n\ncost: 500 credits.", Color.White);
 
             items.Add(new KeyValuePair<Sprite, TextSprite>(weapon2, text2));
@@ -77,7 +85,7 @@ namespace PGCGame.Screens.SelectScreens
 
             HealthPack weapon4 = new HealthPack(HealthPack, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.74f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.3f), Sprites.SpriteBatch);
             TextSprite text4 = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.1f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 1.5f), font, "\n\n\nThis power up regenerates\nyour health up\nby 50%\n\nCost: "+weapon4.Cost, Color.White);
-            text4.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.01f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.01f);
+            text4.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.01f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.05f);
             weapon4.Scale = new Vector2(0.5f, 0.5f);
 
             items.Add(new KeyValuePair<Sprite, TextSprite>(weapon4, text4));
@@ -125,6 +133,8 @@ namespace PGCGame.Screens.SelectScreens
             }
         }
 
+        int itemSelected = 0;
+        String itemName = "SpaceMine";
 
         void WeaponSelectScreen_ChangeItem(object sender, EventArgs e)
         {
@@ -133,7 +143,23 @@ namespace PGCGame.Screens.SelectScreens
                 if (item.Texture == items[selected].Key.Texture)
                 {
                     nameLabel.Text = item.Name;
-
+                    itemName = item.Name;
+                    if (item.GetType() == typeof(SpaceMine))
+                    {
+                        itemSelected = 0;
+                    }
+                    else if (item.GetType() == typeof(EMP))
+                    {
+                        itemSelected = 2;
+                    }
+                    else if (item.GetType() == typeof(ShrinkRay))
+                    {
+                        itemSelected = 1;
+                    }
+                    else if (item.GetType() == typeof(HealthPack))
+                    {
+                        itemSelected = 3;
+                    }
                     break;
                 }
             }
@@ -141,6 +167,9 @@ namespace PGCGame.Screens.SelectScreens
 
         public override void Update(GameTime gameTime)
         {
+            ItemAmount.Text = "You have x" + StateManager.PowerUps[itemSelected].Count + " " + itemName + "(s)";
+            AdditionalSprites.Remove(ItemAmount);
+            AdditionalSprites.Add(ItemAmount);
             if (StateManager.IsWSFirstUpdate == true)
             {
                 SpaceBucksAmount.Text = string.Format("You have {0} credits", StateManager.SpaceBucks);
