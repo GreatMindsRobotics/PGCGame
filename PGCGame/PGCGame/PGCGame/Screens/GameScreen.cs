@@ -406,12 +406,10 @@ namespace PGCGame.Screens
                 activeMiniShipDisplay = ship;
             }
 #endif
-
         }
 
         void bgspr_Drawn(object sender, EventArgs e)
         {
-
             StateManager.AllyBullets.DrawAll(Sprites.SpriteBatch);
             StateManager.EnemyBullets.DrawAll(Sprites.SpriteBatch);
 
@@ -504,7 +502,7 @@ namespace PGCGame.Screens
                 {
                     StateManager.HighestUnlockedLevel++;
                 }
-                StateManager.ScreenState = ScreenType.LevelSelect;
+                StateManager.ScreenState = ScreenType.LevelCompleteScreen;
             }
             else if (StateManager.HighestUnlockedLevel == GameLevel.Level4 && allEnemiesDead && !StateManager.nextLevel)
             {
@@ -526,6 +524,8 @@ namespace PGCGame.Screens
                     else
                     {
                         StateManager.lives -= 1;
+                        StateManager.AmountOfPointsRecievedInCurrentLevel = 0;
+                        StateManager.AmountOfSpaceBucksRecievedInCurrentLevel = 0;
                     }
                     if (playerShip.ShipType == ShipType.BattleCruiser)
                     {

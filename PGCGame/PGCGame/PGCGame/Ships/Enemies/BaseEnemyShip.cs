@@ -25,9 +25,14 @@ namespace PGCGame.Ships.Enemies
 
             _EMPable = true;
             _isTrackingPlayer = true;
+
+            killWorth = 200;
+            spaceBucksKillAmt = 100;
+
         }
 
         public int killWorth;
+        public int spaceBucksKillAmt;
 
         private bool _enemyCounts = true;
 
@@ -95,7 +100,8 @@ namespace PGCGame.Ships.Enemies
                     _isDead = true;
                     if (firstDeathCheck)
                     {
-                        StateManager.SpacePoints += killWorth;
+                        StateManager.AmountOfPointsRecievedInCurrentLevel += killWorth;
+                        StateManager.AmountOfSpaceBucksRecievedInCurrentLevel += spaceBucksKillAmt;
                     }
 
                     return;
