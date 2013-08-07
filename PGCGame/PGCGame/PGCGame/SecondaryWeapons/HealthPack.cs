@@ -20,7 +20,7 @@ namespace PGCGame
             Scale = Vector2.Zero;
             Cost = 2000;
             Name = "Health Pack";
-            
+            DeploySound = GameContent.GameAssets.Sound[SoundEffectType.DeployHealthPack];
         }
 
         public override void Update(GameTime currentGameTime)
@@ -28,6 +28,7 @@ namespace PGCGame
             base.Update();
             if (ParentShip.CurrentHealth < ParentShip.InitialHealth)
             {
+                DeploySound.Play();
                 ParentShip.CurrentHealth += ParentShip.InitialHealth / 2;
                 FireKilledEvent();
             }

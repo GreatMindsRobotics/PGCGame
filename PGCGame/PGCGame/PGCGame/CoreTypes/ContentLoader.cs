@@ -82,10 +82,12 @@ namespace PGCGame.CoreTypes
                 _gameSFX.Add(SoundEffectType.DeployShrinkRay, content.Load<SoundEffect>("SFX\\SecondaryWeapons\\ShrinkRay\\ShrinkRayBullet").CreateInstance());
                 _gameSFX.Add(SoundEffectType.ExplodeSpaceMine, content.Load<SoundEffect>("SFX\\SecondaryWeapons\\SpaceMine\\explosionSpaceMine").CreateInstance());
                 _gameSFX.Add(SoundEffectType.DeploySpaceMine, content.Load<SoundEffect>("SFX\\SecondaryWeapons\\SpaceMine\\countdown").CreateInstance());
+                _gameSFX.Add(SoundEffectType.DeployHealthPack, content.Load<SoundEffect>("SFX\\SecondaryWeapons\\HealthPack\\heathPack").CreateInstance());
                 _gameSFX.Add(SoundEffectType.SpaceDoorOpening, content.Load<SoundEffect>("SFX\\SpaceDoor\\Alarm").CreateInstance());
                 _gameSFX.Add(SoundEffectType.SpaceShipLeaving, content.Load<SoundEffect>("SFX\\SpaceDoor\\SpaceShipLeaving").CreateInstance());
                 _gameSFX.Add(SoundEffectType.BattleCruiserFire, content.Load<SoundEffect>("SFX\\Ships\\BattleCruiser\\BattleCruiserBulletSFX").CreateInstance());
                 _gameSFX.Add(SoundEffectType.FighterCarrierFire, content.Load<SoundEffect>("SFX\\Ships\\FighterCarrier\\FighterCarrier").CreateInstance());
+                _gameSFX.Add(SoundEffectType.TorpedoShipFire, content.Load<SoundEffect>("SFX\\Ships\\TorpedoShip\\torpedoShip").CreateInstance());
             }
 
             public IEnumerator<SoundEffectInstance> GetEnumerator()
