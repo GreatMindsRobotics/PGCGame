@@ -174,7 +174,7 @@ namespace PGCGame.Screens
             Vector2 maxSpawnArea = new Vector2(bgspr.TotalWidth, bgspr.TotalHeight) - _playableAreaOffset;
 
 
-            if (StateManager.CurrentLevel.ToInt() == 1)
+            if (StateManager.CurrentLevel.ToInt() == 4)
             {
                 CloneBoss enemyBoss = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyBattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
                 CloneBoss enemyCloneOne = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyBattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
