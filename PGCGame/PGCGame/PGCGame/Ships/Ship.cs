@@ -115,7 +115,7 @@ namespace PGCGame
                 return _wcRect;
             }
         }
-        public SoundEffect ShootSound { get; set; }
+        public SoundEffectInstance ShootSound { get; set; }
 
         private Rectangle _wcRect;
 

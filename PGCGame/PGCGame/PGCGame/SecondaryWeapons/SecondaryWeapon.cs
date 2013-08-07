@@ -16,7 +16,7 @@ namespace PGCGame
         public bool SingleUse { get; set; }
         public string Name { get; set; }
         public Ship ParentShip { get; set; }
-        public SoundEffect DeploySound { get; set; }
+        public SoundEffectInstance DeploySound { get; set; }
 
         public Boolean fired = false;
 

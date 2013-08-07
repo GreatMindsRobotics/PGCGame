@@ -16,7 +16,7 @@ namespace PGCGame
     {
         public int ExplosionRadius { get; set; }
         public int ExplosionDiameter { get; set; }
-        public SoundEffect ExplosionSound { get; set; }
+        public SoundEffectInstance ExplosionSound { get; set; }
 
         public TimeSpan RemainingArmTime = TimeSpan.FromMilliseconds(4000);
 

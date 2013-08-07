@@ -68,8 +68,8 @@ namespace PGCGame.CoreTypes
             private set { }
         }
 
-        public SoundEffect DeploySound{ get; set; }
-        public SoundEffect SpaceShipLeaving { get; set; } 
+        public SoundEffectInstance DeploySound { get; set; }
+        public SoundEffectInstance SpaceShipLeaving { get; set; } 
 
         public override void Update(GameTime game)
         {

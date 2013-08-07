@@ -15,7 +15,7 @@ namespace PGCGame.CoreTypes
     /// <summary>
     /// Singleton class; create in LoadContent, and use GameContent.GameAssets
     /// </summary>
-    public class GameContent
+    public class GameContent : IDisposable
     {
         private static GameContent _gameAssets = null;
         public static GameContent GameAssets
@@ -64,26 +64,38 @@ namespace PGCGame.CoreTypes
             }
         }
         public readonly GameSound Sound;
-        public class GameSound
+        public class GameSound : IEnumerable<SoundEffectInstance>
         {
-            private readonly Dictionary<SoundEffectType, SoundEffect> _gameSFX;
 
-            public SoundEffect this[SoundEffectType index]
+
+            private readonly Dictionary<SoundEffectType, SoundEffectInstance> _gameSFX;
+
+            public SoundEffectInstance this[SoundEffectType index]
             {
                 get { return _gameSFX[index]; }
             }
 
             internal GameSound(ContentManager content)
             {
-                _gameSFX = new Dictionary<SoundEffectType, SoundEffect>();
-                _gameSFX.Add(SoundEffectType.DeployEMP, content.Load<SoundEffect>("SFX\\SecondaryWeapons\\Emp\\EMPSound"));
-                _gameSFX.Add(SoundEffectType.DeployShrinkRay, content.Load<SoundEffect>("SFX\\SecondaryWeapons\\ShrinkRay\\ShrinkRayBullet"));
-                _gameSFX.Add(SoundEffectType.ExplodeSpaceMine, content.Load<SoundEffect>("SFX\\SecondaryWeapons\\SpaceMine\\explosionSpaceMine"));
-                _gameSFX.Add(SoundEffectType.DeploySpaceMine, content.Load<SoundEffect>("SFX\\SecondaryWeapons\\SpaceMine\\countdown"));
-                _gameSFX.Add(SoundEffectType.SpaceDoorOpening, content.Load<SoundEffect>("SFX\\SpaceDoor\\Alarm"));
-                _gameSFX.Add(SoundEffectType.SpaceShipLeaving, content.Load<SoundEffect>("SFX\\SpaceDoor\\SpaceShipLeaving"));
-                _gameSFX.Add(SoundEffectType.BattleCruiserFire, content.Load<SoundEffect>("SFX\\Ships\\BattleCruiser\\BattleCruiserBulletSFX"));
-                _gameSFX.Add(SoundEffectType.FighterCarrierFire, content.Load<SoundEffect>("SFX\\Ships\\FighterCarrier\\FighterCarrier"));
+                _gameSFX = new Dictionary<SoundEffectType, SoundEffectInstance>();
+                _gameSFX.Add(SoundEffectType.DeployEMP, content.Load<SoundEffect>("SFX\\SecondaryWeapons\\Emp\\EMPSound").CreateInstance());
+                _gameSFX.Add(SoundEffectType.DeployShrinkRay, content.Load<SoundEffect>("SFX\\SecondaryWeapons\\ShrinkRay\\ShrinkRayBullet").CreateInstance());
+                _gameSFX.Add(SoundEffectType.ExplodeSpaceMine, content.Load<SoundEffect>("SFX\\SecondaryWeapons\\SpaceMine\\explosionSpaceMine").CreateInstance());
+                _gameSFX.Add(SoundEffectType.DeploySpaceMine, content.Load<SoundEffect>("SFX\\SecondaryWeapons\\SpaceMine\\countdown").CreateInstance());
+                _gameSFX.Add(SoundEffectType.SpaceDoorOpening, content.Load<SoundEffect>("SFX\\SpaceDoor\\Alarm").CreateInstance());
+                _gameSFX.Add(SoundEffectType.SpaceShipLeaving, content.Load<SoundEffect>("SFX\\SpaceDoor\\SpaceShipLeaving").CreateInstance());
+                _gameSFX.Add(SoundEffectType.BattleCruiserFire, content.Load<SoundEffect>("SFX\\Ships\\BattleCruiser\\BattleCruiserBulletSFX").CreateInstance());
+                _gameSFX.Add(SoundEffectType.FighterCarrierFire, content.Load<SoundEffect>("SFX\\Ships\\FighterCarrier\\FighterCarrier").CreateInstance());
+            }
+
+            public IEnumerator<SoundEffectInstance> GetEnumerator()
+            {
+                return _gameSFX.Values.GetEnumerator();
+            }
+
+            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+            {
+                return _gameSFX.Values.GetEnumerator();
             }
         }
 
@@ -112,7 +124,7 @@ namespace PGCGame.CoreTypes
                 NonPlayingObjects = new NonPlayingGameObjects(content);
                 SecondaryWeapon = new GameSecondaryWeapon(content);
                 Equipment = new GameEquipment(content);
-                SpriteSheets = new SpriteSheet(content);
+                SpriteSheets = new SpriteSheetLoader(content);
             }
 
             public readonly GameBackgrounds Backgrounds;
@@ -401,8 +413,8 @@ namespace PGCGame.CoreTypes
                 }
             }
 
-            public readonly SpriteSheet SpriteSheets;
-            public class SpriteSheet
+            public readonly SpriteSheetLoader SpriteSheets;
+            public class SpriteSheetLoader
             {
                 private readonly Dictionary<SpriteSheetType, Texture2D> _spriteSheetTextures;
 
@@ -411,7 +423,7 @@ namespace PGCGame.CoreTypes
                     get { return _spriteSheetTextures[sheet]; }
                 }
 
-                internal SpriteSheet(ContentManager content)
+                internal SpriteSheetLoader(ContentManager content)
                 {
                     _spriteSheetTextures = new Dictionary<SpriteSheetType, Texture2D>();
                     _spriteSheetTextures.Add(SpriteSheetType.Explosion, content.Load<Texture2D>("Images\\SpriteSheets\\explosion2"));
@@ -419,6 +431,18 @@ namespace PGCGame.CoreTypes
                 }
             }
 
+        }
+
+        public void Dispose()
+        {
+            //Everything else is auto disposed by content pipeline
+            foreach (SoundEffectInstance sei in Sound)
+            {
+                if (!sei.IsDisposed)
+                {
+                    sei.Dispose();
+                }
+            }
         }
     }
 }
