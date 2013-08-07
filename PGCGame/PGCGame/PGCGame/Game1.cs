@@ -159,6 +159,7 @@ namespace PGCGame
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
+            GameContent.GameAssets.Dispose();
         }
 
         /// <summary>
