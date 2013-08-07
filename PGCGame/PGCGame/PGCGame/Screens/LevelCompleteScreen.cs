@@ -33,7 +33,7 @@ namespace PGCGame
             Continue.Color = Color.Beige;
             Continue.ParentSprite = Button;
             AdditionalSprites.Add(Continue);
-            Continue.Pressed  += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible) { StateManager.ScreenState  = CoreTypes.ScreenType.MainMenu; } });;
+            Continue.Pressed +=new EventHandler(Continue_Pressed);
             Continue.IsHoverable = true;
             Continue.NonHoverColor = Color.White;
             Continue.HoverColor = Color.MediumAquamarine;
@@ -51,11 +51,14 @@ namespace PGCGame
 
         void Continue_Pressed(object sender, EventArgs e)
         {
-            StateManager.SpacePoints += StateManager.AmountOfPointsRecievedInCurrentLevel;
-            StateManager.SpaceBucks += StateManager.AmountOfSpaceBucksRecievedInCurrentLevel;
-            StateManager.AmountOfPointsRecievedInCurrentLevel = 0;
-            StateManager.AmountOfSpaceBucksRecievedInCurrentLevel = 0;
-            StateManager.ScreenState = CoreTypes.ScreenType.MainMenu;
+            if (this.Visible)
+            {
+                StateManager.SpacePoints += StateManager.AmountOfPointsRecievedInCurrentLevel;
+                StateManager.SpaceBucks += StateManager.AmountOfSpaceBucksRecievedInCurrentLevel;
+                StateManager.AmountOfPointsRecievedInCurrentLevel = 0;
+                StateManager.AmountOfSpaceBucksRecievedInCurrentLevel = 0;
+                StateManager.ScreenState = CoreTypes.ScreenType.LevelSelect;
+            }
         }
 
        
