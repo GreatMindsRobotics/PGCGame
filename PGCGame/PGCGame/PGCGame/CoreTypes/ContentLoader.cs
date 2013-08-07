@@ -438,8 +438,12 @@ namespace PGCGame.CoreTypes
             //Everything else is auto disposed by content pipeline
             foreach (SoundEffectInstance sei in Sound)
             {
-                if (!sei.IsDisposed)
+                if (sei != null && !sei.IsDisposed)
                 {
+                    if (sei.State != SoundState.Stopped)
+                    {
+                        sei.Stop(true);
+                    }
                     sei.Dispose();
                 }
             }
