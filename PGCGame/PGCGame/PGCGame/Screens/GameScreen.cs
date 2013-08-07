@@ -86,7 +86,6 @@ namespace PGCGame.Screens
         Song _gameSong;
         List<ISprite> playerSbObjects = new List<ISprite>();
 
-
         public override void InitScreen(ScreenType screenType)
         {
             base.InitScreen(screenType);
@@ -175,18 +174,33 @@ namespace PGCGame.Screens
             Vector2 maxSpawnArea = new Vector2(bgspr.TotalWidth, bgspr.TotalHeight) - _playableAreaOffset;
 
 
-            if (StateManager.CurrentLevel.ToInt() == 4)
+            if (StateManager.CurrentLevel.ToInt() == 1)
             {
                 CloneBoss enemyBoss = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyBattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
+                CloneBoss enemyCloneOne = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyBattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
+                CloneBoss enemyCloneTwo = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyBattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
 
                 enemyBoss.WorldCoords = StateManager.RandomGenerator.NextVector2(minSpawnArea, maxSpawnArea);
+                enemyCloneOne.WorldCoords = enemyBoss.WorldCoords;
+                enemyCloneTwo.WorldCoords = enemyBoss.WorldCoords;
 
-                enemyBoss.DistanceToNose = .5f;
+                enemyBoss.isClone = false;
 
-                enemyBoss.Tier = ShipTier.Tier1;
+                enemyBoss.targetPosition = StateManager.RandomGenerator.NextVector2(new Vector2(500), new Vector2(StateManager.WorldSize.Width - 500, StateManager.WorldSize.Height - 500));
+                enemyCloneOne.targetPosition = StateManager.RandomGenerator.NextVector2(new Vector2(500), new Vector2(StateManager.WorldSize.Width - 500, StateManager.WorldSize.Height - 500));
+                enemyCloneTwo.targetPosition = StateManager.RandomGenerator.NextVector2(new Vector2(500), new Vector2(StateManager.WorldSize.Width - 500, StateManager.WorldSize.Height - 500));
+
+                enemyCloneOne.EnemyCounts = false;
+                enemyCloneTwo.EnemyCounts = false;
 
                 Sprites.Add(enemyBoss);
                 enemies.Add(enemyBoss);
+
+                Sprites.Add(enemyCloneOne);
+                enemies.Add(enemyCloneOne);
+
+                Sprites.Add(enemyCloneTwo);
+                enemies.Add(enemyCloneTwo);
             }
             else
             {
@@ -272,6 +286,43 @@ namespace PGCGame.Screens
         public void ResetLastKS(params Keys[] allKeys)
         {
             _lastState = new KeyboardState(allKeys);
+        }
+
+        Vector2? bossWorldCoords;
+
+        public void RegenerateClones()
+        {
+            bossWorldCoords = null;
+            foreach (CloneBoss enemy in enemies)
+            {
+                if (enemy.isClone)
+                {
+                    enemy.CurrentHealth = 0;
+                }
+                else
+                {
+                    bossWorldCoords = new Vector2(enemy.WorldCoords.X, enemy.WorldCoords.Y);
+                }
+            }
+            CloneBoss enemyCloneOne = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyBattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
+            CloneBoss enemyCloneTwo = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyBattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
+
+            if (bossWorldCoords.HasValue)
+            {
+                enemyCloneOne.WorldCoords = bossWorldCoords.Value;
+                enemyCloneTwo.WorldCoords = bossWorldCoords.Value;
+            }
+            enemyCloneOne.targetPosition = StateManager.RandomGenerator.NextVector2(new Vector2(500), new Vector2(StateManager.WorldSize.Width - 500, StateManager.WorldSize.Height - 500));
+            enemyCloneTwo.targetPosition = StateManager.RandomGenerator.NextVector2(new Vector2(500), new Vector2(StateManager.WorldSize.Width - 500, StateManager.WorldSize.Height - 500));
+
+            enemyCloneOne.EnemyCounts = false;
+            enemyCloneTwo.EnemyCounts = false;
+
+            Sprites.Add(enemyCloneOne);
+            enemies.Add(enemyCloneOne);
+
+            Sprites.Add(enemyCloneTwo);
+            enemies.Add(enemyCloneTwo);
         }
 
         void miniMap_Updated(object sender, EventArgs e)
@@ -415,7 +466,7 @@ namespace PGCGame.Screens
                 {
                     enemyShip.CurrentHealth = (keyboard.IsKeyDown(Keys.LeftAlt) || keyboard.IsKeyDown(Keys.RightAlt)) && enemyShip.CurrentHealth > 0 ? 1 : 0;
                 }
-                if (enemyShip.ShipState != ShipState.Dead)
+                if (enemyShip.ShipState != ShipState.Dead && enemyShip.EnemyCounts)
                 {
                     allEnemiesDead = false;
                 }

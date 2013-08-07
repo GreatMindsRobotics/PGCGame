@@ -22,9 +22,38 @@ namespace PGCGame.Ships.Enemies
             PlayerType = CoreTypes.PlayerType.Enemy;
             UseCenterAsOrigin = true;
             shipState = ShipState.Alive;
+
+            _EMPable = true;
+            _isTrackingPlayer = true;
         }
 
         public int killWorth;
+
+        private bool _enemyCounts = true;
+
+        public bool EnemyCounts
+        {
+            get { return _enemyCounts; }
+            set { _enemyCounts = value; }
+        }
+        
+
+        protected bool _isTrackingPlayer;
+
+        public bool IsTrackingPlayer
+        {
+            get { return _isTrackingPlayer; }
+            set { _isTrackingPlayer = value; }
+        }
+
+        protected bool _EMPable;
+
+        public bool EMPable
+        {
+            get { return _EMPable; }
+            set { _EMPable = value; }
+        }
+        
 
         public override void Shoot()
         {
@@ -53,9 +82,11 @@ namespace PGCGame.Ships.Enemies
         TimeSpan _maxFireRate = new TimeSpan(0, 0, 0, 0, 300);
         TimeSpan? _delayTillNextFire = null;
 
+        protected Vector2? closestAllyShipDistance = null;
+
         public override void Update(GameTime gt)
         {
-            if (!isEMPed)
+            if (!isEMPed || !_EMPable)
             {
                 if (CurrentHealth <= 0)
                 {
@@ -71,7 +102,7 @@ namespace PGCGame.Ships.Enemies
                 }
 
                 Ship closestAllyShip = null;
-                Vector2? closestAllyShipDistance = null;
+                closestAllyShipDistance = null;
 
                 Vector2? shipDistance = null;
 
@@ -131,7 +162,7 @@ namespace PGCGame.Ships.Enemies
                 }
 
 
-                if (closestAllyShipDistance.HasValue && closestAllyShip != null && activated)
+                if (closestAllyShipDistance.HasValue && closestAllyShip != null && activated && _isTrackingPlayer)
                 {
                     _elapsedRotationDelay += gt.ElapsedGameTime;
 
@@ -193,11 +224,11 @@ namespace PGCGame.Ships.Enemies
                 _elapsedRotationDelay = TimeSpan.Zero;
             }
 
-            else
+            else 
             {
                 this.Speed = Vector2.Zero;
                 _elapsedEMPDelay += gt.ElapsedGameTime;
-                if (_elapsedEMPDelay > _EMPDelay)
+                if (_elapsedEMPDelay > _EMPDelay && _EMPable)
                 {
                     isEMPed = false;
                     _elapsedEMPDelay = TimeSpan.Zero;

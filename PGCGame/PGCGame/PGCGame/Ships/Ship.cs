@@ -79,6 +79,15 @@ namespace PGCGame
         protected ShipState shipState;
         public ShipState ShipState { get { return shipState; } set { shipState = value; } }
 
+        protected bool _hasHealthBar = true;
+
+        public bool HasHealthBar
+        {
+            get { return _hasHealthBar = true; }
+            set { _hasHealthBar = value; }
+        }
+        
+
         protected static string _friendlyName;
 
         public static string ShipFriendlyName
@@ -97,7 +106,7 @@ namespace PGCGame
         //position of the ship in the world
         private List<Bullet> _flyingBullets = new List<Bullet>();
 
-        private ProgressBar _healthBar;
+        protected ProgressBar _healthBar;
 
         private Vector2 _movementSpeed = Vector2.One;
 
@@ -358,7 +367,7 @@ namespace PGCGame
 
                 base.DrawNonAuto();
 
-                if (!(this is Drone) && (StateManager.HasBoughtScanner || (this is BaseAllyShip && this.Cast<BaseAllyShip>().IsPlayerShip)))
+                if (_hasHealthBar && (StateManager.HasBoughtScanner || (this is BaseAllyShip && this.Cast<BaseAllyShip>().IsPlayerShip)))
                 { 
                     _healthBar.DrawNonAuto();
                 }

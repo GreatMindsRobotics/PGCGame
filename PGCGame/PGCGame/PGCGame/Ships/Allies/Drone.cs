@@ -71,6 +71,8 @@ namespace PGCGame
         {
             ParentShip = parent;
 
+            _hasHealthBar = false;
+
             UseCenterAsOrigin = true;
             Position = ParentShip.Position;
             WorldCoords = ParentShip.WorldCoords;
