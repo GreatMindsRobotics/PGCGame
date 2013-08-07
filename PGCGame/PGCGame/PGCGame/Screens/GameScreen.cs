@@ -298,10 +298,12 @@ namespace PGCGame.Screens
                 if (enemy.isClone)
                 {
                     enemy.CurrentHealth = 0;
+                    StateManager.EnemyShips.Remove(enemy);
                 }
                 else
                 {
                     bossWorldCoords = new Vector2(enemy.WorldCoords.X, enemy.WorldCoords.Y);
+                    enemy.targetPosition = StateManager.RandomGenerator.NextVector2(new Vector2(500), new Vector2(StateManager.WorldSize.Width - 500, StateManager.WorldSize.Height - 500));
                 }
             }
             CloneBoss enemyCloneOne = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyBattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
