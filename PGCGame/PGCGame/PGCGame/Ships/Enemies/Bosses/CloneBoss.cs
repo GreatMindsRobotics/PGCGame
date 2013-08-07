@@ -8,6 +8,8 @@ using PGCGame.CoreTypes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Glib;
+using Glib.XNA;
 
 namespace PGCGame
 {
@@ -19,24 +21,29 @@ namespace PGCGame
             Scale = new Vector2(.75f);
             BulletTexture = GameContent.GameAssets.Images.Ships.Bullets[ShipType.Drone, ShipTier.Tier1];
 
+            DistanceToNose = .5f;
+            Tier = ShipTier.Tier1;
+
+            _hasHealthBar = false;
+
             DamagePerShot = 50;
             MovementSpeed = new Vector2(.5f);
             _initHealth = 2000;
+
+            _EMPable = false;
+            _isTrackingPlayer = false;
 
             PlayerType = CoreTypes.PlayerType.Enemy;
 
             killWorth = 100;
         }
 
-        int Pos;
-        Random PosGenerator = new Random();
+        public Vector2? targetPosition = null;
 
-        CloneBoss[] Clones = new CloneBoss[2];
+        Vector2 speedVector = new Vector2();
 
-        Boolean isClone = false;
+        public Boolean isClone = true;
         Boolean isFirstUpdate = true;
-
-        public CloneBoss Parent { get; set; }
 
         public override ShipType ShipType
         {
@@ -54,196 +61,58 @@ namespace PGCGame
 
         }
 
-        public override void Shoot()
-        {
-            Bullet bullet = new Bullet(BulletTexture, WorldCoords - new Vector2(Height * -DistanceToNose, Height * -DistanceToNose) * Rotation.Vector, WorldSb, this);
-            bullet.Speed = Rotation.Vector * 3f;
-            bullet.UseCenterAsOrigin = true;
-            bullet.Rotation = Rotation;
-            bullet.Damage = DamagePerShot;
-            bullet.Color = Color.Red;
-
-            StateManager.EnemyBullets.Legit.Add(bullet);
-        }
-
         public override void Update(GameTime gt)
         {
-            if (!isClone && isFirstUpdate)
-            {
-                Clones[0] = new CloneBoss(this.Texture, this.WorldCoords, this.SpriteBatch);
-                Clones[0].isClone = true;
-                Clones[0].Parent = this;
-                Clones[0].Color = Color.White;
-
-                Clones[1] = new CloneBoss(this.Texture, this.WorldCoords, this.SpriteBatch);
-                Clones[1].isClone = true;
-                Clones[1].Parent = this;
-                Clones[1].Color = Color.White;
-
-                StateManager.AllScreens[ScreenType.Game.ToString()].Sprites.Add(Clones[0]);
-                StateManager.AllScreens[ScreenType.Game.ToString()].Sprites.Add(Clones[1]);
-
-                this.Pos = PosGenerator.Next(3);
-                switch (this.Pos)
-                {
-                    default:
-                    case (0):
-                        Clones[0].Pos = 1;
-                        Clones[1].Pos = 2;
-                        break;
-                    case (1):
-                        Clones[0].Pos = 0;
-                        Clones[1].Pos = 2;
-                        break;
-                    case (2):
-                        Clones[0].Pos = 0;
-                        Clones[1].Pos = 1;
-                        break;
-                }
-            }
-
-
-            if (Pos == 0)
-            {
-                if (!isClone)
-                {
-                    foreach (CloneBoss clone in Clones)
-                    {
-                        if (clone.Pos == 1)
-                        {
-                            if (this.WorldCoords.Y > clone.WorldCoords.Y - 1000)
-                            {
-                                this.YSpeed = -1;
-                            }
-                            else
-                            {
-                                this.YSpeed = 0;
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    foreach (CloneBoss clone in Parent.Clones)
-                    {
-                        if (clone.Pos == 1)
-                        {
-                            if (this.WorldCoords.Y > clone.WorldCoords.Y - 1000)
-                            {
-                                this.YSpeed = -1;
-                            }
-                            else
-                            {
-                                this.YSpeed = 0;
-                            }
-                        }
-                    }
-                }
-            }
-            else if (Pos == 1)
-            {
-
-            }
-            else
-            {
-                if (!isClone)
-                {
-                    foreach (CloneBoss clone in Clones)
-                    {
-                        if (clone.Pos == 1)
-                        {
-                            if (this.WorldCoords.Y < clone.WorldCoords.Y + 1000)
-                            {
-                                this.YSpeed = +1;
-                            }
-                            else
-                            {
-                                this.YSpeed = 0;
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    foreach (CloneBoss clone in Parent.Clones)
-                    {
-                        if (clone.Pos == 1)
-                        {
-                            if (this.WorldCoords.Y < clone.WorldCoords.Y + 1000)
-                            {
-                                this.YSpeed = +1;
-                            }
-                            else
-                            {
-                                this.YSpeed = 0;
-                            }
-                        }
-                    }
-                }
-            }
             if (!isClone)
             {
                 regenClonesDelay += gt.ElapsedGameTime;
                 if (regenClonesDelay >= regenClones)
                 {
                     regenClonesDelay = new TimeSpan(0);
-                    for (int i = 0; i < StateManager.EnemyShips.Count; i++)
-                    {
-                        if (StateManager.EnemyShips[i].ShipType == CoreTypes.ShipType.EnemyBossesClones)
-                        {
-                            StateManager.EnemyShips[i].CurrentHealth = 0;
-                        }
-                    }
-                    Clones[0] = new CloneBoss(this.Texture, this.WorldCoords, this.SpriteBatch);
-                    Clones[0].isClone = true;
-                    Clones[0].Parent = this;
-                    Clones[0].Color = Color.White;
-
-                    Clones[1] = new CloneBoss(this.Texture, this.WorldCoords, this.SpriteBatch);
-                    Clones[1].isClone = true;
-                    Clones[1].Parent = this;
-                    Clones[1].Color = Color.White;
-
-                    StateManager.AllScreens[ScreenType.Game.ToString()].Sprites.Add(Clones[0]);
-                    StateManager.AllScreens[ScreenType.Game.ToString()].Sprites.Add(Clones[1]);
-
-                    this.Pos = PosGenerator.Next(3);
-                    switch (this.Pos)
-                    {
-                        default:
-                        case (0):
-                            Clones[0].Pos = 1;
-                            Clones[1].Pos = 2;
-                            break;
-                        case (1):
-                            Clones[0].Pos = 0;
-                            Clones[1].Pos = 2;
-                            break;
-                        case (2):
-                            Clones[0].Pos = 0;
-                            Clones[1].Pos = 1;
-                            break;
-                    }
+                    StateManager.AllScreens[ScreenType.Game.ToInt()].Cast<Screens.GameScreen>().RegenerateClones();
                 }
             }
+
             if (isClone && isFirstUpdate)
             {
                 killWorth /= 10;
                 DamagePerShot /= 5;
-                _initHealth /= 20;
-                CurrentHealth /= 20;
+                _initHealth /= 10;
+                CurrentHealth /= 10;
+            }
+            
+            if (closestAllyShipDistance.HasValue && closestAllyShipDistance.Value.LengthSquared() < Math.Pow(400, 2))
+            {
+                targetPosition = null;
+                XSpeed = 0f;
+                YSpeed = 0f;
+                _isTrackingPlayer = true;
+            }
+            else if (targetPosition.HasValue)
+            {
+                speedVector = targetPosition.Value - WorldCoords;
+                speedVector.Normalize();
+                speedVector *= new Vector2(2);
+             
+                XSpeed = speedVector.X;
+                YSpeed = speedVector.Y;
+                if (XSpeed < .01f && YSpeed < .01f)
+                {
+                    targetPosition = null;
+                }
+            }
+            else
+            {
+                XSpeed = 0f;
+                YSpeed = 0f;
+                _isTrackingPlayer = true;
             }
             if (isFirstUpdate)
             {
                 isFirstUpdate = false;
             }
-            if (!isClone)
-            {
-                Clones[0].Update();
-                Clones[1].Update();
-            }
 
-            //this.WorldCoords += new Vector2(XSpeed, YSpeed);
+            base.Update(gt);
         }
 
         public TimeSpan regenClones = new TimeSpan(0, 0, 30);

@@ -39,6 +39,10 @@ namespace PGCGame
 
         public static int SpacePoints = 0;
 
+        public static int AmountOfPointsRecievedInCurrentLevel = 0;
+
+        public static int AmountOfSpaceBucksRecievedInCurrentLevel = 0;
+
         public static Stack<SecondaryWeapon>[] PowerUps = new Stack<SecondaryWeapon>[]{
             //0: SpaceMine
             new Stack<SecondaryWeapon>(),
@@ -279,7 +283,6 @@ namespace PGCGame
         {
             //Save current tier
             SelectedTier = tier;
-
             AllScreens[ScreenType.Game.ToString()].Cast<Screens.GameScreen>().InitializeScreen<T>(tier);
         }
 
@@ -325,14 +328,14 @@ namespace PGCGame
 
         public static class DebugData
         {
-            public static bool InfiniteMoney = true;
+            public static bool InfiniteMoney = false;
             public static bool DebugBackground = false;
             public static bool ShipSpeedIncrease = true;
             public static bool OPBullets = false;
             public static bool ShowShipIDs = false;
             public static bool EmergencyHeal = true;
-            public static bool KillAll = false;
-            public static bool Invincible = false;
+            public static bool KillAll = true;
+            public static bool Invincible = true;
             public static bool BringDronesBack = false;
             public static bool KillYourSelf = true;
             /// <summary>

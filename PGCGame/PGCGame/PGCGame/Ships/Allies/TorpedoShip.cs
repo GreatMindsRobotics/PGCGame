@@ -30,7 +30,7 @@ namespace PGCGame
             _initHealth = 110;
             this.TierChanged += new EventHandler(TorpedoShip_TierChanged);
             DamagePerShot = 5;
-            ShootSound = GameContent.GameAssets.Sound[SoundEffectType.BattleCruiserFire];
+            ShootSound = GameContent.GameAssets.Sound[SoundEffectType.TorpedoShipFire];
         }
 
         static TorpedoShip()
@@ -75,6 +75,10 @@ namespace PGCGame
             bullet.UseCenterAsOrigin = true;
             bullet.Rotation = Rotation;
             bullet.Damage = DamagePerShot;
+            if(StateManager.Options.SFXEnabled)
+            {
+                ShootSound.Play();
+            }
 
             StateManager.AllyBullets.Legit.Add(bullet);
         }
