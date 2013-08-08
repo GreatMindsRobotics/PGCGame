@@ -166,6 +166,10 @@ namespace PGCGame.Ships.Allies
 
             if (CurrentHealth <= 0)
             {
+                if (StateManager.Options.SFXEnabled)
+                {
+                   ExplosionSFX.Play();
+                }
                 base.Update(gt);
 
                 _isDead = true;

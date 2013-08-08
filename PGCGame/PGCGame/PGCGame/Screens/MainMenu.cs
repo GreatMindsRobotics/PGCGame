@@ -26,6 +26,8 @@ namespace PGCGame.Screens
             : base(spriteBatch, Color.Black)
         {
             StateManager.ScreenStateChanged += new EventHandler(StateManager_ScreenStateChanged);
+
+            ButtonClick = GameContent.GameAssets.Sound[SoundEffectType.ButtonPressed];
         }
 
         void StateManager_ScreenStateChanged(object sender, EventArgs e)
@@ -174,15 +176,12 @@ namespace PGCGame.Screens
             SinglePlayerLabel.IsSelected = true;
             AllButtons.FireTextSpritePressed = true;
 #endif
-            BackLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.Exit(); } });
-            CreditsLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.LevelCompleteScreen; } });
-            OptionsLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.Options; } });
-            SinglePlayerLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.LevelSelect; } });
-            MultiPlayerLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.NetworkSelectScreen; } });
+            BackLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.Exit(); ButtonClick.Play(); } });
+            CreditsLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.LevelCompleteScreen; if (StateManager.Options.SFXEnabled) ButtonClick.Play(); } });
+            OptionsLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.Options; if (StateManager.Options.SFXEnabled)  ButtonClick.Play(); } });
+            SinglePlayerLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.LevelSelect; if (StateManager.Options.SFXEnabled) ButtonClick.Play(); } });
+            MultiPlayerLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.NetworkSelectScreen; if (StateManager.Options.SFXEnabled) ButtonClick.Play(); } });
         }
-
-
-
 
 
         void Options_ScreenResolutionChanged(object sender, EventArgs e)

@@ -21,7 +21,7 @@ namespace PGCGame.Screens.SelectScreens
         public UpgradeScreen(SpriteBatch spriteBatch)
             : base(spriteBatch)
         {
-
+            ItemBought = GameContent.GameAssets.Sound[SoundEffectType.BoughtItem];
         }
         Texture2D tempImage = GameContent.GameAssets.Images.NonPlayingObjects.Planet;
         Texture2D ScannerImage = GameContent.GameAssets.Images.Equipment[EquipmentType.Scanner, TextureDisplayType.ShopDisplay];
@@ -73,6 +73,11 @@ namespace PGCGame.Screens.SelectScreens
                 {
                     text4.Text = "You have " + StateManager.SpaceBucks + " credits\n\nScanner\nCost: 2500\nShows enemy health bars as well as\ntheir health and rotation on the minimap\nCurrently lasts until game ends\n\nYou already have one of this item!";
                 }
+            }
+
+            if(StateManager.Options.SFXEnabled)
+            {
+               ItemBought.Play();
             }
         }
 

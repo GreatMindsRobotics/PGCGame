@@ -26,12 +26,13 @@ namespace PGCGame.Screens
             : base(spriteBatch, Color.Black)
         {
             items = new List<KeyValuePair<Sprite, TextSprite>>();
+            ButtonClick = GameContent.GameAssets.Sound[SoundEffectType.ButtonPressed];
 #if XBOX
             GamePadManager.One.Buttons.LeftShoulderPressed += new EventHandler(Buttons_LeftShoulderPressed);
             GamePadManager.One.Buttons.RightShoulderPressed += new EventHandler(Buttons_RightShoulderPressed);
             GamePadManager.One.Buttons.AButtonPressed += new EventHandler(Buttons_AButtonPressed);
             StateManager.ScreenStateChanged += new EventHandler(StateManager_ScreenStateChanged);
-#endif
+#endif 
         }
         
 
@@ -334,6 +335,11 @@ namespace PGCGame.Screens
             {
                 if (mouseInplayButton)
                 {
+                    //if(StateManager.Options.SFXEnabled)
+                    //{
+                    //  ButtonClick.Play();
+                    //}
+
                     if (nextButtonClicked != null)
                     {
                         nextButtonClicked(this, new EventArgs());
@@ -341,6 +347,11 @@ namespace PGCGame.Screens
                 }
                 else if (mouseInbackButton)
                 {
+                    if (StateManager.Options.SFXEnabled)
+                    {
+                        ButtonClick.Play();
+                    }
+
                     StateManager.GoBack();
                 }
                 else if (mouseOnLeftButton || mouseOnRightButton)
@@ -350,6 +361,11 @@ namespace PGCGame.Screens
 
                     if (mouseOnRightButton)
                     {
+                        if (StateManager.Options.SFXEnabled)
+                        {
+                            ButtonClick.Play();
+                        }
+
                         selected++;
                         if (selected == items.Count)
                         {
@@ -358,6 +374,11 @@ namespace PGCGame.Screens
                     }
                     else
                     {
+                        if (StateManager.Options.SFXEnabled)
+                        {
+                            ButtonClick.Play();
+                        }
+
                         selected--;
                         if (selected < 0)
                         {

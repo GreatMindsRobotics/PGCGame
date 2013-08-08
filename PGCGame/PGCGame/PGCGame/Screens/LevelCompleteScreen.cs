@@ -11,7 +11,7 @@ namespace PGCGame
         public LevelCompleteScreen(SpriteBatch spriteBatch)
         : base(spriteBatch, Color.White)
         {
-            
+            ButtonClick = GameContent.GameAssets.Sound[SoundEffectType.ButtonPressed];
         }
         TextSprite winText;
 
@@ -55,6 +55,10 @@ namespace PGCGame
 
         void Continue_Pressed(object sender, EventArgs e)
         {
+            if (StateManager.Options.SFXEnabled)
+            {
+                ButtonClick.Play();
+            }
             if (this.Visible)
             {
                 StateManager.SpacePoints += StateManager.AmountOfPointsRecievedInCurrentLevel;

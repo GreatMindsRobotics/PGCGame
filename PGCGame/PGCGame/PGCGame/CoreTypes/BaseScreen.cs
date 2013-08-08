@@ -15,6 +15,7 @@ namespace PGCGame.CoreTypes
         public BaseScreen(SpriteBatch spriteBatch, Color color)
             : base(spriteBatch, StateManager.DebugData.DebugBackground ? Color.Red : color)
         {
+            ButtonClick = GameContent.GameAssets.Sound[SoundEffectType.ButtonPressed];
 #if XBOX
             StateManager.ScreenStateChanged += new EventHandler(StateManager_ScreenStateChanged);
             GamePadManager.One.Buttons.BButtonPressed += new EventHandler(Buttons_BButtonPressed);
@@ -69,7 +70,9 @@ namespace PGCGame.CoreTypes
         }
 
         public SoundEffectInstance DeploySound { get; set; }
-        public SoundEffectInstance SpaceShipLeaving { get; set; } 
+        public SoundEffectInstance SpaceShipLeaving { get; set; }
+        public SoundEffectInstance ItemBought { get; set; }
+        public SoundEffectInstance ButtonClick { get; set; }
 
         public override void Update(GameTime game)
         {

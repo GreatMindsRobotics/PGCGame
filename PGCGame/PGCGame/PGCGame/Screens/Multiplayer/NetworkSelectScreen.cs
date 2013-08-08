@@ -25,6 +25,7 @@ namespace PGCGame.Screens.Multiplayer
         {
 #if WINDOWS
             StateManager.ScreenStateChanged += new EventHandler(StateManager_ScreenStateChanged);
+            ButtonClick = GameContent.GameAssets.Sound[SoundEffectType.ButtonPressed];
 #endif
         }
         TimeSpan elapsedButtonDelay = TimeSpan.Zero;
@@ -115,7 +116,7 @@ namespace PGCGame.Screens.Multiplayer
             AllButtons.ButtonPress += new EventHandler(AllButtons_ButtonPress);
             BackLabel.IsSelected = true;
 #elif WINDOWS
-            BackLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.GoBack(); } });
+            BackLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.GoBack(); if(StateManager.Options.SFXEnabled) ButtonClick.Play();} });
             
 #endif
         }

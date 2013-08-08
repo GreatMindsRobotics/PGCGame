@@ -15,7 +15,7 @@ namespace PGCGame.Screens
         public GameOver(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
         {
-
+            ButtonClick = GameContent.GameAssets.Sound[SoundEffectType.ButtonPressed];   
         }
 
         TextSprite mainMenuLabel;
@@ -86,6 +86,11 @@ namespace PGCGame.Screens
             MouseState currentMs = MouseManager.CurrentMouseState;
             if (currentMs.LeftButton == ButtonState.Pressed)
             {
+                if (StateManager.Options.SFXEnabled)
+                {
+                    ButtonClick.Play();
+                }
+
                 if (mouseInMainMenuButton && this.Visible)
                 {
                     StateManager.Reset();

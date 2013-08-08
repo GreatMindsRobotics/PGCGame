@@ -131,6 +131,8 @@ namespace PGCGame
 
         public SoundEffectInstance ExplosionSFX { get; set; }
 
+        public SoundEffectInstance EnemyShoots { get; set; }
+
         private Rectangle _wcRect;
 
         protected int _initHealth;
@@ -347,10 +349,15 @@ namespace PGCGame
                 if (CurrentHealth <= 0 && shipState != ShipState.Exploding)
                 {
                     shipState = ShipState.Exploding;
+                   // ExplosionSFX.Play();
                     return;
                 }
                 else if (shipState == ShipState.Exploding)
                 {
+                    if (StateManager.Options.SFXEnabled)
+                    {
+                        ExplosionSFX.Play();
+                    }
                     _explosionSheet.Update();
                     Dead(this, EventArgs.Empty);
                     _explosionSheet.Position = this.Position;

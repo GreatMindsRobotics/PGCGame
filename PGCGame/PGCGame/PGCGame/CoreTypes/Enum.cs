@@ -62,6 +62,7 @@ namespace PGCGame.CoreTypes
         Level3,
         Level4
     }
+
     public enum SoundEffectType
     {
         DeployEMP,
@@ -74,17 +75,19 @@ namespace PGCGame.CoreTypes
         BattleCruiserFire,
         FighterCarrierFire,
         TorpedoShipFire,
-        EnemyExplodes
+        EnemyExplodes,
+        BoughtItem,
+        EnemyShoots,
+        ButtonPressed
     }
     public enum ShipTier
     {
-        NoShip = 0, 
+        NoShip = 0,
         Tier1,
         Tier2,
         Tier3,
         Tier4
     }
-
 
     public enum ShipType
     {

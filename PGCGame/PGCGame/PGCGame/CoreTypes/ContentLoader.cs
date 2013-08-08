@@ -86,9 +86,12 @@ namespace PGCGame.CoreTypes
                 _gameSFX.Add(SoundEffectType.SpaceDoorOpening, content.Load<SoundEffect>("SFX\\SpaceDoor\\Alarm").CreateInstance());
                 _gameSFX.Add(SoundEffectType.SpaceShipLeaving, content.Load<SoundEffect>("SFX\\SpaceDoor\\SpaceShipLeaving").CreateInstance());
                 _gameSFX.Add(SoundEffectType.BattleCruiserFire, content.Load<SoundEffect>("SFX\\Ships\\BattleCruiser\\BattleCruiserBulletSFX").CreateInstance());
-                _gameSFX.Add(SoundEffectType.FighterCarrierFire, content.Load<SoundEffect>("SFX\\Ships\\FighterCarrier\\FighterCarrier").CreateInstance());
+                _gameSFX.Add(SoundEffectType.FighterCarrierFire, content.Load<SoundEffect>("SFX\\Ships\\FighterCarrier\\fighterCarrier").CreateInstance());
                 _gameSFX.Add(SoundEffectType.TorpedoShipFire, content.Load<SoundEffect>("SFX\\Ships\\TorpedoShip\\torpedoShip").CreateInstance());
                 _gameSFX.Add(SoundEffectType.EnemyExplodes, content.Load<SoundEffect>("SFX\\Explosions\\enemyExplosion").CreateInstance());
+                _gameSFX.Add(SoundEffectType.BoughtItem, content.Load<SoundEffect>("SFX\\NonPlayingObjects\\Money\\itemBought").CreateInstance());
+                _gameSFX.Add(SoundEffectType.EnemyShoots, content.Load<SoundEffect>("SFX\\Ships\\EnemyBattleCruiser\\enemyBattleCruiser").CreateInstance());
+                _gameSFX.Add(SoundEffectType.ButtonPressed, content.Load<SoundEffect>("SFX\\NonPlayingObjects\\ButtonPressed\\buttonPressed").CreateInstance());
             }
 
             public IEnumerator<SoundEffectInstance> GetEnumerator()

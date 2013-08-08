@@ -22,6 +22,7 @@ namespace PGCGame.Screens
             : base(spriteBatch, Color.Black)
         {
             //TODO: BACKGROUND
+            ButtonClick = GameContent.GameAssets.Sound[SoundEffectType.ButtonPressed];
         }
         public static event EventHandler levelBegin;
         public static event EventHandler selectedTierSelect;
@@ -130,6 +131,12 @@ namespace PGCGame.Screens
             {
                 return;
             }
+
+            if (StateManager.Options.SFXEnabled)
+            {
+                ButtonClick.Play();
+            }
+
             selectedTierSelect(null, null);
             StateManager.ScreenState = ScreenType.TierSelect;
             
@@ -141,6 +148,12 @@ namespace PGCGame.Screens
             {
                 return;
             }
+
+            if (StateManager.Options.SFXEnabled)
+            {
+                ButtonClick.Play();
+            }
+
             StateManager.ScreenState = ScreenType.UpgradeScreen;
         }
 
@@ -149,6 +162,11 @@ namespace PGCGame.Screens
             if (!this.Visible)
             {
                 return;
+            }
+
+            if (StateManager.Options.SFXEnabled)
+            {
+                ButtonClick.Play();
             }
             StateManager.ScreenState = ScreenType.WeaponSelect;
         }
@@ -159,6 +177,12 @@ namespace PGCGame.Screens
             {
                 return;
             }
+
+            if (StateManager.Options.SFXEnabled)
+            {
+                ButtonClick.Play();
+            }
+
             levelBegin(null, null);
             StateManager.InitializeSingleplayerGameScreen(StateManager.SelectedShip, StateManager.SelectedTier);
             StateManager.ScreenState = ScreenType.TransitionScreen;

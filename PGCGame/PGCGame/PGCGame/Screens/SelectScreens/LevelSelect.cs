@@ -18,7 +18,7 @@ namespace PGCGame.Screens.SelectScreens
         public LevelSelect(SpriteBatch spriteBatch)
             : base(spriteBatch)
         {
-
+            ButtonClick = GameContent.GameAssets.Sound[SoundEffectType.ButtonPressed];
         }
 
         TextSprite level1Label;
@@ -118,6 +118,7 @@ namespace PGCGame.Screens.SelectScreens
             {
                 acceptLabel.Text = "Locked";
                 canPlayLevel = false;
+ 
                 switch (selectedLevel)
                 {
                     case GameLevel.Level2:
@@ -177,6 +178,11 @@ namespace PGCGame.Screens.SelectScreens
             if (!canPlayLevel)
             {
                 return;
+            }
+
+            if (StateManager.Options.SFXEnabled)
+            {
+                ButtonClick.Play();
             }
 
             StateManager.ScreenState = ScreenType.Shop;

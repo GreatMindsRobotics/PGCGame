@@ -26,7 +26,7 @@ namespace PGCGame.Screens
         public Options(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
         {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+            ButtonClick = GameContent.GameAssets.Sound[SoundEffectType.ButtonPressed];                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
         }
 
         Sprite ControlButton;
@@ -301,10 +301,20 @@ namespace PGCGame.Screens
             {
                 if (mouseInBackButton)
                 {
+                    if (StateManager.Options.SFXEnabled)
+                    {
+                        ButtonClick.Play();
+                    }
+
                     StateManager.GoBack();
                 }
                 if (MusicVolumeLabel.IsSelected)
                 {
+                    if (StateManager.Options.SFXEnabled)
+                    {
+                        ButtonClick.Play();
+                    }
+
                     StateManager.Options.MusicEnabled = !StateManager.Options.MusicEnabled;
                     MusicVolumeLabel.Text = String.Format("Music: {0}", StateManager.Options.MusicEnabled ? "On" : "Off");
                     if (MusicVolumeLabel.Text == "Music: On")
@@ -314,16 +324,31 @@ namespace PGCGame.Screens
                 }
                 if (SFXLabel.IsSelected)
                 {
+                    if (StateManager.Options.SFXEnabled)
+                    {
+                        ButtonClick.Play();
+                    }
+
                     StateManager.Options.SFXEnabled = !StateManager.Options.SFXEnabled;
                     SFXLabel.Text = String.Format("SFX: {0}", StateManager.Options.SFXEnabled ? "On" : "Off");
 
                 }
                 if (mouseOnGraphicButton)
                 {
+                    if (StateManager.Options.SFXEnabled)
+                    {
+                        ButtonClick.Play();
+                    }
+
                     StateManager.Options.ToggleFullscreen();
                 }
                 if (ControlLabel.IsSelected)
                 {
+                    if (StateManager.Options.SFXEnabled)
+                    {
+                        ButtonClick.Play();
+                    }
+
                     StateManager.ScreenState = ScreenType.ControlScreen;
                 }
             }

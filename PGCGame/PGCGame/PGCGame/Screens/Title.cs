@@ -26,6 +26,8 @@ namespace PGCGame.Screens
             : base(spriteBatch, Color.Black)
         {
             _exit = exitableFunction;
+
+            ButtonClick = GameContent.GameAssets.Sound[SoundEffectType.ButtonPressed];
         }
 
         Sprite TitleImage;
@@ -158,6 +160,11 @@ namespace PGCGame.Screens
             {
                 return;
             }
+
+            //if(StateManager.Options.SFXEnabled)
+            //{
+            //   ButtonClick.Play();
+            //}
 
             StateManager.ScreenState = CoreTypes.ScreenType.MainMenu;
         }

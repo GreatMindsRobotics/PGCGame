@@ -434,8 +434,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SFX\Ships\FighterCarrier\FighterCarrier.mp3">
-      <Name>FighterCarrier</Name>
+    <Compile Include="SFX\Ships\EnemyBattleCruiser\enemyBattleCruiser.mp3">
+      <Name>enemyBattleCruiser</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
@@ -457,6 +457,27 @@
   <ItemGroup>
     <Compile Include="SFX\Explosions\enemyExplosion.mp3">
       <Name>enemyExplosion</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SFX\NonPlayingObjects\Money\itemBought.mp3">
+      <Name>itemBought</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SFX\Ships\FighterCarrier\fighterCarrier.mp3">
+      <Name>fighterCarrier</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SFX\NonPlayingObjects\ButtonPressed\buttonPressed.mp3">
+      <Name>buttonPressed</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>

@@ -36,7 +36,7 @@ namespace PGCGame.Screens
         public PauseScreen(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
         {
-
+            ButtonClick = GameContent.GameAssets.Sound[SoundEffectType.ButtonPressed];   
         }
 
         public override void InitScreen(ScreenType screenType)
@@ -135,12 +135,22 @@ namespace PGCGame.Screens
 
         void OptionsLabel_Pressed(object sender, EventArgs e)
         {
+            if (StateManager.Options.SFXEnabled)
+            {
+                ButtonClick.Play();
+            }
+
             StateManager.ScreenState = ScreenType.Options;
             OptionsLabel.IsSelected = false;
         }
 
         void ExitLabel_Pressed(object sender, EventArgs e)
         {
+            if (StateManager.Options.SFXEnabled)
+            {
+                ButtonClick.Play();
+            }
+
             StateManager.ScreenState = ScreenType.MainMenu;
             StateManager.Reset();
             StateManager.EnemyShips.Clear();
@@ -150,6 +160,11 @@ namespace PGCGame.Screens
 
         void ResumeLabel_Pressed(object sender, EventArgs e)
         {
+            if (StateManager.Options.SFXEnabled)
+            {
+                ButtonClick.Play();
+            }
+
             if (this.Visible)
             {
                 StateManager.GoBack();

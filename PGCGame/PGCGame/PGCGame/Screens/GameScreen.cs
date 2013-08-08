@@ -525,7 +525,9 @@ namespace PGCGame.Screens
                 {
                     StateManager.ScreenState = ScreenType.GameOver;
                 }
-                else if (StateManager.Lives > 0 || StateManager.nextLevel || playerShip.ShipState == ShipState.Dead)
+
+                else if (StateManager.nextLevel || playerShip.ShipState == ShipState.Dead)
+
                 {
                     if (StateManager.nextLevel)
                     {
@@ -538,16 +540,19 @@ namespace PGCGame.Screens
                         StateManager.AmountOfPointsRecievedInCurrentLevel = 0;
                         StateManager.AmountOfSpaceBucksRecievedInCurrentLevel = 0;
                     }
-                    if (playerShip.ShipType == ShipType.BattleCruiser)
+                    if (playerShip.ShipState == ShipState.Dead)
                     {
-                    }
-                    else if (playerShip.ShipType == ShipType.FighterCarrier)
-                    {
-                        InitializeScreen<FighterCarrier>(playerShip.Tier);
-                    }
-                    else if (playerShip.ShipType == ShipType.TorpedoShip)
-                    {
-                        InitializeScreen<TorpedoShip>(playerShip.Tier);
+                        if (playerShip.ShipType == ShipType.BattleCruiser)
+                        {
+                        }
+                        else if (playerShip.ShipType == ShipType.FighterCarrier)
+                        {
+                            InitializeScreen<FighterCarrier>(playerShip.Tier);
+                        }
+                        else if (playerShip.ShipType == ShipType.TorpedoShip)
+                        {
+                            InitializeScreen<TorpedoShip>(playerShip.Tier);
+                        }
                     }
                 }
 

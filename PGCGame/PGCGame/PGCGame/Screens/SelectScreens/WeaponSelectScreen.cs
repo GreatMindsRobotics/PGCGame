@@ -23,7 +23,7 @@ namespace PGCGame.Screens.SelectScreens
         public WeaponSelectScreen(SpriteBatch spriteBatch)
             : base(spriteBatch)
         {
-
+            ItemBought = GameContent.GameAssets.Sound[SoundEffectType.BoughtItem];
         }
 
         List<SecondaryWeapon> itemsShown = new List<SecondaryWeapon>();
@@ -129,6 +129,11 @@ namespace PGCGame.Screens.SelectScreens
                         StateManager.PowerUps[3].Push(new HealthPack(item.Texture, Vector2.Zero, Sprites.SpriteBatch));
                     }
                     break;
+                }
+
+                if (StateManager.Options.SFXEnabled)
+                {
+                    ItemBought.Play();
                 }
             }
         }

@@ -23,6 +23,7 @@ namespace PGCGame.Screens
          public ControlScreen(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
          {
+             ButtonClick = GameContent.GameAssets.Sound[SoundEffectType.ButtonPressed];
          }
 
          TextSprite MoveLabel;
@@ -203,29 +204,54 @@ namespace PGCGame.Screens
 
              if (BackLabel.IsSelected && BackButton.ClickCheck(currentMouseState) && !BackButton.ClickCheck(lastMS))
              {
+                 if (StateManager.Options.SFXEnabled)
+                 {
+                     ButtonClick.Play();
+                 }
+
                  StateManager.GoBack();
              }
 
              if (MoveLabel.IsSelected && currentMouseState.LeftButton == ButtonState.Pressed && lastMS.LeftButton != ButtonState.Pressed)
              {
+                 if (StateManager.Options.SFXEnabled)
+                 {
+                     ButtonClick.Play();
+                 }
+
                  StateManager.Options.ArrowKeysEnabled = !StateManager.Options.ArrowKeysEnabled;
                  MoveLabel.Text = String.Format("Move:{0}", StateManager.Options.ArrowKeysEnabled ? "Arrow" : "WASD");
              }
 
              if (FireLabel.IsSelected && currentMouseState.LeftButton == ButtonState.Pressed && lastMS.LeftButton != ButtonState.Pressed)
              {
+                 if (StateManager.Options.SFXEnabled)
+                 {
+                     ButtonClick.Play();
+                 }
+
                  StateManager.Options.LeftButtonEnabled = !StateManager.Options.LeftButtonEnabled;
                  FireLabel.Text = String.Format("Fire:{0}", StateManager.Options.LeftButtonEnabled ? "LClick" : "Space");
              }
 
              if (SecondWeapLabel.IsSelected && currentMouseState.LeftButton == ButtonState.Pressed && lastMS.LeftButton != ButtonState.Pressed)
              {
+                 if (StateManager.Options.SFXEnabled)
+                 {
+                     ButtonClick.Play();
+                 }
+
                  StateManager.Options.SecondaryButtonEnabled = !StateManager.Options.SecondaryButtonEnabled;
                  SecondWeapLabel.Text = String.Format("Use Weapon:{0}", StateManager.Options.SecondaryButtonEnabled ? "RShift" : "R");
              }
 
              if (SwitchSecondWeapLabel.IsSelected && currentMouseState.LeftButton == ButtonState.Pressed && lastMS.LeftButton != ButtonState.Pressed)
              {
+                 if (StateManager.Options.SFXEnabled)
+                 {
+                     ButtonClick.Play();
+                 }
+
                  StateManager.Options.SwitchButtonEnabled = !StateManager.Options.SwitchButtonEnabled;
                  SwitchWeap.Scale.X = 1.7f;
                  SwitchSecondWeapLabel.Text = String.Format("Switch Weapon:{0}", StateManager.Options.SwitchButtonEnabled ? "PgUp/PgDn" : "Q/E");
@@ -233,6 +259,11 @@ namespace PGCGame.Screens
 
              if (DeployDronesLabel.IsSelected && currentMouseState.LeftButton == ButtonState.Pressed && lastMS.LeftButton != ButtonState.Pressed)
              {
+                 if (StateManager.Options.SFXEnabled)
+                 {
+                     ButtonClick.Play();
+                 }
+
                  StateManager.Options.DeployDronesEnabled = !StateManager.Options.DeployDronesEnabled;
                  DeployDronesLabel.Text = String.Format("Drones:{0}", StateManager.Options.DeployDronesEnabled ? "RControl" : "LShift");
                  Drone.DeployKey = StateManager.Options.DeployDronesEnabled ? Keys.RightControl : Keys.LeftShift;

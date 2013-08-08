@@ -329,14 +329,14 @@ namespace PGCGame
 
         public static class DebugData
         {
-            public static bool InfiniteMoney = false;
+            public static bool InfiniteMoney = true;
             public static bool DebugBackground = false;
             public static bool ShipSpeedIncrease = true;
             public static bool OPBullets = true;
             public static bool ShowShipIDs = false;
             public static bool EmergencyHeal = true;
             public static bool KillAll = true;
-            public static bool Invincible = true;
+            public static bool Invincible = false;
             public static bool BringDronesBack = false;
             public static bool KillYourSelf = true;
             /// <summary>

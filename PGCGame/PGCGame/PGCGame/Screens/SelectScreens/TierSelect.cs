@@ -21,7 +21,7 @@ namespace PGCGame.Screens.SelectScreens
         public TierSelect(SpriteBatch spriteBatch)
             : base(spriteBatch)
         {
-
+            ItemBought = GameContent.GameAssets.Sound[SoundEffectType.BoughtItem];
         }
 
         private struct ShipInfo
@@ -167,6 +167,10 @@ namespace PGCGame.Screens.SelectScreens
                         
 
                         bought = true;
+                        if(StateManager.Options.SFXEnabled && bought)
+                        {
+                           ItemBought.Play();
+                        }
                     }
 
                     

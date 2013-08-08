@@ -9,6 +9,7 @@ using Glib.XNA;
 using Glib.XNA.SpriteLib;
 
 using PGCGame.CoreTypes;
+using Microsoft.Xna.Framework.Audio;
 
 namespace PGCGame.Ships.Enemies
 {
@@ -73,6 +74,11 @@ namespace PGCGame.Ships.Enemies
             StateManager.EnemyBullets.Legit.Add(bullet);
 
             ExplosionSFX = GameContent.GameAssets.Sound[SoundEffectType.EnemyExplodes];
+            EnemyShoots = GameContent.GameAssets.Sound[SoundEffectType.EnemyShoots];
+            if(StateManager.Options.SFXEnabled)
+            {
+               EnemyShoots.Play();
+            }
         }
 
         Boolean activated = false;
@@ -98,11 +104,7 @@ namespace PGCGame.Ships.Enemies
             {
                 if (CurrentHealth <= 0)
                 {
-                    if (StateManager.Options.SFXEnabled && this.shipState == CoreTypes.ShipState.Exploding)
-                    {
-                        ExplosionSFX.Play();
 
-                    }
                     base.Update(gt);
 
                     _isDead = true;
