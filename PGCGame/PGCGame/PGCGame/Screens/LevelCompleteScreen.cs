@@ -52,7 +52,7 @@ namespace PGCGame
 
         void StateManager_levelCompleted(object sender, EventArgs e)
         {
-            winText.Text = string.Format("You died {3} times \n\n {2} Completed!\n\nYou earned {1} Points\n\nYou Have {0} earned SpaceBucks ", StateManager.AmountOfSpaceBucksRecievedInCurrentLevel, StateManager.AmountOfPointsRecievedInCurrentLevel, StateManager.CurrentLevel, StateManager.Deaths);
+            winText.Text = string.Format("You died {3} times \n\n {2} Completed!\n\nYou earned {1} Points\n\nYou have obtained {0} spacebucks   ", StateManager.AmountOfSpaceBucksRecievedInCurrentLevel, StateManager.AmountOfPointsRecievedInCurrentLevel, StateManager.CurrentLevel, StateManager.Deaths);
         }
 
         void Continue_Pressed(object sender, EventArgs e)
