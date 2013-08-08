@@ -88,6 +88,7 @@ namespace PGCGame.CoreTypes
                 _gameSFX.Add(SoundEffectType.BattleCruiserFire, content.Load<SoundEffect>("SFX\\Ships\\BattleCruiser\\BattleCruiserBulletSFX").CreateInstance());
                 _gameSFX.Add(SoundEffectType.FighterCarrierFire, content.Load<SoundEffect>("SFX\\Ships\\FighterCarrier\\FighterCarrier").CreateInstance());
                 _gameSFX.Add(SoundEffectType.TorpedoShipFire, content.Load<SoundEffect>("SFX\\Ships\\TorpedoShip\\torpedoShip").CreateInstance());
+                _gameSFX.Add(SoundEffectType.EnemyExplodes, content.Load<SoundEffect>("SFX\\Explosions\\enemyExplosion").CreateInstance());
             }
 
             public IEnumerator<SoundEffectInstance> GetEnumerator()
