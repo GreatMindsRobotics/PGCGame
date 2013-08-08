@@ -73,7 +73,8 @@ namespace PGCGame.CoreTypes
         SpaceShipLeaving,
         BattleCruiserFire,
         FighterCarrierFire,
-        TorpedoShipFire
+        TorpedoShipFire,
+        EnemyExplodes
     }
     public enum ShipTier
     {

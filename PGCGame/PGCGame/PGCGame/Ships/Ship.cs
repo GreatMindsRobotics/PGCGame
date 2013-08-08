@@ -55,6 +55,9 @@ namespace PGCGame
             _explosionSheet.Scale = new Vector2(1.5f);
             _explosionSheet.RestartAnimation = false;
             _currentHealth = _initHealth;
+
+            ExplosionSFX = GameContent.GameAssets.Sound[SoundEffectType.EnemyExplodes];
+
         }
 
         void Ship_Moved(object sender, EventArgs e)
@@ -125,6 +128,8 @@ namespace PGCGame
             }
         }
         public SoundEffectInstance ShootSound { get; set; }
+
+        public SoundEffectInstance ExplosionSFX { get; set; }
 
         private Rectangle _wcRect;
 
@@ -289,8 +294,11 @@ namespace PGCGame
 
                 if (CurrentHealth <= 0)
                 {
-                    shipState = ShipState.Dead;
-
+                    shipState = ShipState.Dead; 
+                    if (StateManager.Options.SFXEnabled && ShipState == CoreTypes.ShipState.Exploding)
+                    { 
+                        ExplosionSFX.Play();
+                    }
                     if (PlayerType == CoreTypes.PlayerType.Enemy || PlayerType == CoreTypes.PlayerType.Solo)
                     {
                         //Done in DrawNonAuto() ?!?!?!?

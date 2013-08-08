@@ -60,6 +60,7 @@ namespace PGCGame.Ships.Enemies
         }
         
 
+
         public override void Shoot()
         {
             Bullet bullet = new Bullet(BulletTexture, WorldCoords - new Vector2(Height * -DistanceToNose, Height * -DistanceToNose) * Rotation.Vector, WorldSb, this);
@@ -70,6 +71,8 @@ namespace PGCGame.Ships.Enemies
             bullet.Color = Color.Red;
 
             StateManager.EnemyBullets.Legit.Add(bullet);
+
+            ExplosionSFX = GameContent.GameAssets.Sound[SoundEffectType.EnemyExplodes];
         }
 
         Boolean activated = false;
@@ -95,6 +98,11 @@ namespace PGCGame.Ships.Enemies
             {
                 if (CurrentHealth <= 0)
                 {
+                    if (StateManager.Options.SFXEnabled && this.shipState == CoreTypes.ShipState.Exploding)
+                    {
+                        ExplosionSFX.Play();
+
+                    }
                     base.Update(gt);
 
                     _isDead = true;
