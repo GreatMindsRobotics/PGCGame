@@ -70,6 +70,8 @@ namespace PGCGame
                 {
                     regenClonesDelay = new TimeSpan(0);
                     StateManager.AllScreens[ScreenType.Game.ToInt()].Cast<Screens.GameScreen>().RegenerateClones();
+                    IsTrackingPlayer = false;
+                    noStackDelay = new TimeSpan(0);
                 }
             }
 
@@ -79,9 +81,11 @@ namespace PGCGame
                 DamagePerShot /= 5;
                 _initHealth /= 10;
                 CurrentHealth /= 10;
+                noStackDelay = new TimeSpan(0);
             }
-            
-            if (closestAllyShipDistance.HasValue && closestAllyShipDistance.Value.LengthSquared() < Math.Pow(400, 2))
+
+            noStackDelay += gt.ElapsedGameTime;
+            if (closestAllyShipDistance.HasValue && closestAllyShipDistance.Value.LengthSquared() < Math.Pow(400, 2) && noStackDelay >= noStack)
             {
                 targetPosition = null;
                 XSpeed = 0f;
@@ -92,6 +96,7 @@ namespace PGCGame
             {
                 speedVector = targetPosition.Value - WorldCoords;
                 speedVector.Normalize();
+                Rotation.Radians = speedVector.ToAngle();
                 speedVector *= new Vector2(2);
              
                 XSpeed = speedVector.X;
@@ -117,5 +122,8 @@ namespace PGCGame
 
         public TimeSpan regenClones = new TimeSpan(0, 0, 30);
         public TimeSpan regenClonesDelay = new TimeSpan();
+
+        public TimeSpan noStack = new TimeSpan(0, 0, 2);
+        public TimeSpan noStackDelay = new TimeSpan();
     }
 }
