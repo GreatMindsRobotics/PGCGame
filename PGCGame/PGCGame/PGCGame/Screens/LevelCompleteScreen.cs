@@ -14,7 +14,6 @@ namespace PGCGame
             
         }
         TextSprite winText;
-        TextSprite Deaths;
 
         public override void InitScreen(ScreenType screenName)
         {
@@ -22,7 +21,6 @@ namespace PGCGame
             Sprite Button;
             Texture2D ButtonImage = GameContent.GameAssets.Images.Controls.Button;
             Vector2 ButtonPosition = new Vector2(155);
-            Color tintColor;
             Button = new Sprite(ButtonImage, ButtonPosition, Sprites.SpriteBatch);
             AdditionalSprites.Add(Button);
             StateManager.levelCompleted += new EventHandler(StateManager_levelCompleted);

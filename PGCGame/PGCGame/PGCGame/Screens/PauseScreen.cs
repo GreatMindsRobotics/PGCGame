@@ -42,7 +42,9 @@ namespace PGCGame.Screens
         public override void InitScreen(ScreenType screenType)
         {
             base.InitScreen(screenType);
+#if WINDOWS
             GameScreen.Paused += new EventHandler(GameScreen_Paused);
+#endif
             Texture2D button = GameContent.GameAssets.Images.Controls.Button;
 
             StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);

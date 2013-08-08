@@ -26,8 +26,9 @@ namespace PGCGame.Screens
     {
 
         private Vector2 _playableAreaOffset;
-
+#if WINDOWS
         public static event EventHandler Paused;
+#endif
         public static readonly ScreenType[] ScreensToAllowMusicProcessing = new ScreenType[] { ScreenType.Game, ScreenType.Options, ScreenType.Pause, ScreenType.Shop, ScreenType.UpgradeScreen, ScreenType.WeaponSelect };
 
         public GameScreen(SpriteBatch spriteBatch)
