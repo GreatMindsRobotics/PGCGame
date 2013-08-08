@@ -42,7 +42,7 @@ namespace PGCGame.Ships.Enemies
             get { return _enemyCounts; }
             set { _enemyCounts = value; }
         }
-        
+
 
         protected bool _isTrackingPlayer;
 
@@ -59,7 +59,7 @@ namespace PGCGame.Ships.Enemies
             get { return _EMPable; }
             set { _EMPable = value; }
         }
-        
+
 
 
         public override void Shoot()
@@ -180,24 +180,42 @@ namespace PGCGame.Ships.Enemies
 
                 if (closestAllyShipDistance.HasValue && closestAllyShip != null && activated && _isTrackingPlayer)
                 {
+                    if (Rotation.Degrees > 360)
+                    {
+                        Rotation.Degrees -= 360;
+                    }
+                    else if (Rotation.Degrees < 0)
+                    {
+                        Rotation.Degrees += 360;
+                    }
                     _elapsedRotationDelay += gt.ElapsedGameTime;
 
                     if (_elapsedRotationDelay > _rotationDelay)
                     {
-                        float angle = closestAllyShipDistance.Value.ToAngle();
-
-                        if (Rotation.Radians > angle)
+                        float angle = MathHelper.ToDegrees(closestAllyShipDistance.Value.ToAngle());
+                        if (angle > 360)
                         {
-                            if (Rotation.Radians + .025f > angle)
+                            while (angle > 360)
                             {
-                                Rotation.Radians -= .025f;
+                                angle -= 360;
                             }
                         }
-                        else if (Rotation.Radians < angle)
+                        else if (angle < 0)
                         {
-                            if (Rotation.Radians + .025f < angle)
+                            while (angle < 0)
                             {
-                                Rotation.Radians += .025f;
+                                angle += 360;
+                            }
+                        }
+                        if (Math.Round(Rotation.Degrees) != Math.Round(angle))
+                        {
+                            if (angle - Rotation.Degrees > 180 && angle - Rotation.Degrees >= 0 || angle - Rotation.Degrees < 0 && Math.Abs(angle - Rotation.Degrees) + 180 > 180)
+                            {
+                                Rotation.Degrees--;
+                            }
+                            else
+                            {
+                                Rotation.Degrees++;
                             }
                         }
                     }
@@ -240,7 +258,7 @@ namespace PGCGame.Ships.Enemies
                 _elapsedRotationDelay = TimeSpan.Zero;
             }
 
-            else 
+            else
             {
                 this.Speed = Vector2.Zero;
                 _elapsedEMPDelay += gt.ElapsedGameTime;
