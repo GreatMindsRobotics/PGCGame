@@ -476,9 +476,9 @@ namespace PGCGame.Screens
             if (playerShip.ShipState == ShipState.Exploding)
             {
                 bgspr.Color = Color.Red;
-                if (StateManager.lives != 0)
+                if (StateManager.Lives != 0)
                 {
-                    secondaryWeaponLabel.Text = String.Format("         You Died!!!\nYou Have {0} Extra Lives Remaining", StateManager.lives - 1);
+                    secondaryWeaponLabel.Text = String.Format("         You Died!!!\nYou Have {0} Extra Lives Remaining", StateManager.Lives - 1);
                     secondaryWeaponLabel.Position = new Vector2(StateManager.GraphicsManager.GraphicsDevice.Viewport.Width * .3f, StateManager.GraphicsManager.GraphicsDevice.Viewport.Height * .1f);
                 }
                 else
@@ -495,7 +495,7 @@ namespace PGCGame.Screens
                 {
                     secondaryWeaponLabel.Text = playerShip.CurrentWeaponName;
                 }
-                secondaryWeaponLabel.Text += String.Format("\n{0} Extra Lives Remaining", StateManager.lives);
+                secondaryWeaponLabel.Text += String.Format("\n{0} Extra Lives Remaining", StateManager.Lives);
             }
 
             if (allEnemiesDead && !StateManager.nextLevel && StateManager.HighestUnlockedLevel != GameLevel.Level4)
@@ -513,11 +513,11 @@ namespace PGCGame.Screens
 
             if (playerShip.CurrentHealth <= 0 || StateManager.nextLevel || playerShip.ShipState == ShipState.Dead)
             {
-                if (playerShip.ShipState == ShipState.Dead && StateManager.lives <= 0)
+                if (playerShip.ShipState == ShipState.Dead && StateManager.Lives <= 0)
                 {
                     StateManager.ScreenState = ScreenType.GameOver;
                 }
-                else if (StateManager.lives > 0 || StateManager.nextLevel || playerShip.ShipState == ShipState.Dead)
+                else if (StateManager.Lives > 0 || StateManager.nextLevel || playerShip.ShipState == ShipState.Dead)
                 {
                     if (StateManager.nextLevel)
                     {
@@ -525,7 +525,8 @@ namespace PGCGame.Screens
                     }
                     else
                     {
-                        StateManager.lives -= 1;
+                        StateManager.Lives -= 1;
+                        StateManager.Deaths++;
                         StateManager.AmountOfPointsRecievedInCurrentLevel = 0;
                         StateManager.AmountOfSpaceBucksRecievedInCurrentLevel = 0;
                     }

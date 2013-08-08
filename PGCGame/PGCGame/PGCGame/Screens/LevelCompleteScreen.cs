@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-using PGCGame.CoreTypes;
 using Glib.XNA.SpriteLib;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using PGCGame.CoreTypes;
 
 namespace PGCGame
 {
@@ -17,6 +14,7 @@ namespace PGCGame
             
         }
         TextSprite winText;
+        TextSprite Deaths;
 
         public override void InitScreen(ScreenType screenName)
         {
@@ -27,8 +25,11 @@ namespace PGCGame
             Color tintColor;
             Button = new Sprite(ButtonImage, ButtonPosition, Sprites.SpriteBatch);
             AdditionalSprites.Add(Button);
-            
+            StateManager.levelCompleted += new EventHandler(StateManager_levelCompleted);
 
+
+            
+           
             TextSprite Continue = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, string.Format("Continue"));
             Continue.Color = Color.Beige;
             Continue.ParentSprite = Button;
@@ -37,16 +38,21 @@ namespace PGCGame
             Continue.IsHoverable = true;
             Continue.NonHoverColor = Color.White;
             Continue.HoverColor = Color.MediumAquamarine;
-            Button.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .40f, 200);
-           
-            
-            winText = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, string.Format("{2} Completed!\n\nYou earned {1} Points\n\nYou Have {0} earned SpaceBucks ",StateManager.AmountOfSpaceBucksRecievedInCurrentLevel, StateManager.AmountOfPointsRecievedInCurrentLevel, StateManager.CurrentLevel));
+            Button.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .40f, 300);
+
+
+            winText = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, "");
             winText.Color = Color.Beige;
             AdditionalSprites.Add(winText);
              winText.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .30f, 50);
            
             base.InitScreen(screenName);
 
+        }
+
+        void StateManager_levelCompleted(object sender, EventArgs e)
+        {
+            winText.Text = string.Format("You died {3} times \n\n {2} Completed!\n\nYou earned {1} Points\n\nYou Have {0} earned SpaceBucks ", StateManager.AmountOfSpaceBucksRecievedInCurrentLevel, StateManager.AmountOfPointsRecievedInCurrentLevel, StateManager.CurrentLevel, StateManager.Deaths);
         }
 
         void Continue_Pressed(object sender, EventArgs e)
@@ -57,6 +63,7 @@ namespace PGCGame
                 StateManager.SpaceBucks += StateManager.AmountOfSpaceBucksRecievedInCurrentLevel;
                 StateManager.AmountOfPointsRecievedInCurrentLevel = 0;
                 StateManager.AmountOfSpaceBucksRecievedInCurrentLevel = 0;
+                StateManager.Deaths = 0;
                 StateManager.ScreenState = CoreTypes.ScreenType.LevelSelect;
             }
         }
@@ -64,7 +71,7 @@ namespace PGCGame
        
         public override void Update(GameTime game)
         {
-            winText.Text = string.Format("{2} Completed!\n\nYou earned {1} Points\n\nYou Have {0} earned SpaceBucks ", StateManager.AmountOfSpaceBucksRecievedInCurrentLevel, StateManager.AmountOfPointsRecievedInCurrentLevel, StateManager.CurrentLevel);
+            
             base.Update(game);
         }
     }

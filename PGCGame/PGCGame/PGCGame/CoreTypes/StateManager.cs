@@ -69,7 +69,8 @@ namespace PGCGame
         /// </summary>
         public static readonly Guid PlayerID = Guid.NewGuid();
 
-        public static int lives = 5;
+        public static int Lives = 5;
+        public static int Deaths = 0;
 
         private static GameLevel _level = GameLevel.Level1;
 
@@ -118,7 +119,7 @@ namespace PGCGame
             //3: HealthPack
             new Stack<SecondaryWeapon>()
         };
-            lives = 5;
+            Lives = 5;
         }
 
         /// <summary>
