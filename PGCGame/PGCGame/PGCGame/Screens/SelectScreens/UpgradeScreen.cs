@@ -62,7 +62,7 @@ namespace PGCGame.Screens.SelectScreens
         {
             foreach (KeyValuePair<Sprite, string> item in itemsShown)
             {
-                if (item.Key == items[selected].Key)
+                if (item.Key == items[selected].Key && !StateManager.HasBoughtScanner)
                 {
                     StateManager.HasBoughtScanner = true;
                     StateManager.SpaceBucks -= 2500;
@@ -71,8 +71,7 @@ namespace PGCGame.Screens.SelectScreens
                 }
                 else if (item.Key == items[selected].Key)
                 {
-                    StateManager.HealthPacks++;
-                    break;
+                    text4.Text = "You have " + StateManager.SpaceBucks + " credits\n\nScanner\nCost: 2500\nShows enemy health bars as well as\ntheir health and rotation on the minimap\nCurrently lasts until game ends\n\nYou already have one of this item!";
                 }
             }
         }
