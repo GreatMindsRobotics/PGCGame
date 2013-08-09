@@ -24,10 +24,11 @@ namespace PGCGame
     public class Drone : BaseAllyShip
     {
         #region Private Fields
-
+        
         //TODO: Make this a selectable key in options 
 #if WINDOWS
         public static Keys DeployKey = Keys.LeftShift;
+
 
       
 #elif XBOX
@@ -114,7 +115,7 @@ namespace PGCGame
             if (closestEnemyShipDistance.HasValue)
             {
                 //Glen's experiment
-                
+                DroneShoot = GameContent.GameAssets.Sound[SoundEffectType.DronesShoot];
                 Bullet bullet = new Bullet(BulletTexture, WorldCoords, WorldSb, this);
                 Vector2 normalizedDistance = this.closestEnemyShipDistance.Value;
                 bullet.Rotation = new SpriteRotation(normalizedDistance.ToAngle(), AngleType.Radians);
@@ -124,6 +125,10 @@ namespace PGCGame
                 bullet.UseCenterAsOrigin = true;
                 //bullet.Rotation = Rotation;
                 bullet.Damage = DamagePerShot;
+                if(StateManager.Options.SFXEnabled)
+                {
+                   DroneShoot.Play();
+                }
                 StateManager.AllyBullets.Legit.Add(bullet);
             }
         }
@@ -160,6 +165,8 @@ namespace PGCGame
 
             KeyboardState keyboard = Keyboard.GetState();
 
+            DroneDeploy = GameContent.GameAssets.Sound[SoundEffectType.DronesDeploy];
+
             if (CurrentHealth <= 0)
             {
                 DroneState = CoreTypes.DroneState.RIP;
@@ -178,6 +185,11 @@ namespace PGCGame
 #if WINDOWS
                         if (keyboard.IsKeyDown(DeployKey) && _lastKs != null && _lastKs.IsKeyUp(DeployKey))
                         {
+                            if(StateManager.Options.SFXEnabled)
+                            {
+                               DroneDeploy.Play();
+                            }
+
                             DroneState = DroneState.Deploying;
                         }
 #elif XBOX
@@ -238,6 +250,11 @@ namespace PGCGame
 #if WINDOWS
                         if (keyboard.IsKeyDown(DeployKey) && _lastKs != null && _lastKs.IsKeyUp(DeployKey) && !OtherDroneDetects())
                         {
+                            if (StateManager.Options.SFXEnabled)
+                            {
+                                DroneDeploy.Play();
+                            }
+
                             DroneState = DroneState.Stowing;
 
                             _lastKs = keyboard;

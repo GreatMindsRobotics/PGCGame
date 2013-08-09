@@ -78,7 +78,9 @@ namespace PGCGame.CoreTypes
         EnemyExplodes,
         BoughtItem,
         EnemyShoots,
-        ButtonPressed
+        ButtonPressed,
+        DronesDeploy,
+        DronesShoot
     }
     public enum ShipTier
     {

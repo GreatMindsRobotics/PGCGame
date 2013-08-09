@@ -13,6 +13,7 @@ using Glib.XNA;
 using Glib.XNA.SpriteLib;
 using PGCGame.CoreTypes;
 using Glib.XNA.InputLib;
+using Microsoft.Xna.Framework.Audio;
 
 namespace PGCGame.Ships.Allies
 {

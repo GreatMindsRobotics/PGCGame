@@ -92,6 +92,8 @@ namespace PGCGame.CoreTypes
                 _gameSFX.Add(SoundEffectType.BoughtItem, content.Load<SoundEffect>("SFX\\NonPlayingObjects\\Money\\itemBought").CreateInstance());
                 _gameSFX.Add(SoundEffectType.EnemyShoots, content.Load<SoundEffect>("SFX\\Ships\\EnemyBattleCruiser\\enemyBattleCruiser").CreateInstance());
                 _gameSFX.Add(SoundEffectType.ButtonPressed, content.Load<SoundEffect>("SFX\\NonPlayingObjects\\ButtonPressed\\buttonPressed").CreateInstance());
+                _gameSFX.Add(SoundEffectType.DronesDeploy, content.Load<SoundEffect>("SFX\\Ships\\Drones\\Deploy").CreateInstance());
+                _gameSFX.Add(SoundEffectType.DronesShoot, content.Load<SoundEffect>("SFX\\Ships\\Drones\\droneBullet").CreateInstance());
             }
 
             public IEnumerator<SoundEffectInstance> GetEnumerator()

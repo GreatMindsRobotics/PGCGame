@@ -133,6 +133,10 @@ namespace PGCGame
 
         public SoundEffectInstance EnemyShoots { get; set; }
 
+        public SoundEffectInstance DroneDeploy { get; set; }
+
+        public SoundEffectInstance DroneShoot { get; set; }
+
         private Rectangle _wcRect;
 
         protected int _initHealth;
