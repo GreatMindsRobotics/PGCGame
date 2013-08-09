@@ -119,10 +119,188 @@
         <FirstName>Glen</FirstName>
         <LastName>H.</LastName>
       </Student>
+      <Student id ="12">
+        <FirstName>Pierre</FirstName>
+        <LastName>B</LastName>
+      </Student>
+      <Student id="10">
+        <FirstName>Kevin</FirstName>
+        <LastName>F.</LastName>
+      </Student>
+      <Student id="11">
+        <FirstName>Joseph</FirstName>
+        <LastName>V.</LastName>
+      </Student>
+      <Student id="4">
+        <FirstName>Jeremiah</FirstName>
+        <LastName>T.</LastName>
+      </Student>
+      <Student id="12">
+        <FirstName>Eedan</FirstName>
+        <LastName>S.</LastName>
+      </Student>
     </Students>
     <Topic id="7">Xbox Conversion</Topic>
   </Week>
+
+  <Week id ="5">
+    <Students>
+      <Student id="1">
+        <FirstName>Michael</FirstName>
+        <LastName>K</LastName>
+      </Student>
+      <Student id ="2">
+        <FirstName>Alex</FirstName>
+        <LastName>L</LastName>
+      </Student>
+      <Student id ="3">
+        <FirstName>Glen</FirstName>
+        <LastName>H</LastName>
+      </Student>
+      <Student id="12">
+        <FirstName>Pierre</FirstName>
+        <LastName>B</LastName>
+      </Student>
+      <Student id="9">
+        <FirstName>Andrew</FirstName>
+        <LastName>K.</LastName>
+      </Student>
+      <Student id="4">
+        <FirstName>Jeremiah</FirstName>
+        <LastName>T.</LastName>
+      </Student>
+      <Student id="4">
+        <FirstName>Jeremiah</FirstName>
+        <LastName>T.</LastName>
+      </Student>
+      <Student id="15">
+        <FirstName>Aaron</FirstName>
+        <LastName>O.</LastName>
+      </Student>
+    </Students>
+    <Topic id="8"></Topic>
+  </Week>
   
+    <Week id ="6">
+      <Students>
+        <Student id="1">
+          <FirstName>Michael</FirstName>
+          <LastName>K</LastName>
+        </Student>
+        <Student id ="2">
+          <FirstName>Alex</FirstName>
+          <LastName>L</LastName>
+        </Student>
+        <Student id ="3">
+          <FirstName>Glen</FirstName>
+          <LastName>H</LastName>
+        </Student>
+        <Student id="13">
+          <FirstName>Ross</FirstName>
+          <LastName>T</LastName>
+        </Student>
+        <Student id="14">
+          <FirstName>Brandon</FirstName>
+          <LastName>U</LastName>
+        </Student>
+        <Student id="9">
+          <FirstName>Andrew</FirstName>
+          <LastName>K.</LastName>
+        </Student>
+        <Student id="6">
+          <FirstName>Ross</FirstName>
+          <LastName>T</LastName>
+        </Student>
+        <Student id="4">
+          <FirstName>Jeremiah</FirstName>
+          <LastName>T.</LastName>
+        </Student>
+      </Students>
+      <Topic id ="9"></Topic>
+    </Week>
+
+  <Week id ="7">
+    <Students>
+      <Student id="1">
+        <FirstName>Michael</FirstName>
+        <LastName>K</LastName>
+      </Student>
+      <Student id ="2">
+        <FirstName>Alex</FirstName>
+        <LastName>L</LastName>
+      </Student>
+      <Student id="6">
+        <FirstName>Ross</FirstName>
+        <LastName>T</LastName>
+      </Student>
+      <Student id="14">
+        <FirstName>Brandon</FirstName>
+        <LastName>U</LastName>
+      </Student>
+      <Student id="16">
+        <FirstName>Alyssa</FirstName>
+        <LastName>F.</LastName>
+      </Student>
+      <Student id="17">
+        <FirstName>Brandon</FirstName>
+        <LastName>F.</LastName>
+      </Student>
+      <Student id="18">
+        <FirstName>Rehaan</FirstName>
+        <LastName>I.</LastName>
+      </Student>
+      <Topic id="10"></Topic>
+    </Students>
+  </Week>
+
+  <Week id ="8">
+    <Students>
+      <Student id="1">
+        <FirstName>Michael</FirstName>
+        <LastName>K</LastName>
+      </Student>
+      <Student id ="2">
+        <FirstName>Alex</FirstName>
+        <LastName>L</LastName>
+      </Student>
+      <Student id="14">
+        <FirstName>Brandon</FirstName>
+        <LastName>U</LastName>
+      </Student>
+      <Student id="16">
+        <FirstName>Alyssa</FirstName>
+        <LastName>F.</LastName>
+      </Student>
+      <Student id="17">
+        <FirstName>Brandon</FirstName>
+        <LastName>F.</LastName>
+      </Student>
+      <Student id="18">
+        <FirstName>Rehaan</FirstName>
+        <LastName>I.</LastName>
+      </Student>
+      <Student id="9">
+        <FirstName>Andrew</FirstName>
+        <LastName>K.</LastName>
+      </Student>
+    </Students>
+    <Topic id ="11"></Topic>
+  </Week>
+    
+    <Week id ="9">
+      <Students>
+        <Student id="1">
+          <FirstName>Michael</FirstName>
+          <LastName>K</LastName>
+        </Student>
+        <Student id ="2">
+          <FirstName>Alex</FirstName>
+          <LastName>L</LastName>
+        </Student>
+      </Students>
+      <Topic id ="12"></Topic>
+  </Week>
+
   <UnderlyingHelpers>
     <Helper id="1">
       <Job>Creator of Glib, our Sprite/Screen Management Library</Job>
