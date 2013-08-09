@@ -324,7 +324,7 @@ namespace PGCGame.Screens
         private MouseState lastMs = new MouseState(0, 0, 0, ButtonState.Pressed, ButtonState.Released, ButtonState.Released, ButtonState.Released, ButtonState.Released);
 #endif
 
-        public static event EventHandler ChangeItem;
+        public event EventHandler ChangeItem;
 
         public override void Update(GameTime gameTime)
         {
