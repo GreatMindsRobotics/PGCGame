@@ -259,11 +259,12 @@ namespace PGCGame.Screens
             {
                 for (int column = 0; column <= fogOfWar.GetUpperBound(0); column++)
                 {
+                    StateManager.KnownMap[column, row] = false;
                     fogOfWar[column, row] = new Sprite(creator.CreateSquare(1, Color.DarkGray), Vector2.Zero, playerSb);
                     fogOfWar[column, row].Width = miniMap.Width / 9;
+                    fogOfWar[column, row].Height = miniMap.Height / 30;
                     fogOfWar[column, row].X = miniMap.X + fogOfWar[0, 0].Width * column;
                     fogOfWar[column, row].Y = miniMap.Y + fogOfWar[0, 0].Height * row;
-                    fogOfWar[column, row].Height = miniMap.Height / 30;
                     fogOfWar[column, row].Color = Color.White;
 
                 }
@@ -308,6 +309,22 @@ namespace PGCGame.Screens
 
             //Set as own ship
             playerShip.PlayerType = PlayerType.MyShip;
+
+            for (int row = 0; row <= fogOfWar.GetUpperBound(1); row++)
+            {
+                for (int column = 0; column <= fogOfWar.GetUpperBound(0); column++)
+                {
+                    StateManager.KnownMap[column, row] = false;
+                    fogOfWar[column, row] = new Sprite(creator.CreateSquare(1, Color.DarkGray), Vector2.Zero, playerSb);
+                    fogOfWar[column, row].Width = miniMap.Width / 9;
+                    fogOfWar[column, row].Height = miniMap.Height / 30;
+                    fogOfWar[column, row].X = miniMap.X + fogOfWar[0, 0].Width * column;
+                    fogOfWar[column, row].Y = miniMap.Y + fogOfWar[0, 0].Height * row;
+                    fogOfWar[column, row].Color = Color.White;
+                    StateManager.KnownMap[column, row] = false;
+
+                }
+            }
         }
 
         Sprite miniShipInfoBg;
@@ -617,17 +634,7 @@ namespace PGCGame.Screens
                     }
                     if (playerShip.ShipState == ShipState.Dead)
                     {
-                        if (playerShip.ShipType == ShipType.BattleCruiser)
-                        {
-                        }
-                        else if (playerShip.ShipType == ShipType.FighterCarrier)
-                        {
-                            InitializeScreen<FighterCarrier>(playerShip.Tier);
-                        }
-                        else if (playerShip.ShipType == ShipType.TorpedoShip)
-                        {
-                            InitializeScreen<TorpedoShip>(playerShip.Tier);
-                        }
+                        StateManager.InitializeSingleplayerGameScreen(playerShip.ShipType, playerShip.Tier);
                     }
                 }
 
@@ -841,6 +848,17 @@ namespace PGCGame.Screens
                 
                 worldCam.Move(camMove);
                 playerShip.WorldCoords = worldCam.Pos;
+                if (!_gameHasStarted)
+                {
+                    for (int row = 0; row <= StateManager.KnownMap.GetUpperBound(0); row++)
+                    {
+                        for (int column = 0; column <= StateManager.KnownMap.GetUpperBound(1); column++)
+                        {
+                            StateManager.KnownMap[row, column] = false;
+
+                        }
+                    }
+                }
             }
             foreach (ISprite s in playerSbObjects)
             {
