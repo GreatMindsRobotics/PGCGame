@@ -68,7 +68,11 @@ namespace PGCGame
         void StateManager_levelCompleted(object sender, EventArgs e)
         {
             winText.Text = string.Format("You died {3} times \n\n {2} Completed!\n\nYou earned {1} Points\n\nYou have obtained {0} spacebucks   ", StateManager.AmountOfSpaceBucksRecievedInCurrentLevel, StateManager.AmountOfPointsRecievedInCurrentLevel, StateManager.CurrentLevel, StateManager.Deaths);
-            ship.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width, (float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Height / 2 - 70);
+            Sprites[1].Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width, Sprites[0].Y + Sprites[0].Height/2);
+            Sprites[1].XSpeed = -5;
+           // Sprites[1].YSpeed = 0;
+            Sprites[1].Scale = new Vector2(0);
+            Sprites[1].Texture = GameContent.GameAssets.Images.Ships[StateManager.SelectedShip,StateManager.SelectedTier];
         }
 
         void Continue_Pressed(object sender, EventArgs e)
@@ -93,15 +97,14 @@ namespace PGCGame
             {
                 if (ship.X + ship.Width > 0)
                 {
-                    if (ship.Y > Sprites.SpriteBatch.GraphicsDevice.Viewport.Height - Sprites.SpriteBatch.GraphicsDevice.Viewport.Height / 7)
+                    if (Sprites[1].Y > Sprites.SpriteBatch.GraphicsDevice.Viewport.Height - Sprites.SpriteBatch.GraphicsDevice.Viewport.Height / 7)
                     {
-                        ship.YSpeed = 0f;
-                    }
-                    else
-                    {
+
                         ship.Scale.X += .005f;
                         ship.Scale.Y += .005f;
+                        Sprites[1].YSpeed = 0f;
                     }
+                    
                 }
                 base.Update(game);
             }
