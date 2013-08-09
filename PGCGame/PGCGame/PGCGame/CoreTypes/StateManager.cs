@@ -395,7 +395,15 @@ namespace PGCGame
 
             public static event EventHandler ScreenResolutionChanged;
 
-            public static bool SFXEnabled { get; set; }
+            private static bool _sfxEnabled = true;
+
+            public static bool SFXEnabled
+            {
+                get { return _sfxEnabled; }
+                set { _sfxEnabled = value; }
+            }
+            
+
             public static bool ArrowKeysEnabled { get; set; }
             public static bool LeftButtonEnabled { get; set; }
             public static bool SecondaryButtonEnabled { get; set; }
