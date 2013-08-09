@@ -132,6 +132,8 @@ namespace PGCGame
 
                 if (ship.Position.X > Graphics.Viewport.Width)
                 {
+                    StateManager.InitializeSingleplayerGameScreen(StateManager.SelectedShip, StateManager.SelectedTier);
+
                     StateManager.ScreenState = CoreTypes.ScreenType.Game;
                 }
 

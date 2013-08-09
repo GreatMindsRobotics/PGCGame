@@ -169,6 +169,7 @@ namespace PGCGame
 
             if (CurrentHealth <= 0)
             {
+                this.shipState = CoreTypes.ShipState.Exploding;
                 DroneState = CoreTypes.DroneState.RIP;
             }
 

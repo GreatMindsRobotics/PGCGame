@@ -184,7 +184,6 @@ namespace PGCGame.Screens
             }
 
             levelBegin(null, null);
-            StateManager.InitializeSingleplayerGameScreen(StateManager.SelectedShip, StateManager.SelectedTier);
             StateManager.ScreenState = ScreenType.TransitionScreen;
         }
 

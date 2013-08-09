@@ -39,6 +39,7 @@ namespace PGCGame.Screens
             playerSb = new SpriteBatch(spriteBatch.GraphicsDevice);
 
             _playableAreaOffset = new Vector2(500);
+            ClonesMade = GameContent.GameAssets.Sound[SoundEffectType.CloneMade];
 
 #if XBOX
             GamePadManager.One.Buttons.StartButtonPressed += new EventHandler(delegate(object src, EventArgs e){
@@ -197,8 +198,18 @@ namespace PGCGame.Screens
                 Sprites.Add(enemyBoss);
                 enemies.Add(enemyBoss);
 
+                if (StateManager.Options.SFXEnabled)
+                {
+                    ClonesMade.Play();
+                }
+
                 Sprites.Add(enemyCloneOne);
                 enemies.Add(enemyCloneOne);
+
+                if (StateManager.Options.SFXEnabled)
+                {
+                    ClonesMade.Play();
+                }
 
                 Sprites.Add(enemyCloneTwo);
                 enemies.Add(enemyCloneTwo);
@@ -293,6 +304,10 @@ namespace PGCGame.Screens
 
         public void RegenerateClones()
         {
+            if(StateManager.Options.SFXEnabled)
+            {
+               ClonesMade.Play();
+            }
             bossWorldCoords = null;
             for (int i = 0; i < enemies.Count; i++)
             {

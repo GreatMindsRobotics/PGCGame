@@ -80,7 +80,8 @@ namespace PGCGame.CoreTypes
         EnemyShoots,
         ButtonPressed,
         DronesDeploy,
-        DronesShoot
+        DronesShoot,
+        CloneMade
     }
     public enum ShipTier
     {
@@ -103,7 +104,7 @@ namespace PGCGame.CoreTypes
         EnemyTorpedoShip,
         EnemyDrone,
         EnemyBoss,
-        EnemyBossesClones
+        EnemyBossesClones,
     }
 
     public enum MoveDirection
