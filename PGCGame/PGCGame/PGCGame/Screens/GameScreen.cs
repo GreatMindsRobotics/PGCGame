@@ -513,6 +513,9 @@ namespace PGCGame.Screens
                     StateManager.HighestUnlockedLevel++;
                 }
                 StateManager.ScreenState = ScreenType.LevelCompleteScreen;
+                StateManager.AllScreens[ScreenType.LevelCompleteScreen.ToInt()].Cast<LevelCompleteScreen>().Sprites.Clear();
+                StateManager.AllScreens[ScreenType.LevelCompleteScreen.ToInt()].Cast<LevelCompleteScreen>().AdditionalSprites.Clear();
+                StateManager.AllScreens[ScreenType.LevelCompleteScreen.ToInt()].Cast<LevelCompleteScreen>().InitScreen(CoreTypes.ScreenType.LevelCompleteScreen);
             }
             else if (StateManager.HighestUnlockedLevel == GameLevel.Level4 && allEnemiesDead && !StateManager.nextLevel)
             {

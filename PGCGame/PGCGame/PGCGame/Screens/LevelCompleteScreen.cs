@@ -91,7 +91,7 @@ namespace PGCGame
         {
             if (this.Visible)
             {
-                if (ship.X + ship.Width < 0)
+                if (ship.X + ship.Width > 0)
                 {
                     if (ship.Y > Sprites.SpriteBatch.GraphicsDevice.Viewport.Height - Sprites.SpriteBatch.GraphicsDevice.Viewport.Height / 7)
                     {
@@ -99,8 +99,8 @@ namespace PGCGame
                     }
                     else
                     {
-                        ship.Scale.X += .001f;
-                        ship.Scale.Y += .001f;
+                        ship.Scale.X += .005f;
+                        ship.Scale.Y += .005f;
                     }
                 }
                 base.Update(game);

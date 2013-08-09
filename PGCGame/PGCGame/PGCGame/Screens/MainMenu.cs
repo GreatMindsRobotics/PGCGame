@@ -177,7 +177,7 @@ namespace PGCGame.Screens
             AllButtons.FireTextSpritePressed = true;
 #endif
             BackLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.Exit(); ButtonClick.Play(); } });
-            CreditsLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.LevelCompleteScreen; if (StateManager.Options.SFXEnabled) ButtonClick.Play(); } });
+            CreditsLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.Credits; if (StateManager.Options.SFXEnabled) ButtonClick.Play(); } });
             OptionsLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.Options; if (StateManager.Options.SFXEnabled)  ButtonClick.Play(); } });
             SinglePlayerLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.LevelSelect; if (StateManager.Options.SFXEnabled) ButtonClick.Play(); } });
             MultiPlayerLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.NetworkSelectScreen; if (StateManager.Options.SFXEnabled) ButtonClick.Play(); } });
