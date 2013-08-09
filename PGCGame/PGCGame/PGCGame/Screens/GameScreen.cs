@@ -138,6 +138,7 @@ namespace PGCGame.Screens
 
 
         Sprite miniMap;
+        Sprite[,] fogOfWar;
 
         TextSprite secondaryWeaponLabel;
         BackgroundSprite bgspr;
@@ -250,6 +251,25 @@ namespace PGCGame.Screens
             miniShipInfoBg.Color = Color.Transparent;
             playerSbObjects.Add(miniShipInfoBg);
             playerSbObjects.Add(miniMap);
+
+            //Create fog of war array
+            fogOfWar = new Sprite[9, 30];
+
+            for (int row = 0; row <= fogOfWar.GetUpperBound(1); row++)
+            {
+                for (int column = 0; column <= fogOfWar.GetUpperBound(0); column++)
+                {
+                    fogOfWar[column, row] = new Sprite(creator.CreateSquare(1, Color.DarkGray), Vector2.Zero, playerSb);
+                    fogOfWar[column, row].Width = miniMap.Width / 9;
+                    fogOfWar[column, row].X = miniMap.X + fogOfWar[0, 0].Width * column;
+                    fogOfWar[column, row].Y = miniMap.Y + fogOfWar[0, 0].Height * row;
+                    fogOfWar[column, row].Height = miniMap.Height / 30;
+                    fogOfWar[column, row].Color = Color.White;
+
+                }
+            }
+            
+
 
             if (typeof(TShip) == typeof(Drone))
             {
@@ -378,7 +398,6 @@ namespace PGCGame.Screens
                 addShipToMinimap(ship, activeMiniShipDisplay);
             }
 
-
             miniShipInfoBg.Color = activeMiniShipDisplay != null ? Color.White : Color.Transparent;
             if (activeMiniShipDisplay != null)
             {
@@ -405,7 +424,26 @@ namespace PGCGame.Screens
             //Casting the Sprites to ISprites
             playerSbObjects.AddRange(miniShips.Cast<ISprite>());
 
+            //Drawing Fog of War
+            foreach(Sprite fogOfWarTile in fogOfWar)
+            {
+                playerSbObjects.Remove(fogOfWarTile);
+            }
+
+            for (int row = 0; row <= fogOfWar.GetUpperBound(1); row++)
+            {
+                for (int column = 0; column <= fogOfWar.GetUpperBound(0); column++)
+                {
+                    if (!StateManager.KnownMap[column, row])
+                    {
+                        playerSbObjects.Add(fogOfWar[column, row]);
+                    }
+                }
+            }
+
         }
+
+        Rectangle? playerMinimapVisible = null;
 
         private void addShipToMinimap(Ship ship, Ship activeMiniShipDisplay)
         {
@@ -423,6 +461,11 @@ namespace PGCGame.Screens
             }
             miniShip.UseCenterAsOrigin = true;
             miniShips.Add(miniShip);
+
+            if (ship.PlayerType == PlayerType.MyShip)
+            {
+                playerMinimapVisible = new Rectangle((miniShip.X - (Sprites.SpriteBatch.GraphicsDevice.Viewport.Width / 2) / MinimapDivAmount).ToInt(), (miniShip.Y - (Sprites.SpriteBatch.GraphicsDevice.Viewport.Height / 2) / MinimapDivAmount).ToInt(), (miniShip.Width + (Sprites.SpriteBatch.GraphicsDevice.Viewport.Width / 2) / MinimapDivAmount).ToInt(), (miniShip.Height + (Sprites.SpriteBatch.GraphicsDevice.Viewport.Height / 2) / MinimapDivAmount).ToInt());
+            }
 
 #if WINDOWS
             //TODO: Minimap ship info showing up on Xbox
@@ -481,6 +524,20 @@ namespace PGCGame.Screens
             }
 
             base.Update(gameTime);
+            for (int row = 0; row <= fogOfWar.GetUpperBound(1); row++)
+            {
+                for (int column = 0; column <= fogOfWar.GetUpperBound(0); column++)
+                {
+                    if (playerMinimapVisible.HasValue)
+                    {
+                        if (fogOfWar[column, row].Intersects(playerMinimapVisible.Value))
+                        {
+                            StateManager.KnownMap[column, row] = true;
+                        }
+                    }
+                }
+            }
+
             KeyboardState keyboard = Keyboard.GetState();
             Boolean allEnemiesDead = true;
             foreach (BaseEnemyShip enemyShip in enemies)
@@ -781,7 +838,7 @@ namespace PGCGame.Screens
                 {
                     StateManager.Options.ToggleFullscreen();
                 }
-
+                
                 worldCam.Move(camMove);
                 playerShip.WorldCoords = worldCam.Pos;
             }

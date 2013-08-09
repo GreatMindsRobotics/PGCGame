@@ -32,6 +32,8 @@ namespace PGCGame
         public static BulletCollection EnemyBullets = new BulletCollection();
         public static BulletCollection AllyBullets = new BulletCollection();
 
+        public static Boolean[,] KnownMap = new Boolean[9, 30];
+
         public static bool IsWSFirstUpdate = true;
 
         public static ShipType SelectedShip;
