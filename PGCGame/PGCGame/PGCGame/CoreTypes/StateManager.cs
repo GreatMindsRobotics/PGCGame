@@ -83,12 +83,10 @@ namespace PGCGame
                 if (value != _level)
                 {
                     _level = value;
+                    SpaceBucks += AmountOfSpaceBucksRecievedInCurrentLevel;
+                    SpacePoints += AmountOfPointsRecievedInCurrentLevel;
                     if (levelCompleted != null)
                     {
-
-                        SpaceBucks += AmountOfSpaceBucksRecievedInCurrentLevel;
-                        SpacePoints += AmountOfPointsRecievedInCurrentLevel;
-
                         levelCompleted(null, EventArgs.Empty);
 
 
@@ -155,6 +153,32 @@ namespace PGCGame
 
         #region Public Properties
 
+        public static UpgradesInfo Upgrades
+        {
+            get
+            {
+                UpgradesInfo ret = new UpgradesInfo();
+                ret.HasScanner = StateManager.HasBoughtScanner;
+                ret.SpaceMineCount = StateManager.PowerUps[0].Count;
+                ret.ShrinkRayCount = StateManager.PowerUps[1].Count;
+                ret.EMPCount = StateManager.PowerUps[2].Count;
+                ret.HealthPackCount = StateManager.PowerUps[3].Count;
+                return ret;
+            }
+        }
+
+        public static ShipStats ShipData
+        {
+            get
+            {
+                return new ShipStats() { Tier = SelectedTier, Type = SelectedShip };
+            }
+            set
+            {
+                SelectedTier = value.Tier;
+                SelectedShip = value.Type;
+            }
+        }
 
         /// <summary>
         /// Gets or sets ScreenState for the game, indicating the currently visible screen.

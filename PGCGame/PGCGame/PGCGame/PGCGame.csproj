@@ -78,7 +78,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CoreTypes\BulletCollection.cs" />
+    <Compile Include="CoreTypes\SerializableGameState.cs" />
     <Compile Include="CoreTypes\ShipCollection.cs" />
+    <Compile Include="CoreTypes\ShipStats.cs" />
     <Compile Include="Screens\LevelCompleteScreen.cs" />
     <Compile Include="Screens\TransitionScreen.cs" />
     <Compile Include="SecondaryWeapons\HealthPack.cs" />
