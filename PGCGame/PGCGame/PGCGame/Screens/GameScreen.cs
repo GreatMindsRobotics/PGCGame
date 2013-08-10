@@ -348,17 +348,21 @@ namespace PGCGame.Screens
             bossWorldCoords = null;
             for (int i = 0; i < enemies.Count; i++)
             {
-                if (enemies[i].Cast<CloneBoss>().isClone)
+                if (enemies[i] is CloneBoss)
                 {
-                    enemies[i].CurrentHealth = 0;
-                    StateManager.EnemyShips.Remove(enemies[i]);
-                    enemies.Remove(enemies[i]);
-                    Sprites.Remove(enemies[i]);
-                }
-                else
-                {
-                    bossWorldCoords = new Vector2(enemies[i].WorldCoords.X, enemies[i].WorldCoords.Y);
-                    enemies[i].Cast<CloneBoss>().targetPosition = StateManager.RandomGenerator.NextVector2(new Vector2(500), new Vector2(StateManager.WorldSize.Width - 500, StateManager.WorldSize.Height - 500));
+                    CloneBoss enemy = enemies[i] as CloneBoss;
+                    if (enemy.isClone)
+                    {
+                        enemy.CurrentHealth = 0;
+                        StateManager.EnemyShips.Remove(enemies[i]);
+                        Sprites.Remove(enemies[i]);
+                        enemies.RemoveAt(i);
+                    }
+                    else
+                    {
+                        bossWorldCoords = enemies[i].WorldCoords;
+                        enemy.targetPosition = StateManager.RandomGenerator.NextVector2(new Vector2(500), new Vector2(StateManager.WorldSize.Width - 500, StateManager.WorldSize.Height - 500));
+                    }
                 }
             }
             CloneBoss enemyCloneOne = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyBattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
