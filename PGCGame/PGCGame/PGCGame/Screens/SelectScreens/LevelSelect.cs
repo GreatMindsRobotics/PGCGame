@@ -106,7 +106,7 @@ namespace PGCGame.Screens.SelectScreens
             {
                 if (item.Key == items[selected].Key)
                 {
-                    TransitionScreen.planetTexture = item.Key;
+                    TransitionScreen.planetTexture = item.Key.Texture;
                     nameLabel.Text = item.Value.Text;
                     selectedLevel = (GameLevel)(counter + 1);
                     break;

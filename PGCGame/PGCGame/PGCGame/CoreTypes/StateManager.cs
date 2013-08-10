@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Glib.XNA.InputLib;
+using Microsoft.Xna.Framework.Storage;
 
 namespace PGCGame
 {
@@ -28,6 +29,8 @@ namespace PGCGame
         #endregion Private Fields
 
         #region Public Fields
+
+        public static StorageDevice SelectedStorage = null;
 
         public static BulletCollection EnemyBullets = new BulletCollection();
         public static BulletCollection AllyBullets = new BulletCollection();

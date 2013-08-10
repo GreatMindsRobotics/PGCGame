@@ -13,6 +13,8 @@ using Glib.XNA;
 
 using PGCGame.CoreTypes;
 using Glib.XNA.InputLib;
+using Microsoft.Xna.Framework.Storage;
+using System.Threading.Tasks;
 
 namespace PGCGame.Screens
 {
@@ -101,6 +103,7 @@ namespace PGCGame.Screens
             noShipLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(0, PlayLabel.Y), SegoeUIMono, "You must buy a ship");
             noShipLabel.Color = Color.White;
             noShipLabel.X = noShipLabel.GetCenterPosition(Graphics.Viewport).X;
+            noShipLabel.TextChanged += new EventHandler(noShipLabel_TextChanged);
 
             Sprites.Add(PlayButton);
             AdditionalSprites.Add(noShipLabel);
@@ -119,6 +122,11 @@ namespace PGCGame.Screens
             }, InputType.LeftJoystick);
             AllButtons.FireTextSpritePressed = true;
 #endif
+        }
+
+        void noShipLabel_TextChanged(object sender, EventArgs e)
+        {
+            noShipLabel.X = noShipLabel.GetCenterPosition(Graphics.Viewport).X;
         }
 
 #if XBOX
@@ -171,6 +179,38 @@ namespace PGCGame.Screens
             StateManager.ScreenState = ScreenType.WeaponSelect;
         }
 
+        StorageContainer saveData;
+
+        void save()
+        {
+            
+            string filename = "PGCGameSave.dat";
+
+            // Check to see whether the save exists.
+            if (saveData.FileExists(filename))
+            {
+                // Delete it so that we can create one fresh.
+                saveData.DeleteFile(filename);
+            }
+            System.IO.Stream stream = saveData.CreateFile(filename);
+            System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(SerializableGameState));
+            serializer.Serialize(stream, SerializableGameState.Current);
+            stream.Close();
+            saveData.Dispose();
+            isSaving = false;
+            levelBegin(null, null);
+            StateManager.ScreenState = ScreenType.TransitionScreen;
+        }
+
+        void OpenComplete(IAsyncResult res)
+        {
+            Task saveDataTask = new Task(new Action(save));
+
+            saveData = StateManager.SelectedStorage.EndOpenContainer(res);
+
+            saveDataTask.Start();
+        }
+
         void nextLevelLabel_Pressed(object sender, EventArgs e)
         {
             if (!this.Visible)
@@ -183,9 +223,16 @@ namespace PGCGame.Screens
                 ButtonClick.Play();
             }
 
-            levelBegin(null, null);
-            StateManager.ScreenState = ScreenType.TransitionScreen;
+            isSaving = true;
+            PlayButton.Color = Color.Transparent;
+            PlayLabel.Visible = false;
+            noShipLabel.Text = "Saving...";
+            noShipLabel.Visible = true;
+            StateManager.SelectedStorage.BeginOpenContainer("PGCGame", new AsyncCallback(OpenComplete), null);
+            
         }
+
+        bool isSaving = false;
 
         void Options_ScreenResolutionChanged(object sender, EventArgs e)
         {
@@ -213,10 +260,12 @@ namespace PGCGame.Screens
 #if XBOX
             AllButtons.Update(gameTime);
 #endif
-
-            PlayButton.Color = StateManager.SelectedTier == ShipTier.NoShip ? Color.Transparent : Color.White;
-            PlayLabel.Visible = PlayButton.Color.A > 0;
-            noShipLabel.Visible = !PlayLabel.Visible;
+            if (!isSaving)
+            {
+                PlayButton.Color = StateManager.SelectedTier == ShipTier.NoShip ? Color.Transparent : Color.White;
+                PlayLabel.Visible = PlayButton.Color.A > 0;
+                noShipLabel.Visible = !PlayLabel.Visible;
+            }
         }
     }
 }

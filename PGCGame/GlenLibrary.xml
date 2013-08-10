@@ -585,11 +585,6 @@
             The SpriteFont to use.
             </summary>
         </member>
-        <member name="F:Glib.XNA.SpriteLib.TextSprite.Text">
-            <summary>
-            The text of this text sprite.
-            </summary>
-        </member>
         <member name="F:Glib.XNA.SpriteLib.TextSprite.Color">
             <summary>
             The color to draw the text as.
@@ -608,6 +603,11 @@
         <member name="F:Glib.XNA.SpriteLib.TextSprite.Rotation">
             <summary>
             The rotation of the TextSprite.
+            </summary>
+        </member>
+        <member name="E:Glib.XNA.SpriteLib.TextSprite.TextChanged">
+            <summary>
+            An event fired when the text of this TextSprite changes.
             </summary>
         </member>
         <member name="P:Glib.XNA.SpriteLib.TextSprite.IsShadowed">
@@ -676,6 +676,11 @@
         <member name="P:Glib.XNA.SpriteLib.TextSprite.Y">
             <summary>
             The current Y coordinate of the sprite.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.TextSprite.Text">
+            <summary>
+            Gets or sets the text of this TextSprite.
             </summary>
         </member>
         <member name="P:Glib.XNA.SpriteLib.TextSprite.Position">
@@ -1234,7 +1239,7 @@
             An implementation of ISprite with many features, such as updated, drawn, and moved events, an easily accessible position, configurable position changes per update, center-point support, and scale support.
             </summary>
         </member>
-        <member name="M:Glib.XNA.SpriteLib.Sprite.op_Implicit(Glib.XNA.SpriteLib.Sprite)~Microsoft.Xna.Framework.Rectangle">
+        <member name="M:Glib.XNA.SpriteLib.Sprite.op_Explicit(Glib.XNA.SpriteLib.Sprite)~Microsoft.Xna.Framework.Rectangle">
             <summary>
             Convert the specified Sprite to a rectangle.
             </summary>
@@ -1248,7 +1253,7 @@
             <param name="spr">The Sprite to convert to a screen region.</param>
             <returns>The screen region representing the area of the Sprite (scale sensitive).</returns>
         </member>
-        <member name="M:Glib.XNA.SpriteLib.Sprite.op_Implicit(Glib.XNA.SpriteLib.Sprite)~Microsoft.Xna.Framework.Graphics.Texture2D">
+        <member name="M:Glib.XNA.SpriteLib.Sprite.op_Explicit(Glib.XNA.SpriteLib.Sprite)~Microsoft.Xna.Framework.Graphics.Texture2D">
             <summary>
             Convert the specified Sprite to a texture.
             </summary>
@@ -1285,7 +1290,13 @@
             The current rotation of the sprite.
             </summary>
         </member>
-        <member name="M:Glib.XNA.SpriteLib.Sprite.isMoveEventCanceled(Microsoft.Xna.Framework.Vector2)">
+        <member name="M:Glib.XNA.SpriteLib.Sprite.MoveSprite(Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Move this Sprite to the specified position, calling the Moved event, but not Move.
+            </summary>
+            <param name="newPos">The new position of the Sprite.</param>
+        </member>
+        <member name="M:Glib.XNA.SpriteLib.Sprite.IsMoveEventCanceled(Microsoft.Xna.Framework.Vector2)">
             <summary>
             Calls the Move event and returns whether or not it was canceled.
             </summary>
@@ -1293,7 +1304,7 @@
             Calls an event; call only when neccesary.
             </remarks>
             <param name="newPos">The position to call the move event with.</param>
-            <returns>Whethjer or not the called move event was cancelled.</returns>
+            <returns>Whether or not the called move event was cancelled.</returns>
         </member>
         <member name="F:Glib.XNA.SpriteLib.Sprite.Color">
             <summary>
@@ -1463,9 +1474,8 @@
         </member>
         <member name="P:Glib.XNA.SpriteLib.Sprite.Center">
             <summary>
-            The scale-sensitive center of the sprite.
-            Setting this property is experimental.
-            This property will break with OriginType as Center or Custom.
+            Gets the scale-sensitive center of the sprite.
+            Setting this property will break with OriginType as Center or Custom.
             </summary>
         </member>
         <member name="P:Glib.XNA.SpriteLib.Sprite.X">
@@ -2813,9 +2823,9 @@
         </member>
         <member name="M:Glib.XNA.SpriteLib.Screen.CenterToViewport(Microsoft.Xna.Framework.Graphics.Viewport)">
             <summary>
-            Center the position of this Screen relative to the position of the specified 
+            Center the position of this Screen relative to the position of the specified Viewport.
             </summary>
-            <param name="v"></param>
+            <param name="v">The viewport to center to.</param>
         </member>
         <member name="F:Glib.XNA.SpriteLib.Screen.AdditionalSprites">
             <summary>
@@ -3316,6 +3326,26 @@
         <member name="E:Glib.XNA.InputLib.KeyboardManager.KeyPressed">
             <summary>
             An event called when a key is pressed and released.
+            </summary>
+        </member>
+        <member name="T:Glib.XNA.ImageFormat">
+            <summary>
+            Represents the format of a graphical image.
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.ImageFormat.JPEG">
+            <summary>
+            A JPEG image.
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.ImageFormat.PNG">
+            <summary>
+            A portable network graphics image.
+            </summary>
+        </member>
+        <member name="F:Glib.XNA.ImageFormat.GIF">
+            <summary>
+            A GIF image.
             </summary>
         </member>
         <member name="T:Glib.UniqueRandom">
@@ -3904,11 +3934,6 @@
         <member name="P:Glib.XNA.SpriteLib.SpriteSheet.CurrentColumn">
             <summary>
             The current zero-based column of Sprites in this SpriteSheet.
-            </summary>
-        </member>
-        <member name="P:Glib.XNA.SpriteLib.SpriteSheet.Center">
-            <summary>
-            The scale-sensitive center of the sprite.
             </summary>
         </member>
         <member name="P:Glib.XNA.SpriteLib.SpriteSheet.Columns">

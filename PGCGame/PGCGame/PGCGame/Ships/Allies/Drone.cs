@@ -394,23 +394,7 @@ namespace PGCGame
             WorldCoords = worldCoords;
         }
 
-        public override void Draw()
-        {
-            if (DroneState == CoreTypes.DroneState.Stowed)
-            {
-                return;
-            }
-
-            //TODO: Needs better handling for drawing drones while still having them recognize world coords they are at
-            //For the draw, set the world coordinates to ParentShip.Position
-            Vector2 worldCoords = WorldCoords;
-            WorldCoords = ParentShip.Position;
-            
-            base.Draw();
-
-            //After the draw, reset world coordinates to actual world coordinates
-            WorldCoords = worldCoords;
-        }
+        //No draw override needed
 
         public override ShipType ShipType
         {

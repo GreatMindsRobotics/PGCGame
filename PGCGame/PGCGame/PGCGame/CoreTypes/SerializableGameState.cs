@@ -5,8 +5,22 @@ using System.Text;
 
 namespace PGCGame.CoreTypes
 {
+    [Serializable]
     public struct SerializableGameState
     {
+        public static SerializableGameState Current
+        {
+            get
+            {
+                SerializableGameState ret = new SerializableGameState();
+                ret.Cash = StateManager.SpaceBucks;
+                ret.Ship = StateManager.ShipData;
+                ret.HighestLevel = StateManager.HighestUnlockedLevel;
+                ret.Upgrades = StateManager.Upgrades;
+                return ret;
+            }
+        }
+
         public ShipStats Ship;
         public int Cash;
         public GameLevel HighestLevel;

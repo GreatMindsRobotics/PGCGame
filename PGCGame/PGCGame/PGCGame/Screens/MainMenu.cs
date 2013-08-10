@@ -9,6 +9,8 @@ using Glib.XNA.SpriteLib;
 
 using PGCGame.CoreTypes;
 using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Storage;
+using Microsoft.Xna.Framework.GamerServices;
 
 #if XBOX
 
@@ -176,13 +178,46 @@ namespace PGCGame.Screens
             SinglePlayerLabel.IsSelected = true;
             AllButtons.FireTextSpritePressed = true;
 #endif
-            BackLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.Exit(); ButtonClick.Play(); } });
-            CreditsLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.Credits; if (StateManager.Options.SFXEnabled) ButtonClick.Play(); } });
-            OptionsLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.Options; if (StateManager.Options.SFXEnabled)  ButtonClick.Play(); } });
-            SinglePlayerLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.LevelSelect; if (StateManager.Options.SFXEnabled) ButtonClick.Play(); } });
-            MultiPlayerLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.NetworkSelectScreen; if (StateManager.Options.SFXEnabled) ButtonClick.Play(); } });
+            BackLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (!Guide.IsVisible && this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.Exit(); ButtonClick.Play(); } });
+            CreditsLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (!Guide.IsVisible && this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.Credits; if (StateManager.Options.SFXEnabled) ButtonClick.Play(); } });
+            OptionsLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (!Guide.IsVisible && this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.Options; if (StateManager.Options.SFXEnabled)  ButtonClick.Play(); } });
+            SinglePlayerLabel.Pressed += new EventHandler(SinglePlayerLabel_Pressed);
+            MultiPlayerLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (!Guide.IsVisible && this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = ScreenType.NetworkSelectScreen; if (StateManager.Options.SFXEnabled) ButtonClick.Play(); } });
         }
 
+        void SinglePlayerLabel_Pressed(object sender, EventArgs e)
+        {
+            if (!Guide.IsVisible && Visible && elapsedButtonDelay > totalButtonDelay)
+            {
+                
+                if (StateManager.Options.SFXEnabled)
+                {
+                    ButtonClick.Play();
+                }
+                if (StateManager.SelectedStorage == null)
+                {
+                    StorageDevice.BeginShowSelector(PlayerIndex.One, new AsyncCallback(onSelectedStorage), null);
+                }
+                else if (StateManager.SelectedStorage != null)
+                {
+                    StateManager.ScreenState = ScreenType.LevelSelect;
+                }
+            }
+        }
+
+        void onSelectedStorage(IAsyncResult res)
+        {
+
+            try{
+                StorageDevice dev = StorageDevice.EndShowSelector(res);
+                if (dev == null)
+                {
+                    return;
+                }
+                StateManager.SelectedStorage = dev;
+                StateManager.ScreenState = CoreTypes.ScreenType.LevelSelect;
+            }catch{};
+        }
 
         void Options_ScreenResolutionChanged(object sender, EventArgs e)
         {

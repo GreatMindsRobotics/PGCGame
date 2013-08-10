@@ -77,7 +77,8 @@ namespace PGCGame
 
             IsMouseVisible = true;
             Components.Add(new InputManagerComponent(this));
-            
+            Components.Add(new GamerServicesComponent(this));
+
             base.Initialize();
         }
 
