@@ -159,6 +159,8 @@ namespace PGCGame
             return (closestEnemyShipDistance.HasValue && closestEnemyShip != null && closestEnemyShipDistance.Value.LengthSquared() < Math.Pow(400, 2) && closestEnemyShip.CurrentHealth > 0);          
         }
 
+        public static readonly DroneState[] BadStates = { DroneState.Attacking, DroneState.AcceptingFate,
+                    DroneState.EvadingFire, DroneState.MovingToTarget, DroneState.TargetAcquired, DroneState.RIP};
 
         public override void Update(GameTime gameTime)
         {
@@ -363,9 +365,8 @@ namespace PGCGame
                 {
                 }
 
-                if (!new DroneState[] { DroneState.Attacking, DroneState.AcceptingFate,
-                    DroneState.EvadingFire, DroneState.MovingToTarget, DroneState.TargetAcquired, DroneState.RIP}
-                    .Contains(DroneState))
+                if (!
+                    BadStates.Contains(DroneState))
                 {
                     Position = ParentShip.Position; //+ new Vector2(ParentShip.Width / 2, ParentShip.Height / 2);
                     Rotation += .5f;
