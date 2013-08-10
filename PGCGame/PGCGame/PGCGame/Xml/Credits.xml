@@ -169,16 +169,12 @@
         <FirstName>Jeremiah</FirstName>
         <LastName>T.</LastName>
       </Student>
-      <Student id="4">
-        <FirstName>Jeremiah</FirstName>
-        <LastName>T.</LastName>
-      </Student>
       <Student id="15">
         <FirstName>Aaron</FirstName>
         <LastName>O.</LastName>
       </Student>
     </Students>
-    <Topic id="8"></Topic>
+    <Topic id="8">General Game Programming</Topic>
   </Week>
   
     <Week id ="6">
