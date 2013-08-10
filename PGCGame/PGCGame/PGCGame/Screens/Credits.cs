@@ -18,27 +18,7 @@ using PGCGame.Xml.XmlTypes;
 
 namespace PGCGame.Screens
 {
-    class SizableCfg : ISizable
-    {
-
-        private float _height;
-
-        public float Height
-        {
-            get { return _height; }
-            set { _height = value; }
-        }
-
-        private float _width;
-
-        public float Width
-        {
-            get { return _width; }
-            set { _width = value; }
-        }
-        
-    }
-
+    
     public class Credits : BaseScreen
     {
         private List<TextSprite> credits = new List<TextSprite>();
@@ -47,6 +27,7 @@ namespace PGCGame.Screens
 
         private XmlCredits _xmlCredits = XmlBaseLoader.Create<XmlCredits>(XmlDataFile.Credits);
       
+        /*
         private string[] creditLines = new string[]
         {
             "<b>\n\n\n\nWeek # - Topic 1, Topic 2\n",
@@ -64,8 +45,9 @@ namespace PGCGame.Screens
             "Failing Defense - Kevin MacLeod\n\n",
             "<b>All music obtained from Incompetech.com"
         };
+        */
         
-        private TimeSpan _timeUntilCreditsFinish = TimeSpan.FromSeconds(38);
+        private TimeSpan _timeUntilCreditsFinish = TimeSpan.FromSeconds(57.5);
         private TimeSpan _elapsedTime;
         private EventHandler<EventArgs> musicHandler;
 
@@ -196,14 +178,9 @@ namespace PGCGame.Screens
             {
                 float targetY = credits[credits.Count - 1].Y + credits[credits.Count - 1].Height + (_creditsFont.LineSpacing - _creditsFont.MeasureString("A").Y);
                 TextSprite name = new TextSprite(Sprites.SpriteBatch, new Vector2(0, targetY), _boldCreditsFont, assistant.FullName, Color.White);
-                TextSprite job = new TextSprite(Sprites.SpriteBatch, new Vector2(0, targetY), _creditsFont, string.Format(" - {0}\n", assistant.Job), Color.White);
-                SizableCfg temp = new SizableCfg();
-                temp.Width = name.Width + job.Width;
-                temp.Height = (name.Height + job.Height) / 2;
-                name.X = temp.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X;
-                job.X = name.X + name.Width;
-                name.Y = targetY;
-                job.Y = targetY;
+                TextSprite job = new TextSprite(Sprites.SpriteBatch, new Vector2(0, targetY+name.Font.LineSpacing), _creditsFont, assistant.Job+"\n", Color.White);
+                name.X = name.GetCenterPosition(Graphics.Viewport).X;
+                job.X = job.GetCenterPosition(Graphics.Viewport).X;
                 credits.Add(name);
                 credits.Add(job);
             }

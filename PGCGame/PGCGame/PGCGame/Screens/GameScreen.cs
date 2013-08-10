@@ -354,13 +354,13 @@ namespace PGCGame.Screens
                     if (enemy.isClone)
                     {
                         enemy.CurrentHealth = 0;
-                        StateManager.EnemyShips.Remove(enemies[i]);
-                        Sprites.Remove(enemies[i]);
+                        StateManager.EnemyShips.Remove(enemy);
+                        Sprites.Remove(enemy);
                         enemies.RemoveAt(i);
                     }
                     else
                     {
-                        bossWorldCoords = enemies[i].WorldCoords;
+                        bossWorldCoords = enemy.WorldCoords;
                         enemy.targetPosition = StateManager.RandomGenerator.NextVector2(new Vector2(500), new Vector2(StateManager.WorldSize.Width - 500, StateManager.WorldSize.Height - 500));
                     }
                 }
