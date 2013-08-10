@@ -377,6 +377,11 @@ namespace PGCGame
             /// Buggy - due to reference passing
             /// </summary>
             public static bool InfiniteSecondaryWeapons = false;
+
+            /// <summary>
+            /// Multiply the game framerate - by default 60 FPS - by this amount.
+            /// </summary>
+            public static int OverclockAmount = 1;
         }
 
         public static class InputManager

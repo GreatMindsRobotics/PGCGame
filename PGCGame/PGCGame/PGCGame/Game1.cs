@@ -79,6 +79,8 @@ namespace PGCGame
             Components.Add(new InputManagerComponent(this));
             Components.Add(new GamerServicesComponent(this));
 
+            TargetElapsedTime = new TimeSpan(TargetElapsedTime.Ticks / StateManager.DebugData.OverclockAmount);
+
             base.Initialize();
         }
 
