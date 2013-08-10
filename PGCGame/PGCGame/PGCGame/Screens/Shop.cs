@@ -197,9 +197,10 @@ namespace PGCGame.Screens
             serializer.Serialize(stream, SerializableGameState.Current);
             stream.Close();
             saveData.Dispose();
-            isSaving = false;
+            
             levelBegin(null, null);
             StateManager.ScreenState = ScreenType.TransitionScreen;
+            isSaving = false;
         }
 
         void OpenComplete(IAsyncResult res)
