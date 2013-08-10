@@ -134,6 +134,21 @@ namespace PGCGame.Screens
                 miniMap.X = Graphics.Viewport.TitleSafeArea.X + Graphics.Viewport.TitleSafeArea.Width - miniMap.Width - 7.5f;
                 miniShipInfoBg.X = miniMap.X - miniShipInfoBg.Width - 7.5f;
             }
+            if (fogOfWar != null)
+            {
+               
+            for (int row = 0; row <= fogOfWar.GetUpperBound(1); row++)
+            {
+                for (int column = 0; column <= fogOfWar.GetUpperBound(0); column++)
+                {
+                    fogOfWar[column, row].Width = miniMap.Width / 9;
+                    fogOfWar[column, row].Height = miniMap.Height / 30;
+                    fogOfWar[column, row].X = miniMap.X + fogOfWar[0, 0].Width * column;
+                    fogOfWar[column, row].Y = miniMap.Y + fogOfWar[0, 0].Height * row;
+                    fogOfWar[column, row].Color = Color.White;
+                }
+            }
+            }
         }
 
 
