@@ -7,8 +7,6 @@ namespace PGCGame.CoreTypes
 {
     public enum ScreenType
     {   
-
-
         Title,
         MainMenu,
         Credits,

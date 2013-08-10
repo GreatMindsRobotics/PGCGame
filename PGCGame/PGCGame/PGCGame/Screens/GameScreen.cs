@@ -179,9 +179,9 @@ namespace PGCGame.Screens
 
             if (StateManager.CurrentLevel.ToInt() == 4)
             {
-                CloneBoss enemyBoss = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyBattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
-                CloneBoss enemyCloneOne = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyBattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
-                CloneBoss enemyCloneTwo = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyBattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
+                CloneBoss enemyBoss = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyFighterCarrier, ShipTier.Tier4], Vector2.Zero, Sprites.SpriteBatch);
+                CloneBoss enemyCloneOne = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyFighterCarrier, ShipTier.Tier4], Vector2.Zero, Sprites.SpriteBatch);
+                CloneBoss enemyCloneTwo = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyFighterCarrier, ShipTier.Tier4], Vector2.Zero, Sprites.SpriteBatch);
 
                 enemyBoss.WorldCoords = StateManager.RandomGenerator.NextVector2(minSpawnArea, maxSpawnArea);
                 enemyCloneOne.WorldCoords = enemyBoss.WorldCoords;
@@ -365,8 +365,8 @@ namespace PGCGame.Screens
                     }
                 }
             }
-            CloneBoss enemyCloneOne = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyBattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
-            CloneBoss enemyCloneTwo = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyBattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
+            CloneBoss enemyCloneOne = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyFighterCarrier, ShipTier.Tier4], Vector2.Zero, Sprites.SpriteBatch);
+            CloneBoss enemyCloneTwo = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyFighterCarrier, ShipTier.Tier4], Vector2.Zero, Sprites.SpriteBatch);
 
             if (bossWorldCoords.HasValue)
             {
