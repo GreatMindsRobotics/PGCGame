@@ -30,6 +30,9 @@ namespace PGCGame
 
         #region Public Fields
 
+
+        public static bool GamerServicesAreAvailable = true;
+
         public static StorageDevice SelectedStorage = null;
 
         public static BulletCollection EnemyBullets = new BulletCollection();

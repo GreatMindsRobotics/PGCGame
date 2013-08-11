@@ -76,13 +76,18 @@ namespace PGCGame
             StateManager.IsWindowFocused = new Delegates.CheckIfWindowFocused(() => IsActive);
             StateManager.Exit = new Delegates.QuitFunction(() => Exit());
 
+            GamerServicesComponent services = new GamerServicesComponent(this);
             IsMouseVisible = true;
             Components.Add(new InputManagerComponent(this));
-            Components.Add(new GamerServicesComponent(this));
+            Components.Add(services);
 
             TargetElapsedTime = new TimeSpan(TargetElapsedTime.Ticks / StateManager.DebugData.OverclockAmount);
 
-            base.Initialize();
+            try
+            {
+                base.Initialize();
+            }
+            catch (GamerServicesNotAvailableException) { StateManager.GamerServicesAreAvailable = false; Components.Remove(services); base.Initialize(); };
         }
 
         /// <summary>

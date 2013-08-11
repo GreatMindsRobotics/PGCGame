@@ -12,6 +12,9 @@ using Glib.XNA.SpriteLib;
 
 namespace PGCGame.Screens
 {
+    /// <summary>
+    /// A general-purpose async task loading screen.
+    /// </summary>
     public class LoadingScreen : BaseScreen
     {
         private string _loadingText = "";
@@ -58,11 +61,17 @@ namespace PGCGame.Screens
             _hasFinishedTask = true;
         }
 
+        /// <summary>
+        /// The callback that the user provides
+        /// </summary>
         public AsyncCallback UserCallback;
 
+        /// <summary>
+        /// A boolean indicating whether the user callback starts async work.
+        /// </summary>
         public bool UserCallbackStartsTask = false;
 
-        public void AsyncCallback(IAsyncResult result)
+        private void AsyncCallback(IAsyncResult result)
         {
             if (UserCallback != null)
             {
@@ -91,13 +100,20 @@ namespace PGCGame.Screens
             loadingText.Position = loadingText.GetCenterPosition(Graphics.Viewport);
         }
 
+        /// <summary>
+        /// An event fired when the task has been completed and this screen has served it's purpose.
+        /// </summary>
         public event EventHandler ScreenFinished;
 
+        /// <summary>
+        /// Reset all fields and events.
+        /// </summary>
         public void Reset()
         {
             _elapsedTime = TimeSpan.Zero;
             ScreenFinished = null;
             _hasFinishedTask = false;
+            UserCallbackStartsTask = false;
         }
 
         public override void Update(GameTime game)
