@@ -34,7 +34,7 @@ namespace PGCGame.Screens.SelectScreens
             public int Cost;
         }
 
-        string nocredits = "You Have no more credits";
+        string nocredits = "You don't have enough credits for this purchase.";
         TextSprite Credits;
         //This screen needs sprites for each tier of ship and descriptions for each tier.
         List<ShipInfo> upgradeShips;
@@ -44,7 +44,6 @@ namespace PGCGame.Screens.SelectScreens
         public override void InitScreen(ScreenType screenType)
         {
             upgradeShips = new List<ShipInfo>();
-            Shop.selectedTierSelect +=new EventHandler(Shop_selectedTierSelect);
 
             if (!_firstTimeInit)
             {
@@ -58,11 +57,12 @@ namespace PGCGame.Screens.SelectScreens
 
             ShipTier upgradeTier = StateManager.SelectedTier == ShipTier.Tier4 ? ShipTier.Tier4 : StateManager.SelectedTier + 1;
 
-            //Configure current credit balance display
+            //Configure current credit balance display9856
+
             Credits = new TextSprite(Sprites.SpriteBatch, SegoeUIMono, String.Format("You Have {0} Credits", StateManager.SpaceBucks));
             Credits.Position = new Vector2(5, 5);
             Credits.Color = Color.White;
-
+            StateManager.levelCompleted += new EventHandler(StateManager_levelCompleted);
 
             //Configure Battle Cruiser
             battleCruiser = new ShipInfo();
@@ -137,10 +137,12 @@ namespace PGCGame.Screens.SelectScreens
             nameLabel.X -= 40;
         }
 
-        void Shop_selectedTierSelect(object sender, EventArgs e)
+        void StateManager_levelCompleted(object sender, EventArgs e)
         {
-            
+            Credits.Text = String.Format("You Have {0} Credits", StateManager.SpaceBucks);
+
         }
+
 
         void TierSelect_nextButtonClicked(object sender, EventArgs e)
         {
@@ -158,8 +160,7 @@ namespace PGCGame.Screens.SelectScreens
                     if (shipInfo.Image.Texture == items[selected].Key.Texture && shipInfo.Cost <= StateManager.SpaceBucks)
                     {
                         StateManager.SpaceBucks -= shipInfo.Cost;
-                        Credits.Text = String.Format("You Have {0} Credits", StateManager.SpaceBucks);
-
+                        
                         //Save purchased ship info
                         StateManager.SelectedShip = shipInfo.Type;
                         
