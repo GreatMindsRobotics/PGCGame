@@ -14,10 +14,6 @@ using PGCGame.CoreTypes;
 using PGCGame.Screens;
 using Glib.XNA.InputLib;
 
-#if XBOX
-using Glib.XNA.InputLib;
-#endif
-
 namespace PGCGame 
 {
     public class TransitionScreen : BaseScreen
@@ -32,9 +28,14 @@ namespace PGCGame
             DeploySound = GameContent.GameAssets.Sound[SoundEffectType.SpaceDoorOpening];
             SpaceShipLeaving = GameContent.GameAssets.Sound[SoundEffectType.SpaceShipLeaving];
             KeyboardManager.KeyDown += new SingleKeyEventHandler(KeyboardManager_KeyDown);
+
+#if WINDOWS
             MouseManager.Updated += new EventHandler(MouseManager_Updated);
+#endif
         }
 
+
+#if WINDOWS
         void MouseManager_Updated(object sender, EventArgs e)
         {
             if (StateManager.ScreenState == this.ScreenType && MouseManager.LastMouseState.LeftButton == ButtonState.Released && MouseManager.CurrentMouseState.LeftButton == ButtonState.Pressed)
@@ -42,6 +43,7 @@ namespace PGCGame
                 Skip();
             }
         }
+#endif
 
         private void Skip()
         {
