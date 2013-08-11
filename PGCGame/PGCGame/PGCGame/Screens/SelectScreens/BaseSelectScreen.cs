@@ -32,9 +32,9 @@ namespace PGCGame.Screens
             GamePadManager.One.Buttons.RightShoulderPressed += new EventHandler(Buttons_RightShoulderPressed);
             GamePadManager.One.Buttons.AButtonPressed += new EventHandler(Buttons_AButtonPressed);
             StateManager.ScreenStateChanged += new EventHandler(StateManager_ScreenStateChanged);
-#endif 
+#endif
         }
-        
+
 
 #if XBOX
         TimeSpan totalButtonTime = TimeSpan.FromMilliseconds(250);
@@ -186,7 +186,7 @@ namespace PGCGame.Screens
 
             Sprite leftButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .5f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .5f), Sprites.SpriteBatch);
             leftButton.Scale = new Vector2(0.5f, 1);
-            leftLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(5,5), SegoeUIMono, "<<<");
+            leftLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(5, 5), SegoeUIMono, "<<<");
             leftLabel.Position = new Vector2((leftButton.X + leftButton.Width / 2) - leftLabel.Width / 2, (leftButton.Y + leftButton.Height / 2) - leftLabel.Height / 2);
             leftLabel.Color = Color.White;
             leftLabel.IsHoverable = true;
@@ -204,7 +204,7 @@ namespace PGCGame.Screens
 
             Sprite rightButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .9f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .5f), Sprites.SpriteBatch);
             rightButton.Scale = new Vector2(0.5f, 1);
-            rightLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(5,5), SegoeUIMono, ">>>");
+            rightLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(5, 5), SegoeUIMono, ">>>");
             rightLabel.Position = new Vector2((rightButton.X + rightButton.Width / 2) - rightLabel.Width / 2, (rightButton.Y + rightButton.Height / 2) - rightLabel.Height / 2);
             rightLabel.Color = Color.White;
             rightLabel.IsHoverable = true;
@@ -220,8 +220,8 @@ namespace PGCGame.Screens
             AdditionalSprites.Add(rightLabel);
 
             nameLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Name Of Item");
-                                                //right side of left button              //left of right button   //right side of left button 
-            nameLabel.Position = new Vector2(((leftButton.X + leftButton.Texture.Width * leftButton.Scale.X) + (rightButton.X - (leftButton.X + leftButton.Texture.Width * leftButton.Scale.X))/2) - nameLabel.Width * .5f, (leftButton.Y + leftButton.Texture.Height/2) - nameLabel.Height/2);
+            //right side of left button              //left of right button   //right side of left button 
+            nameLabel.Position = new Vector2(((leftButton.X + leftButton.Texture.Width * leftButton.Scale.X) + (rightButton.X - (leftButton.X + leftButton.Texture.Width * leftButton.Scale.X)) / 2) - nameLabel.Width * .5f, (leftButton.Y + leftButton.Texture.Height / 2) - nameLabel.Height / 2);
             nameLabel.Color = Color.White;
 
             AdditionalSprites.Add(nameLabel);
@@ -238,7 +238,7 @@ namespace PGCGame.Screens
                 AdditionalSprites.Add(items[i].Value);
             }
 
-            
+
             if (ChangeItem != null)
             {
                 ChangeItem(this, new EventArgs());
@@ -352,7 +352,15 @@ namespace PGCGame.Screens
                         ButtonClick.Play();
                     }
 
-                    StateManager.GoBack();
+                    if (ScreenType == CoreTypes.ScreenType.LevelSelect)
+                    {
+                        //Going back brings us to the level complete screen
+                        StateManager.ScreenState = CoreTypes.ScreenType.MainMenu;
+                    }
+                    else
+                    {
+                        StateManager.GoBack();
+                    }
                 }
                 else if (mouseOnLeftButton || mouseOnRightButton)
                 {
@@ -391,7 +399,7 @@ namespace PGCGame.Screens
 
                     if (ChangeItem != null)
                     {
-                        ChangeItem(this, new EventArgs());
+                        ChangeItem(this, EventArgs.Empty);
                     }
 
                 }

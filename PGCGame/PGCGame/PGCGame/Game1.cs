@@ -95,8 +95,8 @@ namespace PGCGame
         /// </summary>
         protected override void LoadContent()
         {
-            //Instantiate the singleton class GameContent and load all game assets
-            GameContent gameContent = new GameContent(Content);
+            //Instantiate the singleton class GameContent and load all game assets, done in ctor
+            new GameContent(Content);
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -109,7 +109,6 @@ namespace PGCGame
 
             titleScreen = new Title(spriteBatch, new Delegates.QuitFunction(Exit));
             titleScreen.InitScreen(ScreenType.Title);
-            titleScreen.Visible = true;
 
             gameOver = new GameOver(spriteBatch);
             gameOver.InitScreen(ScreenType.GameOver);
