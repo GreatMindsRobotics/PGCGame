@@ -31,8 +31,20 @@ namespace PGCGame
 
 #if WINDOWS
             MouseManager.Updated += new EventHandler(MouseManager_Updated);
+#elif XBOX
+            GamePadManager.One.Buttons.AButtonPressed += new EventHandler(Buttons_AButtonPressed);
 #endif
         }
+
+#if XBOX
+        void Buttons_AButtonPressed(object sender, EventArgs e)
+        {
+            if (StateManager.ScreenState == this.ScreenType)
+            {
+                Skip();
+            }
+        }
+#endif
 
 
 #if WINDOWS
