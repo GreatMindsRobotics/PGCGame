@@ -203,6 +203,10 @@ namespace PGCGame.Screens
             isSaving = false;
         }
 
+        TimeSpan _elapsedSaveTime = TimeSpan.Zero;
+
+        TimeSpan _reqSaveTime = TimeSpan.FromSeconds(.2);
+
         void bw_DoWork(object sender, DoWorkEventArgs e)
         {
             StorageContainer saveData = e.Argument as StorageContainer;
@@ -219,6 +223,11 @@ namespace PGCGame.Screens
             serializer.Serialize(stream, SerializableGameState.Current);
             stream.Close();
             saveData.Dispose();
+
+            while (_elapsedSaveTime < _reqSaveTime)
+            {
+                //Wait on this variable
+            }
         }
 
         void nextLevelLabel_Pressed(object sender, EventArgs e)
@@ -272,9 +281,14 @@ namespace PGCGame.Screens
 #endif
             if (!isSaving)
             {
+                _elapsedSaveTime = TimeSpan.Zero;
                 PlayButton.Color = StateManager.SelectedTier == ShipTier.NoShip ? Color.Transparent : Color.White;
                 PlayLabel.Visible = PlayButton.Color.A > 0;
                 noShipLabel.Visible = !PlayLabel.Visible;
+            }
+            else
+            {
+                _elapsedSaveTime += gameTime.ElapsedGameTime;
             }
         }
     }

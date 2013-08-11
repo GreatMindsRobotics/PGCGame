@@ -41,7 +41,7 @@ namespace PGCGame.Screens
 
         private TimeSpan _elapsedTime;
 
-        public TimeSpan MinimumTime = TimeSpan.FromSeconds(.4);
+        public TimeSpan MinimumTime = TimeSpan.FromSeconds(.333333333333333333333333333);
 
         private bool _hasFinishedTask = false;
 
