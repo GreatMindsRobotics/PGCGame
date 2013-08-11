@@ -14,7 +14,7 @@ using Glib.XNA;
 using PGCGame.CoreTypes;
 using Glib.XNA.InputLib;
 using Microsoft.Xna.Framework.Storage;
-using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace PGCGame.Screens
 {
@@ -179,11 +179,26 @@ namespace PGCGame.Screens
             StateManager.ScreenState = ScreenType.WeaponSelect;
         }
 
-        StorageContainer saveData;
-
-        void save()
+        void OpenComplete(IAsyncResult res)
         {
-            
+            BackgroundWorker bw = new BackgroundWorker();
+            bw.DoWork += new DoWorkEventHandler(bw_DoWork);
+            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
+
+            StorageContainer saveData = StateManager.SelectedStorage.EndOpenContainer(res);
+            bw.RunWorkerAsync(saveData);
+        }
+
+        void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            levelBegin(null, null);
+            StateManager.ScreenState = ScreenType.TransitionScreen;
+            isSaving = false;
+        }
+
+        void bw_DoWork(object sender, DoWorkEventArgs e)
+        {
+            StorageContainer saveData = e.Argument as StorageContainer;
             string filename = "PGCGameSave.dat";
 
             // Check to see whether the save exists.
@@ -197,19 +212,6 @@ namespace PGCGame.Screens
             serializer.Serialize(stream, SerializableGameState.Current);
             stream.Close();
             saveData.Dispose();
-            
-            levelBegin(null, null);
-            StateManager.ScreenState = ScreenType.TransitionScreen;
-            isSaving = false;
-        }
-
-        void OpenComplete(IAsyncResult res)
-        {
-            Task saveDataTask = new Task(new Action(save));
-
-            saveData = StateManager.SelectedStorage.EndOpenContainer(res);
-
-            saveDataTask.Start();
         }
 
         void nextLevelLabel_Pressed(object sender, EventArgs e)

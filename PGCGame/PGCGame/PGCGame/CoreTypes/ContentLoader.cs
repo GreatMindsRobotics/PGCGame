@@ -195,6 +195,10 @@ namespace PGCGame.CoreTypes
                 {
                     _shipTextures = new Dictionary<KeyValuePair<ShipType, ShipTier>, Texture2D>();
 
+                    TextureFactory tf = new TextureFactory(StateManager.GraphicsManager.GraphicsDevice);
+
+                    _shipTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.NoShip, ShipTier.NoShip), tf.CreateSquare(15, Color.Transparent));
+
                     _shipTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.BattleCruiser, ShipTier.Tier1), content.Load<Texture2D>("Images\\Ships\\Allies\\BattleCruiser\\Tier1"));
                     _shipTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.BattleCruiser, ShipTier.Tier2), content.Load<Texture2D>("Images\\Ships\\Allies\\BattleCruiser\\Tier2"));
                     _shipTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.BattleCruiser, ShipTier.Tier3), content.Load<Texture2D>("Images\\Ships\\Allies\\BattleCruiser\\Tier3"));

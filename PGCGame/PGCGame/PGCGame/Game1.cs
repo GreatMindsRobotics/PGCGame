@@ -44,6 +44,7 @@ namespace PGCGame
         Shop shopScreen;
         GameOver gameOver;
         ControlScreen controlScreen;
+        LoadingScreen loadingScreen;
         NetworkSelectScreen networkScreen;
         TransitionScreen transitionScreen;
         LevelCompleteScreen levelCompleteScreen;
@@ -150,7 +151,10 @@ namespace PGCGame
             transitionScreen = new TransitionScreen(spriteBatch);
             transitionScreen.InitScreen(ScreenType.TransitionScreen);
 
-            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen, weaponSelectScreen, upgradeScreen, tierSelectScreen, levelSelectScreen, controlScreen, networkScreen, gameOver, transitionScreen, levelCompleteScreen);
+            loadingScreen = new LoadingScreen(spriteBatch, Color.Black);
+            loadingScreen.InitScreen(ScreenType.LoadingScreen);
+
+            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen, weaponSelectScreen, upgradeScreen, tierSelectScreen, levelSelectScreen, controlScreen, networkScreen, gameOver, transitionScreen, levelCompleteScreen, loadingScreen);
             StateManager.AllScreens = screenManager;
             StateManager.ScreenState = CoreTypes.ScreenType.Title;
         }

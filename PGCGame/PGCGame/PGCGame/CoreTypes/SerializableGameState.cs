@@ -5,7 +5,6 @@ using System.Text;
 
 namespace PGCGame.CoreTypes
 {
-    [Serializable]
     public struct SerializableGameState
     {
         public static SerializableGameState Current

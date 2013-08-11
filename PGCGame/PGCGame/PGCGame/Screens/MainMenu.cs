@@ -205,6 +205,8 @@ namespace PGCGame.Screens
             }
         }
 
+        LoadingScreen lScr;
+
         void onSelectedStorage(IAsyncResult res)
         {
 
@@ -214,9 +216,22 @@ namespace PGCGame.Screens
                 {
                     return;
                 }
+
                 StateManager.SelectedStorage = dev;
-                StateManager.ScreenState = CoreTypes.ScreenType.LevelSelect;
+                lScr = StateManager.AllScreens[ScreenType.LoadingScreen.ToString()] as LoadingScreen;
+                lScr.Reset();
+                lScr.ScreenFinished += new EventHandler(lScr_ScreenFinished);
+                lScr.UserCallbackStartsTask = true;
+                lScr.LoadingText = "Loading saved data...";
+                lScr.UserCallback = new AsyncCallback(loaded);
+                dev.BeginOpenContainer("PGCGame", lScr.Callback, null);
+                StateManager.ScreenState = CoreTypes.ScreenType.LoadingScreen;
             }catch{};
+        }
+
+        void lScr_ScreenFinished(object sender, EventArgs e)
+        {
+            StateManager.ScreenState = CoreTypes.ScreenType.LevelSelect;
         }
 
         void Options_ScreenResolutionChanged(object sender, EventArgs e)
@@ -268,5 +283,67 @@ namespace PGCGame.Screens
         GamePadState lastGamePad = new GamePadState(Vector2.Zero, Vector2.Zero, 0, 0, Buttons.A);
 #endif
 
+        string filename = "PGCGameSave.dat";
+
+        public void loaded(IAsyncResult res)
+        {
+            StorageContainer strContain = StateManager.SelectedStorage.EndOpenContainer(res);
+            
+
+            // Check to see whether the save exists.
+            if (!strContain.FileExists(filename))
+            {
+                // If not, dispose of the container and return.
+                strContain.Dispose();
+                lScr.FinishTask();
+                return;
+            }
+
+            System.ComponentModel.BackgroundWorker br = new System.ComponentModel.BackgroundWorker();
+
+            br.DoWork += new System.ComponentModel.DoWorkEventHandler(br_DoWork);
+            br.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(br_RunWorkerCompleted);
+
+            br.RunWorkerAsync(strContain);
+        }
+
+        void br_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            lScr.FinishTask();
+        }
+
+        void br_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            StorageContainer container = e.Argument as StorageContainer;
+            System.IO.Stream stream = container.OpenFile(filename, System.IO.FileMode.Open);
+            System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(SerializableGameState));
+            SerializableGameState savedState = (SerializableGameState)serializer.Deserialize(stream);
+            stream.Close();
+            container.Dispose();
+            StateManager.SpaceBucks = savedState.Cash;
+            StateManager.HighestUnlockedLevel = savedState.HighestLevel;
+            StateManager.ShipData = savedState.Ship;
+            foreach (System.Collections.Generic.Stack<SecondaryWeapon> s in StateManager.PowerUps)
+            {
+                s.Clear();
+            }
+            for(int i = 0; i < savedState.Upgrades.SpaceMineCount; i++)
+            {
+                StateManager.PowerUps[0].Push(new SpaceMine(GameContent.GameAssets.Images.SecondaryWeapon[SecondaryWeaponType.SpaceMine, TextureDisplayType.InGameUse], Vector2.Zero, Sprites.SpriteBatch));
+            }
+            for(int i = 0; i < savedState.Upgrades.EMPCount; i++)
+            {
+                StateManager.PowerUps[2].Push(new EMP(GameContent.GameAssets.Images.SecondaryWeapon[SecondaryWeaponType.EMP, TextureDisplayType.InGameUse], Vector2.Zero, Sprites.SpriteBatch));
+            }
+            for(int i = 0; i < savedState.Upgrades.ShrinkRayCount; i++)
+            {
+                StateManager.PowerUps[1].Push(new ShrinkRay(GameContent.GameAssets.Images.SecondaryWeapon[SecondaryWeaponType.ShrinkRay, TextureDisplayType.InGameUse], Vector2.Zero, Sprites.SpriteBatch));
+            }
+            for (int i = 0; i < savedState.Upgrades.HealthPackCount; i++)
+            {
+                StateManager.PowerUps[3].Push(new HealthPack(GameContent.GameAssets.Images.Equipment[EquipmentType.HealthPack, TextureDisplayType.InGameUse], Vector2.Zero, Sprites.SpriteBatch));
+            }
+            StateManager.HasBoughtScanner = savedState.Upgrades.HasScanner;
+        }
     }
 }

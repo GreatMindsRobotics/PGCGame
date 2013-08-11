@@ -36,7 +36,7 @@ namespace PGCGame.CoreTypes
 
         void Buttons_BButtonPressed(object sender, EventArgs e)
         {
-            if (_screenType != ScreenType.MainMenu && _screenType != ScreenType.Game && Visible && elapsedBackButtonTime > requiredBackButtonTime)
+            if (_screenType != ScreenType.MainMenu && _screenType != ScreenType.LoadingScreen && _screenType != ScreenType.Game && Visible && elapsedBackButtonTime > requiredBackButtonTime)
             {
                 StateManager.GoBack();
             }
@@ -63,10 +63,10 @@ namespace PGCGame.CoreTypes
             get { return _screenType; }
         }
 
-        public new string Name
+        public override string Name
         {
             get { return _screenType.ToString(); }
-            private set { }
+            set { }
         }
 
         public SoundEffectInstance DeploySound { get; set; }
@@ -91,41 +91,44 @@ namespace PGCGame.CoreTypes
         public virtual void InitScreen(ScreenType screenName)
         {
 #if XBOX
-            bButton = new Sprite(GameContent.GameAssets.Images.Controls.BButton, new Vector2(50, 420), Sprites.SpriteBatch);
-            bButton.Scale = new Vector2(0.5f);
-
-            string backButtonText = "Back";
-            if (screenName == ScreenType.MainMenu || screenName == ScreenType.Title)
+            if (screenName != CoreTypes.ScreenType.LoadingScreen)
             {
-                backButtonText =  "Exit";
+                bButton = new Sprite(GameContent.GameAssets.Images.Controls.BButton, new Vector2(50, 420), Sprites.SpriteBatch);
+                bButton.Scale = new Vector2(0.5f);
+
+                string backButtonText = "Back";
+                if (screenName == ScreenType.MainMenu || screenName == ScreenType.Title)
+                {
+                    backButtonText = "Exit";
+                }
+
+                bLabel = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, backButtonText);
+                bLabel.Color = Color.White;
+                bLabel.Position = new Vector2(90, 425);
+
+                Sprites.Add(bButton);
+                AdditionalSprites.Add(bLabel);
+
+                aButton = new Sprite(GameContent.GameAssets.Images.Controls.AButton, new Vector2(160, 420), Sprites.SpriteBatch);
+                aButton.Scale = new Vector2(0.5f);
+
+                aLabel = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, "Select");
+                aLabel.Position = new Vector2(200, 425);
+                aLabel.Color = Color.White;
+
+                if (screenName == ScreenType.Credits)
+                {
+                    aLabel.Color = Color.Transparent;
+                    aButton.Color = Color.Transparent;
+                }
+                else if (screenName == ScreenType.LevelSelect)
+                {
+                    aLabel.Text = "Play";
+                }
+
+                Sprites.Add(aButton);
+                AdditionalSprites.Add(aLabel);
             }
-            
-            bLabel = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, backButtonText);
-            bLabel.Color = Color.White;
-            bLabel.Position = new Vector2(90, 425);
-
-            Sprites.Add(bButton);
-            AdditionalSprites.Add(bLabel);
-
-            aButton = new Sprite(GameContent.GameAssets.Images.Controls.AButton, new Vector2(160, 420), Sprites.SpriteBatch);
-            aButton.Scale = new Vector2(0.5f);
-
-            aLabel = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, "Select");
-            aLabel.Position = new Vector2(200, 425);
-            aLabel.Color = Color.White;
-
-            if(screenName ==  ScreenType.Credits)
-            {
-                aLabel.Color = Color.Transparent;
-                aButton.Color = Color.Transparent;
-            }
-            else if (screenName == ScreenType.LevelSelect)
-            {
-                aLabel.Text = "Play";
-            }
-
-            Sprites.Add(aButton);
-            AdditionalSprites.Add(aLabel);
 #endif
             _screenType = screenName;
             base.Name = screenName.ToString();
