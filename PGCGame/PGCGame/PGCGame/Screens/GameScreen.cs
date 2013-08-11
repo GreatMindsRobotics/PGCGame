@@ -136,18 +136,18 @@ namespace PGCGame.Screens
             }
             if (fogOfWar != null)
             {
-               
-            for (int row = 0; row <= fogOfWar.GetUpperBound(1); row++)
-            {
-                for (int column = 0; column <= fogOfWar.GetUpperBound(0); column++)
+
+                for (int row = 0; row <= fogOfWar.GetUpperBound(1); row++)
                 {
-                    fogOfWar[column, row].Width = miniMap.Width / 9;
-                    fogOfWar[column, row].Height = miniMap.Height / 30;
-                    fogOfWar[column, row].X = miniMap.X + fogOfWar[0, 0].Width * column;
-                    fogOfWar[column, row].Y = miniMap.Y + fogOfWar[0, 0].Height * row;
-                    fogOfWar[column, row].Color = Color.White;
+                    for (int column = 0; column <= fogOfWar.GetUpperBound(0); column++)
+                    {
+                        fogOfWar[column, row].Width = miniMap.Width / 9;
+                        fogOfWar[column, row].Height = miniMap.Height / 30;
+                        fogOfWar[column, row].X = miniMap.X + fogOfWar[0, 0].Width * column;
+                        fogOfWar[column, row].Y = miniMap.Y + fogOfWar[0, 0].Height * row;
+                        fogOfWar[column, row].Color = Color.White;
+                    }
                 }
-            }
             }
         }
 
@@ -267,9 +267,12 @@ namespace PGCGame.Screens
             playerSbObjects.Add(miniShipInfoBg);
             playerSbObjects.Add(miniMap);
 
-            //Create fog of war array
-            fogOfWar = new Sprite[9, 30];
-            
+            if (StateManager.DebugData.FogOfWarEnabled)
+            {
+                //Create fog of war array
+                fogOfWar = new Sprite[9, 30];
+            }
+
 
 
             if (typeof(TShip) == typeof(Drone))
@@ -310,18 +313,22 @@ namespace PGCGame.Screens
             //Set as own ship
             playerShip.PlayerType = PlayerType.MyShip;
 
-            for (int row = 0; row <= fogOfWar.GetUpperBound(1); row++)
-            {
-                for (int column = 0; column <= fogOfWar.GetUpperBound(0); column++)
-                {
-                    fogOfWar[column, row] = new Sprite(creator.CreateSquare(1, Color.DarkGray), Vector2.Zero, playerSb);
-                    fogOfWar[column, row].Width = miniMap.Width / 9;
-                    fogOfWar[column, row].Height = miniMap.Height / 30;
-                    fogOfWar[column, row].X = miniMap.X + fogOfWar[0, 0].Width * column;
-                    fogOfWar[column, row].Y = miniMap.Y + fogOfWar[0, 0].Height * row;
-                    fogOfWar[column, row].Color = Color.White;
-                    StateManager.KnownMap[column, row] = false;
 
+            if (fogOfWar != null)
+            {
+                for (int row = 0; row <= fogOfWar.GetUpperBound(1); row++)
+                {
+                    for (int column = 0; column <= fogOfWar.GetUpperBound(0); column++)
+                    {
+                        fogOfWar[column, row] = new Sprite(creator.CreateSquare(1, Color.DarkGray), Vector2.Zero, playerSb);
+                        fogOfWar[column, row].Width = miniMap.Width / 9;
+                        fogOfWar[column, row].Height = miniMap.Height / 30;
+                        fogOfWar[column, row].X = miniMap.X + fogOfWar[0, 0].Width * column;
+                        fogOfWar[column, row].Y = miniMap.Y + fogOfWar[0, 0].Height * row;
+                        fogOfWar[column, row].Color = Color.White;
+                        StateManager.KnownMap[column, row] = false;
+
+                    }
                 }
             }
         }
@@ -340,9 +347,9 @@ namespace PGCGame.Screens
 
         public void RegenerateClones()
         {
-            if(StateManager.Options.SFXEnabled)
+            if (StateManager.Options.SFXEnabled)
             {
-               ClonesMade.Play();
+                ClonesMade.Play();
             }
             bossWorldCoords = null;
             for (int i = 0; i < enemies.Count; i++)
@@ -377,7 +384,7 @@ namespace PGCGame.Screens
 
             enemyCloneOne.noStackDelay = new TimeSpan(0);
             enemyCloneTwo.noStackDelay = new TimeSpan(0);
-            
+
             enemyCloneOne.EnemyCounts = false;
             enemyCloneTwo.EnemyCounts = false;
 
@@ -444,19 +451,22 @@ namespace PGCGame.Screens
             //Casting the Sprites to ISprites
             playerSbObjects.AddRange(miniShips.Cast<ISprite>());
 
-            //Drawing Fog of War
-            foreach(Sprite fogOfWarTile in fogOfWar)
+            if (fogOfWar != null)
             {
-                playerSbObjects.Remove(fogOfWarTile);
-            }
-
-            for (int row = 0; row <= fogOfWar.GetUpperBound(1); row++)
-            {
-                for (int column = 0; column <= fogOfWar.GetUpperBound(0); column++)
+                //Drawing Fog of War
+                foreach (Sprite fogOfWarTile in fogOfWar)
                 {
-                    if (!StateManager.KnownMap[column, row])
+                    playerSbObjects.Remove(fogOfWarTile);
+                }
+
+                for (int row = 0; row <= fogOfWar.GetUpperBound(1); row++)
+                {
+                    for (int column = 0; column <= fogOfWar.GetUpperBound(0); column++)
                     {
-                        playerSbObjects.Add(fogOfWar[column, row]);
+                        if (!StateManager.KnownMap[column, row])
+                        {
+                            playerSbObjects.Add(fogOfWar[column, row]);
+                        }
                     }
                 }
             }
@@ -467,7 +477,7 @@ namespace PGCGame.Screens
 
         private void addShipToMinimap(Ship ship, ref Ship activeMiniShipDisplay)
         {
-            if (ship.GetType() == typeof(Drone) || ship.ShipState == ShipState.Exploding)
+            if (ship.GetType() == typeof(Drone) || ship.ShipState == ShipState.Exploding || ship.ShipState == ShipState.Dead)
             {
                 return;
             }
@@ -493,20 +503,23 @@ namespace PGCGame.Screens
             {
                 bool intersectsFOW = false;
 
-                for (int row = 0; row <= StateManager.KnownMap.GetUpperBound(1); row++)
+                if (fogOfWar != null)
                 {
-                    for (int column = 0; column <= StateManager.KnownMap.GetUpperBound(0); column++)
+                    for (int row = 0; row <= StateManager.KnownMap.GetUpperBound(1); row++)
                     {
-                        intersectsFOW = !StateManager.KnownMap[column, row] && fogOfWar[column, row].Intersects(miniShip);
+                        for (int column = 0; column <= StateManager.KnownMap.GetUpperBound(0); column++)
+                        {
+                            intersectsFOW = !StateManager.KnownMap[column, row] && fogOfWar[column, row].Intersects(miniShip);
+                            if (intersectsFOW)
+                            {
+                                break;
+                            }
+                        }
+
                         if (intersectsFOW)
                         {
                             break;
                         }
-                    }
-
-                    if (intersectsFOW)
-                    {
-                        break;
                     }
                 }
 
@@ -568,16 +581,20 @@ namespace PGCGame.Screens
             }
 
             base.Update(gameTime);
-            
-            for (int row = 0; row <= fogOfWar.GetUpperBound(1); row++)
+
+
+            if (fogOfWar != null)
             {
-                for (int column = 0; column <= fogOfWar.GetUpperBound(0); column++)
+                for (int row = 0; row <= fogOfWar.GetUpperBound(1); row++)
                 {
-                    if (playerMinimapVisible.HasValue)
+                    for (int column = 0; column <= fogOfWar.GetUpperBound(0); column++)
                     {
-                        if (fogOfWar[column, row].Intersects(playerMinimapVisible.Value))
+                        if (playerMinimapVisible.HasValue)
                         {
-                            StateManager.KnownMap[column, row] = true;
+                            if (fogOfWar[column, row].Intersects(playerMinimapVisible.Value))
+                            {
+                                StateManager.KnownMap[column, row] = true;
+                            }
                         }
                     }
                 }
@@ -650,7 +667,6 @@ namespace PGCGame.Screens
                 }
 
                 else if (StateManager.nextLevel || playerShip.ShipState == ShipState.Dead)
-
                 {
                     if (StateManager.nextLevel)
                     {
@@ -876,7 +892,7 @@ namespace PGCGame.Screens
                 {
                     StateManager.Options.ToggleFullscreen();
                 }
-                
+
                 worldCam.Move(camMove);
                 playerShip.WorldCoords = worldCam.Pos;
                 if (!_gameHasStarted)
@@ -895,9 +911,9 @@ namespace PGCGame.Screens
             {
                 if (s != miniMap)
                 {
-                    if (s.GetType().Implements(typeof(ITimerSprite)))
+                    if (s is ITimerSprite)
                     {
-                        s.Cast<ITimerSprite>().Update(gameTime);
+                        (s as ITimerSprite).Update(gameTime);
                     }
                     else
                     {
@@ -921,7 +937,7 @@ namespace PGCGame.Screens
             playerSb.Begin();
             foreach (ISprite s in playerSbObjects)
             {
-                if (s.GetType().Implements(typeof(ISpriteBatchManagerSprite)))
+                if (s is ISpriteBatchManagerSprite)
                 {
                     s.Cast<ISpriteBatchManagerSprite>().DrawNonAuto();
                 }
