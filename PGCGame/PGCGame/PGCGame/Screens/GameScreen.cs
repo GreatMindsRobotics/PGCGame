@@ -269,21 +269,6 @@ namespace PGCGame.Screens
 
             //Create fog of war array
             fogOfWar = new Sprite[9, 30];
-
-            for (int row = 0; row <= fogOfWar.GetUpperBound(1); row++)
-            {
-                for (int column = 0; column <= fogOfWar.GetUpperBound(0); column++)
-                {
-                    StateManager.KnownMap[column, row] = false;
-                    fogOfWar[column, row] = new Sprite(creator.CreateSquare(1, Color.DarkGray), Vector2.Zero, playerSb);
-                    fogOfWar[column, row].Width = miniMap.Width / 9;
-                    fogOfWar[column, row].Height = miniMap.Height / 30;
-                    fogOfWar[column, row].X = miniMap.X + fogOfWar[0, 0].Width * column;
-                    fogOfWar[column, row].Y = miniMap.Y + fogOfWar[0, 0].Height * row;
-                    fogOfWar[column, row].Color = Color.White;
-
-                }
-            }
             
 
 
