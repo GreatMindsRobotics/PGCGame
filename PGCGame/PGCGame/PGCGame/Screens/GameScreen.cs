@@ -314,7 +314,6 @@ namespace PGCGame.Screens
             {
                 for (int column = 0; column <= fogOfWar.GetUpperBound(0); column++)
                 {
-                    StateManager.KnownMap[column, row] = false;
                     fogOfWar[column, row] = new Sprite(creator.CreateSquare(1, Color.DarkGray), Vector2.Zero, playerSb);
                     fogOfWar[column, row].Width = miniMap.Width / 9;
                     fogOfWar[column, row].Height = miniMap.Height / 30;
@@ -411,12 +410,12 @@ namespace PGCGame.Screens
 
             foreach (Ship ship in StateManager.AllyShips)
             {
-                addShipToMinimap(ship, activeMiniShipDisplay);
+                addShipToMinimap(ship, ref activeMiniShipDisplay);
             }
 
             foreach (Ship ship in StateManager.EnemyShips)
             {
-                addShipToMinimap(ship, activeMiniShipDisplay);
+                addShipToMinimap(ship, ref activeMiniShipDisplay);
             }
 
             miniShipInfoBg.Color = activeMiniShipDisplay != null ? Color.White : Color.Transparent;
@@ -466,7 +465,7 @@ namespace PGCGame.Screens
 
         Rectangle? playerMinimapVisible = null;
 
-        private void addShipToMinimap(Ship ship, Ship activeMiniShipDisplay)
+        private void addShipToMinimap(Ship ship, ref Ship activeMiniShipDisplay)
         {
             if (ship.GetType() == typeof(Drone) || ship.ShipState == ShipState.Exploding)
             {
@@ -492,7 +491,29 @@ namespace PGCGame.Screens
             //TODO: Minimap ship info showing up on Xbox
             if (miniShip.Intersects(MouseManager.CurrentMouseState) && activeMiniShipDisplay == null)
             {
-                activeMiniShipDisplay = ship;
+                bool intersectsFOW = false;
+
+                for (int row = 0; row <= StateManager.KnownMap.GetUpperBound(1); row++)
+                {
+                    for (int column = 0; column <= StateManager.KnownMap.GetUpperBound(0); column++)
+                    {
+                        intersectsFOW = !StateManager.KnownMap[column, row] && fogOfWar[column, row].Intersects(miniShip);
+                        if (intersectsFOW)
+                        {
+                            break;
+                        }
+                    }
+
+                    if (intersectsFOW)
+                    {
+                        break;
+                    }
+                }
+
+                if (!intersectsFOW)
+                {
+                    activeMiniShipDisplay = ship;
+                }
             }
 #endif
         }
@@ -531,6 +552,8 @@ namespace PGCGame.Screens
         //bool _allowMusicHandling = false;
         KeyboardState _lastState = new KeyboardState();
 
+        Boolean allEnemiesDead = true;
+
         public override void Update(GameTime gameTime)
         {
             if (!_gameHasStarted)
@@ -545,6 +568,7 @@ namespace PGCGame.Screens
             }
 
             base.Update(gameTime);
+            
             for (int row = 0; row <= fogOfWar.GetUpperBound(1); row++)
             {
                 for (int column = 0; column <= fogOfWar.GetUpperBound(0); column++)
@@ -559,14 +583,17 @@ namespace PGCGame.Screens
                 }
             }
 
-            KeyboardState keyboard = Keyboard.GetState();
-            Boolean allEnemiesDead = true;
+            //KeyboardState keyboard = Keyboard.GetState();
+
+            allEnemiesDead = true;
             foreach (BaseEnemyShip enemyShip in enemies)
             {
-                if (StateManager.DebugData.KillAll && _lastState.IsKeyUp(Keys.F7) && keyboard.IsKeyDown(Keys.F7))
+#if WINDOWS
+                if (StateManager.DebugData.KillAll && _lastState.IsKeyUp(Keys.F7) && KeyboardManager.State.IsKeyDown(Keys.F7))
                 {
-                    enemyShip.CurrentHealth = (keyboard.IsKeyDown(Keys.LeftAlt) || keyboard.IsKeyDown(Keys.RightAlt)) && enemyShip.CurrentHealth > 0 ? 1 : 0;
+                    enemyShip.CurrentHealth = (KeyboardManager.State.IsKeyDown(Keys.LeftAlt) || KeyboardManager.State.IsKeyDown(Keys.RightAlt)) && enemyShip.CurrentHealth > 0 ? 1 : 0;
                 }
+#endif
                 if (enemyShip.ShipState != ShipState.Dead && enemyShip.EnemyCounts)
                 {
                     allEnemiesDead = false;
@@ -649,7 +676,7 @@ namespace PGCGame.Screens
 
 
 #if WINDOWS
-            if (_lastState.IsKeyUp(Keys.Escape) && keyboard.IsKeyDown(Keys.Escape))
+            if (_lastState.IsKeyUp(Keys.Escape) && KeyboardManager.State.IsKeyDown(Keys.Escape))
             {
                 Paused(null, null);
                 StateManager.ScreenState = ScreenType.Pause;
@@ -845,7 +872,7 @@ namespace PGCGame.Screens
                 }
 
 
-                if (_lastState.IsKeyUp(Keys.F11) && keyboard.IsKeyDown(Keys.F11))
+                if (_lastState.IsKeyUp(Keys.F11) && KeyboardManager.State.IsKeyDown(Keys.F11))
                 {
                     StateManager.Options.ToggleFullscreen();
                 }
@@ -883,7 +910,7 @@ namespace PGCGame.Screens
 
             miniMap.Update();
 
-            _lastState = keyboard;
+            _lastState = KeyboardManager.State;
         }
 
         Camera2DMatrix worldCam;
