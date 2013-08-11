@@ -152,7 +152,6 @@ namespace PGCGame.Screens
                 ButtonClick.Play();
             }
 
-            selectedTierSelect(null, null);
             StateManager.ScreenState = ScreenType.TierSelect;
             
         }
