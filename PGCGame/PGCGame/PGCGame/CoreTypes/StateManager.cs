@@ -195,7 +195,10 @@ namespace PGCGame
             }
             set
             {
-                _screenStack.Push(value);
+                if (value != ScreenType.TransitionScreen && value != ScreenType.LoadingScreen)
+                {
+                    _screenStack.Push(value);
+                }
                 _screenState = value;
 
                 SwitchScreen(value);

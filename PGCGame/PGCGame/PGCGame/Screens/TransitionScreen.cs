@@ -12,6 +12,7 @@ using Glib.XNA;
 using Glib.XNA.SpriteLib;
 using PGCGame.CoreTypes;
 using PGCGame.Screens;
+using Glib.XNA.InputLib;
 
 #if XBOX
 using Glib.XNA.InputLib;
@@ -30,7 +31,34 @@ namespace PGCGame
         {
             DeploySound = GameContent.GameAssets.Sound[SoundEffectType.SpaceDoorOpening];
             SpaceShipLeaving = GameContent.GameAssets.Sound[SoundEffectType.SpaceShipLeaving];
+            KeyboardManager.KeyDown += new SingleKeyEventHandler(KeyboardManager_KeyDown);
+            MouseManager.Updated += new EventHandler(MouseManager_Updated);
         }
+
+        void MouseManager_Updated(object sender, EventArgs e)
+        {
+            if (StateManager.ScreenState == this.ScreenType && MouseManager.LastMouseState.LeftButton == ButtonState.Released && MouseManager.CurrentMouseState.LeftButton == ButtonState.Pressed)
+            {
+                Skip();
+            }
+        }
+
+        private void Skip()
+        {
+            DeploySound.Stop();
+            StateManager.InitializeSingleplayerGameScreen(StateManager.SelectedShip, StateManager.SelectedTier);
+
+            StateManager.ScreenState = CoreTypes.ScreenType.Game;
+        }
+
+        void KeyboardManager_KeyDown(object source, SingleKeyEventArgs e)
+        {
+            if (StateManager.ScreenState == this.ScreenType && (e.Key == Keys.Space || e.Key == Keys.Enter))
+            {
+                Skip();
+            }
+        }
+
         public void Reset()
         {
         

@@ -24,8 +24,15 @@ namespace PGCGame.Screens
             : base(spriteBatch, Color.Black)
         {
             //TODO: BACKGROUND
+            StateManager.ScreenStateChanged += new EventHandler(StateManager_ScreenStateChanged);
             ButtonClick = GameContent.GameAssets.Sound[SoundEffectType.ButtonPressed];
         }
+
+        void StateManager_ScreenStateChanged(object sender, EventArgs e)
+        {
+            isSaving = false;   
+        }
+
         public static event EventHandler levelBegin;
         public static event EventHandler selectedTierSelect;
         Sprite upgradeEquipmentButton;
