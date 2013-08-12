@@ -29,6 +29,9 @@ namespace PGCGame
         public static Texture2D Torpedo;
         public static Texture2D SpaceMine;
         public static Texture2D Explosion;
+        /// <summary>
+        /// Called when the ship dies.
+        /// </summary>
         public static event EventHandler Dead;
 
         public abstract ShipType ShipType { get; }
