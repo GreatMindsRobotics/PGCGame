@@ -40,7 +40,19 @@ namespace PGCGame.Screens.Multiplayer
             title.Position = new Vector2(title.GetCenterPosition(Graphics.Viewport).X, 5);
             AdditionalSprites.Add(title);
 
-            
+            BackButton = new Sprite(GameContent.GameAssets.Images.Controls.Button, new Vector2(20, Graphics.Viewport.Height), Sprites.SpriteBatch);
+            BackButton.Y -= BackButton.Height + 20;
+            BackLabel = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, "Back", Color.White) { ParentSprite = BackButton, IsHoverable = true, HoverColor = Color.MediumAquamarine, NonHoverColor = Color.White};
+            BackLabel.Pressed += new EventHandler(BackLabel_Pressed);
+
+            Sprites.Add(BackButton);
+            AdditionalSprites.Add(BackLabel);
+        }
+
+        void BackLabel_Pressed(object sender, EventArgs e)
+        {
+            //TODO
+            StateManager.GoBack();
         }
 
         public void InitScreen()
