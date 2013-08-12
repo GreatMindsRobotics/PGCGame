@@ -297,12 +297,12 @@ namespace PGCGame.Screens
                     break;
             }
 
-
             ship.UseCenterAsOrigin = true;
             ship.WorldSb = Sprites.SpriteBatch;
             ship.Tier = tier;
             ship.Position = ship.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport, true);
             playerShip = ship;
+            playerShip.WCMoved += new EventHandler(playerShip_WCMoved);
             playerShip.IsPlayerShip = true;
             playerShip.RotateTowardsMouse = true;
             playerSbObjects.Add(ship);
@@ -312,6 +312,7 @@ namespace PGCGame.Screens
 
             //Set as own ship
             playerShip.PlayerType = PlayerType.MyShip;
+            playerShip.WorldCoords = worldCam.Pos;
 
 
             if (fogOfWar != null)
@@ -327,9 +328,18 @@ namespace PGCGame.Screens
                         fogOfWar[column, row].Y = miniMap.Y + fogOfWar[0, 0].Height * row;
                         fogOfWar[column, row].Color = Color.White;
                         StateManager.KnownMap[column, row] = false;
-
                     }
                 }
+            }
+
+
+        }
+
+        void playerShip_WCMoved(object sender, EventArgs e)
+        {
+            if (_minimapYou != null)
+            {
+                playerMinimapVisible = new Rectangle((_minimapYou.X - (Sprites.SpriteBatch.GraphicsDevice.Viewport.Width / 2) / MinimapDivAmount).ToInt(), (_minimapYou.Y - (Sprites.SpriteBatch.GraphicsDevice.Viewport.Height / 2) / MinimapDivAmount).ToInt(), (_minimapYou.Width + (Sprites.SpriteBatch.GraphicsDevice.Viewport.Width / 2) / MinimapDivAmount).ToInt(), (_minimapYou.Height + (Sprites.SpriteBatch.GraphicsDevice.Viewport.Height / 2) / MinimapDivAmount).ToInt());
             }
         }
 
@@ -453,16 +463,11 @@ namespace PGCGame.Screens
 
             if (fogOfWar != null)
             {
-                //Drawing Fog of War
-                foreach (Sprite fogOfWarTile in fogOfWar)
-                {
-                    playerSbObjects.Remove(fogOfWarTile);
-                }
-
                 for (int row = 0; row <= fogOfWar.GetUpperBound(1); row++)
                 {
                     for (int column = 0; column <= fogOfWar.GetUpperBound(0); column++)
                     {
+                        playerSbObjects.Remove(fogOfWar[column, row]);
                         if (!StateManager.KnownMap[column, row])
                         {
                             playerSbObjects.Add(fogOfWar[column, row]);
@@ -474,6 +479,8 @@ namespace PGCGame.Screens
         }
 
         Rectangle? playerMinimapVisible = null;
+
+        private Sprite _minimapYou = null;
 
         private void addShipToMinimap(Ship ship, ref Ship activeMiniShipDisplay)
         {
@@ -494,7 +501,7 @@ namespace PGCGame.Screens
 
             if (ship.PlayerType == PlayerType.MyShip)
             {
-                playerMinimapVisible = new Rectangle((miniShip.X - (Sprites.SpriteBatch.GraphicsDevice.Viewport.Width / 2) / MinimapDivAmount).ToInt(), (miniShip.Y - (Sprites.SpriteBatch.GraphicsDevice.Viewport.Height / 2) / MinimapDivAmount).ToInt(), (miniShip.Width + (Sprites.SpriteBatch.GraphicsDevice.Viewport.Width / 2) / MinimapDivAmount).ToInt(), (miniShip.Height + (Sprites.SpriteBatch.GraphicsDevice.Viewport.Height / 2) / MinimapDivAmount).ToInt());
+                _minimapYou = miniShip;
             }
 
 #if WINDOWS
@@ -569,6 +576,8 @@ namespace PGCGame.Screens
 
         public override void Update(GameTime gameTime)
         {
+            miniMap.Update();
+
             if (!_gameHasStarted)
             {
                 //_allowMusicHandling = false;
@@ -578,6 +587,7 @@ namespace PGCGame.Screens
                     MediaPlayer.Play(_gameSong);
                 }
                 //_allowMusicHandling = true;
+                playerShip.WorldCoords = worldCam.Pos;
             }
 
             base.Update(gameTime);
@@ -674,7 +684,7 @@ namespace PGCGame.Screens
                     }
                     else
                     {
-                        StateManager.Lives -= 1;
+                        StateManager.Lives--;
                         StateManager.Deaths++;
                         StateManager.AmountOfPointsRecievedInCurrentLevel = 0;
                         StateManager.AmountOfSpaceBucksRecievedInCurrentLevel = 0;
@@ -710,10 +720,12 @@ namespace PGCGame.Screens
                 }
             }
 
+            /*
             if (playerShip.GetType() == typeof(FighterCarrier))
             {
                 FighterCarrier ship = playerShip.Cast<FighterCarrier>();
             }
+            */
 
             for (int i = 0; i < StateManager.AllyBullets.Legit.Count; i++)
             {
@@ -723,7 +735,7 @@ namespace PGCGame.Screens
                 foreach (Ship s in StateManager.EnemyShips)
                 {
                     //Once bullet list is separated, IsAllyWith call will be deprecated
-                    if (!b.IsDead && b.Intersects(s.WCrectangle))
+                    if (!b.IsDead && s.ShipState != ShipState.Exploding && s.ShipState != ShipState.Dead && b.Intersects(s.WCrectangle))
                     {
                         s.CurrentHealth -= b.Damage;
                         b.IsDead = true;
@@ -746,7 +758,7 @@ namespace PGCGame.Screens
                 foreach (Ship s in StateManager.AllyShips)
                 {
                     //Once bullet list is separated, IsAllyWith call will be deprecated
-                    if (!b.IsDead && b.Intersects(s.WCrectangle))
+                    if (!b.IsDead && s.ShipState != ShipState.Exploding && s.ShipState != ShipState.Dead && b.Intersects(s.WCrectangle))
                     {
                         s.CurrentHealth -= b.Damage;
                         b.IsDead = true;
@@ -895,18 +907,10 @@ namespace PGCGame.Screens
 
                 worldCam.Move(camMove);
                 playerShip.WorldCoords = worldCam.Pos;
-                if (!_gameHasStarted)
-                {
-                    for (int row = 0; row <= StateManager.KnownMap.GetUpperBound(0); row++)
-                    {
-                        for (int column = 0; column <= StateManager.KnownMap.GetUpperBound(1); column++)
-                        {
-                            StateManager.KnownMap[row, column] = false;
-
-                        }
-                    }
-                }
             }
+
+
+
             foreach (ISprite s in playerSbObjects)
             {
                 if (s != miniMap)
@@ -922,9 +926,20 @@ namespace PGCGame.Screens
                 }
             }
 
+            if (!_gameHasStarted)
+            {
+                for (int r = 0; r < StateManager.KnownMap.GetLength(0); r++)
+                {
+                    for (int c = 0; c < StateManager.KnownMap.GetLength(1); c++)
+                    {
+                        StateManager.KnownMap[r, c] = false;
+                    }
+                }
+            }
+
             _gameHasStarted = true;
 
-            miniMap.Update();
+
 
             _lastState = KeyboardManager.State;
         }
