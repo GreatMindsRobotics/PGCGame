@@ -382,6 +382,8 @@ namespace PGCGame
             public static void RegisterNetworkSession()
             {
                 _game.Services.AddService(typeof(NetworkSession), CurrentSession);
+                DataReader = new PacketReader();
+                DataWriter = new PacketWriter();
                 CurrentSession.GameStarted += new EventHandler<GameStartedEventArgs>(CurrentSession_GameStarted);
                 CurrentSession.GameEnded += new EventHandler<GameEndedEventArgs>(CurrentSession_GameEnded);
             }
@@ -394,6 +396,9 @@ namespace PGCGame
                     CurrentSession = null;
                 }
             }
+
+            public static PacketReader DataReader;
+            public static PacketWriter DataWriter;
 
             private static void CurrentSession_GameStarted(object sender, GameStartedEventArgs e)
             {

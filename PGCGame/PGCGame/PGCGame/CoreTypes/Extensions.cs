@@ -101,5 +101,28 @@ namespace PGCGame.CoreTypes
             }
         }
 
+        public static string ToFriendlyString(this ShipType ship)
+        {
+            switch (ship)
+            {
+                case ShipType.BattleCruiser:
+                    return "Battle Cruiser";
+
+                case ShipType.TorpedoShip:
+                    return "Torpedo Ship";
+
+                case ShipType.Drone:
+                    return "Drone";
+
+                case ShipType.NoShip:
+                    return "No Ship";
+
+                case ShipType.FighterCarrier:
+                    return "Fighter Carrier";
+                default:
+                    return ship.ToString();
+            }
+        }
+
     }
 }
