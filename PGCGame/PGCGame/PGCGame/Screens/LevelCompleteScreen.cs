@@ -3,6 +3,7 @@ using Glib.XNA.SpriteLib;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PGCGame.CoreTypes;
+using Glib.XNA.InputLib;
 
 namespace PGCGame
 {
@@ -17,6 +18,10 @@ namespace PGCGame
         }
         TextSprite winText;
         Sprite ship;
+
+#if XBOX
+        GamePadButtonEnumerator allButton;
+#endif
 
         public Texture2D planetTexture;
         public override void InitScreen(ScreenType screenName)
@@ -60,6 +65,10 @@ namespace PGCGame
             winText.Color = Color.Beige;
             AdditionalSprites.Add(winText);
             winText.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .30f, 50);
+
+#if XBOX
+            allButton = new GamePadButtonEnumerator(new TextSprite[,] { { Continue } }, InputType.LeftJoystick) { FireTextSpritePressed = true };
+#endif
 
             base.InitScreen(screenName);
 
@@ -107,6 +116,9 @@ namespace PGCGame
                     }
                     
                 }
+#if XBOX
+                allButton.Update(game);
+#endif
                 base.Update(game);
             }
         }

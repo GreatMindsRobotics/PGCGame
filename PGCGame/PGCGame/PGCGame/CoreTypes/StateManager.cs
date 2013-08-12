@@ -384,7 +384,7 @@ namespace PGCGame
             /// </summary>
             public static bool InfiniteSecondaryWeapons = false;
 
-            public static bool FogOfWarEnabled = false;
+            public static bool FogOfWarEnabled = true;
 
             /// <summary>
             /// Multiply the game framerate - by default 60 FPS - by this amount.

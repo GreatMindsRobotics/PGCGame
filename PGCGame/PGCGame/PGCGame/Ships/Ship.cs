@@ -170,9 +170,15 @@ namespace PGCGame
             }
         }
 
+        public event EventHandler WCMoved;
+
         protected void UpdateWcPos()
         {
             _wcRect = new Rectangle((WorldCoords.X - Origin.X * Scale.X).ToInt(), (WorldCoords.Y - Origin.Y * Scale.Y).ToInt(), Width.ToInt(), Height.ToInt());
+            if (WCMoved != null)
+            {
+                WCMoved(this, EventArgs.Empty);
+            }
         }
 
         public virtual Vector2 WorldCoords
