@@ -22,7 +22,7 @@ namespace PGCGame.CoreTypes
             : base(sb, new Vector2(0, prevY + GameContent.GameAssets.Fonts.NormalText.LineSpacing * 2 + 5), GameContent.GameAssets.Fonts.NormalText, string.Format("{0}'s {3} session:\n{1} out of {2} gamers", sessToRepresent.HostGamertag, sessToRepresent.CurrentGamerCount, sessToRepresent.CurrentGamerCount + sessToRepresent.OpenPrivateGamerSlots + sessToRepresent.OpenPublicGamerSlots, "{0}"), Color.White)
         {
             SessionType = Enum.Parse(typeof(MultiplayerSessionType), sessToRepresent.SessionProperties[(int)NetworkSessionPropertyType.SessionType].ToString(), true).Cast<MultiplayerSessionType>();
-            Text = string.Format(Text, StateManager.NetworkData.SessionMode.ToFriendlyString());
+            Text = string.Format(Text, SessionType.ToFriendlyString());
             Session = sessToRepresent;
             HoverColor = Color.MediumAquamarine;
             NonHoverColor = Color.White;
