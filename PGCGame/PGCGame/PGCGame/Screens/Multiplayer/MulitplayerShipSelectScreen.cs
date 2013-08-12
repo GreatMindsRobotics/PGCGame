@@ -24,7 +24,8 @@ namespace PGCGame.Screens.Multiplayer
         public override void InitScreen(ScreenType screenType)
         {
             base.InitScreen(screenType);
-        
+            backLabel.Visible = false;
+            backButton.Visible = false;
         }
 
         public override void Update(GameTime gameTime)

@@ -126,9 +126,8 @@ namespace PGCGame.Screens
         }
 #endif
         protected TextSprite acceptLabel;
-#if WINDOWS
+        protected Sprite backButton;
         protected TextSprite backLabel;
-#endif
         protected TextSprite leftLabel;
         protected TextSprite rightLabel;
         protected TextSprite nameLabel;
@@ -166,7 +165,7 @@ namespace PGCGame.Screens
             AdditionalSprites.Add(acceptLabel);
 
 #if WINDOWS
-            Sprite backButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .8f), Sprites.SpriteBatch);
+            backButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .8f), Sprites.SpriteBatch);
             backLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Back");
             backLabel.Position = new Vector2((backButton.X + backButton.Width / 2) - backLabel.Width / 2, (backButton.Y + backButton.Height / 2) - backLabel.Height / 2);
             backLabel.Color = Color.White;
