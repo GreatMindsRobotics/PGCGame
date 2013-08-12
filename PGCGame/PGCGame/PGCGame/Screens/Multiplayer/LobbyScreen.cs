@@ -105,11 +105,19 @@ namespace PGCGame.Screens.Multiplayer
             {
                 foreach (NetworkGamer g in StateManager.NetworkData.CurrentSession.AllGamers)
                 {
-                    if (t.Text == g.Gamertag && t.Visible)
+                    if (t.Visible)
                     {
-                        t.Color = g.IsReady ? Color.LimeGreen : Color.White;
+                        if (t.Text == StateManager.NetworkData.CurrentSession.Host.Gamertag)
+                        {
+                            t.Color = StateManager.NetworkData.CurrentSession.Host.IsReady ? Color.LimeGreen : Color.White;
+                        }
+                        else if (t.Text == g.Gamertag)
+                        {
+                            t.Color = g.IsReady ? Color.LimeGreen : Color.White;
+                        }
                     }
                 }
+                
             }
         }
     }
