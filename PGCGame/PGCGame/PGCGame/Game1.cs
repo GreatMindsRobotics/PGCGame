@@ -82,6 +82,8 @@ namespace PGCGame
             Components.Add(new InputManagerComponent(this));
             Components.Add(services);
 
+            StateManager.InitGame(this);
+
             TargetElapsedTime = new TimeSpan(TargetElapsedTime.Ticks / StateManager.DebugData.OverclockAmount);
 
             try
