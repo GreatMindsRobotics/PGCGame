@@ -72,7 +72,7 @@ namespace PGCGame.Screens.Multiplayer
         {
             StateManager.NetworkData.CurrentSession.GamerJoined += new EventHandler<Microsoft.Xna.Framework.Net.GamerJoinedEventArgs>(CurrentSession_GamerJoined);
             StateManager.NetworkData.CurrentSession.GamerLeft += new EventHandler<Microsoft.Xna.Framework.Net.GamerLeftEventArgs>(CurrentSession_GamerLeft);
-            gamersInSession.AddRange(StateManager.NetworkData.CurrentSession.AllGamers);
+            //gamersInSession.AddRange(StateManager.NetworkData.CurrentSession.AllGamers);
             foreach (LocalNetworkGamer g in StateManager.NetworkData.CurrentSession.LocalGamers)
             {
                 if (g.IsHost)
@@ -120,7 +120,7 @@ namespace PGCGame.Screens.Multiplayer
             for (int i = 0; i < StateManager.NetworkData.CurrentSession.MaxGamers; i++)
             {
                 TextSprite gamerInfo = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, "A RANDOM GAMER THAT LIKES YOU", Color.White);
-                gamerInfo.Visible = i < gamersInSession.Count;
+                gamerInfo.Visible = false;
                 gamerInfo.X = gamerInfo.GetCenterPosition(Graphics.Viewport).X;
                 gamerInfo.Y = y + 5;
                 gamerInfo.TextChanged += new EventHandler(gamerInfo_TextChanged);
@@ -129,8 +129,11 @@ namespace PGCGame.Screens.Multiplayer
                 AdditionalSprites.Add(gamerInfo);
             }
 
-            allGamerInfos[gamersInSession.Count - 1].Text = e.Gamer.Gamertag;
-            allGamerInfos[gamersInSession.Count - 1].Visible = true;
+            for (int i = 0; i < gamersInSession.Count; i++)
+            {
+                allGamerInfos[i].Text = gamersInSession[i].Gamertag;
+                allGamerInfos[i].Visible = true;
+            }
         }
 
         readonly List<Gamer> gamersInSession = new List<Gamer>();
