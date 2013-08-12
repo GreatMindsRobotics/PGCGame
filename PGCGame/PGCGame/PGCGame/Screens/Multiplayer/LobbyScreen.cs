@@ -90,34 +90,22 @@ namespace PGCGame.Screens.Multiplayer
 
         readonly List<Gamer> gamersInSession = new List<Gamer>();
 
+        private KeyboardState _lastState;
+
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            if (KeyboardManager.State.IsKeyDown(Keys.R))
+            if (_lastState.IsKeyUp(Keys.R) && KeyboardManager.State.IsKeyDown(Keys.R))
             {
                 foreach (LocalNetworkGamer g in StateManager.NetworkData.CurrentSession.LocalGamers)
                 {
-                    g.IsReady = true;
+                    g.IsReady = !g.IsReady;
                 }
             }
 
             foreach (TextSprite t in allGamerInfos)
             {
                 foreach (NetworkGamer g in StateManager.NetworkData.CurrentSession.AllGamers)
-                {
-                    if (t.Visible)
-                    {
-                        if (t.Text == StateManager.NetworkData.CurrentSession.Host.Gamertag)
-                        {
-                            t.Color = StateManager.NetworkData.CurrentSession.Host.IsReady ? Color.LimeGreen : Color.White;
-                        }
-                        else if (t.Text == g.Gamertag)
-                        {
-                            t.Color = g.IsReady ? Color.LimeGreen : Color.White;
-                        }
-                    }
-                }
-                foreach (LocalNetworkGamer g in StateManager.NetworkData.CurrentSession.LocalGamers)
                 {
                     if (t.Visible)
                     {
@@ -128,6 +116,7 @@ namespace PGCGame.Screens.Multiplayer
                     }
                 }
 
+                _lastState = KeyboardManager.State;
             }
         }
     }
