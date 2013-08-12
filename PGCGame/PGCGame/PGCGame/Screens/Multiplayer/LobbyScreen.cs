@@ -46,9 +46,15 @@ namespace PGCGame.Screens.Multiplayer
             BackButton.Y -= BackButton.Height + 20;
             BackLabel = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, "Back", Color.White) { ParentSprite = BackButton, IsHoverable = true, HoverColor = Color.MediumAquamarine, NonHoverColor = Color.White};
             BackLabel.Pressed += new EventHandler(BackLabel_Pressed);
-
             Sprites.Add(BackButton);
             AdditionalSprites.Add(BackLabel);
+
+            StartButton = new Sprite(GameContent.GameAssets.Images.Controls.Button, new Vector2(Graphics.Viewport.Width, Graphics.Viewport.Height), Sprites.SpriteBatch);
+            StartButton.X -= StartButton.Width + 20;
+            StartButton.Y -= StartButton.Height + 20;
+            StartLabel = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, "Ready", Color.White) { ParentSprite = StartButton, IsHoverable = true, HoverColor = Color.MediumAquamarine, NonHoverColor = Color.White };
+            Sprites.Add(StartButton);
+            AdditionalSprites.Add(StartLabel);
         }
 
         void BackLabel_Pressed(object sender, EventArgs e)
