@@ -42,7 +42,7 @@ namespace PGCGame.Screens.Multiplayer
         public void InitScreen()
         {
             StateManager.NetworkData.CurrentSession.GamerJoined += new EventHandler<Microsoft.Xna.Framework.Net.GamerJoinedEventArgs>(CurrentSession_GamerJoined);
-            gamersInSession.AddRange(StateManager.NetworkData.CurrentSession.AllGamers);
+            //gamersInSession.AddRange(StateManager.NetworkData.CurrentSession.AllGamers);
             
         }
 
@@ -65,7 +65,7 @@ namespace PGCGame.Screens.Multiplayer
                 gamerInfo.X = gamerInfo.GetCenterPosition(Graphics.Viewport).X;
                 gamerInfo.Y = y + 5;
                 gamerInfo.TextChanged += new EventHandler(gamerInfo_TextChanged);
-                //y += gamerInfo.Height + 5;
+                y += gamerInfo.Height;
                 allGamerInfos[i] = gamerInfo;
                 AdditionalSprites.Add(gamerInfo);
             }
