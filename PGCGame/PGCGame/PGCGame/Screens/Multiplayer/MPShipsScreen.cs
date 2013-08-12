@@ -25,6 +25,7 @@ namespace PGCGame.Screens.Multiplayer
                 char[] allChars = title.Text.ToCharArray();
                 allChars[0] = char.ToUpper(allChars[0]);
                 title.Text = new string(allChars);
+                title.X = title.GetCenterPosition(Graphics.Viewport).X;
 
                 _firstInit = false;
             }
