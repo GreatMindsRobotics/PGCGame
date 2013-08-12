@@ -109,9 +109,26 @@ namespace PGCGame.Screens.Multiplayer
             }
         }
 
+        void FinishJoin(IAsyncResult r)
+        {
+            StateManager.NetworkData.CurrentSession = NetworkSession.EndJoin(r);
+            StateManager.NetworkData.RegisterNetworkSession();
+        }
+
         void curr_Pressed(object evsender, EventArgs e)
         {
             AvailableNetworkSessionDisplayTextSprite sender = evsender as AvailableNetworkSessionDisplayTextSprite;
+            LoadingScreen lScr = StateManager.AllScreens[ScreenType.LoadingScreen.ToString()] as LoadingScreen;
+            lScr.Reset();
+            lScr.UserCallbackStartsTask = false;
+            lScr.UserCallback = new AsyncCallback(FinishJoin);
+            lScr.LoadingText = "Joining\nLAN sector...";
+            lScr.ScreenFinished += new EventHandler(delegate(object evSender, EventArgs ea) {
+                StateManager.ScreenState = CoreTypes.ScreenType.NetworkLobbyScreen;
+                (StateManager.AllScreens[ScreenType.NetworkLobbyScreen.ToString()] as LobbyScreen).InitScreen(); 
+            });
+            NetworkSession.BeginJoin(sender.Session, lScr.Callback, null);
+            StateManager.ScreenState = CoreTypes.ScreenType.LoadingScreen;
         }
     }
 }

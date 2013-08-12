@@ -65,7 +65,7 @@ namespace PGCGame.Screens.Multiplayer
                 gamerInfo.X = gamerInfo.GetCenterPosition(Graphics.Viewport).X;
                 gamerInfo.Y = y + 5;
                 gamerInfo.TextChanged += new EventHandler(gamerInfo_TextChanged);
-                y += gamerInfo.Height + 5;
+                //y += gamerInfo.Height + 5;
                 allGamerInfos[i] = gamerInfo;
                 AdditionalSprites.Add(gamerInfo);
             }
