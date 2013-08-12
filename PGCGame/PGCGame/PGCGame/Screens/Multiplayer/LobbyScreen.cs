@@ -29,6 +29,8 @@ namespace PGCGame.Screens.Multiplayer
 
         TextSprite title;
         TextSprite[] allGamerInfos;
+        Sprite BackButton;
+        TextSprite BackLabel;
 
         public override void InitScreen(ScreenType screenName)
         {
