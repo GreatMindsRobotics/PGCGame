@@ -119,10 +119,16 @@ namespace PGCGame.Screens.Multiplayer
             BackLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.GoBack(); if(StateManager.Options.SFXEnabled) ButtonClick.Play();} });
         }
 
+        void FinishLanSectorSearch(IAsyncResult getMySectors)
+        {
+
+        }
+
         void LANLabel_Pressed(object sender, EventArgs e)
         {
             LoadingScreen lScr = StateManager.AllScreens[ScreenType.LoadingScreen.ToString()] as LoadingScreen;
             lScr.Reset();
+            lScr.UserCallback = new AsyncCallback(FinishLanSectorSearch);
             lScr.LoadingText = "Searching for\nLAN sectors...";
             NetworkSession.BeginFind(NetworkSessionType.SystemLink, 1, null, lScr.Callback, null);
             StateManager.ScreenState = CoreTypes.ScreenType.LoadingScreen;

@@ -141,8 +141,8 @@ namespace PGCGame.Screens
                 {
                     for (int column = 0; column <= fogOfWar.GetUpperBound(0); column++)
                     {
-                        fogOfWar[column, row].Width = miniMap.Width / 9;
-                        fogOfWar[column, row].Height = miniMap.Height / 30;
+                        fogOfWar[column, row].Width = miniMap.Width / fogOfWar.GetLength(0);
+                        fogOfWar[column, row].Height = miniMap.Height / fogOfWar.GetLength(1);
                         fogOfWar[column, row].X = miniMap.X + fogOfWar[0, 0].Width * column;
                         fogOfWar[column, row].Y = miniMap.Y + fogOfWar[0, 0].Height * row;
                         fogOfWar[column, row].Color = Color.White;
@@ -270,7 +270,9 @@ namespace PGCGame.Screens
             if (StateManager.DebugData.FogOfWarEnabled)
             {
                 //Create fog of war array
-                fogOfWar = new Sprite[9, 30];
+                // > 9x15 = Xbox lag
+                // TODO: RenderTarget conversion
+                fogOfWar = new Sprite[9, 15];
             }
 
 
@@ -322,8 +324,8 @@ namespace PGCGame.Screens
                     for (int column = 0; column <= fogOfWar.GetUpperBound(0); column++)
                     {
                         fogOfWar[column, row] = new Sprite(creator.CreateSquare(1, Color.DarkGray), Vector2.Zero, playerSb);
-                        fogOfWar[column, row].Width = miniMap.Width / 9;
-                        fogOfWar[column, row].Height = miniMap.Height / 30;
+                        fogOfWar[column, row].Width = miniMap.Width / fogOfWar.GetLength(0);
+                        fogOfWar[column, row].Height = miniMap.Height / fogOfWar.GetLength(1);
                         fogOfWar[column, row].X = miniMap.X + fogOfWar[0, 0].Width * column;
                         fogOfWar[column, row].Y = miniMap.Y + fogOfWar[0, 0].Height * row;
                         fogOfWar[column, row].Color = Color.White;

@@ -49,7 +49,7 @@ namespace PGCGame.Screens
         {
             get
             {
-                return new AsyncCallback(AsyncCallback);
+                return new AsyncCallback(AsyncCallBackMethod);
             }
         }
 
@@ -62,16 +62,16 @@ namespace PGCGame.Screens
         }
 
         /// <summary>
-        /// The callback that the user provides
+        /// The callback that the user provides to run after the asynchronous operation.
         /// </summary>
         public AsyncCallback UserCallback;
 
         /// <summary>
-        /// A boolean indicating whether the user callback starts async work.
+        /// A boolean indicating whether the user callback starts asynchronous work.
         /// </summary>
         public bool UserCallbackStartsTask = false;
 
-        private void AsyncCallback(IAsyncResult result)
+        private void AsyncCallBackMethod(IAsyncResult result)
         {
             if (UserCallback != null)
             {
