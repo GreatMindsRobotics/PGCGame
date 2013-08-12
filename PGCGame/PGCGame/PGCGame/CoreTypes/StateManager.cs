@@ -397,7 +397,7 @@ namespace PGCGame
 
             private static void CurrentSession_GameStarted(object sender, GameStartedEventArgs e)
             {
-                
+                StateManager.ScreenState = ScreenType.MultiPlayerShipSelect;
             }
 
             public static AvailableNetworkSessionCollection AvailableSessions;
