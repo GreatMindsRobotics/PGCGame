@@ -246,16 +246,6 @@ namespace PGCGame.Screens
             _firstTimeInit = false;
         }
 
-        //buybutton
-        void buyButton_MouseLeave(object sender, EventArgs e)
-        {
-            acceptLabel.IsSelected = false;
-        }
-        void buyButton_MouseEnter(object sender, EventArgs e)
-        {
-            acceptLabel.IsSelected = true;
-        }
-
         //rightbutton
         void rightButton_MouseLeave(object sender, EventArgs e)
         {

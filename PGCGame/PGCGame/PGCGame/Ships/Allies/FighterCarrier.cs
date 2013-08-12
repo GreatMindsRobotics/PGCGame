@@ -21,6 +21,11 @@ namespace PGCGame
 {
     public class FighterCarrier : BaseAllyShip
     {
+        public static string ShipFriendlyName
+        {
+            get { return "Fighter Carrier"; }
+        }
+
         public static float DroneLength = 0f;
 
         public FighterCarrier(Texture2D texture, Vector2 location, SpriteBatch spriteBatch, Texture2D droneTexture)

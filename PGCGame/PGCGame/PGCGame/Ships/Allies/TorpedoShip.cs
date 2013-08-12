@@ -17,6 +17,11 @@ namespace PGCGame
 {
     public class TorpedoShip : BaseAllyShip
     {
+        public static string ShipFriendlyName
+        {
+            get { return "Torpedo Ship"; }
+        }
+
         //TODO: Scaling logic
 
         public TorpedoShip(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)

@@ -21,7 +21,10 @@ namespace PGCGame
 {
     public class BattleCruiser : BaseAllyShip
     {
-
+        public static string ShipFriendlyName
+        {
+            get { return "Battle Cruiser"; }
+        }
         public BattleCruiser(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
             : base(texture, location, spriteBatch)
         {
