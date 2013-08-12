@@ -159,6 +159,10 @@ namespace PGCGame.Screens.Multiplayer
 
         void FinishLanSectorSearch(IAsyncResult getMySectors)
         {
+            if (StateManager.NetworkData.AvailableSessions != null)
+            {
+                StateManager.NetworkData.AvailableSessions.Dispose();
+            }
             StateManager.NetworkData.AvailableSessions = NetworkSession.EndFind(getMySectors);
         }
 
