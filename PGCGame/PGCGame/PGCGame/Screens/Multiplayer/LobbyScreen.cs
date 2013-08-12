@@ -53,13 +53,18 @@ namespace PGCGame.Screens.Multiplayer
             StartButton.X -= StartButton.Width + 20;
             StartButton.Y -= StartButton.Height + 20;
             StartLabel = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, "Ready", Color.White) { ParentSprite = StartButton, IsHoverable = true, HoverColor = Color.MediumAquamarine, NonHoverColor = Color.White };
+            StartLabel.Pressed += new EventHandler(StartLabel_Pressed);
             Sprites.Add(StartButton);
             AdditionalSprites.Add(StartLabel);
         }
 
+        void StartLabel_Pressed(object sender, EventArgs e)
+        {
+            
+        }
+
         void BackLabel_Pressed(object sender, EventArgs e)
         {
-            //TODO
             StateManager.GoBack();
         }
 
@@ -68,7 +73,13 @@ namespace PGCGame.Screens.Multiplayer
             StateManager.NetworkData.CurrentSession.GamerJoined += new EventHandler<Microsoft.Xna.Framework.Net.GamerJoinedEventArgs>(CurrentSession_GamerJoined);
             StateManager.NetworkData.CurrentSession.GamerLeft += new EventHandler<Microsoft.Xna.Framework.Net.GamerLeftEventArgs>(CurrentSession_GamerLeft);
             gamersInSession.AddRange(StateManager.NetworkData.CurrentSession.AllGamers);
-
+            foreach (LocalNetworkGamer g in StateManager.NetworkData.CurrentSession.LocalGamers)
+            {
+                if (g.IsHost)
+                {
+                    StartLabel.Text = "Start Game";
+                }
+            }
         }
 
         void CurrentSession_GamerLeft(object sender, Microsoft.Xna.Framework.Net.GamerLeftEventArgs e)
