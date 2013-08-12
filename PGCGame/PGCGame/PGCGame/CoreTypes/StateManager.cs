@@ -377,6 +377,8 @@ namespace PGCGame
         {
             public static MultiplayerSessionType SessionMode;
 
+            public static ShipType SelectedNetworkShip;
+
             public static NetworkSession CurrentSession;
 
             public static void RegisterNetworkSession()

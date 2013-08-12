@@ -40,7 +40,7 @@ namespace PGCGame.Screens.Multiplayer
                     bool visible = false;
                     if (i < StateManager.NetworkData.CurrentSession.AllGamers.Count)
                     {
-                        text = string.Format("{0} - {1}", StateManager.NetworkData.CurrentSession.AllGamers[i].Gamertag, "No ship");
+                        text = string.Format("{0} - {1}", StateManager.NetworkData.CurrentSession.AllGamers[i].Gamertag, StateManager.NetworkData.CurrentSession.AllGamers[i].IsLocal ? StateManager.NetworkData.SelectedNetworkShip.ToFriendlyString() : "No ship");
                         visible = true;
                     }
                     TextSprite gamerInfo = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, text, Color.White);
@@ -91,8 +91,8 @@ namespace PGCGame.Screens.Multiplayer
                     {
                         string ship = StateManager.NetworkData.DataReader.ReadString();
                         ShipType shipOfPlayer = (ShipType) Enum.Parse(typeof(ShipType), ship, true);
-                        TextSprite gamerInfo = GamerInfos[gamer];
-                        gamerInfo.Text = string.Format("{0} - {1}", gamer.Gamertag, shipOfPlayer.ToFriendlyString());
+                        TextSprite gamerInfo = GamerInfos[sender];
+                        gamerInfo.Text = string.Format("{0} - {1}", sender.Gamertag, shipOfPlayer.ToFriendlyString());
                         gamerInfo.X = gamerInfo.GetCenterPosition(Graphics.Viewport).X;
                     }
                 }
