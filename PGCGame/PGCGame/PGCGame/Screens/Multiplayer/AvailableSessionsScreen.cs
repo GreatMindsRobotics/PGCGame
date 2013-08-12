@@ -19,6 +19,15 @@ namespace PGCGame.Screens.Multiplayer
             : base(sb, Color.Black)
         {
             StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
+            StateManager.ScreenStateChanged += new EventHandler(StateManager_ScreenStateChanged);
+        }
+
+        void StateManager_ScreenStateChanged(object sender, EventArgs e)
+        {
+            if (StateManager.ScreenState == this.ScreenType)
+            {
+                netSessionRegrab();
+            }
         }
 
         void Options_ScreenResolutionChanged(object sender, EventArgs e)
@@ -107,12 +116,12 @@ namespace PGCGame.Screens.Multiplayer
             lScr.Reset();
             lScr.UserCallback = new AsyncCallback(FinishLanSectorSearch);
             lScr.LoadingText = "Searching for\nLAN sectors...";
-            lScr.ScreenFinished += new EventHandler(delegate(object evSender, EventArgs ea) { StateManager.ScreenState = CoreTypes.ScreenType.NetworkSessionsScreen; this.InitializeNetSessions(); });
+            lScr.ScreenFinished += new EventHandler(delegate(object evSender, EventArgs ea) { StateManager.ScreenState = CoreTypes.ScreenType.NetworkSessionsScreen; });
             NetworkSession.BeginFind(NetworkSessionType.SystemLink, Gamer.SignedInGamers, null, lScr.Callback, null);
             StateManager.ScreenState = CoreTypes.ScreenType.LoadingScreen;
         }
 
-        public void InitializeNetSessions()
+        private void netSessionRegrab()
         {
             AdditionalSprites.Clear();
             AdditionalSprites.Add(title);
