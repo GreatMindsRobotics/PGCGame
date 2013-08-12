@@ -192,6 +192,11 @@ namespace PGCGame
             {
                 StateManager.SpaceBucks = int.MaxValue;
             }
+
+            if (StateManager.NetworkData.CurrentSession != null)
+            {
+                StateManager.NetworkData.CurrentSession.Update();
+            }
         }
 
         protected override bool BeginDraw()

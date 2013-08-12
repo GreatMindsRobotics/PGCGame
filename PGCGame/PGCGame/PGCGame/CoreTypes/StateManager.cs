@@ -20,6 +20,7 @@ namespace PGCGame
     {
         #region Private Fields
 
+        private static Game _game;
         private static bool _hasBoughtScanner = false;
         public static int HealthPacks = 0;
         private static Stack<ScreenType> _screenStack = new Stack<ScreenType>();
@@ -316,6 +317,11 @@ namespace PGCGame
 
         #region Public Methods
 
+        public static void InitGame(Game underlyingGame)
+        {
+            _game = underlyingGame;
+        }
+
         /// <summary>
         /// Initializes the game for single player based on selected ship type and tier
         /// </summary>
@@ -370,6 +376,11 @@ namespace PGCGame
         public static class NetworkData
         {
             public static NetworkSession CurrentSession;
+
+            public static void RegisterNetworkSession()
+            {
+                _game.Services.AddService(typeof(NetworkSession), CurrentSession);
+            }
 
             public static AvailableNetworkSessionCollection AvailableSessions;
         }
