@@ -84,6 +84,11 @@ namespace PGCGame.Screens.Multiplayer
         {
             gamersInSession.Add(e.Gamer);
 
+            if (e.Gamer.IsHost)
+            {
+                e.Gamer.IsReady = true;
+            }
+
             float y = title.Y + title.Font.LineSpacing;
             allGamerInfos = new TextSprite[StateManager.NetworkData.CurrentSession.MaxGamers];
             for (int i = 0; i < StateManager.NetworkData.CurrentSession.MaxGamers; i++)
