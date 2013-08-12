@@ -15,6 +15,7 @@ using Glib.XNA.SpriteLib;
 using PGCGame.CoreTypes;
 using Glib.XNA.InputLib;
 using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Net;
 
 namespace PGCGame.Screens.Multiplayer
 {
@@ -23,10 +24,8 @@ namespace PGCGame.Screens.Multiplayer
         public NetworkSelectScreen(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
         {
-#if WINDOWS
             StateManager.ScreenStateChanged += new EventHandler(StateManager_ScreenStateChanged);
             ButtonClick = GameContent.GameAssets.Sound[SoundEffectType.ButtonPressed];
-#endif
         }
         TimeSpan elapsedButtonDelay = TimeSpan.Zero;
 
@@ -89,6 +88,7 @@ namespace PGCGame.Screens.Multiplayer
             LANLabel.CallKeyboardClickEvent = false;
 #endif
             LANLabel.NonHoverColor = Color.White;
+            LANLabel.Pressed += new EventHandler(LANLabel_Pressed);
             LANLabel.HoverColor = Color.MediumAquamarine;
             AdditionalSprites.Add(LANLabel);
             
@@ -112,13 +112,20 @@ namespace PGCGame.Screens.Multiplayer
 
 
 #if XBOX
-            AllButtons = new GamePadButtonEnumerator(new TextSprite[,] { { BackLabel, LANLabel }}, InputType.LeftJoystick);
-            AllButtons.ButtonPress += new EventHandler(AllButtons_ButtonPress);
-            BackLabel.IsSelected = true;
-#elif WINDOWS
-            BackLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.GoBack(); if(StateManager.Options.SFXEnabled) ButtonClick.Play();} });
-            
+            AllButtons = new GamePadButtonEnumerator(new TextSprite[,] { { HostLabel, null }, {BackLabel, LANLabel} }, InputType.LeftJoystick);
+            AllButtons.FireTextSpritePressed = true;
+
 #endif
+            BackLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.GoBack(); if(StateManager.Options.SFXEnabled) ButtonClick.Play();} });
+        }
+
+        void LANLabel_Pressed(object sender, EventArgs e)
+        {
+            LoadingScreen lScr = StateManager.AllScreens[ScreenType.LoadingScreen.ToString()] as LoadingScreen;
+            lScr.Reset();
+            lScr.LoadingText = "Searching for\nLAN sectors...";
+            NetworkSession.BeginFind(NetworkSessionType.SystemLink, 1, null, lScr.Callback, null);
+            StateManager.ScreenState = CoreTypes.ScreenType.LoadingScreen;
         }
 
         void Options_MusicStateChanged(object sender, EventArgs e)
@@ -128,21 +135,6 @@ namespace PGCGame.Screens.Multiplayer
                 MediaPlayer.Stop();
             }
         }
-
-#if XBOX
-        void AllButtons_ButtonPress(object sender, EventArgs e)
-        {
-            if (BackLabel.IsSelected)
-            {
-                StateManager.Exit();
-            }
-            else if (LANLabel.IsSelected)
-            {
-                //TODO
-            }
-
-        }
-#endif
 
         void Options_ScreenResolutionChanged(object sender, EventArgs e)
         {
@@ -163,19 +155,14 @@ namespace PGCGame.Screens.Multiplayer
 
 #if XBOX
         GamePadButtonEnumerator AllButtons;
-#elif WINDOWS
-        //Preventing clickthrus
-       // TimeSpan elapsedButtonDelay = TimeSpan.Zero;
-        TimeSpan totalButtonDelay = TimeSpan.FromMilliseconds(250);
 #endif
-
+TimeSpan totalButtonDelay = TimeSpan.FromMilliseconds(250);
 
         public override void Update(GameTime gameTime)
         {
-#if WINDOWS
             elapsedButtonDelay += gameTime.ElapsedGameTime;
             
-#elif XBOX 
+#if XBOX 
             
             AllButtons.Update(gameTime);
 

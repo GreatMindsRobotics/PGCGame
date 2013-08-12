@@ -114,6 +114,7 @@ namespace PGCGame.Screens
             ScreenFinished = null;
             _hasFinishedTask = false;
             UserCallbackStartsTask = false;
+            UserCallback = null;
         }
 
         public override void Update(GameTime game)
