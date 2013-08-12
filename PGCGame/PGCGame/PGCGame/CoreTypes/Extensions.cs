@@ -87,6 +87,19 @@ namespace PGCGame.CoreTypes
 
 #endregion Random Class extensions
 
+        public static string ToFriendlyString(this MultiplayerSessionType sessType)
+        {
+            switch (sessType)
+            {
+                case MultiplayerSessionType.Coop:
+                    return "co-op;";
+
+                case MultiplayerSessionType.Deathmatch:
+                    return "deathmatch";
+                default:
+                    return null;
+            }
+        }
 
     }
 }
