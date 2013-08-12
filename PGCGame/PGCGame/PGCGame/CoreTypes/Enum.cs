@@ -37,8 +37,8 @@ namespace PGCGame.CoreTypes
 
     public enum MultiplayerSessionType
     {
-        Coop,
-        Deathmatch
+        Coop = 0,
+        Deathmatch = 1
     }
 
     public enum ScreenBackgrounds
