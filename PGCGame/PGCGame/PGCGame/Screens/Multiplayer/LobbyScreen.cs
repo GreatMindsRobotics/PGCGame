@@ -68,6 +68,17 @@ namespace PGCGame.Screens.Multiplayer
                 }
                 StartLabel.Text = StartLabel.Text == "Ready" ? "Unready" : "Ready";
             }
+            else
+            {
+                if (!StateManager.NetworkData.CurrentSession.IsEveryoneReady)
+                {
+                    StateManager.ScreenState = CoreTypes.ScreenType.WarnHostScreen;
+                }
+                else
+                {
+                    StateManager.NetworkData.CurrentSession.StartGame();
+                }
+            }
         }
 
         bool _isHost = false;

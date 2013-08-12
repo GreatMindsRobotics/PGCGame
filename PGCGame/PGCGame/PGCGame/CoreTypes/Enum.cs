@@ -25,7 +25,8 @@ namespace PGCGame.CoreTypes
         LevelCompleteScreen,
         LoadingScreen,
         NetworkSessionsScreen,
-        NetworkLobbyScreen
+        NetworkLobbyScreen,
+        WarnHostScreen
     }
 
     public enum ScreenBackgrounds
