@@ -152,6 +152,8 @@ namespace PGCGame.Screens.Multiplayer
         void FinishLanSectorHost(IAsyncResult getMySectors)
         {
             StateManager.NetworkData.CurrentSession = NetworkSession.EndCreate(getMySectors);
+            StateManager.NetworkData.CurrentSession.AllowHostMigration = true;
+            StateManager.NetworkData.CurrentSession.AllowJoinInProgress = false;
             StateManager.NetworkData.RegisterNetworkSession();
         }
 
