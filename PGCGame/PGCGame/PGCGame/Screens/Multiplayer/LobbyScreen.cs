@@ -42,8 +42,20 @@ namespace PGCGame.Screens.Multiplayer
         public void InitScreen()
         {
             StateManager.NetworkData.CurrentSession.GamerJoined += new EventHandler<Microsoft.Xna.Framework.Net.GamerJoinedEventArgs>(CurrentSession_GamerJoined);
+            StateManager.NetworkData.CurrentSession.GamerLeft += new EventHandler<Microsoft.Xna.Framework.Net.GamerLeftEventArgs>(CurrentSession_GamerLeft);
             //gamersInSession.AddRange(StateManager.NetworkData.CurrentSession.AllGamers);
             
+        }
+
+        void CurrentSession_GamerLeft(object sender, Microsoft.Xna.Framework.Net.GamerLeftEventArgs e)
+        {
+            foreach (TextSprite t in allGamerInfos)
+            {
+                if (t.Text == e.Gamer.Gamertag)
+                {
+                    t.Visible = false;
+                }
+            }
         }
 
         void gamerInfo_TextChanged(object sender, EventArgs e)
@@ -60,7 +72,7 @@ namespace PGCGame.Screens.Multiplayer
             allGamerInfos = new TextSprite[StateManager.NetworkData.CurrentSession.MaxGamers];
             for (int i = 0; i < StateManager.NetworkData.CurrentSession.MaxGamers; i++)
             {
-                TextSprite gamerInfo = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, "Gamer", Color.White);
+                TextSprite gamerInfo = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, "A RANDOM GAMER THAT LIKES YOU", Color.White);
                 gamerInfo.Visible = allGamerInfos[i] != null;
                 gamerInfo.X = gamerInfo.GetCenterPosition(Graphics.Viewport).X;
                 gamerInfo.Y = y + 5;
