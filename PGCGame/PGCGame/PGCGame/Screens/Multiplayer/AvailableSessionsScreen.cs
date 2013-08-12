@@ -158,6 +158,7 @@ namespace PGCGame.Screens.Multiplayer
                 (StateManager.AllScreens[ScreenType.NetworkLobbyScreen.ToString()] as LobbyScreen).InitScreen(); 
             });
             NetworkSession.BeginJoin(sender.Session, lScr.Callback, null);
+            StateManager.NetworkData.SessionMode = sender.SessionType;
             StateManager.ScreenState = CoreTypes.ScreenType.LoadingScreen;
         }
     }
