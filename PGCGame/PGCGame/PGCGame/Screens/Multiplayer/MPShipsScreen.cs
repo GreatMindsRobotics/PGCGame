@@ -21,7 +21,10 @@ namespace PGCGame.Screens.Multiplayer
         {
             if (_firstInit && StateManager.ScreenState == this.ScreenType)
             {
-
+                title.Text = StateManager.NetworkData.SessionMode.ToFriendlyString() + " Lobby";
+                char[] allChars = title.Text.ToCharArray();
+                allChars[0] = char.ToUpper(allChars[0]);
+                title.Text = new string(allChars);
 
                 _firstInit = false;
             }

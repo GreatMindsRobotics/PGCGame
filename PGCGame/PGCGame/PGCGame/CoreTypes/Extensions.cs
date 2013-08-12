@@ -92,7 +92,7 @@ namespace PGCGame.CoreTypes
             switch (sessType)
             {
                 case MultiplayerSessionType.Coop:
-                    return "co-op;";
+                    return "co-op";
 
                 case MultiplayerSessionType.Deathmatch:
                     return "deathmatch";
