@@ -28,7 +28,8 @@ namespace PGCGame.CoreTypes
         NetworkLobbyScreen,
         WarnHostScreen,
         NetworkMatchSelection,
-        MultiPlayerShipSelect
+        MultiPlayerShipSelect,
+        MPShipsDisplay
     }
 
     public enum NetworkSessionPropertyType

@@ -41,6 +41,7 @@ namespace PGCGame.Screens.Multiplayer
             if (_firstTimeInit)
             {
                 ChangeItem += new EventHandler(MulitplayerShipSelectScreen_ChangeItem);
+                nextButtonClicked += new EventHandler(MulitplayerShipSelectScreen_nextButtonClicked);
             }
 
             
@@ -87,6 +88,11 @@ namespace PGCGame.Screens.Multiplayer
 
             backLabel.Visible = false;
             backButton.Visible = false;
+        }
+
+        void MulitplayerShipSelectScreen_nextButtonClicked(object sender, EventArgs e)
+        {
+            StateManager.ScreenState = CoreTypes.ScreenType.MPShipsDisplay;
         }
 
         void MulitplayerShipSelectScreen_ChangeItem(object sender, EventArgs e)

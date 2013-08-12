@@ -32,6 +32,7 @@ namespace PGCGame
         ScreenManager screenManager;
 
         Title titleScreen;
+        MPShipsScreen mpShipList;
         AvailableSessionsScreen availableNetSessions;
         NetworkMatchTypeSelectionScreen netMatchCreate;
         MainMenu mainMenuScreen;
@@ -117,6 +118,9 @@ namespace PGCGame
             availableNetSessions = new AvailableSessionsScreen(spriteBatch);
             availableNetSessions.InitScreen(ScreenType.NetworkSessionsScreen);
 
+            mpShipList = new MPShipsScreen(spriteBatch);
+            mpShipList.InitScreen(ScreenType.MPShipsDisplay);
+
             titleScreen = new Title(spriteBatch);
             titleScreen.InitScreen(ScreenType.Title);
 
@@ -180,7 +184,7 @@ namespace PGCGame
             multiplayerShipSelectScreen = new MulitplayerShipSelectScreen(spriteBatch);
             multiplayerShipSelectScreen.InitScreen(ScreenType.MultiPlayerShipSelect);
 
-            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen, weaponSelectScreen, upgradeScreen, tierSelectScreen, levelSelectScreen, controlScreen, networkScreen, gameOver, transitionScreen, levelCompleteScreen, loadingScreen, availableNetSessions, lobbyScreen, warnScreen, netMatchCreate, multiplayerShipSelectScreen);
+            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen, weaponSelectScreen, upgradeScreen, tierSelectScreen, levelSelectScreen, controlScreen, networkScreen, gameOver, transitionScreen, levelCompleteScreen, loadingScreen, availableNetSessions, lobbyScreen, warnScreen, netMatchCreate, multiplayerShipSelectScreen, mpShipList);
             StateManager.AllScreens = screenManager;
             StateManager.ScreenState = CoreTypes.ScreenType.Title;
         }
