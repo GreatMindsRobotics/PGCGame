@@ -84,7 +84,7 @@ namespace PGCGame.Screens.Multiplayer
         {
             gamersInSession.Add(e.Gamer);
 
-            if (e.Gamer.IsHost)
+            if (e.Gamer.IsHost && e.Gamer.IsLocal)
             {
                 e.Gamer.IsReady = true;
             }
