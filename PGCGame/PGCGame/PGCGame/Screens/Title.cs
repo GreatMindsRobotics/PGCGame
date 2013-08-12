@@ -177,7 +177,7 @@ namespace PGCGame.Screens
                 }
 
 
-                _exit();
+                StateManager.Exit();
             }
             else if (PlayLabel.IsSelected)
             {
