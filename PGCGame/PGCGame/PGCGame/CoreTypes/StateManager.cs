@@ -383,6 +383,16 @@ namespace PGCGame
             {
                 _game.Services.AddService(typeof(NetworkSession), CurrentSession);
                 CurrentSession.GameStarted += new EventHandler<GameStartedEventArgs>(CurrentSession_GameStarted);
+                CurrentSession.GameEnded += new EventHandler<GameEndedEventArgs>(CurrentSession_GameEnded);
+            }
+
+            private static void CurrentSession_GameEnded(object sender, GameEndedEventArgs e)
+            {
+                if (CurrentSession != null)
+                {
+                    CurrentSession.Dispose();
+                    CurrentSession = null;
+                }
             }
 
             private static void CurrentSession_GameStarted(object sender, GameStartedEventArgs e)
