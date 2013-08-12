@@ -74,7 +74,8 @@ namespace PGCGame.Screens.Multiplayer
 
         void CoopLabel_Pressed(object sender, EventArgs e)
         {
-            //TODO: Implement
+            StateManager.NetworkData.SessionMode = MultiplayerSessionType.Coop;
+            CreateMatch();
         }
 
         void hosting_finish(object sender, EventArgs r)
