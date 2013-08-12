@@ -37,6 +37,8 @@ namespace PGCGame.Screens.Multiplayer
         TextSprite title;
         TextSprite reload;
         Sprite reloadButton;
+        Sprite BackButton;
+        TextSprite BackLabel;
 
         public override void InitScreen(ScreenType screenName)
         {
@@ -58,9 +60,23 @@ namespace PGCGame.Screens.Multiplayer
             reload.IsHoverable = true;
             reload.Pressed += new EventHandler(reload_Pressed);
 
+            BackButton = new Sprite(GameContent.GameAssets.Images.Controls.Button, new Vector2(20, Graphics.Viewport.Height), Sprites.SpriteBatch);
+            BackButton.Y -= BackButton.Height + 20;
+            BackLabel = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, "Back", Color.White) { IsHoverable = true, HoverColor = Color.MediumAquamarine, NonHoverColor = Color.White };
+            BackLabel.ParentSprite = BackButton;
+            BackLabel.Pressed += new EventHandler(BackLabel_Pressed);
+            BackLabel.Visible = true;
+            
+            Sprites.Add(BackButton);
+
             AdditionalSprites.Add(title);
             AdditionalSprites.Add(reload);
             Sprites.Add(reloadButton);
+        }
+
+        void BackLabel_Pressed(object sender, EventArgs e)
+        {
+            StateManager.GoBack();
         }
 
         void FinishLanSectorSearch(IAsyncResult getMySectors)
@@ -101,6 +117,7 @@ namespace PGCGame.Screens.Multiplayer
             AdditionalSprites.Clear();
             AdditionalSprites.Add(title);
             AdditionalSprites.Add(reload);
+            AdditionalSprites.Add(BackLabel);
 
             AvailableNetworkSessionDisplayTextSprite prev = null;
             foreach (AvailableNetworkSession ans in StateManager.NetworkData.AvailableSessions)
