@@ -14,13 +14,41 @@ namespace PGCGame.Screens.Multiplayer
 {
     public class MPShipsScreen : BaseScreen
     {
-        public MPShipsScreen(SpriteBatch sb) : base(sb, Color.Black)
+        public MPShipsScreen(SpriteBatch sb)
+            : base(sb, Color.Black)
         {
             StateManager.ScreenStateChanged += new EventHandler(StateManager_ScreenStateChanged);
+            
+        }
+
+        void CurrentSession_GamerLeft(object sender, GamerLeftEventArgs e)
+        {
+            if (GamerInfos.Count > 0)
+            {
+                GamerInfos[e.Gamer].Visible = false;
+                SelectedShips.Remove(e.Gamer);
+            }
+        }
+
+        bool AllGamersHaveShips
+        {
+            get
+            {
+                foreach (NetworkGamer gamer in StateManager.NetworkData.CurrentSession.AllGamers)
+                {
+                    if (SelectedShips[gamer] == ShipType.NoShip)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
         }
 
         TextSprite[] gamerInfos;
         Dictionary<Gamer, TextSprite> GamerInfos = new Dictionary<Gamer, TextSprite>();
+
+        Dictionary<Gamer, ShipType> SelectedShips = new Dictionary<Gamer, ShipType>();
 
         void StateManager_ScreenStateChanged(object sender, EventArgs e)
         {
@@ -33,18 +61,22 @@ namespace PGCGame.Screens.Multiplayer
                 title.X = title.GetCenterPosition(Graphics.Viewport).X;
 
                 gamerInfos = new TextSprite[StateManager.NetworkData.CurrentSession.MaxGamers];
-
+                GamerInfos.Clear();
                 for (int i = 0; i < StateManager.NetworkData.CurrentSession.MaxGamers; i++)
                 {
                     string text = "";
                     bool visible = false;
                     if (i < StateManager.NetworkData.CurrentSession.AllGamers.Count)
                     {
+                        if (StateManager.NetworkData.CurrentSession.AllGamers[i].IsLocal)
+                        {
+                            SelectedShips.Add(StateManager.NetworkData.CurrentSession.AllGamers[i], StateManager.NetworkData.SelectedNetworkShip);
+                        }
                         text = string.Format("{0} - {1}", StateManager.NetworkData.CurrentSession.AllGamers[i].Gamertag, StateManager.NetworkData.CurrentSession.AllGamers[i].IsLocal ? StateManager.NetworkData.SelectedNetworkShip.ToFriendlyString() : "No ship");
                         visible = true;
                     }
                     TextSprite gamerInfo = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, text, Color.White);
-                    gamerInfo.Y = i == 0 ? title.Y + title.Height + 10 : gamerInfos[i-1].Y+gamerInfos[i-1].Height+5;
+                    gamerInfo.Y = i == 0 ? title.Y + title.Height + 10 : gamerInfos[i - 1].Y + gamerInfos[i - 1].Height + 5;
                     gamerInfo.X = gamerInfo.GetCenterPosition(Graphics.Viewport).X;
                     gamerInfo.Visible = visible;
                     AdditionalSprites.Add(gamerInfo);
@@ -55,11 +87,19 @@ namespace PGCGame.Screens.Multiplayer
                     }
                 }
 
+                foreach (NetworkGamer ng in StateManager.NetworkData.CurrentSession.AllGamers)
+                {
+                    if (!SelectedShips.ContainsKey(ng))
+                    {
+                        SelectedShips.Add(ng, ShipType.NoShip);
+                    }
+                }
+                StateManager.NetworkData.CurrentSession.GamerLeft += new EventHandler<GamerLeftEventArgs>(CurrentSession_GamerLeft);
                 _firstInit = false;
             }
         }
 
-        
+
 
         private bool _firstInit = true;
         TextSprite title;
@@ -68,7 +108,7 @@ namespace PGCGame.Screens.Multiplayer
         {
             base.InitScreen(screenName);
             BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
-            title = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.BoldText, StateManager.NetworkData.SessionMode.ToFriendlyString()+" Lobby", Color.White);
+            title = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.BoldText, StateManager.NetworkData.SessionMode.ToFriendlyString() + " Lobby", Color.White);
             title.Y = 5;
             title.X = title.GetCenterPosition(Graphics.Viewport).X;
             AdditionalSprites.Add(title);
@@ -90,8 +130,9 @@ namespace PGCGame.Screens.Multiplayer
                     if (!sender.IsLocal)
                     {
                         string ship = StateManager.NetworkData.DataReader.ReadString();
-                        ShipType shipOfPlayer = (ShipType) Enum.Parse(typeof(ShipType), ship, true);
+                        ShipType shipOfPlayer = (ShipType)Enum.Parse(typeof(ShipType), ship, true);
                         TextSprite gamerInfo = GamerInfos[sender];
+                        SelectedShips[sender] = shipOfPlayer;
                         gamerInfo.Text = string.Format("{0} - {1}", sender.Gamertag, shipOfPlayer.ToFriendlyString());
                         gamerInfo.X = gamerInfo.GetCenterPosition(Graphics.Viewport).X;
                     }
