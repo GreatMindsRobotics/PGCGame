@@ -79,6 +79,7 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CoreTypes\AvailableNetworkSessionDisplayTextSprite.cs" />
     <Compile Include="CoreTypes\BulletCollection.cs" />
     <Compile Include="CoreTypes\SerializableGameState.cs" />
     <Compile Include="CoreTypes\ShipCollection.cs" />

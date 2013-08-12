@@ -369,6 +369,8 @@ namespace PGCGame
 
         public static class NetworkData
         {
+            public static NetworkSession CurrentSession;
+
             public static AvailableNetworkSessionCollection AvailableSessions;
         }
 

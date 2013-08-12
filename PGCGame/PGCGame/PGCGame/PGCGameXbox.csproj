@@ -66,6 +66,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CoreTypes\AvailableNetworkSessionDisplayTextSprite.cs" />
     <Compile Include="CoreTypes\BaseScreen.cs" />
     <Compile Include="CoreTypes\BGSprite.cs" />
     <Compile Include="CoreTypes\BulletCollection.cs" />

@@ -101,6 +101,7 @@ namespace PGCGame.Screens.Multiplayer
             HostLabel.CallKeyboardClickEvent = false;
 #endif
             HostLabel.ParentSprite = HostButton;
+            HostLabel.Pressed += new EventHandler(HostLabel_Pressed);
             HostLabel.NonHoverColor = Color.White;
             HostLabel.HoverColor = Color.MediumAquamarine;
             AdditionalSprites.Add(HostLabel);
@@ -118,6 +119,26 @@ namespace PGCGame.Screens.Multiplayer
 
 #endif
             BackLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.GoBack(); if(StateManager.Options.SFXEnabled) ButtonClick.Play();} });
+        }
+
+        void HostLabel_Pressed(object sender, EventArgs e)
+        {
+            if (Gamer.SignedInGamers.Count == 0 && !Guide.IsVisible)
+            {
+                Guide.ShowSignIn(1, false);
+                return;
+            }
+            else if (Gamer.SignedInGamers.Count == 0)
+            {
+                return;
+            }
+            LoadingScreen lScr = StateManager.AllScreens[ScreenType.LoadingScreen.ToString()] as LoadingScreen;
+            lScr.Reset();
+            //lScr.UserCallback = new AsyncCallback(FinishLanSectorSearch);
+            lScr.LoadingText = "Hosting\nLAN sector...";
+            //lScr.ScreenFinished += new EventHandler(lScr_ScreenFinished);
+            NetworkSession.BeginCreate(NetworkSessionType.SystemLink, 1, 8, lScr.Callback, null);
+            StateManager.ScreenState = CoreTypes.ScreenType.LoadingScreen;
         }
 
         void FinishLanSectorSearch(IAsyncResult getMySectors)
