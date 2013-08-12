@@ -57,22 +57,19 @@ namespace PGCGame.Screens.Multiplayer
             AdditionalSprites.Add(StartLabel);
         }
 
-        void BackLabel_Pressed(object sender, EventArgs e)
-        {
+        void BackLabel_Pressed(object sender, EventArgs e){
             //TODO
             StateManager.GoBack();
         }
 
-        public void InitScreen()
-        {
+        public void InitScreen(){
             StateManager.NetworkData.CurrentSession.GamerJoined += new EventHandler<Microsoft.Xna.Framework.Net.GamerJoinedEventArgs>(CurrentSession_GamerJoined);
             StateManager.NetworkData.CurrentSession.GamerLeft += new EventHandler<Microsoft.Xna.Framework.Net.GamerLeftEventArgs>(CurrentSession_GamerLeft);
             //gamersInSession.AddRange(StateManager.NetworkData.CurrentSession.AllGamers);
             
         }
 
-        void CurrentSession_GamerLeft(object sender, Microsoft.Xna.Framework.Net.GamerLeftEventArgs e)
-        {
+        void CurrentSession_GamerLeft(object sender, Microsoft.Xna.Framework.Net.GamerLeftEventArgs e){
             foreach (TextSprite t in allGamerInfos)
             {
                 if (t.Text == e.Gamer.Gamertag)
@@ -82,14 +79,12 @@ namespace PGCGame.Screens.Multiplayer
             }
         }
 
-        void gamerInfo_TextChanged(object sender, EventArgs e)
-        {
+        void gamerInfo_TextChanged(object sender, EventArgs e){
             TextSprite gamerInfo = sender as TextSprite;
             gamerInfo.X = gamerInfo.GetCenterPosition(Graphics.Viewport).X;
         }
 
-        void CurrentSession_GamerJoined(object sender, Microsoft.Xna.Framework.Net.GamerJoinedEventArgs e)
-        {
+        void CurrentSession_GamerJoined(object sender, Microsoft.Xna.Framework.Net.GamerJoinedEventArgs e){
             gamersInSession.Add(e.Gamer);
 
             if (e.Gamer.IsHost && e.Gamer.IsLocal)
@@ -98,9 +93,10 @@ namespace PGCGame.Screens.Multiplayer
             }
 
             float y = title.Y + title.Font.LineSpacing;
-            allGamerInfos = new TextSprite[StateManager.NetworkData.CurrentSession.MaxGamers];
-            for (int i = 0; i < StateManager.NetworkData.CurrentSession.MaxGamers; i++)
-            {
+            if (allGamerInfos == null){
+                allGamerInfos = new TextSprite[StateManager.NetworkData.CurrentSession.MaxGamers];
+            }
+            for (int i = 0; i < StateManager.NetworkData.CurrentSession.MaxGamers; i++){
                 TextSprite gamerInfo = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, "A RANDOM GAMER THAT LIKES YOU", Color.White);
                 gamerInfo.Visible = allGamerInfos[i] != null;
                 gamerInfo.X = gamerInfo.GetCenterPosition(Graphics.Viewport).X;
