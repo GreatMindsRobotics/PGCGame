@@ -117,7 +117,17 @@ namespace PGCGame.Screens.Multiplayer
                         }
                     }
                 }
-                
+                foreach (LocalNetworkGamer g in StateManager.NetworkData.CurrentSession.LocalGamers)
+                {
+                    if (t.Visible)
+                    {
+                        if (t.Text == g.Gamertag)
+                        {
+                            t.Color = g.IsReady ? Color.LimeGreen : Color.White;
+                        }
+                    }
+                }
+
             }
         }
     }
