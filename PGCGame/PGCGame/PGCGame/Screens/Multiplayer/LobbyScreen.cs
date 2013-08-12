@@ -128,7 +128,7 @@ namespace PGCGame.Screens.Multiplayer
 
             foreach (TextSprite t in allGamerInfos)
             {
-                foreach (NetworkGamer g in StateManager.NetworkData.CurrentSession.AllGamers)
+                foreach (NetworkGamer g in gamersInSession)
                 {
                     if (t.Visible)
                     {
