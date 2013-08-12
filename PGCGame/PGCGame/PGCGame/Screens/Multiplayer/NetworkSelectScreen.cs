@@ -118,7 +118,7 @@ namespace PGCGame.Screens.Multiplayer
             AllButtons.FireTextSpritePressed = true;
 
 #endif
-            BackLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.GoBack(); if(StateManager.Options.SFXEnabled) ButtonClick.Play();} });
+            BackLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = CoreTypes.ScreenType.MainMenu; if(StateManager.Options.SFXEnabled) ButtonClick.Play();} });
         }
 
         void HostLabel_Pressed(object sender, EventArgs e)
