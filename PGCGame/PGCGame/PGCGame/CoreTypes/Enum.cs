@@ -29,6 +29,12 @@ namespace PGCGame.CoreTypes
         WarnHostScreen
     }
 
+    public enum MultiplayerSessionType
+    {
+        Coop,
+        Deathmatch
+    }
+
     public enum ScreenBackgrounds
     {
         GlobalScrollingBg,

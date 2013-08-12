@@ -380,6 +380,12 @@ namespace PGCGame
             public static void RegisterNetworkSession()
             {
                 _game.Services.AddService(typeof(NetworkSession), CurrentSession);
+                CurrentSession.GameStarted += new EventHandler<GameStartedEventArgs>(CurrentSession_GameStarted);
+            }
+
+            private static void CurrentSession_GameStarted(object sender, GameStartedEventArgs e)
+            {
+                
             }
 
             public static AvailableNetworkSessionCollection AvailableSessions;
