@@ -105,6 +105,12 @@ namespace PGCGame.Screens.Multiplayer
 
         void CurrentSession_GamerLeft(object sender, Microsoft.Xna.Framework.Net.GamerLeftEventArgs e)
         {
+            if (e.Gamer.IsHost)
+            {
+                StateManager.ScreenState = CoreTypes.ScreenType.NetworkSelectScreen;
+                return;
+            }
+
             foreach (TextSprite t in allGamerInfos)
             {
                 if (t.Text == e.Gamer.Gamertag)
