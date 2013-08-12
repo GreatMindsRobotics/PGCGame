@@ -17,7 +17,7 @@ namespace PGCGame.CoreTypes
         public AvailableNetworkSession Session;
 
         public AvailableNetworkSessionDisplayTextSprite(SpriteBatch sb, float prevY, AvailableNetworkSession sessToRepresent)
-            : base(sb, new Vector2(0, prevY + GameContent.GameAssets.Fonts.NormalText.LineSpacing * 2 + 5), GameContent.GameAssets.Fonts.NormalText, string.Format("{0}'s {3} session:\n{1} out of {2} gamers", sessToRepresent.HostGamertag, sessToRepresent.CurrentGamerCount, sessToRepresent.CurrentGamerCount + sessToRepresent.OpenPrivateGamerSlots + sessToRepresent.OpenPublicGamerSlots, sessToRepresent.SessionProperties[(int)NetworkSessionPropertyType.SessionType].Cast<MultiplayerSessionType>() == MultiplayerSessionType.Coop ? "co-op" : "deathmatch"), Color.White)
+            : base(sb, new Vector2(0, prevY + GameContent.GameAssets.Fonts.NormalText.LineSpacing * 2 + 5), GameContent.GameAssets.Fonts.NormalText, string.Format("{0}'s {3} session:\n{1} out of {2} gamers", sessToRepresent.HostGamertag, sessToRepresent.CurrentGamerCount, sessToRepresent.CurrentGamerCount + sessToRepresent.OpenPrivateGamerSlots + sessToRepresent.OpenPublicGamerSlots, Enum.Parse(typeof(MultiplayerSessionType), sessToRepresent.SessionProperties[(int)NetworkSessionPropertyType.SessionType].ToString(), true).Cast<MultiplayerSessionType>() == MultiplayerSessionType.Coop ? "co-op" : "deathmatch"), Color.White)
         {
             Session = sessToRepresent;
             HoverColor = Color.MediumAquamarine;
