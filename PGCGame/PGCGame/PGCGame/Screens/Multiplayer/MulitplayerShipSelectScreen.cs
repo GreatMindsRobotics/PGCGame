@@ -92,6 +92,11 @@ namespace PGCGame.Screens.Multiplayer
 
         void MulitplayerShipSelectScreen_nextButtonClicked(object sender, EventArgs e)
         {
+            StateManager.NetworkData.DataWriter.Write(MultiplayerShips[selected].Type.ToString());
+            foreach (LocalNetworkGamer g in StateManager.NetworkData.CurrentSession.LocalGamers)
+            {
+                g.SendData(StateManager.NetworkData.DataWriter, SendDataOptions.Reliable);
+            }
             StateManager.ScreenState = CoreTypes.ScreenType.MPShipsDisplay;
         }
 
