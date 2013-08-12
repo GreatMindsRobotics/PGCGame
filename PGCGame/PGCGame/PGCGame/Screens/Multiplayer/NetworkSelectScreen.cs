@@ -182,6 +182,7 @@ namespace PGCGame.Screens.Multiplayer
         void lScr_ScreenFinished(object sender, EventArgs e)
         {
             StateManager.ScreenState = CoreTypes.ScreenType.NetworkSessionsScreen;
+            (StateManager.AllScreens[ScreenType.NetworkSessionsScreen.ToString()] as AvailableSessionsScreen).InitializeNetSessions();
         }
 
         void Options_MusicStateChanged(object sender, EventArgs e)
