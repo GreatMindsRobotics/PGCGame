@@ -60,8 +60,17 @@ namespace PGCGame.Screens.Multiplayer
 
         void StartLabel_Pressed(object sender, EventArgs e)
         {
-                 
+            if (!_isHost)
+            {
+                foreach (LocalNetworkGamer g in StateManager.NetworkData.CurrentSession.LocalGamers)
+                {
+                    g.IsReady = !g.IsReady;
+                }
+                StartLabel.Text = StartLabel.Text == "Ready" ? "Unready" : "Ready";
+            }
         }
+
+        bool _isHost = false;
 
         void BackLabel_Pressed(object sender, EventArgs e)
         {
@@ -77,6 +86,7 @@ namespace PGCGame.Screens.Multiplayer
             {
                 if (g.IsHost)
                 {
+                    _isHost = true;
                     StartLabel.Text = "Start Game";
                 }
             }
@@ -143,6 +153,7 @@ namespace PGCGame.Screens.Multiplayer
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            /*
             if (_lastState.IsKeyUp(Keys.R) && KeyboardManager.State.IsKeyDown(Keys.R))
             {
                 foreach (LocalNetworkGamer g in StateManager.NetworkData.CurrentSession.LocalGamers)
@@ -154,6 +165,7 @@ namespace PGCGame.Screens.Multiplayer
                     g.IsReady = !g.IsReady;
                 }
             }
+            */
 
             foreach (TextSprite t in allGamerInfos)
             {
