@@ -136,16 +136,22 @@ namespace PGCGame.Screens.Multiplayer
             lScr.Reset();
             lScr.UserCallback = new AsyncCallback(FinishLanSectorHost);
             lScr.LoadingText = "Hosting\nLAN sector...";
+            lScr.ScreenFinished += new EventHandler(hosting_finish);
             //lScr.ScreenFinished += new EventHandler(lScr_ScreenFinished);
             NetworkSession.BeginCreate(NetworkSessionType.SystemLink, 1, 8, lScr.Callback, null);
             StateManager.ScreenState = CoreTypes.ScreenType.LoadingScreen;
         }
 
+        void hosting_finish(object sender, EventArgs r)
+        {
+            LoadingScreen lScr = sender as LoadingScreen;
+            lScr.LoadingText = "Waiting for\nplayer joining\nTODO:\nA better\nScreen here";
+        }
+
         void FinishLanSectorHost(IAsyncResult getMySectors)
         {
             StateManager.NetworkData.CurrentSession = NetworkSession.EndCreate(getMySectors);
-            LoadingScreen lScr = StateManager.AllScreens[ScreenType.LoadingScreen.ToString()] as LoadingScreen;
-            lScr.LoadingText = "Waiting for\nplayer joining\nTODO:\nA better\nScreen here";
+            
         }
 
         void FinishLanSectorSearch(IAsyncResult getMySectors)
@@ -169,7 +175,7 @@ namespace PGCGame.Screens.Multiplayer
             lScr.UserCallback = new AsyncCallback(FinishLanSectorSearch);
             lScr.LoadingText = "Searching for\nLAN sectors...";
             lScr.ScreenFinished += new EventHandler(lScr_ScreenFinished);
-            NetworkSession.BeginFind(NetworkSessionType.SystemLink, 1, null, lScr.Callback, null);
+            NetworkSession.BeginFind(NetworkSessionType.SystemLink, Gamer.SignedInGamers, null, lScr.Callback, null);
             StateManager.ScreenState = CoreTypes.ScreenType.LoadingScreen;
         }
 
