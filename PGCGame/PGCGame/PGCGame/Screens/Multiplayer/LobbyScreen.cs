@@ -15,6 +15,7 @@ using Glib.XNA.SpriteLib;
 using PGCGame.CoreTypes;
 using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Net;
+using Glib.XNA.InputLib;
 
 namespace PGCGame.Screens.Multiplayer
 {
@@ -92,11 +93,19 @@ namespace PGCGame.Screens.Multiplayer
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            if (KeyboardManager.State.IsKeyDown(Keys.R))
+            {
+                foreach (LocalNetworkGamer g in StateManager.NetworkData.CurrentSession.LocalGamers)
+                {
+                    g.IsReady = true;
+                }
+            }
+
             foreach (TextSprite t in allGamerInfos)
             {
                 foreach (NetworkGamer g in StateManager.NetworkData.CurrentSession.AllGamers)
                 {
-                    if (t.Text == g.Gamertag)
+                    if (t.Text == g.Gamertag && t.Visible)
                     {
                         t.Color = g.IsReady ? Color.LimeGreen : Color.White;
                     }
