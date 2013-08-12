@@ -123,39 +123,12 @@ namespace PGCGame.Screens.Multiplayer
 
         void HostLabel_Pressed(object sender, EventArgs e)
         {
-            if (Gamer.SignedInGamers.Count == 0 && !Guide.IsVisible)
-            {
-                Guide.ShowSignIn(1, false);
-                return;
-            }
-            else if (Gamer.SignedInGamers.Count == 0)
-            {
-                return;
-            }
-            LoadingScreen lScr = StateManager.AllScreens[ScreenType.LoadingScreen.ToString()] as LoadingScreen;
-            lScr.Reset();
-            lScr.UserCallback = new AsyncCallback(FinishLanSectorHost);
-            lScr.LoadingText = "Hosting\nLAN sector...";
-            lScr.ScreenFinished += new EventHandler(hosting_finish);
-            //lScr.ScreenFinished += new EventHandler(lScr_ScreenFinished);
-            NetworkSession.BeginCreate(NetworkSessionType.SystemLink, 1, 8, lScr.Callback, null);
-            StateManager.ScreenState = CoreTypes.ScreenType.LoadingScreen;
+            StateManager.ScreenState = CoreTypes.ScreenType.NetworkMatchSelection;
         }
 
-        void hosting_finish(object sender, EventArgs r)
-        {
-            LobbyScreen lobby = StateManager.AllScreens[ScreenType.NetworkLobbyScreen.ToString()] as LobbyScreen;
-            lobby.InitScreen();
-            StateManager.ScreenState = CoreTypes.ScreenType.NetworkLobbyScreen;
-        }
+        
 
-        void FinishLanSectorHost(IAsyncResult getMySectors)
-        {
-            StateManager.NetworkData.CurrentSession = NetworkSession.EndCreate(getMySectors);
-            StateManager.NetworkData.CurrentSession.AllowHostMigration = false;
-            StateManager.NetworkData.CurrentSession.AllowJoinInProgress = false;
-            StateManager.NetworkData.RegisterNetworkSession();
-        }
+        
 
         void FinishLanSectorSearch(IAsyncResult getMySectors)
         {

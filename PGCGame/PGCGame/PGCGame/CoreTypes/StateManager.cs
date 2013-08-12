@@ -375,6 +375,8 @@ namespace PGCGame
 
         public static class NetworkData
         {
+            public static MultiplayerSessionType SessionMode;
+
             public static NetworkSession CurrentSession;
 
             public static void RegisterNetworkSession()

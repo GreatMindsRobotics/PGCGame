@@ -26,7 +26,13 @@ namespace PGCGame.CoreTypes
         LoadingScreen,
         NetworkSessionsScreen,
         NetworkLobbyScreen,
-        WarnHostScreen
+        WarnHostScreen,
+        NetworkMatchSelection
+    }
+
+    public enum NetworkSessionPropertyType
+    {
+        SessionType
     }
 
     public enum MultiplayerSessionType

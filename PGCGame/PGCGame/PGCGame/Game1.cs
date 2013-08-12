@@ -33,6 +33,7 @@ namespace PGCGame
 
         Title titleScreen;
         AvailableSessionsScreen availableNetSessions;
+        NetworkMatchTypeSelectionScreen netMatchCreate;
         MainMenu mainMenuScreen;
         Credits creditsScreen;
         Options optionScreen;
@@ -118,6 +119,9 @@ namespace PGCGame
             titleScreen = new Title(spriteBatch);
             titleScreen.InitScreen(ScreenType.Title);
 
+            netMatchCreate = new NetworkMatchTypeSelectionScreen(spriteBatch);
+            netMatchCreate.InitScreen(ScreenType.NetworkMatchSelection);
+
             gameOver = new GameOver(spriteBatch);
             gameOver.InitScreen(ScreenType.GameOver);
 
@@ -172,7 +176,7 @@ namespace PGCGame
             warnScreen = new WarnScreen(spriteBatch);
             warnScreen.InitScreen(ScreenType.WarnHostScreen);
 
-            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen, weaponSelectScreen, upgradeScreen, tierSelectScreen, levelSelectScreen, controlScreen, networkScreen, gameOver, transitionScreen, levelCompleteScreen, loadingScreen, availableNetSessions, lobbyScreen, warnScreen);
+            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen, weaponSelectScreen, upgradeScreen, tierSelectScreen, levelSelectScreen, controlScreen, networkScreen, gameOver, transitionScreen, levelCompleteScreen, loadingScreen, availableNetSessions, lobbyScreen, warnScreen, netMatchCreate);
             StateManager.AllScreens = screenManager;
             StateManager.ScreenState = CoreTypes.ScreenType.Title;
         }
