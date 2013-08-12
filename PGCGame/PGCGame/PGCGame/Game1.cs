@@ -49,6 +49,7 @@ namespace PGCGame
         NetworkSelectScreen networkScreen;
         TransitionScreen transitionScreen;
         LevelCompleteScreen levelCompleteScreen;
+        LobbyScreen lobbyScreen;
 
 
         public Game1()
@@ -164,7 +165,10 @@ namespace PGCGame
             loadingScreen = new LoadingScreen(spriteBatch, Color.Black);
             loadingScreen.InitScreen(ScreenType.LoadingScreen);
 
-            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen, weaponSelectScreen, upgradeScreen, tierSelectScreen, levelSelectScreen, controlScreen, networkScreen, gameOver, transitionScreen, levelCompleteScreen, loadingScreen, availableNetSessions);
+            lobbyScreen = new LobbyScreen(spriteBatch);
+            lobbyScreen.InitScreen(ScreenType.NetworkLobbyScreen);
+
+            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen, weaponSelectScreen, upgradeScreen, tierSelectScreen, levelSelectScreen, controlScreen, networkScreen, gameOver, transitionScreen, levelCompleteScreen, loadingScreen, availableNetSessions, lobbyScreen);
             StateManager.AllScreens = screenManager;
             StateManager.ScreenState = CoreTypes.ScreenType.Title;
         }

@@ -144,8 +144,9 @@ namespace PGCGame.Screens.Multiplayer
 
         void hosting_finish(object sender, EventArgs r)
         {
-            LoadingScreen lScr = sender as LoadingScreen;
-            lScr.LoadingText = "Waiting for\nplayer joining\nTODO:\nA better\nScreen here";
+            LobbyScreen lobby = StateManager.AllScreens[ScreenType.NetworkLobbyScreen.ToString()] as LobbyScreen;
+            lobby.InitScreen();
+            StateManager.ScreenState = CoreTypes.ScreenType.NetworkLobbyScreen;
         }
 
         void FinishLanSectorHost(IAsyncResult getMySectors)
