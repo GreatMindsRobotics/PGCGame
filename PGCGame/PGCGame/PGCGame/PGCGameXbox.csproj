@@ -86,6 +86,7 @@
     <Compile Include="Screens\LevelCompleteScreen.cs" />
     <Compile Include="Screens\LoadingScreen.cs" />
     <Compile Include="Screens\MainMenu.cs" />
+    <Compile Include="Screens\Multiplayer\AvailableSessionsScreen.cs" />
     <Compile Include="Screens\Multiplayer\NetworkSelectScreen.cs" />
     <Compile Include="Screens\Options.cs" />
     <Compile Include="Screens\PauseScreen.cs" />

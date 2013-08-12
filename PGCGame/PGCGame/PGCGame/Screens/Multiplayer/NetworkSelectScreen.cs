@@ -16,6 +16,7 @@ using PGCGame.CoreTypes;
 using Glib.XNA.InputLib;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
+using Microsoft.Xna.Framework.GamerServices;
 
 namespace PGCGame.Screens.Multiplayer
 {
@@ -121,17 +122,32 @@ namespace PGCGame.Screens.Multiplayer
 
         void FinishLanSectorSearch(IAsyncResult getMySectors)
         {
-
+            StateManager.NetworkData.AvailableSessions = NetworkSession.EndFind(getMySectors);
         }
 
         void LANLabel_Pressed(object sender, EventArgs e)
         {
+            if (Gamer.SignedInGamers.Count == 0 && !Guide.IsVisible)
+            {
+                Guide.ShowSignIn(1, false);
+                return;
+            }
+            else if (Gamer.SignedInGamers.Count == 0)
+            {
+                return;
+            }
             LoadingScreen lScr = StateManager.AllScreens[ScreenType.LoadingScreen.ToString()] as LoadingScreen;
             lScr.Reset();
             lScr.UserCallback = new AsyncCallback(FinishLanSectorSearch);
             lScr.LoadingText = "Searching for\nLAN sectors...";
+            lScr.ScreenFinished += new EventHandler(lScr_ScreenFinished);
             NetworkSession.BeginFind(NetworkSessionType.SystemLink, 1, null, lScr.Callback, null);
             StateManager.ScreenState = CoreTypes.ScreenType.LoadingScreen;
+        }
+
+        void lScr_ScreenFinished(object sender, EventArgs e)
+        {
+            StateManager.ScreenState = CoreTypes.ScreenType.NetworkSessionsScreen;
         }
 
         void Options_MusicStateChanged(object sender, EventArgs e)

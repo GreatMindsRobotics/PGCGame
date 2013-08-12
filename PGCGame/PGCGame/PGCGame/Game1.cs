@@ -32,6 +32,7 @@ namespace PGCGame
         ScreenManager screenManager;
 
         Title titleScreen;
+        AvailableSessionsScreen availableNetSessions;
         MainMenu mainMenuScreen;
         Credits creditsScreen;
         Options optionScreen;
@@ -107,7 +108,10 @@ namespace PGCGame
             
             //Initialize screens
 
-            titleScreen = new Title(spriteBatch, new Delegates.QuitFunction(Exit));
+            availableNetSessions = new AvailableSessionsScreen(spriteBatch);
+            availableNetSessions.InitScreen(ScreenType.NetworkSessionsScreen);
+
+            titleScreen = new Title(spriteBatch);
             titleScreen.InitScreen(ScreenType.Title);
 
             gameOver = new GameOver(spriteBatch);
@@ -158,7 +162,7 @@ namespace PGCGame
             loadingScreen = new LoadingScreen(spriteBatch, Color.Black);
             loadingScreen.InitScreen(ScreenType.LoadingScreen);
 
-            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen, weaponSelectScreen, upgradeScreen, tierSelectScreen, levelSelectScreen, controlScreen, networkScreen, gameOver, transitionScreen, levelCompleteScreen, loadingScreen);
+            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen, weaponSelectScreen, upgradeScreen, tierSelectScreen, levelSelectScreen, controlScreen, networkScreen, gameOver, transitionScreen, levelCompleteScreen, loadingScreen, availableNetSessions);
             StateManager.AllScreens = screenManager;
             StateManager.ScreenState = CoreTypes.ScreenType.Title;
         }

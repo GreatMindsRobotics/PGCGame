@@ -20,12 +20,9 @@ namespace PGCGame.Screens
 {
     public class Title : BaseScreen
     {
-        private Delegates.QuitFunction _exit;
-
-        public Title(SpriteBatch spriteBatch, Delegates.QuitFunction exitableFunction)
+        public Title(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
         {
-            _exit = exitableFunction;
 
             ButtonClick = GameContent.GameAssets.Sound[SoundEffectType.ButtonPressed];
         }
@@ -151,7 +148,7 @@ namespace PGCGame.Screens
                 return;
             }
 
-            _exit();
+            StateManager.Exit();
         }
 
         void PlayLabel_Clicked(object sender, EventArgs e)

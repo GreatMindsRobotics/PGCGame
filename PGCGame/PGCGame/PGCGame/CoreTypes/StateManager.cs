@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Glib.XNA.InputLib;
 using Microsoft.Xna.Framework.Storage;
+using Microsoft.Xna.Framework.Net;
 
 namespace PGCGame
 {
@@ -366,6 +367,10 @@ namespace PGCGame
 
         #region Public Classes
 
+        public static class NetworkData
+        {
+            public static AvailableNetworkSessionCollection AvailableSessions;
+        }
 
         public static class DebugData
         {

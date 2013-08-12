@@ -85,6 +85,7 @@
     <Compile Include="CoreTypes\ShipStats.cs" />
     <Compile Include="Screens\LevelCompleteScreen.cs" />
     <Compile Include="Screens\LoadingScreen.cs" />
+    <Compile Include="Screens\Multiplayer\AvailableSessionsScreen.cs" />
     <Compile Include="Screens\TransitionScreen.cs" />
     <Compile Include="SecondaryWeapons\HealthPack.cs" />
     <Compile Include="Ships\Enemies\Bosses\CloneBoss.cs" />
