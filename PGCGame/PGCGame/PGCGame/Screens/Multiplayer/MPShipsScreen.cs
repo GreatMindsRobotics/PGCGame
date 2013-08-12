@@ -21,12 +21,28 @@ namespace PGCGame.Screens.Multiplayer
             
         }
 
+        Sprite StartButton;
+        TextSprite StartLabel;
+
         void CurrentSession_GamerLeft(object sender, GamerLeftEventArgs e)
         {
             if (GamerInfos.Count > 0)
             {
                 GamerInfos[e.Gamer].Visible = false;
                 SelectedShips.Remove(e.Gamer);
+                bool isHost = false;
+                foreach (LocalNetworkGamer lng in StateManager.NetworkData.CurrentSession.LocalGamers)
+                {
+                    if (lng.IsHost)
+                    {
+                        isHost = true;
+                    }
+                }
+                if (AllGamersHaveShips && isHost)
+                {
+                    StartButton.Visible = true;
+                    StartLabel.Visible = true;
+                }
             }
         }
 
@@ -112,6 +128,21 @@ namespace PGCGame.Screens.Multiplayer
             title.Y = 5;
             title.X = title.GetCenterPosition(Graphics.Viewport).X;
             AdditionalSprites.Add(title);
+
+            StartButton = new Sprite(GameContent.GameAssets.Images.Controls.Button, new Vector2(0, Graphics.Viewport.Height), Sprites.SpriteBatch);
+            StartButton.X = StartButton.GetCenterPosition(Graphics.Viewport).X;
+            StartButton.Y -= StartButton.Height + 20;
+            StartLabel = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, "Start", Color.White) { ParentSprite = StartButton, IsHoverable = true, HoverColor = Color.MediumAquamarine, NonHoverColor = Color.White };
+            StartLabel.Pressed += new EventHandler(StartLabel_Pressed);
+            StartButton.Visible = false;
+            StartLabel.Visible = false;
+            Sprites.Add(StartButton);
+            AdditionalSprites.Add(StartLabel);
+        }
+
+        void StartLabel_Pressed(object sender, EventArgs e)
+        {
+            //todo
         }
 
         public override void Update(GameTime game)
@@ -135,6 +166,11 @@ namespace PGCGame.Screens.Multiplayer
                         SelectedShips[sender] = shipOfPlayer;
                         gamerInfo.Text = string.Format("{0} - {1}", sender.Gamertag, shipOfPlayer.ToFriendlyString());
                         gamerInfo.X = gamerInfo.GetCenterPosition(Graphics.Viewport).X;
+                        if (AllGamersHaveShips && gamer.IsHost)
+                        {
+                            StartButton.Visible = true;
+                            StartLabel.Visible = true;
+                        }
                     }
                 }
             }
