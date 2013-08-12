@@ -323,6 +323,8 @@ namespace PGCGame.Screens
             StateManager.SpaceBucks = savedState.Cash;
             StateManager.HighestUnlockedLevel = savedState.HighestLevel;
             StateManager.ShipData = savedState.Ship;
+            StateManager.SelectedTier = StateManager.ShipData.Tier;
+            StateManager.SelectedShip = StateManager.ShipData.Type;
             foreach (System.Collections.Generic.Stack<SecondaryWeapon> s in StateManager.PowerUps)
             {
                 s.Clear();

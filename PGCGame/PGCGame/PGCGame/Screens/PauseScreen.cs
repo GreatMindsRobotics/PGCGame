@@ -155,7 +155,6 @@ namespace PGCGame.Screens
             StateManager.Reset();
             StateManager.EnemyShips.Clear();
             StateManager.AllyShips.Clear();
-            StateManager.SelectedTier = ShipTier.NoShip;
         }
 
         void ResumeLabel_Pressed(object sender, EventArgs e)
