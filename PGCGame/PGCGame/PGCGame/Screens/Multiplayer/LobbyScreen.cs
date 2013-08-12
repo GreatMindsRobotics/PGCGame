@@ -98,7 +98,7 @@ namespace PGCGame.Screens.Multiplayer
             }
             for (int i = 0; i < StateManager.NetworkData.CurrentSession.MaxGamers; i++){
                 TextSprite gamerInfo = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, "A RANDOM GAMER THAT LIKES YOU", Color.White);
-                gamerInfo.Visible = gamersInSession[i] != null;
+                gamerInfo.Visible = i < gamersInSession.Count;
                 gamerInfo.X = gamerInfo.GetCenterPosition(Graphics.Viewport).X;
                 gamerInfo.Y = y + 5;
                 gamerInfo.TextChanged += new EventHandler(gamerInfo_TextChanged);
