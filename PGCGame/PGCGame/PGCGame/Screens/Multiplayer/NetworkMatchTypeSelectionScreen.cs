@@ -91,6 +91,11 @@ namespace PGCGame.Screens.Multiplayer
                 StateManager.NetworkData.CurrentSession.Dispose();
                 StateManager.NetworkData.CurrentSession = null;
             }
+            if (StateManager.NetworkData.AvailableSessions != null)
+            {
+                StateManager.NetworkData.AvailableSessions.Dispose();
+                StateManager.NetworkData.AvailableSessions = null;
+            }
 
             StateManager.NetworkData.CurrentSession = NetworkSession.EndCreate(getMySectors);
             StateManager.NetworkData.CurrentSession.AllowHostMigration = false;
