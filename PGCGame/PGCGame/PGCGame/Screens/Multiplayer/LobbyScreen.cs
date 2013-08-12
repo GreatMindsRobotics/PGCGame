@@ -31,6 +31,8 @@ namespace PGCGame.Screens.Multiplayer
         TextSprite[] allGamerInfos;
         Sprite BackButton;
         TextSprite BackLabel;
+        Sprite StartButton;
+        TextSprite StartLabel;
 
         public override void InitScreen(ScreenType screenName)
         {
