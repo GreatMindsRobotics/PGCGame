@@ -164,6 +164,7 @@ namespace PGCGame.Screens.Multiplayer
                         StateManager.EnemyShips.Add(new SoloNetworkShip(SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0]].Type, SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0]].Tier, GameScreen.World) { ControllingGamer = g });
                     }
                 }
+                StateManager.CurrentLevel = GameLevel.Level1;
                 StateManager.ScreenState = CoreTypes.ScreenType.Game;
             }
         }
