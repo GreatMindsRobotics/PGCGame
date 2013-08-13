@@ -143,11 +143,14 @@ namespace PGCGame.Screens.Multiplayer
                 StateManager.NetworkData.CurrentSession.LocalGamers[0].ReceiveData(StateManager.NetworkData.DataReader, out dataSender);
             }
             */
-            LoadingScreen lScr = StateManager.AllScreens[ScreenType.LoadingScreen.ToString()] as LoadingScreen;
-            lScr.Reset();
-            lScr.LoadingText = "Waiting for\ninformation\nfrom host...";
-            StateManager.ScreenState = CoreTypes.ScreenType.LoadingScreen;
-            //StateManager.ScreenState = CoreTypes.ScreenType.Game;
+            if (!StateManager.NetworkData.CurrentSession.LocalGamers[0].IsHost)
+            {
+                LoadingScreen lScr = StateManager.AllScreens[ScreenType.LoadingScreen.ToString()] as LoadingScreen;
+                lScr.Reset();
+                lScr.LoadingText = "Waiting for\ninformation\nfrom host...";
+                StateManager.ScreenState = CoreTypes.ScreenType.LoadingScreen;
+                //StateManager.ScreenState = CoreTypes.ScreenType.Game;
+            }
         }
 
         void CurrentSession_GamerJoined(object sender, GamerJoinedEventArgs e)
