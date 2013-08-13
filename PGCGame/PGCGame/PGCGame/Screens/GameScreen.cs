@@ -645,7 +645,7 @@ namespace PGCGame.Screens
             }
             else
             {
-                foreach (Ship enemyShip in enemies)
+                foreach (Ship enemyShip in StateManager.EnemyShips)
                 {
                     if (enemyShip.ShipState != ShipState.Dead)
                     {
