@@ -155,6 +155,8 @@ namespace PGCGame.Screens.Multiplayer
         {
             if (StateManager.NetworkData.SessionMode == MultiplayerSessionType.Deathmatch)
             {
+                StateManager.SelectedShip = SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0]].Type;
+
                 StateManager.InitializeSingleplayerGameScreen(SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0]].Type, SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0]].Tier, false);
 
                 if (StateManager.NetworkData.CurrentSession.LocalGamers[0].IsHost)
