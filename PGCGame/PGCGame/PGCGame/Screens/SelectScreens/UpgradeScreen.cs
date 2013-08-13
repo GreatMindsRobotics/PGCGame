@@ -31,13 +31,14 @@ namespace PGCGame.Screens.SelectScreens
 
         public override void InitScreen(ScreenType screenType)
         {
-
+            Shop.PurchaseScreenSelected += new EventHandler(Shop_PurchaseScreenSelected);
             Texture2D tempImage = GameContent.GameAssets.Images.NonPlayingObjects.Planet;
             Texture2D ScannerImage = GameContent.GameAssets.Images.Equipment[EquipmentType.Scanner, TextureDisplayType.ShopDisplay];
             SpriteFont font = GameContent.GameAssets.Fonts.NormalText;
 
 
             //scanner
+            TextSprite SpaceBuckAmount;
 
             Sprite Scanner = new Sprite(ScannerImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.6f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.1f), Sprites.SpriteBatch);
             TextSprite scannerText = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.1f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 1.5f), font, "Scanner", Color.White);
@@ -57,6 +58,11 @@ namespace PGCGame.Screens.SelectScreens
             acceptLabel.Text = "Buy";
         }
 
+        void Shop_PurchaseScreenSelected(object sender, EventArgs e)
+        {
+           
+        }
+
 
         void UpgradeScreen_nextButtonClicked(object sender, EventArgs e)
         {
@@ -66,12 +72,12 @@ namespace PGCGame.Screens.SelectScreens
                 {
                     StateManager.HasBoughtScanner = true;
                     StateManager.SpaceBucks -= 2500;
-                    text4.Text = "You have " + StateManager.SpaceBucks + " credits\n\nScanner\nCost: 2500\nShows enemy health bars as well as\ntheir health and rotation on the minimap\nCurrently lasts until game ends";
+                    text4.Text = "\n\nScanner\nCost: 2500\nShows enemy health bars as well as\ntheir health and rotation on the minimap\nCurrently lasts until game ends";
                     break;
                 }
                 else if (item.Key == items[selected].Key)
                 {
-                    text4.Text = "You have " + StateManager.SpaceBucks + " credits\n\nScanner\nCost: 2500\nShows enemy health bars as well as\ntheir health and rotation on the minimap\nCurrently lasts until game ends\n\nYou already have one of this item!";
+                    text4.Text = " credits\n\nScanner\nCost: 2500\nShows enemy health bars as well as\ntheir health and rotation on the minimap\nCurrently lasts until game ends\n\nYou already have one of this item!";
                 }
             }
 

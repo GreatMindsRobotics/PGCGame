@@ -32,6 +32,7 @@ namespace PGCGame.Screens.SelectScreens
 
         public override void InitScreen(ScreenType screenType)
         {
+            Shop.PurchaseScreenSelected += new EventHandler(Shop_PurchaseScreenSelected);
             Texture2D image = GameContent.GameAssets.Images.NonPlayingObjects.Planet;
             Texture2D EMP = GameContent.GameAssets.Images.SecondaryWeapon[SecondaryWeaponType.EMP, TextureDisplayType.ShopDisplay];
             Texture2D RayGun = GameContent.GameAssets.Images.SecondaryWeapon[SecondaryWeaponType.ShrinkRay, TextureDisplayType.ShopDisplay];
@@ -100,6 +101,13 @@ namespace PGCGame.Screens.SelectScreens
             acceptLabel.Text = "Buy";
             //In clicked code
             this.nextButtonClicked += new EventHandler(WeaponSelectScreen_nextButtonClicked);
+        }
+
+        void Shop_PurchaseScreenSelected(object sender, EventArgs e)
+        {
+
+            SpaceBucksAmount.Text = string.Format("You have {0} credits", StateManager.SpaceBucks);
+            
         }
 
 
