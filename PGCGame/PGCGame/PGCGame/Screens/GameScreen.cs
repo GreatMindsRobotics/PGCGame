@@ -24,6 +24,7 @@ namespace PGCGame.Screens
 {
     public class GameScreen : BaseScreen
     {
+        public static SpriteBatch World;
 
         private Vector2 _playableAreaOffset;
 #if WINDOWS
@@ -158,7 +159,8 @@ namespace PGCGame.Screens
         TextSprite secondaryWeaponLabel;
         BackgroundSprite bgspr;
 
-        public void InitializeScreen<TShip>(ShipTier tier) where TShip : BaseAllyShip
+
+        public void InitializeScreen<TShip>(ShipTier tier, bool spawnEnemies) where TShip : BaseAllyShip
         {
             //Reset any active ships, since we're re-initializing the game screen
             StateManager.EnemyShips.Clear();
@@ -188,67 +190,72 @@ namespace PGCGame.Screens
             //Set the world size in StateManager for later access
             StateManager.WorldSize = new Rectangle(0, 0, (int)bgspr.TotalWidth, (int)bgspr.TotalHeight);
 
+            StateManager.SpawnArea = new Rectangle(500, 500, bgspr.TotalWidth.Round() - 500, bgspr.TotalHeight.Round() - 500);
+
             Vector2 minSpawnArea = _playableAreaOffset;
             Vector2 maxSpawnArea = new Vector2(bgspr.TotalWidth, bgspr.TotalHeight) - _playableAreaOffset;
 
-
-            if (StateManager.CurrentLevel.ToInt() == 4)
+            #region Enemy Spawns
+            if (spawnEnemies)
             {
-                CloneBoss enemyBoss = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyFighterCarrier, ShipTier.Tier4], Vector2.Zero, Sprites.SpriteBatch);
-                CloneBoss enemyCloneOne = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyFighterCarrier, ShipTier.Tier4], Vector2.Zero, Sprites.SpriteBatch);
-                CloneBoss enemyCloneTwo = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyFighterCarrier, ShipTier.Tier4], Vector2.Zero, Sprites.SpriteBatch);
 
-                enemyBoss.WorldCoords = StateManager.RandomGenerator.NextVector2(minSpawnArea, maxSpawnArea);
-                enemyCloneOne.WorldCoords = enemyBoss.WorldCoords;
-                enemyCloneTwo.WorldCoords = enemyBoss.WorldCoords;
-
-                enemyBoss.isClone = false;
-
-                enemyBoss.targetPosition = StateManager.RandomGenerator.NextVector2(new Vector2(500), new Vector2(StateManager.WorldSize.Width - 500, StateManager.WorldSize.Height - 500));
-                enemyCloneOne.targetPosition = StateManager.RandomGenerator.NextVector2(new Vector2(500), new Vector2(StateManager.WorldSize.Width - 500, StateManager.WorldSize.Height - 500));
-                enemyCloneTwo.targetPosition = StateManager.RandomGenerator.NextVector2(new Vector2(500), new Vector2(StateManager.WorldSize.Width - 500, StateManager.WorldSize.Height - 500));
-
-                enemyCloneOne.EnemyCounts = false;
-                enemyCloneTwo.EnemyCounts = false;
-
-                Sprites.Add(enemyBoss);
-                enemies.Add(enemyBoss);
-
-                if (StateManager.Options.SFXEnabled)
+                if (StateManager.CurrentLevel.ToInt() == 4)
                 {
-                    ClonesMade.Play();
+                    CloneBoss enemyBoss = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyFighterCarrier, ShipTier.Tier4], Vector2.Zero, Sprites.SpriteBatch);
+                    CloneBoss enemyCloneOne = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyFighterCarrier, ShipTier.Tier4], Vector2.Zero, Sprites.SpriteBatch);
+                    CloneBoss enemyCloneTwo = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyFighterCarrier, ShipTier.Tier4], Vector2.Zero, Sprites.SpriteBatch);
+
+                    enemyBoss.WorldCoords = StateManager.RandomGenerator.NextVector2(minSpawnArea, maxSpawnArea);
+                    enemyCloneOne.WorldCoords = enemyBoss.WorldCoords;
+                    enemyCloneTwo.WorldCoords = enemyBoss.WorldCoords;
+
+                    enemyBoss.isClone = false;
+
+                    enemyBoss.targetPosition = StateManager.RandomGenerator.NextVector2(new Vector2(500), new Vector2(StateManager.WorldSize.Width - 500, StateManager.WorldSize.Height - 500));
+                    enemyCloneOne.targetPosition = StateManager.RandomGenerator.NextVector2(new Vector2(500), new Vector2(StateManager.WorldSize.Width - 500, StateManager.WorldSize.Height - 500));
+                    enemyCloneTwo.targetPosition = StateManager.RandomGenerator.NextVector2(new Vector2(500), new Vector2(StateManager.WorldSize.Width - 500, StateManager.WorldSize.Height - 500));
+
+                    enemyCloneOne.EnemyCounts = false;
+                    enemyCloneTwo.EnemyCounts = false;
+
+                    Sprites.Add(enemyBoss);
+                    enemies.Add(enemyBoss);
+
+                    if (StateManager.Options.SFXEnabled)
+                    {
+                        ClonesMade.Play();
+                    }
+
+                    Sprites.Add(enemyCloneOne);
+                    enemies.Add(enemyCloneOne);
+
+                    if (StateManager.Options.SFXEnabled)
+                    {
+                        ClonesMade.Play();
+                    }
+
+                    Sprites.Add(enemyCloneTwo);
+                    enemies.Add(enemyCloneTwo);
                 }
-
-                Sprites.Add(enemyCloneOne);
-                enemies.Add(enemyCloneOne);
-
-                if (StateManager.Options.SFXEnabled)
+                else
                 {
-                    ClonesMade.Play();
-                }
+                    for (int i = 0; i < 4 * StateManager.CurrentLevel.ToInt(); i++)
+                    {
+                        Texture2D enemyTexture = GameContent.GameAssets.Images.Ships[ShipType.Drone, StateManager.RandomGenerator.NextShipTier(ShipTier.Tier1, ShipTier.Tier2)];
+                        EnemyBattleCruiser enemy = new EnemyBattleCruiser(GameContent.GameAssets.Images.Ships[ShipType.EnemyBattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
 
-                Sprites.Add(enemyCloneTwo);
-                enemies.Add(enemyCloneTwo);
+                        enemy.WorldCoords = StateManager.RandomGenerator.NextVector2(minSpawnArea, maxSpawnArea);
+
+                        enemy.DistanceToNose = .5f;
+
+                        enemy.Tier = ShipTier.Tier1;
+
+                        Sprites.Add(enemy);
+                        enemies.Add(enemy);
+                    }
+                }
             }
-            else
-            {
-                for (int i = 0; i < 4 * StateManager.CurrentLevel.ToInt(); i++)
-                {
-                    Texture2D enemyTexture = GameContent.GameAssets.Images.Ships[ShipType.Drone, StateManager.RandomGenerator.NextShipTier(ShipTier.Tier1, ShipTier.Tier2)];
-                    EnemyBattleCruiser enemy = new EnemyBattleCruiser(GameContent.GameAssets.Images.Ships[ShipType.EnemyBattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
-
-                    enemy.WorldCoords = StateManager.RandomGenerator.NextVector2(minSpawnArea, maxSpawnArea);
-
-                    enemy.DistanceToNose = .5f;
-
-                    enemy.Tier = ShipTier.Tier1;
-
-                    Sprites.Add(enemy);
-                    enemies.Add(enemy);
-                }
-            }
-
-
+#endregion
 
             TextureFactory creator = new TextureFactory(Graphics);
 
@@ -334,7 +341,7 @@ namespace PGCGame.Screens
                 }
             }
 
-
+            World = Sprites.SpriteBatch;
         }
 
         void playerShip_WCMoved(object sender, EventArgs e)

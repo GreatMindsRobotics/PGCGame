@@ -117,6 +117,8 @@
     <Compile Include="Ships\Enemies\BaseEnemyShip.cs" />
     <Compile Include="Ships\Enemies\Bosses\CloneBoss.cs" />
     <Compile Include="Ships\Enemies\EnemyBattleCruiser.cs" />
+    <Compile Include="Ships\Network\NetworkShip.cs" />
+    <Compile Include="Ships\Network\SoloNetworkShip.cs" />
     <Compile Include="Ships\Ship.cs" />
     <Compile Include="SecondaryWeapons\ShrinkRay.cs" />
     <Compile Include="SecondaryWeapons\SpaceMine.cs" />
