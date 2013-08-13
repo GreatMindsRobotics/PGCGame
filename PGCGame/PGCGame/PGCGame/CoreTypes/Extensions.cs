@@ -124,5 +124,29 @@ namespace PGCGame.CoreTypes
             }
         }
 
+        public static string ToFriendlyString(this ShipTier ship)
+        {
+            switch (ship)
+            {
+                case ShipTier.Tier1:
+                    return "Tier 1";
+
+                case ShipTier.Tier2:
+                    return "Tier 2";
+
+                case ShipTier.Tier3:
+                    return "Tier 3";
+
+                case ShipTier.Tier4:
+                    return "Tier 4";
+
+                case ShipTier.NoShip:
+                    return "No Ship";
+
+                default:
+                    return null;
+            }
+        }
+
     }
 }

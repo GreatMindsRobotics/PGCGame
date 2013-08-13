@@ -164,7 +164,14 @@ namespace PGCGame.Screens.Multiplayer
                         ShipType shipOfPlayer = (ShipType)Enum.Parse(typeof(ShipType), ship, true);
                         TextSprite gamerInfo = GamerInfos[sender];
                         SelectedShips[sender] = shipOfPlayer;
-                        gamerInfo.Text = string.Format("{0} - {1}", sender.Gamertag, shipOfPlayer.ToFriendlyString());
+
+                        ShipTier playerShipTier = ShipTier.Tier2;
+                        if (StateManager.NetworkData.SessionMode == MultiplayerSessionType.Coop)
+                        {
+                            //TODO: Send/receive tiers of ships
+                        }
+
+                        gamerInfo.Text = string.Format("{0} - {1}{3}{2}", sender.Gamertag, shipOfPlayer.ToFriendlyString(), shipOfPlayer == ShipType.NoShip ? "" : playerShipTier.ToFriendlyString().ToLower(), shipOfPlayer == ShipType.NoShip ? "" : ", ");
                         gamerInfo.X = gamerInfo.GetCenterPosition(Graphics.Viewport).X;
                         if (AllGamersHaveShips && gamer.IsHost)
                         {
