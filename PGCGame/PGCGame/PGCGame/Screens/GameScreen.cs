@@ -747,6 +747,17 @@ namespace PGCGame.Screens
                 }
             }
 
+            for (int spr = 0; spr < Sprites.Count; spr++)
+            {
+                Ship enemy = Sprites[spr] as Ship;
+
+                if (enemy != null && enemy.ShipState == ShipState.Dead)
+                {
+                    Sprites.Remove(enemy);
+                    spr--;
+                }
+            }
+
             /*
             if (playerShip.GetType() == typeof(FighterCarrier))
             {

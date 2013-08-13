@@ -163,7 +163,9 @@ namespace PGCGame.Screens.Multiplayer
                 {
                     foreach (NetworkGamer g in StateManager.NetworkData.CurrentSession.RemoteGamers)
                     {
-                        StateManager.EnemyShips.Add(new SoloNetworkShip(SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0]].Type, SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0]].Tier, GameScreen.World) { ControllingGamer = g });
+                        SoloNetworkShip sns = new SoloNetworkShip(SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0]].Type, SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0]].Tier, GameScreen.World) { ControllingGamer = g };
+                        StateManager.EnemyShips.Add(sns);
+                        StateManager.AllScreens[ScreenType.Game.ToString()].Sprites.Add(sns);
                     }
                 }
                 StateManager.CurrentLevel = GameLevel.Level1;
