@@ -94,7 +94,7 @@ namespace PGCGame.Screens.Multiplayer
                         if (StateManager.NetworkData.CurrentSession.AllGamers[i].IsLocal)
                         {
                             SelectedShips.Add(StateManager.NetworkData.CurrentSession.AllGamers[i].Gamertag, new ShipData() { Type = StateManager.NetworkData.SelectedNetworkShip, Tier = ShipTier.Tier2 });
-                            if(SelectedShips[StateManager.NetworkData.CurrentSession.AllGamers[i].Gamertag].Type == ShipType.NoShip)
+                            if (SelectedShips[StateManager.NetworkData.CurrentSession.AllGamers[i].Gamertag].Type == ShipType.NoShip)
                             {
                                 SelectedShips[StateManager.NetworkData.CurrentSession.AllGamers[i].Gamertag] = new ShipData() { Tier = ShipTier.NoShip, Type = ShipType.NoShip };
                             }
@@ -123,8 +123,31 @@ namespace PGCGame.Screens.Multiplayer
                 }
                 StateManager.NetworkData.CurrentSession.GamerLeft += new EventHandler<GamerLeftEventArgs>(CurrentSession_GamerLeft);
                 StateManager.NetworkData.CurrentSession.GamerJoined += new EventHandler<GamerJoinedEventArgs>(CurrentSession_GamerJoined);
+                StateManager.NetworkData.CurrentSession.GameStarted += new EventHandler<GameStartedEventArgs>(CurrentSession_GameStarted);
                 _firstInit = false;
             }
+        }
+
+        void CurrentSession_GameStarted(object sender, GameStartedEventArgs e)
+        {
+            //TODO: This is Async
+            //TODO: Need to tag ship w/ gamer ID to mark your ship
+            /*
+            while (!StateManager.NetworkData.CurrentSession.LocalGamers[0].IsDataAvailable)
+            {
+
+            }
+            while (StateManager.NetworkData.CurrentSession.LocalGamers[0].IsDataAvailable)
+            {
+                NetworkGamer dataSender;
+                StateManager.NetworkData.CurrentSession.LocalGamers[0].ReceiveData(StateManager.NetworkData.DataReader, out dataSender);
+            }
+            */
+            LoadingScreen lScr = StateManager.AllScreens[ScreenType.LoadingScreen.ToString()] as LoadingScreen;
+            lScr.Reset();
+            lScr.LoadingText = "Waiting for\ninformation\nfrom host...";
+            StateManager.ScreenState = CoreTypes.ScreenType.LoadingScreen;
+            //StateManager.ScreenState = CoreTypes.ScreenType.Game;
         }
 
         void CurrentSession_GamerJoined(object sender, GamerJoinedEventArgs e)
@@ -216,20 +239,18 @@ namespace PGCGame.Screens.Multiplayer
 
                 StateManager.InitializeSingleplayerGameScreen(SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Gamertag].Type, SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Gamertag].Tier, false);
 
-                if (StateManager.NetworkData.CurrentSession.LocalGamers[0].IsHost)
+                foreach (NetworkGamer g in StateManager.NetworkData.CurrentSession.RemoteGamers)
                 {
-                    foreach (NetworkGamer g in StateManager.NetworkData.CurrentSession.RemoteGamers)
-                    {
-                        SoloNetworkShip sns = new SoloNetworkShip(SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Gamertag].Type, SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Gamertag].Tier, GameScreen.World) { ControllingGamer = g };
-                        StateManager.EnemyShips.Add(sns);
-                        StateManager.AllScreens[ScreenType.Game.ToString()].Sprites.Add(sns);
-                    }
-                    foreach (LocalNetworkGamer locGamer in StateManager.NetworkData.CurrentSession.LocalGamers)
-                    {
-                        locGamer.SendData(StateManager.NetworkData.DataWriter, SendDataOptions.Reliable);
-                    }
-                    StateManager.NetworkData.CurrentSession.StartGame();
+                    SoloNetworkShip sns = new SoloNetworkShip(SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Gamertag].Type, SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Gamertag].Tier, GameScreen.World) { ControllingGamer = g };
+                    StateManager.EnemyShips.Add(sns);
+                    StateManager.AllScreens[ScreenType.Game.ToString()].Sprites.Add(sns);
                 }
+                foreach (LocalNetworkGamer locGamer in StateManager.NetworkData.CurrentSession.LocalGamers)
+                {
+                    locGamer.SendData(StateManager.NetworkData.DataWriter, SendDataOptions.Reliable);
+                }
+                StateManager.NetworkData.CurrentSession.StartGame();
+
                 StateManager.CurrentLevel = GameLevel.Level1;
                 StateManager.ScreenState = CoreTypes.ScreenType.Game;
             }
@@ -261,7 +282,7 @@ namespace PGCGame.Screens.Multiplayer
                         TextSprite gamerInfo = GamerInfos[sender.Gamertag];
                         SelectedShips[sender.Gamertag] = new ShipData() { Type = shipOfPlayer, Tier = playerShipTier };
 
-                        
+
 
                         gamerInfo.Text = string.Format("{0} - {1}{3}{2}", sender.Gamertag, shipOfPlayer.ToFriendlyString(), shipOfPlayer == ShipType.NoShip ? "" : playerShipTier.ToFriendlyString().ToLower(), shipOfPlayer == ShipType.NoShip ? "" : ", ");
                         gamerInfo.X = gamerInfo.GetCenterPosition(Graphics.Viewport).X;
