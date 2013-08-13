@@ -139,6 +139,7 @@ namespace PGCGame.Screens.Multiplayer
                 {
                     if (StateManager.NetworkData.CurrentSession.AllGamers[i].IsLocal)
                     {
+                        SelectedShips.Remove(StateManager.NetworkData.CurrentSession.AllGamers[i]);
                         SelectedShips.Add(StateManager.NetworkData.CurrentSession.AllGamers[i], new ShipData() { Type = StateManager.NetworkData.SelectedNetworkShip, Tier = ShipTier.Tier2 });
                         if (SelectedShips[StateManager.NetworkData.CurrentSession.AllGamers[i]].Type == ShipType.NoShip)
                         {
