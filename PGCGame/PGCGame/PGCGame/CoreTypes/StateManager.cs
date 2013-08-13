@@ -27,7 +27,7 @@ namespace PGCGame
         private static ScreenType _screenState = ScreenType.Title;
         private static GraphicsDeviceManager _gfx;
         private static Guid _enemyID = Guid.NewGuid();
-        private static int _spaceBucks = 200000;
+        private static int _spaceBucks = 100000;
         #endregion Private Fields
 
         #region Public Fields
@@ -119,8 +119,7 @@ namespace PGCGame
             _hasBoughtScanner = false;
             Stack<ScreenType> _screenStack = new Stack<ScreenType>();
             Guid _enemyID = Guid.NewGuid();
-            _spaceBucks = 10000;
-            SpaceBucks = _spaceBucks;
+            _spaceBucks = 100000;
             IsWSFirstUpdate = true;
             PowerUps = new Stack<SecondaryWeapon>[]{
             //0: SpaceMine
@@ -424,7 +423,7 @@ namespace PGCGame
 
         public static class DebugData
         {
-            public static bool InfiniteMoney = true;
+            public static bool InfiniteMoney = false;
             public static bool DebugBackground = false;
             public static bool ShipSpeedIncrease = true;
             public static bool OPBullets = false;
