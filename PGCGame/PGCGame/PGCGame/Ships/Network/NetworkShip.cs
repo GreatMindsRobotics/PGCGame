@@ -130,6 +130,8 @@ namespace PGCGame.Ships
                     }
                     break;
             }
+
+            StateManager.NetworkData.DataWriter.Write(new Vector4(X, Y, Rotation.Radians, CurrentHealth));
         }
 
         protected ShipType ship;

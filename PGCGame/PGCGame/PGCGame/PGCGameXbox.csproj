@@ -88,12 +88,10 @@
     <Compile Include="Screens\LoadingScreen.cs" />
     <Compile Include="Screens\MainMenu.cs" />
     <Compile Include="Screens\Multiplayer\AvailableSessionsScreen.cs" />
-    <Compile Include="Screens\Multiplayer\LobbyScreen.cs" />
     <Compile Include="Screens\Multiplayer\MPShipsScreen.cs" />
     <Compile Include="Screens\Multiplayer\MulitplayerShipSelectScreen.cs" />
     <Compile Include="Screens\Multiplayer\NetworkMatchTypeSelectionScreen.cs" />
     <Compile Include="Screens\Multiplayer\NetworkSelectScreen.cs" />
-    <Compile Include="Screens\Multiplayer\WarnScreen.cs" />
     <Compile Include="Screens\Options.cs" />
     <Compile Include="Screens\PauseScreen.cs" />
     <Compile Include="Screens\SelectScreens\BaseSelectScreen.cs" />

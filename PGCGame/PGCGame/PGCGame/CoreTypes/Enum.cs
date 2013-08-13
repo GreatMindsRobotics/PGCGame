@@ -25,8 +25,6 @@ namespace PGCGame.CoreTypes
         LevelCompleteScreen,
         LoadingScreen,
         NetworkSessionsScreen,
-        NetworkLobbyScreen,
-        WarnHostScreen,
         NetworkMatchSelection,
         MultiPlayerShipSelect,
         MPShipsDisplay

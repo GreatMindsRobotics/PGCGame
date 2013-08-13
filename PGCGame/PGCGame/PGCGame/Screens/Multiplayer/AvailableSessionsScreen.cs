@@ -172,8 +172,7 @@ namespace PGCGame.Screens.Multiplayer
             lScr.UserCallback = new AsyncCallback(FinishJoin);
             lScr.LoadingText = "Joining\nLAN sector...";
             lScr.ScreenFinished += new EventHandler(delegate(object evSender, EventArgs ea) {
-                StateManager.ScreenState = CoreTypes.ScreenType.NetworkLobbyScreen;
-                (StateManager.AllScreens[ScreenType.NetworkLobbyScreen.ToString()] as LobbyScreen).InitScreen(); 
+                StateManager.ScreenState = CoreTypes.ScreenType.MultiPlayerShipSelect; 
             });
             NetworkSession.BeginJoin(sender.Session, lScr.Callback, null);
             StateManager.NetworkData.SessionMode = sender.SessionType;

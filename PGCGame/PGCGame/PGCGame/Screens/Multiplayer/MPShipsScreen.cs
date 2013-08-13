@@ -167,6 +167,11 @@ namespace PGCGame.Screens.Multiplayer
                         StateManager.EnemyShips.Add(sns);
                         StateManager.AllScreens[ScreenType.Game.ToString()].Sprites.Add(sns);
                     }
+                    foreach (LocalNetworkGamer locGamer in StateManager.NetworkData.CurrentSession.LocalGamers)
+                    {
+                        locGamer.SendData(StateManager.NetworkData.DataWriter, SendDataOptions.Reliable);
+                    }
+                    StateManager.NetworkData.CurrentSession.StartGame();
                 }
                 StateManager.CurrentLevel = GameLevel.Level1;
                 StateManager.ScreenState = CoreTypes.ScreenType.Game;

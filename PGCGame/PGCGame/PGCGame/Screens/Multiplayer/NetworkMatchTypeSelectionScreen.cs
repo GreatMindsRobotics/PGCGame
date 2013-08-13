@@ -80,9 +80,7 @@ namespace PGCGame.Screens.Multiplayer
 
         void hosting_finish(object sender, EventArgs r)
         {
-            LobbyScreen lobby = StateManager.AllScreens[ScreenType.NetworkLobbyScreen.ToString()] as LobbyScreen;
-            lobby.InitScreen();
-            StateManager.ScreenState = CoreTypes.ScreenType.NetworkLobbyScreen;
+            StateManager.ScreenState = CoreTypes.ScreenType.MultiPlayerShipSelect;
         }
 
         void FinishLanSectorHost(IAsyncResult getMySectors)
