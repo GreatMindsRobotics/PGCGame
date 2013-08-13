@@ -195,6 +195,8 @@ namespace PGCGame.Screens
             Vector2 minSpawnArea = _playableAreaOffset;
             Vector2 maxSpawnArea = new Vector2(bgspr.TotalWidth, bgspr.TotalHeight) - _playableAreaOffset;
 
+            _enemies = spawnEnemies;
+
             #region Enemy Spawns
             if (spawnEnemies)
             {
@@ -416,6 +418,8 @@ namespace PGCGame.Screens
 
         }
 
+        bool _enemies = true;
+
         void miniMap_Updated(object sender, EventArgs e)
         {
             foreach (Sprite s in miniShips)
@@ -622,17 +626,31 @@ namespace PGCGame.Screens
             //KeyboardState keyboard = Keyboard.GetState();
 
             allEnemiesDead = true;
-            foreach (BaseEnemyShip enemyShip in enemies)
+
+            if (_enemies)
             {
+                foreach (BaseEnemyShip enemyShip in enemies)
+                {
 #if WINDOWS
-                if (StateManager.DebugData.KillAll && _lastState.IsKeyUp(Keys.F7) && KeyboardManager.State.IsKeyDown(Keys.F7))
-                {
-                    enemyShip.CurrentHealth = (KeyboardManager.State.IsKeyDown(Keys.LeftAlt) || KeyboardManager.State.IsKeyDown(Keys.RightAlt)) && enemyShip.CurrentHealth > 0 ? 1 : 0;
-                }
+                    if (StateManager.DebugData.KillAll && _lastState.IsKeyUp(Keys.F7) && KeyboardManager.State.IsKeyDown(Keys.F7))
+                    {
+                        enemyShip.CurrentHealth = (KeyboardManager.State.IsKeyDown(Keys.LeftAlt) || KeyboardManager.State.IsKeyDown(Keys.RightAlt)) && enemyShip.CurrentHealth > 0 ? 1 : 0;
+                    }
 #endif
-                if (enemyShip.ShipState != ShipState.Dead && enemyShip.EnemyCounts)
+                    if (enemyShip.ShipState != ShipState.Dead && enemyShip.EnemyCounts)
+                    {
+                        allEnemiesDead = false;
+                    }
+                }
+            }
+            else
+            {
+                foreach (Ship enemyShip in enemies)
                 {
-                    allEnemiesDead = false;
+                    if (enemyShip.ShipState != ShipState.Dead)
+                    {
+                        allEnemiesDead = false;
+                    }
                 }
             }
 
