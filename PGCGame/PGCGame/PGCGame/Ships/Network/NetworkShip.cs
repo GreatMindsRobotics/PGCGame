@@ -17,6 +17,7 @@ namespace PGCGame.Ships
         {
             PlayerType = CoreTypes.PlayerType.Ally;
             Tier = tier;
+            ship = type;
         }
 
         protected ShipType ship;
