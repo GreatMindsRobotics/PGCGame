@@ -135,6 +135,12 @@ namespace PGCGame.Screens.Multiplayer
             if (StateManager.NetworkData.AvailableSessions != null)
             {
                 StateManager.NetworkData.AvailableSessions.Dispose();
+                StateManager.NetworkData.AvailableSessions = null;
+            }
+            if (StateManager.NetworkData.CurrentSession != null)
+            {
+                StateManager.NetworkData.CurrentSession.Dispose();
+                StateManager.NetworkData.CurrentSession = null;
             }
             StateManager.NetworkData.AvailableSessions = NetworkSession.EndFind(getMySectors);
         }
