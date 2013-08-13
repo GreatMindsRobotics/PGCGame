@@ -34,7 +34,9 @@ namespace PGCGame.Screens
         }
 
         public static event EventHandler levelBegin;
-        public static event EventHandler selectedTierSelect;
+
+        public static event EventHandler PurchaseScreenSelected;
+
         Sprite upgradeEquipmentButton;
         TextSprite upgradeEquipmentLabel;
 
@@ -152,6 +154,7 @@ namespace PGCGame.Screens
                 ButtonClick.Play();
             }
 
+            PurchaseScreenSelected(null, null);
             StateManager.ScreenState = ScreenType.TierSelect;
             
         }
@@ -168,6 +171,7 @@ namespace PGCGame.Screens
                 ButtonClick.Play();
             }
 
+            PurchaseScreenSelected(null, null);
             StateManager.ScreenState = ScreenType.UpgradeScreen;
         }
 
@@ -182,6 +186,7 @@ namespace PGCGame.Screens
             {
                 ButtonClick.Play();
             }
+            PurchaseScreenSelected(null, null);
             StateManager.ScreenState = ScreenType.WeaponSelect;
         }
 
