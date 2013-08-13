@@ -137,8 +137,6 @@ namespace PGCGame
 
         public override void Update(GameTime gameTime)
         {
-          
-
                 if (!StateManager.IsWindowFocused())
                 {
                     //Not active window

@@ -367,7 +367,7 @@ namespace PGCGame
         }
         public static void InitializeSingleplayerGameScreen(ShipType type, ShipTier tier)
         {
-            InitializeSingleplayerGameScreen(type, tier, false);
+            InitializeSingleplayerGameScreen(type, tier, true);
         }
 
         /// <summary>

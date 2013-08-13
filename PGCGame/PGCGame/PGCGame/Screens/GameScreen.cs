@@ -116,6 +116,7 @@ namespace PGCGame.Screens
                     }
                 }
             });
+
             StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
 
             _gameSong = GameContent.GameAssets.Music[ScreenMusic.Level1];
@@ -160,7 +161,7 @@ namespace PGCGame.Screens
         BackgroundSprite bgspr;
 
 
-        public void InitializeScreen<TShip>(ShipTier tier, bool spawnEnemies) where TShip : BaseAllyShip
+        public void InitializeScreen<TShip>(ShipTier tier, bool spawnEnemies = true) where TShip : BaseAllyShip
         {
             //Reset any active ships, since we're re-initializing the game screen
             StateManager.EnemyShips.Clear();
