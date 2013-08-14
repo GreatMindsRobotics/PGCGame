@@ -88,8 +88,9 @@ namespace PGCGame.Screens.Multiplayer
             StateManager.GoBack();
         }
 
-        void FinishLanSectorSearch(IAsyncResult getMySectors)
+        void FinishLanSectorSearch(object res)
         {
+            IAsyncResult getMySectors = res as IAsyncResult;
             if (StateManager.NetworkData.CurrentSession != null)
             {
                 StateManager.NetworkData.CurrentSession.Dispose();
@@ -121,7 +122,7 @@ namespace PGCGame.Screens.Multiplayer
             }
             LoadingScreen lScr = StateManager.AllScreens[ScreenType.LoadingScreen.ToString()] as LoadingScreen;
             lScr.Reset();
-            lScr.UserCallback = new AsyncCallback(FinishLanSectorSearch);
+            lScr.UserCallback = new PGCGame.CoreTypes.Delegates.AsyncHandlerMethod(FinishLanSectorSearch);
             lScr.LoadingText = "Searching for\nLAN sectors...";
             lScr.ScreenFinished += new EventHandler(delegate(object evSender, EventArgs ea) { StateManager.ScreenState = CoreTypes.ScreenType.NetworkSessionsScreen; });
             NetworkSession.BeginFind(NetworkSessionType.SystemLink, Gamer.SignedInGamers, null, lScr.Callback, null);
@@ -146,8 +147,9 @@ namespace PGCGame.Screens.Multiplayer
             }
         }
 
-        void FinishJoin(IAsyncResult r)
+        void FinishJoin(object res)
         {
+            IAsyncResult r = res as IAsyncResult;
             if (StateManager.NetworkData.CurrentSession != null)
             {
                 StateManager.NetworkData.CurrentSession.Dispose();
@@ -169,7 +171,7 @@ namespace PGCGame.Screens.Multiplayer
             LoadingScreen lScr = StateManager.AllScreens[ScreenType.LoadingScreen.ToString()] as LoadingScreen;
             lScr.Reset();
             lScr.UserCallbackStartsTask = false;
-            lScr.UserCallback = new AsyncCallback(FinishJoin);
+            lScr.UserCallback = new PGCGame.CoreTypes.Delegates.AsyncHandlerMethod(FinishJoin);
             lScr.LoadingText = "Joining\nLAN sector...";
             lScr.ScreenFinished += new EventHandler(delegate(object evSender, EventArgs ea) {
                 StateManager.ScreenState = CoreTypes.ScreenType.MultiPlayerShipSelect; 

@@ -83,8 +83,9 @@ namespace PGCGame.Screens.Multiplayer
             StateManager.ScreenState = CoreTypes.ScreenType.MultiPlayerShipSelect;
         }
 
-        void FinishLanSectorHost(IAsyncResult getMySectors)
+        void FinishLanSectorHost(object arg)
         {
+            IAsyncResult getMySectors = arg as IAsyncResult;
             if (StateManager.NetworkData.CurrentSession != null)
             {
                 StateManager.NetworkData.CurrentSession.Dispose();
@@ -115,7 +116,7 @@ namespace PGCGame.Screens.Multiplayer
             }
             LoadingScreen lScr = StateManager.AllScreens[ScreenType.LoadingScreen.ToString()] as LoadingScreen;
             lScr.Reset();
-            lScr.UserCallback = new AsyncCallback(FinishLanSectorHost);
+            lScr.UserCallback = new PGCGame.CoreTypes.Delegates.AsyncHandlerMethod(FinishLanSectorHost);
             lScr.LoadingText = "Hosting\nLAN sector...";
             lScr.ScreenFinished += new EventHandler(hosting_finish);
             //lScr.ScreenFinished += new EventHandler(lScr_ScreenFinished);

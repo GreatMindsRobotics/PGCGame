@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Glib;
 using Glib.XNA;
 using Glib.XNA.SpriteLib;
+using System.ComponentModel;
 
 namespace PGCGame.Screens
 {
@@ -18,6 +19,29 @@ namespace PGCGame.Screens
     public class LoadingScreen : BaseScreen
     {
         private string _loadingText = "";
+
+        public RunWorkerCompletedEventHandler BackgroundWorkerCallback
+        {
+            get
+            {
+                return new RunWorkerCompletedEventHandler(RunWorkerCompleted);
+            }
+        }
+
+        private BackgroundWorker _assocWorker;
+
+        private void RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            _assocWorker = sender as BackgroundWorker;
+            if (UserCallback != null)
+            {
+                UserCallback(e.Result);
+            }
+            if (!UserCallbackStartsTask)
+            {
+                FinishTask();
+            }
+        }
 
         public string LoadingText
         {
@@ -64,7 +88,7 @@ namespace PGCGame.Screens
         /// <summary>
         /// The callback that the user provides to run after the asynchronous operation.
         /// </summary>
-        public AsyncCallback UserCallback;
+        public PGCGame.CoreTypes.Delegates.AsyncHandlerMethod UserCallback;
 
         /// <summary>
         /// A boolean indicating whether the user callback starts asynchronous work.
@@ -115,6 +139,10 @@ namespace PGCGame.Screens
             _hasFinishedTask = false;
             UserCallbackStartsTask = false;
             UserCallback = null;
+            if (_assocWorker != null)
+            {
+                _assocWorker.RunWorkerCompleted -= BackgroundWorkerCallback;
+            }
         }
 
         public override void Update(GameTime game)

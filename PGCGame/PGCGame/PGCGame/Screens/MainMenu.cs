@@ -227,7 +227,7 @@ namespace PGCGame.Screens
                 lScr.ScreenFinished += new EventHandler(lScr_ScreenFinished);
                 lScr.UserCallbackStartsTask = true;
                 lScr.LoadingText = "Loading saved data...";
-                lScr.UserCallback = new AsyncCallback(loaded);
+                lScr.UserCallback = new PGCGame.CoreTypes.Delegates.AsyncHandlerMethod(loaded);
                 dev.BeginOpenContainer("PGCGame", lScr.Callback, null);
                 StateManager.ScreenState = CoreTypes.ScreenType.LoadingScreen;
             }catch{};
@@ -289,8 +289,10 @@ namespace PGCGame.Screens
 
         string filename = "PGCGameSave.dat";
 
-        public void loaded(IAsyncResult res)
+        public void loaded(object r)
         {
+
+            IAsyncResult res = r as IAsyncResult;
             StorageContainer strContain = StateManager.SelectedStorage.EndOpenContainer(res);
             
 

@@ -12,6 +12,8 @@ namespace PGCGame.CoreTypes
         /// </summary>
         public delegate void QuitFunction();
 
+        public delegate void AsyncHandlerMethod(object asyncResult);
+
         /// <summary>
         /// Provides ability to run code on the next update of a screen.
         /// </summary>

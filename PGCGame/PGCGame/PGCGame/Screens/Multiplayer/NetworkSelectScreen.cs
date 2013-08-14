@@ -157,8 +157,9 @@ namespace PGCGame.Screens.Multiplayer
 
 
 
-        void FinishLanSectorSearch(IAsyncResult getMySectors)
+        void FinishLanSectorSearch(object ar)
         {
+            IAsyncResult getMySectors = ar as IAsyncResult;
             if (StateManager.NetworkData.AvailableSessions != null)
             {
                 StateManager.NetworkData.AvailableSessions.Dispose();
@@ -185,7 +186,7 @@ namespace PGCGame.Screens.Multiplayer
             }
             LoadingScreen lScr = StateManager.AllScreens[ScreenType.LoadingScreen.ToString()] as LoadingScreen;
             lScr.Reset();
-            lScr.UserCallback = new AsyncCallback(FinishLanSectorSearch);
+            lScr.UserCallback = new PGCGame.CoreTypes.Delegates.AsyncHandlerMethod(FinishLanSectorSearch);
             lScr.LoadingText = "Searching for\nLAN sectors...";
             lScr.ScreenFinished += new EventHandler(lScr_ScreenFinished);
             NetworkSession.BeginFind(NetworkSessionType.SystemLink, Gamer.SignedInGamers, null, lScr.Callback, null);

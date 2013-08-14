@@ -6,16 +6,31 @@ using Microsoft.Xna.Framework.Net;
 using PGCGame.CoreTypes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using PGCGame.Screens;
+using Glib.XNA.SpriteLib;
+using Glib;
+using Glib.XNA;
 
-namespace PGCGame.Ships
+namespace PGCGame.Ships.Network
 {
-    public abstract class NetworkShip : Ship
+    public class NetworkShip : Ship
     {
         public NetworkGamer ControllingGamer;
 
-        public NetworkShip(ShipType type, ShipTier tier, SpriteBatch worldsb)
-            : base(GameContent.GameAssets.Images.Ships[type, tier], StateManager.RandomGenerator.NextVector2(new Vector2(500), new Vector2(StateManager.SpawnArea.X + StateManager.SpawnArea.Width, StateManager.SpawnArea.Y + StateManager.SpawnArea.Height)), worldsb)
+        public static NetworkShip CreateFromData(Vector4 shipData, LocalNetworkGamer you)
         {
+            NetworkShip returnVal = new NetworkShip(StateManager.NetworkData.SelectedNetworkShip.Type, StateManager.NetworkData.SelectedNetworkShip.Tier, GameScreen.World, you);
+            returnVal.Position = new Vector2(shipData.X, shipData.Y);
+            returnVal.Rotation = SpriteRotation.FromRadians(shipData.Z);
+            returnVal.CurrentHealth = shipData.W.ToInt();
+
+            return returnVal;
+        }
+
+        protected NetworkShip(ShipType type, ShipTier tier, SpriteBatch world, NetworkGamer controller, bool sendData)
+            : base(GameContent.GameAssets.Images.Ships[type, tier], StateManager.RandomGenerator.NextVector2(new Vector2(500), new Vector2(StateManager.SpawnArea.X + StateManager.SpawnArea.Width, StateManager.SpawnArea.Y + StateManager.SpawnArea.Height)), world)
+        {
+            ControllingGamer = controller;
             PlayerType = CoreTypes.PlayerType.Ally;
             Tier = tier;
             ship = type;
@@ -130,8 +145,16 @@ namespace PGCGame.Ships
                     }
                     break;
             }
+            if (sendData)
+            {
+                StateManager.NetworkData.DataWriter.Write(new Vector4(X, Y, Rotation.Radians, CurrentHealth));
+                StateManager.NetworkData.DataWriter.Write(controller.Id);
+            }
+        }
 
-            StateManager.NetworkData.DataWriter.Write(new Vector4(X, Y, Rotation.Radians, CurrentHealth));
+        protected NetworkShip(ShipType type, ShipTier tier, SpriteBatch worldsb, NetworkGamer control) : this(type, tier, worldsb, control, true)
+        {
+            
         }
 
         protected ShipType ship;

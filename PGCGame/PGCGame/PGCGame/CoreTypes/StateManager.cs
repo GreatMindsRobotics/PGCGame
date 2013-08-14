@@ -318,6 +318,11 @@ namespace PGCGame
 
         #region Public Methods
 
+        public static TScreen GetScreen<TScreen>(ScreenType screenType) where TScreen : BaseScreen
+        {
+            return AllScreens[screenType.ToString()] as TScreen;
+        }
+
         public static void InitGame(Game underlyingGame)
         {
             _game = underlyingGame;
@@ -393,7 +398,7 @@ namespace PGCGame
         {
             public static MultiplayerSessionType SessionMode;
 
-            public static ShipType SelectedNetworkShip;
+            public static ShipStats SelectedNetworkShip;
 
             public static NetworkSession CurrentSession;
 

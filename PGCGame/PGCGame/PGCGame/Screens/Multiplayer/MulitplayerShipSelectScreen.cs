@@ -92,7 +92,7 @@ namespace PGCGame.Screens.Multiplayer
 
         void MulitplayerShipSelectScreen_nextButtonClicked(object sender, EventArgs e)
         {
-            StateManager.NetworkData.SelectedNetworkShip = MultiplayerShips[selected].Type;
+            StateManager.NetworkData.SelectedNetworkShip = new ShipStats() { Type = MultiplayerShips[selected].Type, Tier = MultiplayerShips[selected].Tier };
             StateManager.NetworkData.DataWriter.Write(StateManager.NetworkData.SelectedNetworkShip.ToString());
             foreach (LocalNetworkGamer g in StateManager.NetworkData.CurrentSession.LocalGamers)
             {
