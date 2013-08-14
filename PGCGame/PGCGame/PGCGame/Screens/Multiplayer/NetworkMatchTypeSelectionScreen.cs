@@ -64,18 +64,18 @@ namespace PGCGame.Screens.Multiplayer
             AdditionalSprites.Add(DeathMatchLabel);
         }
 
-        
+
 
         void DeathMatchLabel_Pressed(object sender, EventArgs e)
         {
             StateManager.NetworkData.SessionMode = MultiplayerSessionType.Deathmatch;
-            CreateMatch();
+            CreateMatch(NetworkSessionType.SystemLink);
         }
 
         void CoopLabel_Pressed(object sender, EventArgs e)
         {
             StateManager.NetworkData.SessionMode = MultiplayerSessionType.Coop;
-            CreateMatch();
+            CreateMatch(NetworkSessionType.SystemLink);
         }
 
         void hosting_finish(object sender, EventArgs r)
@@ -101,8 +101,8 @@ namespace PGCGame.Screens.Multiplayer
             StateManager.NetworkData.CurrentSession.AllowJoinInProgress = false;
             StateManager.NetworkData.RegisterNetworkSession();
         }
-        
-        public void CreateMatch()
+
+        public void CreateMatch(NetworkSessionType sessionType)
         {
             if (Gamer.SignedInGamers.Count == 0 && !Guide.IsVisible)
             {
@@ -121,7 +121,7 @@ namespace PGCGame.Screens.Multiplayer
             //lScr.ScreenFinished += new EventHandler(lScr_ScreenFinished);
             NetworkSessionProperties netSession = new NetworkSessionProperties();
             netSession[(int)NetworkSessionPropertyType.SessionType] = (int)StateManager.NetworkData.SessionMode;
-            NetworkSession.BeginCreate(NetworkSessionType.SystemLink, 1, 8, 0, netSession, lScr.Callback, null);
+            NetworkSession.BeginCreate(sessionType, new SignedInGamer[] { Gamer.SignedInGamers[0] }, 8, 0, netSession, lScr.Callback, null);
             StateManager.ScreenState = CoreTypes.ScreenType.LoadingScreen;
         }
     }

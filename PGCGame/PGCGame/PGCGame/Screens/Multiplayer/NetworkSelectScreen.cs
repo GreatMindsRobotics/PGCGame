@@ -20,7 +20,7 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace PGCGame.Screens.Multiplayer
 {
-    public class NetworkSelectScreen: BaseScreen
+    public class NetworkSelectScreen : BaseScreen
     {
         public NetworkSelectScreen(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
@@ -52,7 +52,7 @@ namespace PGCGame.Screens.Multiplayer
             base.InitScreen(screnType);
 
             StateManager.Options.MusicStateChanged += new EventHandler(Options_MusicStateChanged);
-            
+
             Texture2D planetTexture = GameContent.GameAssets.Images.NonPlayingObjects.Planet;
             Texture2D altPlanetTexture = GameContent.GameAssets.Images.NonPlayingObjects.AltPlanet;
             Texture2D buttonImage = GameContent.GameAssets.Images.Controls.Button;
@@ -81,7 +81,7 @@ namespace PGCGame.Screens.Multiplayer
             AdditionalSprites.Add(BackLabel);
 
             Sprites.Add(LANButton);
-            LANButton.Scale = new Vector2(1.5f,1);
+            LANButton.Scale = new Vector2(1.5f, 1);
             LANLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Scan for LAN sectors");
             LANLabel.IsHoverable = true;
             LANLabel.ParentSprite = LANButton;
@@ -92,7 +92,7 @@ namespace PGCGame.Screens.Multiplayer
             LANLabel.Pressed += new EventHandler(LANLabel_Pressed);
             LANLabel.HoverColor = Color.MediumAquamarine;
             AdditionalSprites.Add(LANLabel);
-            
+
             Sprites.Add(HostButton);
             HostButton.Scale = new Vector2(1.1f, 1);
             HostLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Host LAN sector");
@@ -118,7 +118,34 @@ namespace PGCGame.Screens.Multiplayer
             AllButtons.FireTextSpritePressed = true;
 
 #endif
-            BackLabel.Pressed += new EventHandler(delegate(object src, EventArgs e) { if (this.Visible && elapsedButtonDelay > totalButtonDelay) { StateManager.ScreenState = CoreTypes.ScreenType.MainMenu; if(StateManager.Options.SFXEnabled) ButtonClick.Play();} });
+
+
+            BackLabel.Pressed += new EventHandler(BackLabel_Pressed);
+        }
+
+        void BackLabel_Pressed(object sender, EventArgs e)
+        {
+            if (this.Visible && elapsedButtonDelay > totalButtonDelay)
+            {
+                if (StateManager.NetworkData.AvailableSessions != null)
+                {
+                    if (!StateManager.NetworkData.AvailableSessions.IsDisposed)
+                    {
+                        StateManager.NetworkData.AvailableSessions.Dispose();
+                    }
+                    StateManager.NetworkData.AvailableSessions = null;
+                }
+                if (StateManager.NetworkData.CurrentSession != null)
+                {
+                    if (!StateManager.NetworkData.CurrentSession.IsDisposed)
+                    {
+                        StateManager.NetworkData.CurrentSession.Dispose();
+                    }
+                    StateManager.NetworkData.CurrentSession = null;
+                }
+                StateManager.ScreenState = CoreTypes.ScreenType.MainMenu;
+                if (StateManager.Options.SFXEnabled) { ButtonClick.Play(); }
+            }
         }
 
         void HostLabel_Pressed(object sender, EventArgs e)
@@ -126,9 +153,9 @@ namespace PGCGame.Screens.Multiplayer
             StateManager.ScreenState = CoreTypes.ScreenType.NetworkMatchSelection;
         }
 
-        
 
-        
+
+
 
         void FinishLanSectorSearch(IAsyncResult getMySectors)
         {
@@ -180,9 +207,9 @@ namespace PGCGame.Screens.Multiplayer
 
         void Options_ScreenResolutionChanged(object sender, EventArgs e)
         {
-           
+
             BackButton.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .60f);
-           
+
 
             //to unselect options label when changing to full screens and back
             foreach (ISprite s in AdditionalSprites)
@@ -198,12 +225,12 @@ namespace PGCGame.Screens.Multiplayer
 #if XBOX
         GamePadButtonEnumerator AllButtons;
 #endif
-TimeSpan totalButtonDelay = TimeSpan.FromMilliseconds(250);
+        TimeSpan totalButtonDelay = TimeSpan.FromMilliseconds(250);
 
         public override void Update(GameTime gameTime)
         {
             elapsedButtonDelay += gameTime.ElapsedGameTime;
-            
+
 #if XBOX 
             
             AllButtons.Update(gameTime);
