@@ -168,6 +168,8 @@ namespace PGCGame.Screens.Multiplayer
         void onDataRecv(object res)
         {
             Vector4 myShip = (Vector4)res;
+            StateManager.SelectedShip = StateManager.NetworkData.SelectedNetworkShip.Type;
+            StateManager.SelectedTier = StateManager.NetworkData.SelectedNetworkShip.Tier;
             StateManager.InitializeSingleplayerGameScreen(StateManager.NetworkData.SelectedNetworkShip.Type, StateManager.NetworkData.SelectedNetworkShip.Tier, false);
             Ship player = StateManager.GetScreen<GameScreen>(CoreTypes.ScreenType.Game).playerShip;
             player.Position = new Vector2(myShip.X, myShip.Y);
