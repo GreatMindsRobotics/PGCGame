@@ -194,14 +194,18 @@ namespace PGCGame.Screens
                 {
                     ButtonClick.Play();
                 }
-                if (StateManager.SelectedStorage == null)
-                {
+
+                //the if statements were causing errors when loading the game, starting a level, quitting out, then loading again.
+                //Previous stats weren't loaded properly.
+
+               // if (StateManager.SelectedStorage == null)
+               // {
                     StorageDevice.BeginShowSelector(PlayerIndex.One, new AsyncCallback(onSelectedStorage), null);
-                }
-                else if (StateManager.SelectedStorage != null)
-                {
+               // }
+               // else if (StateManager.SelectedStorage != null)
+               //{
                     StateManager.ScreenState = ScreenType.LevelSelect;
-                }
+               //}
             }
         }
 

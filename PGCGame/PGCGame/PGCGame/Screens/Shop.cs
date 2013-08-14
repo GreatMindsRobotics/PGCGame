@@ -203,6 +203,7 @@ namespace PGCGame.Screens
         void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             levelBegin(null, null);
+
             StateManager.ScreenState = ScreenType.TransitionScreen;
             isSaving = false;
         }

@@ -29,6 +29,7 @@ namespace PGCGame.Screens.SelectScreens
         List<SecondaryWeapon> itemsShown = new List<SecondaryWeapon>();
         TextSprite SpaceBucksAmount;
         TextSprite ItemAmount;
+        bool bought = false;
 
         public override void InitScreen(ScreenType screenType)
         {
@@ -40,7 +41,7 @@ namespace PGCGame.Screens.SelectScreens
             Texture2D HealthPack = GameContent.GameAssets.Images.Equipment[EquipmentType.HealthPack, TextureDisplayType.ShopDisplay];
 
             SpaceBucksAmount = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, string.Format("You have {0} credits", StateManager.SpaceBucks), Color.White);
-            SpaceBucksAmount.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width / 2 - SpaceBucksAmount.Width, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f);
+            //SpaceBucksAmount.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width / 2 - SpaceBucksAmount.Width, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f);
 
             ItemAmount = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, string.Format("You have x{0} EMPs", StateManager.PowerUps[2].Count), Color.White);
             ItemAmount.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width / 2 - SpaceBucksAmount.Width, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .15f);
@@ -60,8 +61,6 @@ namespace PGCGame.Screens.SelectScreens
            
             
             itemsShown.Add(weapon1);
-
-
 
             //Ray Gun
             ShrinkRay weapon2 = new ShrinkRay(RayGun, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.64f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.2f), Sprites.SpriteBatch);
@@ -105,9 +104,7 @@ namespace PGCGame.Screens.SelectScreens
 
         void Shop_PurchaseScreenSelected(object sender, EventArgs e)
         {
-
             SpaceBucksAmount.Text = string.Format("You have {0} credits", StateManager.SpaceBucks);
-            
         }
 
 
@@ -119,6 +116,13 @@ namespace PGCGame.Screens.SelectScreens
                 if (item.Texture == items[selected].Key.Texture && item.Cost <= StateManager.SpaceBucks)
                 {
                     StateManager.SpaceBucks -= item.Cost;
+                    bought = true;
+
+                        if (StateManager.Options.SFXEnabled)
+                        {
+                            ItemBought.Play();
+                        }
+                    
                     SpaceBucksAmount.Text = string.Format("You have {0} credits", StateManager.SpaceBucks);
                     if (item.GetType() == typeof(SpaceMine))
                     {
@@ -139,10 +143,6 @@ namespace PGCGame.Screens.SelectScreens
                     break;
                 }
 
-                if (StateManager.Options.SFXEnabled)
-                {
-                    ItemBought.Play();
-                }
             }
         }
 
@@ -183,11 +183,7 @@ namespace PGCGame.Screens.SelectScreens
             ItemAmount.Text = "You have x" + StateManager.PowerUps[itemSelected].Count + " " + itemName + "(s)";
             AdditionalSprites.Remove(ItemAmount);
             AdditionalSprites.Add(ItemAmount);
-            if (StateManager.IsWSFirstUpdate == true)
-            {
-                SpaceBucksAmount.Text = string.Format("You have {0} credits", StateManager.SpaceBucks);
-                StateManager.IsWSFirstUpdate = false;
-            }
+
             base.Update(gameTime);
         }
     }

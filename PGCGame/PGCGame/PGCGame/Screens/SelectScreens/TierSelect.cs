@@ -57,12 +57,12 @@ namespace PGCGame.Screens.SelectScreens
 
             ShipTier upgradeTier = StateManager.SelectedTier == ShipTier.Tier4 ? ShipTier.Tier4 : StateManager.SelectedTier + 1;
 
-            //Configure current credit balance display9856
+            //Configure current credit balance display
 
             Credits = new TextSprite(Sprites.SpriteBatch, SegoeUIMono, String.Format("You Have {0} Credits", StateManager.SpaceBucks));
             Credits.Position = new Vector2(5, 5);
             Credits.Color = Color.White;
-            StateManager.levelCompleted += new EventHandler(StateManager_levelCompleted);
+            Shop.PurchaseScreenSelected += new EventHandler(Shop_PurchaseScreenSelected);
 
             //Configure Battle Cruiser
             battleCruiser = new ShipInfo();
@@ -137,11 +137,11 @@ namespace PGCGame.Screens.SelectScreens
             nameLabel.X -= 40;
         }
 
-        void StateManager_levelCompleted(object sender, EventArgs e)
+        void Shop_PurchaseScreenSelected(object sender, EventArgs e)
         {
             Credits.Text = String.Format("You Have {0} Credits", StateManager.SpaceBucks);
-
         }
+
 
 
         void TierSelect_nextButtonClicked(object sender, EventArgs e)
