@@ -681,7 +681,7 @@ namespace PGCGame.Screens
                 secondaryWeaponLabel.Text += String.Format("\n{0} Extra Lives Remaining", StateManager.Lives);
             }
 
-            if (allEnemiesDead && !StateManager.nextLevel && StateManager.HighestUnlockedLevel != GameLevel.Level4)
+            if (allEnemiesDead && !StateManager.nextLevel)
             {
                 if (StateManager.CurrentLevel == StateManager.HighestUnlockedLevel)
                 {
@@ -692,10 +692,7 @@ namespace PGCGame.Screens
                 StateManager.AllScreens[ScreenType.LevelCompleteScreen.ToInt()].Cast<LevelCompleteScreen>().AdditionalSprites.Clear();
                 StateManager.AllScreens[ScreenType.LevelCompleteScreen.ToInt()].Cast<LevelCompleteScreen>().InitScreen(CoreTypes.ScreenType.LevelCompleteScreen);
             }
-            else if (StateManager.HighestUnlockedLevel == GameLevel.Level4 && allEnemiesDead && !StateManager.nextLevel)
-            {
-                StateManager.ScreenState = ScreenType.Credits;
-            }
+
 
             if (playerShip.CurrentHealth <= 0 || StateManager.nextLevel || playerShip.ShipState == ShipState.Dead)
             {
@@ -722,7 +719,7 @@ namespace PGCGame.Screens
                         StateManager.InitializeSingleplayerGameScreen(playerShip.ShipType, playerShip.Tier);
                     }
                 }
-
+            
             }
 
             BackgroundSprite bg = BackgroundSprite.Cast<BackgroundSprite>();

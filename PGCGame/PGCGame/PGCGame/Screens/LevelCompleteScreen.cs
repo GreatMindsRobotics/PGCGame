@@ -18,6 +18,7 @@ namespace PGCGame
         }
         TextSprite winText;
         Sprite ship;
+        bool setWinText = false;
 
 #if XBOX
         GamePadButtonEnumerator allButton;
@@ -38,7 +39,7 @@ namespace PGCGame
             ship.YSpeed = -ship.XSpeed * .8f;
             ship.Rotation.Degrees = -90;
 
-           
+
 
             planetTexture = GameContent.GameAssets.Images.NonPlayingObjects.Planet;
             Sprites.AddNewSprite(Vector2.Zero, planetTexture);
@@ -76,12 +77,22 @@ namespace PGCGame
 
         void StateManager_levelCompleted(object sender, EventArgs e)
         {
-            winText.Text = string.Format("You died {3} times \n\n {2} Completed!\n\nYou earned {1} Points\n\nYou have obtained {0} spacebucks   ", StateManager.AmountOfSpaceBucksRecievedInCurrentLevel, StateManager.AmountOfPointsRecievedInCurrentLevel, StateManager.CurrentLevel, StateManager.Deaths);
-            Sprites[1].Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width, Sprites[0].Y + Sprites[0].Height/2);
+            if (StateManager.CurrentLevel == GameLevel.Level4)
+            {
+                winText.Text = string.Format("Congratulations you beat the game!!!");
+
+            }
+            else
+            {
+                winText.Text = string.Format("You died {3} times \n\n {2} Completed!\n\nYou earned {1} Points\n\nYou have obtained {0} spacebucks   ", StateManager.AmountOfSpaceBucksRecievedInCurrentLevel, StateManager.AmountOfPointsRecievedInCurrentLevel, StateManager.CurrentLevel-1, StateManager.Deaths);
+
+            }
+            Sprites[1].Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width, Sprites[0].Y + Sprites[0].Height / 2);
             Sprites[1].XSpeed = -5;
-           // Sprites[1].YSpeed = 0;
-            Sprites[1].Scale = new Vector2(0);
-            Sprites[1].Texture = GameContent.GameAssets.Images.Ships[StateManager.SelectedShip,StateManager.SelectedTier];
+            // Sprites[1].YSpeed = 0;
+            winText.Scale = new Vector2(2);
+            winText.Color = Color.White;
+            Sprites[1].Texture = GameContent.GameAssets.Images.Ships[StateManager.SelectedShip, StateManager.SelectedTier];
         }
 
         void Continue_Pressed(object sender, EventArgs e)
@@ -90,36 +101,62 @@ namespace PGCGame
             {
                 ButtonClick.Play();
             }
-            if (this.Visible)
+
+            StateManager.AmountOfPointsRecievedInCurrentLevel = 0;
+            StateManager.AmountOfSpaceBucksRecievedInCurrentLevel = 0;
+            StateManager.Deaths = 0;
+
+
+            if (StateManager.CurrentLevel < GameLevel.Level4)
             {
-                StateManager.AmountOfPointsRecievedInCurrentLevel = 0;
-                StateManager.AmountOfSpaceBucksRecievedInCurrentLevel = 0;
-                StateManager.Deaths = 0;
                 StateManager.ScreenState = CoreTypes.ScreenType.LevelSelect;
             }
+            else
+            {
+                StateManager.ScreenState = CoreTypes.ScreenType.Credits;
+            }
+
+
         }
+
 
 
         public override void Update(GameTime game)
         {
             if (this.Visible)
             {
-                winText.Text = string.Format("You died {3} times \n\n {2} Completed!\n\nYou earned {1} Points\n\nYou have obtained {0} spacebucks   ", StateManager.AmountOfSpaceBucksRecievedInCurrentLevel, StateManager.AmountOfPointsRecievedInCurrentLevel, StateManager.CurrentLevel, StateManager.Deaths);
-                if (ship.X + ship.Width > 0)
+                if (this.Visible)
                 {
-                    if (Sprites[1].Y > Sprites.SpriteBatch.GraphicsDevice.Viewport.Height - Sprites.SpriteBatch.GraphicsDevice.Viewport.Height / 7)
+                    if (!setWinText)
                     {
+                        if (StateManager.CurrentLevel == GameLevel.Level4)
+                        {
+                            winText.Text = string.Format("Congratulations you beat the game!!!");
 
-                        ship.Scale.X += .005f;
-                        ship.Scale.Y += .005f;
-                        Sprites[1].YSpeed = 0f;
+                        }
+                        else
+                        {
+                            winText.Text = string.Format("You died {3} times \n\n {2} Completed!\n\nYou earned {1} Points\n\nYou have obtained {0} spacebucks", StateManager.AmountOfSpaceBucksRecievedInCurrentLevel, StateManager.AmountOfPointsRecievedInCurrentLevel, StateManager.CurrentLevel, StateManager.Deaths);
+
+                        }
+                        setWinText = true;
                     }
-                    
-                }
+                    if (ship.X + ship.Width > 0)
+                    {
+                        if (Sprites[1].Y > Sprites.SpriteBatch.GraphicsDevice.Viewport.Height - Sprites.SpriteBatch.GraphicsDevice.Viewport.Height / 7)
+                        {
+
+                            ship.Scale.X += .005f;
+                            ship.Scale.Y += .005f;
+                            Sprites[1].YSpeed = 0f;
+                        }
+
+                    }
 #if XBOX
                 allButton.Update(game);
 #endif
-                base.Update(game);
+                    base.Update(game);
+                }
             }
         }
     }
