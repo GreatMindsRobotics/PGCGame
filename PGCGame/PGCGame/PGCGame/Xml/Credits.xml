@@ -219,10 +219,6 @@
           <FirstName>Andrew</FirstName>
           <LastName>K.</LastName>
         </Student>
-        <Student id="6">
-          <FirstName>Ross</FirstName>
-          <LastName>T</LastName>
-        </Student>
         <Student id="4">
           <FirstName>Jeremiah</FirstName>
           <LastName>T.</LastName>
