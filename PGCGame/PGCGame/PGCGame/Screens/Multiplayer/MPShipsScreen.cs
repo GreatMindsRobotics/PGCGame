@@ -251,7 +251,7 @@ namespace PGCGame.Screens.Multiplayer
 
             if (!e.Gamer.IsLocal)
             {
-                StateManager.NetworkData.DataWriter.Write(StateManager.NetworkData.SelectedNetworkShip.ToString());
+                StateManager.NetworkData.DataWriter.Write(StateManager.NetworkData.SelectedNetworkShip.Type.ToString());
                 foreach (LocalNetworkGamer g in StateManager.NetworkData.CurrentSession.LocalGamers)
                 {
                     g.SendData(StateManager.NetworkData.DataWriter, SendDataOptions.Reliable);
