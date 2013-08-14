@@ -161,7 +161,7 @@ namespace PGCGame.Screens
         BackgroundSprite bgspr;
 
 
-        public void InitializeScreen<TShip>(ShipTier tier, bool spawnEnemies = true) where TShip : BaseAllyShip
+        public void InitializeScreen<TShip>(ShipTier tier, bool spawnEnemies) where TShip : BaseAllyShip
         {
             //Reset any active ships, since we're re-initializing the game screen
             StateManager.EnemyShips.Clear();

@@ -34,8 +34,8 @@ namespace PGCGame.Screens.Multiplayer
         {
             if (GamerInfos.Count > 0)
             {
-                GamerInfos[e.Gamer.Gamertag].Visible = false;
-                SelectedShips.Remove(e.Gamer.Gamertag);
+                GamerInfos[e.Gamer.Id].Visible = false;
+                SelectedShips.Remove(e.Gamer.Id);
                 bool isHost = false;
                 foreach (LocalNetworkGamer lng in StateManager.NetworkData.CurrentSession.LocalGamers)
                 {
@@ -58,7 +58,7 @@ namespace PGCGame.Screens.Multiplayer
             {
                 foreach (NetworkGamer gamer in StateManager.NetworkData.CurrentSession.AllGamers)
                 {
-                    if (SelectedShips[gamer.Gamertag].Type == ShipType.NoShip || SelectedShips[gamer.Gamertag].Tier == ShipTier.NoShip)
+                    if (SelectedShips[gamer.Id].Type == ShipType.NoShip || SelectedShips[gamer.Id].Tier == ShipTier.NoShip)
                     {
                         return false;
                     }
@@ -68,9 +68,10 @@ namespace PGCGame.Screens.Multiplayer
         }
 
         TextSprite[] gamerInfos;
-        Dictionary<string, TextSprite> GamerInfos = new Dictionary<string, TextSprite>();
+        Dictionary<byte, TextSprite> GamerInfos = new Dictionary<byte, TextSprite>();
 
-        Dictionary<string, ShipData> SelectedShips = new Dictionary<string, ShipData>();
+        // Goes by gamer ID
+        Dictionary<byte, ShipData> SelectedShips = new Dictionary<byte, ShipData>();
 
         void StateManager_ScreenStateChanged(object sender, EventArgs e)
         {
@@ -93,10 +94,10 @@ namespace PGCGame.Screens.Multiplayer
                     {
                         if (StateManager.NetworkData.CurrentSession.AllGamers[i].IsLocal)
                         {
-                            SelectedShips.Add(StateManager.NetworkData.CurrentSession.AllGamers[i].Gamertag, new ShipData() { Type = StateManager.NetworkData.SelectedNetworkShip, Tier = ShipTier.Tier2 });
-                            if (SelectedShips[StateManager.NetworkData.CurrentSession.AllGamers[i].Gamertag].Type == ShipType.NoShip)
+                            SelectedShips.Add(StateManager.NetworkData.CurrentSession.AllGamers[i].Id, new ShipData() { Type = StateManager.NetworkData.SelectedNetworkShip, Tier = ShipTier.Tier2 });
+                            if (SelectedShips[StateManager.NetworkData.CurrentSession.AllGamers[i].Id].Type == ShipType.NoShip)
                             {
-                                SelectedShips[StateManager.NetworkData.CurrentSession.AllGamers[i].Gamertag] = new ShipData() { Tier = ShipTier.NoShip, Type = ShipType.NoShip };
+                                SelectedShips[StateManager.NetworkData.CurrentSession.AllGamers[i].Id] = new ShipData() { Tier = ShipTier.NoShip, Type = ShipType.NoShip };
                             }
                         }
                         text = string.Format("{0} - {1}{2}{3}", StateManager.NetworkData.CurrentSession.AllGamers[i].Gamertag, StateManager.NetworkData.CurrentSession.AllGamers[i].IsLocal ? StateManager.NetworkData.SelectedNetworkShip.ToFriendlyString() : "No ship", StateManager.NetworkData.CurrentSession.AllGamers[i].IsLocal ? StateManager.NetworkData.SelectedNetworkShip == ShipType.NoShip ? "" : ", " : "", StateManager.NetworkData.CurrentSession.AllGamers[i].IsLocal ? StateManager.NetworkData.SelectedNetworkShip == ShipType.NoShip ? "" : ShipTier.Tier2.ToFriendlyString().ToLower() : "");
@@ -110,15 +111,15 @@ namespace PGCGame.Screens.Multiplayer
                     gamerInfos[i] = gamerInfo;
                     if (i < StateManager.NetworkData.CurrentSession.AllGamers.Count)
                     {
-                        GamerInfos.Add(StateManager.NetworkData.CurrentSession.AllGamers[i].Gamertag, gamerInfo);
+                        GamerInfos.Add(StateManager.NetworkData.CurrentSession.AllGamers[i].Id, gamerInfo);
                     }
                 }
 
                 foreach (NetworkGamer ng in StateManager.NetworkData.CurrentSession.AllGamers)
                 {
-                    if (!SelectedShips.ContainsKey(ng.Gamertag))
+                    if (!SelectedShips.ContainsKey(ng.Id))
                     {
-                        SelectedShips.Add(ng.Gamertag, new ShipData() { Type = ShipType.NoShip, Tier = ShipTier.NoShip });
+                        SelectedShips.Add(ng.Id, new ShipData() { Type = ShipType.NoShip, Tier = ShipTier.NoShip });
                     }
                 }
                 StateManager.NetworkData.CurrentSession.GamerLeft += new EventHandler<GamerLeftEventArgs>(CurrentSession_GamerLeft);
@@ -151,6 +152,8 @@ namespace PGCGame.Screens.Multiplayer
                 StateManager.ScreenState = CoreTypes.ScreenType.LoadingScreen;
                 //StateManager.ScreenState = CoreTypes.ScreenType.Game;
             }
+            StartButton.Visible = true;
+            StartLabel.Visible = true;
         }
 
         void CurrentSession_GamerJoined(object sender, GamerJoinedEventArgs e)
@@ -169,11 +172,11 @@ namespace PGCGame.Screens.Multiplayer
                 {
                     if (StateManager.NetworkData.CurrentSession.AllGamers[i].IsLocal)
                     {
-                        SelectedShips.Remove(StateManager.NetworkData.CurrentSession.AllGamers[i].Gamertag);
-                        SelectedShips.Add(StateManager.NetworkData.CurrentSession.AllGamers[i].Gamertag, new ShipData() { Type = StateManager.NetworkData.SelectedNetworkShip, Tier = ShipTier.Tier2 });
-                        if (SelectedShips[StateManager.NetworkData.CurrentSession.AllGamers[i].Gamertag].Type == ShipType.NoShip)
+                        SelectedShips.Remove(StateManager.NetworkData.CurrentSession.AllGamers[i].Id);
+                        SelectedShips.Add(StateManager.NetworkData.CurrentSession.AllGamers[i].Id, new ShipData() { Type = StateManager.NetworkData.SelectedNetworkShip, Tier = ShipTier.Tier2 });
+                        if (SelectedShips[StateManager.NetworkData.CurrentSession.AllGamers[i].Id].Type == ShipType.NoShip)
                         {
-                            SelectedShips[StateManager.NetworkData.CurrentSession.AllGamers[i].Gamertag] = new ShipData() { Tier = ShipTier.NoShip, Type = ShipType.NoShip };
+                            SelectedShips[StateManager.NetworkData.CurrentSession.AllGamers[i].Id] = new ShipData() { Tier = ShipTier.NoShip, Type = ShipType.NoShip };
                         }
                     }
                     text = string.Format("{0} - {1}{2}{3}", StateManager.NetworkData.CurrentSession.AllGamers[i].Gamertag, StateManager.NetworkData.CurrentSession.AllGamers[i].IsLocal ? StateManager.NetworkData.SelectedNetworkShip.ToFriendlyString() : "No ship", StateManager.NetworkData.CurrentSession.AllGamers[i].IsLocal ? StateManager.NetworkData.SelectedNetworkShip == ShipType.NoShip ? "" : ", " : "", StateManager.NetworkData.CurrentSession.AllGamers[i].IsLocal ? StateManager.NetworkData.SelectedNetworkShip == ShipType.NoShip ? "" : ShipTier.Tier2.ToFriendlyString().ToLower() : "");
@@ -187,15 +190,15 @@ namespace PGCGame.Screens.Multiplayer
                 gamerInfos[i] = gamerInfo;
                 if (i < StateManager.NetworkData.CurrentSession.AllGamers.Count)
                 {
-                    GamerInfos.Add(StateManager.NetworkData.CurrentSession.AllGamers[i].Gamertag, gamerInfo);
+                    GamerInfos.Add(StateManager.NetworkData.CurrentSession.AllGamers[i].Id, gamerInfo);
                 }
             }
 
             foreach (NetworkGamer ng in StateManager.NetworkData.CurrentSession.AllGamers)
             {
-                if (!SelectedShips.ContainsKey(ng.Gamertag))
+                if (!SelectedShips.ContainsKey(ng.Id))
                 {
-                    SelectedShips.Add(ng.Gamertag, new ShipData() { Type = ShipType.NoShip, Tier = ShipTier.NoShip });
+                    SelectedShips.Add(ng.Id, new ShipData() { Type = ShipType.NoShip, Tier = ShipTier.NoShip });
                 }
             }
 
@@ -238,13 +241,13 @@ namespace PGCGame.Screens.Multiplayer
         {
             if (StateManager.NetworkData.SessionMode == MultiplayerSessionType.Deathmatch)
             {
-                StateManager.SelectedShip = SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Gamertag].Type;
+                StateManager.SelectedShip = SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Id].Type;
 
-                StateManager.InitializeSingleplayerGameScreen(SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Gamertag].Type, SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Gamertag].Tier, false);
+                StateManager.InitializeSingleplayerGameScreen(SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Id].Type, SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Id].Tier, false);
 
                 foreach (NetworkGamer g in StateManager.NetworkData.CurrentSession.RemoteGamers)
                 {
-                    SoloNetworkShip sns = new SoloNetworkShip(SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Gamertag].Type, SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Gamertag].Tier, GameScreen.World) { ControllingGamer = g };
+                    SoloNetworkShip sns = new SoloNetworkShip(SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Id].Type, SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Id].Tier, GameScreen.World) { ControllingGamer = g };
                     StateManager.EnemyShips.Add(sns);
                     StateManager.AllScreens[ScreenType.Game.ToString()].Sprites.Add(sns);
                 }
@@ -282,8 +285,8 @@ namespace PGCGame.Screens.Multiplayer
                             //TODO: Send/receive tiers of ships
                         }
 
-                        TextSprite gamerInfo = GamerInfos[sender.Gamertag];
-                        SelectedShips[sender.Gamertag] = new ShipData() { Type = shipOfPlayer, Tier = playerShipTier };
+                        TextSprite gamerInfo = GamerInfos[sender.Id];
+                        SelectedShips[sender.Id] = new ShipData() { Type = shipOfPlayer, Tier = playerShipTier };
 
 
 
