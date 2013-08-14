@@ -300,7 +300,7 @@ namespace PGCGame.Screens.Multiplayer
 
                 foreach (NetworkGamer g in StateManager.NetworkData.CurrentSession.RemoteGamers)
                 {
-                    SoloNetworkShip sns = new SoloNetworkShip(SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Id].Type, SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Id].Tier, GameScreen.World, g);
+                    SoloNetworkShip sns = new SoloNetworkShip(SelectedShips[g.Id].Type, SelectedShips[g.Id].Tier, GameScreen.World, g);
                     StateManager.EnemyShips.Add(sns);
                     StateManager.AllScreens[ScreenType.Game.ToString()].Sprites.Add(sns);
                 }
