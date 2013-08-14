@@ -17,9 +17,9 @@ namespace PGCGame.Ships.Network
     {
         public NetworkGamer ControllingGamer;
 
-        public static NetworkShip CreateFromData(Vector4 shipData, LocalNetworkGamer you)
+        public static NetworkShip CreateFromData(Vector4 shipData, NetworkGamer gamer)
         {
-            NetworkShip returnVal = new NetworkShip(StateManager.NetworkData.SelectedNetworkShip.Type, StateManager.NetworkData.SelectedNetworkShip.Tier, GameScreen.World, you);
+            NetworkShip returnVal = new NetworkShip(StateManager.NetworkData.SelectedNetworkShip.Type, StateManager.NetworkData.SelectedNetworkShip.Tier, GameScreen.World, gamer);
             returnVal.Position = new Vector2(shipData.X, shipData.Y);
             returnVal.Rotation = SpriteRotation.FromRadians(shipData.Z);
             returnVal.CurrentHealth = shipData.W.ToInt();

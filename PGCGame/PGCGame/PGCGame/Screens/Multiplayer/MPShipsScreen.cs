@@ -173,11 +173,10 @@ namespace PGCGame.Screens.Multiplayer
 
             StateManager.EnemyShips.AddRange(netShips);
 
-            StateManager.InitializeSingleplayerGameScreen(StateManager.NetworkData.SelectedNetworkShip.Type, StateManager.NetworkData.SelectedNetworkShip.Tier, false);
-            Ship player = StateManager.GetScreen<GameScreen>(CoreTypes.ScreenType.Game).playerShip;
+            /*Ship player = StateManager.GetScreen<GameScreen>(CoreTypes.ScreenType.Game).playerShip;
             player.Position = new Vector2(myShip.X, myShip.Y);
             player.Rotation = SpriteRotation.FromRadians(myShip.Z);
-            player.CurrentHealth = myShip.W.ToInt();
+            player.CurrentHealth = myShip.W.ToInt();*/
         }
 
         List<NetworkShip> netShips = new List<NetworkShip>();
@@ -191,19 +190,22 @@ namespace PGCGame.Screens.Multiplayer
             }
             netShips.Clear();
             Vector4 myShip = new Vector4();
+
+            StateManager.InitializeSingleplayerGameScreen(SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Id].Type, SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Id].Tier, false);
+
             while (netGamer.IsDataAvailable)
             {
                 NetworkGamer infosender;
                 netGamer.ReceiveData(StateManager.NetworkData.DataReader, out infosender);
                 Vector4 ship = StateManager.NetworkData.DataReader.ReadVector4();
-                Byte targetGamerId = StateManager.NetworkData.DataReader.ReadByte();
-                if (targetGamerId == netGamer.Id)
+
+                if (infosender.Id == netGamer.Id)
                 {
                     myShip = ship;
                 }
                 else
                 {
-                    netShips.Add(NetworkShip.CreateFromData(ship, netGamer));
+                    netShips.Add(NetworkShip.CreateFromData(ship, infosender));
                 }
             }
             e.Result = myShip;
