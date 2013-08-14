@@ -171,12 +171,17 @@ namespace PGCGame.Screens.Multiplayer
             StateManager.SelectedShip = StateManager.NetworkData.SelectedNetworkShip.Type;
             StateManager.SelectedTier = StateManager.NetworkData.SelectedNetworkShip.Tier;
 
-            StateManager.EnemyShips.AddRange(netShips);
-
             /*Ship player = StateManager.GetScreen<GameScreen>(CoreTypes.ScreenType.Game).playerShip;
             player.Position = new Vector2(myShip.X, myShip.Y);
             player.Rotation = SpriteRotation.FromRadians(myShip.Z);
             player.CurrentHealth = myShip.W.ToInt();*/
+
+            foreach (NetworkGamer g in StateManager.NetworkData.CurrentSession.RemoteGamers)
+            {
+                SoloNetworkShip sns = new SoloNetworkShip(SelectedShips[g.Id].Type, SelectedShips[g.Id].Tier, GameScreen.World, g);
+                StateManager.EnemyShips.Add(sns);
+                StateManager.AllScreens[ScreenType.Game.ToString()].Sprites.Add(sns);
+            }
         }
 
         List<NetworkShip> netShips = new List<NetworkShip>();
@@ -205,7 +210,10 @@ namespace PGCGame.Screens.Multiplayer
                 }
                 else
                 {
-                    netShips.Add(NetworkShip.CreateFromData(ship, infosender));
+                    NetworkShip netShip = NetworkShip.CreateFromData(ship, infosender);
+                    netShips.Add(netShip);
+                    //StateManager.EnemyShips.Add(netShip);
+                    //StateManager.AllScreens[ScreenType.Game.ToString()].Sprites.Add(netShip);
                 }
             }
             e.Result = myShip;
