@@ -153,6 +153,7 @@ namespace PGCGame.Screens.Multiplayer
                 lScr.ScreenFinished += new EventHandler(lScr_ScreenFinished);
                 lScr.LoadingText = "Waiting for\ninformation\nfrom host...";
                 StateManager.ScreenState = CoreTypes.ScreenType.LoadingScreen;
+                preDataRecv.RunWorkerAsync();
                 //StateManager.ScreenState = CoreTypes.ScreenType.Game;
             }
             //StartButton.Visible = true;
