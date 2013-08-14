@@ -53,6 +53,7 @@ namespace PGCGame.Screens.Multiplayer
             fighterCarrier.Description.Color = Color.White;
             fighterCarrier.Name = FighterCarrier.ShipFriendlyName;
             fighterCarrier.Type = ShipType.FighterCarrier;
+            fighterCarrier.Tier = ShipTier.Tier2;
 
             items.Add(new KeyValuePair<Sprite, TextSprite>(fighterCarrier.Image, fighterCarrier.Description));
 
@@ -63,6 +64,7 @@ namespace PGCGame.Screens.Multiplayer
             battleCruiser.Image.Rotation = new SpriteRotation(90);
             battleCruiser.Name = BattleCruiser.ShipFriendlyName;
             battleCruiser.Type = ShipType.BattleCruiser;
+            battleCruiser.Tier = ShipTier.Tier2;
 
             battleCruiser.Description = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "\n\n This is the strongest class \n in the fleet, but also the slowest.\n What it lacks in speed it makes \n up for in strength.\n\n Damage Per Shot: 20\n Amount of Health: 120");
             battleCruiser.Description.Color = Color.White;
@@ -78,6 +80,7 @@ namespace PGCGame.Screens.Multiplayer
             torpedoShip.Type = ShipType.TorpedoShip;
             torpedoShip.Description = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "\n\n This class is the most balanced\n ship in the game. The torpedos do\n a lot of damage and \n are hard to dodge!\n\n Damege Per Shot: 5\n Amount of Health: 110");
             torpedoShip.Description.Color = Color.White;
+            torpedoShip.Tier = ShipTier.Tier2;
 
             items.Add(new KeyValuePair<Sprite, TextSprite>(torpedoShip.Image, torpedoShip.Description));
 
