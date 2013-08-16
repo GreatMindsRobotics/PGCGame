@@ -174,6 +174,8 @@ namespace PGCGame.Screens
             Sprites.Clear();
             enemies.Clear();
 
+            wcMovePrettyCode = new EventHandler(wcMovePreUpdate);
+
             SpriteFont SegoeUIMono = GameContent.GameAssets.Fonts.NormalText;
 
             secondaryWeaponLabel = new TextSprite(playerSb, SegoeUIMono, "No Secondary Weapon");
@@ -258,7 +260,7 @@ namespace PGCGame.Screens
                     }
                 }
             }
-#endregion
+            #endregion
 
             TextureFactory creator = new TextureFactory(Graphics);
 
@@ -315,6 +317,7 @@ namespace PGCGame.Screens
             ship.Position = ship.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport, true);
             playerShip = ship;
             playerShip.WCMoved += new EventHandler(playerShip_WCMoved);
+            playerShip.WCMoved += wcMovePrettyCode;
             playerShip.IsPlayerShip = true;
             playerShip.RotateTowardsMouse = true;
             playerSbObjects.Add(ship);
@@ -496,6 +499,11 @@ namespace PGCGame.Screens
 
         private Sprite _minimapYou = null;
 
+        private void wcMovePreUpdate(object o, EventArgs ea)
+        {
+            worldCam.Pos = playerShip.WorldCoords;
+        }
+
         private void addShipToMinimap(Ship ship, ref Ship activeMiniShipDisplay)
         {
             if (ship.GetType() == typeof(Drone) || ship.ShipState == ShipState.Exploding || ship.ShipState == ShipState.Dead)
@@ -587,6 +595,7 @@ namespace PGCGame.Screens
         KeyboardState _lastState = new KeyboardState();
 
         Boolean allEnemiesDead = true;
+        EventHandler wcMovePrettyCode;
 
         public override void Update(GameTime gameTime)
         {
@@ -724,7 +733,7 @@ namespace PGCGame.Screens
                         StateManager.InitializeSingleplayerGameScreen(playerShip.ShipType, playerShip.Tier);
                     }
                 }
-            
+
             }
 
             BackgroundSprite bg = BackgroundSprite.Cast<BackgroundSprite>();
@@ -976,6 +985,7 @@ namespace PGCGame.Screens
                         StateManager.KnownMap[r, c] = false;
                     }
                 }
+                playerShip.WCMoved -= wcMovePrettyCode;
             }
 
             _gameHasStarted = true;
