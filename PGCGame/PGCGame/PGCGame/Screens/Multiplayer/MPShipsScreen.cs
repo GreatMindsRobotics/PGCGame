@@ -342,6 +342,8 @@ namespace PGCGame.Screens.Multiplayer
                 StateManager.NetworkData.DataWriter.Write(new Vector4(my.WorldCoords.X, my.WorldCoords.Y, my.Rotation.Radians, my.CurrentHealth));
                 StateManager.NetworkData.DataWriter.Write(StateManager.NetworkData.CurrentSession.LocalGamers[0].Id);
 
+                StateManager.NetworkData.CurrentSession.LocalGamers[0].SendData(StateManager.NetworkData.DataWriter, SendDataOptions.Reliable);
+
                 foreach (NetworkGamer g in StateManager.NetworkData.CurrentSession.RemoteGamers)
                 {
                     BaseAllyShip sns = BaseAllyShip.CreateShip(SelectedShips[g.Id], GameScreen.World);
@@ -354,10 +356,10 @@ namespace PGCGame.Screens.Multiplayer
 
                     StateManager.EnemyShips.Add(sns);
                     StateManager.AllScreens[ScreenType.Game.ToString()].Sprites.Add(sns);
-                    
+                    StateManager.NetworkData.CurrentSession.LocalGamers[0].SendData(StateManager.NetworkData.DataWriter, SendDataOptions.Reliable);
                 }
 
-                StateManager.NetworkData.CurrentSession.LocalGamers[0].SendData(StateManager.NetworkData.DataWriter, SendDataOptions.Reliable);
+                
 
                 StateManager.NetworkData.CurrentSession.StartGame();
 
