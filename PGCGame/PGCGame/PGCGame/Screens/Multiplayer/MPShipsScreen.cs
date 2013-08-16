@@ -181,13 +181,17 @@ namespace PGCGame.Screens.Multiplayer
         void onDataRecv(object res)
         {
             Vector4 myShip = (Vector4)res;
-            StateManager.SelectedShip = StateManager.NetworkData.SelectedNetworkShip.Type;
-            StateManager.SelectedTier = StateManager.NetworkData.SelectedNetworkShip.Tier;
+
+            GameScreen game = StateManager.GetScreen<GameScreen>(CoreTypes.ScreenType.Game);
 
             /*Ship player = StateManager.GetScreen<GameScreen>(CoreTypes.ScreenType.Game).playerShip;
             player.Position = new Vector2(myShip.X, myShip.Y);
             player.Rotation = SpriteRotation.FromRadians(myShip.Z);
             player.CurrentHealth = myShip.W.ToInt();*/
+
+            game.playerShip.WorldCoords = new Vector2(myShip.X, myShip.Y);
+            game.playerShip.Rotation = SpriteRotation.FromRadians(myShip.Z);
+            game.playerShip.CurrentHealth = myShip.W.ToInt();
 
             foreach (NetworkGamer g in StateManager.NetworkData.CurrentSession.RemoteGamers)
             {
@@ -212,6 +216,8 @@ namespace PGCGame.Screens.Multiplayer
             
             Vector4 myShip = new Vector4();
 
+            StateManager.SelectedShip = StateManager.NetworkData.SelectedNetworkShip.Type;
+            StateManager.SelectedTier = StateManager.NetworkData.SelectedNetworkShip.Tier;
             StateManager.InitializeSingleplayerGameScreen(SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Id].Type, SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Id].Tier, false);
 
             while (netGamer.IsDataAvailable)
@@ -331,7 +337,9 @@ namespace PGCGame.Screens.Multiplayer
                     BaseAllyShip sns = BaseAllyShip.CreateShip(SelectedShips[g.Id], GameScreen.World);
                     sns.PlayerType = PlayerType.Solo;
                     sns.RotateTowardsMouse = false;
-                    StateManager.NetworkData.DataWriter.Write(new Vector4(sns.X, sns.Y, sns.Rotation.Radians, sns.CurrentHealth));
+                    sns.WorldCoords = StateManager.RandomGenerator.NextVector2(new Vector2(500), new Vector2(StateManager.SpawnArea.X + StateManager.SpawnArea.Width, StateManager.SpawnArea.Y + StateManager.SpawnArea.Height));
+
+                    StateManager.NetworkData.DataWriter.Write(new Vector4(sns.WorldCoords.X, sns.WorldCoords.Y, sns.Rotation.Radians, sns.CurrentHealth));
                     StateManager.NetworkData.DataWriter.Write(g.Id);
 
                     StateManager.EnemyShips.Add(sns);
