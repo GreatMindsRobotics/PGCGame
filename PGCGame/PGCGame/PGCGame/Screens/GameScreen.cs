@@ -19,6 +19,7 @@ using System.Diagnostics;
 using PGCGame.Ships.Enemies;
 using PGCGame.Ships.Allies;
 using Glib.XNA.InputLib;
+using Microsoft.Xna.Framework.Net;
 
 namespace PGCGame.Screens
 {
@@ -987,6 +988,31 @@ namespace PGCGame.Screens
                 }
                 playerShip.WCMoved -= wcMovePrettyCode;
             }
+
+            #region Networking Code
+
+            if (StateManager.NetworkData.CurrentSession != null)
+            {
+                while (StateManager.NetworkData.CurrentSession.LocalGamers[0].IsDataAvailable)
+                {
+                    NetworkGamer dataSender;
+                    StateManager.NetworkData.CurrentSession.LocalGamers[0].ReceiveData(StateManager.NetworkData.DataReader, out dataSender);
+                    Vector4 shipData = StateManager.NetworkData.DataReader.ReadVector4();
+                    foreach (Ship s in StateManager.EnemyShips)
+                    {
+                        BaseAllyShip sh = s as BaseAllyShip;
+                        if (sh != null && sh.Controller != null && sh.Controller.Id == dataSender.Id)
+                        {
+                            sh.WorldCoords = new Vector2(shipData.X, shipData.Y);
+                            sh.Rotation = SpriteRotation.FromRadians(shipData.Z);
+                            sh.CurrentHealth = shipData.W.ToInt();
+                            break;
+                        }
+                    }
+                }
+            }
+
+            #endregion
 
             _gameHasStarted = true;
 

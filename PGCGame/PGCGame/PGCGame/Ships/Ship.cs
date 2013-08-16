@@ -232,10 +232,19 @@ namespace PGCGame
         public virtual int CurrentHealth
         {
             get { return _currentHealth; }
-            set { _currentHealth = MathHelper.Clamp(value, 0, InitialHealth).ToInt(); }
+            set {
+                if (value != _currentHealth)
+                {
+                    _currentHealth = MathHelper.Clamp(value, 0, InitialHealth).ToInt();
+                    if (HealthChanged != null)
+                    {
+                        HealthChanged(this, EventArgs.Empty);
+                    }
+                }
+            }
         }
 
-
+        public event EventHandler HealthChanged;
 
         public int InitialHealth
         {

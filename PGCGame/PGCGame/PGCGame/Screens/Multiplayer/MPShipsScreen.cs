@@ -193,10 +193,13 @@ namespace PGCGame.Screens.Multiplayer
             game.playerShip.WorldCoords = new Vector2(me.X, me.Y);
             game.playerShip.Rotation = SpriteRotation.FromRadians(me.Z);
             game.playerShip.CurrentHealth = me.W.ToInt();
+            game.playerShip.WCMoved += new EventHandler(playerShip_NetworkStateChanged);
+            game.playerShip.HealthChanged += new EventHandler(playerShip_NetworkStateChanged);
 
             foreach (NetworkGamer g in StateManager.NetworkData.CurrentSession.RemoteGamers)
             {
                 BaseAllyShip sns = BaseAllyShip.CreateShip(SelectedShips[g.Id], GameScreen.World);
+                sns.Controller = g;
                 sns.PlayerType = PlayerType.Solo;
                 sns.RotateTowardsMouse = false;
                 Vector4 gamerShip = myShips[g.Id];
@@ -207,6 +210,15 @@ namespace PGCGame.Screens.Multiplayer
                 StateManager.EnemyShips.Add(sns);
                 StateManager.AllScreens[ScreenType.Game.ToString()].Sprites.Add(sns);
             }
+        }
+
+        void playerShip_NetworkStateChanged(object sender, EventArgs e)
+        {
+            BaseAllyShip yourShip = StateManager.GetScreen<GameScreen>(CoreTypes.ScreenType.Game).playerShip;
+            StateManager.NetworkData.DataWriter.Write(new Vector4(yourShip.WorldCoords.X, yourShip.WorldCoords.Y, yourShip.Rotation.Radians, yourShip.CurrentHealth));
+
+            //InOrder - because old versions never arrive after a more recent version
+            StateManager.NetworkData.CurrentSession.LocalGamers[0].SendData(StateManager.NetworkData.DataWriter, SendDataOptions.InOrder);
         }
 
         //List<NetworkShip> netShips = new List<NetworkShip>();

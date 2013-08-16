@@ -14,11 +14,14 @@ using Glib.XNA.SpriteLib;
 using PGCGame.CoreTypes;
 using Glib.XNA.InputLib;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Net;
 
 namespace PGCGame.Ships.Allies
 {
     public abstract class BaseAllyShip : Ship
     {
+        public NetworkGamer Controller;
+
         public static BaseAllyShip CreateShip(ShipType type, ShipTier tier, SpriteBatch spawnSpriteBatch)
         {
             BaseAllyShip bas = null;
