@@ -9,9 +9,9 @@ using Glib.XNA.SpriteLib;
 using Glib.XNA;
 using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Net;
-using PGCGame.Ships.Network;
 using Glib;
 using System.ComponentModel;
+using PGCGame.Ships.Allies;
 
 namespace PGCGame.Screens.Multiplayer
 {
@@ -141,10 +141,23 @@ namespace PGCGame.Screens.Multiplayer
                 StateManager.NetworkData.CurrentSession.LocalGamers[0].ReceiveData(StateManager.NetworkData.DataReader, out dataSender);
             }
             */
+
+
+            /*
+            foreach (NetworkGamer g in StateManager.NetworkData.CurrentSession.RemoteGamers)
+            {
+                SoloNetworkShip sns = new SoloNetworkShip(SelectedShips[g.Id].Type, SelectedShips[g.Id].Tier, GameScreen.World, g);
+                StateManager.EnemyShips.Add(sns);
+                StateManager.AllScreens[ScreenType.Game.ToString()].Sprites.Add(sns);
+            }
+            */
+
             if (!StateManager.NetworkData.CurrentSession.LocalGamers[0].IsHost)
             {
                 BackgroundWorker preDataRecv = new BackgroundWorker();
                 
+
+
                 LoadingScreen lScr = StateManager.AllScreens[ScreenType.LoadingScreen.ToString()] as LoadingScreen;
                 lScr.Reset();
                 preDataRecv.DoWork += new DoWorkEventHandler(preDataRecv_DoWork);
@@ -178,13 +191,16 @@ namespace PGCGame.Screens.Multiplayer
 
             foreach (NetworkGamer g in StateManager.NetworkData.CurrentSession.RemoteGamers)
             {
-                SoloNetworkShip sns = new SoloNetworkShip(SelectedShips[g.Id].Type, SelectedShips[g.Id].Tier, GameScreen.World, g);
+                BaseAllyShip sns = BaseAllyShip.CreateShip(SelectedShips[g.Id], GameScreen.World);
+                sns.PlayerType = PlayerType.Solo;
+                sns.RotateTowardsMouse = false;
+
                 StateManager.EnemyShips.Add(sns);
                 StateManager.AllScreens[ScreenType.Game.ToString()].Sprites.Add(sns);
             }
         }
 
-        List<NetworkShip> netShips = new List<NetworkShip>();
+        //List<NetworkShip> netShips = new List<NetworkShip>();
 
         void preDataRecv_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -193,7 +209,7 @@ namespace PGCGame.Screens.Multiplayer
             {
 
             }
-            netShips.Clear();
+            
             Vector4 myShip = new Vector4();
 
             StateManager.InitializeSingleplayerGameScreen(SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Id].Type, SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Id].Tier, false);
@@ -208,6 +224,7 @@ namespace PGCGame.Screens.Multiplayer
                 {
                     myShip = ship;
                 }
+                    /*
                 else
                 {
                     NetworkShip netShip = NetworkShip.CreateFromData(ship, infosender);
@@ -215,6 +232,7 @@ namespace PGCGame.Screens.Multiplayer
                     //StateManager.EnemyShips.Add(netShip);
                     //StateManager.AllScreens[ScreenType.Game.ToString()].Sprites.Add(netShip);
                 }
+                     */
             }
             e.Result = myShip;
         }
@@ -308,12 +326,7 @@ namespace PGCGame.Screens.Multiplayer
 
                 StateManager.InitializeSingleplayerGameScreen(SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Id].Type, SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Id].Tier, false);
 
-                foreach (NetworkGamer g in StateManager.NetworkData.CurrentSession.RemoteGamers)
-                {
-                    SoloNetworkShip sns = new SoloNetworkShip(SelectedShips[g.Id].Type, SelectedShips[g.Id].Tier, GameScreen.World, g);
-                    StateManager.EnemyShips.Add(sns);
-                    StateManager.AllScreens[ScreenType.Game.ToString()].Sprites.Add(sns);
-                }
+                
                 foreach (LocalNetworkGamer locGamer in StateManager.NetworkData.CurrentSession.LocalGamers)
                 {
                     locGamer.SendData(StateManager.NetworkData.DataWriter, SendDataOptions.Reliable);

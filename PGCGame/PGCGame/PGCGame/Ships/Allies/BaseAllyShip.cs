@@ -19,6 +19,42 @@ namespace PGCGame.Ships.Allies
 {
     public abstract class BaseAllyShip : Ship
     {
+        public static BaseAllyShip CreateShip(ShipType type, ShipTier tier, SpriteBatch spawnSpriteBatch)
+        {
+            BaseAllyShip bas = null;
+            switch (type)
+            {
+                case ShipType.BattleCruiser:
+                    bas = new BattleCruiser(GameContent.GameAssets.Images.Ships[type, tier], Vector2.Zero, spawnSpriteBatch);
+                    break;
+                case ShipType.FighterCarrier:
+                    bas = new FighterCarrier(GameContent.GameAssets.Images.Ships[type, tier], Vector2.Zero, spawnSpriteBatch, GameContent.GameAssets.Images.Ships[ShipType.Drone, ShipTier.Tier1]);
+                    break;
+                case ShipType.TorpedoShip:
+                    bas = new TorpedoShip(GameContent.GameAssets.Images.Ships[type, tier], Vector2.Zero, spawnSpriteBatch);
+                    break;
+
+                default:
+                    throw new NotImplementedException("Cannot create the specified ship type.");
+            }
+
+            bas.Tier = tier;
+            bas.FriendlyName = type.ToFriendlyString();
+
+            return bas;
+        }
+
+        public static BaseAllyShip CreateShip(ShipType type, SpriteBatch sb)
+        {
+            return CreateShip(type, ShipTier.Tier1, sb);
+        }
+
+        public static BaseAllyShip CreateShip(ShipStats stats, SpriteBatch sb)
+        {
+            return CreateShip(stats.Type, stats.Tier, sb);
+        }
+
+
         private TimeSpan _elapsedShotTime = TimeSpan.Zero;
 
 #if WINDOWS

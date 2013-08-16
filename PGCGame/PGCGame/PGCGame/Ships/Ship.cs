@@ -101,9 +101,12 @@ namespace PGCGame
             get { return _friendlyName; }
         }
 
+        private string _instanceName = null;
+
         public string FriendlyName
         {
-            get { return _friendlyName; }
+            get { return _instanceName == null ? _friendlyName : _instanceName; }
+            set { _instanceName = value; }
         }
 
         //current tier of the ship
