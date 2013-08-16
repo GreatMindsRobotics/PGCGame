@@ -193,7 +193,7 @@ namespace PGCGame.Screens
             //Set the world size in StateManager for later access
             StateManager.WorldSize = new Rectangle(0, 0, (int)bgspr.TotalWidth, (int)bgspr.TotalHeight);
 
-            StateManager.SpawnArea = new Rectangle(500, 500, bgspr.TotalWidth.Round() - 500, bgspr.TotalHeight.Round() - 500);
+            StateManager.SpawnArea = new Rectangle(500, 500, bgspr.TotalWidth.Round() - 1000, bgspr.TotalHeight.Round() - 1000);
 
             Vector2 minSpawnArea = _playableAreaOffset;
             Vector2 maxSpawnArea = new Vector2(bgspr.TotalWidth, bgspr.TotalHeight) - _playableAreaOffset;
