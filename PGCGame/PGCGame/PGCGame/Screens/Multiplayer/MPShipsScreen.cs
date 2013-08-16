@@ -326,6 +326,17 @@ namespace PGCGame.Screens.Multiplayer
 
                 StateManager.InitializeSingleplayerGameScreen(SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Id].Type, SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Id].Tier, false);
 
+                foreach (NetworkGamer g in StateManager.NetworkData.CurrentSession.RemoteGamers)
+                {
+                    BaseAllyShip sns = BaseAllyShip.CreateShip(SelectedShips[g.Id], GameScreen.World);
+                    sns.PlayerType = PlayerType.Solo;
+                    sns.RotateTowardsMouse = false;
+                    StateManager.NetworkData.DataWriter.Write(new Vector4(sns.X, sns.Y, sns.Rotation.Radians, sns.CurrentHealth));
+                    StateManager.NetworkData.DataWriter.Write(g.Id);
+
+                    StateManager.EnemyShips.Add(sns);
+                    StateManager.AllScreens[ScreenType.Game.ToString()].Sprites.Add(sns);
+                }
                 
                 foreach (LocalNetworkGamer locGamer in StateManager.NetworkData.CurrentSession.LocalGamers)
                 {
