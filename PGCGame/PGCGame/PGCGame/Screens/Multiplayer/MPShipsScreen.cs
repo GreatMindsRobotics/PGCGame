@@ -337,9 +337,9 @@ namespace PGCGame.Screens.Multiplayer
 
                 GameScreen game = StateManager.GetScreen<GameScreen>(CoreTypes.ScreenType.Game);
 
-                Ship sns = game.playerShip;
+                Ship my = game.playerShip;
 
-                StateManager.NetworkData.DataWriter.Write(new Vector4(sns.WorldCoords.X, sns.WorldCoords.Y, sns.Rotation.Radians, sns.CurrentHealth));
+                StateManager.NetworkData.DataWriter.Write(new Vector4(my.WorldCoords.X, my.WorldCoords.Y, my.Rotation.Radians, my.CurrentHealth));
                 StateManager.NetworkData.DataWriter.Write(StateManager.NetworkData.CurrentSession.LocalGamers[0].Id);
 
                 foreach (NetworkGamer g in StateManager.NetworkData.CurrentSession.RemoteGamers)
