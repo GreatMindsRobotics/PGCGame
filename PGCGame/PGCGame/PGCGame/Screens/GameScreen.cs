@@ -601,7 +601,12 @@ namespace PGCGame.Screens
                     MediaPlayer.Play(_gameSong);
                 }
                 //_allowMusicHandling = true;
-                playerShip.WorldCoords = worldCam.Pos;
+
+                if (playerShip.WorldCoords == Vector2.Zero)
+                {
+                    //This is the temporary workaround
+                    playerShip.WorldCoords = worldCam.Pos;
+                }
             }
 
             base.Update(gameTime);
