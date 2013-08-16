@@ -224,12 +224,7 @@ namespace PGCGame.Screens.Multiplayer
             {
                 NetworkGamer infosender;
                 netGamer.ReceiveData(StateManager.NetworkData.DataReader, out infosender);
-                Vector4 ship = StateManager.NetworkData.DataReader.ReadVector4();
-
-                if (infosender.Id == netGamer.Id)
-                {
-                    myShip = ship;
-                }
+                myShip = StateManager.NetworkData.DataReader.ReadVector4();
                     /*
                 else
                 {
@@ -340,16 +335,12 @@ namespace PGCGame.Screens.Multiplayer
                     sns.WorldCoords = StateManager.RandomGenerator.NextVector2(new Vector2(500), new Vector2(StateManager.SpawnArea.X + StateManager.SpawnArea.Width, StateManager.SpawnArea.Y + StateManager.SpawnArea.Height));
 
                     StateManager.NetworkData.DataWriter.Write(new Vector4(sns.WorldCoords.X, sns.WorldCoords.Y, sns.Rotation.Radians, sns.CurrentHealth));
-                    StateManager.NetworkData.DataWriter.Write(g.Id);
 
                     StateManager.EnemyShips.Add(sns);
                     StateManager.AllScreens[ScreenType.Game.ToString()].Sprites.Add(sns);
+                    StateManager.NetworkData.CurrentSession.LocalGamers[0].SendData(StateManager.NetworkData.DataWriter, SendDataOptions.Reliable, g);
                 }
-                
-                foreach (LocalNetworkGamer locGamer in StateManager.NetworkData.CurrentSession.LocalGamers)
-                {
-                    locGamer.SendData(StateManager.NetworkData.DataWriter, SendDataOptions.Reliable);
-                }
+
                 StateManager.NetworkData.CurrentSession.StartGame();
 
                 StateManager.CurrentLevel = GameLevel.Level1;
