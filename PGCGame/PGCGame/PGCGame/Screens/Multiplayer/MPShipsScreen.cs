@@ -356,6 +356,9 @@ namespace PGCGame.Screens.Multiplayer
 
                 StateManager.NetworkData.CurrentSession.LocalGamers[0].SendData(StateManager.NetworkData.DataWriter, SendDataOptions.Reliable);
 
+                game.playerShip.WCMoved += new EventHandler(playerShip_NetworkStateChanged);
+                game.playerShip.HealthChanged += new EventHandler(playerShip_NetworkStateChanged);
+
                 foreach (NetworkGamer g in StateManager.NetworkData.CurrentSession.RemoteGamers)
                 {
                     BaseAllyShip sns = BaseAllyShip.CreateShip(SelectedShips[g.Id], GameScreen.World);
