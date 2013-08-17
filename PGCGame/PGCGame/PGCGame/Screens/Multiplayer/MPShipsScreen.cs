@@ -239,7 +239,7 @@ namespace PGCGame.Screens.Multiplayer
 
             int gamersReceived = 0;
 
-            while (netGamer.IsDataAvailable && gamersReceived < SelectedShips.Count)
+            while (netGamer.IsDataAvailable && gamersReceived < StateManager.NetworkData.CurrentSession.AllGamers.Count)
             {
                 NetworkGamer infosender;
                 netGamer.ReceiveData(StateManager.NetworkData.DataReader, out infosender);
@@ -360,8 +360,8 @@ namespace PGCGame.Screens.Multiplayer
 
                 StateManager.NetworkData.CurrentSession.LocalGamers[0].SendData(StateManager.NetworkData.DataWriter, SendDataOptions.Reliable);
 
-                game.playerShip.WCMoved += new EventHandler(playerShip_NetworkStateChanged);
-                game.playerShip.HealthChanged += new EventHandler(playerShip_NetworkStateChanged);
+                my.WCMoved += new EventHandler(playerShip_NetworkStateChanged);
+                my.HealthChanged += new EventHandler(playerShip_NetworkStateChanged);
 
                 foreach (NetworkGamer g in StateManager.NetworkData.CurrentSession.RemoteGamers)
                 {
