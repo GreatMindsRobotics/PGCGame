@@ -169,6 +169,10 @@ namespace PGCGame.Screens.Multiplayer
                 preDataRecv.RunWorkerAsync();
                 //StateManager.ScreenState = CoreTypes.ScreenType.Game;
             }
+            foreach (NetworkGamer g in StateManager.NetworkData.CurrentSession.RemoteGamers)
+            {
+                StateManager.NetworkData.CurrentSession.LocalGamers[0].EnableSendVoice(g, false);
+            }
             //StartButton.Visible = true;
             //StartLabel.Visible = true;
         }
@@ -379,7 +383,7 @@ namespace PGCGame.Screens.Multiplayer
                 }
 
 
-
+                
                 StateManager.NetworkData.CurrentSession.StartGame();
 
                 StateManager.CurrentLevel = GameLevel.Level1;
