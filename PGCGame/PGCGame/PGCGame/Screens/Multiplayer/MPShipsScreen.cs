@@ -237,13 +237,17 @@ namespace PGCGame.Screens.Multiplayer
             StateManager.SelectedTier = StateManager.NetworkData.SelectedNetworkShip.Tier;
             StateManager.InitializeSingleplayerGameScreen(SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Id].Type, SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Id].Tier, false);
 
-            while (netGamer.IsDataAvailable)
+            int gamersReceived = 0;
+
+            while (netGamer.IsDataAvailable && gamersReceived < SelectedShips.Count)
             {
                 NetworkGamer infosender;
                 netGamer.ReceiveData(StateManager.NetworkData.DataReader, out infosender);
                 Vector4 ship = StateManager.NetworkData.DataReader.ReadVector4();
                 Byte targetPlayer = StateManager.NetworkData.DataReader.ReadByte();
+
                 ships.Add(targetPlayer, ship);
+                gamersReceived++;
                 /*
             else
             {
@@ -374,7 +378,7 @@ namespace PGCGame.Screens.Multiplayer
                     StateManager.NetworkData.CurrentSession.LocalGamers[0].SendData(StateManager.NetworkData.DataWriter, SendDataOptions.Reliable);
                 }
 
-                
+
 
                 StateManager.NetworkData.CurrentSession.StartGame();
 
