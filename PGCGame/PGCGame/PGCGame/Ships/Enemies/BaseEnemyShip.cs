@@ -122,14 +122,14 @@ namespace PGCGame.Ships.Enemies
 
                 Vector2? shipDistance = null;
 
-                /*
+                
                 //finds the closest ship 
                 float bulletDistanceX;
                 float bulletDistanceY;
                 float? bulletDistance = null;
-
-                 * 
-                 * //Bullet avoiding logic
+                
+                 
+                //Bullet avoiding logic
                 foreach (Bullet b in StateManager.AllyBullets.Legit)
                 {
                     bulletDistanceX = Math.Abs(b.X - this.X);
@@ -140,7 +140,7 @@ namespace PGCGame.Ships.Enemies
                         activated = true;
                     }
                 }
-                */
+                
 
                 foreach (Ship allyShip in StateManager.AllyShips)
                 {
