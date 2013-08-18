@@ -182,6 +182,11 @@ namespace PGCGame.Screens.Multiplayer
             StateManager.ScreenState = CoreTypes.ScreenType.Game;
         }
 
+        void breakHandle(object o, EventArgs e)
+        {
+            System.Diagnostics.Debugger.Break();
+        }
+
         void onDataRecv(object res)
         {
             Dictionary<byte, Vector4> myShips = (Dictionary<byte, Vector4>)res;
@@ -198,6 +203,7 @@ namespace PGCGame.Screens.Multiplayer
             game.playerShip.Rotation = SpriteRotation.FromRadians(me.Z);
             game.playerShip.CurrentHealth = me.W.ToInt();
             game.playerShip.WCMoved += new EventHandler(playerShip_NetworkStateChanged);
+            //game.playerShip.WCMoved += new EventHandler(breakHandle);
             game.playerShip.HealthChanged += new EventHandler(playerShip_NetworkStateChanged);
 
             foreach (NetworkGamer g in StateManager.NetworkData.CurrentSession.RemoteGamers)
