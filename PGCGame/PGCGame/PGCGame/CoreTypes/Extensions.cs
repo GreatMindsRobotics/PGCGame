@@ -119,6 +119,21 @@ namespace PGCGame.CoreTypes
 
                 case ShipType.FighterCarrier:
                     return "Fighter Carrier";
+
+                case ShipType.EnemyBattleCruiser:
+                    return "Enemy Battle Cruiser";
+
+                case ShipType.EnemyBoss:
+                    return "Boss";
+                case ShipType.EnemyBossesClones:
+                    return "Boss";
+                case ShipType.EnemyDrone:
+                    return "Enemy Drone";
+                case ShipType.EnemyFighterCarrier:
+                    return "Enemy Fighter Carrier";
+                case ShipType.EnemyTorpedoShip:
+                    return "Enemy Torpedo Ship";
+
                 default:
                     return ship.ToString();
             }

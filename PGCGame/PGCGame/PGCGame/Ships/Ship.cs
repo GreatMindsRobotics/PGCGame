@@ -60,7 +60,7 @@ namespace PGCGame
             _currentHealth = _initHealth;
 
             ExplosionSFX = GameContent.GameAssets.Sound[SoundEffectType.EnemyExplodes];
-
+            FriendlyName = ShipType.ToFriendlyString();
         }
 
         void Ship_Moved(object sender, EventArgs e)
@@ -96,21 +96,13 @@ namespace PGCGame
             get { return _hasHealthBar = true; }
             set { _hasHealthBar = value; }
         }
-        
-
-        protected static string _friendlyName;
-
-        public static string ShipFriendlyName
-        {
-            get { return _friendlyName; }
-        }
 
         private string _instanceName = null;
 
         public string FriendlyName
         {
-            get { return _instanceName == null ? _friendlyName : _instanceName; }
-            set { _instanceName = value; }
+            get { return _instanceName == null ? (PlayerType == CoreTypes.PlayerType.Enemy || PlayerType == CoreTypes.PlayerType.Solo ? "Enemy Ship" : "Ally Ship") : _instanceName; }
+            private set { _instanceName = value; }
         }
 
         //current tier of the ship

@@ -38,11 +38,6 @@ namespace PGCGame
             ShootSound = GameContent.GameAssets.Sound[SoundEffectType.TorpedoShipFire];
         }
 
-        static TorpedoShip()
-        {
-            _friendlyName = "Torpedo Ship";
-        }
-
         void TorpedoShip_TierChanged(object sender, EventArgs e)
         {
             if (Tier == ShipTier.Tier1)

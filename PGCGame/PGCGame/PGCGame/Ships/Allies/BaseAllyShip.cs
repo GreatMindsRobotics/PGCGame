@@ -43,7 +43,7 @@ namespace PGCGame.Ships.Allies
 
             bas.Tier = tier;
             bas.UseCenterAsOrigin = true;
-            bas.FriendlyName = type.ToFriendlyString();
+            //bas.FriendlyName = type.ToFriendlyString();
 
             return bas;
         }

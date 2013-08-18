@@ -118,8 +118,6 @@ namespace PGCGame
 
         static FighterCarrier()
         {
-            _friendlyName = "Fighter Carrier";
-            //TODO: Better drone length
             DroneLength = 0;
         }
     }

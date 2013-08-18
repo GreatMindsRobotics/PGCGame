@@ -91,8 +91,6 @@ namespace PGCGame
         {
             _cost[ShipTier.Tier1] = 5000;
             _cost[ShipTier.Tier2] = 10000;
-
-            _friendlyName = "Drone";
         }
 
         #endregion Public Ctors

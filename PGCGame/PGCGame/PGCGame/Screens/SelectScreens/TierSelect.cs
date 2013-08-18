@@ -29,7 +29,13 @@ namespace PGCGame.Screens.SelectScreens
             public Sprite Image;
             public ShipType Type;
             public ShipTier Tier;
-            public string Name;
+            public string Name
+            {
+                get
+                {
+                    return Type.ToFriendlyString();
+                }
+            }
             public TextSprite Description;
             public int Cost;
         }
@@ -70,7 +76,6 @@ namespace PGCGame.Screens.SelectScreens
             battleCruiser.Image.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.81f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .12f);
             battleCruiser.Image.Rotation = new SpriteRotation(90);
 
-            battleCruiser.Name = BattleCruiser.ShipFriendlyName;
             battleCruiser.Cost = BattleCruiser.Cost[upgradeTier];
 
             battleCruiser.Type = ShipType.BattleCruiser;
@@ -90,7 +95,6 @@ namespace PGCGame.Screens.SelectScreens
             fighterCarrier.Image.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.85f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .01f);
             fighterCarrier.Image.Rotation = new SpriteRotation(90);
 
-            fighterCarrier.Name = FighterCarrier.ShipFriendlyName;
             fighterCarrier.Cost = FighterCarrier.Cost[upgradeTier];
             
             fighterCarrier.Type = ShipType.FighterCarrier;
@@ -110,7 +114,6 @@ namespace PGCGame.Screens.SelectScreens
             torpedoShip.Image.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.81f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .12f);
             torpedoShip.Image.Rotation = new SpriteRotation(90);
 
-            torpedoShip.Name = TorpedoShip.ShipFriendlyName;
             torpedoShip.Cost = TorpedoShip.Cost[upgradeTier];
 
             torpedoShip.Type = ShipType.TorpedoShip;
@@ -254,7 +257,7 @@ namespace PGCGame.Screens.SelectScreens
             {
                 if (shipInfo.Image.Texture == items[selected].Key.Texture)
                 {
-                    nameLabel.Text = string.Format("Ship:{0}\nShip Tier:Tier {1}\nCost:{2} Credits", shipInfo.Type, shipInfo.Tier.ToInt(), shipInfo.Cost);
+                    nameLabel.Text = string.Format("Ship: {0}\nShip Tier: {1}\nCost: {2} Credits", shipInfo.Name, shipInfo.Tier.ToFriendlyString(), shipInfo.Cost);
                     break;
                 }
             }

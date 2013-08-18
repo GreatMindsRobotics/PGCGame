@@ -446,7 +446,7 @@ namespace PGCGame.Screens
                 string shipIdStr = activeMiniShipDisplay.ShipID.ToString();
                 string[] digits = shipIdStr.Split('-');
                 shipIdStr = digits[0] + "..." + digits[digits.Length - 1];
-                miniShipInfo = new TextSprite(playerSb, normal, string.Format("HP: {0}/{1}\nDamage: {2}{3}", activeMiniShipDisplay.CurrentHealth, activeMiniShipDisplay.InitialHealth, activeMiniShipDisplay.DamagePerShot, StateManager.DebugData.ShowShipIDs ? "\nID: " + shipIdStr : ""));
+                miniShipInfo = new TextSprite(playerSb, normal, string.Format("Tier {4}\nHP: {0}/{1}\nDamage: {2}{3}", activeMiniShipDisplay.CurrentHealth, activeMiniShipDisplay.InitialHealth, activeMiniShipDisplay.DamagePerShot, StateManager.DebugData.ShowShipIDs ? "\nID: " + shipIdStr : "", activeMiniShipDisplay.Tier.ToInt()));
                 miniShipInfo.Color = Color.White;
                 miniShipInfo.Position = new Vector2(miniShipInfoBg.X + (miniShipInfoBg.Width / 2f) - (miniShipInfo.Width / 2f), miniShipInfoTitle.Y + bold.LineSpacing);
                 if (StateManager.HasBoughtScanner || StateManager.DebugData.ShowShipIDs)

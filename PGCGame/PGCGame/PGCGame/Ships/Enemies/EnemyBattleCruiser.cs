@@ -31,11 +31,6 @@ namespace PGCGame.Ships.Enemies
         {
             get { return ShipType.EnemyBattleCruiser; }
         }
-
-        static EnemyBattleCruiser()
-        {
-            _friendlyName = "Enemy Ship";
-        }
     }
 }
 
