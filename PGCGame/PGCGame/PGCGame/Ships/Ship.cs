@@ -65,6 +65,10 @@ namespace PGCGame
 
         void Ship_Moved(object sender, EventArgs e)
         {
+            if (this.ShipType != CoreTypes.ShipType.Drone && (this is BaseAllyShip) && (this as BaseAllyShip).Controller != null && (this as BaseAllyShip).Controller.IsLocal)
+            {
+                System.Diagnostics.Debugger.Break();
+            }
             _healthBar.Position = new Vector2(X - (_healthBar.Width / 2), Y - (Height / 1.5f));
             UpdateWcPos();
         }
@@ -195,7 +199,10 @@ namespace PGCGame
             }
             set
             {
-                Position = value;
+                if (value != Position)
+                {
+                    Position = value;
+                }
             }
         }
 

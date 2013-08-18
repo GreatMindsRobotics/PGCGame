@@ -108,7 +108,7 @@ namespace PGCGame.Ships.Allies
             }
             set
             {
-                if (value != (IsPlayerShip ? _worldPos : Position))
+                if (value != WorldCoords)
                 {
                     if (!IsPlayerShip)
                     {
