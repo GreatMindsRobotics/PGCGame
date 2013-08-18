@@ -76,7 +76,7 @@ namespace GitPractice
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            spaceShip.LoadContent(Content, "ship");
+            spaceShip.LoadContent(Content, "GalagaShip");
             spaceShip.Speed = new Vector2(7, 7);
 
             font = Content.Load<SpriteFont>("SpriteFont1");
@@ -144,7 +144,7 @@ namespace GitPractice
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Aquamarine);
+            GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
 
@@ -152,8 +152,8 @@ namespace GitPractice
 
             enemy.Draw(spriteBatch);
 
-            spriteBatch.DrawString(font, text, scorePosition, Color.Black);
-            spriteBatch.DrawString(font, scoreNumber, number, Color.Black); horizontalEnemy.Draw(spriteBatch);
+            spriteBatch.DrawString(font, text, scorePosition, Color.Green);
+            spriteBatch.DrawString(font, scoreNumber, number, Color.Green); horizontalEnemy.Draw(spriteBatch);
 
             _coin3.Draw(spriteBatch);
 
