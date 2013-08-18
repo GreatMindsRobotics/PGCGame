@@ -52,27 +52,27 @@ namespace GitPractice
             LoadContent(content, assetName, new Vector2());
         }
 
-        public void Update(KeyboardState keyboard, GameTime gameTime, GameState gameState, Viewport viewport)
+        public virtual void Update(KeyboardState keyboard, GameTime gameTime, GameState gameState, Viewport viewport)
         {
             if (keyboard.IsKeyDown(_KeyUp) && Location.Y - Speed.Y > 0)
             {
-                Location = new Vector2(Location.X, Location.Y - _speed.Y);
+                _location.Y  -= _speed.Y;
             }
             if (keyboard.IsKeyDown(_KeyDown) && Location.Y + Texture.Height + Speed.Y < viewport.Height)
             {
-                Location = new Vector2(Location.X, Location.Y + _speed.Y);
+                _location.Y += _speed.Y;
             }
             if (keyboard.IsKeyDown(_KeyRight) && Location.X + Texture.Width + Speed.X < viewport.Width)
             {
-                Location = new Vector2(Location.X + _speed.X, Location.Y);
+                _location.X += _speed.X;
             }
             if (keyboard.IsKeyDown(_KeyLeft) && Location.X - Speed.X > 0)
             {
-                Location = new Vector2(Location.X - _speed.X, Location.Y);
+                _location.X -= _speed.X;
             }
             if (keyboard.IsKeyDown(_KeyReset))
             {
-                Location = new Vector2(viewport.Width / 2, viewport.Height / 2);
+                Location = new Vector2((viewport.Width - _texture.Width) / 2, (viewport.Height - _texture.Height ) / 2);
             }
 
 

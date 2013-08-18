@@ -33,9 +33,8 @@ namespace GitPractice
             _flyingBullets = new List<MovingSprite>();
         }
 
-        public new void Update(KeyboardState keyboard, GameTime gameTime, GameState gameState, Viewport viewport)
-        {
-            
+        public override void Update(KeyboardState keyboard, GameTime gameTime, GameState gameState, Viewport viewport)
+        {           
             _elapsedTime += gameTime.ElapsedGameTime;
 
             for(int i = 0; i < _flyingBullets.Count; i++)

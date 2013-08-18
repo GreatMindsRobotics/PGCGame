@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace GitPractice
 {
@@ -16,13 +18,26 @@ namespace GitPractice
             set { _isDead = value; }
         }
 
-        private Rectangle _rect;
+        private Rectangle _rect = new Rectangle(0, 0, 4, 17);
 
         public Rectangle Rect
-        {
+        {            
             get { return _rect; }
-            set { _rect = value; }
         }
-        
+
+        public override void Update(KeyboardState keyboard, GameTime gameTime, GameState gameState, Viewport viewport)
+        {
+            base.Update(keyboard, gameTime, gameState, viewport);
+
+            _rect.X = (int)_location.X;
+            _rect.Y = (int)_location.Y;
+        }
+
+       
+
+
+
+       
+
     }
 }
