@@ -29,7 +29,8 @@ namespace GitPractice
         Vector2 scorePosition;
         String text;
 
-        String scoreNumber;
+        int scoreNumber;
+        String scoreText;
         Vector2 number;
 
         Ship spaceShip;
@@ -76,17 +77,19 @@ namespace GitPractice
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            scoreText = scoreNumber.ToString();
+
             spaceShip.LoadContent(Content, "GalagaShip");
             spaceShip.Speed = new Vector2(7, 7);
 
             font = Content.Load<SpriteFont>("SpriteFont1");
-            scorePosition = new Vector2(0, 0);
+            scorePosition = Vector2.Zero;
             text = "Score: ";
-            scoreNumber = "";
-            number = new Vector2(10, 0);
+            scoreNumber = 0;
+            number = new Vector2(85, 0);
 
             enemy.LoadContent(Content, "coin");
-            enemy.Speed = new Vector2(0, 0);
+            enemy.Speed = Vector2.Zero;
             enemy.MoveDirection = MoveDirection.Down;
 
             horizontalEnemy.LoadContent(Content, "coin");
@@ -94,11 +97,11 @@ namespace GitPractice
             horizontalEnemy.MoveDirection = MoveDirection.Right;
 
             _coin3.LoadContent(Content, "coin");
-            _coin3.Speed = new Vector2(0, 0);
+            _coin3.Speed = Vector2.Zero;
             _coin3.MoveDirection = MoveDirection.Right;
 
             _coin4.LoadContent(Content, "coin");
-            _coin4.Speed = new Vector2(0, 0);
+            _coin4.Speed = Vector2.Zero;
             _coin4.MoveDirection = MoveDirection.Right;
 
             bgMusic = Content.Load<Song>("bgMusic");
@@ -135,6 +138,16 @@ namespace GitPractice
             _coin3.Update(gameTime, GameState.Playing, MoveDirection.Right, graphics.GraphicsDevice.Viewport);
             _coin4.Update(gameTime, GameState.Playing, MoveDirection.Right, graphics.GraphicsDevice.Viewport);
 
+            foreach (Bullet bullet in spaceShip.FlyingBullets)
+            {
+                if (bullet.Rect.Intersects(bullet.Rect))
+                {
+                    scoreNumber++;
+                    bullet.IsDead = true;
+                }
+            }
+
+
             base.Update(gameTime);
         }
 
@@ -153,7 +166,7 @@ namespace GitPractice
             enemy.Draw(spriteBatch);
 
             spriteBatch.DrawString(font, text, scorePosition, Color.Green);
-            spriteBatch.DrawString(font, scoreNumber, number, Color.Green); horizontalEnemy.Draw(spriteBatch);
+            spriteBatch.DrawString(font, scoreText, number, Color.Green); horizontalEnemy.Draw(spriteBatch);
 
             _coin3.Draw(spriteBatch);
 

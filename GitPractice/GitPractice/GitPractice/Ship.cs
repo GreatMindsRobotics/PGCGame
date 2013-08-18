@@ -17,8 +17,13 @@ namespace GitPractice
     
     public class Ship : MovingSprite
     {
-        private List<MovingSprite> _flyingBullets;
+        private List<Bullet> _flyingBullets;
         private MovingSprite bullet;
+
+        public List<Bullet> FlyingBullets
+        {
+            get { return _flyingBullets; }
+        }
 
         //if is zero bullet can fire;
         private TimeSpan _rateOfFire = new TimeSpan(0, 0, 0, 0, 200);
@@ -30,7 +35,7 @@ namespace GitPractice
             bullet = new MovingSprite();
             bullet.LoadContent(content, "bullet", new Vector2(0, 5));
 
-            _flyingBullets = new List<MovingSprite>();
+            _flyingBullets = new List<Bullet>();
         }
 
         public override void Update(KeyboardState keyboard, GameTime gameTime, GameState gameState, Viewport viewport)
@@ -40,16 +45,15 @@ namespace GitPractice
             for(int i = 0; i < _flyingBullets.Count; i++)
             {
                 _flyingBullets[i].Update(new KeyboardState(_flyingBullets[i].KeyUp), gameTime, gameState, viewport);
-                if (_flyingBullets[i].Location.Y <=_flyingBullets[i].Texture.Height)
+                if (_flyingBullets[i].Location.Y <=_flyingBullets[i].Texture.Height || _flyingBullets[i].IsDead)
                 {
                     _flyingBullets.Remove(_flyingBullets[i]);
                 }
-
             }
 
             if (keyboard.IsKeyDown(Keys.Space) && _elapsedTime > _rateOfFire)
             {
-                MovingSprite createdBullet = new MovingSprite();
+                Bullet createdBullet = new Bullet();
 
                 createdBullet.Texture = bullet.Texture;
                 createdBullet.Location = new Vector2(Location.X + Texture.Width / 2, Location.Y - createdBullet.Texture.Height);
