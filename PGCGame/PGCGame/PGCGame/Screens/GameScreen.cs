@@ -162,7 +162,7 @@ namespace PGCGame.Screens
         BackgroundSprite bgspr;
 
 
-        public void InitializeScreen<TShip>(ShipTier tier, bool spawnEnemies) where TShip : BaseAllyShip
+        public void InitializeScreen(ShipStats ship, bool spawnEnemies)
         {
             //Reset any active ships, since we're re-initializing the game screen
             StateManager.EnemyShips.Clear();
@@ -290,38 +290,20 @@ namespace PGCGame.Screens
 
 
 
-            if (typeof(TShip) == typeof(Drone))
+            if (ship.Type == ShipType.Drone)
             {
                 throw new Exception("Can't create a Drone as the main ship");
             }
 
-            TShip ship = null;
+            playerShip = BaseAllyShip.CreateShip(ship, playerSb);
 
-            //Can't compare on a type
-            //These are full type names, if we change a namespace, this must change
-            switch (typeof(TShip).FullName)
-            {
-                case "PGCGame.BattleCruiser":
-                    ship = new BattleCruiser(GameContent.GameAssets.Images.Ships[ShipType.BattleCruiser, tier], Vector2.Zero, this.playerSb).Cast<TShip>();
-                    break;
-                case "PGCGame.FighterCarrier":
-                    ship = new FighterCarrier(GameContent.GameAssets.Images.Ships[ShipType.FighterCarrier, tier], Vector2.Zero, playerSb, GameContent.GameAssets.Images.Ships[ShipType.Drone, ShipTier.Tier1]).Cast<TShip>();
-                    break;
-                case "PGCGame.TorpedoShip":
-                    ship = new TorpedoShip(GameContent.GameAssets.Images.Ships[ShipType.TorpedoShip, tier], Vector2.Zero, playerSb).Cast<TShip>();
-                    break;
-            }
-
-            ship.UseCenterAsOrigin = true;
-            ship.WorldSb = Sprites.SpriteBatch;
-            ship.Tier = tier;
-            ship.Position = ship.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport, true);
-            playerShip = ship;
+            playerShip.WorldSb = Sprites.SpriteBatch;
+            playerShip.Position = playerShip.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport, true);
             playerShip.WCMoved += new EventHandler(playerShip_WCMoved);
             playerShip.WCMoved += wcMovePrettyCode;
             playerShip.IsPlayerShip = true;
             playerShip.RotateTowardsMouse = true;
-            playerSbObjects.Add(ship);
+            playerSbObjects.Add(playerShip);
 
             //TODO: Tier change event handles this
             //playerShip.InitialHealth = 100;

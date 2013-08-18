@@ -328,47 +328,22 @@ namespace PGCGame
             _game = underlyingGame;
         }
 
-        /// <summary>
-        /// Initializes the game for single player based on selected ship type and tier
-        /// </summary>
-        /// <typeparam name="T">Ship type</typeparam>
-        /// <param name="tier">Ship tier</param>
-        public static void InitializeSingleplayerGameScreen<T>(ShipTier tier) where T : PGCGame.Ships.Allies.BaseAllyShip
-        {
-            InitializeSingleplayerGameScreen<T>(tier, false);
-        }
-
-        /// <summary>
-        /// Initializes the game for single player based on selected ship type and tier
-        /// </summary>
-        /// <typeparam name="T">Ship type</typeparam>
-        /// <param name="tier">Ship tier</param>
-        public static void InitializeSingleplayerGameScreen<T>(ShipTier tier, bool spawnEnemies) where T : PGCGame.Ships.Allies.BaseAllyShip
-        {
-            //Save current tier
-            SelectedTier = tier;
-            AllScreens[ScreenType.Game.ToString()].Cast<Screens.GameScreen>().InitializeScreen<T>(tier, spawnEnemies);
-        }
-
 
         public static void InitializeSingleplayerGameScreen(ShipType type, ShipTier tier, bool allowEnemies)
         {
-            switch (type)
-            {
-                case ShipType.BattleCruiser:
-                    InitializeSingleplayerGameScreen<BattleCruiser>(tier, allowEnemies);
-                    return;
-                case ShipType.FighterCarrier:
-                    InitializeSingleplayerGameScreen<FighterCarrier>(tier, allowEnemies);
-                    return;
-                case ShipType.TorpedoShip:
-                    InitializeSingleplayerGameScreen<TorpedoShip>(tier, allowEnemies);
-                    return;
-                default:
-                    throw new NotImplementedException("Not a supported ship.");
-
-            }
+            InitializeSingleplayerGameScreen(new ShipStats(type, tier), allowEnemies);
         }
+
+        public static void InitializeSingleplayerGameScreen(ShipStats ship)
+        {
+            InitializeSingleplayerGameScreen(ship, true);
+        }
+
+        public static void InitializeSingleplayerGameScreen(ShipStats ship, bool spawnEnemies)
+        {
+            GetScreen<PGCGame.Screens.GameScreen>(ScreenType.Game).InitializeScreen(ship, spawnEnemies);
+        }
+
         public static void InitializeSingleplayerGameScreen(ShipType type, ShipTier tier)
         {
             InitializeSingleplayerGameScreen(type, tier, true);
