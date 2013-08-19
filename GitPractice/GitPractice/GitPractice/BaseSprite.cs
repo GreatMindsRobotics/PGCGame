@@ -57,7 +57,7 @@ namespace GitPractice
 
         }
 
-        public void LoadContent(ContentManager content, string assetName)
+        public virtual void LoadContent(ContentManager content, string assetName)
         { 
            _location = new Vector2 (0, 0);
            _texture = content.Load<Texture2D>(assetName);
