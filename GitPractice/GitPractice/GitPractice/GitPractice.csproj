@@ -75,9 +75,8 @@
     <Compile Include="BaseEnemy.cs" />
     <Compile Include="BaseSprite.cs" />
     <Compile Include="Bullet.cs" />
-    <Compile Include="coin3.cs" />
-    <Compile Include="coin4.cs" />
-    <Compile Include="coinList.cs" />
+    <Compile Include="Coin3.cs" />
+    <Compile Include="Coin4.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="GameStateManager.cs" />
     <Compile Include="HorizontalEnemy.cs" />

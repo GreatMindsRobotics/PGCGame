@@ -22,6 +22,8 @@ namespace GitPractice
          * 
          * */
 
+        List<BaseEnemy> enemyList = new List<BaseEnemy>();
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
@@ -34,10 +36,6 @@ namespace GitPractice
         Vector2 number;
 
         Ship spaceShip;
-        VerticalEnemy enemy;
-        HorizontalEnemy horizontalEnemy;
-        coin3 _coin3;
-        coin4 _coin4;
 
         Song bgMusic;
 
@@ -60,10 +58,6 @@ namespace GitPractice
         protected override void Initialize()
         {
             spaceShip = new Ship();
-            enemy = new VerticalEnemy();
-            horizontalEnemy = new HorizontalEnemy();
-            _coin3 = new coin3();
-            _coin4 = new coin4();
 
             base.Initialize();
         }
@@ -88,21 +82,31 @@ namespace GitPractice
             scoreNumber = 0;
             number = new Vector2(85, 0);
 
+            VerticalEnemy enemy = new VerticalEnemy();
             enemy.LoadContent(Content, "coin");
             enemy.Speed = Vector2.Zero;
             enemy.MoveDirection = MoveDirection.Down;
 
+            HorizontalEnemy horizontalEnemy = new HorizontalEnemy();
             horizontalEnemy.LoadContent(Content, "coin");
             horizontalEnemy.Speed = new Vector2(0, 0);
             horizontalEnemy.MoveDirection = MoveDirection.Right;
 
-            _coin3.LoadContent(Content, "coin");
-            _coin3.Speed = Vector2.Zero;
-            _coin3.MoveDirection = MoveDirection.Right;
+            Coin3 coin3 = new Coin3();
+            coin3.LoadContent(Content, "coin");
+            coin3.Speed = Vector2.Zero;
+            coin3.MoveDirection = MoveDirection.Right;
 
-            _coin4.LoadContent(Content, "coin");
-            _coin4.Speed = Vector2.Zero;
-            _coin4.MoveDirection = MoveDirection.Right;
+            Coin4 coin4 = new Coin4();
+            coin4.LoadContent(Content, "coin");
+            coin4.Speed = Vector2.Zero;
+            coin4.MoveDirection = MoveDirection.Right;
+
+            enemyList.Add(enemy);
+            enemyList.Add(horizontalEnemy);
+            enemyList.Add(coin3);
+            enemyList.Add(coin4);
+
 
             bgMusic = Content.Load<Song>("bgMusic");
             MediaPlayer.Play(bgMusic);
@@ -133,17 +137,26 @@ namespace GitPractice
                 this.Exit();
 
             spaceShip.Update(Keyboard.GetState(), gameTime, GameState.Playing, graphics.GraphicsDevice.Viewport);
-            enemy.Update(gameTime, GameState.Playing, MoveDirection.Down, graphics.GraphicsDevice.Viewport);
-            horizontalEnemy.Update(gameTime, GameState.Playing, MoveDirection.Right, graphics.GraphicsDevice.Viewport);
-            _coin3.Update(gameTime, GameState.Playing, MoveDirection.Right, graphics.GraphicsDevice.Viewport);
-            _coin4.Update(gameTime, GameState.Playing, MoveDirection.Right, graphics.GraphicsDevice.Viewport);
+
+            foreach (BaseEnemy enemy in enemyList)
+            {
+                enemy.Update(gameTime, GameState.Playing, MoveDirection.Right, graphics.GraphicsDevice.Viewport);
+            }
 
             foreach (Bullet bullet in spaceShip.FlyingBullets)
             {
-                if (bullet.Rect.Intersects(bullet.Rect))
+                for (int e = 0; e < enemyList.Count; e++)
                 {
-                    scoreNumber++;
-                    bullet.IsDead = true;
+                    BaseEnemy enemy = enemyList[e];
+
+                    if (bullet.Rect.Intersects(enemy.Rect))
+                    {
+                        scoreNumber++;
+                        bullet.IsDead = true;
+
+                        enemyList.Remove(enemy);
+                        e--;
+                    }
                 }
             }
 
@@ -163,14 +176,14 @@ namespace GitPractice
 
             spriteBatch.Draw(backgroundImage, backgroundLocation, backgroundTint);
 
-            enemy.Draw(spriteBatch);
 
             spriteBatch.DrawString(font, text, scorePosition, Color.Green);
-            spriteBatch.DrawString(font, scoreText, number, Color.Green); horizontalEnemy.Draw(spriteBatch);
+            spriteBatch.DrawString(font, scoreNumber.ToString(), number, Color.Green);
 
-            _coin3.Draw(spriteBatch);
-
-            _coin4.Draw(spriteBatch);
+            foreach (BaseEnemy enemy in enemyList)
+            {
+                enemy.Draw(spriteBatch);
+            }
 
             spaceShip.Draw(spriteBatch);
 

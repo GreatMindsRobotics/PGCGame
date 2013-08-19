@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GitPractice
 {
-        public class coin4 : BaseEnemy
+        public class Coin4 : BaseEnemy
         {
             Vector2 newSpeed = new Vector2(2, 1);
 
@@ -30,7 +30,7 @@ namespace GitPractice
 
                     Location = Location + newSpeed;
 
-
+                    base.Update(gameTime, gameState, moveDirection, viewport);
                 }
             }
         

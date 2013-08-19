@@ -29,6 +29,8 @@ namespace GitPractice
             {
                 newSpeed.X *= -1;
             }
+
+            base.Update(gameTime, gameState, moveDirection, viewport);
         }
 
     }

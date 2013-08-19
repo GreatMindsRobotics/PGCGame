@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GitPractice
 {
-    public class coin3 : BaseEnemy
+    public class Coin3 : BaseEnemy
     {
         Vector2 newSpeed = new Vector2(8, 6);
 

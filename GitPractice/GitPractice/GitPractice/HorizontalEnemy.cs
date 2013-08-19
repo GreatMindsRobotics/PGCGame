@@ -36,7 +36,7 @@ namespace GitPractice
 
                 Location = Location + newSpeed;
 
-                
+                base.Update(gameTime, gameState, moveDirection, viewport);
             }
         }
 
