@@ -23,7 +23,6 @@ namespace PGCGame.Ships.Enemies
             PlayerType = CoreTypes.PlayerType.Enemy;
             UseCenterAsOrigin = true;
             shipState = ShipState.Alive;
-
             _EMPable = true;
             _isTrackingPlayer = true;
 

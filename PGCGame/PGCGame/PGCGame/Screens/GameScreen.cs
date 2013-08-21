@@ -938,8 +938,11 @@ namespace PGCGame.Screens
                     StateManager.Options.ToggleFullscreen();
                 }
 
-                worldCam.Move(camMove);
-                playerShip.WorldCoords = worldCam.Pos;
+                if (camMove.X != 0 || camMove.Y != 0)
+                {
+                    worldCam.Move(camMove);
+                    playerShip.WorldCoords = worldCam.Pos;
+                }
             }
 
 

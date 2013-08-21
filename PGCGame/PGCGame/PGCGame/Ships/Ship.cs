@@ -16,7 +16,7 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace PGCGame
 {
-    [DebuggerDisplay("ShipID = {ShipID}")]
+    [DebuggerDisplay("ShipType = {ShipType}, ShipID = {ShipID}")]
     public abstract class Ship : Sprite, ITimerSprite
     {
         protected const bool CanHoldShootKey = true;
@@ -36,7 +36,7 @@ namespace PGCGame
 
         public abstract ShipType ShipType { get; }
 
-        #endregion StaticProperties 
+        #endregion StaticProperties
         #region Private Fields
 
         public Ship(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
@@ -48,7 +48,7 @@ namespace PGCGame
             Moved += new EventHandler(Ship_Moved);
             _shipID = Guid.NewGuid();
             _initHealth = 100;
-            
+
             _isDead = false;
 
             Explosion = GameContent.GameAssets.Images.SpriteSheets[SpriteSheetType.Explosion];
@@ -65,9 +65,10 @@ namespace PGCGame
 
         void Ship_Moved(object sender, EventArgs e)
         {
-            if (this.ShipType != CoreTypes.ShipType.Drone && (this is BaseAllyShip) && (this as BaseAllyShip).Controller != null && (this as BaseAllyShip).Controller.IsLocal)
+            BaseAllyShip meAsAlly = this as BaseAllyShip;
+            if (meAsAlly != null && meAsAlly.IsPlayerShip)
             {
-                System.Diagnostics.Debugger.Break();
+                return;
             }
             _healthBar.Position = new Vector2(X - (_healthBar.Width / 2), Y - (Height / 1.5f));
             UpdateWcPos();
@@ -173,6 +174,7 @@ namespace PGCGame
         }
 
         public event EventHandler WCMoved;
+        private int WCMoveCt = 0;
 
         protected void UpdateWcPos()
         {
@@ -180,6 +182,11 @@ namespace PGCGame
             if (WCMoved != null)
             {
                 WCMoved(this, EventArgs.Empty);
+            }
+
+            if (++WCMoveCt >= 750 && this is BaseAllyShip && (this as BaseAllyShip).IsPlayerShip)
+            {
+                System.Diagnostics.Debugger.Break();
             }
         }
 
@@ -218,11 +225,13 @@ namespace PGCGame
 
         public Vector2 MovementSpeed
         {
-            get {
-                return _movementSpeed * (StateManager.DebugData.ShipSpeedIncrease && this is BaseAllyShip ? 10 : 1); 
+            get
+            {
+                return _movementSpeed * (StateManager.DebugData.ShipSpeedIncrease && this is BaseAllyShip ? 10 : 1);
             }
-            set {
-                _movementSpeed = value; 
+            set
+            {
+                _movementSpeed = value;
             }
         }
 
@@ -231,7 +240,8 @@ namespace PGCGame
         public virtual int CurrentHealth
         {
             get { return _currentHealth; }
-            set {
+            set
+            {
                 if (value != _currentHealth)
                 {
                     _currentHealth = MathHelper.Clamp(value, 0, InitialHealth).ToInt();
@@ -250,7 +260,7 @@ namespace PGCGame
             get { return _initHealth; }
             set { _initHealth = value; }
         }
-         
+
 
         public int Shield { get; set; }
 
@@ -294,7 +304,7 @@ namespace PGCGame
 
             //BaseEnemyShip overrides this
             StateManager.AllyBullets.Legit.Add(bullet);
-            
+
             if (StateManager.Options.SFXEnabled)
             {
                 ShootSound.Play();
@@ -320,9 +330,9 @@ namespace PGCGame
 
                 if (CurrentHealth <= 0)
                 {
-                    shipState = ShipState.Dead; 
+                    shipState = ShipState.Dead;
                     if (StateManager.Options.SFXEnabled && ShipState == CoreTypes.ShipState.Exploding)
-                    { 
+                    {
                         ExplosionSFX.Play();
                     }
                     if (PlayerType == CoreTypes.PlayerType.Enemy || PlayerType == CoreTypes.PlayerType.Solo)
@@ -373,7 +383,7 @@ namespace PGCGame
                 if (CurrentHealth <= 0 && shipState != ShipState.Exploding)
                 {
                     shipState = ShipState.Exploding;
-                   // ExplosionSFX.Play();
+                    // ExplosionSFX.Play();
                     return;
                 }
                 else if (shipState == ShipState.Exploding)
@@ -397,7 +407,7 @@ namespace PGCGame
                         else
                         {
                             StateManager.AllyShips.Remove(this);
-                        }                        
+                        }
                     }
                     return;
                 }
@@ -407,7 +417,7 @@ namespace PGCGame
                 base.DrawNonAuto();
 
                 if (_hasHealthBar && (StateManager.HasBoughtScanner || (this is BaseAllyShip && this.Cast<BaseAllyShip>().IsPlayerShip)))
-                { 
+                {
                     _healthBar.DrawNonAuto();
                 }
             }
