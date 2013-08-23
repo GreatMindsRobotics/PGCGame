@@ -6,10 +6,10 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("PGCGame")]
-[assembly: AssemblyProduct("PGCGame")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2013")]
+[assembly: AssemblyProduct("Plequarius: Galactic Commanders")]
+[assembly: AssemblyDescription("A 2D space shooter")]
+[assembly: AssemblyCompany("Great Minds Robotics")]
+[assembly: AssemblyCopyright("Copyright © Great Minds Robotics 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
