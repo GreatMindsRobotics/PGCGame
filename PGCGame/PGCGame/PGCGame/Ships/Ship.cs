@@ -183,11 +183,12 @@ namespace PGCGame
             {
                 WCMoved(this, EventArgs.Empty);
             }
-
+            /*
             if (++WCMoveCt >= 750 && this is BaseAllyShip && (this as BaseAllyShip).IsPlayerShip)
             {
                 System.Diagnostics.Debugger.Break();
             }
+            */
         }
 
         public virtual Vector2 WorldCoords
