@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework;
 using Glib.XNA;
 using Microsoft.Xna.Framework.Audio;
+using Glib;
 
 namespace PGCGame.CoreTypes
 {
@@ -246,10 +247,13 @@ namespace PGCGame.CoreTypes
                         TextureFactory tf = new TextureFactory(StateManager.GraphicsManager.GraphicsDevice);
 
                         //TEMP
-                        _bulletTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.BattleCruiser, ShipTier.Tier1), content.Load<Texture2D>("Images\\TempBullets\\Laser"));
-                        _bulletTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.FighterCarrier, ShipTier.Tier1), content.Load<Texture2D>("Images\\TempBullets\\Laser"));
-                        _bulletTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.TorpedoShip, ShipTier.Tier1), tf.CreateRectangle(5, 3, Color.Red));
-                        _bulletTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.Drone, ShipTier.Tier1), content.Load<Texture2D>("Images\\TempBullets\\Laser"));
+                        for (int i = ShipTier.Tier1.ToInt(); i <= ShipTier.Tier4.ToInt(); i++)
+                        {
+                            _bulletTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.BattleCruiser, i.Cast<ShipTier>()), content.Load<Texture2D>("Images\\TempBullets\\Laser"));
+                            _bulletTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.FighterCarrier, i.Cast<ShipTier>()), content.Load<Texture2D>("Images\\TempBullets\\Laser"));
+                            _bulletTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.TorpedoShip, i.Cast<ShipTier>()), tf.CreateRectangle(5, 3, Color.Red));
+                            _bulletTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.Drone, i.Cast<ShipTier>()), content.Load<Texture2D>("Images\\TempBullets\\Laser"));
+                        }
 
                         /*
                          * TODO: Create correct bullets for each ship / tier
