@@ -38,7 +38,7 @@ namespace PGCGame
         public int Damage
         {
             get { 
-                 return _damage * (StateManager.DebugData.OPBullets && ParentShip is PGCGame.Ships.Allies.BaseAllyShip ? 1000 : 1 ); 
+                 return _damage * (ParentShip != null && StateManager.DebugData.OPBullets && ParentShip is PGCGame.Ships.Allies.BaseAllyShip ? 1000 : 1 ); 
             }
             set { _damage = value; }
         }
