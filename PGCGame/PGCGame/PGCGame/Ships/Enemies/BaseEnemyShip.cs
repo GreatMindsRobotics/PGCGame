@@ -78,6 +78,7 @@ namespace PGCGame.Ships.Enemies
             {
                EnemyShoots.Play();
             }
+            FireBulletEvent(bullet);
         }
 
         Boolean activated = false;

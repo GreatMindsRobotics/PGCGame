@@ -128,6 +128,7 @@ namespace PGCGame
                    DroneShoot.Play();
                 }
                 StateManager.AllyBullets.Legit.Add(bullet);
+                FireBulletEvent(bullet);
             }
         }
 

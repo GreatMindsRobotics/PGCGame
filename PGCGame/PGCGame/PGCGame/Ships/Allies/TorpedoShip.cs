@@ -81,6 +81,7 @@ namespace PGCGame
             }
 
             StateManager.AllyBullets.Legit.Add(bullet);
+            FireBulletEvent(bullet);
         }
 
         public override ShipType ShipType

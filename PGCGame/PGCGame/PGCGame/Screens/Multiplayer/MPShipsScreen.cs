@@ -225,6 +225,9 @@ namespace PGCGame.Screens.Multiplayer
         void playerShip_NetworkStateChanged(object sender, EventArgs e)
         {
             BaseAllyShip yourShip = StateManager.GetScreen<GameScreen>(CoreTypes.ScreenType.Game).playerShip;
+            //False = not a bullet
+            StateManager.NetworkData.DataWriter.Write(false);
+            
             StateManager.NetworkData.DataWriter.Write(new Vector4(yourShip.WorldCoords.X, yourShip.WorldCoords.Y, yourShip.Rotation.Radians, yourShip.CurrentHealth));
 
             //InOrder - because old versions never arrive after a more recent version

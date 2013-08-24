@@ -70,6 +70,7 @@
     <Compile Include="CoreTypes\BaseScreen.cs" />
     <Compile Include="CoreTypes\BGSprite.cs" />
     <Compile Include="CoreTypes\BulletCollection.cs" />
+    <Compile Include="CoreTypes\BulletFiredEventArgs.cs" />
     <Compile Include="CoreTypes\Camera2DMatrix.cs" />
     <Compile Include="CoreTypes\ContentLoader.cs" />
     <Compile Include="CoreTypes\Delegates.cs" />

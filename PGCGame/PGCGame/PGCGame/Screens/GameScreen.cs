@@ -331,6 +331,23 @@ namespace PGCGame.Screens
             }
 
             World = Sprites.SpriteBatch;
+            playerShip.BulletFired += new EventHandler<BulletFiredEventArgs>(playerShip_BulletFired);
+        }
+
+        void playerShip_BulletFired(object sender, BulletFiredEventArgs e)
+        {
+            if (StateManager.NetworkData.CurrentSession != null && !StateManager.NetworkData.CurrentSession.IsDisposed && StateManager.NetworkData.CurrentSession.AllGamers.Count > 0)
+            {
+                //Send bullet
+
+                //IsBullet is true
+                StateManager.NetworkData.DataWriter.Write(true);
+                StateManager.NetworkData.DataWriter.Write(new Vector4(e.BulletPosition, e.BulletSpeed.X, e.BulletSpeed.Y));
+                StateManager.NetworkData.DataWriter.Write(new Vector4(e.FiredBullet.Damage, e.BulletRotation, e.FiredBullet.ParentShip.ShipType.ToInt(), e.FiredBullet.ParentShip.Tier.ToInt()));
+
+                StateManager.NetworkData.CurrentSession.LocalGamers[0].SendData(StateManager.NetworkData.DataWriter, SendDataOptions.None);
+
+            }
         }
 
         void playerShip_WCMoved(object sender, EventArgs e)
@@ -982,17 +999,41 @@ namespace PGCGame.Screens
                 {
                     NetworkGamer dataSender;
                     StateManager.NetworkData.CurrentSession.LocalGamers[0].ReceiveData(StateManager.NetworkData.DataReader, out dataSender);
-                    Vector4 shipData = StateManager.NetworkData.DataReader.ReadVector4();
-                    foreach (Ship s in StateManager.EnemyShips)
+                    bool isBullet = StateManager.NetworkData.DataReader.ReadBoolean();
+                    if (!isBullet)
                     {
-                        BaseAllyShip sh = s as BaseAllyShip;
-                        if (sh != null && sh.Controller != null && sh.Controller.Id == dataSender.Id)
+                        Vector4 shipData = StateManager.NetworkData.DataReader.ReadVector4();
+                        foreach (Ship s in StateManager.EnemyShips)
                         {
-                            sh.WorldCoords = new Vector2(shipData.X, shipData.Y);
-                            sh.Rotation = SpriteRotation.FromRadians(shipData.Z);
-                            sh.CurrentHealth = shipData.W.ToInt();
-                            break;
+                            BaseAllyShip sh = s as BaseAllyShip;
+                            if (sh != null && sh.Controller != null && sh.Controller.Id == dataSender.Id)
+                            {
+                                sh.WorldCoords = new Vector2(shipData.X, shipData.Y);
+                                sh.Rotation = SpriteRotation.FromRadians(shipData.Z);
+                                sh.CurrentHealth = shipData.W.ToInt();
+                                break;
+                            }
                         }
+                    }
+                    else
+                    {
+                        Vector4 bulletData = StateManager.NetworkData.DataReader.ReadVector4();
+                        Vector4 addlData = StateManager.NetworkData.DataReader.ReadVector4();
+                        BaseAllyShip parent = null;
+                        foreach (Ship sh in StateManager.EnemyShips)
+                        {
+                            BaseAllyShip s = sh as BaseAllyShip;
+                            if (s != null && s.Controller != null && s.Controller.Id == dataSender.Id)
+                            {
+                                parent = s;
+                                break;
+                            }
+                        }
+                        Bullet newBullet = new Bullet(GameContent.GameAssets.Images.Ships.Bullets[(ShipType)Enum.Parse(typeof(ShipType), addlData.Z.ToInt().ToString(), true), (ShipTier)Enum.Parse(typeof(ShipTier), addlData.W.ToInt().ToString(), true)], new Vector2(bulletData.X, bulletData.Y), World, parent);
+                        newBullet.Speed = new Vector2(bulletData.Z, bulletData.W);
+                        newBullet.Rotation = SpriteRotation.FromRadians(addlData.Y);
+                        newBullet.Damage = addlData.X.ToInt();
+                        StateManager.EnemyBullets.Legit.Add(newBullet);
                     }
                 }
             }

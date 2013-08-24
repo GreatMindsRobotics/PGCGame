@@ -289,9 +289,26 @@ namespace PGCGame
 
         private int _currentHealth;
 
+
+        public event EventHandler<BulletFiredEventArgs> BulletFired;
+
         #endregion PublicProperties
 
+        protected void FireBulletEvent(Bullet fired)
+        {
+            if (fired == null)
+            {
+                throw new ArgumentNullException("fired");
+            }
+            if (BulletFired != null)
+            {
+                BulletFired(this, new BulletFiredEventArgs(fired));
+            }
+        }
+
         #region PublicMethod
+
+
 
         public virtual void Shoot()
         {
@@ -309,6 +326,7 @@ namespace PGCGame
             {
                 ShootSound.Play();
             }
+            FireBulletEvent(bullet);
         }
 
 
