@@ -200,9 +200,10 @@ namespace PGCGame.Screens.Multiplayer
             Vector4 me = myShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Id];
 
             game.playerShip.WorldCoords = new Vector2(me.X, me.Y);
-            game.playerShip.Rotation = SpriteRotation.FromRadians(me.Z);
+            game.playerShip.Rotation.Radians = (me.Z);
             game.playerShip.CurrentHealth = me.W.ToInt();
             game.playerShip.WCMoved += new EventHandler(playerShip_NetworkStateChanged);
+            game.playerShip.Rotation.ValueChanged += new EventHandler(playerShip_NetworkStateChanged);
             //game.playerShip.WCMoved += new EventHandler(breakHandle);
             game.playerShip.HealthChanged += new EventHandler(playerShip_NetworkStateChanged);
 
@@ -374,6 +375,7 @@ namespace PGCGame.Screens.Multiplayer
                 StateManager.NetworkData.CurrentSession.LocalGamers[0].SendData(StateManager.NetworkData.DataWriter, SendDataOptions.Reliable);
 
                 my.WCMoved += new EventHandler(playerShip_NetworkStateChanged);
+                my.Rotation.ValueChanged += new EventHandler(playerShip_NetworkStateChanged);
                 my.HealthChanged += new EventHandler(playerShip_NetworkStateChanged);
 
                 foreach (NetworkGamer g in StateManager.NetworkData.CurrentSession.RemoteGamers)
