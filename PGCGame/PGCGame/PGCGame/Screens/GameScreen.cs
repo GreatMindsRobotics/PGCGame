@@ -826,13 +826,13 @@ namespace PGCGame.Screens
                             b.IsDead = true;
                         }
                     }
+                }
 
-                    b.IsDead = b.IsDead || b.X <= 0 || b.X >= bg.TotalWidth || b.Y <= 0 || b.Y >= bg.TotalHeight;
-                    if (b.IsDead)
-                    {
-                        StateManager.EnemyBullets.Legit.RemoveAt(i);
-                        i--;
-                    }
+                b.IsDead = b.IsDead || b.X <= 0 || b.X >= bg.TotalWidth || b.Y <= 0 || b.Y >= bg.TotalHeight;
+                if (b.IsDead)
+                {
+                    StateManager.EnemyBullets.Legit.RemoveAt(i);
+                    i--;
                 }
             }
 
