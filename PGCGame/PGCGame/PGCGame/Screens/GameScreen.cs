@@ -1040,7 +1040,7 @@ namespace PGCGame.Screens
                             newBullet.Rotation = SpriteRotation.FromRadians(addlData.Y);
                             newBullet.Damage = addlData.X.ToInt();
                             newBullet.MaximumDistance = new Vector2(4000f);
-                            //dfsdfs.WriteLine("Bullet received from {0}: X: {1}, Y: {2}", parent.Controller.Gamertag, newBullet.X, newBullet.Y);
+                            //Debug.WriteLine("Bullet received from {0}: X: {1}, Y: {2}", parent.Controller.Gamertag, newBullet.X, newBullet.Y);
                             StateManager.EnemyBullets.Legit.Add(newBullet);
                         }
                     }
