@@ -806,21 +806,33 @@ namespace PGCGame.Screens
                 Bullet b = StateManager.EnemyBullets.Legit[i];
                 b.Update();
 
-                foreach (Ship s in StateManager.AllyShips)
+                if (StateManager.NetworkData.IsMultiplayer)
                 {
-                    //Once bullet list is separated, IsAllyWith call will be deprecated
-                    if (!b.IsDead && s.ShipState != ShipState.Exploding && s.ShipState != ShipState.Dead && b.Intersects(s.WCrectangle))
+                    if (!b.IsDead && playerShip.ShipState != ShipState.Exploding && playerShip.ShipState != ShipState.Dead && b.Intersects(playerShip.WCrectangle))
                     {
-                        s.CurrentHealth -= b.Damage;
+                        playerShip.CurrentHealth -= b.Damage;
                         b.IsDead = true;
                     }
+                    //Don't handle other collision detection
                 }
-
-                b.IsDead = b.IsDead || b.X <= 0 || b.X >= bg.TotalWidth || b.Y <= 0 || b.Y >= bg.TotalHeight;
-                if (b.IsDead)
+                else
                 {
-                    StateManager.EnemyBullets.Legit.RemoveAt(i);
-                    i--;
+                    foreach (Ship s in StateManager.AllyShips)
+                    {
+                        //Once bullet list is separated, IsAllyWith call will be deprecated
+                        if (!b.IsDead && s.ShipState != ShipState.Exploding && s.ShipState != ShipState.Dead && b.Intersects(s.WCrectangle))
+                        {
+                            s.CurrentHealth -= b.Damage;
+                            b.IsDead = true;
+                        }
+                    }
+
+                    b.IsDead = b.IsDead || b.X <= 0 || b.X >= bg.TotalWidth || b.Y <= 0 || b.Y >= bg.TotalHeight;
+                    if (b.IsDead)
+                    {
+                        StateManager.EnemyBullets.Legit.RemoveAt(i);
+                        i--;
+                    }
                 }
             }
 
@@ -995,7 +1007,7 @@ namespace PGCGame.Screens
 
             #region Networking Code
 
-            if (StateManager.NetworkData.CurrentSession != null)
+            if (StateManager.NetworkData.IsMultiplayer)
             {
                 while (StateManager.NetworkData.CurrentSession.LocalGamers[0].IsDataAvailable)
                 {

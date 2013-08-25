@@ -87,7 +87,8 @@ namespace PGCGame
         public static GameLevel HighestUnlockedLevel
         {
             get { return _level; }
-            set {
+            set
+            {
                 if (value != _level)
                 {
                     _level = value;
@@ -103,7 +104,7 @@ namespace PGCGame
             }
         }
         public static GameLevel CurrentLevel = GameLevel.Level1;
-        
+
         public static Boolean nextLevel = false;
         public static event EventHandler levelCompleted;
 
@@ -371,6 +372,14 @@ namespace PGCGame
 
         public static class NetworkData
         {
+            public static bool IsMultiplayer
+            {
+                get
+                {
+                    return CurrentSession != null && !CurrentSession.IsDisposed && CurrentSession.AllGamers.Count > 0;
+                }
+            }
+
             public static MultiplayerSessionType SessionMode;
 
             public static ShipStats SelectedNetworkShip;
@@ -476,7 +485,7 @@ namespace PGCGame
                 get { return _sfxEnabled; }
                 set { _sfxEnabled = value; }
             }
-            
+
 
             public static bool ArrowKeysEnabled { get; set; }
             public static bool LeftButtonEnabled { get; set; }
