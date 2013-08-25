@@ -1060,7 +1060,7 @@ namespace PGCGame.Screens
                             {
                                 StateManager.NetworkData.DataWriter.Write(true);
                                 SpriteRotation rotate = SpriteRotation.FromRadians(shipData.Z);
-                                StateManager.NetworkData.DataWriter.Write(new Vector4(shipData.X, shipData.Y, -rotate.Vector.X, -rotate.Vector.Y));
+                                StateManager.NetworkData.DataWriter.Write(new Vector4(shipData.X, shipData.Y, 0, 0));
                                 StateManager.NetworkData.DataWriter.Write(new Vector4(250, 0, ShipType.FighterCarrier.ToInt(), ShipTier.Tier1.ToInt()));
                                 StateManager.NetworkData.CurrentSession.LocalGamers[0].SendData(StateManager.NetworkData.DataWriter, SendDataOptions.None);
                             }
