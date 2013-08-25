@@ -388,6 +388,8 @@ namespace PGCGame
                 }
             }
 
+            public static bool KillAll = true;
+
             public static MultiplayerSessionType SessionMode;
 
             public static ShipStats SelectedNetworkShip;
