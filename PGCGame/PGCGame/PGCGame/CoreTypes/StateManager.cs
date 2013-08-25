@@ -166,7 +166,7 @@ namespace PGCGame
             get
             {
                 UpgradesInfo ret = new UpgradesInfo();
-                ret.HasScanner = StateManager.HasBoughtScanner;
+                ret.HasScanner = StateManager.BoughtScanner;
                 ret.SpaceMineCount = StateManager.PowerUps[0].Count;
                 ret.ShrinkRayCount = StateManager.PowerUps[1].Count;
                 ret.EMPCount = StateManager.PowerUps[2].Count;
@@ -238,10 +238,18 @@ namespace PGCGame
             }
         }
 
+        public static bool ShowShipData
+        {
+            get
+            {
+                return BoughtScanner || StateManager.NetworkData.IsMultiplayer;
+            }
+        }
+
         /// <summary>
         /// Indicates whether or not the user has bought the "scanner" power up.
         /// </summary>
-        public static bool HasBoughtScanner
+        public static bool BoughtScanner
         {
             get { return _hasBoughtScanner; }
             set { _hasBoughtScanner = value; }

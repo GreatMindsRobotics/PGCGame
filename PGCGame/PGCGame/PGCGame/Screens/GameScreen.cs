@@ -467,7 +467,7 @@ namespace PGCGame.Screens
                 miniShipInfo = new TextSprite(playerSb, normal, string.Format("Tier {4}\nHP: {0}/{1}\nDamage: {2}{3}", activeMiniShipDisplay.CurrentHealth, activeMiniShipDisplay.InitialHealth, activeMiniShipDisplay.DamagePerShot, StateManager.DebugData.ShowShipIDs ? "\nID: " + shipIdStr : "", activeMiniShipDisplay.Tier.ToInt()));
                 miniShipInfo.Color = Color.White;
                 miniShipInfo.Position = new Vector2(miniShipInfoBg.X + (miniShipInfoBg.Width / 2f) - (miniShipInfo.Width / 2f), miniShipInfoTitle.Y + bold.LineSpacing);
-                if (StateManager.HasBoughtScanner || StateManager.DebugData.ShowShipIDs)
+                if (StateManager.ShowShipData || StateManager.DebugData.ShowShipIDs)
                 {
                     miniShipInfoBg.Height += miniShipInfo.Height;
                     playerSbObjects.Add(miniShipInfo);
@@ -515,7 +515,7 @@ namespace PGCGame.Screens
             Sprite miniShip = new Sprite(GameContent.GameAssets.Images.MiniShips[ship.ShipType], miniMap.Position + (ship.WorldCoords / MinimapDivAmount), playerSb);
             miniShip.Scale = ship.PlayerType == PlayerType.MyShip ? new Vector2(.1f) : new Vector2(.07f);
             miniShip.Color = ship.PlayerType == PlayerType.MyShip ? Color.Green : Color.Red;
-            if (StateManager.HasBoughtScanner)
+            if (StateManager.ShowShipData)
             {
                 miniShip.Rotation = ship.Rotation;
             }
