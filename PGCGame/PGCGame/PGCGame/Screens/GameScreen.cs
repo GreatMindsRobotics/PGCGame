@@ -880,7 +880,7 @@ namespace PGCGame.Screens
             }
              */
 
-
+            #region Movement
             if (playerShip.ShipState == ShipState.Alive)
             {
                 Vector2 camMove = Vector2.Zero;
@@ -962,6 +962,7 @@ namespace PGCGame.Screens
                     playerShip.WorldCoords = worldCam.Pos;
                 }
             }
+            #endregion
 
 
 
@@ -1039,7 +1040,7 @@ namespace PGCGame.Screens
                             newBullet.Rotation = SpriteRotation.FromRadians(addlData.Y);
                             newBullet.Damage = addlData.X.ToInt();
                             newBullet.MaximumDistance = new Vector2(4000f);
-                            Debug.WriteLine("Bullet received from {0}: X: {1}, Y: {2}", parent.Controller.Gamertag, newBullet.X, newBullet.Y);
+                            //Debug.WriteLine("Bullet received from {0}: X: {1}, Y: {2}", parent.Controller.Gamertag, newBullet.X, newBullet.Y);
                             StateManager.EnemyBullets.Legit.Add(newBullet);
                         }
                     }
