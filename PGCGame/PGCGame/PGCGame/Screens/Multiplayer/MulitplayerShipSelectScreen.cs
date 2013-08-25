@@ -88,9 +88,6 @@ namespace PGCGame.Screens.Multiplayer
 
 
             base.InitScreen(screenType);
-
-            backLabel.Visible = false;
-            backButton.Visible = false;
         }
 
         void MulitplayerShipSelectScreen_nextButtonClicked(object sender, EventArgs e)
