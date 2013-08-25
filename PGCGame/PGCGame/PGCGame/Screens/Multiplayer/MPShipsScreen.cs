@@ -383,6 +383,7 @@ namespace PGCGame.Screens.Multiplayer
                     BaseAllyShip sns = BaseAllyShip.CreateShip(SelectedShips[g.Id], GameScreen.World);
                     sns.PlayerType = PlayerType.Solo;
                     sns.RotateTowardsMouse = false;
+                    sns.Controller = g;
                     sns.WorldCoords = StateManager.RandomGenerator.NextVector2(new Vector2(500), new Vector2(StateManager.SpawnArea.X + StateManager.SpawnArea.Width, StateManager.SpawnArea.Y + StateManager.SpawnArea.Height));
 
                     StateManager.NetworkData.DataWriter.Write(new Vector4(sns.WorldCoords.X, sns.WorldCoords.Y, sns.Rotation.Radians, sns.CurrentHealth));
