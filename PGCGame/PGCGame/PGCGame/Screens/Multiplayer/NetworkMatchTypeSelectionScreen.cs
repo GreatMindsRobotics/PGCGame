@@ -23,6 +23,9 @@ namespace PGCGame.Screens.Multiplayer
         private Sprite CoopButton;
         private TextSprite CoopLabel;
 
+        private Sprite BackButton;
+        private TextSprite BackLabel;
+
         private Sprite DeathMatchButton;
         private TextSprite DeathMatchLabel;
 
@@ -62,9 +65,27 @@ namespace PGCGame.Screens.Multiplayer
 
             Sprites.Add(DeathMatchButton);
             AdditionalSprites.Add(DeathMatchLabel);
+
+
+            BackButton = new Sprite(GameContent.GameAssets.Images.Controls.Button, new Vector2(0, 0), Sprites.SpriteBatch);
+            BackButton.X = BackButton.GetCenterPosition(Graphics.Viewport).X;
+            BackButton.Y = StateManager.GraphicsManager.GraphicsDevice.Viewport.Height - 50 - BackButton.Height;
+
+            BackLabel = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, "Back", Color.White);
+            BackLabel.HoverColor = Color.MediumAquamarine;
+            BackLabel.NonHoverColor = Color.White;
+            BackLabel.IsHoverable = true;
+            BackLabel.ParentSprite = BackButton;
+            BackLabel.Pressed += new EventHandler(BackLabel_Pressed);
+
+            Sprites.Add(BackButton);
+            AdditionalSprites.Add(BackLabel);
         }
 
-
+        void BackLabel_Pressed(object sender, EventArgs e)
+        {
+            StateManager.GoBack();
+        }
 
         void DeathMatchLabel_Pressed(object sender, EventArgs e)
         {
