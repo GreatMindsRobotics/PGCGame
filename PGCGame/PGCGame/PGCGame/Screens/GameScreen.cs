@@ -167,6 +167,8 @@ namespace PGCGame.Screens
             //Reset any active ships, since we're re-initializing the game screen
             StateManager.EnemyShips.Clear();
             StateManager.AllyShips.Clear();
+            playerMinimapVisible = null;
+            _minimapYou = null;
 
             //Reset music
             _gameHasStarted = false;
@@ -355,7 +357,7 @@ namespace PGCGame.Screens
         {
             if (_minimapYou != null)
             {
-                playerMinimapVisible = new Rectangle((_minimapYou.X - (Sprites.SpriteBatch.GraphicsDevice.Viewport.Width / 2) / MinimapDivAmount).ToInt(), (_minimapYou.Y - (Sprites.SpriteBatch.GraphicsDevice.Viewport.Height / 2) / MinimapDivAmount).ToInt(), (_minimapYou.Width + (Sprites.SpriteBatch.GraphicsDevice.Viewport.Width / 2) / MinimapDivAmount).ToInt(), (_minimapYou.Height + (Sprites.SpriteBatch.GraphicsDevice.Viewport.Height / 2) / MinimapDivAmount).ToInt());
+                playerMinimapVisible = new Rectangle((_minimapYou.X - (Sprites.SpriteBatch.GraphicsDevice.Viewport.Width / 2) / MinimapDivAmount).ToInt(), (_minimapYou.Y - (Sprites.SpriteBatch.GraphicsDevice.Viewport.Height / 2) / MinimapDivAmount).ToInt(), (_minimapYou.Width + (Sprites.SpriteBatch.GraphicsDevice.Viewport.Width) / MinimapDivAmount).ToInt(), (_minimapYou.Height + (Sprites.SpriteBatch.GraphicsDevice.Viewport.Height) / MinimapDivAmount).ToInt());
             }
         }
 
@@ -702,6 +704,9 @@ namespace PGCGame.Screens
                 {
                     StateManager.HighestUnlockedLevel++;
                 }
+                playerMinimapVisible = null;
+                _minimapYou = null;
+
                 StateManager.ScreenState = ScreenType.LevelCompleteScreen;
                 StateManager.AllScreens[ScreenType.LevelCompleteScreen.ToInt()].Cast<LevelCompleteScreen>().Sprites.Clear();
                 StateManager.AllScreens[ScreenType.LevelCompleteScreen.ToInt()].Cast<LevelCompleteScreen>().AdditionalSprites.Clear();
@@ -711,13 +716,19 @@ namespace PGCGame.Screens
 
             if (playerShip.CurrentHealth <= 0 || StateManager.nextLevel || playerShip.ShipState == ShipState.Dead)
             {
+
                 if (playerShip.ShipState == ShipState.Dead && StateManager.Lives <= 0)
                 {
+                    playerMinimapVisible = null;
+                    _minimapYou = null;
                     StateManager.ScreenState = ScreenType.GameOver;
                 }
 
                 else if (StateManager.nextLevel || playerShip.ShipState == ShipState.Dead)
                 {
+                    playerMinimapVisible = null;
+                    _minimapYou = null;
+
                     if (StateManager.nextLevel)
                     {
                         StateManager.nextLevel = false;
