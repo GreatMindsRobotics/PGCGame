@@ -6,29 +6,29 @@ using Microsoft.Xna.Framework;
 
 namespace PGCGame.CoreTypes
 {
-    public class BulletFiredEventArgs : EventArgs
+    public class BulletEventArgs : EventArgs
     {
-        public Bullet FiredBullet { get; private set; }
+        public Bullet Bullet { get; private set; }
 
         public Vector2 BulletPosition
         {
-            get { return FiredBullet.Position; }
+            get { return Bullet.Position; }
         }
 
         public float BulletRotation
         {
-            get { return FiredBullet.Rotation.Radians; }
+            get { return Bullet.Rotation.Radians; }
         }
 
         public Vector2 BulletSpeed
         {
-            get { return FiredBullet.Speed; }
+            get { return Bullet.Speed; }
         }
         
 
-        public BulletFiredEventArgs(Bullet fired)
+        public BulletEventArgs(Bullet bullet)
         {
-            FiredBullet = fired;
+            Bullet = bullet;
         }
     }
 }

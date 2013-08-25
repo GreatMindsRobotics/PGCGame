@@ -331,19 +331,20 @@ namespace PGCGame.Screens
             }
 
             World = Sprites.SpriteBatch;
-            playerShip.BulletFired += new EventHandler<BulletFiredEventArgs>(playerShip_BulletFired);
+            playerShip.BulletFired += new EventHandler<BulletEventArgs>(playerShip_BulletFired);
         }
 
-        void playerShip_BulletFired(object sender, BulletFiredEventArgs e)
+        void playerShip_BulletFired(object sender, BulletEventArgs e)
         {
             if (StateManager.NetworkData.CurrentSession != null && !StateManager.NetworkData.CurrentSession.IsDisposed && StateManager.NetworkData.CurrentSession.AllGamers.Count > 0)
             {
                 //Send bullet
 
                 //IsBullet is true
+                e.Bullet.MaximumDistance = new Vector2(4000f);
                 StateManager.NetworkData.DataWriter.Write(true);
                 StateManager.NetworkData.DataWriter.Write(new Vector4(e.BulletPosition, e.BulletSpeed.X, e.BulletSpeed.Y));
-                StateManager.NetworkData.DataWriter.Write(new Vector4(e.FiredBullet.Damage, e.BulletRotation, e.FiredBullet.ParentShip.ShipType.ToInt(), e.FiredBullet.ParentShip.Tier.ToInt()));
+                StateManager.NetworkData.DataWriter.Write(new Vector4(e.Bullet.Damage, e.BulletRotation, e.Bullet.ParentShip.ShipType.ToInt(), e.Bullet.ParentShip.Tier.ToInt()));
 
                 StateManager.NetworkData.CurrentSession.LocalGamers[0].SendData(StateManager.NetworkData.DataWriter, SendDataOptions.None);
 
@@ -1037,6 +1038,7 @@ namespace PGCGame.Screens
                             newBullet.Speed = new Vector2(bulletData.Z, bulletData.W);
                             newBullet.Rotation = SpriteRotation.FromRadians(addlData.Y);
                             newBullet.Damage = addlData.X.ToInt();
+                            newBullet.MaximumDistance = new Vector2(4000f);
                             StateManager.EnemyBullets.Legit.Add(newBullet);
                         }
                     }

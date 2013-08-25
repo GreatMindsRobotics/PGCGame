@@ -291,7 +291,7 @@ namespace PGCGame
         private int _currentHealth;
 
 
-        public event EventHandler<BulletFiredEventArgs> BulletFired;
+        public event EventHandler<BulletEventArgs> BulletFired;
 
         #endregion PublicProperties
 
@@ -303,7 +303,7 @@ namespace PGCGame
             }
             if (BulletFired != null)
             {
-                BulletFired(this, new BulletFiredEventArgs(fired));
+                BulletFired(this, new BulletEventArgs(fired));
             }
         }
 
