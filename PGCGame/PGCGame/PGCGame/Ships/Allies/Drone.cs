@@ -120,7 +120,6 @@ namespace PGCGame
                 normalizedDistance.Normalize();
                 normalizedDistance *= 3f;
                 bullet.Speed = normalizedDistance;
-                bullet.UseCenterAsOrigin = true;
                 //bullet.Rotation = Rotation;
                 bullet.Damage = DamagePerShot;
                 if(StateManager.Options.SFXEnabled)

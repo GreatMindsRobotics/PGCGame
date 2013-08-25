@@ -32,6 +32,8 @@ namespace PGCGame
             : base(texture, location, spriteBatch)
         {
             this.ParentShip = parentShip;
+            UseCenterAsOrigin = true;
+            
         }
         private int _damage;
 

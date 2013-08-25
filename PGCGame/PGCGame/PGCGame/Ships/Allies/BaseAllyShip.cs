@@ -91,7 +91,6 @@ namespace PGCGame.Ships.Allies
         {
             Bullet bullet = new Bullet(BulletTexture, WorldCoords - new Vector2(Height * -DistanceToNose, Height * -DistanceToNose) * Rotation.Vector, WorldSb, this);
             bullet.Speed = Rotation.Vector * 3f;
-            bullet.UseCenterAsOrigin = true;
             bullet.Rotation = Rotation;
             bullet.Damage = 0;
             bullet.Color = Color.White;
