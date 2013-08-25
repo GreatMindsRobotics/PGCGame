@@ -1014,6 +1014,7 @@ namespace PGCGame.Screens
                                 BaseAllyShip sh = s as BaseAllyShip;
                                 if (sh != null && sh.Controller != null && sh.Controller.Id == dataSender.Id)
                                 {
+                                    Debug.WriteLine("Received ship data from {0}: [{1}, {2}], health {3}", dataSender.Gamertag, shipData.X, shipData.Y, shipData.W);
                                     sh.WorldCoords = new Vector2(shipData.X, shipData.Y);
                                     sh.Rotation = SpriteRotation.FromRadians(shipData.Z);
                                     sh.CurrentHealth = shipData.W.ToInt();
