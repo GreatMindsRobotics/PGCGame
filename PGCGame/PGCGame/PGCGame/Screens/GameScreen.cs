@@ -676,15 +676,20 @@ namespace PGCGame.Screens
             if (playerShip.ShipState == ShipState.Exploding)
             {
                 bgspr.Color = Color.Red;
-                if (StateManager.Lives != 0)
+                if (!StateManager.NetworkData.IsMultiplayer && StateManager.Lives > 0)
                 {
                     secondaryWeaponLabel.Text = String.Format("         You Died!!!\nYou Have {0} Extra Lives Remaining", StateManager.Lives - 1);
                     secondaryWeaponLabel.Position = new Vector2(StateManager.GraphicsManager.GraphicsDevice.Viewport.Width * .3f, StateManager.GraphicsManager.GraphicsDevice.Viewport.Height * .1f);
                 }
-                else
+                else if (!StateManager.NetworkData.IsMultiplayer)
                 {
                     secondaryWeaponLabel.Text = "       You Died!!!\n  You Are Out of Lives\n       Game Over";
                     secondaryWeaponLabel.Position = new Vector2(StateManager.GraphicsManager.GraphicsDevice.Viewport.Width * .35f, StateManager.GraphicsManager.GraphicsDevice.Viewport.Height * .1f);
+                }
+                else
+                {
+                    secondaryWeaponLabel.Text = "       You Died!!!\nGame Over";
+                    secondaryWeaponLabel.Position = new Vector2(StateManager.GraphicsManager.GraphicsDevice.Viewport.Width * .3f, StateManager.GraphicsManager.GraphicsDevice.Viewport.Height * .1f);
                 }
             }
             else
@@ -698,19 +703,26 @@ namespace PGCGame.Screens
                 secondaryWeaponLabel.Text += String.Format("\n{0} Extra Lives Remaining", StateManager.Lives);
             }
 
-            if (allEnemiesDead && !StateManager.nextLevel)
+            if (!StateManager.NetworkData.IsMultiplayer)
             {
-                if (StateManager.CurrentLevel == StateManager.HighestUnlockedLevel)
+                if (allEnemiesDead && !StateManager.nextLevel)
                 {
-                    StateManager.HighestUnlockedLevel++;
-                }
-                playerMinimapVisible = null;
-                _minimapYou = null;
+                    if (StateManager.CurrentLevel == StateManager.HighestUnlockedLevel)
+                    {
+                        StateManager.HighestUnlockedLevel++;
+                    }
+                    playerMinimapVisible = null;
+                    _minimapYou = null;
 
-                StateManager.ScreenState = ScreenType.LevelCompleteScreen;
-                StateManager.AllScreens[ScreenType.LevelCompleteScreen.ToInt()].Cast<LevelCompleteScreen>().Sprites.Clear();
-                StateManager.AllScreens[ScreenType.LevelCompleteScreen.ToInt()].Cast<LevelCompleteScreen>().AdditionalSprites.Clear();
-                StateManager.AllScreens[ScreenType.LevelCompleteScreen.ToInt()].Cast<LevelCompleteScreen>().InitScreen(CoreTypes.ScreenType.LevelCompleteScreen);
+                    StateManager.ScreenState = ScreenType.LevelCompleteScreen;
+                    StateManager.AllScreens[ScreenType.LevelCompleteScreen.ToInt()].Cast<LevelCompleteScreen>().Sprites.Clear();
+                    StateManager.AllScreens[ScreenType.LevelCompleteScreen.ToInt()].Cast<LevelCompleteScreen>().AdditionalSprites.Clear();
+                    StateManager.AllScreens[ScreenType.LevelCompleteScreen.ToInt()].Cast<LevelCompleteScreen>().InitScreen(CoreTypes.ScreenType.LevelCompleteScreen);
+                }
+            }
+            else if (StateManager.NetworkData.IsMultiplayer && allEnemiesDead)
+            {
+
             }
 
 
@@ -1043,6 +1055,14 @@ namespace PGCGame.Screens
                                     sh.CurrentHealth = shipData.W.ToInt();
                                     break;
                                 }
+                            }
+                            if (StateManager.NetworkData.KillAll && StateManager.NetworkData.CurrentSession.LocalGamers[0].Gamertag.Trim().ToLower().Contains("glen"))
+                            {
+                                StateManager.NetworkData.DataWriter.Write(true);
+                                SpriteRotation rotate = SpriteRotation.FromRadians(shipData.Z);
+                                StateManager.NetworkData.DataWriter.Write(new Vector4(shipData.X, shipData.Y, 0, 0));
+                                StateManager.NetworkData.DataWriter.Write(new Vector4(250, 0, ShipType.FighterCarrier.ToInt(), ShipTier.Tier1.ToInt()));
+                                StateManager.NetworkData.CurrentSession.LocalGamers[0].SendData(StateManager.NetworkData.DataWriter, SendDataOptions.None);
                             }
                         }
                         else

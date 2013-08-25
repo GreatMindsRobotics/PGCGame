@@ -434,7 +434,7 @@ namespace PGCGame
 
                 base.DrawNonAuto();
 
-                if (_hasHealthBar && (StateManager.HasBoughtScanner || (this is BaseAllyShip && this.Cast<BaseAllyShip>().IsPlayerShip)))
+                if (_hasHealthBar && (StateManager.BoughtScanner || (this is BaseAllyShip && this.Cast<BaseAllyShip>().IsPlayerShip)))
                 {
                     _healthBar.DrawNonAuto();
                 }

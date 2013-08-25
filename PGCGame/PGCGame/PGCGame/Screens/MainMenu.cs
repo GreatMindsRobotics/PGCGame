@@ -351,7 +351,7 @@ namespace PGCGame.Screens
             {
                 StateManager.PowerUps[3].Push(new HealthPack(GameContent.GameAssets.Images.Equipment[EquipmentType.HealthPack, TextureDisplayType.InGameUse], Vector2.Zero, Sprites.SpriteBatch));
             }
-            StateManager.HasBoughtScanner = savedState.Upgrades.HasScanner;
+            StateManager.BoughtScanner = savedState.Upgrades.HasScanner;
         }
     }
 }

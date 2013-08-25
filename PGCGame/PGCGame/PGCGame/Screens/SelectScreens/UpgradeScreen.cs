@@ -72,9 +72,9 @@ namespace PGCGame.Screens.SelectScreens
         {
             foreach (KeyValuePair<Sprite, string> item in itemsShown)
             {
-                if (item.Key == items[selected].Key && !StateManager.HasBoughtScanner)
+                if (item.Key == items[selected].Key && !StateManager.BoughtScanner)
                 {
-                    StateManager.HasBoughtScanner = true;
+                    StateManager.BoughtScanner = true;
                     StateManager.SpaceBucks -= 2500;
                     text4.Text = "\n\nScanner\nCost: 2500\nShows enemy health bars as well as\ntheir health and rotation on the minimap\nCurrently lasts until game ends";
                     if (StateManager.Options.SFXEnabled)
