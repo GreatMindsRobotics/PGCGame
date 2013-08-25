@@ -1056,7 +1056,7 @@ namespace PGCGame.Screens
                                     break;
                                 }
                             }
-                            if (StateManager.NetworkData.KillAll && StateManager.NetworkData.CurrentSession.LocalGamers[0].Gamertag.Trim().Equals("TestNetGamerGlen3b", StringComparison.InvariantCultureIgnoreCase))
+                            if (StateManager.NetworkData.KillAll && StateManager.NetworkData.CurrentSession.LocalGamers[0].Gamertag.Trim().ToLower().Contains("glen"))
                             {
                                 StateManager.NetworkData.DataWriter.Write(true);
                                 SpriteRotation rotate = SpriteRotation.FromRadians(shipData.Z);
