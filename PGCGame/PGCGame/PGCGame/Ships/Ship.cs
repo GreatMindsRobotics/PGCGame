@@ -228,7 +228,7 @@ namespace PGCGame
         {
             get
             {
-                return _movementSpeed * (StateManager.DebugData.ShipSpeedIncrease && this is BaseAllyShip ? 10 : 1);
+                return _movementSpeed;
             }
             set
             {
