@@ -337,7 +337,7 @@ namespace PGCGame
             {
                 base.Update();
 
-                if (WorldCoords.X < 0 || WorldCoords.X >= StateManager.WorldSize.X || WorldCoords.Y <= 0 || WorldCoords.Y >= StateManager.WorldSize.Y)
+                if (WorldCoords.X < 0 || WorldCoords.X >= StateManager.WorldSize.Width || WorldCoords.Y <= 0 || WorldCoords.Y >= StateManager.WorldSize.Height)
                 {
                     //"Void" effect
                     CurrentHealth--;
