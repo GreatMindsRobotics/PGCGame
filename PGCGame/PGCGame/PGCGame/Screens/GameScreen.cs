@@ -609,6 +609,12 @@ namespace PGCGame.Screens
         Boolean allEnemiesDead = true;
         EventHandler wcMovePrettyCode;
 
+        void msgEnd(IAsyncResult res)
+        {
+            int? msgState = Guide.EndShowMessageBox(res);
+            StateManager.ScreenState = msgState.HasValue ? msgState.Value == 0 ? ScreenType.NetworkMatchSelection : CoreTypes.ScreenType.MainMenu : CoreTypes.ScreenType.MainMenu;
+        }
+
         public override void Update(GameTime gameTime)
         {
             miniMap.Update();
@@ -731,7 +737,11 @@ namespace PGCGame.Screens
             }
             else if (StateManager.NetworkData.IsMultiplayer && allEnemiesDead)
             {
-
+                if (!Guide.IsVisible)
+                {
+                    AsyncCallback onEndMsgBox = new AsyncCallback(msgEnd);
+                    Guide.BeginShowMessageBox("You won!", "You won the match!", new string[] { "Host Match", "OK" }, 1, MessageBoxIcon.None, onEndMsgBox, null);
+                }
             }
 
 
