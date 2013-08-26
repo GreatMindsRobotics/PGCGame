@@ -359,7 +359,7 @@ namespace PGCGame.Screens.Multiplayer
 
         void StartLabel_Pressed(object sender, EventArgs e)
         {
-            if (StateManager.NetworkData.SessionMode == MultiplayerSessionType.Deathmatch)
+            if (StateManager.NetworkData.SessionMode == MultiplayerSessionType.LMS)
             {
                 StateManager.SelectedShip = SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Id].Type;
 

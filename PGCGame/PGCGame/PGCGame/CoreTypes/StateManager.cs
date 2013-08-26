@@ -388,8 +388,6 @@ namespace PGCGame
                 }
             }
 
-            public static bool KillAll = true;
-
             public static MultiplayerSessionType SessionMode;
 
             public static ShipStats SelectedNetworkShip;
@@ -424,7 +422,7 @@ namespace PGCGame
         {
             public static bool InfiniteMoney = false;
             public static bool DebugBackground = false;
-            public static bool ShipSpeedIncrease = false;
+            public static bool ShipSpeedIncrease = true;
             public static bool OPBullets = false;
             public static bool ShowShipIDs = false;
             public static bool EmergencyHeal = false;

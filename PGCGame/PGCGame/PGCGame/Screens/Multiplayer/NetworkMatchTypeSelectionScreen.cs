@@ -56,7 +56,7 @@ namespace PGCGame.Screens.Multiplayer
             DeathMatchButton = new Sprite(GameContent.GameAssets.Images.Controls.Button, new Vector2(0, 20 + CoopLabel.Height + CoopLabel.Y), Sprites.SpriteBatch);
             DeathMatchButton.X = CoopButton.GetCenterPosition(Graphics.Viewport).X;
 
-            DeathMatchLabel = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, "Deathmatch", Color.White);
+            DeathMatchLabel = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, "LMS", Color.White);
             DeathMatchLabel.HoverColor = Color.MediumAquamarine;
             DeathMatchLabel.NonHoverColor = Color.White;
             DeathMatchLabel.IsHoverable = true;
@@ -89,7 +89,7 @@ namespace PGCGame.Screens.Multiplayer
 
         void DeathMatchLabel_Pressed(object sender, EventArgs e)
         {
-            StateManager.NetworkData.SessionMode = MultiplayerSessionType.Deathmatch;
+            StateManager.NetworkData.SessionMode = MultiplayerSessionType.LMS;
             CreateMatch(NetworkSessionType.SystemLink);
         }
 

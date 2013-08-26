@@ -94,8 +94,8 @@ namespace PGCGame.CoreTypes
                 case MultiplayerSessionType.Coop:
                     return "co-op";
 
-                case MultiplayerSessionType.Deathmatch:
-                    return "deathmatch";
+                case MultiplayerSessionType.LMS:
+                    return "last man standing";
                 default:
                     return null;
             }
