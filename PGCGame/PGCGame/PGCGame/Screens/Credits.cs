@@ -15,6 +15,7 @@ using Glib.XNA.SpriteLib;
 
 using PGCGame.CoreTypes;
 using PGCGame.Xml.XmlTypes;
+using Microsoft.Xna.Framework.GamerServices;
 
 namespace PGCGame.Screens
 {
@@ -69,6 +70,18 @@ namespace PGCGame.Screens
             _xmlCredits.LoadData();
             musicHandler = new EventHandler<EventArgs>(music_StateChange);
             StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
+            StateManager.ScreenStateChanged += new EventHandler(StateManager_ScreenStateChanged);
+        }
+
+        void StateManager_ScreenStateChanged(object sender, EventArgs e)
+        {
+            if (Visible)
+            {
+                foreach (SignedInGamer sig in Gamer.SignedInGamers)
+                {
+                    sig.Presence.PresenceMode = GamerPresenceMode.WatchingCredits;
+                }
+            }
         }
 
         void Options_ScreenResolutionChanged(object sender, EventArgs e)

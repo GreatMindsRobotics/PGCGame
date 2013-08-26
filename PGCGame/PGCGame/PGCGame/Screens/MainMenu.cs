@@ -37,6 +37,10 @@ namespace PGCGame.Screens
             if (Visible)
             {
                 elapsedButtonDelay = TimeSpan.Zero;
+                foreach (SignedInGamer sig in Gamer.SignedInGamers)
+                {
+                    sig.Presence.PresenceMode = GamerPresenceMode.StartingGame;
+                }
             }
         }
 

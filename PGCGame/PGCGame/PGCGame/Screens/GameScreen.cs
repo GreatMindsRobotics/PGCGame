@@ -20,6 +20,7 @@ using PGCGame.Ships.Enemies;
 using PGCGame.Ships.Allies;
 using Glib.XNA.InputLib;
 using Microsoft.Xna.Framework.Net;
+using Microsoft.Xna.Framework.GamerServices;
 
 namespace PGCGame.Screens
 {
@@ -209,6 +210,10 @@ namespace PGCGame.Screens
 
                 if (StateManager.CurrentLevel.ToInt() == 4)
                 {
+                    foreach (SignedInGamer sig in Gamer.SignedInGamers)
+                    {
+                        sig.Presence.PresenceMode = GamerPresenceMode.BattlingBoss;
+                    }
                     CloneBoss enemyBoss = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyFighterCarrier, ShipTier.Tier4], Vector2.Zero, Sprites.SpriteBatch);
                     CloneBoss enemyCloneOne = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyFighterCarrier, ShipTier.Tier4], Vector2.Zero, Sprites.SpriteBatch);
                     CloneBoss enemyCloneTwo = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyFighterCarrier, ShipTier.Tier4], Vector2.Zero, Sprites.SpriteBatch);
@@ -247,6 +252,10 @@ namespace PGCGame.Screens
                 }
                 else
                 {
+                    foreach (SignedInGamer sig in Gamer.SignedInGamers)
+                    {
+                        sig.Presence.PresenceMode = GamerPresenceMode.InCombat;
+                    }
                     for (int i = 0; i < 4 * StateManager.CurrentLevel.ToInt(); i++)
                     {
                         Texture2D enemyTexture = GameContent.GameAssets.Images.Ships[ShipType.Drone, StateManager.RandomGenerator.NextShipTier(ShipTier.Tier1, ShipTier.Tier2)];

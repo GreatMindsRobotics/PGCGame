@@ -15,6 +15,7 @@ using PGCGame.CoreTypes;
 using Glib.XNA.InputLib;
 using Microsoft.Xna.Framework.Storage;
 using System.ComponentModel;
+using Microsoft.Xna.Framework.GamerServices;
 
 namespace PGCGame.Screens
 {
@@ -30,7 +31,14 @@ namespace PGCGame.Screens
 
         void StateManager_ScreenStateChanged(object sender, EventArgs e)
         {
-            isSaving = false;   
+            isSaving = false;
+            if (StateManager.ScreenState == ScreenType)
+            {
+                foreach (SignedInGamer sig in Gamer.SignedInGamers)
+                {
+                    sig.Presence.PresenceMode = GamerPresenceMode.InGameStore;
+                }
+            }
         }
 
         public static event EventHandler levelBegin;
