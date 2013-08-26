@@ -29,7 +29,7 @@ namespace PGCGame.Screens.Multiplayer
 
         void CurrentSession_GamerLeft(object sender, GamerLeftEventArgs e)
         {
-            if (GamerInfos.Count > 0)
+            if (StateManager.ScreenState == ScreenType && GamerInfos.Count > 0)
             {
                 GamerInfos[e.Gamer.Id].Visible = false;
                 SelectedShips.Remove(e.Gamer.Id);
@@ -69,6 +69,24 @@ namespace PGCGame.Screens.Multiplayer
 
         // Goes by gamer ID
         Dictionary<byte, ShipStats> SelectedShips = new Dictionary<byte, ShipStats>();
+
+        void gameLeave(object o, GamerLeftEventArgs glea)
+        {
+            if (glea.Gamer.IsHost)
+            {
+                StateManager.ScreenState = CoreTypes.ScreenType.NetworkSelectScreen;
+            }
+            for(int i = 0; i < StateManager.EnemyShips.Count; i++)
+            {
+                BaseAllyShip sh = StateManager.EnemyShips[i] as BaseAllyShip;
+                if (sh != null && sh.Controller != null && sh.Controller.Id == glea.Gamer.Id)
+                {
+                    sh.CurrentHealth = 0;
+                    StateManager.EnemyShips.RemoveAt(i);
+                    return;
+                }
+            }
+        }
 
         void StateManager_ScreenStateChanged(object sender, EventArgs e)
         {
@@ -169,6 +187,7 @@ namespace PGCGame.Screens.Multiplayer
                 preDataRecv.RunWorkerAsync();
                 //StateManager.ScreenState = CoreTypes.ScreenType.Game;
             }
+            StateManager.NetworkData.CurrentSession.GamerLeft += new EventHandler<GamerLeftEventArgs>(gameLeave);
             foreach (NetworkGamer g in StateManager.NetworkData.CurrentSession.RemoteGamers)
             {
                 StateManager.NetworkData.CurrentSession.LocalGamers[0].EnableSendVoice(g, false);
