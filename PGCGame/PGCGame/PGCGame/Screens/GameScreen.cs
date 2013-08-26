@@ -600,9 +600,6 @@ namespace PGCGame.Screens
         Boolean allEnemiesDead = true;
         EventHandler wcMovePrettyCode;
 
-        float playerAccelVert = 0;
-        float playerAccelHor = 0;
-
         public override void Update(GameTime gameTime)
         {
             miniMap.Update();
@@ -922,164 +919,71 @@ namespace PGCGame.Screens
             if (playerShip.ShipState == ShipState.Alive)
             {
                 Vector2 camMove = Vector2.Zero;
-                if (StateManager.InputManager.ShouldMove(MoveDirection.Up) && playerAccelVert == 0)
+                if (StateManager.InputManager.ShouldMove(MoveDirection.Up))
                 {
-                    playerAccelVert = -.05f;
-                }
-                else if (StateManager.InputManager.ShouldMove(MoveDirection.Down) && playerAccelVert == 0)
-                {
-                    playerAccelVert = .05f;
-                }
-                if (StateManager.InputManager.ShouldMove(MoveDirection.Up) && playerAccelVert < 0 || StateManager.InputManager.ShouldMove(MoveDirection.Down) && playerAccelVert > 0)
-                {
-                    if (Math.Abs(playerAccelVert) <= .5f)
-                    {
-                        playerAccelVert *= 1.04f;
-                    }
-                    else if (Math.Abs(playerAccelVert) <= 1f)
-                    {
-                        playerAccelVert *= 1.05f;
-                    }
-                    else if (Math.Abs(playerAccelVert) <= 1.5f)
-                    {
-                        playerAccelVert *= 1.07f;
-                    }
-                    else if (Math.Abs(playerAccelVert) < 2.5f)
-                    {
-                        playerAccelVert *= 1.1f;
-                    }
-                    else if (Math.Abs(playerAccelVert) > 2.5f)
-                    {
-                        if (playerAccelVert > 0)
-                        {
-                            playerAccelVert = 2.5f;
-                        }
-                        else
-                        {
-                            playerAccelVert = -2.5f;
-                        }
-                    }
-                }
-
-                else if (playerAccelVert != 0)
-                {
-                    if (playerAccelVert > 0)
-                    {
-                        if (playerAccelVert <= .2f)
-                        {
-                            playerAccelVert = 0f;
-                        }
-                        else
-                        {
-                            playerAccelVert -= .025f;
-                        }
-                    }
-                    else
-                    {
-                        if (Math.Abs(playerAccelVert) <= .2f)
-                        {
-                            playerAccelVert = 0f;
-                        }
-                        else
-                        {
-                            playerAccelVert += .025f;
-                        }
-                    }
-                }
-
-                float ymoveAmount = playerShip.MovementSpeed.Y * playerAccelVert;
+                    float ymoveAmount = -playerShip.MovementSpeed.Y;
 #if XBOX
                 ymoveAmount *= Math.Abs(GamePadManager.One.Current.ThumbSticks.Left.Y);
 #endif
 
-                if (worldCam.Pos.Y + ymoveAmount >= bg.Height / 2)
-                {
-                    camMove.Y = ymoveAmount;
-                }
-                else
-                {
-                    camMove.Y = bg.Height / 2 - worldCam.Pos.Y;
-                }
-
-                if (StateManager.InputManager.ShouldMove(MoveDirection.Left) && playerAccelHor == 0)
-                {
-                    playerAccelHor = -.05f;
-                }
-                else if (StateManager.InputManager.ShouldMove(MoveDirection.Right) && playerAccelHor == 0)
-                {
-                    playerAccelHor = .05f;
-                }
-                if (StateManager.InputManager.ShouldMove(MoveDirection.Left) && playerAccelHor < 0 || StateManager.InputManager.ShouldMove(MoveDirection.Right) && playerAccelHor > 0)
-                {
-                    if (Math.Abs(playerAccelHor) <= .5f)
+                    if (worldCam.Pos.Y + ymoveAmount >= bg.Height / 2)
                     {
-                        playerAccelHor *= 1.04f;
-                    }
-                    else if (Math.Abs(playerAccelHor) <= 1f)
-                    {
-                        playerAccelHor *= 1.05f;
-                    }
-                    else if (Math.Abs(playerAccelHor) <= 1.5f)
-                    {
-                        playerAccelHor *= 1.07f;
-                    }
-                    else if (Math.Abs(playerAccelHor) < 2.5f)
-                    {
-                        playerAccelHor *= 1.1f;
-                    }
-                    else if (Math.Abs(playerAccelHor) > 2.5f)
-                    {
-                        if (playerAccelHor > 0)
-                        {
-                            playerAccelHor = 2.5f;
-                        }
-                        else
-                        {
-                            playerAccelHor = -2.5f;
-                        }
-                    }
-                }
-
-                else if (playerAccelHor != 0)
-                {
-                    if (playerAccelHor > 0)
-                    {
-                        if (playerAccelHor <= .2f)
-                        {
-                            playerAccelHor = 0f;
-                        }
-                        else
-                        {
-                            playerAccelHor -= .025f;
-                        }
+                        camMove.Y = ymoveAmount;
                     }
                     else
                     {
-                        if (Math.Abs(playerAccelHor) <= .2f)
-                        {
-                            playerAccelHor = 0f;
-                        }
-                        else
-                        {
-                            playerAccelHor += .025f;
-                        }
+                        camMove.Y = bg.Height / 2 - worldCam.Pos.Y;
+                    }
+                }
+                else if (StateManager.InputManager.ShouldMove(MoveDirection.Down))
+                {
+                    float ymoveAmount = playerShip.MovementSpeed.Y;
+#if XBOX
+                ymoveAmount *= Math.Abs(GamePadManager.One.Current.ThumbSticks.Left.Y);
+#endif
+
+                    if (worldCam.Pos.Y + ymoveAmount <= bg.TotalHeight - (bg.Height / 2))
+                    {
+                        camMove.Y = ymoveAmount;
+                    }
+                    else
+                    {
+                        camMove.Y = (bg.TotalHeight - (bg.Height / 2)) - worldCam.Pos.Y;
                     }
                 }
 
-                float xmoveAmount = playerShip.MovementSpeed.X * playerAccelHor;
+                if (StateManager.InputManager.ShouldMove(MoveDirection.Right))
+                {
+                    float xmoveAmount = playerShip.MovementSpeed.X;
 #if XBOX
                 xmoveAmount *= Math.Abs(GamePadManager.One.Current.ThumbSticks.Left.X);
 #endif
-                if (worldCam.Pos.X + xmoveAmount <= bg.TotalWidth - (bg.Width / 2))
-                {
-                    camMove.X = xmoveAmount;
-                }
-                else
-                {
-                    camMove.X = (bg.TotalWidth - (bg.Width / 2)) - worldCam.Pos.X;
-                }
 
+                    if (worldCam.Pos.X + xmoveAmount <= bg.TotalWidth - (bg.Width / 2))
+                    {
+                        camMove.X = xmoveAmount;
+                    }
+                    else
+                    {
+                        camMove.X = (bg.TotalWidth - (bg.Width / 2)) - worldCam.Pos.X;
+                    }
+                }
+                else if (StateManager.InputManager.ShouldMove(MoveDirection.Left))
+                {
+                    float xmoveAmount = -playerShip.MovementSpeed.X;
+#if XBOX
+                xmoveAmount *= Math.Abs(GamePadManager.One.Current.ThumbSticks.Left.X);
+#endif
 
+                    if (worldCam.Pos.X + xmoveAmount >= bg.Width / 2)
+                    {
+                        camMove.X = xmoveAmount;
+                    }
+                    else
+                    {
+                        camMove.X = bg.Width / 2 - worldCam.Pos.X;
+                    }
+                }
 
 
                 if (_lastState.IsKeyUp(Keys.F11) && KeyboardManager.State.IsKeyDown(Keys.F11))
