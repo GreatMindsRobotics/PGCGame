@@ -388,6 +388,13 @@ namespace PGCGame
                 }
             }
 
+            public static void LeaveSession()
+            {
+                _game.Services.RemoveService(typeof(NetworkSession));
+                CurrentSession.Dispose();
+                CurrentSession = null;
+            }
+
             public static MultiplayerSessionType SessionMode;
 
             public static ShipStats SelectedNetworkShip;

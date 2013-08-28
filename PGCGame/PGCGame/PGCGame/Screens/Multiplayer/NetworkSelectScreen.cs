@@ -162,12 +162,18 @@ namespace PGCGame.Screens.Multiplayer
             IAsyncResult getMySectors = ar as IAsyncResult;
             if (StateManager.NetworkData.AvailableSessions != null)
             {
-                StateManager.NetworkData.AvailableSessions.Dispose();
+                if (!StateManager.NetworkData.AvailableSessions.IsDisposed)
+                {
+                    StateManager.NetworkData.AvailableSessions.Dispose();
+                }
                 StateManager.NetworkData.AvailableSessions = null;
             }
             if (StateManager.NetworkData.CurrentSession != null)
             {
-                StateManager.NetworkData.CurrentSession.Dispose();
+                if (!StateManager.NetworkData.CurrentSession.IsDisposed)
+                {
+                    StateManager.NetworkData.CurrentSession.Dispose();
+                }
                 StateManager.NetworkData.CurrentSession = null;
             }
             StateManager.NetworkData.AvailableSessions = NetworkSession.EndFind(getMySectors);

@@ -207,7 +207,7 @@ namespace PGCGame
                 StateManager.SpaceBucks = int.MaxValue;
             }
 
-            if (StateManager.NetworkData.CurrentSession != null)
+            if (StateManager.NetworkData.IsMultiplayer)
             {
                 StateManager.NetworkData.CurrentSession.Update();
             }

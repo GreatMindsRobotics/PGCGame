@@ -93,7 +93,7 @@ namespace PGCGame.Screens.Multiplayer
             IAsyncResult getMySectors = res as IAsyncResult;
             if (StateManager.NetworkData.CurrentSession != null)
             {
-                StateManager.NetworkData.CurrentSession.Dispose();
+                StateManager.NetworkData.LeaveSession();
                 StateManager.NetworkData.CurrentSession = null;
             }
             if (StateManager.NetworkData.AvailableSessions != null)
@@ -152,8 +152,7 @@ namespace PGCGame.Screens.Multiplayer
             IAsyncResult r = res as IAsyncResult;
             if (StateManager.NetworkData.CurrentSession != null)
             {
-                StateManager.NetworkData.CurrentSession.Dispose();
-                StateManager.NetworkData.CurrentSession = null;
+                StateManager.NetworkData.LeaveSession();
             }
             if (StateManager.NetworkData.AvailableSessions != null)
             {
