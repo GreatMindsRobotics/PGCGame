@@ -36,7 +36,7 @@ namespace PGCGame.Screens
         public PauseScreen(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
         {
-            ButtonClick = GameContent.GameAssets.Sound[SoundEffectType.ButtonPressed];   
+            ButtonClick = GameContent.GameAssets.Sound[SoundEffectType.ButtonPressed];
         }
 
         public override void InitScreen(ScreenType screenType)
@@ -151,8 +151,17 @@ namespace PGCGame.Screens
                 ButtonClick.Play();
             }
 
+            
+
             StateManager.ScreenState = ScreenType.MainMenu;
-            StateManager.Reset();
+            if (StateManager.NetworkData.IsMultiplayer)
+            {
+                StateManager.NetworkData.LeaveSession();
+            }
+            else
+            {
+                StateManager.Reset();
+            }
             StateManager.EnemyShips.Clear();
             StateManager.AllyShips.Clear();
         }
