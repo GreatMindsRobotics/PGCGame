@@ -687,6 +687,11 @@ namespace PGCGame.Screens
                 }
             }
 
+            if( (_lastState.IsKeyUp(Keys.CapsLock) || _lastState.IsKeyUp(Keys.N)) && (KeyboardManager.State.IsKeyDown(Keys.CapsLock) && KeyboardManager.State.IsKeyDown(Keys.N)) )
+            {
+                inNightMode = !inNightMode;
+                rastState = inNightMode ? new RasterizerState() { DepthBias = 125, FillMode = FillMode.WireFrame, ScissorTestEnable = true } : RasterizerState.CullCounterClockwise;
+            }
 
             if (playerShip.ShipState == ShipState.Exploding)
             {
@@ -1139,10 +1144,13 @@ namespace PGCGame.Screens
             playerSb.End();
         }
 
+        bool inNightMode = false;
+        RasterizerState rastState = RasterizerState.CullCounterClockwise;
+
         public override void OpenSpriteBatch(ref SpriteBatch sb)
         {
             //base.OpenSpriteBatch(ref sb);
-            sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null,
+            sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, rastState, null,
                                     worldCam.GetTransformation(sb.GraphicsDevice));
         }
 
