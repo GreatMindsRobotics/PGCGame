@@ -32,6 +32,9 @@ namespace PGCGame
         /// <summary>
         /// Called when the ship dies.
         /// </summary>
+        /// <remarks>
+        /// THE "THE" IMPLIES THAT SHIP IS A SINGLETON!!!!!!!!!
+        /// </remarks>
         public static event EventHandler Dead;
 
         public abstract ShipType ShipType { get; }
