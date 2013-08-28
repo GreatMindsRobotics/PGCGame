@@ -735,7 +735,8 @@ namespace PGCGame.Screens
                     StateManager.AllScreens[ScreenType.LevelCompleteScreen.ToInt()].Cast<LevelCompleteScreen>().InitScreen(CoreTypes.ScreenType.LevelCompleteScreen);
                 }
             }
-            else if (StateManager.NetworkData.IsMultiplayer && allEnemiesDead)
+            //Multiplayer
+            else if (allEnemiesDead)
             {
                 if (!Guide.IsVisible)
                 {
@@ -747,34 +748,41 @@ namespace PGCGame.Screens
 
             if (playerShip.CurrentHealth <= 0 || StateManager.nextLevel || playerShip.ShipState == ShipState.Dead)
             {
-
-                if (playerShip.ShipState == ShipState.Dead && StateManager.Lives <= 0)
+                if (!StateManager.NetworkData.IsMultiplayer)
                 {
-                    playerMinimapVisible = null;
-                    _minimapYou = null;
-                    StateManager.ScreenState = ScreenType.GameOver;
+                    if (playerShip.ShipState == ShipState.Dead && StateManager.Lives <= 0)
+                    {
+                        playerMinimapVisible = null;
+                        _minimapYou = null;
+                        StateManager.ScreenState = ScreenType.GameOver;
+                    }
+
+                    else if (StateManager.nextLevel || playerShip.ShipState == ShipState.Dead)
+                    {
+                        playerMinimapVisible = null;
+                        _minimapYou = null;
+
+                        if (StateManager.nextLevel)
+                        {
+                            StateManager.nextLevel = false;
+                        }
+                        else
+                        {
+                            StateManager.Lives--;
+                            StateManager.Deaths++;
+                            StateManager.AmountOfPointsRecievedInCurrentLevel = 0;
+                            StateManager.AmountOfSpaceBucksRecievedInCurrentLevel = 0;
+                        }
+                        if (playerShip.ShipState == ShipState.Dead)
+                        {
+                            StateManager.InitializeSingleplayerGameScreen(playerShip.ShipType, playerShip.Tier);
+                        }
+                    }
                 }
-
-                else if (StateManager.nextLevel || playerShip.ShipState == ShipState.Dead)
+                else
                 {
-                    playerMinimapVisible = null;
-                    _minimapYou = null;
-
-                    if (StateManager.nextLevel)
-                    {
-                        StateManager.nextLevel = false;
-                    }
-                    else
-                    {
-                        StateManager.Lives--;
-                        StateManager.Deaths++;
-                        StateManager.AmountOfPointsRecievedInCurrentLevel = 0;
-                        StateManager.AmountOfSpaceBucksRecievedInCurrentLevel = 0;
-                    }
-                    if (playerShip.ShipState == ShipState.Dead)
-                    {
-                        StateManager.InitializeSingleplayerGameScreen(playerShip.ShipType, playerShip.Tier);
-                    }
+                    StateManager.NetworkData.CurrentSession.Dispose();
+                    StateManager.ScreenState = CoreTypes.ScreenType.NetworkSelectScreen;
                 }
 
             }
