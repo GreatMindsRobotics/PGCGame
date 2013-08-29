@@ -36,6 +36,18 @@ namespace PGCGame.Screens.Multiplayer
             {
                 elapsedButtonDelay = TimeSpan.Zero;
             }
+            if ((Visible || StateManager.ScreenState == CoreTypes.ScreenType.MainMenu) && (StateManager.NetworkData.AvailableSessions != null))
+            {
+                if (!StateManager.NetworkData.AvailableSessions.IsDisposed)
+                {
+                    StateManager.NetworkData.AvailableSessions.Dispose();
+                }
+                StateManager.NetworkData.AvailableSessions = null;
+                if (StateManager.NetworkData.IsMultiplayer)
+                {
+                    StateManager.NetworkData.LeaveSession();
+                }
+            }
         }
 
         Sprite LANButton;

@@ -391,7 +391,10 @@ namespace PGCGame
             public static void LeaveSession()
             {
                 _game.Services.RemoveService(typeof(NetworkSession));
-                CurrentSession.Dispose();
+                if (CurrentSession != null && !CurrentSession.IsDisposed)
+                {
+                    CurrentSession.Dispose();
+                }
                 CurrentSession = null;
             }
 

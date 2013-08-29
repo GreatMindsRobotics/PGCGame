@@ -150,13 +150,16 @@ namespace PGCGame.Screens.Multiplayer
         void FinishJoin(object res)
         {
             IAsyncResult r = res as IAsyncResult;
-            if (StateManager.NetworkData.CurrentSession != null)
+            if (StateManager.NetworkData.IsMultiplayer)
             {
                 StateManager.NetworkData.LeaveSession();
             }
             if (StateManager.NetworkData.AvailableSessions != null)
             {
-                StateManager.NetworkData.AvailableSessions.Dispose();
+                if (!StateManager.NetworkData.AvailableSessions.IsDisposed)
+                {
+                    StateManager.NetworkData.AvailableSessions.Dispose();
+                }
                 StateManager.NetworkData.AvailableSessions = null;
             }
 

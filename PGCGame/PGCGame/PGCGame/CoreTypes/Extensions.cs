@@ -92,10 +92,10 @@ namespace PGCGame.CoreTypes
             switch (sessType)
             {
                 case MultiplayerSessionType.Coop:
-                    return "co-op";
+                    return "Co-op";
 
                 case MultiplayerSessionType.LMS:
-                    return "last man standing";
+                    return "Last Man Standing";
                 default:
                     return null;
             }
