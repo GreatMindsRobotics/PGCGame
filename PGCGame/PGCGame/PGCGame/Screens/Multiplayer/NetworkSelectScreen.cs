@@ -101,7 +101,7 @@ namespace PGCGame.Screens.Multiplayer
             LANLabel.CallKeyboardClickEvent = false;
 #endif
             LANLabel.NonHoverColor = Color.White;
-            LANLabel.Pressed += new EventHandler(LANLabel_Pressed);
+            
             LANLabel.HoverColor = Color.MediumAquamarine;
             AdditionalSprites.Add(LANLabel);
 
@@ -113,7 +113,7 @@ namespace PGCGame.Screens.Multiplayer
             HostLabel.CallKeyboardClickEvent = false;
 #endif
             HostLabel.ParentSprite = HostButton;
-            HostLabel.Pressed += new EventHandler(HostLabel_Pressed);
+            
             HostLabel.NonHoverColor = Color.White;
             HostLabel.HoverColor = Color.MediumAquamarine;
             AdditionalSprites.Add(HostLabel);
@@ -130,7 +130,9 @@ namespace PGCGame.Screens.Multiplayer
             AllButtons.FireTextSpritePressed = true;
 
 #endif
-
+            LANLabel.Pressed += new EventHandler(LANLabel_Pressed);
+            HostLabel.Pressed += StateManager.ButtonSFXHelper;
+            HostLabel.Pressed += new EventHandler(HostLabel_Pressed);
 
             BackLabel.Pressed += new EventHandler(BackLabel_Pressed);
         }
@@ -201,6 +203,10 @@ namespace PGCGame.Screens.Multiplayer
             else if (Gamer.SignedInGamers.Count == 0)
             {
                 return;
+            }
+            if (StateManager.Options.SFXEnabled)
+            {
+                ButtonClick.Play();
             }
             LoadingScreen lScr = StateManager.AllScreens[ScreenType.LoadingScreen.ToString()] as LoadingScreen;
             lScr.Reset();

@@ -47,6 +47,7 @@ namespace PGCGame.Screens.Multiplayer
             CoopLabel.NonHoverColor = Color.White;
             CoopLabel.IsHoverable = true;
             CoopLabel.ParentSprite = CoopButton;
+            CoopLabel.Pressed += StateManager.ButtonSFXHelper;
             CoopLabel.Pressed += new EventHandler(CoopLabel_Pressed);
 
             Sprites.Add(CoopButton);
@@ -61,6 +62,7 @@ namespace PGCGame.Screens.Multiplayer
             DeathMatchLabel.NonHoverColor = Color.White;
             DeathMatchLabel.IsHoverable = true;
             DeathMatchLabel.ParentSprite = DeathMatchButton;
+            DeathMatchLabel.Pressed += StateManager.ButtonSFXHelper;
             DeathMatchLabel.Pressed += new EventHandler(DeathMatchLabel_Pressed);
 
             Sprites.Add(DeathMatchButton);
@@ -76,6 +78,7 @@ namespace PGCGame.Screens.Multiplayer
             BackLabel.NonHoverColor = Color.White;
             BackLabel.IsHoverable = true;
             BackLabel.ParentSprite = BackButton;
+            BackLabel.Pressed += StateManager.ButtonSFXHelper;
             BackLabel.Pressed += new EventHandler(BackLabel_Pressed);
 
             Sprites.Add(BackButton);

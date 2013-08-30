@@ -381,6 +381,10 @@ namespace PGCGame.Screens.Multiplayer
         /// </remarks>
         void StartLabel_Pressed(object sender, EventArgs e)
         {
+            if (StateManager.Options.SFXEnabled)
+            {
+                ButtonClick.Play();
+            }
             if (StateManager.NetworkData.SessionMode == MultiplayerSessionType.LMS)
             {
                 StateManager.SelectedShip = SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Id].Type;

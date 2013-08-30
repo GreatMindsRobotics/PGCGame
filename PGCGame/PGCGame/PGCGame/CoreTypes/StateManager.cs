@@ -238,6 +238,25 @@ namespace PGCGame
             }
         }
 
+        private static void PlayButtonSfx(object sender, EventArgs ea)
+        {
+            if (StateManager.Options.SFXEnabled)
+            {
+                GameContent.GameAssets.Sound[SoundEffectType.ButtonPressed].Play();
+            }
+        }
+
+        /// <summary>
+        /// Gets an event handler that plays the button click sound.
+        /// </summary>
+        public static EventHandler ButtonSFXHelper
+        {
+            get
+            {
+                return new EventHandler(PlayButtonSfx);
+            }
+        }
+
         public static bool ShowShipData
         {
             get
