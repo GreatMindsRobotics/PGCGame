@@ -110,16 +110,6 @@ namespace PGCGame.Screens.Multiplayer
         void FinishLanSectorHost(object arg)
         {
             IAsyncResult getMySectors = arg as IAsyncResult;
-            if (StateManager.NetworkData.CurrentSession != null)
-            {
-                StateManager.NetworkData.LeaveSession();
-                StateManager.NetworkData.CurrentSession = null;
-            }
-            if (StateManager.NetworkData.AvailableSessions != null)
-            {
-                StateManager.NetworkData.AvailableSessions.Dispose();
-                StateManager.NetworkData.AvailableSessions = null;
-            }
 
             StateManager.NetworkData.CurrentSession = NetworkSession.EndCreate(getMySectors);
             StateManager.NetworkData.CurrentSession.AllowHostMigration = false;
@@ -137,6 +127,15 @@ namespace PGCGame.Screens.Multiplayer
             else if (Gamer.SignedInGamers.Count == 0)
             {
                 return;
+            }
+            StateManager.NetworkData.LeaveSession();
+            if (StateManager.NetworkData.AvailableSessions != null)
+            {
+                if (!StateManager.NetworkData.AvailableSessions.IsDisposed)
+                {
+                    StateManager.NetworkData.AvailableSessions.Dispose();
+                }
+                StateManager.NetworkData.AvailableSessions = null;
             }
             LoadingScreen lScr = StateManager.AllScreens[ScreenType.LoadingScreen.ToString()] as LoadingScreen;
             lScr.Reset();
