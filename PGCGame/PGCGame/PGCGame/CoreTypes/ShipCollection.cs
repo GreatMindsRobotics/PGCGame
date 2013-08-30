@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Net;
+using PGCGame.Ships.Allies;
 
 namespace PGCGame.CoreTypes
 {
@@ -28,6 +30,23 @@ namespace PGCGame.CoreTypes
                     RemoveAt(i);
                     i--;
                 }
+            }
+        }
+
+        public BaseAllyShip this[NetworkGamer shipController]
+        {
+            get
+            {
+                foreach (Ship sh in this)
+                {
+                    BaseAllyShip s = sh as BaseAllyShip;
+                    if (s != null && s.Controller != null && s.Controller.Id == shipController.Id)
+                    {
+                        return s;
+                    }
+                    
+                }
+                throw new IndexOutOfRangeException("A ship with the specified controller was not found in this collection.");
             }
         }
 

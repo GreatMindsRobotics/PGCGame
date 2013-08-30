@@ -1093,16 +1093,7 @@ namespace PGCGame.Screens
                         {
                             Vector4 bulletData = StateManager.NetworkData.DataReader.ReadVector4();
                             Vector4 addlData = StateManager.NetworkData.DataReader.ReadVector4();
-                            BaseAllyShip parent = null;
-                            foreach (Ship sh in StateManager.EnemyShips)
-                            {
-                                BaseAllyShip s = sh as BaseAllyShip;
-                                if (s != null && s.Controller != null && s.Controller.Id == dataSender.Id)
-                                {
-                                    parent = s;
-                                    break;
-                                }
-                            }
+                            BaseAllyShip parent = StateManager.EnemyShips[dataSender];
                             Bullet newBullet = new Bullet(GameContent.GameAssets.Images.Ships.Bullets[(ShipType)Enum.Parse(typeof(ShipType), addlData.Z.ToInt().ToString(), true), (ShipTier)Enum.Parse(typeof(ShipTier), addlData.W.ToInt().ToString(), true)], new Vector2(bulletData.X, bulletData.Y), World, parent);
                             newBullet.Speed = new Vector2(bulletData.Z, bulletData.W);
                             newBullet.Rotation = SpriteRotation.FromRadians(addlData.Y);
