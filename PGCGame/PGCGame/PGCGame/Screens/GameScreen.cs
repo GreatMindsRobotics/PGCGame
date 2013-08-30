@@ -345,9 +345,17 @@ namespace PGCGame.Screens
             playerShip.BulletFired += new EventHandler<BulletEventArgs>(playerShip_BulletFired);
         }
 
+        /// <summary>
+        /// Called when the player fires a bullet.
+        /// </summary>
+        /// <remarks>
+        /// Currently only houses multiplayer bullet sending code.
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void playerShip_BulletFired(object sender, BulletEventArgs e)
         {
-            if (StateManager.NetworkData.CurrentSession != null && !StateManager.NetworkData.CurrentSession.IsDisposed && StateManager.NetworkData.CurrentSession.AllGamers.Count > 0)
+            if (StateManager.NetworkData.IsMultiplayer)
             {
                 //Send bullet
 
