@@ -69,6 +69,14 @@ namespace PGCGame
             FriendlyName = ShipType.ToFriendlyString();
         }
 
+        internal ISizedScreenObject Healthbar
+        {
+            get
+            {
+                return _healthBar;
+            }
+        }
+
         void Options_ScreenResolutionChanged(object sender, EventArgs e)
         {
             _healthBar.Position = new Vector2(X - (_healthBar.Width / 2), Y - (Height / 1.5f));

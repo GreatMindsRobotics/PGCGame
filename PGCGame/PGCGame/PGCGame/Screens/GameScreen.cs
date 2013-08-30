@@ -1058,6 +1058,7 @@ namespace PGCGame.Screens
                     }
                 }
                 playerShip.WCMoved -= wcMovePrettyCode;
+                playerShip.Healthbar.Position = new Vector2(playerShip.Healthbar.Position.X - (playerShip.Healthbar.Width / 2), playerShip.Healthbar.Position.Y - (playerShip.Healthbar.Height / 1.5f));
             }
 
             #region Networking Code
