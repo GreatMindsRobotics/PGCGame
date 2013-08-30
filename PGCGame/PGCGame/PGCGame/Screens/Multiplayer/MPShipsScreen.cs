@@ -221,7 +221,7 @@ namespace PGCGame.Screens.Multiplayer
 
             foreach (NetworkGamer g in StateManager.NetworkData.CurrentSession.RemoteGamers)
             {
-                BaseAllyShip sns = BaseAllyShip.CreateShip(SelectedShips[g.Id], GameScreen.World);
+                BaseAllyShip sns = BaseAllyShip.CreateShip(SelectedShips[g.Id], GameScreen.World, false);
                 sns.Controller = g;
                 sns.PlayerType = PlayerType.Solo;
                 sns.RotateTowardsMouse = false;
@@ -406,7 +406,7 @@ namespace PGCGame.Screens.Multiplayer
 
                 foreach (NetworkGamer g in StateManager.NetworkData.CurrentSession.RemoteGamers)
                 {
-                    BaseAllyShip sns = BaseAllyShip.CreateShip(SelectedShips[g.Id], GameScreen.World);
+                    BaseAllyShip sns = BaseAllyShip.CreateShip(SelectedShips[g.Id], GameScreen.World, false);
                     sns.PlayerType = PlayerType.Solo;
                     sns.RotateTowardsMouse = false;
                     sns.Controller = g;

@@ -28,18 +28,21 @@ namespace PGCGame
 
         public static float DroneLength = 0f;
 
-        public FighterCarrier(Texture2D texture, Vector2 location, SpriteBatch spriteBatch, Texture2D droneTexture)
-            : base(texture, location, spriteBatch)
+        public FighterCarrier(Texture2D texture, Vector2 location, SpriteBatch spriteBatch, Texture2D droneTexture, bool isAlly)
+            : base(texture, location, spriteBatch, isAlly)
         {
             //UseCenterAsOrigin = true;
 
             //Init drones
-            Drones.Add(new Drone(droneTexture, location, spriteBatch, this) { DroneState = CoreTypes.DroneState.Stowed });
-            Drones[0].Rotation.Radians = MathHelper.Pi;
+            if (!StateManager.NetworkData.IsMultiplayer)
+            {
+                Drones.Add(new Drone(droneTexture, location, spriteBatch, this) { DroneState = CoreTypes.DroneState.Stowed });
+                Drones[0].Rotation.Radians = MathHelper.Pi;
 
-            Drones.Add(new Drone(droneTexture, location, spriteBatch, this) { DroneState = CoreTypes.DroneState.Stowed });
-            Drones[1].Rotation.Radians = MathHelper.TwoPi;
+                Drones.Add(new Drone(droneTexture, location, spriteBatch, this) { DroneState = CoreTypes.DroneState.Stowed });
+                Drones[1].Rotation.Radians = MathHelper.TwoPi;
 
+            }
             BulletTexture = GameContent.GameAssets.Images.Ships.Bullets[ShipType.FighterCarrier, ShipTier.Tier1];
             DelayBetweenShots = TimeSpan.FromMilliseconds(100);
             DamagePerShot = 2;

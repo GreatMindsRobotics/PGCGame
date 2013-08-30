@@ -24,8 +24,8 @@ namespace PGCGame
 
         //TODO: Scaling logic
 
-        public TorpedoShip(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
-            : base(texture, location, spriteBatch)
+        public TorpedoShip(Texture2D texture, Vector2 location, SpriteBatch spriteBatch, bool isAllyShip)
+            : base(texture, location, spriteBatch, isAllyShip)
         {
             Scale = new Vector2(.925f);
             BulletTexture = GameContent.GameAssets.Images.Ships.Bullets[ShipType.TorpedoShip, ShipTier.Tier1];

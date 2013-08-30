@@ -22,19 +22,19 @@ namespace PGCGame.Ships.Allies
     {
         public NetworkGamer Controller;
 
-        public static BaseAllyShip CreateShip(ShipType type, ShipTier tier, SpriteBatch spawnSpriteBatch)
+        public static BaseAllyShip CreateShip(ShipType type, ShipTier tier, SpriteBatch spawnSpriteBatch, Boolean isAllyShip)
         {
             BaseAllyShip bas = null;
             switch (type)
             {
                 case ShipType.BattleCruiser:
-                    bas = new BattleCruiser(GameContent.GameAssets.Images.Ships[type, tier], Vector2.Zero, spawnSpriteBatch);
+                    bas = new BattleCruiser(GameContent.GameAssets.Images.Ships[type, tier], Vector2.Zero, spawnSpriteBatch, isAllyShip);
                     break;
                 case ShipType.FighterCarrier:
-                    bas = new FighterCarrier(GameContent.GameAssets.Images.Ships[type, tier], Vector2.Zero, spawnSpriteBatch, GameContent.GameAssets.Images.Ships[ShipType.Drone, ShipTier.Tier1]);
+                    bas = new FighterCarrier(GameContent.GameAssets.Images.Ships[type, tier], Vector2.Zero, spawnSpriteBatch, GameContent.GameAssets.Images.Ships[ShipType.Drone, ShipTier.Tier1], isAllyShip);
                     break;
                 case ShipType.TorpedoShip:
-                    bas = new TorpedoShip(GameContent.GameAssets.Images.Ships[type, tier], Vector2.Zero, spawnSpriteBatch);
+                    bas = new TorpedoShip(GameContent.GameAssets.Images.Ships[type, tier], Vector2.Zero, spawnSpriteBatch, isAllyShip);
                     break;
 
                 default:
@@ -50,12 +50,22 @@ namespace PGCGame.Ships.Allies
 
         public static BaseAllyShip CreateShip(ShipType type, SpriteBatch sb)
         {
-            return CreateShip(type, ShipTier.Tier1, sb);
+            return CreateShip(type, ShipTier.Tier1, sb, true);
+        }
+
+        public static BaseAllyShip CreateShip(ShipType type, SpriteBatch sb, bool isAlly)
+        {
+            return CreateShip(type, ShipTier.Tier1, sb, isAlly);
+        }
+
+        public static BaseAllyShip CreateShip(ShipStats stats, SpriteBatch sb, bool isAlly)
+        {
+            return CreateShip(stats.Type, stats.Tier, sb, isAlly);
         }
 
         public static BaseAllyShip CreateShip(ShipStats stats, SpriteBatch sb)
         {
-            return CreateShip(stats.Type, stats.Tier, sb);
+            return CreateShip(stats.Type, stats.Tier, sb, true);
         }
 
 
@@ -146,10 +156,13 @@ namespace PGCGame.Ships.Allies
 
         private int _updateI = 0;
 
-        public BaseAllyShip(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
+        protected BaseAllyShip(Texture2D texture, Vector2 location, SpriteBatch spriteBatch, bool isAlly)
             : base(texture, location, spriteBatch)
         {
-            StateManager.AllyShips.Add(this);
+            if (isAlly)
+            {
+                StateManager.AllyShips.Add(this);
+            }
 
             PlayerType = CoreTypes.PlayerType.Ally;
             shipState = ShipState.Alive;

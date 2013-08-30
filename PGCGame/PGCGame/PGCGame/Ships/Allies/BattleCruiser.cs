@@ -25,8 +25,8 @@ namespace PGCGame
         {
             get { return "Battle Cruiser"; }
         }
-        public BattleCruiser(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
-            : base(texture, location, spriteBatch)
+        public BattleCruiser(Texture2D texture, Vector2 location, SpriteBatch spriteBatch, Boolean isAlly)
+            : base(texture, location, spriteBatch, isAlly)
         {
             MovementSpeed = Vector2.One;
             BulletTexture = GameContent.GameAssets.Images.Ships.Bullets[ShipType.BattleCruiser, ShipTier.Tier1];

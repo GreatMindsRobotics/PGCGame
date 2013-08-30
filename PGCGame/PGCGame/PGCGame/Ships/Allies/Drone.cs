@@ -68,7 +68,7 @@ namespace PGCGame
         #region Public Ctors
 
         public Drone(Texture2D texture, Vector2 location, SpriteBatch spriteBatch, FighterCarrier parent)
-            : base(texture, location, spriteBatch)
+            : base(texture, location, spriteBatch, true)
         {
             ParentShip = parent;
 
