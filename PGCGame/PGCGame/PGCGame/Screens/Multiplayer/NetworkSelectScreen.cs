@@ -118,17 +118,9 @@ namespace PGCGame.Screens.Multiplayer
             HostLabel.HoverColor = Color.MediumAquamarine;
             AdditionalSprites.Add(HostLabel);
 
-
-
-
-
-
-
-
 #if XBOX
             AllButtons = new GamePadButtonEnumerator(new TextSprite[,] { { HostLabel, null }, {BackLabel, LANLabel} }, InputType.LeftJoystick);
             AllButtons.FireTextSpritePressed = true;
-
 #endif
             LANLabel.Pressed += new EventHandler(LANLabel_Pressed);
             HostLabel.Pressed += StateManager.ButtonSFXHelper;
