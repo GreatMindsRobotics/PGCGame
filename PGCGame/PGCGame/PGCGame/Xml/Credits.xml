@@ -330,5 +330,15 @@
         <Site>Music From Incompetech.com</Site>
       </Songs>
     </Helper>
+    <Helper id="4">
+      <Job>Multiplayer Coder</Job>
+      <FirstName>Glen</FirstName>
+      <FullLastName>Husman</FullLastName>
+    </Helper>
+    <Helper id="5">
+      <Job>Multiplayer Coding Assistant</Job>
+      <FirstName>Alex</FirstName>
+      <FullLastName>Leontiev</FullLastName>
+    </Helper>
   </UnderlyingHelpers>
 </Credits>

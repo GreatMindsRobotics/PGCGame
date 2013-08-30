@@ -48,7 +48,7 @@ namespace PGCGame.Screens
         };
         */
         
-        private TimeSpan _timeUntilCreditsFinish = TimeSpan.FromSeconds(57.5);
+        private TimeSpan _timeUntilCreditsFinish = TimeSpan.FromSeconds(87.5);
         private TimeSpan _elapsedTime;
         private EventHandler<EventArgs> musicHandler;
 
