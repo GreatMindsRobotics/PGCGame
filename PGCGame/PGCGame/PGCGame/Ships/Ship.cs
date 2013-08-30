@@ -45,12 +45,15 @@ namespace PGCGame
         public Ship(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
             : base(texture, location, spriteBatch)
         {
+            StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
             _healthBar = new ProgressBar(new Vector2(X, Y), Color.DarkGreen, Color.Red, spriteBatch);
             _healthBar.WidthScale = 1;
             _healthBar.HeightScale = 10;
             Moved += new EventHandler(Ship_Moved);
             _shipID = Guid.NewGuid();
             _initHealth = 100;
+            _healthBar.X -= (_healthBar.Width / 2);
+            _healthBar.Y -= (_healthBar.Height / 1.5f);
 
             _isDead = false;
 
@@ -66,6 +69,11 @@ namespace PGCGame
             FriendlyName = ShipType.ToFriendlyString();
         }
 
+        void Options_ScreenResolutionChanged(object sender, EventArgs e)
+        {
+            _healthBar.Position = new Vector2(X - (_healthBar.Width / 2), Y - (Height / 1.5f));
+        }
+
         void Ship_Moved(object sender, EventArgs e)
         {
             BaseAllyShip meAsAlly = this as BaseAllyShip;
@@ -73,7 +81,6 @@ namespace PGCGame
             {
                 return;
             }
-            _healthBar.Position = new Vector2(X - (_healthBar.Width / 2), Y - (Height / 1.5f));
             UpdateWcPos();
         }
 
@@ -177,11 +184,11 @@ namespace PGCGame
         }
 
         public event EventHandler WCMoved;
-        private int WCMoveCt = 0;
 
         protected void UpdateWcPos()
         {
             _wcRect = new Rectangle((WorldCoords.X - Origin.X * Scale.X).ToInt(), (WorldCoords.Y - Origin.Y * Scale.Y).ToInt(), Width.ToInt(), Height.ToInt());
+            _healthBar.Position = new Vector2(X - (_healthBar.Width / 2), Y - (Height / 1.5f));
             if (WCMoved != null)
             {
                 WCMoved(this, EventArgs.Empty);
@@ -443,7 +450,7 @@ namespace PGCGame
 
                 base.DrawNonAuto();
 
-                if (_hasHealthBar && (StateManager.BoughtScanner || (this is BaseAllyShip && this.Cast<BaseAllyShip>().IsPlayerShip)))
+                if (_hasHealthBar && (StateManager.ShowShipData || (this is BaseAllyShip && this.Cast<BaseAllyShip>().IsPlayerShip)))
                 {
                     _healthBar.DrawNonAuto();
                 }

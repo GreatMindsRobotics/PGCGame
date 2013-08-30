@@ -216,6 +216,7 @@ namespace PGCGame.Screens
                 lScr.UserCallback = new Delegates.AsyncHandlerMethod(onSelectedStorage);
                 lScr.LoadingText = "Loading saved data...";
                 StorageDevice.BeginShowSelector(PlayerIndex.One, lScr.Callback, null);
+                StateManager.ScreenState = CoreTypes.ScreenType.LoadingScreen;
                 //}
             }
         }
@@ -310,6 +311,7 @@ namespace PGCGame.Screens
             {
                 // If not, dispose of the container and return.
                 strContain.Dispose();
+                lScr.FinishTask();
                 return;
             }
 
