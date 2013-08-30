@@ -193,7 +193,7 @@ namespace PGCGame.Screens
         {
             if (!Guide.IsVisible && Visible && elapsedButtonDelay > totalButtonDelay)
             {
-                
+
                 if (StateManager.Options.SFXEnabled)
                 {
                     ButtonClick.Play();
@@ -202,23 +202,31 @@ namespace PGCGame.Screens
                 //the if statements were causing errors when loading the game, starting a level, quitting out, then loading again.
                 //Previous stats weren't loaded properly.
 
-               // if (StateManager.SelectedStorage == null)
-               // {
-                    StorageDevice.BeginShowSelector(PlayerIndex.One, new AsyncCallback(onSelectedStorage), null);
-               // }
-               // else if (StateManager.SelectedStorage != null)
-               //{
-                    StateManager.ScreenState = ScreenType.LevelSelect;
-               //}
+                // if (StateManager.SelectedStorage == null)
+                // {
+
+
+                // }
+                // else if (StateManager.SelectedStorage != null)
+                //{
+                lScr = StateManager.AllScreens[ScreenType.LoadingScreen.ToString()] as LoadingScreen;
+                lScr.Reset();
+                lScr.ScreenFinished += new EventHandler(lScr_ScreenFinished);
+                lScr.UserCallbackStartsTask = true;
+                lScr.UserCallback = new Delegates.AsyncHandlerMethod(onSelectedStorage);
+                lScr.LoadingText = "Loading saved data...";
+                StorageDevice.BeginShowSelector(PlayerIndex.One, lScr.Callback, null);
+                //}
             }
         }
 
         LoadingScreen lScr;
 
-        void onSelectedStorage(IAsyncResult res)
+        void onSelectedStorage(object resul)
         {
-
-            try{
+            IAsyncResult res = resul as IAsyncResult;
+            try
+            {
                 StorageDevice dev = StorageDevice.EndShowSelector(res);
                 if (dev == null)
                 {
@@ -226,15 +234,12 @@ namespace PGCGame.Screens
                 }
 
                 StateManager.SelectedStorage = dev;
-                lScr = StateManager.AllScreens[ScreenType.LoadingScreen.ToString()] as LoadingScreen;
-                lScr.Reset();
-                lScr.ScreenFinished += new EventHandler(lScr_ScreenFinished);
-                lScr.UserCallbackStartsTask = true;
-                lScr.LoadingText = "Loading saved data...";
+
                 lScr.UserCallback = new PGCGame.CoreTypes.Delegates.AsyncHandlerMethod(loaded);
                 dev.BeginOpenContainer("PGCGame", lScr.Callback, null);
-                StateManager.ScreenState = CoreTypes.ScreenType.LoadingScreen;
-            }catch{};
+                
+            }
+            catch { };
         }
 
         void lScr_ScreenFinished(object sender, EventArgs e)
@@ -298,14 +303,13 @@ namespace PGCGame.Screens
 
             IAsyncResult res = r as IAsyncResult;
             StorageContainer strContain = StateManager.SelectedStorage.EndOpenContainer(res);
-            
+
 
             // Check to see whether the save exists.
             if (!strContain.FileExists(filename))
             {
                 // If not, dispose of the container and return.
                 strContain.Dispose();
-                lScr.FinishTask();
                 return;
             }
 
@@ -339,15 +343,15 @@ namespace PGCGame.Screens
             {
                 s.Clear();
             }
-            for(int i = 0; i < savedState.Upgrades.SpaceMineCount; i++)
+            for (int i = 0; i < savedState.Upgrades.SpaceMineCount; i++)
             {
                 StateManager.PowerUps[0].Push(new SpaceMine(GameContent.GameAssets.Images.SecondaryWeapon[SecondaryWeaponType.SpaceMine, TextureDisplayType.InGameUse], Vector2.Zero, Sprites.SpriteBatch));
             }
-            for(int i = 0; i < savedState.Upgrades.EMPCount; i++)
+            for (int i = 0; i < savedState.Upgrades.EMPCount; i++)
             {
                 StateManager.PowerUps[2].Push(new EMP(GameContent.GameAssets.Images.SecondaryWeapon[SecondaryWeaponType.EMP, TextureDisplayType.InGameUse], Vector2.Zero, Sprites.SpriteBatch));
             }
-            for(int i = 0; i < savedState.Upgrades.ShrinkRayCount; i++)
+            for (int i = 0; i < savedState.Upgrades.ShrinkRayCount; i++)
             {
                 StateManager.PowerUps[1].Push(new ShrinkRay(GameContent.GameAssets.Images.SecondaryWeapon[SecondaryWeaponType.ShrinkRay, TextureDisplayType.InGameUse], Vector2.Zero, Sprites.SpriteBatch));
             }
