@@ -30,11 +30,20 @@ namespace PGCGame.CoreTypes
         MPShipsDisplay
     }
 
+    /// <summary>
+    /// The identifier for a network session property.
+    /// </summary>
+    /// <remarks>
+    /// You can have up to 8 (Confirm on XNA Docs).
+    /// </remarks>
     public enum NetworkSessionPropertyType
     {
         SessionType
     }
 
+    /// <summary>
+    /// Represents the type of a multiplayer session.
+    /// </summary>
     public enum MultiplayerSessionType
     {
         Coop = 0,
