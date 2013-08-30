@@ -27,26 +27,6 @@ namespace PGCGame.Screens
         private Vector2 _scrollingSpeed;
 
         private XmlCredits _xmlCredits = XmlBaseLoader.Create<XmlCredits>(XmlDataFile.Credits);
-      
-        /*
-        private string[] creditLines = new string[]
-        {
-            "<b>\n\n\n\nWeek # - Topic 1, Topic 2\n",
-            "Student 1.\n",
-            "Student 2.\n",
-            "Student 3.\n\n\n",
-            "<b>Week # - Topic 1, Topic 2, Topic 3\n",
-            "Student 1.\n",
-            "Student 2.\n",
-            "Student 3.\n\n\n",
-            "<b>Underlying Sprite/Screen Management Library",
-            "Glen Husman (glen3b)",
-            "Glib is available on github!\n\n\n\n\n\n\n",
-            "<b>Credits Music:",
-            "Failing Defense - Kevin MacLeod\n\n",
-            "<b>All music obtained from Incompetech.com"
-        };
-        */
         
         private TimeSpan _timeUntilCreditsFinish = TimeSpan.FromSeconds(87.5);
         private TimeSpan _elapsedTime;

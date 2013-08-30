@@ -29,7 +29,7 @@ namespace PGCGame.Screens.Multiplayer
 
         void CurrentSession_GamerLeft(object sender, GamerLeftEventArgs e)
         {
-            if (StateManager.ScreenState == ScreenType && GamerInfos.Count > 0)
+            if (Visible && GamerInfos.Count > 0)
             {
                 GamerInfos[e.Gamer.Id].Visible = false;
                 SelectedShips.Remove(e.Gamer.Id);
@@ -49,7 +49,13 @@ namespace PGCGame.Screens.Multiplayer
             }
         }
 
-        bool AllGamersHaveShips
+        /// <summary>
+        /// Gets a boolean indicating whether or not all gamers have ships.
+        /// </summary>
+        /// <remarks>
+        /// Expensive-ish.
+        /// </remarks>
+        public bool AllGamersHaveShips
         {
             get
             {
@@ -70,6 +76,9 @@ namespace PGCGame.Screens.Multiplayer
         // Goes by gamer ID
         Dictionary<byte, ShipStats> SelectedShips = new Dictionary<byte, ShipStats>();
 
+        /// <summary>
+        /// Mid-game player leaving code.
+        /// </summary>
         void gameLeave(object o, GamerLeftEventArgs glea)
         {
             if (glea.Gamer.IsHost)
@@ -144,32 +153,12 @@ namespace PGCGame.Screens.Multiplayer
             }
         }
 
+        /// <summary>
+        /// Called on the computer of ALL PLAYERS when the game is started by the host.
+        /// </summary>
         void CurrentSession_GameStarted(object sender, GameStartedEventArgs e)
         {
-            //TODO: This is Async
-            //TODO: Need to tag ship w/ gamer ID to mark your ship
-            /*
-            while (!StateManager.NetworkData.CurrentSession.LocalGamers[0].IsDataAvailable)
-            {
-
-            }
-            while (StateManager.NetworkData.CurrentSession.LocalGamers[0].IsDataAvailable)
-            {
-                NetworkGamer dataSender;
-                StateManager.NetworkData.CurrentSession.LocalGamers[0].ReceiveData(StateManager.NetworkData.DataReader, out dataSender);
-            }
-            */
-
-
-            /*
-            foreach (NetworkGamer g in StateManager.NetworkData.CurrentSession.RemoteGamers)
-            {
-                SoloNetworkShip sns = new SoloNetworkShip(SelectedShips[g.Id].Type, SelectedShips[g.Id].Tier, GameScreen.World, g);
-                StateManager.EnemyShips.Add(sns);
-                StateManager.AllScreens[ScreenType.Game.ToString()].Sprites.Add(sns);
-            }
-            */
-
+            //Non-host code
             if (!StateManager.NetworkData.CurrentSession.LocalGamers[0].IsHost)
             {
                 BackgroundWorker preDataRecv = new BackgroundWorker();
@@ -187,25 +176,28 @@ namespace PGCGame.Screens.Multiplayer
                 preDataRecv.RunWorkerAsync();
                 //StateManager.ScreenState = CoreTypes.ScreenType.Game;
             }
+
+            //All player code
             StateManager.NetworkData.CurrentSession.GamerLeft += new EventHandler<GamerLeftEventArgs>(gameLeave);
             foreach (NetworkGamer g in StateManager.NetworkData.CurrentSession.RemoteGamers)
             {
                 StateManager.NetworkData.CurrentSession.LocalGamers[0].EnableSendVoice(g, false);
             }
-            //StartButton.Visible = true;
-            //StartLabel.Visible = true;
         }
 
+        /// <summary>
+        /// Client-side switch to GameScreen after data reception. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void lScr_ScreenFinished(object sender, EventArgs e)
         {
             StateManager.ScreenState = CoreTypes.ScreenType.Game;
         }
 
-        void breakHandle(object o, EventArgs e)
-        {
-            System.Diagnostics.Debugger.Break();
-        }
-
+        /// <summary>
+        /// Called on the CLIENT side when the host-sent ship data has been received.
+        /// </summary>
         void onDataRecv(object res)
         {
             Dictionary<byte, Vector4> myShips = (Dictionary<byte, Vector4>)res;
@@ -243,6 +235,9 @@ namespace PGCGame.Screens.Multiplayer
             }
         }
 
+        /// <summary>
+        /// Called when the LOCAL SHIP needs to send network data.
+        /// </summary>
         void playerShip_NetworkStateChanged(object sender, EventArgs e)
         {
             BaseAllyShip yourShip = StateManager.GetScreen<GameScreen>(CoreTypes.ScreenType.Game).playerShip;
@@ -255,8 +250,10 @@ namespace PGCGame.Screens.Multiplayer
             StateManager.NetworkData.CurrentSession.LocalGamers[0].SendData(StateManager.NetworkData.DataWriter, SendDataOptions.InOrder);
         }
 
-        //List<NetworkShip> netShips = new List<NetworkShip>();
-
+        
+        /// <summary>
+        /// Called when the CLIENT begins waiting for host ship data.
+        /// </summary>
         void preDataRecv_DoWork(object sender, DoWorkEventArgs e)
         {
             LocalNetworkGamer netGamer = StateManager.NetworkData.CurrentSession.LocalGamers[0];
@@ -298,7 +295,6 @@ namespace PGCGame.Screens.Multiplayer
 
         void CurrentSession_GamerJoined(object sender, GamerJoinedEventArgs e)
         {
-            //gamerInfos = new TextSprite[StateManager.NetworkData.CurrentSession.MaxGamers];
             GamerInfos.Clear();
             for (int i = 0; i < StateManager.NetworkData.CurrentSession.MaxGamers; i++)
             {
@@ -377,6 +373,12 @@ namespace PGCGame.Screens.Multiplayer
             AdditionalSprites.Add(StartLabel);
         }
 
+        /// <summary>
+        /// Start label pressed event handler.
+        /// </summary>
+        /// <remarks>
+        /// Called when the HOST presses the start label.
+        /// </remarks>
         void StartLabel_Pressed(object sender, EventArgs e)
         {
             if (StateManager.NetworkData.SessionMode == MultiplayerSessionType.LMS)
