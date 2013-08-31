@@ -358,10 +358,7 @@ namespace PGCGame.Screens.Multiplayer
             Sprites.Clear();
             AdditionalSprites.Clear();
             _firstInit = true;
-            for (int i = 0; i < gamerInfos.Length; i++)
-            {
-                gamerInfos[i] = null;
-            }
+            gamerInfos = null;
             GamerInfos.Clear();
             SelectedShips.Clear();
 
