@@ -163,6 +163,7 @@ namespace PGCGame.Screens.Multiplayer
             {
                 StateManager.NetworkData.LeaveSession();
             }
+            StateManager.GetScreen<MPShipsScreen>(CoreTypes.ScreenType.MPShipsDisplay).InitScreen(CoreTypes.ScreenType.MPShipsDisplay);
             LoadingScreen lScr = StateManager.AllScreens[ScreenType.LoadingScreen.ToString()] as LoadingScreen;
             lScr.Reset();
             lScr.UserCallbackStartsTask = false;
