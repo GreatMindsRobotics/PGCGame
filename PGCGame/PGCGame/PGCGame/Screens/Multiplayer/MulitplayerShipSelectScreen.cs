@@ -28,7 +28,6 @@ namespace PGCGame.Screens.Multiplayer
             public ShipTier Tier;
             public string Name;
             public TextSprite Description;
-            public int Cost;
         }
 
         List<ShipInfo> MultiplayerShips = new List<ShipInfo>();
@@ -49,7 +48,7 @@ namespace PGCGame.Screens.Multiplayer
             fighterCarrier.Image = new Sprite(GameContent.GameAssets.Images.Ships[ShipType.FighterCarrier, ShipTier.Tier2], Vector2.Zero, Sprites.SpriteBatch);
             fighterCarrier.Image.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.81f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .12f);
             fighterCarrier.Image.Rotation = new SpriteRotation(90);
-            fighterCarrier.Description = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "\n\n This class fires an extremely fast\n Flak Cannon and has the ability to\n deploy drones. However, the drones\n and Flak Cannon aren't that powerful.\n After the Carrier gets destroyed, the\n drones die with it.\n\n Damage Per Shot: 2\n Amount of Health: 100\n Amount of Drones: 2\n Damage Per Drone Shot: 1\n Health Per Drone: 10");
+            fighterCarrier.Description = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "\n\n This class fires an extremely fast\n Flak Cannon. However, the Flak\nCannon isn't that powerful.\n\n Damage Per Shot: 2\n Amount of Health: 100\n Amount of Drones: 2\n Damage Per Drone Shot: 1\n Health Per Drone: 10");
             fighterCarrier.Description.Color = Color.White;
             fighterCarrier.Name = FighterCarrier.ShipFriendlyName;
             fighterCarrier.Type = ShipType.FighterCarrier;
