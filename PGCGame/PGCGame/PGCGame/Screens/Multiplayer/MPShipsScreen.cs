@@ -355,7 +355,18 @@ namespace PGCGame.Screens.Multiplayer
 
         public override void InitScreen(ScreenType screenName)
         {
+            Sprites.Clear();
+            AdditionalSprites.Clear();
+            _firstInit = true;
+            for (int i = 0; i < gamerInfos.Length; i++)
+            {
+                gamerInfos[i] = null;
+            }
+            GamerInfos.Clear();
+            SelectedShips.Clear();
+
             base.InitScreen(screenName);
+            
             BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
             title = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.BoldText, StateManager.NetworkData.SessionMode.ToFriendlyString() + " Lobby", Color.White);
             title.Y = 5;
