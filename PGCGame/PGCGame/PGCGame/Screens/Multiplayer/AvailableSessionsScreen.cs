@@ -153,6 +153,7 @@ namespace PGCGame.Screens.Multiplayer
 
             StateManager.NetworkData.CurrentSession = NetworkSession.EndJoin(r);
             StateManager.NetworkData.RegisterNetworkSession();
+
         }
 
         void curr_Pressed(object evsender, EventArgs e)
@@ -161,14 +162,6 @@ namespace PGCGame.Screens.Multiplayer
             if (StateManager.NetworkData.IsMultiplayer)
             {
                 StateManager.NetworkData.LeaveSession();
-            }
-            if (StateManager.NetworkData.AvailableSessions != null)
-            {
-                if (!StateManager.NetworkData.AvailableSessions.IsDisposed)
-                {
-                    StateManager.NetworkData.AvailableSessions.Dispose();
-                }
-                StateManager.NetworkData.AvailableSessions = null;
             }
             LoadingScreen lScr = StateManager.AllScreens[ScreenType.LoadingScreen.ToString()] as LoadingScreen;
             lScr.Reset();
