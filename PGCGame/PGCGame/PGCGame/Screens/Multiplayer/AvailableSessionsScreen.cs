@@ -18,7 +18,7 @@ namespace PGCGame.Screens.Multiplayer
         public AvailableSessionsScreen(SpriteBatch sb)
             : base(sb, Color.Black)
         {
-            StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
+            StateManager.Options.ScreenResolutionChanged += new EventHandler<ViewportEventArgs>(Options_ScreenResolutionChanged);
             StateManager.ScreenStateChanged += new EventHandler(StateManager_ScreenStateChanged);
         }
 
@@ -30,7 +30,7 @@ namespace PGCGame.Screens.Multiplayer
             }
         }
 
-        void Options_ScreenResolutionChanged(object sender, EventArgs e)
+        void Options_ScreenResolutionChanged(object sender, ViewportEventArgs e)
         {
             if (title != null)
             {

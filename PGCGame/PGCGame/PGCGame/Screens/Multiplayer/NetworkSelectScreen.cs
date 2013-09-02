@@ -73,7 +73,7 @@ namespace PGCGame.Screens.Multiplayer
 
 
 
-            StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
+            StateManager.Options.ScreenResolutionChanged += new EventHandler<ViewportEventArgs>(Options_ScreenResolutionChanged);
 
             this.BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
 
@@ -212,7 +212,7 @@ namespace PGCGame.Screens.Multiplayer
             }
         }
 
-        void Options_ScreenResolutionChanged(object sender, EventArgs e)
+        void Options_ScreenResolutionChanged(object sender, ViewportEventArgs e)
         {
             BackButton.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .60f);
 

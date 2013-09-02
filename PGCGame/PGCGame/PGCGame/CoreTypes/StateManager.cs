@@ -513,7 +513,7 @@ namespace PGCGame
         {
             private static bool _musicEnabled = true;
 
-            public static event EventHandler ScreenResolutionChanged;
+            public static event EventHandler<ViewportEventArgs> ScreenResolutionChanged;
 
             private static bool _sfxEnabled = true;
 

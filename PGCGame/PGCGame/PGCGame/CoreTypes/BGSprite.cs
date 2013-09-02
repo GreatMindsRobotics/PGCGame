@@ -39,7 +39,7 @@ namespace PGCGame.CoreTypes
             Sprite spr1 = new Sprite(bg, Vector2.Zero, sb);
             spr1.YSpeed = 1.5f / (StateManager.DebugData.DebugBackground ? 1 : 10);
             _bgList.Add(spr1);
-            StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
+            StateManager.Options.ScreenResolutionChanged += new EventHandler<ViewportEventArgs>(Options_ScreenResolutionChanged);
             Sprite spr2 = new Sprite(bg, new Vector2(0, -bg.Height - (StateManager.DebugData.DebugBackground ? 1 : 0)), sb);
             spr2.Effect = SpriteEffects.FlipVertically;
             spr2.YSpeed = spr1.YSpeed;
@@ -50,9 +50,9 @@ namespace PGCGame.CoreTypes
             _currentBG = this;
         }
 
-        private void Options_ScreenResolutionChanged(object sender, EventArgs e)
+        private void Options_ScreenResolutionChanged(object sender, ViewportEventArgs e)
         {
-            vp = ((ViewportEventArgs)e).Viewport;
+            vp = e.Viewport;
         }
 
         private void spr1_Moved(object sender, EventArgs e)
