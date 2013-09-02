@@ -174,14 +174,6 @@ namespace PGCGame.Screens.Multiplayer
                 }
                 StateManager.NetworkData.AvailableSessions = null;
             }
-            if (StateManager.NetworkData.CurrentSession != null)
-            {
-                if (!StateManager.NetworkData.CurrentSession.IsDisposed)
-                {
-                    StateManager.NetworkData.CurrentSession.Dispose();
-                }
-                StateManager.NetworkData.CurrentSession = null;
-            }
             StateManager.NetworkData.AvailableSessions = NetworkSession.EndFind(getMySectors);
         }
 
@@ -200,12 +192,13 @@ namespace PGCGame.Screens.Multiplayer
             {
                 ButtonClick.Play();
             }
-            LoadingScreen lScr = StateManager.AllScreens[ScreenType.LoadingScreen.ToString()] as LoadingScreen;
+            LoadingScreen lScr = StateManager.GetScreen<LoadingScreen>(CoreTypes.ScreenType.LoadingScreen);
             lScr.Reset();
             lScr.UserCallback = new PGCGame.CoreTypes.Delegates.AsyncHandlerMethod(FinishLanSectorSearch);
             lScr.LoadingText = "Searching for\nLAN sectors...";
             lScr.ScreenFinished += new EventHandler(lScr_ScreenFinished);
-            NetworkSession.BeginFind(NetworkSessionType.SystemLink, Gamer.SignedInGamers, null, lScr.Callback, null);
+            StateManager.NetworkData.LeaveSession();
+            NetworkSession.BeginFind(NetworkSessionType.SystemLink, new SignedInGamer[] {Gamer.SignedInGamers[PlayerIndex.One]}, null, lScr.Callback, null);
             StateManager.ScreenState = CoreTypes.ScreenType.LoadingScreen;
         }
 
