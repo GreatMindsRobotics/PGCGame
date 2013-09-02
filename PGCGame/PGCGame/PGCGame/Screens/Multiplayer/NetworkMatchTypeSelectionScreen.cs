@@ -129,8 +129,8 @@ namespace PGCGame.Screens.Multiplayer
                     statement = "An Xbox LIVE account is required to host a LIVE session. Please ensure that the signed in account has an Xbox LIVE gold subscription.";
 #endif
                     Guide.BeginShowMessageBox("LIVE Account Required", statement, new String[]{"OK"}, 0, MessageBoxIcon.Error, new AsyncCallback(ScreenStateToNetSelect), null);
-                    return;
                 }
+                return;
             }
             StateManager.NetworkData.CurrentSession.AllowHostMigration = false;
             StateManager.NetworkData.CurrentSession.AllowJoinInProgress = false;
