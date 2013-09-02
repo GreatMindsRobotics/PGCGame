@@ -28,6 +28,7 @@ namespace PGCGame.Screens.Multiplayer
             StateManager.ScreenStateChanged += new EventHandler(StateManager_ScreenStateChanged);
             ButtonClick = GameContent.GameAssets.Sound[SoundEffectType.ButtonPressed];
         }
+
         TimeSpan elapsedButtonDelay = TimeSpan.Zero;
 
         void StateManager_ScreenStateChanged(object sender, EventArgs e)
@@ -159,10 +160,6 @@ namespace PGCGame.Screens.Multiplayer
             StateManager.ScreenState = CoreTypes.ScreenType.NetworkMatchSelection;
         }
 
-
-
-
-
         void FinishLanSectorSearch(object ar)
         {
             IAsyncResult getMySectors = ar as IAsyncResult;
@@ -217,9 +214,7 @@ namespace PGCGame.Screens.Multiplayer
 
         void Options_ScreenResolutionChanged(object sender, EventArgs e)
         {
-
             BackButton.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .60f);
-
 
             //to unselect options label when changing to full screens and back
             foreach (ISprite s in AdditionalSprites)
@@ -227,7 +222,7 @@ namespace PGCGame.Screens.Multiplayer
                 if (s.GetType() == typeof(TextSprite))
                 {
                     //We can deselect
-                    s.Cast<TextSprite>().IsSelected = false;
+                    (s as TextSprite).IsSelected = false;
                 }
             }
         }
@@ -242,12 +237,10 @@ namespace PGCGame.Screens.Multiplayer
             elapsedButtonDelay += gameTime.ElapsedGameTime;
 
 #if XBOX 
-            
             AllButtons.Update(gameTime);
 
-            currentGamePad = GamePad.GetState(PlayerIndex.One);
-
-            lastGamePad = currentGamePad;
+            // currentGamePad = GamePad.GetState(PlayerIndex.One);
+            // lastGamePad = currentGamePad;
 
 #endif
             base.Update(gameTime);
