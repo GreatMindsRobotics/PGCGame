@@ -51,11 +51,14 @@ namespace PGCGame.Screens.Multiplayer
             }
         }
 
+        Sprite HostLIVEButton;
+        TextSprite HostLIVELabel;
+
         Sprite LANButton;
         TextSprite LANLabel;
 
-        Sprite HostButton;
-        TextSprite HostLabel;
+        Sprite HostLANButton;
+        TextSprite HostLANLabel;
 
         Sprite BackButton;
         TextSprite BackLabel;
@@ -71,15 +74,26 @@ namespace PGCGame.Screens.Multiplayer
             Texture2D buttonImage = GameContent.GameAssets.Images.Controls.Button;
             SpriteFont SegoeUIMono = GameContent.GameAssets.Fonts.NormalText;
 
-
-
             StateManager.Options.ScreenResolutionChanged += new EventHandler<ViewportEventArgs>(Options_ScreenResolutionChanged);
 
             this.BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
 
             BackButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .60f), Sprites.SpriteBatch);
-            LANButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .6f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .60f), Sprites.SpriteBatch);
-            HostButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .06f), Sprites.SpriteBatch);
+            //LANButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .6f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .60f), Sprites.SpriteBatch);
+            HostLANButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .06f), Sprites.SpriteBatch);
+            LANButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .6f, HostLANButton.Y), Sprites.SpriteBatch);
+
+            HostLIVEButton = new Sprite(buttonImage, new Vector2(HostLANButton.X, HostLANButton.Y+HostLANButton.Height+SegoeUIMono.LineSpacing), Sprites.SpriteBatch);
+            HostLIVEButton.Scale.X = 1.1775f;
+            Sprites.Add(HostLIVEButton);
+
+            HostLIVELabel = new TextSprite(Sprites.SpriteBatch, SegoeUIMono, "Host LIVE Sector");
+            HostLIVELabel.ParentSprite = HostLIVEButton;
+            HostLIVELabel.IsHoverable = true;
+            HostLIVELabel.Pressed += new EventHandler(HostLIVELabel_Pressed);
+            HostLIVELabel.HoverColor = Color.MediumAquamarine;
+            HostLIVELabel.NonHoverColor = Color.White;
+            AdditionalSprites.Add(HostLIVELabel);
 
             Sprites.Add(BackButton);
 
@@ -106,28 +120,47 @@ namespace PGCGame.Screens.Multiplayer
             LANLabel.HoverColor = Color.MediumAquamarine;
             AdditionalSprites.Add(LANLabel);
 
-            Sprites.Add(HostButton);
-            HostButton.Scale = new Vector2(1.1f, 1);
-            HostLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Host LAN sector");
-            HostLabel.IsHoverable = true;
+            Sprites.Add(HostLANButton);
+            HostLANButton.Scale = new Vector2(1.1f, 1);
+            HostLANLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Host LAN sector");
+            HostLANLabel.IsHoverable = true;
 #if WINDOWS
-            HostLabel.CallKeyboardClickEvent = false;
+            HostLANLabel.CallKeyboardClickEvent = false;
 #endif
-            HostLabel.ParentSprite = HostButton;
+            HostLANLabel.ParentSprite = HostLANButton;
             
-            HostLabel.NonHoverColor = Color.White;
-            HostLabel.HoverColor = Color.MediumAquamarine;
-            AdditionalSprites.Add(HostLabel);
+            HostLANLabel.NonHoverColor = Color.White;
+            HostLANLabel.HoverColor = Color.MediumAquamarine;
+            AdditionalSprites.Add(HostLANLabel);
 
 #if XBOX
             AllButtons = new GamePadButtonEnumerator(new TextSprite[,] { { HostLabel, null }, {BackLabel, LANLabel} }, InputType.LeftJoystick);
             AllButtons.FireTextSpritePressed = true;
 #endif
             LANLabel.Pressed += new EventHandler(LANLabel_Pressed);
-            HostLabel.Pressed += StateManager.ButtonSFXHelper;
-            HostLabel.Pressed += new EventHandler(HostLabel_Pressed);
+            HostLANLabel.Pressed += StateManager.ButtonSFXHelper;
+            HostLANLabel.Pressed += new EventHandler(HostLabel_Pressed);
 
             BackLabel.Pressed += new EventHandler(BackLabel_Pressed);
+        }
+
+        void HostLIVELabel_Pressed(object sender, EventArgs e)
+        {
+            if (Gamer.SignedInGamers.Count == 0 && !Guide.IsVisible)
+            {
+                Guide.ShowSignIn(1, true);
+                return;
+            }
+            else if (Gamer.SignedInGamers.Count == 0)
+            {
+                return;
+            }
+            if (StateManager.Options.SFXEnabled)
+            {
+                ButtonClick.Play();
+            }
+            StateManager.NetworkData.SessionType = NetworkSessionType.PlayerMatch;
+            StateManager.ScreenState = CoreTypes.ScreenType.NetworkMatchSelection;
         }
 
         void BackLabel_Pressed(object sender, EventArgs e)
@@ -157,6 +190,15 @@ namespace PGCGame.Screens.Multiplayer
 
         void HostLabel_Pressed(object sender, EventArgs e)
         {
+            if (Gamer.SignedInGamers.Count == 0 && !Guide.IsVisible)
+            {
+                Guide.ShowSignIn(1, false);
+                return;
+            }
+            else if (Gamer.SignedInGamers.Count == 0)
+            {
+                return;
+            }
             StateManager.NetworkData.SessionType = NetworkSessionType.SystemLink;
             StateManager.ScreenState = CoreTypes.ScreenType.NetworkMatchSelection;
         }

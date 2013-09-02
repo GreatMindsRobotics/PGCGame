@@ -104,17 +104,42 @@ namespace PGCGame.Screens.Multiplayer
 
         void hosting_finish(object sender, EventArgs r)
         {
-            StateManager.ScreenState = CoreTypes.ScreenType.MultiPlayerShipSelect;
+            StateManager.ScreenState = isErroredHost ? ScreenType.NetworkSelectScreen : CoreTypes.ScreenType.MultiPlayerShipSelect;
         }
+
+        bool isErroredHost = false;
 
         void FinishLanSectorHost(object arg)
         {
+            isErroredHost = false;
             IAsyncResult getMySectors = arg as IAsyncResult;
-
-            StateManager.NetworkData.CurrentSession = NetworkSession.EndCreate(getMySectors);
+            try
+            {
+                StateManager.NetworkData.CurrentSession = NetworkSession.EndCreate(getMySectors);
+            }
+            catch (GamerPrivilegeException)
+            {
+                isErroredHost = true;
+                if (!Guide.IsVisible)
+                {
+                    string statement = "";
+#if WINDOWS
+                    statement = "A GFWL Silver (or greater) subscription is required to host a LIVE session. Please ensure that the signed in account has a Games for Windows LIVE silver or greater subscription.";
+#elif XBOX
+                    statement = "An Xbox LIVE account is required to host a LIVE session. Please ensure that the signed in account has an Xbox LIVE gold subscription.";
+#endif
+                    Guide.BeginShowMessageBox("LIVE Account Required", statement, new String[]{"OK"}, 0, MessageBoxIcon.Error, new AsyncCallback(ScreenStateToNetSelect), null);
+                    return;
+                }
+            }
             StateManager.NetworkData.CurrentSession.AllowHostMigration = false;
             StateManager.NetworkData.CurrentSession.AllowJoinInProgress = false;
             StateManager.NetworkData.RegisterNetworkSession();
+        }
+
+        void ScreenStateToNetSelect(IAsyncResult res)
+        {
+            StateManager.ScreenState = CoreTypes.ScreenType.NetworkSelectScreen;
         }
 
         public void CreateMatch()
