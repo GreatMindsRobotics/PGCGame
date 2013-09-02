@@ -49,7 +49,7 @@ namespace PGCGame.Screens
         {
             _xmlCredits.LoadData();
             musicHandler = new EventHandler<EventArgs>(music_StateChange);
-            StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
+            StateManager.Options.ScreenResolutionChanged += new EventHandler<ViewportEventArgs>(Options_ScreenResolutionChanged);
             StateManager.ScreenStateChanged += new EventHandler(StateManager_ScreenStateChanged);
         }
 
@@ -64,10 +64,10 @@ namespace PGCGame.Screens
             }
         }
 
-        void Options_ScreenResolutionChanged(object sender, EventArgs e)
+        void Options_ScreenResolutionChanged(object sender, ViewportEventArgs e)
         {
             //Get the new viewport from EventArgs
-            Viewport viewport = e.Cast<ViewportEventArgs>().Viewport;
+            Viewport viewport = e.Viewport;
 
             //Re-position title based on new viewport
             gameTitle.X = gameTitle.GetCenterPosition(viewport).X;

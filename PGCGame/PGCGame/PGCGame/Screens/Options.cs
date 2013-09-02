@@ -53,7 +53,7 @@ namespace PGCGame.Screens
             SpriteFont font = GameContent.GameAssets.Fonts.NormalText;
 
 #if WINDOWS
-            StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
+            StateManager.Options.ScreenResolutionChanged += new EventHandler<ViewportEventArgs>(Options_ScreenResolutionChanged);
 #endif
 
             //Move Controls (aka Controls)
@@ -175,7 +175,7 @@ namespace PGCGame.Screens
 #endif
 
 #if WINDOWS
-            StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
+            StateManager.Options.ScreenResolutionChanged += new EventHandler<ViewportEventArgs>(Options_ScreenResolutionChanged);
 #endif
 
         }

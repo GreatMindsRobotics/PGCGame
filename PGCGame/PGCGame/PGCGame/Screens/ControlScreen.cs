@@ -193,7 +193,7 @@ namespace PGCGame.Screens
              AdditionalSprites.Add(DeployDronesLabel);
 
 
-             StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
+             StateManager.Options.ScreenResolutionChanged += new EventHandler<ViewportEventArgs>(Options_ScreenResolutionChanged);
 
          }
 

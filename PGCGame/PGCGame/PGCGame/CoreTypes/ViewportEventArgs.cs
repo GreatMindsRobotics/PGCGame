@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace PGCGame.CoreTypes
 {
-    class ViewportEventArgs : EventArgs
+    public class ViewportEventArgs : EventArgs
     {
         public Viewport Viewport { get; set; }
         public bool IsFullScreen { get; set; }

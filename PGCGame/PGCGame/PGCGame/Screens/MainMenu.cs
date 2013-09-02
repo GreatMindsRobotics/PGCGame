@@ -81,7 +81,7 @@ namespace PGCGame.Screens
 
 
 
-            StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
+            StateManager.Options.ScreenResolutionChanged += new EventHandler<ViewportEventArgs>(Options_ScreenResolutionChanged);
 
             this.BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
 

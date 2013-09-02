@@ -45,7 +45,7 @@ namespace PGCGame
         public Ship(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
             : base(texture, location, spriteBatch)
         {
-            StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
+            StateManager.Options.ScreenResolutionChanged += new EventHandler<ViewportEventArgs>(Options_ScreenResolutionChanged);
             _healthBar = new ProgressBar(new Vector2(X, Y), Color.DarkGreen, Color.Red, spriteBatch);
             _healthBar.WidthScale = 1;
             _healthBar.HeightScale = 10;
@@ -77,7 +77,7 @@ namespace PGCGame
             }
         }
 
-        void Options_ScreenResolutionChanged(object sender, EventArgs e)
+        void Options_ScreenResolutionChanged(object sender, ViewportEventArgs e)
         {
             _healthBar.Position = new Vector2(X - (_healthBar.Width / 2), Y - (Height / 1.5f));
         }

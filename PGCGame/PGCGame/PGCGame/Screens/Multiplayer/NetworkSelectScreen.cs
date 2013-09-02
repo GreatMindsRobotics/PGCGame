@@ -157,6 +157,7 @@ namespace PGCGame.Screens.Multiplayer
 
         void HostLabel_Pressed(object sender, EventArgs e)
         {
+            StateManager.NetworkData.SessionType = NetworkSessionType.SystemLink;
             StateManager.ScreenState = CoreTypes.ScreenType.NetworkMatchSelection;
         }
 

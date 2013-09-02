@@ -399,6 +399,7 @@ namespace PGCGame
 
         public static class NetworkData
         {
+            public static NetworkSessionType SessionType;
             public static bool IsMultiplayer
             {
                 get

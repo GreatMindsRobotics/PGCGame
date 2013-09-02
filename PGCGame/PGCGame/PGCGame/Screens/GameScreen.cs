@@ -119,14 +119,14 @@ namespace PGCGame.Screens
                 }
             });
 
-            StateManager.Options.ScreenResolutionChanged += new EventHandler(Options_ScreenResolutionChanged);
+            StateManager.Options.ScreenResolutionChanged += new EventHandler<ViewportEventArgs>(Options_ScreenResolutionChanged);
 
             _gameSong = GameContent.GameAssets.Music[ScreenMusic.Level1];
 
             bgImg = GameContent.GameAssets.Images.Backgrounds.Levels[GameLevel.Level1];
         }
 
-        void Options_ScreenResolutionChanged(object sender, EventArgs e)
+        void Options_ScreenResolutionChanged(object sender, ViewportEventArgs e)
         {
             if (playerShip != null)
             {
@@ -134,8 +134,8 @@ namespace PGCGame.Screens
             }
             if (miniMap != null)
             {
-                miniMap.Y = Graphics.Viewport.TitleSafeArea.Y + 7.5f;
-                miniMap.X = Graphics.Viewport.TitleSafeArea.X + Graphics.Viewport.TitleSafeArea.Width - miniMap.Width - 7.5f;
+                miniMap.Y = e.Viewport.TitleSafeArea.Y + 7.5f;
+                miniMap.X = e.Viewport.TitleSafeArea.X + e.Viewport.TitleSafeArea.Width - miniMap.Width - 7.5f;
                 miniShipInfoBg.X = miniMap.X - miniShipInfoBg.Width - 7.5f;
             }
             if (fogOfWar != null)
