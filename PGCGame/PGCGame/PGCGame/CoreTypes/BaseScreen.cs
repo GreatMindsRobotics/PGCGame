@@ -34,6 +34,8 @@ namespace PGCGame.CoreTypes
         TimeSpan elapsedBackButtonTime = TimeSpan.Zero;
         TimeSpan requiredBackButtonTime = TimeSpan.FromMilliseconds(250);
 
+        protected GamePadButtonEnumerator AllButtons;
+
         void Buttons_BButtonPressed(object sender, EventArgs e)
         {
             if (_screenType != ScreenType.MainMenu && _screenType != ScreenType.LoadingScreen && _screenType != ScreenType.Game && Visible && elapsedBackButtonTime > requiredBackButtonTime)
@@ -75,16 +77,20 @@ namespace PGCGame.CoreTypes
         public SoundEffectInstance ButtonClick { get; set; }
         public SoundEffectInstance ClonesMade { get; set; }
 
-        public override void Update(GameTime game)
+        public override void Update(GameTime gameTime)
         {
-            base.Update(game);
+            base.Update(gameTime);
             if (RunNextUpdate != null)
             {
                 RunNextUpdate();
                 RunNextUpdate = null;
             }
 #if XBOX
-            elapsedBackButtonTime += game.ElapsedGameTime;
+            elapsedBackButtonTime += gameTime.ElapsedGameTime;
+            if(AllButtons != null)
+            {
+                AllButtons.Update(gameTime);
+            }
 #endif
         }
 

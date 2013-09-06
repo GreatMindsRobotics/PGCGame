@@ -151,7 +151,7 @@ namespace PGCGame.Screens.Multiplayer
             AdditionalSprites.Add(ScanLIVELabel);
 
 #if XBOX
-            AllButtons = new GamePadButtonEnumerator(new TextSprite[,] { { HostLANLabel, LANLabel }, {HostLIVELabel, null}, {BackLabel, null} }, InputType.LeftJoystick);
+            AllButtons = new GamePadButtonEnumerator(new TextSprite[,] { { HostLANLabel, LANLabel }, {HostLIVELabel, ScanLIVELabel}, {BackLabel, null} }, InputType.LeftJoystick);
             AllButtons.FireTextSpritePressed = true;
 #endif
             LANLabel.Pressed += new EventHandler(LANLabel_Pressed);
