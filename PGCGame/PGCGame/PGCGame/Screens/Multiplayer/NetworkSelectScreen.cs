@@ -98,17 +98,7 @@ namespace PGCGame.Screens.Multiplayer
             HostLIVELabel.NonHoverColor = Color.White;
             AdditionalSprites.Add(HostLIVELabel);
 
-            ScanLIVEButton = new Sprite(buttonImage, new Vector2(LANLabel.X, HostLIVELabel.Y), Sprites.SpriteBatch);
-            ScanLIVEButton.Scale.X = 1.5f;
-            Sprites.Add(ScanLIVEButton);
-
-            ScanLIVELabel = new TextSprite(Sprites.SpriteBatch, SegoeUIMono, "Scan for LIVE Sectors", Color.White);
-            ScanLIVELabel.ParentSprite = ScanLIVEButton;
-            ScanLIVELabel.IsHoverable = true;
-            ScanLIVELabel.Pressed += new EventHandler(ScanLIVELabel_Pressed);
-            ScanLIVELabel.HoverColor = Color.MediumAquamarine;
-            ScanLIVELabel.NonHoverColor = Color.White;
-            AdditionalSprites.Add(ScanLIVELabel);
+            
 
             Sprites.Add(BackButton);
 
@@ -147,6 +137,18 @@ namespace PGCGame.Screens.Multiplayer
             HostLANLabel.NonHoverColor = Color.White;
             HostLANLabel.HoverColor = Color.MediumAquamarine;
             AdditionalSprites.Add(HostLANLabel);
+
+            ScanLIVEButton = new Sprite(buttonImage, new Vector2(LANLabel.X, HostLIVELabel.Y), Sprites.SpriteBatch);
+            ScanLIVEButton.Scale.X = 1.5f;
+            Sprites.Add(ScanLIVEButton);
+
+            ScanLIVELabel = new TextSprite(Sprites.SpriteBatch, SegoeUIMono, "Scan for LIVE Sectors", Color.White);
+            ScanLIVELabel.ParentSprite = ScanLIVEButton;
+            ScanLIVELabel.IsHoverable = true;
+            ScanLIVELabel.Pressed += new EventHandler(ScanLIVELabel_Pressed);
+            ScanLIVELabel.HoverColor = Color.MediumAquamarine;
+            ScanLIVELabel.NonHoverColor = Color.White;
+            AdditionalSprites.Add(ScanLIVELabel);
 
 #if XBOX
             AllButtons = new GamePadButtonEnumerator(new TextSprite[,] { { HostLANLabel, LANLabel }, {HostLIVELabel, null}, {BackLabel, null} }, InputType.LeftJoystick);
