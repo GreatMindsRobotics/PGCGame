@@ -138,7 +138,7 @@ namespace PGCGame.Screens.Multiplayer
             HostLANLabel.HoverColor = Color.MediumAquamarine;
             AdditionalSprites.Add(HostLANLabel);
 
-            ScanLIVEButton = new Sprite(buttonImage, new Vector2(LANLabel.X, HostLIVELabel.Y), Sprites.SpriteBatch);
+            ScanLIVEButton = new Sprite(buttonImage, new Vector2(LANButton.X, HostLIVEButton.Y), Sprites.SpriteBatch);
             ScanLIVEButton.Scale.X = 1.5f;
             Sprites.Add(ScanLIVEButton);
 
