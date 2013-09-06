@@ -54,6 +54,9 @@ namespace PGCGame.Screens.Multiplayer
         Sprite HostLIVEButton;
         TextSprite HostLIVELabel;
 
+        Sprite ScanLIVEButton;
+        TextSprite ScanLIVELabel;
+
         Sprite LANButton;
         TextSprite LANLabel;
 
@@ -95,6 +98,18 @@ namespace PGCGame.Screens.Multiplayer
             HostLIVELabel.NonHoverColor = Color.White;
             AdditionalSprites.Add(HostLIVELabel);
 
+            ScanLIVEButton = new Sprite(buttonImage, new Vector2(LANLabel.X, HostLIVELabel.Y), Sprites.SpriteBatch);
+            ScanLIVEButton.Scale.X = 1.5f;
+            Sprites.Add(ScanLIVEButton);
+
+            ScanLIVELabel = new TextSprite(Sprites.SpriteBatch, SegoeUIMono, "Scan for LIVE Sectors", Color.White);
+            ScanLIVELabel.ParentSprite = ScanLIVEButton;
+            ScanLIVELabel.IsHoverable = true;
+            ScanLIVELabel.Pressed += new EventHandler(ScanLIVELabel_Pressed);
+            ScanLIVELabel.HoverColor = Color.MediumAquamarine;
+            ScanLIVELabel.NonHoverColor = Color.White;
+            AdditionalSprites.Add(ScanLIVELabel);
+
             Sprites.Add(BackButton);
 
             BackLabel = new TextSprite(Sprites.SpriteBatch, Vector2.One * 10, SegoeUIMono, "Back");
@@ -134,7 +149,7 @@ namespace PGCGame.Screens.Multiplayer
             AdditionalSprites.Add(HostLANLabel);
 
 #if XBOX
-            AllButtons = new GamePadButtonEnumerator(new TextSprite[,] { { HostLabel, null }, {BackLabel, LANLabel} }, InputType.LeftJoystick);
+            AllButtons = new GamePadButtonEnumerator(new TextSprite[,] { { HostLANLabel, LANLabel }, {HostLIVELabel, null}, {BackLabel, null} }, InputType.LeftJoystick);
             AllButtons.FireTextSpritePressed = true;
 #endif
             LANLabel.Pressed += new EventHandler(LANLabel_Pressed);
@@ -142,6 +157,32 @@ namespace PGCGame.Screens.Multiplayer
             HostLANLabel.Pressed += new EventHandler(HostLabel_Pressed);
 
             BackLabel.Pressed += new EventHandler(BackLabel_Pressed);
+        }
+
+        void ScanLIVELabel_Pressed(object sender, EventArgs e)
+        {
+            if (Gamer.SignedInGamers.Count == 0 && !Guide.IsVisible)
+            {
+                Guide.ShowSignIn(1, true);
+                return;
+            }
+            else if (Gamer.SignedInGamers.Count == 0)
+            {
+                return;
+            }
+            StateManager.NetworkData.SessionType = NetworkSessionType.PlayerMatch;
+            if (StateManager.Options.SFXEnabled)
+            {
+                ButtonClick.Play();
+            }
+            LoadingScreen lScr = StateManager.GetScreen<LoadingScreen>(CoreTypes.ScreenType.LoadingScreen);
+            lScr.Reset();
+            lScr.UserCallback = new PGCGame.CoreTypes.Delegates.AsyncHandlerMethod(FinishLanSectorSearch);
+            lScr.LoadingText = "Searching for\nLAN sectors...";
+            lScr.ScreenFinished += new EventHandler(lScr_ScreenFinished);
+            StateManager.NetworkData.LeaveSession();
+            NetworkSession.BeginFind(StateManager.NetworkData.SessionType, 1, null, lScr.Callback, null);
+            StateManager.ScreenState = CoreTypes.ScreenType.LoadingScreen;
         }
 
         void HostLIVELabel_Pressed(object sender, EventArgs e)
@@ -228,6 +269,7 @@ namespace PGCGame.Screens.Multiplayer
             {
                 return;
             }
+            StateManager.NetworkData.SessionType = NetworkSessionType.SystemLink;
             if (StateManager.Options.SFXEnabled)
             {
                 ButtonClick.Play();
@@ -238,7 +280,7 @@ namespace PGCGame.Screens.Multiplayer
             lScr.LoadingText = "Searching for\nLAN sectors...";
             lScr.ScreenFinished += new EventHandler(lScr_ScreenFinished);
             StateManager.NetworkData.LeaveSession();
-            NetworkSession.BeginFind(NetworkSessionType.SystemLink, new SignedInGamer[] {Gamer.SignedInGamers[PlayerIndex.One]}, null, lScr.Callback, null);
+            NetworkSession.BeginFind(StateManager.NetworkData.SessionType, 1, null, lScr.Callback, null);
             StateManager.ScreenState = CoreTypes.ScreenType.LoadingScreen;
         }
 

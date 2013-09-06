@@ -125,7 +125,7 @@ namespace PGCGame.Screens.Multiplayer
             lScr.UserCallback = new PGCGame.CoreTypes.Delegates.AsyncHandlerMethod(FinishLanSectorSearch);
             lScr.LoadingText = "Searching for\nLAN sectors...";
             lScr.ScreenFinished += new EventHandler(delegate(object evSender, EventArgs ea) { StateManager.ScreenState = CoreTypes.ScreenType.NetworkSessionsScreen; });
-            NetworkSession.BeginFind(NetworkSessionType.SystemLink, Gamer.SignedInGamers, null, lScr.Callback, null);
+            NetworkSession.BeginFind(StateManager.NetworkData.SessionType, 1, null, lScr.Callback, null);
             StateManager.ScreenState = CoreTypes.ScreenType.LoadingScreen;
         }
 
@@ -147,7 +147,7 @@ namespace PGCGame.Screens.Multiplayer
             }
         }
 
-        void FinishJoin(object res)
+        private void FinishJoin(object res)
         {
             IAsyncResult r = res as IAsyncResult;
 
