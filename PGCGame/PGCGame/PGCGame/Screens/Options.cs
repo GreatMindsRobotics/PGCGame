@@ -209,9 +209,6 @@ namespace PGCGame.Screens
           }
         }
 #endif
-#if XBOX
-        GamePadButtonEnumerator AllButtons;
-#endif
 
 #if WINDOWS
         void Options_ScreenResolutionChanged(object sender, EventArgs e)
@@ -354,8 +351,6 @@ namespace PGCGame.Screens
             }
             lastMs = currentMs;
 #elif XBOX
-            AllButtons.Update(gameTime);
-
             currentGamePad = GamePad.GetState(PlayerIndex.One);
 
             lastGamePad = currentGamePad;

@@ -20,9 +20,6 @@ namespace PGCGame.Screens
 {
     public class PauseScreen : BaseScreen
     {
-#if XBOX
-        GamePadButtonEnumerator AllButtons;
-#endif
 
         TextSprite ExitLabel;
         TextSprite PauseLabel;
@@ -206,9 +203,6 @@ namespace PGCGame.Screens
                 StateManager.GoBack();
                 return;
             }
-#if XBOX
-            AllButtons.Update(gameTime);
-#endif
             lastState = current;
         }
     }

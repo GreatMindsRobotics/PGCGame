@@ -270,9 +270,6 @@ namespace PGCGame.Screens
             }
         }
 
-#if XBOX
-        GamePadButtonEnumerator AllButtons;
-#endif
         //Preventing clickthrus
         TimeSpan elapsedButtonDelay = TimeSpan.Zero;
         TimeSpan totalButtonDelay = TimeSpan.FromMilliseconds(250);
@@ -281,8 +278,6 @@ namespace PGCGame.Screens
         {
             elapsedButtonDelay += gameTime.ElapsedGameTime;
 #if XBOX
-
-            AllButtons.Update(gameTime);
 
             currentGamePad = GamePad.GetState(PlayerIndex.One);
 

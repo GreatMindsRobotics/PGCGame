@@ -146,9 +146,6 @@ namespace PGCGame.Screens
             noShipLabel.X = noShipLabel.GetCenterPosition(Graphics.Viewport).X;
         }
 
-#if XBOX
-        GamePadButtonEnumerator AllButtons;
-#endif
 
         void shipLabel_Pressed(object sender, EventArgs e)
         {
@@ -287,11 +284,6 @@ namespace PGCGame.Screens
         {
             base.Update(gameTime);
 
-            
-
-#if XBOX
-            AllButtons.Update(gameTime);
-#endif
             if (!isSaving)
             {
                 _elapsedSaveTime = TimeSpan.Zero;

@@ -314,29 +314,14 @@ namespace PGCGame.Screens.Multiplayer
             }
         }
 
-#if XBOX
-        GamePadButtonEnumerator AllButtons;
-#endif
         TimeSpan totalButtonDelay = TimeSpan.FromMilliseconds(250);
 
         public override void Update(GameTime gameTime)
         {
             elapsedButtonDelay += gameTime.ElapsedGameTime;
 
-#if XBOX 
-            AllButtons.Update(gameTime);
-
-            // currentGamePad = GamePad.GetState(PlayerIndex.One);
-            // lastGamePad = currentGamePad;
-
-#endif
             base.Update(gameTime);
         }
-
-#if XBOX
-        GamePadState currentGamePad;
-        GamePadState lastGamePad = new GamePadState(Vector2.Zero, Vector2.Zero, 0, 0, Buttons.A);
-#endif
 
     }
 }
