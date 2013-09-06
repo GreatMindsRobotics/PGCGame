@@ -9,6 +9,7 @@ using Glib.XNA.SpriteLib;
 using Glib.XNA;
 using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Net;
+using Glib.XNA.InputLib;
 
 namespace PGCGame.Screens.Multiplayer
 {
@@ -83,6 +84,11 @@ namespace PGCGame.Screens.Multiplayer
 
             Sprites.Add(BackButton);
             AdditionalSprites.Add(BackLabel);
+
+#if XBOX
+            AllButtons = new GamePadButtonEnumerator(new TextSprite[,] { { CoopLabel }, { DeathMatchLabel }, { BackLabel } }, InputType.LeftJoystick);
+            AllButtons.FireTextSpritePressed = true;
+#endif
         }
 
         void BackLabel_Pressed(object sender, EventArgs e)
