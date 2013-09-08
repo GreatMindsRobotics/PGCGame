@@ -82,6 +82,7 @@ namespace GitPractice
             scoreNumber = 0;
             number = new Vector2(85, 0);
 
+            /*
             VerticalEnemy enemy = new VerticalEnemy();
             enemy.LoadContent(Content, "coin");
             enemy.Speed = Vector2.Zero;
@@ -91,6 +92,7 @@ namespace GitPractice
             horizontalEnemy.LoadContent(Content, "coin");
             horizontalEnemy.Speed = new Vector2(0, 0);
             horizontalEnemy.MoveDirection = MoveDirection.Right;
+             * */
 
             Coin3 coin3 = new Coin3();
             coin3.LoadContent(Content, "coin");
@@ -102,8 +104,10 @@ namespace GitPractice
             coin4.Speed = Vector2.Zero;
             coin4.MoveDirection = MoveDirection.Right;
 
+            /*
             enemyList.Add(enemy);
             enemyList.Add(horizontalEnemy);
+            */
             enemyList.Add(coin3);
             enemyList.Add(coin4);
 
@@ -160,6 +164,19 @@ namespace GitPractice
                 }
             }
 
+            if (Keyboard.GetState().IsKeyDown(Keys.D))
+            {
+                for (int i = 0; i < enemyList.Count; i++)
+                {
+                    BaseEnemy coin = enemyList[i];
+
+                    if (coin.GetType() == typeof(Coin3) || coin.GetType() == typeof(Coin4))
+                    {
+                        scoreNumber++;
+                        enemyList.Remove(coin);
+                    }
+                }
+            }
 
             base.Update(gameTime);
         }

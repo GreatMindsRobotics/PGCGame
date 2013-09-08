@@ -69,7 +69,6 @@ namespace GitPractice
                 _elapsedTime = new TimeSpan();
             }
 
-
             base.Update(keyboard, gameTime, gameState, viewport);
         }
 

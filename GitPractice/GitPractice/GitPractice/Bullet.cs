@@ -32,12 +32,5 @@ namespace GitPractice
             _rect.X = (int)_location.X;
             _rect.Y = (int)_location.Y;
         }
-
-       
-
-
-
-       
-
     }
 }
