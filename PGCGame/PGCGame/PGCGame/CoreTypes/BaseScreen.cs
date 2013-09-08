@@ -99,7 +99,7 @@ namespace PGCGame.CoreTypes
 #if XBOX
             if (screenName != CoreTypes.ScreenType.LoadingScreen)
             {
-                bButton = new Sprite(GameContent.GameAssets.Images.Controls.BButton, new Vector2(50, 420), Sprites.SpriteBatch);
+                bButton = new Sprite(GameContent.Assets.Images.Controls.BButton, new Vector2(50, 420), Sprites.SpriteBatch);
                 bButton.Scale = new Vector2(0.5f);
 
                 string backButtonText = "Back";
@@ -108,17 +108,17 @@ namespace PGCGame.CoreTypes
                     backButtonText = "Exit";
                 }
 
-                bLabel = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, backButtonText);
+                bLabel = new TextSprite(Sprites.SpriteBatch, GameContent.Assets.Fonts.NormalText, backButtonText);
                 bLabel.Color = Color.White;
                 bLabel.Position = new Vector2(90, 425);
 
                 Sprites.Add(bButton);
                 AdditionalSprites.Add(bLabel);
 
-                aButton = new Sprite(GameContent.GameAssets.Images.Controls.AButton, new Vector2(160, 420), Sprites.SpriteBatch);
+                aButton = new Sprite(GameContent.Assets.Images.Controls.AButton, new Vector2(160, 420), Sprites.SpriteBatch);
                 aButton.Scale = new Vector2(0.5f);
 
-                aLabel = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, "Select");
+                aLabel = new TextSprite(Sprites.SpriteBatch, GameContent.Assets.Fonts.NormalText, "Select");
                 aLabel.Position = new Vector2(200, 425);
                 aLabel.Color = Color.White;
 
