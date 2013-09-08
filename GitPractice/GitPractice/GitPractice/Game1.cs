@@ -83,7 +83,7 @@ namespace GitPractice
 
             font = Content.Load<SpriteFont>("SpriteFont1");
             scorePosition = Vector2.Zero;
-            text = "Score:";
+            text = "Score: ";
             scoreNumber = 0;
             number = new Vector2(85, 0);
 
