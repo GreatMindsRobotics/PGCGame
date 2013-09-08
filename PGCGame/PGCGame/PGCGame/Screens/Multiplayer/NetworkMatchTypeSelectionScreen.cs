@@ -27,8 +27,11 @@ namespace PGCGame.Screens.Multiplayer
         private Sprite BackButton;
         private TextSprite BackLabel;
 
-        private Sprite DeathMatchButton;
-        private TextSprite DeathMatchLabel;
+        private Sprite LMS;
+        private TextSprite LMSLabel;
+
+        private Sprite TDM;
+        private TextSprite TDMLabel;
 
         private TextSprite TitleLabel;
 
@@ -43,7 +46,7 @@ namespace PGCGame.Screens.Multiplayer
             CoopButton = new Sprite(GameContent.Assets.Images.Controls.Button, new Vector2(0, 10 + TitleLabel.Height), Sprites.SpriteBatch);
             CoopButton.X = CoopButton.GetCenterPosition(Graphics.Viewport).X;
 
-            CoopLabel = new TextSprite(Sprites.SpriteBatch, GameContent.Assets.Fonts.NormalText, "Co-op match", Color.White);
+            CoopLabel = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, "Co-op", Color.White);
             CoopLabel.HoverColor = Color.MediumAquamarine;
             CoopLabel.NonHoverColor = Color.White;
             CoopLabel.IsHoverable = true;
@@ -55,20 +58,33 @@ namespace PGCGame.Screens.Multiplayer
             AdditionalSprites.Add(CoopLabel);
 
 
-            DeathMatchButton = new Sprite(GameContent.Assets.Images.Controls.Button, new Vector2(0, 20 + CoopLabel.Height + CoopLabel.Y), Sprites.SpriteBatch);
-            DeathMatchButton.X = CoopButton.GetCenterPosition(Graphics.Viewport).X;
+            LMS = new Sprite(GameContent.GameAssets.Images.Controls.Button, new Vector2(0, 20 + CoopLabel.Height + CoopLabel.Y), Sprites.SpriteBatch);
+            LMS.X = CoopButton.GetCenterPosition(Graphics.Viewport).X;
 
-            DeathMatchLabel = new TextSprite(Sprites.SpriteBatch, GameContent.Assets.Fonts.NormalText, "LMS", Color.White);
-            DeathMatchLabel.HoverColor = Color.MediumAquamarine;
-            DeathMatchLabel.NonHoverColor = Color.White;
-            DeathMatchLabel.IsHoverable = true;
-            DeathMatchLabel.ParentSprite = DeathMatchButton;
-            DeathMatchLabel.Pressed += StateManager.ButtonSFXHelper;
-            DeathMatchLabel.Pressed += new EventHandler(DeathMatchLabel_Pressed);
+            LMSLabel = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, "LMS", Color.White);
+            LMSLabel.HoverColor = Color.MediumAquamarine;
+            LMSLabel.NonHoverColor = Color.White;
+            LMSLabel.IsHoverable = true;
+            LMSLabel.ParentSprite = LMS;
+            LMSLabel.Pressed += StateManager.ButtonSFXHelper;
+            LMSLabel.Pressed += new EventHandler(DeathMatchLabel_Pressed);
 
-            Sprites.Add(DeathMatchButton);
-            AdditionalSprites.Add(DeathMatchLabel);
+            Sprites.Add(LMS);
+            AdditionalSprites.Add(LMSLabel);
 
+            TDM = new Sprite(GameContent.GameAssets.Images.Controls.Button, new Vector2(0, 20 + LMSLabel.Height + LMSLabel.Y), Sprites.SpriteBatch);
+            TDM.X = LMS.GetCenterPosition(Graphics.Viewport).X;
+
+            TDMLabel = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, "Team Deathmatch", Color.White);
+            TDMLabel.HoverColor = Color.MediumAquamarine;
+            TDMLabel.NonHoverColor = Color.White;
+            TDMLabel.IsHoverable = true;
+            TDMLabel.ParentSprite = TDM;
+            TDMLabel.Pressed += StateManager.ButtonSFXHelper;
+            TDMLabel.Pressed += new EventHandler(TDMLabel_Pressed);
+
+            Sprites.Add(TDM);
+            AdditionalSprites.Add(TDMLabel);
 
             BackButton = new Sprite(GameContent.Assets.Images.Controls.Button, new Vector2(0, 0), Sprites.SpriteBatch);
             BackButton.X = BackButton.GetCenterPosition(Graphics.Viewport).X;
@@ -86,9 +102,15 @@ namespace PGCGame.Screens.Multiplayer
             AdditionalSprites.Add(BackLabel);
 
 #if XBOX
-            AllButtons = new GamePadButtonEnumerator(new TextSprite[,] { { CoopLabel }, { DeathMatchLabel }, { BackLabel } }, InputType.LeftJoystick);
+            AllButtons = new GamePadButtonEnumerator(new TextSprite[,] { { CoopLabel }, { LMSLabel }, { BackLabel } }, InputType.LeftJoystick);
             AllButtons.FireTextSpritePressed = true;
 #endif
+        }
+
+        void TDMLabel_Pressed(object sender, EventArgs e)
+        {
+            StateManager.NetworkData.SessionMode = MultiplayerSessionType.TDM;
+            CreateMatch();
         }
 
         void BackLabel_Pressed(object sender, EventArgs e)

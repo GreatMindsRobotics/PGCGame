@@ -86,7 +86,7 @@ namespace PGCGame.Screens.Multiplayer
             {
                 StateManager.ScreenState = CoreTypes.ScreenType.NetworkSelectScreen;
             }
-            for(int i = 0; i < StateManager.EnemyShips.Count; i++)
+            for (int i = 0; i < StateManager.EnemyShips.Count; i++)
             {
                 BaseAllyShip sh = StateManager.EnemyShips[i] as BaseAllyShip;
                 if (sh != null && sh.Controller != null && sh.Controller.Id == glea.Gamer.Id)
@@ -201,7 +201,7 @@ namespace PGCGame.Screens.Multiplayer
         /// </summary>
         void onDataRecv(object res)
         {
-            Dictionary<byte, Vector4> myShips = (Dictionary<byte, Vector4>)res;
+            Dictionary<byte, KeyValuePair<MultiplayerTeam?, Vector4>> myShips = res as Dictionary<byte, KeyValuePair<MultiplayerTeam?, Vector4>>;
 
             GameScreen game = StateManager.GetScreen<GameScreen>(CoreTypes.ScreenType.Game);
 
@@ -209,12 +209,13 @@ namespace PGCGame.Screens.Multiplayer
             player.Position = new Vector2(myShip.X, myShip.Y);
             player.Rotation = SpriteRotation.FromRadians(myShip.Z);
             player.CurrentHealth = myShip.W.ToInt();*/
-            Vector4 me = myShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Id];
+            KeyValuePair<MultiplayerTeam?, Vector4> me = myShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Id];
 
-            game.playerShip.WorldCoords = new Vector2(me.X, me.Y);
-            game.playerShip.Rotation.Radians = (me.Z);
+
+            game.playerShip.WorldCoords = new Vector2(me.Value.X, me.Value.Y);
+            game.playerShip.Rotation.Radians = (me.Value.Z);
             game.playerShip.Controller = StateManager.NetworkData.CurrentSession.LocalGamers[0];
-            game.playerShip.CurrentHealth = me.W.ToInt();
+            game.playerShip.CurrentHealth = me.Value.W.ToInt();
             game.playerShip.WCMoved += new EventHandler(playerShip_NetworkStateChanged);
             game.playerShip.Rotation.ValueChanged += new EventHandler(playerShip_NetworkStateChanged);
             //game.playerShip.WCMoved += new EventHandler(breakHandle);
@@ -224,14 +225,16 @@ namespace PGCGame.Screens.Multiplayer
             {
                 BaseAllyShip sns = BaseAllyShip.CreateShip(SelectedShips[g.Id], GameScreen.World, false);
                 sns.Controller = g;
-                sns.PlayerType = PlayerType.Solo;
+                KeyValuePair<MultiplayerTeam?, Vector4> gamerShip = myShips[g.Id];
+                sns.PlayerType = gamerShip.Key.HasValue && gamerShip.Key.Value == me.Key.Value ? PlayerType.Ally : PlayerType.Solo;
                 sns.RotateTowardsMouse = false;
-                Vector4 gamerShip = myShips[g.Id];
-                sns.WorldCoords = new Vector2(gamerShip.X, gamerShip.Y);
-                sns.Rotation.Radians = gamerShip.Z;
-                sns.CurrentHealth = gamerShip.W.ToInt();
 
-                StateManager.EnemyShips.Add(sns);
+                sns.WorldCoords = new Vector2(gamerShip.Value.X, gamerShip.Value.Y);
+                sns.Rotation.Radians = gamerShip.Value.Z;
+                sns.CurrentHealth = gamerShip.Value.W.ToInt();
+
+                (gamerShip.Key.HasValue && gamerShip.Key.Value == me.Key.Value ? StateManager.AllyShips : StateManager.EnemyShips).Add(sns);
+
                 StateManager.AllScreens[ScreenType.Game.ToString()].Sprites.Add(sns);
             }
         }
@@ -244,14 +247,14 @@ namespace PGCGame.Screens.Multiplayer
             BaseAllyShip yourShip = StateManager.GetScreen<GameScreen>(CoreTypes.ScreenType.Game).playerShip;
             //False = not a bullet
             StateManager.NetworkData.DataWriter.Write(false);
-            
+
             StateManager.NetworkData.DataWriter.Write(new Vector4(yourShip.WorldCoords.X, yourShip.WorldCoords.Y, yourShip.Rotation.Radians, yourShip.CurrentHealth));
 
             //InOrder - because old versions never arrive after a more recent version
             StateManager.NetworkData.CurrentSession.LocalGamers[0].SendData(StateManager.NetworkData.DataWriter, SendDataOptions.InOrder);
         }
 
-        
+
         /// <summary>
         /// Called when the CLIENT begins waiting for host ship data.
         /// </summary>
@@ -263,7 +266,7 @@ namespace PGCGame.Screens.Multiplayer
 
             }
 
-            Dictionary<byte, Vector4> ships = new Dictionary<byte, Vector4>();
+            Dictionary<byte, KeyValuePair<MultiplayerTeam?, Vector4>> ships = new Dictionary<byte, KeyValuePair<MultiplayerTeam?, Vector4>>();
 
             StateManager.SelectedShip = StateManager.NetworkData.SelectedNetworkShip.Type;
             StateManager.SelectedTier = StateManager.NetworkData.SelectedNetworkShip.Tier;
@@ -275,10 +278,19 @@ namespace PGCGame.Screens.Multiplayer
             {
                 NetworkGamer infosender;
                 netGamer.ReceiveData(StateManager.NetworkData.DataReader, out infosender);
+
+                MultiplayerTeam? mpTeam = null;
+                if (StateManager.NetworkData.SessionMode == MultiplayerSessionType.TDM)
+                {
+                    mpTeam = (MultiplayerTeam)Enum.Parse(typeof(MultiplayerTeam), StateManager.NetworkData.DataReader.ReadInt32().ToString(), true);
+                }
+
                 Vector4 ship = StateManager.NetworkData.DataReader.ReadVector4();
                 Byte targetPlayer = StateManager.NetworkData.DataReader.ReadByte();
 
-                ships.Add(targetPlayer, ship);
+
+
+                ships.Add(targetPlayer, new KeyValuePair<MultiplayerTeam?, Vector4>(mpTeam, ship));
                 gamersReceived++;
                 /*
             else
@@ -364,7 +376,7 @@ namespace PGCGame.Screens.Multiplayer
             SelectedShips.Clear();
 
             base.InitScreen(screenName);
-            
+
             BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
             title = new TextSprite(Sprites.SpriteBatch, GameContent.Assets.Fonts.BoldText, StateManager.NetworkData.SessionMode.ToFriendlyString() + " Lobby", Color.White);
             title.Y = 5;
@@ -387,6 +399,8 @@ namespace PGCGame.Screens.Multiplayer
 #endif
         }
 
+
+
         /// <summary>
         /// Start label pressed event handler.
         /// </summary>
@@ -399,7 +413,7 @@ namespace PGCGame.Screens.Multiplayer
             {
                 ButtonClick.Play();
             }
-            if (StateManager.NetworkData.SessionMode == MultiplayerSessionType.LMS)
+            if (StateManager.NetworkData.SessionMode == MultiplayerSessionType.LMS || StateManager.NetworkData.SessionMode == MultiplayerSessionType.TDM)
             {
                 StateManager.SelectedShip = SelectedShips[StateManager.NetworkData.CurrentSession.LocalGamers[0].Id].Type;
 
@@ -408,6 +422,16 @@ namespace PGCGame.Screens.Multiplayer
                 GameScreen game = StateManager.GetScreen<GameScreen>(CoreTypes.ScreenType.Game);
 
                 Ship my = game.playerShip;
+
+                MultiplayerTeam? hostTeam = null;
+
+                if (StateManager.NetworkData.SessionMode == MultiplayerSessionType.TDM)
+                {
+                    //TODO: EVERYONE CHOOSES THEIR TEAM
+                    hostTeam = MultiplayerTeam.Red;
+
+                    StateManager.NetworkData.DataWriter.Write(hostTeam.Value.ToInt());
+                }
 
                 StateManager.NetworkData.DataWriter.Write(new Vector4(my.WorldCoords.X, my.WorldCoords.Y, my.Rotation.Radians, my.CurrentHealth));
                 StateManager.NetworkData.DataWriter.Write(StateManager.NetworkData.CurrentSession.LocalGamers[0].Id);
@@ -426,16 +450,34 @@ namespace PGCGame.Screens.Multiplayer
                     sns.Controller = g;
                     sns.WorldCoords = StateManager.RandomGenerator.NextVector2(new Vector2(500), new Vector2(StateManager.SpawnArea.X + StateManager.SpawnArea.Width, StateManager.SpawnArea.Y + StateManager.SpawnArea.Height));
 
+                    bool isAlly = false;
+
+                    if (StateManager.NetworkData.SessionMode == MultiplayerSessionType.TDM)
+                    {
+                        //TODO: GAMER CHOOSES TEAM
+                        MultiplayerTeam team = MultiplayerTeam.Blue;
+                        isAlly = hostTeam.Value == team;
+                        StateManager.NetworkData.DataWriter.Write(team.ToInt());
+                    }
+
                     StateManager.NetworkData.DataWriter.Write(new Vector4(sns.WorldCoords.X, sns.WorldCoords.Y, sns.Rotation.Radians, sns.CurrentHealth));
                     StateManager.NetworkData.DataWriter.Write(g.Id);
 
-                    StateManager.EnemyShips.Add(sns);
+                    if (isAlly)
+                    {
+                        sns.PlayerType = PlayerType.Ally;
+                        StateManager.AllyShips.Add(sns);
+                    }
+                    else
+                    {
+                        StateManager.EnemyShips.Add(sns);
+                    }
                     StateManager.AllScreens[ScreenType.Game.ToString()].Sprites.Add(sns);
                     StateManager.NetworkData.CurrentSession.LocalGamers[0].SendData(StateManager.NetworkData.DataWriter, SendDataOptions.Reliable);
                 }
 
 
-                
+
                 StateManager.NetworkData.CurrentSession.StartGame();
 
                 StateManager.CurrentLevel = GameLevel.Level1;

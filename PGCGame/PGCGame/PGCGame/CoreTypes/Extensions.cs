@@ -96,8 +96,11 @@ namespace PGCGame.CoreTypes
 
                 case MultiplayerSessionType.LMS:
                     return "Last Man Standing";
+
+                case MultiplayerSessionType.TDM:
+                    return "Team Deathmatch";
                 default:
-                    return null;
+                    return sessType.ToString();
             }
         }
 

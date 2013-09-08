@@ -42,13 +42,20 @@ namespace PGCGame.CoreTypes
         SessionType
     }
 
+    public enum MultiplayerTeam
+    {
+        Red = 0,
+        Blue = 1
+    }
+
     /// <summary>
     /// Represents the type of a multiplayer session.
     /// </summary>
     public enum MultiplayerSessionType
     {
         Coop = 0,
-        LMS = 1
+        LMS = 1,
+        TDM = 2
     }
 
     public enum ScreenBackgrounds
