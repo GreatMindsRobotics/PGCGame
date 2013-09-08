@@ -26,7 +26,7 @@ namespace PGCGame.Screens
         public Options(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
         {
-            ButtonClick = GameContent.GameAssets.Sound[SoundEffectType.ButtonPressed];                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+            ButtonClick = GameContent.Assets.Sound[SoundEffectType.ButtonPressed];                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
         }
 
         Sprite ControlButton;
@@ -49,8 +49,8 @@ namespace PGCGame.Screens
             //Add background to this screen     
             this.BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
 
-            Texture2D button = GameContent.GameAssets.Images.Controls.Button;
-            SpriteFont font = GameContent.GameAssets.Fonts.NormalText;
+            Texture2D button = GameContent.Assets.Images.Controls.Button;
+            SpriteFont font = GameContent.Assets.Fonts.NormalText;
 
 #if WINDOWS
             StateManager.Options.ScreenResolutionChanged += new EventHandler<ViewportEventArgs>(Options_ScreenResolutionChanged);
@@ -119,7 +119,7 @@ namespace PGCGame.Screens
 #elif XBOX
             Sprite BackButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .35f), Sprites.SpriteBatch);
 #endif
-            BackLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "Back");
+            BackLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.Assets.Fonts.NormalText, "Back");
             BackLabel.Position = new Vector2((BackButton.X + BackButton.Width/2) - BackLabel.Width/2, (BackButton.Y + BackButton.Height/2) - BackLabel.Height/2);
 #if WINDOWS
             BackLabel.CallKeyboardClickEvent = false;

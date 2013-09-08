@@ -57,15 +57,15 @@ namespace PGCGame
 
             _isDead = false;
 
-            Explosion = GameContent.GameAssets.Images.SpriteSheets[SpriteSheetType.Explosion];
-            _explosionSheet = new SpriteSheet(GameContent.GameAssets.Images.SpriteSheets[SpriteSheetType.Explosion], new Rectangle(0, 0, 50, 50), this.Position, spriteBatch, 8, 9);
+            Explosion = GameContent.Assets.Images.SpriteSheets[SpriteSheetType.Explosion];
+            _explosionSheet = new SpriteSheet(GameContent.Assets.Images.SpriteSheets[SpriteSheetType.Explosion], new Rectangle(0, 0, 50, 50), this.Position, spriteBatch, 8, 9);
 
             _explosionSheet.IsAnimated = true;
             _explosionSheet.Scale = new Vector2(1.5f);
             _explosionSheet.RestartAnimation = false;
             _currentHealth = _initHealth;
 
-            ExplosionSFX = GameContent.GameAssets.Sound[SoundEffectType.EnemyExplodes];
+            ExplosionSFX = GameContent.Assets.Sound[SoundEffectType.EnemyExplodes];
             FriendlyName = ShipType.ToFriendlyString();
         }
 

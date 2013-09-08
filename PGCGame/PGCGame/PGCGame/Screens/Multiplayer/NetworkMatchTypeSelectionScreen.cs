@@ -36,14 +36,14 @@ namespace PGCGame.Screens.Multiplayer
         {
             base.InitScreen(screenName);
             BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
-            TitleLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(0, 5), GameContent.GameAssets.Fonts.BoldText, "Select Match Type", Color.White);
+            TitleLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(0, 5), GameContent.Assets.Fonts.BoldText, "Select Match Type", Color.White);
             TitleLabel.X = TitleLabel.GetCenterPosition(Graphics.Viewport).X;
             AdditionalSprites.Add(TitleLabel);
 
-            CoopButton = new Sprite(GameContent.GameAssets.Images.Controls.Button, new Vector2(0, 10 + TitleLabel.Height), Sprites.SpriteBatch);
+            CoopButton = new Sprite(GameContent.Assets.Images.Controls.Button, new Vector2(0, 10 + TitleLabel.Height), Sprites.SpriteBatch);
             CoopButton.X = CoopButton.GetCenterPosition(Graphics.Viewport).X;
 
-            CoopLabel = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, "Co-op match", Color.White);
+            CoopLabel = new TextSprite(Sprites.SpriteBatch, GameContent.Assets.Fonts.NormalText, "Co-op match", Color.White);
             CoopLabel.HoverColor = Color.MediumAquamarine;
             CoopLabel.NonHoverColor = Color.White;
             CoopLabel.IsHoverable = true;
@@ -55,10 +55,10 @@ namespace PGCGame.Screens.Multiplayer
             AdditionalSprites.Add(CoopLabel);
 
 
-            DeathMatchButton = new Sprite(GameContent.GameAssets.Images.Controls.Button, new Vector2(0, 20 + CoopLabel.Height + CoopLabel.Y), Sprites.SpriteBatch);
+            DeathMatchButton = new Sprite(GameContent.Assets.Images.Controls.Button, new Vector2(0, 20 + CoopLabel.Height + CoopLabel.Y), Sprites.SpriteBatch);
             DeathMatchButton.X = CoopButton.GetCenterPosition(Graphics.Viewport).X;
 
-            DeathMatchLabel = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, "LMS", Color.White);
+            DeathMatchLabel = new TextSprite(Sprites.SpriteBatch, GameContent.Assets.Fonts.NormalText, "LMS", Color.White);
             DeathMatchLabel.HoverColor = Color.MediumAquamarine;
             DeathMatchLabel.NonHoverColor = Color.White;
             DeathMatchLabel.IsHoverable = true;
@@ -70,11 +70,11 @@ namespace PGCGame.Screens.Multiplayer
             AdditionalSprites.Add(DeathMatchLabel);
 
 
-            BackButton = new Sprite(GameContent.GameAssets.Images.Controls.Button, new Vector2(0, 0), Sprites.SpriteBatch);
+            BackButton = new Sprite(GameContent.Assets.Images.Controls.Button, new Vector2(0, 0), Sprites.SpriteBatch);
             BackButton.X = BackButton.GetCenterPosition(Graphics.Viewport).X;
             BackButton.Y = StateManager.GraphicsManager.GraphicsDevice.Viewport.Height - 50 - BackButton.Height;
 
-            BackLabel = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, "Back", Color.White);
+            BackLabel = new TextSprite(Sprites.SpriteBatch, GameContent.Assets.Fonts.NormalText, "Back", Color.White);
             BackLabel.HoverColor = Color.MediumAquamarine;
             BackLabel.NonHoverColor = Color.White;
             BackLabel.IsHoverable = true;

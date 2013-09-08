@@ -21,7 +21,7 @@ namespace PGCGame.Screens.SelectScreens
         public TierSelect(SpriteBatch spriteBatch)
             : base(spriteBatch)
         {
-            ItemBought = GameContent.GameAssets.Sound[SoundEffectType.BoughtItem];
+            ItemBought = GameContent.Assets.Sound[SoundEffectType.BoughtItem];
         }
 
         private struct ShipInfo
@@ -58,8 +58,8 @@ namespace PGCGame.Screens.SelectScreens
                 AdditionalSprites.Clear();
             }
 
-            Texture2D buttonImage = GameContent.GameAssets.Images.Controls.Button;
-            SpriteFont SegoeUIMono = GameContent.GameAssets.Fonts.NormalText;
+            Texture2D buttonImage = GameContent.Assets.Images.Controls.Button;
+            SpriteFont SegoeUIMono = GameContent.Assets.Fonts.NormalText;
 
             ShipTier upgradeTier = StateManager.SelectedTier == ShipTier.Tier4 ? ShipTier.Tier4 : StateManager.SelectedTier + 1;
 
@@ -72,7 +72,7 @@ namespace PGCGame.Screens.SelectScreens
 
             //Configure Battle Cruiser
             battleCruiser = new ShipInfo();
-            battleCruiser.Image = new Sprite(GameContent.GameAssets.Images.Ships[ShipType.BattleCruiser, upgradeTier], Vector2.Zero, Sprites.SpriteBatch);
+            battleCruiser.Image = new Sprite(GameContent.Assets.Images.Ships[ShipType.BattleCruiser, upgradeTier], Vector2.Zero, Sprites.SpriteBatch);
             battleCruiser.Image.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.81f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .12f);
             battleCruiser.Image.Rotation = new SpriteRotation(90);
 
@@ -81,7 +81,7 @@ namespace PGCGame.Screens.SelectScreens
             battleCruiser.Type = ShipType.BattleCruiser;
             battleCruiser.Tier = upgradeTier;
 
-            battleCruiser.Description = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "\n\n This is the strongest class \n in the fleet, but also the slowest.\n What it lacks in speed it makes \n up for in strength.\n\n Damage Per Shot: 20\n Amount of Health: 120");
+            battleCruiser.Description = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.Assets.Fonts.NormalText, "\n\n This is the strongest class \n in the fleet, but also the slowest.\n What it lacks in speed it makes \n up for in strength.\n\n Damage Per Shot: 20\n Amount of Health: 120");
             battleCruiser.Description.Color = Color.White;
 
             items.Add(new KeyValuePair<Sprite, TextSprite>(battleCruiser.Image, battleCruiser.Description));            
@@ -91,7 +91,7 @@ namespace PGCGame.Screens.SelectScreens
 
             //Configure Fighter Carrier
            
-            fighterCarrier.Image = new Sprite(GameContent.GameAssets.Images.Ships[ShipType.FighterCarrier, upgradeTier], Vector2.Zero, Sprites.SpriteBatch);
+            fighterCarrier.Image = new Sprite(GameContent.Assets.Images.Ships[ShipType.FighterCarrier, upgradeTier], Vector2.Zero, Sprites.SpriteBatch);
             fighterCarrier.Image.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.85f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .01f);
             fighterCarrier.Image.Rotation = new SpriteRotation(90);
 
@@ -100,7 +100,7 @@ namespace PGCGame.Screens.SelectScreens
             fighterCarrier.Type = ShipType.FighterCarrier;
             fighterCarrier.Tier = upgradeTier;
 
-            fighterCarrier.Description = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "\n\n This class fires an extremely fast\n Flak Cannon and has the ability to\n deploy drones. However, the drones\n and Flak Cannon aren't that powerful.\n After the Carrier gets destroyed, the\n drones die with it.\n\n Damage Per Shot: 2\n Amount of Health: 100\n Amount of Drones: 2\n Damage Per Drone Shot: 1\n Health Per Drone: 10");
+            fighterCarrier.Description = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.Assets.Fonts.NormalText, "\n\n This class fires an extremely fast\n Flak Cannon and has the ability to\n deploy drones. However, the drones\n and Flak Cannon aren't that powerful.\n After the Carrier gets destroyed, the\n drones die with it.\n\n Damage Per Shot: 2\n Amount of Health: 100\n Amount of Drones: 2\n Damage Per Drone Shot: 1\n Health Per Drone: 10");
             fighterCarrier.Description.Color = Color.White;
 
             items.Add(new KeyValuePair<Sprite, TextSprite>(fighterCarrier.Image, fighterCarrier.Description));
@@ -110,7 +110,7 @@ namespace PGCGame.Screens.SelectScreens
 
             //Configure Torpedo Ship
             torpedoShip = new ShipInfo();
-            torpedoShip.Image = new Sprite(GameContent.GameAssets.Images.Ships[ShipType.TorpedoShip, upgradeTier], Vector2.Zero, Sprites.SpriteBatch);
+            torpedoShip.Image = new Sprite(GameContent.Assets.Images.Ships[ShipType.TorpedoShip, upgradeTier], Vector2.Zero, Sprites.SpriteBatch);
             torpedoShip.Image.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.81f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .12f);
             torpedoShip.Image.Rotation = new SpriteRotation(90);
 
@@ -118,7 +118,7 @@ namespace PGCGame.Screens.SelectScreens
 
             torpedoShip.Type = ShipType.TorpedoShip;
             torpedoShip.Tier = upgradeTier;
-            torpedoShip.Description = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "\n\n This class is the most balanced\n ship in the game. The torpedos do\n a lot of damage and \n are hard to dodge!\n\n Damege Per Shot: 5\n Amount of Health: 110");
+            torpedoShip.Description = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.Assets.Fonts.NormalText, "\n\n This class is the most balanced\n ship in the game. The torpedos do\n a lot of damage and \n are hard to dodge!\n\n Damege Per Shot: 5\n Amount of Health: 110");
             torpedoShip.Description.Color = Color.White;
 
             items.Add(new KeyValuePair<Sprite, TextSprite>(torpedoShip.Image, torpedoShip.Description));
@@ -245,9 +245,9 @@ namespace PGCGame.Screens.SelectScreens
                     }
             }
 
-            battleCruiser.Image.Texture = GameContent.GameAssets.Images.Ships[battleCruiser.Type, battleCruiser.Tier];
-            fighterCarrier.Image.Texture = GameContent.GameAssets.Images.Ships[fighterCarrier.Type, fighterCarrier.Tier];
-            torpedoShip.Image.Texture = GameContent.GameAssets.Images.Ships[torpedoShip.Type, torpedoShip.Tier];
+            battleCruiser.Image.Texture = GameContent.Assets.Images.Ships[battleCruiser.Type, battleCruiser.Tier];
+            fighterCarrier.Image.Texture = GameContent.Assets.Images.Ships[fighterCarrier.Type, fighterCarrier.Tier];
+            torpedoShip.Image.Texture = GameContent.Assets.Images.Ships[torpedoShip.Type, torpedoShip.Tier];
             }
         }
 

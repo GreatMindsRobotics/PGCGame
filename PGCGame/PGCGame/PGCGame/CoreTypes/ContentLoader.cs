@@ -19,7 +19,7 @@ namespace PGCGame.CoreTypes
     public class GameContent : IDisposable
     {
         private static GameContent _gameAssets = null;
-        public static GameContent GameAssets
+        public static GameContent Assets
         {
             get
             {

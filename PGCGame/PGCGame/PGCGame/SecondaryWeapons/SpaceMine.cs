@@ -55,8 +55,8 @@ namespace PGCGame
             Cost = 500;
             Damage = 50;
             Name = "SpaceMine";
-            ExplosionSound = GameContent.GameAssets.Sound[SoundEffectType.ExplodeSpaceMine];
-            DeploySound = GameContent.GameAssets.Sound[SoundEffectType.DeploySpaceMine];
+            ExplosionSound = GameContent.Assets.Sound[SoundEffectType.ExplodeSpaceMine];
+            DeploySound = GameContent.Assets.Sound[SoundEffectType.DeploySpaceMine];
         }
 
         public override void Update(GameTime gameTime)

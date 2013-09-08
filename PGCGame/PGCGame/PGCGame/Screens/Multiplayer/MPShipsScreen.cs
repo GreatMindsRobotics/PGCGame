@@ -127,7 +127,7 @@ namespace PGCGame.Screens.Multiplayer
                             text = string.Format("{0} - {1}{2}{3}", StateManager.NetworkData.CurrentSession.AllGamers[i].Gamertag, StateManager.NetworkData.CurrentSession.AllGamers[i].IsLocal ? StateManager.NetworkData.SelectedNetworkShip.Type.ToFriendlyString() : "No ship", StateManager.NetworkData.CurrentSession.AllGamers[i].IsLocal ? StateManager.NetworkData.SelectedNetworkShip.Type == ShipType.NoShip ? "" : ", " : "", StateManager.NetworkData.CurrentSession.AllGamers[i].IsLocal ? StateManager.NetworkData.SelectedNetworkShip.Type == ShipType.NoShip ? "" : ShipTier.Tier2.ToFriendlyString().ToLower() : "");
                             visible = true;
                         }
-                        TextSprite gamerInfo = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, text, Color.White);
+                        TextSprite gamerInfo = new TextSprite(Sprites.SpriteBatch, GameContent.Assets.Fonts.NormalText, text, Color.White);
                         gamerInfo.Y = i == 0 ? title.Y + title.Height + 10 : gamerInfos[i - 1].Y + gamerInfos[i - 1].Height + 5;
                         gamerInfo.X = gamerInfo.GetCenterPosition(Graphics.Viewport).X;
                         gamerInfo.Visible = visible;
@@ -319,7 +319,7 @@ namespace PGCGame.Screens.Multiplayer
                     text = string.Format("{0} - {1}{2}{3}", StateManager.NetworkData.CurrentSession.AllGamers[i].Gamertag, StateManager.NetworkData.CurrentSession.AllGamers[i].IsLocal ? StateManager.NetworkData.SelectedNetworkShip.Type.ToFriendlyString() : "No ship", StateManager.NetworkData.CurrentSession.AllGamers[i].IsLocal ? StateManager.NetworkData.SelectedNetworkShip.Type == ShipType.NoShip ? "" : ", " : "", StateManager.NetworkData.CurrentSession.AllGamers[i].IsLocal ? StateManager.NetworkData.SelectedNetworkShip.Type == ShipType.NoShip ? "" : ShipTier.Tier2.ToFriendlyString().ToLower() : "");
                     visible = true;
                 }
-                TextSprite gamerInfo = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, text, Color.White);
+                TextSprite gamerInfo = new TextSprite(Sprites.SpriteBatch, GameContent.Assets.Fonts.NormalText, text, Color.White);
                 gamerInfo.Y = i == 0 ? title.Y + title.Height + 10 : gamerInfos[i - 1].Y + gamerInfos[i - 1].Height + 5;
                 gamerInfo.X = gamerInfo.GetCenterPosition(Graphics.Viewport).X;
                 gamerInfo.Visible = visible;
@@ -366,15 +366,15 @@ namespace PGCGame.Screens.Multiplayer
             base.InitScreen(screenName);
             
             BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
-            title = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.BoldText, StateManager.NetworkData.SessionMode.ToFriendlyString() + " Lobby", Color.White);
+            title = new TextSprite(Sprites.SpriteBatch, GameContent.Assets.Fonts.BoldText, StateManager.NetworkData.SessionMode.ToFriendlyString() + " Lobby", Color.White);
             title.Y = 5;
             title.X = title.GetCenterPosition(Graphics.Viewport).X;
             AdditionalSprites.Add(title);
 
-            StartButton = new Sprite(GameContent.GameAssets.Images.Controls.Button, new Vector2(0, Graphics.Viewport.Height), Sprites.SpriteBatch);
+            StartButton = new Sprite(GameContent.Assets.Images.Controls.Button, new Vector2(0, Graphics.Viewport.Height), Sprites.SpriteBatch);
             StartButton.X = StartButton.GetCenterPosition(Graphics.Viewport).X;
             StartButton.Y -= StartButton.Height + 20;
-            StartLabel = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, "Start", Color.White) { ParentSprite = StartButton, IsHoverable = true, HoverColor = Color.MediumAquamarine, NonHoverColor = Color.White };
+            StartLabel = new TextSprite(Sprites.SpriteBatch, GameContent.Assets.Fonts.NormalText, "Start", Color.White) { ParentSprite = StartButton, IsHoverable = true, HoverColor = Color.MediumAquamarine, NonHoverColor = Color.White };
             StartLabel.Pressed += new EventHandler(StartLabel_Pressed);
             StartButton.Visible = false;
             StartLabel.Visible = false;

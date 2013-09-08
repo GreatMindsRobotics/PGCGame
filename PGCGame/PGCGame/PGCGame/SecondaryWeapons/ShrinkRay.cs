@@ -18,7 +18,7 @@ namespace PGCGame
         {
             Cost = 2000;
             Name = "ShrinkRay";
-            DeploySound = GameContent.GameAssets.Sound[SoundEffectType.DeployShrinkRay];
+            DeploySound = GameContent.Assets.Sound[SoundEffectType.DeployShrinkRay];
         }
 
         public List<Bullet> ShrinkRayBullets = new List<Bullet>();

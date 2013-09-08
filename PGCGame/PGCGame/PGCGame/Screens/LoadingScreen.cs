@@ -113,7 +113,7 @@ namespace PGCGame.Screens
         {
             base.InitScreen(screenName);
             BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
-            loadingText = new TextSprite(this.Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, _loadingText, Color.White);
+            loadingText = new TextSprite(this.Sprites.SpriteBatch, GameContent.Assets.Fonts.NormalText, _loadingText, Color.White);
             loadingText.Position = loadingText.GetCenterPosition(Graphics.Viewport);
             loadingText.TextChanged += new EventHandler(loadingText_TextChanged);
             AdditionalSprites.Add(loadingText);

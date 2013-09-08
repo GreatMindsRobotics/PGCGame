@@ -24,7 +24,7 @@ namespace PGCGame.Screens
             : base(spriteBatch, Color.Black)
         {
 
-            ButtonClick = GameContent.GameAssets.Sound[SoundEffectType.ButtonPressed];
+            ButtonClick = GameContent.Assets.Sound[SoundEffectType.ButtonPressed];
         }
 
         Sprite TitleImage;
@@ -51,7 +51,7 @@ namespace PGCGame.Screens
         {
             base.InitScreen(screenName);
 
-            _gameSong = GameContent.GameAssets.Music[ScreenMusic.Level1];
+            _gameSong = GameContent.Assets.Music[ScreenMusic.Level1];
 
             StateManager.Options.MusicStateChanged += new EventHandler(Options_MusicStateChanged);
             StateManager.ScreenStateChanged += new EventHandler(delegate(object src, EventArgs arg)
@@ -76,11 +76,11 @@ namespace PGCGame.Screens
 
             this.BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
 
-            Texture2D planetTexture = GameContent.GameAssets.Images.NonPlayingObjects.Planet;
-            Texture2D buttonTexture = GameContent.GameAssets.Images.Controls.Button;
-            SpriteFont SegoeUIMono = GameContent.GameAssets.Fonts.NormalText;
-            Texture2D altPlanetTexture = GameContent.GameAssets.Images.NonPlayingObjects.AltPlanet;
-            Texture2D fighterCarrier = GameContent.GameAssets.Images.Ships[ShipType.FighterCarrier, ShipTier.Tier1];
+            Texture2D planetTexture = GameContent.Assets.Images.NonPlayingObjects.Planet;
+            Texture2D buttonTexture = GameContent.Assets.Images.Controls.Button;
+            SpriteFont SegoeUIMono = GameContent.Assets.Fonts.NormalText;
+            Texture2D altPlanetTexture = GameContent.Assets.Images.NonPlayingObjects.AltPlanet;
+            Texture2D fighterCarrier = GameContent.Assets.Images.Ships[ShipType.FighterCarrier, ShipTier.Tier1];
 
 
             planet = new Sprite(planetTexture, Vector2.Zero, Sprites.SpriteBatch);
@@ -98,7 +98,7 @@ namespace PGCGame.Screens
             Sprites.Add(ship);
 
             //title image
-            TitleImage = new Sprite(GameContent.GameAssets.Images.Controls.Title, Vector2.Zero, Sprites.SpriteBatch);
+            TitleImage = new Sprite(GameContent.Assets.Images.Controls.Title, Vector2.Zero, Sprites.SpriteBatch);
             TitleImage.Position = new Vector2(viewport.Width / 2 - TitleImage.Texture.Width / 2, viewport.Height * 0.2f);
             Sprites.Add(TitleImage);
 
@@ -200,11 +200,11 @@ namespace PGCGame.Screens
 
             if (ship == null)
             {
-                ship = new Sprite(GameContent.GameAssets.Images.Ships[type, tier], Vector2.Zero, Sprites.SpriteBatch);
+                ship = new Sprite(GameContent.Assets.Images.Ships[type, tier], Vector2.Zero, Sprites.SpriteBatch);
             }
             else
             { 
-                ship.Texture = GameContent.GameAssets.Images.Ships[type, tier];
+                ship.Texture = GameContent.Assets.Images.Ships[type, tier];
             }
 
             ship.Position = new Vector2(-ship.Texture.Width / 2, Graphics.Viewport.Height);

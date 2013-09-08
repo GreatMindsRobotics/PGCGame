@@ -33,7 +33,7 @@ namespace PGCGame.Screens
         public PauseScreen(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
         {
-            ButtonClick = GameContent.GameAssets.Sound[SoundEffectType.ButtonPressed];
+            ButtonClick = GameContent.Assets.Sound[SoundEffectType.ButtonPressed];
         }
 
         public override void InitScreen(ScreenType screenType)
@@ -42,16 +42,16 @@ namespace PGCGame.Screens
 #if WINDOWS
             GameScreen.Paused += new EventHandler(GameScreen_Paused);
 #endif
-            Texture2D button = GameContent.GameAssets.Images.Controls.Button;
+            Texture2D button = GameContent.Assets.Images.Controls.Button;
 
             StateManager.Options.ScreenResolutionChanged += new EventHandler<ViewportEventArgs>(Options_ScreenResolutionChanged);
 
-            PauseLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.BoldText, "Paused");
+            PauseLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.Assets.Fonts.BoldText, "Paused");
             PauseLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width / 2 - PauseLabel.Width / 2, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f);
             PauseLabel.Color = Color.White;
             AdditionalSprites.Add(PauseLabel);
 
-            LevelLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "Points:" + StateManager.SpacePoints + "\nCurrent Level: Level " + StateManager.CurrentLevel.ToInt() + "\n" + StateManager.Lives + " extra lives remaining\nYou have " + StateManager.SpaceBucks + " credits");
+            LevelLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.Assets.Fonts.NormalText, "Points:" + StateManager.SpacePoints + "\nCurrent Level: Level " + StateManager.CurrentLevel.ToInt() + "\n" + StateManager.Lives + " extra lives remaining\nYou have " + StateManager.SpaceBucks + " credits");
             LevelLabel.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width / 2 - LevelLabel.Width / 2, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .50f);
             LevelLabel.Color = Color.White;
             AdditionalSprites.Add(LevelLabel);
@@ -60,7 +60,7 @@ namespace PGCGame.Screens
             ResumeButton.Position = new Vector2(ResumeButton.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .2f);
             Sprites.Add(ResumeButton);
 
-            ResumeLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "Resume");
+            ResumeLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.Assets.Fonts.NormalText, "Resume");
             ResumeLabel.ParentSprite = ResumeButton;
             ResumeLabel.Color = Color.White;
 #if WINDOWS
@@ -76,7 +76,7 @@ namespace PGCGame.Screens
 
 
 
-            ExitLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "Exit");
+            ExitLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.Assets.Fonts.NormalText, "Exit");
             ExitLabel.Color = Color.White;
             ExitLabel.IsHoverable = true;
 #if WINDOWS
@@ -91,7 +91,7 @@ namespace PGCGame.Screens
             OptionButton.Position = new Vector2(ResumeButton.X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .37f);
             Sprites.Add(OptionButton);
 
-            OptionsLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "Options");
+            OptionsLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.Assets.Fonts.NormalText, "Options");
             OptionsLabel.ParentSprite = OptionButton;
             OptionsLabel.Color = Color.White;
             OptionsLabel.IsHoverable = true;

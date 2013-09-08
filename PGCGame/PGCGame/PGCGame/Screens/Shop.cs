@@ -26,7 +26,7 @@ namespace PGCGame.Screens
         {
             //TODO: BACKGROUND
             StateManager.ScreenStateChanged += new EventHandler(StateManager_ScreenStateChanged);
-            ButtonClick = GameContent.GameAssets.Sound[SoundEffectType.ButtonPressed];
+            ButtonClick = GameContent.Assets.Sound[SoundEffectType.ButtonPressed];
         }
 
         void StateManager_ScreenStateChanged(object sender, EventArgs e)
@@ -66,12 +66,12 @@ namespace PGCGame.Screens
 
             StateManager.Options.ScreenResolutionChanged += new EventHandler<ViewportEventArgs>(Options_ScreenResolutionChanged);
             
-            Texture2D buttonImage = GameContent.GameAssets.Images.Controls.Button;
-            SpriteFont SegoeUIMono = GameContent.GameAssets.Fonts.NormalText;
+            Texture2D buttonImage = GameContent.Assets.Images.Controls.Button;
+            SpriteFont SegoeUIMono = GameContent.Assets.Fonts.NormalText;
 
             //Configure backgrounds
             BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
-            Sprites.AddNewSprite(Vector2.Zero, GameContent.GameAssets.Images.NonPlayingObjects.ShopBackground);
+            Sprites.AddNewSprite(Vector2.Zero, GameContent.Assets.Images.NonPlayingObjects.ShopBackground);
             Sprites[0].Scale = new Vector2((float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Width / (float)Sprites[0].Texture.Width, (float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Height / (float)Sprites[0].Texture.Height);
 
 

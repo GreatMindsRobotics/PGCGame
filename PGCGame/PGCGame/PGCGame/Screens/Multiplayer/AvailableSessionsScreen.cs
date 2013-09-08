@@ -53,15 +53,15 @@ namespace PGCGame.Screens.Multiplayer
         {
             base.InitScreen(screenName);
             BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
-            title = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.BoldText, "Available "+(StateManager.NetworkData.SessionType == NetworkSessionType.SystemLink ? "LAN" : "LIVE")+" Sectors");
+            title = new TextSprite(Sprites.SpriteBatch, GameContent.Assets.Fonts.BoldText, "Available "+(StateManager.NetworkData.SessionType == NetworkSessionType.SystemLink ? "LAN" : "LIVE")+" Sectors");
             title.Color = Color.White;
             title.Y = 5;
             title.X = title.GetCenterPosition(Graphics.Viewport).X;
 
-            reloadButton = new Sprite(GameContent.GameAssets.Images.Controls.Button, new Vector2(0, title.Y + title.Font.LineSpacing + 10), Sprites.SpriteBatch);
+            reloadButton = new Sprite(GameContent.Assets.Images.Controls.Button, new Vector2(0, title.Y + title.Font.LineSpacing + 10), Sprites.SpriteBatch);
             reloadButton.X = reloadButton.GetCenterPosition(Graphics.Viewport).X;
 
-            reload = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, "Refresh");
+            reload = new TextSprite(Sprites.SpriteBatch, GameContent.Assets.Fonts.NormalText, "Refresh");
             reload.ParentSprite = reloadButton;
             reload.NonHoverColor = Color.White;
             reload.HoverColor = Color.MediumAquamarine;
@@ -69,9 +69,9 @@ namespace PGCGame.Screens.Multiplayer
             reload.IsHoverable = true;
             reload.Pressed += new EventHandler(reload_Pressed);
 
-            BackButton = new Sprite(GameContent.GameAssets.Images.Controls.Button, new Vector2(20, Graphics.Viewport.Height), Sprites.SpriteBatch);
+            BackButton = new Sprite(GameContent.Assets.Images.Controls.Button, new Vector2(20, Graphics.Viewport.Height), Sprites.SpriteBatch);
             BackButton.Y -= BackButton.Height + 20;
-            BackLabel = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, "Back", Color.White) { IsHoverable = true, HoverColor = Color.MediumAquamarine, NonHoverColor = Color.White };
+            BackLabel = new TextSprite(Sprites.SpriteBatch, GameContent.Assets.Fonts.NormalText, "Back", Color.White) { IsHoverable = true, HoverColor = Color.MediumAquamarine, NonHoverColor = Color.White };
             BackLabel.ParentSprite = BackButton;
             BackLabel.Pressed += new EventHandler(BackLabel_Pressed);
             BackLabel.Visible = true;

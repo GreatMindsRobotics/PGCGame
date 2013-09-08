@@ -20,7 +20,7 @@ namespace PGCGame
             Scale = Vector2.Zero;
             Cost = 2000;
             Name = "Health Pack";
-            DeploySound = GameContent.GameAssets.Sound[SoundEffectType.DeployHealthPack];
+            DeploySound = GameContent.Assets.Sound[SoundEffectType.DeployHealthPack];
         }
 
         public override void Update(GameTime currentGameTime)

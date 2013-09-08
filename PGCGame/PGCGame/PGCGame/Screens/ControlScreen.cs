@@ -23,7 +23,7 @@ namespace PGCGame.Screens
          public ControlScreen(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
          {
-             ButtonClick = GameContent.GameAssets.Sound[SoundEffectType.ButtonPressed];
+             ButtonClick = GameContent.Assets.Sound[SoundEffectType.ButtonPressed];
          }
 
          TextSprite MoveLabel;
@@ -52,8 +52,8 @@ namespace PGCGame.Screens
              //Adding a background
              this.BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
 
-             Texture2D button = GameContent.GameAssets.Images.Controls.Button;
-             SpriteFont font = GameContent.GameAssets.Fonts.NormalText;
+             Texture2D button = GameContent.Assets.Images.Controls.Button;
+             SpriteFont font = GameContent.Assets.Fonts.NormalText;
 
 #if XBOX
              MoveLabel = new TextSprite(Sprites.SpriteBatch, font, ("Move: Right Joystick"));
@@ -163,7 +163,7 @@ namespace PGCGame.Screens
              DeployDronesLabel.Color = Color.White;
 #endif
              BackButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .60f), Sprites.SpriteBatch);
-             BackLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .139f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .62f), GameContent.GameAssets.Fonts.NormalText, "Back");
+             BackLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .139f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .62f), GameContent.Assets.Fonts.NormalText, "Back");
              BackLabel.Position = new Vector2((BackButton.X + BackButton.Width / 2) - BackLabel.Width / 2, (BackButton.Y + BackButton.Height / 2) - BackLabel.Height / 2);
              BackLabel.Color = Color.White;
              BackLabel.IsManuallySelectable = true;

@@ -23,7 +23,7 @@ namespace PGCGame.Screens.SelectScreens
         public WeaponSelectScreen(SpriteBatch spriteBatch)
             : base(spriteBatch)
         {
-            ItemBought = GameContent.GameAssets.Sound[SoundEffectType.BoughtItem];
+            ItemBought = GameContent.Assets.Sound[SoundEffectType.BoughtItem];
         }
 
         List<SecondaryWeapon> itemsShown = new List<SecondaryWeapon>();
@@ -34,22 +34,22 @@ namespace PGCGame.Screens.SelectScreens
         public override void InitScreen(ScreenType screenType)
         {
             Shop.PurchaseScreenSelected += new EventHandler(Shop_PurchaseScreenSelected);
-            Texture2D image = GameContent.GameAssets.Images.NonPlayingObjects.Planet;
-            Texture2D EMP = GameContent.GameAssets.Images.SecondaryWeapon[SecondaryWeaponType.EMP, TextureDisplayType.ShopDisplay];
-            Texture2D RayGun = GameContent.GameAssets.Images.SecondaryWeapon[SecondaryWeaponType.ShrinkRay, TextureDisplayType.ShopDisplay];
-            Texture2D Bomb = GameContent.GameAssets.Images.SecondaryWeapon[SecondaryWeaponType.SpaceMine, TextureDisplayType.ShopDisplay];
-            Texture2D HealthPack = GameContent.GameAssets.Images.Equipment[EquipmentType.HealthPack, TextureDisplayType.ShopDisplay];
+            Texture2D image = GameContent.Assets.Images.NonPlayingObjects.Planet;
+            Texture2D EMP = GameContent.Assets.Images.SecondaryWeapon[SecondaryWeaponType.EMP, TextureDisplayType.ShopDisplay];
+            Texture2D RayGun = GameContent.Assets.Images.SecondaryWeapon[SecondaryWeaponType.ShrinkRay, TextureDisplayType.ShopDisplay];
+            Texture2D Bomb = GameContent.Assets.Images.SecondaryWeapon[SecondaryWeaponType.SpaceMine, TextureDisplayType.ShopDisplay];
+            Texture2D HealthPack = GameContent.Assets.Images.Equipment[EquipmentType.HealthPack, TextureDisplayType.ShopDisplay];
 
-            SpaceBucksAmount = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, string.Format("You have {0} credits", StateManager.SpaceBucks), Color.White);
+            SpaceBucksAmount = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.Assets.Fonts.NormalText, string.Format("You have {0} credits", StateManager.SpaceBucks), Color.White);
             //SpaceBucksAmount.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width / 2 - SpaceBucksAmount.Width, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f);
 
-            ItemAmount = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, string.Format("You have x{0} EMPs", StateManager.PowerUps[2].Count), Color.White);
+            ItemAmount = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.Assets.Fonts.NormalText, string.Format("You have x{0} EMPs", StateManager.PowerUps[2].Count), Color.White);
             ItemAmount.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width / 2 - SpaceBucksAmount.Width, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .15f);
 
             AdditionalSprites.Add(SpaceBucksAmount);
             AdditionalSprites.Add(ItemAmount);
 
-            SpriteFont font = GameContent.GameAssets.Fonts.NormalText;
+            SpriteFont font = GameContent.Assets.Fonts.NormalText;
             
 
             //EMP
@@ -130,7 +130,7 @@ namespace PGCGame.Screens.SelectScreens
                     }
                     else if (item.GetType() == typeof(EMP))
                     {
-                        StateManager.PowerUps[2].Push(new EMP(GameContent.GameAssets.Images.SecondaryWeapon[SecondaryWeaponType.EMP, TextureDisplayType.InGameUse],Vector2.Zero, Sprites.SpriteBatch));
+                        StateManager.PowerUps[2].Push(new EMP(GameContent.Assets.Images.SecondaryWeapon[SecondaryWeaponType.EMP, TextureDisplayType.InGameUse],Vector2.Zero, Sprites.SpriteBatch));
                     }
                     else if (item.GetType() == typeof(ShrinkRay))
                     {

@@ -16,7 +16,7 @@ namespace PGCGame.Screens
         public GameOver(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
         {
-            ButtonClick = GameContent.GameAssets.Sound[SoundEffectType.ButtonPressed];   
+            ButtonClick = GameContent.Assets.Sound[SoundEffectType.ButtonPressed];   
         }
 
         TextSprite mainMenuLabel;
@@ -26,8 +26,8 @@ namespace PGCGame.Screens
         {
             base.InitScreen(screenName);
             BaseAllyShip.Dead += new EventHandler(BaseAllyShip_Dead);
-            Texture2D buttonImage = GameContent.GameAssets.Images.Controls.Button;
-            SpriteFont SegoeUIMono = GameContent.GameAssets.Fonts.NormalText;
+            Texture2D buttonImage = GameContent.Assets.Images.Controls.Button;
+            SpriteFont SegoeUIMono = GameContent.Assets.Fonts.NormalText;
             BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
 
             gameOverLabel = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .5f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f), SegoeUIMono, string.Format("\n    GAME OVER\n you had {0} points,\n {1} spacebucks,\n and was on {2}", StateManager.SpacePoints, StateManager.SpaceBucks, StateManager.HighestUnlockedLevel));

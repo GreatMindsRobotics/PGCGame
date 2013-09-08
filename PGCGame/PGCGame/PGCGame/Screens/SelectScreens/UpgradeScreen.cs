@@ -21,11 +21,11 @@ namespace PGCGame.Screens.SelectScreens
         public UpgradeScreen(SpriteBatch spriteBatch)
             : base(spriteBatch)
         {
-            ItemBought = GameContent.GameAssets.Sound[SoundEffectType.BoughtItem];
+            ItemBought = GameContent.Assets.Sound[SoundEffectType.BoughtItem];
         }
-        Texture2D tempImage = GameContent.GameAssets.Images.NonPlayingObjects.Planet;
-        Texture2D ScannerImage = GameContent.GameAssets.Images.Equipment[EquipmentType.Scanner, TextureDisplayType.ShopDisplay];
-        SpriteFont font = GameContent.GameAssets.Fonts.NormalText;
+        Texture2D tempImage = GameContent.Assets.Images.NonPlayingObjects.Planet;
+        Texture2D ScannerImage = GameContent.Assets.Images.Equipment[EquipmentType.Scanner, TextureDisplayType.ShopDisplay];
+        SpriteFont font = GameContent.Assets.Fonts.NormalText;
         List<KeyValuePair<Sprite, string>> itemsShown = new List<KeyValuePair<Sprite, string>>();
         TextSprite text4;
 
@@ -34,9 +34,9 @@ namespace PGCGame.Screens.SelectScreens
         public override void InitScreen(ScreenType screenType)
         {
             Shop.PurchaseScreenSelected += new EventHandler(Shop_PurchaseScreenSelected);
-            Texture2D tempImage = GameContent.GameAssets.Images.NonPlayingObjects.Planet;
-            Texture2D ScannerImage = GameContent.GameAssets.Images.Equipment[EquipmentType.Scanner, TextureDisplayType.ShopDisplay];
-            SpriteFont font = GameContent.GameAssets.Fonts.NormalText;
+            Texture2D tempImage = GameContent.Assets.Images.NonPlayingObjects.Planet;
+            Texture2D ScannerImage = GameContent.Assets.Images.Equipment[EquipmentType.Scanner, TextureDisplayType.ShopDisplay];
+            SpriteFont font = GameContent.Assets.Fonts.NormalText;
 
 
             //scanner

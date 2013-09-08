@@ -108,7 +108,7 @@ namespace PGCGame
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             //Instantiate the singleton class HorizontalMenuBGSprite
-            HorizontalMenuBGSprite scrollingBG = new HorizontalMenuBGSprite(GameContent.GameAssets.Images.Backgrounds.Screens[ScreenBackgrounds.GlobalScrollingBg], spriteBatch);
+            HorizontalMenuBGSprite scrollingBG = new HorizontalMenuBGSprite(GameContent.Assets.Images.Backgrounds.Screens[ScreenBackgrounds.GlobalScrollingBg], spriteBatch);
 
             
             //Initialize screens
@@ -188,7 +188,7 @@ namespace PGCGame
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
-            GameContent.GameAssets.Dispose();
+            GameContent.Assets.Dispose();
         }
 
         /// <summary>

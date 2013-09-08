@@ -80,7 +80,7 @@ namespace PGCGame
             Scale = new Vector2(.75f);
             RotateTowardsMouse = false;
             _initHealth = 10;
-            BulletTexture = GameContent.GameAssets.Images.Ships.Bullets[ShipType.Drone, ShipTier.Tier1];
+            BulletTexture = GameContent.Assets.Images.Ships.Bullets[ShipType.Drone, ShipTier.Tier1];
             DamagePerShot = 1;
 #if XBOX
             GamePadManager.One.Buttons.XButtonPressed += new EventHandler(Buttons_XButtonPressed);
@@ -113,7 +113,7 @@ namespace PGCGame
             if (closestEnemyShipDistance.HasValue)
             {
                 //Glen's experiment
-                DroneShoot = GameContent.GameAssets.Sound[SoundEffectType.DronesShoot];
+                DroneShoot = GameContent.Assets.Sound[SoundEffectType.DronesShoot];
                 Bullet bullet = new Bullet(BulletTexture, WorldCoords, WorldSb, this);
                 Vector2 normalizedDistance = this.closestEnemyShipDistance.Value;
                 bullet.Rotation = new SpriteRotation(normalizedDistance.ToAngle(), AngleType.Radians);
@@ -165,7 +165,7 @@ namespace PGCGame
 
             KeyboardState keyboard = Keyboard.GetState();
 
-            DroneDeploy = GameContent.GameAssets.Sound[SoundEffectType.DronesDeploy];
+            DroneDeploy = GameContent.Assets.Sound[SoundEffectType.DronesDeploy];
 
             if (CurrentHealth <= 0)
             {

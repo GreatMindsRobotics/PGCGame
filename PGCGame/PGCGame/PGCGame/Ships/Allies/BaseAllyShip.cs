@@ -28,13 +28,13 @@ namespace PGCGame.Ships.Allies
             switch (type)
             {
                 case ShipType.BattleCruiser:
-                    bas = new BattleCruiser(GameContent.GameAssets.Images.Ships[type, tier], Vector2.Zero, spawnSpriteBatch, isAllyShip);
+                    bas = new BattleCruiser(GameContent.Assets.Images.Ships[type, tier], Vector2.Zero, spawnSpriteBatch, isAllyShip);
                     break;
                 case ShipType.FighterCarrier:
-                    bas = new FighterCarrier(GameContent.GameAssets.Images.Ships[type, tier], Vector2.Zero, spawnSpriteBatch, GameContent.GameAssets.Images.Ships[ShipType.Drone, ShipTier.Tier1], isAllyShip);
+                    bas = new FighterCarrier(GameContent.Assets.Images.Ships[type, tier], Vector2.Zero, spawnSpriteBatch, GameContent.Assets.Images.Ships[ShipType.Drone, ShipTier.Tier1], isAllyShip);
                     break;
                 case ShipType.TorpedoShip:
-                    bas = new TorpedoShip(GameContent.GameAssets.Images.Ships[type, tier], Vector2.Zero, spawnSpriteBatch, isAllyShip);
+                    bas = new TorpedoShip(GameContent.Assets.Images.Ships[type, tier], Vector2.Zero, spawnSpriteBatch, isAllyShip);
                     break;
 
                 default:

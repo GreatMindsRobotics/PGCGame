@@ -32,8 +32,8 @@ namespace PGCGame.Screens
         private TimeSpan _elapsedTime;
         private EventHandler<EventArgs> musicHandler;
 
-        private SpriteFont _creditsFont = GameContent.GameAssets.Fonts.NormalText;
-        private SpriteFont _boldCreditsFont = GameContent.GameAssets.Fonts.BoldText;
+        private SpriteFont _creditsFont = GameContent.Assets.Fonts.NormalText;
+        private SpriteFont _boldCreditsFont = GameContent.Assets.Fonts.BoldText;
 
 
         private void music_StateChange(object src, EventArgs data)
@@ -104,11 +104,11 @@ namespace PGCGame.Screens
             base.InitScreen(screenType);
             MediaPlayer.MediaStateChanged -= musicHandler;
             MediaPlayer.MediaStateChanged += musicHandler;
-            BackgroundSprite = new Sprite(GameContent.GameAssets.Images.Backgrounds.Screens[ScreenBackgrounds.Credits], Vector2.Zero, Sprites.SpriteBatch);
-            SpriteFont SegoeUIMono = GameContent.GameAssets.Fonts.NormalText;
+            BackgroundSprite = new Sprite(GameContent.Assets.Images.Backgrounds.Screens[ScreenBackgrounds.Credits], Vector2.Zero, Sprites.SpriteBatch);
+            SpriteFont SegoeUIMono = GameContent.Assets.Fonts.NormalText;
             _scrollingSpeed = new Vector2(0, -1);
 
-            Texture2D logo = GameContent.GameAssets.Images.Controls.Title;
+            Texture2D logo = GameContent.Assets.Images.Controls.Title;
             gameTitle = new Sprite(logo, new Vector2(0, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height), Sprites.SpriteBatch);
             gameTitle.X = gameTitle.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X;
             //credits = new TextSprite(Sprites.SpriteBatch, , "\n\n\n\nWeek 1 - Functional Spec, GameState Management\n
@@ -117,7 +117,7 @@ namespace PGCGame.Screens
 
             //credits.Position = new Vector2(credits.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height+imgSprite.Height);
 
-            _creditsSong = GameContent.GameAssets.Music[ScreenMusic.Credits];
+            _creditsSong = GameContent.Assets.Music[ScreenMusic.Credits];
 
             int lastWeekID = 0;
             foreach (KeyValuePair<XmlCredits.Week, XmlCredits.Student> weekStudent in _xmlCredits.Students)

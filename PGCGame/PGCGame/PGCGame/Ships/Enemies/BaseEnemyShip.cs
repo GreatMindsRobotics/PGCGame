@@ -71,8 +71,8 @@ namespace PGCGame.Ships.Enemies
 
             StateManager.EnemyBullets.Legit.Add(bullet);
 
-            ExplosionSFX = GameContent.GameAssets.Sound[SoundEffectType.EnemyExplodes];
-            EnemyShoots = GameContent.GameAssets.Sound[SoundEffectType.EnemyShoots];
+            ExplosionSFX = GameContent.Assets.Sound[SoundEffectType.EnemyExplodes];
+            EnemyShoots = GameContent.Assets.Sound[SoundEffectType.EnemyShoots];
             if(StateManager.Options.SFXEnabled)
             {
                EnemyShoots.Play();

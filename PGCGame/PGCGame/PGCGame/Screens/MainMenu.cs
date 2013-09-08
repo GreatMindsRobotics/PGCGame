@@ -29,7 +29,7 @@ namespace PGCGame.Screens
         {
             StateManager.ScreenStateChanged += new EventHandler(StateManager_ScreenStateChanged);
 
-            ButtonClick = GameContent.GameAssets.Sound[SoundEffectType.ButtonPressed];
+            ButtonClick = GameContent.Assets.Sound[SoundEffectType.ButtonPressed];
         }
 
         void StateManager_ScreenStateChanged(object sender, EventArgs e)
@@ -74,10 +74,10 @@ namespace PGCGame.Screens
             base.InitScreen(screnType);
 
 
-            Texture2D planetTexture = GameContent.GameAssets.Images.NonPlayingObjects.Planet;
-            Texture2D altPlanetTexture = GameContent.GameAssets.Images.NonPlayingObjects.AltPlanet;
-            Texture2D buttonImage = GameContent.GameAssets.Images.Controls.Button;
-            SpriteFont SegoeUIMono = GameContent.GameAssets.Fonts.NormalText;
+            Texture2D planetTexture = GameContent.Assets.Images.NonPlayingObjects.Planet;
+            Texture2D altPlanetTexture = GameContent.Assets.Images.NonPlayingObjects.AltPlanet;
+            Texture2D buttonImage = GameContent.Assets.Images.Controls.Button;
+            SpriteFont SegoeUIMono = GameContent.Assets.Fonts.NormalText;
 
 
 
@@ -85,7 +85,7 @@ namespace PGCGame.Screens
 
             this.BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
 
-            TitleSprite = new Sprite(GameContent.GameAssets.Images.Controls.Title, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .05f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .07f), Sprites.SpriteBatch);
+            TitleSprite = new Sprite(GameContent.Assets.Images.Controls.Title, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .05f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .07f), Sprites.SpriteBatch);
             Sprites.Add(TitleSprite);
 
             planet = new Sprite(altPlanetTexture, Vector2.Zero, Sprites.SpriteBatch);
@@ -342,19 +342,19 @@ namespace PGCGame.Screens
             }
             for (int i = 0; i < savedState.Upgrades.SpaceMineCount; i++)
             {
-                StateManager.PowerUps[0].Push(new SpaceMine(GameContent.GameAssets.Images.SecondaryWeapon[SecondaryWeaponType.SpaceMine, TextureDisplayType.InGameUse], Vector2.Zero, Sprites.SpriteBatch));
+                StateManager.PowerUps[0].Push(new SpaceMine(GameContent.Assets.Images.SecondaryWeapon[SecondaryWeaponType.SpaceMine, TextureDisplayType.InGameUse], Vector2.Zero, Sprites.SpriteBatch));
             }
             for (int i = 0; i < savedState.Upgrades.EMPCount; i++)
             {
-                StateManager.PowerUps[2].Push(new EMP(GameContent.GameAssets.Images.SecondaryWeapon[SecondaryWeaponType.EMP, TextureDisplayType.InGameUse], Vector2.Zero, Sprites.SpriteBatch));
+                StateManager.PowerUps[2].Push(new EMP(GameContent.Assets.Images.SecondaryWeapon[SecondaryWeaponType.EMP, TextureDisplayType.InGameUse], Vector2.Zero, Sprites.SpriteBatch));
             }
             for (int i = 0; i < savedState.Upgrades.ShrinkRayCount; i++)
             {
-                StateManager.PowerUps[1].Push(new ShrinkRay(GameContent.GameAssets.Images.SecondaryWeapon[SecondaryWeaponType.ShrinkRay, TextureDisplayType.InGameUse], Vector2.Zero, Sprites.SpriteBatch));
+                StateManager.PowerUps[1].Push(new ShrinkRay(GameContent.Assets.Images.SecondaryWeapon[SecondaryWeaponType.ShrinkRay, TextureDisplayType.InGameUse], Vector2.Zero, Sprites.SpriteBatch));
             }
             for (int i = 0; i < savedState.Upgrades.HealthPackCount; i++)
             {
-                StateManager.PowerUps[3].Push(new HealthPack(GameContent.GameAssets.Images.Equipment[EquipmentType.HealthPack, TextureDisplayType.InGameUse], Vector2.Zero, Sprites.SpriteBatch));
+                StateManager.PowerUps[3].Push(new HealthPack(GameContent.Assets.Images.Equipment[EquipmentType.HealthPack, TextureDisplayType.InGameUse], Vector2.Zero, Sprites.SpriteBatch));
             }
             StateManager.BoughtScanner = savedState.Upgrades.HasScanner;
         }

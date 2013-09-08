@@ -28,14 +28,14 @@ namespace PGCGame
             : base(texture, location, spriteBatch, isAllyShip)
         {
             Scale = new Vector2(.925f);
-            BulletTexture = GameContent.GameAssets.Images.Ships.Bullets[ShipType.TorpedoShip, ShipTier.Tier1];
+            BulletTexture = GameContent.Assets.Images.Ships.Bullets[ShipType.TorpedoShip, ShipTier.Tier1];
             MovementSpeed = new Vector2(1.333f);
             //MovementSpeed = new Vector2(1f);
             DelayBetweenShots = TimeSpan.FromSeconds(.75);
             _initHealth = 110;
             this.TierChanged += new EventHandler(TorpedoShip_TierChanged);
             DamagePerShot = 5;
-            ShootSound = GameContent.GameAssets.Sound[SoundEffectType.TorpedoShipFire];
+            ShootSound = GameContent.Assets.Sound[SoundEffectType.TorpedoShipFire];
         }
 
         void TorpedoShip_TierChanged(object sender, EventArgs e)

@@ -43,7 +43,7 @@ namespace PGCGame
                 Drones[1].Rotation.Radians = MathHelper.TwoPi;
 
             }
-            BulletTexture = GameContent.GameAssets.Images.Ships.Bullets[ShipType.FighterCarrier, ShipTier.Tier1];
+            BulletTexture = GameContent.Assets.Images.Ships.Bullets[ShipType.FighterCarrier, ShipTier.Tier1];
             DelayBetweenShots = TimeSpan.FromMilliseconds(100);
             DamagePerShot = 2;
             _initHealth = 100;
@@ -51,7 +51,7 @@ namespace PGCGame
             this.TierChanged += new EventHandler(FighterCarrier_TierChanged);
             DamagePerShot = 2;
             this.PlayerType = PlayerType.Ally;
-            ShootSound = GameContent.GameAssets.Sound[SoundEffectType.FighterCarrierFire];
+            ShootSound = GameContent.Assets.Sound[SoundEffectType.FighterCarrierFire];
         }
 
         void FighterCarrier_TierChanged(object sender, EventArgs e)

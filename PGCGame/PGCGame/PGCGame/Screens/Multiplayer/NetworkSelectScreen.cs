@@ -26,7 +26,7 @@ namespace PGCGame.Screens.Multiplayer
             : base(spriteBatch, Color.Black)
         {
             StateManager.ScreenStateChanged += new EventHandler(StateManager_ScreenStateChanged);
-            ButtonClick = GameContent.GameAssets.Sound[SoundEffectType.ButtonPressed];
+            ButtonClick = GameContent.Assets.Sound[SoundEffectType.ButtonPressed];
         }
 
         TimeSpan elapsedButtonDelay = TimeSpan.Zero;
@@ -72,10 +72,10 @@ namespace PGCGame.Screens.Multiplayer
 
             StateManager.Options.MusicStateChanged += new EventHandler(Options_MusicStateChanged);
 
-            Texture2D planetTexture = GameContent.GameAssets.Images.NonPlayingObjects.Planet;
-            Texture2D altPlanetTexture = GameContent.GameAssets.Images.NonPlayingObjects.AltPlanet;
-            Texture2D buttonImage = GameContent.GameAssets.Images.Controls.Button;
-            SpriteFont SegoeUIMono = GameContent.GameAssets.Fonts.NormalText;
+            Texture2D planetTexture = GameContent.Assets.Images.NonPlayingObjects.Planet;
+            Texture2D altPlanetTexture = GameContent.Assets.Images.NonPlayingObjects.AltPlanet;
+            Texture2D buttonImage = GameContent.Assets.Images.Controls.Button;
+            SpriteFont SegoeUIMono = GameContent.Assets.Fonts.NormalText;
 
             StateManager.Options.ScreenResolutionChanged += new EventHandler<ViewportEventArgs>(Options_ScreenResolutionChanged);
 

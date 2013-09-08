@@ -42,7 +42,7 @@ namespace PGCGame.Screens
             playerSb = new SpriteBatch(spriteBatch.GraphicsDevice);
 
             _playableAreaOffset = new Vector2(500);
-            ClonesMade = GameContent.GameAssets.Sound[SoundEffectType.CloneMade];
+            ClonesMade = GameContent.Assets.Sound[SoundEffectType.CloneMade];
 
 #if XBOX
             GamePadManager.One.Buttons.StartButtonPressed += new EventHandler(delegate(object src, EventArgs e){
@@ -87,7 +87,7 @@ namespace PGCGame.Screens
         SpriteFont normal;
         SpriteFont bold;
         Texture2D bgImg;
-        SpriteFont SegoeUIMono = GameContent.GameAssets.Fonts.NormalText;
+        SpriteFont SegoeUIMono = GameContent.Assets.Fonts.NormalText;
         Song _gameSong;
         List<ISprite> playerSbObjects = new List<ISprite>();
 
@@ -95,8 +95,8 @@ namespace PGCGame.Screens
         {
             base.InitScreen(screenType);
 
-            bold = GameContent.GameAssets.Fonts.BoldText;
-            normal = GameContent.GameAssets.Fonts.NormalText;
+            bold = GameContent.Assets.Fonts.BoldText;
+            normal = GameContent.Assets.Fonts.NormalText;
             StateManager.ScreenStateChanged += new EventHandler(delegate(object src, EventArgs arg)
             {
                 if (Visible)
@@ -121,9 +121,9 @@ namespace PGCGame.Screens
 
             StateManager.Options.ScreenResolutionChanged += new EventHandler<ViewportEventArgs>(Options_ScreenResolutionChanged);
 
-            _gameSong = GameContent.GameAssets.Music[ScreenMusic.Level1];
+            _gameSong = GameContent.Assets.Music[ScreenMusic.Level1];
 
-            bgImg = GameContent.GameAssets.Images.Backgrounds.Levels[GameLevel.Level1];
+            bgImg = GameContent.Assets.Images.Backgrounds.Levels[GameLevel.Level1];
         }
 
         void Options_ScreenResolutionChanged(object sender, ViewportEventArgs e)
@@ -180,7 +180,7 @@ namespace PGCGame.Screens
 
             wcMovePrettyCode = new EventHandler(wcMovePreUpdate);
 
-            SpriteFont SegoeUIMono = GameContent.GameAssets.Fonts.NormalText;
+            SpriteFont SegoeUIMono = GameContent.Assets.Fonts.NormalText;
 
             secondaryWeaponLabel = new TextSprite(playerSb, SegoeUIMono, "No Secondary Weapon");
             secondaryWeaponLabel.Position = new Vector2((Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .1f - secondaryWeaponLabel.Width / 2) + 30, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f - secondaryWeaponLabel.Height / 2);
@@ -214,9 +214,9 @@ namespace PGCGame.Screens
                     {
                         sig.Presence.PresenceMode = GamerPresenceMode.BattlingBoss;
                     }
-                    CloneBoss enemyBoss = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyFighterCarrier, ShipTier.Tier4], Vector2.Zero, Sprites.SpriteBatch);
-                    CloneBoss enemyCloneOne = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyFighterCarrier, ShipTier.Tier4], Vector2.Zero, Sprites.SpriteBatch);
-                    CloneBoss enemyCloneTwo = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyFighterCarrier, ShipTier.Tier4], Vector2.Zero, Sprites.SpriteBatch);
+                    CloneBoss enemyBoss = new CloneBoss(GameContent.Assets.Images.Ships[ShipType.EnemyFighterCarrier, ShipTier.Tier4], Vector2.Zero, Sprites.SpriteBatch);
+                    CloneBoss enemyCloneOne = new CloneBoss(GameContent.Assets.Images.Ships[ShipType.EnemyFighterCarrier, ShipTier.Tier4], Vector2.Zero, Sprites.SpriteBatch);
+                    CloneBoss enemyCloneTwo = new CloneBoss(GameContent.Assets.Images.Ships[ShipType.EnemyFighterCarrier, ShipTier.Tier4], Vector2.Zero, Sprites.SpriteBatch);
 
                     enemyBoss.WorldCoords = StateManager.RandomGenerator.NextVector2(minSpawnArea, maxSpawnArea);
                     enemyCloneOne.WorldCoords = enemyBoss.WorldCoords;
@@ -258,8 +258,8 @@ namespace PGCGame.Screens
                     }
                     for (int i = 0; i < 4 * StateManager.CurrentLevel.ToInt(); i++)
                     {
-                        Texture2D enemyTexture = GameContent.GameAssets.Images.Ships[ShipType.Drone, StateManager.RandomGenerator.NextShipTier(ShipTier.Tier1, ShipTier.Tier2)];
-                        EnemyBattleCruiser enemy = new EnemyBattleCruiser(GameContent.GameAssets.Images.Ships[ShipType.EnemyBattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
+                        Texture2D enemyTexture = GameContent.Assets.Images.Ships[ShipType.Drone, StateManager.RandomGenerator.NextShipTier(ShipTier.Tier1, ShipTier.Tier2)];
+                        EnemyBattleCruiser enemy = new EnemyBattleCruiser(GameContent.Assets.Images.Ships[ShipType.EnemyBattleCruiser, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
 
                         enemy.WorldCoords = StateManager.RandomGenerator.NextVector2(minSpawnArea, maxSpawnArea);
 
@@ -416,8 +416,8 @@ namespace PGCGame.Screens
                     }
                 }
             }
-            CloneBoss enemyCloneOne = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyFighterCarrier, ShipTier.Tier4], Vector2.Zero, Sprites.SpriteBatch);
-            CloneBoss enemyCloneTwo = new CloneBoss(GameContent.GameAssets.Images.Ships[ShipType.EnemyFighterCarrier, ShipTier.Tier4], Vector2.Zero, Sprites.SpriteBatch);
+            CloneBoss enemyCloneOne = new CloneBoss(GameContent.Assets.Images.Ships[ShipType.EnemyFighterCarrier, ShipTier.Tier4], Vector2.Zero, Sprites.SpriteBatch);
+            CloneBoss enemyCloneTwo = new CloneBoss(GameContent.Assets.Images.Ships[ShipType.EnemyFighterCarrier, ShipTier.Tier4], Vector2.Zero, Sprites.SpriteBatch);
 
             if (bossWorldCoords.HasValue)
             {
@@ -531,7 +531,7 @@ namespace PGCGame.Screens
                 return;
             }
 
-            Sprite miniShip = new Sprite(GameContent.GameAssets.Images.MiniShips[ship.ShipType], miniMap.Position + (ship.WorldCoords / MinimapDivAmount), playerSb);
+            Sprite miniShip = new Sprite(GameContent.Assets.Images.MiniShips[ship.ShipType], miniMap.Position + (ship.WorldCoords / MinimapDivAmount), playerSb);
             miniShip.Scale = ship.PlayerType == PlayerType.MyShip ? new Vector2(.1f) : new Vector2(.07f);
             miniShip.Color = ship.PlayerType == PlayerType.MyShip ? Color.Green : Color.Red;
             if (StateManager.ShowShipData)
@@ -1103,7 +1103,7 @@ namespace PGCGame.Screens
                             Vector4 bulletData = StateManager.NetworkData.DataReader.ReadVector4();
                             Vector4 addlData = StateManager.NetworkData.DataReader.ReadVector4();
                             BaseAllyShip parent = StateManager.EnemyShips[dataSender];
-                            Bullet newBullet = new Bullet(GameContent.GameAssets.Images.Ships.Bullets[(ShipType)Enum.Parse(typeof(ShipType), addlData.Z.ToInt().ToString(), true), (ShipTier)Enum.Parse(typeof(ShipTier), addlData.W.ToInt().ToString(), true)], new Vector2(bulletData.X, bulletData.Y), World, parent);
+                            Bullet newBullet = new Bullet(GameContent.Assets.Images.Ships.Bullets[(ShipType)Enum.Parse(typeof(ShipType), addlData.Z.ToInt().ToString(), true), (ShipTier)Enum.Parse(typeof(ShipTier), addlData.W.ToInt().ToString(), true)], new Vector2(bulletData.X, bulletData.Y), World, parent);
                             newBullet.Speed = new Vector2(bulletData.Z, bulletData.W);
                             newBullet.Rotation = SpriteRotation.FromRadians(addlData.Y);
                             newBullet.Damage = addlData.X.ToInt();

@@ -25,8 +25,8 @@ namespace PGCGame
         public TransitionScreen(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.White)
         {
-            DeploySound = GameContent.GameAssets.Sound[SoundEffectType.SpaceDoorOpening];
-            SpaceShipLeaving = GameContent.GameAssets.Sound[SoundEffectType.SpaceShipLeaving];
+            DeploySound = GameContent.Assets.Sound[SoundEffectType.SpaceDoorOpening];
+            SpaceShipLeaving = GameContent.Assets.Sound[SoundEffectType.SpaceShipLeaving];
             KeyboardManager.KeyDown += new SingleKeyEventHandler(KeyboardManager_KeyDown);
 
 #if WINDOWS
@@ -95,7 +95,7 @@ namespace PGCGame
         {
             Sprites.Clear();
             hasPlayedSound = false;
-            ship = new Sprite(GameContent.GameAssets.Images.Ships[StateManager.SelectedShip, StateManager.SelectedTier], Vector2.Zero, Sprites.SpriteBatch);
+            ship = new Sprite(GameContent.Assets.Images.Ships[StateManager.SelectedShip, StateManager.SelectedTier], Vector2.Zero, Sprites.SpriteBatch);
 
             ship.Position = new Vector2(-ship.Texture.Width / 2, Graphics.Viewport.Height);
             ship.Scale = new Vector2(0.8f);
@@ -110,12 +110,12 @@ namespace PGCGame
 
 
             this.BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
-            Sprites.AddNewSprite(Vector2.Zero, GameContent.GameAssets.Images.NonPlayingObjects.ShopBackground);
+            Sprites.AddNewSprite(Vector2.Zero, GameContent.Assets.Images.NonPlayingObjects.ShopBackground);
             Sprites[2].Scale = new Vector2((float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Width / (float)Sprites[2].Texture.Width, (float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Height / (float)Sprites[2].Texture.Height);
             Sprites[2].YSpeed = -2;
 
             this.BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
-            Sprites.AddNewSprite(Vector2.Zero, GameContent.GameAssets.Images.NonPlayingObjects.ShopBackground);
+            Sprites.AddNewSprite(Vector2.Zero, GameContent.Assets.Images.NonPlayingObjects.ShopBackground);
             Sprites[3].Scale = new Vector2((float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Width / (float)Sprites[3].Texture.Width, (float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Height / (float)Sprites[3].Texture.Height);
             Sprites[3].YSpeed = -2;
 

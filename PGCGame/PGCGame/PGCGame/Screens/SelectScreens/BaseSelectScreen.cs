@@ -26,7 +26,7 @@ namespace PGCGame.Screens
             : base(spriteBatch, Color.Black)
         {
             items = new List<KeyValuePair<Sprite, TextSprite>>();
-            ButtonClick = GameContent.GameAssets.Sound[SoundEffectType.ButtonPressed];
+            ButtonClick = GameContent.Assets.Sound[SoundEffectType.ButtonPressed];
 #if XBOX
             GamePadManager.One.Buttons.LeftShoulderPressed += new EventHandler(Buttons_LeftShoulderPressed);
             GamePadManager.One.Buttons.RightShoulderPressed += new EventHandler(Buttons_RightShoulderPressed);
@@ -143,8 +143,8 @@ namespace PGCGame.Screens
         {
             base.InitScreen(screenType);
 
-            Texture2D buttonImage = GameContent.GameAssets.Images.Controls.Button;
-            SpriteFont SegoeUIMono = GameContent.GameAssets.Fonts.NormalText;
+            Texture2D buttonImage = GameContent.Assets.Images.Controls.Button;
+            SpriteFont SegoeUIMono = GameContent.Assets.Fonts.NormalText;
 
             acceptButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .7f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .8f), Sprites.SpriteBatch);
             acceptLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Play");

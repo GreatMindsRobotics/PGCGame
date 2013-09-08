@@ -15,7 +15,7 @@ namespace PGCGame.CoreTypes
         public BaseScreen(SpriteBatch spriteBatch, Color color)
             : base(spriteBatch, StateManager.DebugData.DebugBackground ? Color.Red : color)
         {
-            ButtonClick = GameContent.GameAssets.Sound[SoundEffectType.ButtonPressed];
+            ButtonClick = GameContent.Assets.Sound[SoundEffectType.ButtonPressed];
 #if XBOX
             StateManager.ScreenStateChanged += new EventHandler(StateManager_ScreenStateChanged);
             GamePadManager.One.Buttons.BButtonPressed += new EventHandler(Buttons_BButtonPressed);

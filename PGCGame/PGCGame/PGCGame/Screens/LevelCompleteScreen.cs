@@ -13,7 +13,7 @@ namespace PGCGame
             : base(spriteBatch, Color.White)
         {
 
-            ButtonClick = GameContent.GameAssets.Sound[SoundEffectType.ButtonPressed];
+            ButtonClick = GameContent.Assets.Sound[SoundEffectType.ButtonPressed];
 
         }
         TextSprite winText;
@@ -31,7 +31,7 @@ namespace PGCGame
 
 
             StateManager.levelCompleted += new EventHandler(StateManager_levelCompleted);
-            ship = new Sprite(GameContent.GameAssets.Images.Ships[ShipType.FighterCarrier, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
+            ship = new Sprite(GameContent.Assets.Images.Ships[ShipType.FighterCarrier, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
 
             ship.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width, (float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Height / 2 - 70);
             ship.Scale = new Vector2(0);
@@ -41,18 +41,18 @@ namespace PGCGame
 
 
 
-            planetTexture = GameContent.GameAssets.Images.NonPlayingObjects.Planet;
+            planetTexture = GameContent.Assets.Images.NonPlayingObjects.Planet;
             Sprites.AddNewSprite(Vector2.Zero, planetTexture);
             Sprites.Add(ship);
             Sprites[0].Position = new Vector2((float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Width - (float)Sprites[0].Texture.Width / 2, (float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Height / 2 - 70);
 
             Sprite Button;
-            Texture2D ButtonImage = GameContent.GameAssets.Images.Controls.Button;
+            Texture2D ButtonImage = GameContent.Assets.Images.Controls.Button;
             Vector2 ButtonPosition = new Vector2(155);
             Button = new Sprite(ButtonImage, ButtonPosition, Sprites.SpriteBatch);
             AdditionalSprites.Add(Button);
 
-            TextSprite Continue = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, string.Format("Continue"));
+            TextSprite Continue = new TextSprite(Sprites.SpriteBatch, GameContent.Assets.Fonts.NormalText, string.Format("Continue"));
             Continue.Color = Color.Beige;
             Continue.ParentSprite = Button;
             AdditionalSprites.Add(Continue);
@@ -62,7 +62,7 @@ namespace PGCGame
             Continue.HoverColor = Color.MediumAquamarine;
             Button.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .40f, 300);
 
-            winText = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, "");
+            winText = new TextSprite(Sprites.SpriteBatch, GameContent.Assets.Fonts.NormalText, "");
             winText.Color = Color.Beige;
             AdditionalSprites.Add(winText);
             winText.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .30f, 50);
@@ -92,7 +92,7 @@ namespace PGCGame
             // Sprites[1].YSpeed = 0;
             winText.Scale = new Vector2(2);
             winText.Color = Color.White;
-            Sprites[1].Texture = GameContent.GameAssets.Images.Ships[StateManager.SelectedShip, StateManager.SelectedTier];
+            Sprites[1].Texture = GameContent.Assets.Images.Ships[StateManager.SelectedShip, StateManager.SelectedTier];
         }
 
         void Continue_Pressed(object sender, EventArgs e)

@@ -18,7 +18,7 @@ namespace PGCGame.Screens.SelectScreens
         public LevelSelect(SpriteBatch spriteBatch)
             : base(spriteBatch)
         {
-            ButtonClick = GameContent.GameAssets.Sound[SoundEffectType.ButtonPressed];
+            ButtonClick = GameContent.Assets.Sound[SoundEffectType.ButtonPressed];
         }
 
         TextSprite level1Label;
@@ -44,14 +44,14 @@ namespace PGCGame.Screens.SelectScreens
         public override void InitScreen(ScreenType screenType)
         {
             ChangeItem +=new EventHandler(LevelSelect_ChangeItem);
-        Texture2D planet1 = GameContent.GameAssets.Images.NonPlayingObjects.Planet;
-        Texture2D planet2 = GameContent.GameAssets.Images.NonPlayingObjects.AltPlanet;
-        Texture2D planet3 = GameContent.GameAssets.Images.NonPlayingObjects.Planet3;
-        Texture2D planet4 = GameContent.GameAssets.Images.NonPlayingObjects.Planet4;
+        Texture2D planet1 = GameContent.Assets.Images.NonPlayingObjects.Planet;
+        Texture2D planet2 = GameContent.Assets.Images.NonPlayingObjects.AltPlanet;
+        Texture2D planet3 = GameContent.Assets.Images.NonPlayingObjects.Planet3;
+        Texture2D planet4 = GameContent.Assets.Images.NonPlayingObjects.Planet4;
 
             //level1
             level1 = new Sprite(planet1, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.68f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.22f), Sprites.SpriteBatch);
-            level1Label = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "  Level 1");
+            level1Label = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.Assets.Fonts.NormalText, "  Level 1");
             level1.Scale = new Vector2(0.7f);
             level1Label.Color = Color.Transparent;
             level1.Color = Color.White;
@@ -60,7 +60,7 @@ namespace PGCGame.Screens.SelectScreens
             
             //level2
             level2 = new Sprite(planet2, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.60f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.1f), Sprites.SpriteBatch);
-            level2Label = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "  Level 2");
+            level2Label = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.Assets.Fonts.NormalText, "  Level 2");
             level2.Scale = new Vector2(0.7f);
 
 
@@ -68,7 +68,7 @@ namespace PGCGame.Screens.SelectScreens
 
             //level3
             level3 = new Sprite(planet3, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.58f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.1f), Sprites.SpriteBatch);
-            level3Label = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "  Level 3");
+            level3Label = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.Assets.Fonts.NormalText, "  Level 3");
             level3Label.Color = Color.Transparent;
             level3.Scale = new Vector2(0.6f);
 
@@ -77,7 +77,7 @@ namespace PGCGame.Screens.SelectScreens
 
             //level4
             level4 = new Sprite(planet4, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.63f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.1f), Sprites.SpriteBatch);
-            level4Label = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.GameAssets.Fonts.NormalText, "  Level 4");
+            level4Label = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.Assets.Fonts.NormalText, "  Level 4");
             level4.Scale = new Vector2(0.4f);
 
 

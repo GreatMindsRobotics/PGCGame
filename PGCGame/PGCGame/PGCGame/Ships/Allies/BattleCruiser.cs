@@ -29,7 +29,7 @@ namespace PGCGame
             : base(texture, location, spriteBatch, isAlly)
         {
             MovementSpeed = Vector2.One;
-            BulletTexture = GameContent.GameAssets.Images.Ships.Bullets[ShipType.BattleCruiser, ShipTier.Tier1];
+            BulletTexture = GameContent.Assets.Images.Ships.Bullets[ShipType.BattleCruiser, ShipTier.Tier1];
             DelayBetweenShots = TimeSpan.FromSeconds(1);
             DamagePerShot = 20;
             MovementSpeed = new Vector2(.7f);
@@ -37,7 +37,7 @@ namespace PGCGame
             PlayerType = CoreTypes.PlayerType.Ally;
             this.TierChanged += new EventHandler(BattleCruiser_TierChanged);
             DamagePerShot = 20;
-            ShootSound = GameContent.GameAssets.Sound[SoundEffectType.BattleCruiserFire];
+            ShootSound = GameContent.Assets.Sound[SoundEffectType.BattleCruiserFire];
         }
 
         void BattleCruiser_TierChanged(object sender, EventArgs e)

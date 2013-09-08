@@ -91,6 +91,7 @@
     <Compile Include="Screens\Multiplayer\AvailableSessionsScreen.cs" />
     <Compile Include="Screens\Multiplayer\MPShipsScreen.cs" />
     <Compile Include="Screens\Multiplayer\MulitplayerShipSelectScreen.cs" />
+    <Compile Include="Screens\Multiplayer\MultiplayerWinScreen.cs" />
     <Compile Include="Screens\Multiplayer\NetworkMatchTypeSelectionScreen.cs" />
     <Compile Include="Screens\Multiplayer\NetworkSelectScreen.cs" />
     <Compile Include="Screens\Options.cs" />
