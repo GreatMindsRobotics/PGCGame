@@ -31,6 +31,9 @@ namespace GitPractice
         Vector2 scorePosition;
         String text;
 
+        TimeSpan elapsedGameTime;
+        Random random;
+
         int scoreNumber;
         String scoreText;
         Vector2 number;
@@ -58,6 +61,8 @@ namespace GitPractice
         protected override void Initialize()
         {
             spaceShip = new Ship();
+            elapsedGameTime = new TimeSpan();
+            random = new Random();
 
             base.Initialize();
         }
@@ -139,6 +144,31 @@ namespace GitPractice
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
+
+            elapsedGameTime += gameTime.ElapsedGameTime;
+            if (elapsedGameTime >= new TimeSpan(0, 0, 1))
+            {
+                if (random.Next(2) == 1)
+                {
+                    Coin3 coin = new Coin3();
+                    coin.LoadContent(Content, "coin");
+                    coin.Speed = Vector2.Zero;
+                    coin.MoveDirection = MoveDirection.Right;
+
+                    enemyList.Add(coin);
+                }
+                else
+                {
+                    Coin4 coin = new Coin4();
+                    coin.LoadContent(Content, "coin");
+                    coin.Speed = Vector2.Zero;
+                    coin.MoveDirection = MoveDirection.Right;
+
+                    enemyList.Add(coin);
+                }
+
+                elapsedGameTime = TimeSpan.Zero;
+            }
 
             spaceShip.Update(Keyboard.GetState(), gameTime, GameState.Playing, graphics.GraphicsDevice.Viewport);
 
