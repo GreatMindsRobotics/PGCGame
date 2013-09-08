@@ -248,6 +248,7 @@ namespace PGCGame.Screens.Multiplayer
 
         void FinishLanSectorSearch(object ar)
         {
+            isError = false;
             IAsyncResult getMySectors = ar as IAsyncResult;
             if (StateManager.NetworkData.AvailableSessions != null)
             {
@@ -257,8 +258,30 @@ namespace PGCGame.Screens.Multiplayer
                 }
                 StateManager.NetworkData.AvailableSessions = null;
             }
-            StateManager.NetworkData.AvailableSessions = NetworkSession.EndFind(getMySectors);
+
+            try
+            {
+                StateManager.NetworkData.AvailableSessions = NetworkSession.EndFind(getMySectors);
+            }
+            catch (GamerPrivilegeException)
+            {
+                isError = true;
+                if (!Guide.IsVisible)
+                {
+                    string statement = "";
+#if WINDOWS
+                    statement = "A GFWL Silver (or greater) subscription is required to join LIVE sessions. Please ensure that the signed in account has a Games for Windows LIVE silver or greater subscription.";
+#elif XBOX
+                    statement = "An Xbox LIVE account is required to join LIVE sessions. Please ensure that the signed in account has an Xbox LIVE gold subscription.";
+#endif
+                    Guide.BeginShowMessageBox("LIVE Account Required", statement, new String[] { "OK" }, 0, MessageBoxIcon.Error, null, null);
+                }
+                return;
+            }
+            
         }
+
+        bool isError = false;
 
         void LANLabel_Pressed(object sender, EventArgs e)
         {
@@ -288,7 +311,7 @@ namespace PGCGame.Screens.Multiplayer
 
         void lScr_ScreenFinished(object sender, EventArgs e)
         {
-            StateManager.ScreenState = CoreTypes.ScreenType.NetworkSessionsScreen;
+            StateManager.ScreenState = isError ? ScreenType.NetworkSelectScreen : CoreTypes.ScreenType.NetworkSessionsScreen;
         }
 
         void Options_MusicStateChanged(object sender, EventArgs e)
