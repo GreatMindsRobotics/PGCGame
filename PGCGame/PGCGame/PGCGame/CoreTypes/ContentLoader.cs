@@ -323,10 +323,10 @@ namespace PGCGame.CoreTypes
 
                     TextureFactory textureCreator = new TextureFactory(StateManager.GraphicsManager.GraphicsDevice);
 
-                    _miniShipTextures.Add(PlayerType.MyShip, textureCreator.CreateSquare(3, Color.Lime));
-                    _miniShipTextures.Add(PlayerType.Enemy, textureCreator.CreateSquare(3, Color.Red));
-                    _miniShipTextures.Add(PlayerType.Ally, textureCreator.CreateSquare(3, Color.CornflowerBlue));
-                    _miniShipTextures.Add(PlayerType.Solo, textureCreator.CreateSquare(3, Color.Crimson));
+                    _miniShipTextures.Add(PlayerType.MyShip, content.Load<Texture2D>("Images\\MiniMap\\WhiteCircle100x100"));
+                    _miniShipTextures.Add(PlayerType.Enemy, content.Load<Texture2D>("Images\\MiniMap\\WhiteTriangle100x100"));
+                    _miniShipTextures.Add(PlayerType.Ally, content.Load<Texture2D>("Images\\MiniMap\\WhiteCircle100x100"));
+                    _miniShipTextures.Add(PlayerType.Solo, content.Load<Texture2D>("Images\\MiniMap\\WhiteTriangle100x100"));
 
                     _miniShipTexturesByShipType.Add(ShipType.FighterCarrier, content.Load<Texture2D>("Images\\MiniMap\\WhiteCircle100x100"));
                     _miniShipTexturesByShipType.Add(ShipType.BattleCruiser, content.Load<Texture2D>("Images\\MiniMap\\WhiteCircle100x100"));
