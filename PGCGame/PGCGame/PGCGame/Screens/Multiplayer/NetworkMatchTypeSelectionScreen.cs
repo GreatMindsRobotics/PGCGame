@@ -171,7 +171,7 @@ namespace PGCGame.Screens.Multiplayer
             LoadingScreen lScr = StateManager.AllScreens[ScreenType.LoadingScreen.ToString()] as LoadingScreen;
             lScr.Reset();
             lScr.UserCallback = new PGCGame.CoreTypes.Delegates.AsyncHandlerMethod(FinishLanSectorHost);
-            lScr.LoadingText = "Hosting\nLAN sector...";
+            lScr.LoadingText = "Hosting\n"+(StateManager.NetworkData.SessionType == NetworkSessionType.SystemLink ? "LAN" : "LIVE")+" sector...";
             lScr.ScreenFinished += new EventHandler(hosting_finish);
             //lScr.ScreenFinished += new EventHandler(lScr_ScreenFinished);
             NetworkSessionProperties netSession = new NetworkSessionProperties();

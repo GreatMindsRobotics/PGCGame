@@ -1371,6 +1371,7 @@
             <summary>
             Open the specified SpriteBatch with the settings required for drawing this Screen.
             </summary>
+            <param name="sb">The SpriteBatch to open.</param>
         </member>
         <member name="M:Glib.XNA.SpriteLib.Screen.Update(Microsoft.Xna.Framework.GameTime)">
             <summary>
@@ -2372,6 +2373,11 @@
         <member name="M:Glib.XNA.SpriteLib.Velocity.#ctor(System.Single,System.Single)">
             <summary>
             Construct a new velocity representing the passed in values of XSpeed and YSpeed.
+            </summary>
+        </member>
+        <member name="P:Glib.XNA.SpriteLib.Velocity.Vector">
+            <summary>
+            Gets a Vector2 representing this Velocity.
             </summary>
         </member>
         <member name="T:Glib.XNA.SpriteLib.Updater">

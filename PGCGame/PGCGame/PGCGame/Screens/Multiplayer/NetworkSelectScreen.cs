@@ -180,7 +180,7 @@ namespace PGCGame.Screens.Multiplayer
             LoadingScreen lScr = StateManager.GetScreen<LoadingScreen>(CoreTypes.ScreenType.LoadingScreen);
             lScr.Reset();
             lScr.UserCallback = new PGCGame.CoreTypes.Delegates.AsyncHandlerMethod(FinishLanSectorSearch);
-            lScr.LoadingText = "Searching for\nLAN sectors...";
+            lScr.LoadingText = "Searching for\nLIVE sectors...";
             lScr.ScreenFinished += new EventHandler(lScr_ScreenFinished);
             StateManager.NetworkData.LeaveSession();
             NetworkSession.BeginFind(StateManager.NetworkData.SessionType, 1, null, lScr.Callback, null);

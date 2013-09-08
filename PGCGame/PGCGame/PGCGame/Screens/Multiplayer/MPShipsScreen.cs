@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Net;
 using Glib;
 using System.ComponentModel;
 using PGCGame.Ships.Allies;
+using Glib.XNA.InputLib;
 
 namespace PGCGame.Screens.Multiplayer
 {
@@ -379,6 +380,11 @@ namespace PGCGame.Screens.Multiplayer
             StartLabel.Visible = false;
             Sprites.Add(StartButton);
             AdditionalSprites.Add(StartLabel);
+
+#if XBOX
+            AllButtons = new GamePadButtonEnumerator(new TextSprite[,] { { StartLabel } }, InputType.LeftJoystick);
+            AllButtons.FireTextSpritePressed = true;
+#endif
         }
 
         /// <summary>
