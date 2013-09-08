@@ -468,7 +468,7 @@ namespace PGCGame
             public static bool ShipSpeedIncrease = true;
             public static bool OPBullets = false;
             public static bool ShowShipIDs = false;
-            public static bool EmergencyHeal = true;
+            public static bool EmergencyHeal = false;
             public static bool KillAll = false;
             public static bool Invincible = false;
             public static bool BringDronesBack = false;

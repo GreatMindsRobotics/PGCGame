@@ -102,7 +102,7 @@ namespace PGCGame.Screens.Multiplayer
             AdditionalSprites.Add(BackLabel);
 
 #if XBOX
-            AllButtons = new GamePadButtonEnumerator(new TextSprite[,] { { CoopLabel }, { LMSLabel }, { BackLabel } }, InputType.LeftJoystick);
+            AllButtons = new GamePadButtonEnumerator(new TextSprite[,] { { CoopLabel }, { LMSLabel }, { TDMLabel }, { BackLabel } }, InputType.LeftJoystick);
             AllButtons.FireTextSpritePressed = true;
 #endif
         }
