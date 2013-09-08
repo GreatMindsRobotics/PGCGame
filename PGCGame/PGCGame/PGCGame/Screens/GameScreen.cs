@@ -532,8 +532,13 @@ namespace PGCGame.Screens
             }
 
             Sprite miniShip = new Sprite(GameContent.Assets.Images.MiniShips[ship.ShipType], miniMap.Position + (ship.WorldCoords / MinimapDivAmount), playerSb);
-            miniShip.Scale = ship.PlayerType == PlayerType.MyShip ? new Vector2(.1f) : new Vector2(.07f);
-            miniShip.Color = ship.PlayerType == PlayerType.MyShip ? Color.Green : Color.Red;
+            if (StateManager.NetworkData.IsMultiplayer && StateManager.NetworkData.SessionMode == MultiplayerSessionType.TDM)
+            {
+                miniShip.Texture = GameContent.Assets.Images.MiniShips[ship.PlayerType];
+            }
+            
+            miniShip.Scale = ship.PlayerType == PlayerType.MyShip || ship.PlayerType == PlayerType.Ally ? new Vector2(.1f) : new Vector2(.07f);
+            miniShip.Color = ship.PlayerType == PlayerType.MyShip || ship.PlayerType == PlayerType.Ally ? Color.Green : Color.Red;
             if (StateManager.ShowShipData)
             {
                 miniShip.Rotation = ship.Rotation;
