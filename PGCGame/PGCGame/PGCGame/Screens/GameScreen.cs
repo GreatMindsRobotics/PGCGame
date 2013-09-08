@@ -374,7 +374,7 @@ namespace PGCGame.Screens
         {
             if (_minimapYou != null)
             {
-                playerMinimapVisible = new Rectangle((_minimapYou.X - (Sprites.SpriteBatch.GraphicsDevice.Viewport.Width / 2) / MinimapDivAmount).ToInt(), (_minimapYou.Y - (Sprites.SpriteBatch.GraphicsDevice.Viewport.Height / 2) / MinimapDivAmount).ToInt(), (_minimapYou.Width + (Sprites.SpriteBatch.GraphicsDevice.Viewport.Width) / MinimapDivAmount).ToInt(), (_minimapYou.Height + (Sprites.SpriteBatch.GraphicsDevice.Viewport.Height) / MinimapDivAmount).ToInt());
+                playerMinimapVisible = new Rectangle((_minimapYou.X - (Sprites.SpriteBatch.GraphicsDevice.Viewport.Width / 2) / MinimapDivAmount).ToInt(), (_minimapYou.Y - (Sprites.SpriteBatch.GraphicsDevice.Viewport.Height / 2) / MinimapDivAmount).ToInt(), (Sprites.SpriteBatch.GraphicsDevice.Viewport.Width / MinimapDivAmount).ToInt(), (Sprites.SpriteBatch.GraphicsDevice.Viewport.Height / MinimapDivAmount).ToInt());
             }
         }
 
