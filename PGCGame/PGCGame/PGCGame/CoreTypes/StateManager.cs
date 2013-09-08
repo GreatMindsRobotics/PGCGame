@@ -161,6 +161,19 @@ namespace PGCGame
 
         #region Public Properties
 
+        public static event EventHandler<ViewportEventArgs> ScreenResolutionChanged
+        {
+            add
+            {
+                Options.ScreenResolutionChanged += value;
+            }
+            remove
+            {
+                Options.ScreenResolutionChanged -= value;
+            }
+
+        }
+
         public static UpgradesInfo Upgrades
         {
             get

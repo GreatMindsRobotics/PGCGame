@@ -32,19 +32,38 @@ namespace PGCGame.CoreTypes
             }
         }
 
-        public GameContent(ContentManager content)
+        public static GameContent InitializeAssets(ContentManager content)
         {
-            if (_gameAssets != null)
+            return new GameContent(content);
+        }
+
+        /// <summary>
+        /// Thread safety.
+        /// </summary>
+        private static bool _isInitializing = false;
+
+        private GameContent(ContentManager content)
+        {
+            if (_isInitializing)
             {
-                throw new Exception("This class is a singleton; use GameContent.GameAssets.");
+                throw new InvalidOperationException("Another thread is initializing this object. Please access GameContent.Assets after the initialization is completed.");
             }
 
+            _isInitializing = true;
+
+            if (_gameAssets != null)
+            {
+                throw new InvalidOperationException("This singleton class has already been initialized, please use GameContent.Assets.");
+            }
+   
             Fonts = new GameFonts(content);
             Images = new GameImages(content);
             Music = new GameMusic(content);
             Sound = new GameSound(content);
 
             _gameAssets = this;
+
+            _isInitializing = false;
         }
 
         public readonly GameMusic Music;
@@ -371,6 +390,17 @@ namespace PGCGame.CoreTypes
                 public readonly Texture2D Planet4;
                 public readonly Texture2D Planet3;
                 public readonly Texture2D ShopBackground;
+
+                /// <summary>
+                /// Gets the instance of the singleton global scrolling background class.
+                /// </summary>
+                public HorizontalMenuBGSprite GlobalBackground
+                {
+                    get
+                    {
+                        return HorizontalMenuBGSprite.CurrentBG;
+                    }
+                }
 
                 internal NonPlayingGameObjects(ContentManager content)
                 {

@@ -49,6 +49,7 @@ namespace PGCGame
         ControlScreen controlScreen;
         LoadingScreen loadingScreen;
         NetworkSelectScreen networkScreen;
+        MultiplayerWinScreen mpWin;
         TransitionScreen transitionScreen;
         LevelCompleteScreen levelCompleteScreen;
         MulitplayerShipSelectScreen multiplayerShipSelectScreen;
@@ -102,7 +103,7 @@ namespace PGCGame
         protected override void LoadContent()
         {
             //Instantiate the singleton class GameContent and load all game assets, done in ctor
-            new GameContent(Content);
+            GameContent.InitializeAssets(Content);
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -176,9 +177,12 @@ namespace PGCGame
             multiplayerShipSelectScreen = new MulitplayerShipSelectScreen(spriteBatch);
             multiplayerShipSelectScreen.InitScreen(ScreenType.MultiPlayerShipSelect);
 
-            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen, weaponSelectScreen, upgradeScreen, tierSelectScreen, levelSelectScreen, controlScreen, networkScreen, gameOver, transitionScreen, levelCompleteScreen, loadingScreen, availableNetSessions, netMatchCreate, multiplayerShipSelectScreen, mpShipList);
+            mpWin = new MultiplayerWinScreen(spriteBatch);
+            mpWin.InitScreen(ScreenType.MPWinningScreen);
+
+            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen, weaponSelectScreen, upgradeScreen, tierSelectScreen, levelSelectScreen, controlScreen, networkScreen, gameOver, transitionScreen, levelCompleteScreen, loadingScreen, availableNetSessions, netMatchCreate, multiplayerShipSelectScreen, mpShipList, mpWin);
             StateManager.AllScreens = screenManager;
-            StateManager.ScreenState = CoreTypes.ScreenType.Title;
+            StateManager.ScreenState = ScreenType.Title;
         }
 
         /// <summary>
@@ -222,7 +226,8 @@ namespace PGCGame
             }  
             catch(InvalidOperationException)
             {
-                //TODO: Do something here?
+                //Don't draw frame
+                return false;
             }
             return base.BeginDraw();
             

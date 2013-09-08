@@ -27,7 +27,8 @@ namespace PGCGame.CoreTypes
         NetworkSessionsScreen,
         NetworkMatchSelection,
         MultiPlayerShipSelect,
-        MPShipsDisplay
+        MPShipsDisplay,
+        MPWinningScreen
     }
 
     /// <summary>
