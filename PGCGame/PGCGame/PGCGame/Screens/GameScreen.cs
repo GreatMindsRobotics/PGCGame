@@ -1087,19 +1087,41 @@ namespace PGCGame.Screens
                                     break;
                                 }
                             }
+                            foreach (Ship s in StateManager.AllyShips)
+                            {
+                                BaseAllyShip sh = s as BaseAllyShip;
+                                if (sh != null && sh.Controller != null && sh.Controller.Id == dataSender.Id)
+                                {
+                                    Debug.WriteLine("Received ship data from {0}: [{1}, {2}], health {3}", dataSender.Gamertag, shipData.X, shipData.Y, shipData.W);
+                                    sh.WorldCoords = new Vector2(shipData.X, shipData.Y);
+                                    sh.Rotation = SpriteRotation.FromRadians(shipData.Z);
+                                    sh.CurrentHealth = shipData.W.ToInt();
+                                    break;
+                                }
+                            }
                         }
                         else
                         {
                             Vector4 bulletData = StateManager.NetworkData.DataReader.ReadVector4();
                             Vector4 addlData = StateManager.NetworkData.DataReader.ReadVector4();
-                            BaseAllyShip parent = StateManager.EnemyShips[dataSender];
+                            bool senderAlly = false;
+                            BaseAllyShip parent = null;
+                            try
+                            {
+                                parent = StateManager.EnemyShips[dataSender];
+                            }
+                            catch (IndexOutOfRangeException)
+                            {
+                                senderAlly = true;
+                                parent = StateManager.AllyShips[dataSender];
+                            }
                             Bullet newBullet = new Bullet(GameContent.Assets.Images.Ships.Bullets[(ShipType)Enum.Parse(typeof(ShipType), addlData.Z.ToInt().ToString(), true), (ShipTier)Enum.Parse(typeof(ShipTier), addlData.W.ToInt().ToString(), true)], new Vector2(bulletData.X, bulletData.Y), World, parent);
                             newBullet.Speed = new Vector2(bulletData.Z, bulletData.W);
                             newBullet.Rotation = SpriteRotation.FromRadians(addlData.Y);
                             newBullet.Damage = addlData.X.ToInt();
                             newBullet.MaximumDistance = new Vector2(4000f);
                             //Debug.WriteLine("Bullet received from {0}: X: {1}, Y: {2}", parent.Controller.Gamertag, newBullet.X, newBullet.Y);
-                            StateManager.EnemyBullets.Legit.Add(newBullet);
+                            (senderAlly ? StateManager.AllyBullets : StateManager.EnemyBullets).Legit.Add(newBullet);
                         }
                     }
                 }
