@@ -37,6 +37,8 @@ namespace PGCGame.CoreTypes
             return new GameContent(content);
         }
 
+        private static TextureFactory _textureFactory;
+
         /// <summary>
         /// Thread safety.
         /// </summary>
@@ -55,7 +57,9 @@ namespace PGCGame.CoreTypes
             {
                 throw new InvalidOperationException("This singleton class has already been initialized, please use GameContent.Assets.");
             }
-   
+
+            _textureFactory = new TextureFactory(StateManager.GraphicsManager.GraphicsDevice);
+
             Fonts = new GameFonts(content);
             Images = new GameImages(content);
             Music = new GameMusic(content);
@@ -215,9 +219,7 @@ namespace PGCGame.CoreTypes
                 {
                     _shipTextures = new Dictionary<KeyValuePair<ShipType, ShipTier>, Texture2D>();
 
-                    TextureFactory tf = new TextureFactory(StateManager.GraphicsManager.GraphicsDevice);
-
-                    _shipTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.NoShip, ShipTier.NoShip), tf.CreateSquare(15, Color.Transparent));
+                    _shipTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.NoShip, ShipTier.NoShip), _textureFactory.CreateSquare(15, Color.Transparent));
 
                     _shipTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.BattleCruiser, ShipTier.Tier1), content.Load<Texture2D>("Images\\Ships\\Allies\\BattleCruiser\\Tier1"));
                     _shipTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.BattleCruiser, ShipTier.Tier2), content.Load<Texture2D>("Images\\Ships\\Allies\\BattleCruiser\\Tier2"));
@@ -263,14 +265,12 @@ namespace PGCGame.CoreTypes
                     {
                         _bulletTextures = new Dictionary<KeyValuePair<ShipType, ShipTier>, Texture2D>();
 
-                        TextureFactory tf = new TextureFactory(StateManager.GraphicsManager.GraphicsDevice);
-
                         //TEMP
                         for (int i = ShipTier.Tier1.ToInt(); i <= ShipTier.Tier4.ToInt(); i++)
                         {
                             _bulletTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.BattleCruiser, Enum.Parse(typeof(ShipTier), i.ToString(), true).Cast<ShipTier>()), content.Load<Texture2D>("Images\\TempBullets\\Laser"));
                             _bulletTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.FighterCarrier, Enum.Parse(typeof(ShipTier), i.ToString(), true).Cast<ShipTier>()), content.Load<Texture2D>("Images\\TempBullets\\Laser"));
-                            _bulletTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.TorpedoShip, Enum.Parse(typeof(ShipTier), i.ToString(), true).Cast<ShipTier>()), tf.CreateRectangle(5, 3, Color.Red));
+                            _bulletTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.TorpedoShip, Enum.Parse(typeof(ShipTier), i.ToString(), true).Cast<ShipTier>()), _textureFactory.CreateRectangle(5, 3, Color.Red));
                             _bulletTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.Drone, Enum.Parse(typeof(ShipTier), i.ToString(), true).Cast<ShipTier>()), content.Load<Texture2D>("Images\\TempBullets\\Laser"));
                         }
 
@@ -321,7 +321,7 @@ namespace PGCGame.CoreTypes
                     _miniShipTextures = new Dictionary<PlayerType, Texture2D>();
                     _miniShipTexturesByShipType = new Dictionary<ShipType, Texture2D>();
 
-                    TextureFactory textureCreator = new TextureFactory(StateManager.GraphicsManager.GraphicsDevice);
+                    
 
                     _miniShipTextures.Add(PlayerType.MyShip, content.Load<Texture2D>("Images\\MiniMap\\WhiteCircle100x100"));
                     _miniShipTextures.Add(PlayerType.Enemy, content.Load<Texture2D>("Images\\MiniMap\\WhiteTriangle100x100"));
