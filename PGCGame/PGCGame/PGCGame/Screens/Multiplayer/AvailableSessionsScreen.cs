@@ -53,7 +53,7 @@ namespace PGCGame.Screens.Multiplayer
         {
             base.InitScreen(screenName);
             BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
-            title = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.BoldText, "Available LAN Sectors");
+            title = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.BoldText, "Available "+(StateManager.NetworkData.SessionType == NetworkSessionType.SystemLink ? "LAN" : "LIVE")+" Sectors");
             title.Color = Color.White;
             title.Y = 5;
             title.X = title.GetCenterPosition(Graphics.Viewport).X;
@@ -123,7 +123,7 @@ namespace PGCGame.Screens.Multiplayer
             LoadingScreen lScr = StateManager.AllScreens[ScreenType.LoadingScreen.ToString()] as LoadingScreen;
             lScr.Reset();
             lScr.UserCallback = new PGCGame.CoreTypes.Delegates.AsyncHandlerMethod(FinishLanSectorSearch);
-            lScr.LoadingText = "Searching for\nLAN sectors...";
+            lScr.LoadingText = "Searching for\n" + (StateManager.NetworkData.SessionType == NetworkSessionType.SystemLink ? "LAN" : "LIVE") + " sectors...";
             lScr.ScreenFinished += new EventHandler(delegate(object evSender, EventArgs ea) { StateManager.ScreenState = CoreTypes.ScreenType.NetworkSessionsScreen; });
             NetworkSession.BeginFind(StateManager.NetworkData.SessionType, 1, null, lScr.Callback, null);
             StateManager.ScreenState = CoreTypes.ScreenType.LoadingScreen;
