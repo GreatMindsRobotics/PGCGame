@@ -46,7 +46,7 @@ namespace PGCGame.Screens.Multiplayer
             CoopButton = new Sprite(GameContent.Assets.Images.Controls.Button, new Vector2(0, 10 + TitleLabel.Height), Sprites.SpriteBatch);
             CoopButton.X = CoopButton.GetCenterPosition(Graphics.Viewport).X;
 
-            CoopLabel = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, "Co-op", Color.White);
+            CoopLabel = new TextSprite(Sprites.SpriteBatch, GameContent.Assets.Fonts.NormalText, "Co-op", Color.White);
             CoopLabel.HoverColor = Color.MediumAquamarine;
             CoopLabel.NonHoverColor = Color.White;
             CoopLabel.IsHoverable = true;
@@ -58,10 +58,10 @@ namespace PGCGame.Screens.Multiplayer
             AdditionalSprites.Add(CoopLabel);
 
 
-            LMS = new Sprite(GameContent.GameAssets.Images.Controls.Button, new Vector2(0, 20 + CoopLabel.Height + CoopLabel.Y), Sprites.SpriteBatch);
+            LMS = new Sprite(GameContent.Assets.Images.Controls.Button, new Vector2(0, 20 + CoopLabel.Height + CoopLabel.Y), Sprites.SpriteBatch);
             LMS.X = CoopButton.GetCenterPosition(Graphics.Viewport).X;
 
-            LMSLabel = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, "LMS", Color.White);
+            LMSLabel = new TextSprite(Sprites.SpriteBatch, GameContent.Assets.Fonts.NormalText, "LMS", Color.White);
             LMSLabel.HoverColor = Color.MediumAquamarine;
             LMSLabel.NonHoverColor = Color.White;
             LMSLabel.IsHoverable = true;
@@ -72,10 +72,10 @@ namespace PGCGame.Screens.Multiplayer
             Sprites.Add(LMS);
             AdditionalSprites.Add(LMSLabel);
 
-            TDM = new Sprite(GameContent.GameAssets.Images.Controls.Button, new Vector2(0, 20 + LMSLabel.Height + LMSLabel.Y), Sprites.SpriteBatch);
+            TDM = new Sprite(GameContent.Assets.Images.Controls.Button, new Vector2(0, 20 + LMSLabel.Height + LMSLabel.Y), Sprites.SpriteBatch);
             TDM.X = LMS.GetCenterPosition(Graphics.Viewport).X;
 
-            TDMLabel = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, "Team Deathmatch", Color.White);
+            TDMLabel = new TextSprite(Sprites.SpriteBatch, GameContent.Assets.Fonts.NormalText, "Team Deathmatch", Color.White);
             TDMLabel.HoverColor = Color.MediumAquamarine;
             TDMLabel.NonHoverColor = Color.White;
             TDMLabel.IsHoverable = true;
