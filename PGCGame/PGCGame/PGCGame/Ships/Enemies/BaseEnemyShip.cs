@@ -179,36 +179,16 @@ namespace PGCGame.Ships.Enemies
 
                 if (closestAllyShipDistance.HasValue && closestAllyShip != null && activated && _isTrackingPlayer)
                 {
-                    if (Rotation.Degrees > 360)
-                    {
-                        Rotation.Degrees -= 360;
-                    }
-                    else if (Rotation.Degrees < 0)
-                    {
-                        Rotation.Degrees += 360;
-                    }
+                    Rotation.Degrees %= 360;
                     _elapsedRotationDelay += gt.ElapsedGameTime;
 
                     if (_elapsedRotationDelay > _rotationDelay)
                     {
                         float angle = MathHelper.ToDegrees(closestAllyShipDistance.Value.ToAngle());
-                        if (angle > 360)
-                        {
-                            while (angle > 360)
-                            {
-                                angle -= 360;
-                            }
-                        }
-                        else if (angle < 0)
-                        {
-                            while (angle < 0)
-                            {
-                                angle += 360;
-                            }
-                        }
+                        angle %= 360;
                         if (Math.Round(Rotation.Degrees) != Math.Round(angle))
                         {
-                            if (angle - Rotation.Degrees > 180 && angle - Rotation.Degrees >= 0 || angle - Rotation.Degrees < 0 && Math.Abs(angle - Rotation.Degrees) + 180 > 180)
+                            if (angle - Rotation.Degrees > 180 || angle - Rotation.Degrees < 0 && Rotation.Degrees - angle < 180)
                             {
                                 Rotation.Degrees--;
                             }
