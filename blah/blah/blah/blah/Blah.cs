@@ -9,12 +9,18 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Glib.XNA.SpriteLib;
+using Glib.XNA;
+using Glib.XNA.InputLib;
 
 
 namespace blah
 {
     public class Game1 : Microsoft.Xna.Framework.Game
     {
+        Screen titleScreen;
+        Screen gameScreen;
+        ScreenManager screenManager;
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
@@ -28,6 +34,8 @@ namespace blah
         {
             // TODO: Add your initialization logic here
 
+            IsMouseVisible = true;
+            Components.Add(new InputManagerComponent(this));
             base.Initialize();
         }
 
@@ -36,7 +44,32 @@ namespace blah
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            titleScreen = new Screen(spriteBatch, Color.PapayaWhip);
+            titleScreen.Visible = true;
+
+            TextSprite blahLabel = new TextSprite(spriteBatch, Content.Load<SpriteFont>("BLAHFONT"), "PLAY THE BLAH GAME!!!!!");
+            blahLabel.X = blahLabel.GetCenterPosition(GraphicsDevice.Viewport).X;
+
+            TextSprite playLabel = new TextSprite(spriteBatch, Content.Load<SpriteFont>("BLAHFONT"), "CLICK-------->PLAY NOW<------CLICK");
+            playLabel.X = playLabel.GetCenterPosition(GraphicsDevice.Viewport).X;
+            playLabel.Y = 100;
+            playLabel.IsHoverable = true;
+            playLabel.HoverColor = Color.Red;
+            playLabel.NonHoverColor = Color.Black;
+            playLabel.Pressed += new EventHandler(playLabel_Clicked);
+
+            titleScreen.AdditionalSprites.Add(blahLabel);
+            titleScreen.AdditionalSprites.Add(playLabel);
+
+            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen);
+
             // TODO: use this.Content to load your game content here
+        }
+
+        void playLabel_Clicked(object sender, EventArgs e)
+        {
+            titleScreen.Visible = false;
+            gameScreen.Visible = true;
         }
 
         protected override void UnloadContent()
@@ -50,17 +83,28 @@ namespace blah
             {
                 this.Exit();
             }
-
-            // TODO: Add your update logic here
+         
+            screenManager.Update(gameTime);
 
             base.Update(gameTime);
         }
 
+        protected override bool BeginDraw()
+        {
+            screenManager.BeginDraw();
+            return base.BeginDraw();
+        }
+
+        protected override void EndDraw()
+        {
+            screenManager.EndDraw();
+            base.EndDraw();
+        }
+
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            screenManager.Draw();
 
             base.Draw(gameTime);
         }
