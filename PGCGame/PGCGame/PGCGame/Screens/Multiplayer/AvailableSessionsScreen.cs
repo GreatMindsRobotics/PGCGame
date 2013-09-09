@@ -141,6 +141,7 @@ namespace PGCGame.Screens.Multiplayer
 #if XBOX
             List<TextSprite> allItems = new List<TextSprite>(new TextSprite[]{reload});
 #endif
+            title.Text = "Available " + (StateManager.NetworkData.SessionType == NetworkSessionType.SystemLink ? "LAN" : "LIVE") + " Sectors";
             AdditionalSprites.Add(title);
             AdditionalSprites.Add(reload);
             AdditionalSprites.Add(BackLabel);
