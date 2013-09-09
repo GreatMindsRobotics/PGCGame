@@ -17,6 +17,8 @@ namespace blah
 {
     public class Game1 : Microsoft.Xna.Framework.Game
     {
+        SpriteManager spriteManager;
+
         Screen titleScreen;
         Screen gameScreen;
         ScreenManager screenManager;
@@ -44,6 +46,11 @@ namespace blah
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            spriteManager = new SpriteManager(spriteBatch /*PUT SPRITES HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/);
+
+            gameScreen = new Screen(spriteManager, Color.PapayaWhip);
+            gameScreen.Visible = false;
+
             titleScreen = new Screen(spriteBatch, Color.PapayaWhip);
             titleScreen.Visible = true;
 
@@ -61,7 +68,7 @@ namespace blah
             titleScreen.AdditionalSprites.Add(blahLabel);
             titleScreen.AdditionalSprites.Add(playLabel);
 
-            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen);
+            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, gameScreen);
 
             // TODO: use this.Content to load your game content here
         }
