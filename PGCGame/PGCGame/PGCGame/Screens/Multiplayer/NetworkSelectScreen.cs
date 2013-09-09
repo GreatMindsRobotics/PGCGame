@@ -177,6 +177,14 @@ namespace PGCGame.Screens.Multiplayer
             {
                 ButtonClick.Play();
             }
+            if (!Gamer.SignedInGamers[PlayerIndex.One].Privileges.AllowOnlineSessions)
+            {
+                if (!Guide.IsVisible)
+                {
+                    Guide.BeginShowMessageBox("Insufficient Permissions", "Your gamer profile does not allow you to play online sessions.", new String[] { "OK" }, 0, MessageBoxIcon.Error, null, null);
+                }
+                return;
+            }
             LoadingScreen lScr = StateManager.GetScreen<LoadingScreen>(CoreTypes.ScreenType.LoadingScreen);
             lScr.Reset();
             lScr.UserCallback = new PGCGame.CoreTypes.Delegates.AsyncHandlerMethod(FinishLanSectorSearch);
