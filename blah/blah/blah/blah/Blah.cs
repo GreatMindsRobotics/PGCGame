@@ -26,6 +26,8 @@ namespace blah
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        List<Sprite> enemies = new List<Sprite>();
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
