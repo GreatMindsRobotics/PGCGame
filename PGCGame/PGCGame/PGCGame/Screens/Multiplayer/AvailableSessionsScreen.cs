@@ -10,6 +10,7 @@ using Glib.XNA;
 using Glib.XNA.SpriteLib;
 using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Net;
+using Glib.XNA.InputLib;
 
 namespace PGCGame.Screens.Multiplayer
 {
@@ -81,6 +82,11 @@ namespace PGCGame.Screens.Multiplayer
             AdditionalSprites.Add(title);
             AdditionalSprites.Add(reload);
             Sprites.Add(reloadButton);
+
+#if XBOX
+            AllButtons = new GamePadButtonEnumerator(new TextSprite[,] { { reload, BackLabel } }, InputType.LeftJoystick);
+            AllButtons.FireTextSpritePressed = true;
+#endif
         }
 
         void BackLabel_Pressed(object sender, EventArgs e)
@@ -132,6 +138,9 @@ namespace PGCGame.Screens.Multiplayer
         private void netSessionRegrab()
         {
             AdditionalSprites.Clear();
+#if XBOX
+            List<TextSprite> allItems = new List<TextSprite>(new TextSprite[]{reload});
+#endif
             AdditionalSprites.Add(title);
             AdditionalSprites.Add(reload);
             AdditionalSprites.Add(BackLabel);
@@ -142,9 +151,22 @@ namespace PGCGame.Screens.Multiplayer
                 AvailableNetworkSessionDisplayTextSprite curr = new AvailableNetworkSessionDisplayTextSprite(Sprites.SpriteBatch, prev == null ? reloadButton.Y + reloadButton.Height : prev.Y, ans);
                 curr.Pressed += new EventHandler(curr_Pressed);
                 AdditionalSprites.Add(curr);
-
+#if XBOX
+                allItems.Add(curr);
+#endif
                 prev = curr;
             }
+#if XBOX
+            allItems.Add(BackLabel);
+            TextSprite[,] buttons = new TextSprite[1, allItems.Count];
+            for (int i = 0; i < allItems.Count; i++)
+            {
+                buttons[0, i] = allItems[i];
+            }
+
+            AllButtons = new GamePadButtonEnumerator(buttons, InputType.LeftJoystick);
+            AllButtons.FireTextSpritePressed = true;
+#endif
         }
 
         private void FinishJoin(object res)
