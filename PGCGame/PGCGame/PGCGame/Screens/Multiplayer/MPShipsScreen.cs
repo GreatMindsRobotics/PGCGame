@@ -308,6 +308,15 @@ namespace PGCGame.Screens.Multiplayer
 
         void CurrentSession_GamerJoined(object sender, GamerJoinedEventArgs e)
         {
+            if (Gamer.SignedInGamers[PlayerIndex.One].Privileges.AllowCommunication != GamerPrivilegeSetting.Everyone)
+            {
+                if (Gamer.SignedInGamers[PlayerIndex.One].Privileges.AllowCommunication == GamerPrivilegeSetting.Blocked || (Gamer.SignedInGamers[PlayerIndex.One].Privileges.AllowCommunication == GamerPrivilegeSetting.FriendsOnly && !Gamer.SignedInGamers[PlayerIndex.One].IsFriend(e.Gamer)) )
+                {
+                    StateManager.NetworkData.CurrentSession.LocalGamers[0].EnableSendVoice(e.Gamer, false);
+                }
+
+            }
+
             GamerInfos.Clear();
             for (int i = 0; i < StateManager.NetworkData.CurrentSession.MaxGamers; i++)
             {

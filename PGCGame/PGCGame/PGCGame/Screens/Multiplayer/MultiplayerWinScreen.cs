@@ -19,6 +19,8 @@ namespace PGCGame.Screens.Multiplayer
         TextSprite msg;
         Sprite planet;
 
+        Sprite netScreenButton;
+        TextSprite netScreenLabel;
 
 
         public override void InitScreen(ScreenType screenName)
@@ -36,6 +38,17 @@ namespace PGCGame.Screens.Multiplayer
             msg = new TextSprite(Sprites.SpriteBatch, GameContent.Assets.Fonts.NormalText, MessageText, Color.White);
             msg.Y = title.Y + title.Font.LineSpacing;
             AdditionalSprites.Add(msg);
+
+            netScreenButton = Sprites.AddNewSprite(Vector2.Zero, GameContent.Assets.Images.Controls.Button);
+            netScreenButton.Position = netScreenButton.GetCenterPosition(Graphics.Viewport);
+            netScreenLabel = StateManager.CreateButtonTextSprite(false, "Multiplayer", netScreenButton, this);
+            netScreenLabel.Pressed += new EventHandler(netScreenLabel_Pressed);
+
+        }
+
+        void netScreenLabel_Pressed(object sender, EventArgs e)
+        {
+            StateManager.ScreenState = CoreTypes.ScreenType.NetworkSelectScreen;
         }
 
         const string MessageText = "Congratulations, {0}! You won the match!";
@@ -43,6 +56,7 @@ namespace PGCGame.Screens.Multiplayer
         void Options_ScreenResolutionChanged(object sender, ViewportEventArgs e)
         {
             title.X = title.GetCenterPosition(Graphics.Viewport).X;
+            netScreenButton.Position = netScreenButton.GetCenterPosition(Graphics.Viewport);
         }
 
         void StateManager_ScreenStateChanged(object sender, EventArgs e)

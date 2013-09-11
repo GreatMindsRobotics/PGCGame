@@ -359,6 +359,22 @@ namespace PGCGame
 
         #region Public Methods
 
+        public static TextSprite CreateButtonTextSprite(Boolean boldFont, string text, Sprite parentSprite, Screen parentScreen)
+        {
+            TextSprite newTextSprite = new TextSprite(parentScreen.Sprites.SpriteBatch, Vector2.Zero, boldFont ? GameContent.Assets.Fonts.BoldText : GameContent.Assets.Fonts.NormalText, text);
+            newTextSprite.IsHoverable = true;
+#if WINDOWS
+            newTextSprite.CallKeyboardClickEvent = false;
+#endif
+            newTextSprite.NonHoverColor = Color.White;
+            newTextSprite.HoverColor = Color.MediumAquamarine;
+
+            newTextSprite.ParentSprite = parentSprite;
+
+            parentScreen.AdditionalSprites.Add(newTextSprite);
+            return newTextSprite;
+        }
+
         public static TScreen GetScreen<TScreen>(ScreenType screenType) where TScreen : BaseScreen
         {
             return AllScreens[screenType.ToString()] as TScreen;
