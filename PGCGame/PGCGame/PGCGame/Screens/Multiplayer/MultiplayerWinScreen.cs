@@ -42,6 +42,7 @@ namespace PGCGame.Screens.Multiplayer
             netScreenButton = Sprites.AddNewSprite(Vector2.Zero, GameContent.Assets.Images.Controls.Button);
             netScreenButton.Position = netScreenButton.GetCenterPosition(Graphics.Viewport);
             netScreenLabel = StateManager.CreateButtonTextSprite(false, "Multiplayer", netScreenButton, this);
+            netScreenLabel.Pressed += StateManager.ButtonSFXHelper;
             netScreenLabel.Pressed += new EventHandler(netScreenLabel_Pressed);
 
         }
