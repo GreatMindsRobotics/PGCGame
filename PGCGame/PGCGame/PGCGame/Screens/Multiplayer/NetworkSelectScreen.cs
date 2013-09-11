@@ -206,6 +206,14 @@ namespace PGCGame.Screens.Multiplayer
             {
                 return;
             }
+            if (!Gamer.SignedInGamers[PlayerIndex.One].Privileges.AllowOnlineSessions)
+            {
+                if (!Guide.IsVisible)
+                {
+                    Guide.BeginShowMessageBox("Insufficient Permissions", "Your gamer profile does not allow you to play online sessions.", new String[] { "OK" }, 0, MessageBoxIcon.Error, null, null);
+                }
+                return;
+            }
             if (StateManager.Options.SFXEnabled)
             {
                 ButtonClick.Play();

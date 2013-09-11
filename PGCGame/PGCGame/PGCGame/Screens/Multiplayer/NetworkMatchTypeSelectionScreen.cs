@@ -140,15 +140,7 @@ namespace PGCGame.Screens.Multiplayer
         void FinishLanSectorHost(object arg)
         {
             isErroredHost = false;
-            if (!Gamer.SignedInGamers[PlayerIndex.One].Privileges.AllowOnlineSessions)
-            {
-                isErroredHost = true;
-                if (!Guide.IsVisible)
-                {
-                    Guide.BeginShowMessageBox("Insufficient Permissions", "Your gamer profile does not allow you to play online sessions.", new String[] { "OK" }, 0, MessageBoxIcon.Error, new AsyncCallback(ScreenStateToNetSelect), null);
-                }
-                return;
-            }
+            
             IAsyncResult getMySectors = arg as IAsyncResult;
             try
             {
