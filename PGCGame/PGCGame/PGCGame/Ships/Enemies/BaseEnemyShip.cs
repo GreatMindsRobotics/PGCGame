@@ -5,6 +5,9 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
+using PGCGame.CoreTypes.Utilites;
+
+using Glib;
 using Glib.XNA;
 using Glib.XNA.SpriteLib;
 
@@ -15,6 +18,35 @@ namespace PGCGame.Ships.Enemies
 {
     public abstract class BaseEnemyShip : Ship
     {
+        public static BaseEnemyShip CreateRandomEnemy(SpriteBatch spawn)
+        {
+            ////ShipType[] possibleSpawnTypes = new ShipType[] { ShipType.EnemyBattleCruiser, ShipType.EnemyFighterCarrier, ShipType.EnemyTorpedoShip };
+            ShipTier spawnTier = StateManager.RandomGenerator.NextShipTier(ShipTier.Tier1, ShipTier.Tier2);
+            ////ShipType spawned = possibleSpawnTypes[StateManager.RandomGenerator.Next(possibleSpawnTypes.Length)];
+            
+            //TODO: IMPLEMENT MORE ENEMY SHIPS!!!!!!!!!!!!!!!!!
+            ShipType spawned = ShipType.EnemyBattleCruiser;
+            BaseEnemyShip enemy = null;
+            
+            switch (spawned)
+            {
+                case ShipType.EnemyBattleCruiser:
+                    enemy = new EnemyBattleCruiser(GameContent.Assets.Images.Ships[spawned, spawnTier], Vector2.Zero, spawn);
+                    break;
+            }
+
+            enemy.WorldCoords = StateManager.RandomGenerator.NextVector2((LocationUtility)StateManager.SpawnArea.Location, StateManager.SpawnArea.Location.Cast<LocationUtility>()+new Vector2(StateManager.SpawnArea.Width, StateManager.SpawnArea.Height));
+
+            enemy.DistanceToNose = .5f;
+
+            enemy.Tier = spawnTier;
+
+            //Sprites.Add(enemy);
+            //enemies.Add(enemy);
+
+            return enemy;
+        }
+
         public BaseEnemyShip(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
             : base(texture, location, spriteBatch)
         {

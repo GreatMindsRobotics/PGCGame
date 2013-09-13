@@ -81,7 +81,7 @@ namespace PGCGame.Screens
         /// </summary>
         public const int MinimapDivAmount = 45;
 
-        List<BaseEnemyShip> enemies = new List<BaseEnemyShip>();
+        internal List<BaseEnemyShip> enemies = new List<BaseEnemyShip>();
         internal BaseAllyShip playerShip;
         SpriteBatch playerSb;
         SpriteFont normal;

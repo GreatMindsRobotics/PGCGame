@@ -79,6 +79,7 @@
     <Compile Include="CoreTypes\SerializableGameState.cs" />
     <Compile Include="CoreTypes\ShipCollection.cs" />
     <Compile Include="CoreTypes\ShipStats.cs" />
+    <Compile Include="CoreTypes\Utilites\LocationUtility.cs" />
     <Compile Include="CoreTypes\ViewportEventArgs.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Screens\ControlScreen.cs" />
