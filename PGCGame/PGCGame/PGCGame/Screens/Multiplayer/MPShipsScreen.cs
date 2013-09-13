@@ -154,6 +154,53 @@ namespace PGCGame.Screens.Multiplayer
             }
         }
 
+        private static class RandomTeamGenerator
+        {
+            private static MultiplayerTeam RandomTeam()
+            {
+                return StateManager.RandomGenerator.NextDouble() <= 0.5 ? MultiplayerTeam.Red : MultiplayerTeam.Blue;
+            }
+
+            private static MultiplayerTeam RandomTeamModifyCounter(ref int redCount, ref int blueCount)
+            {
+                MultiplayerTeam rand = RandomTeam();
+                if (rand == MultiplayerTeam.Blue)
+                {
+                    blueCount++;
+                }
+                else if (rand == MultiplayerTeam.Red)
+                {
+                    redCount++;
+                }
+                return rand;
+            }
+
+            public static MultiplayerTeam GenerateTeam(ref int redCount, ref int blueCount)
+            {
+                if (redCount + blueCount > 0)
+                {
+                    if (redCount == 0)
+                    {
+                        redCount++;
+                        return MultiplayerTeam.Red;
+                    }
+                    else if (blueCount == 0)
+                    {
+                        blueCount++;
+                        return MultiplayerTeam.Blue;
+                    }
+                    else
+                    {
+                        return RandomTeamModifyCounter(ref redCount, ref blueCount);
+                    }
+                }
+                else
+                {
+                    return RandomTeamModifyCounter(ref redCount, ref blueCount);
+                }
+            }
+        }
+
         /// <summary>
         /// Called on the computer of ALL PLAYERS when the game is started by the host.
         /// </summary>
@@ -409,6 +456,10 @@ namespace PGCGame.Screens.Multiplayer
         }
 
 
+        #region Host-specific Variables
+        int redTeamCount;
+        int blueTeamCount;
+        #endregion
 
         /// <summary>
         /// Start label pressed event handler.
@@ -418,6 +469,8 @@ namespace PGCGame.Screens.Multiplayer
         /// </remarks>
         void StartLabel_Pressed(object sender, EventArgs e)
         {
+            redTeamCount = 0;
+            blueTeamCount = 0;
             if (StateManager.Options.SFXEnabled)
             {
                 ButtonClick.Play();
@@ -436,8 +489,8 @@ namespace PGCGame.Screens.Multiplayer
 
                 if (StateManager.NetworkData.SessionMode == MultiplayerSessionType.TDM)
                 {
-                    //TODO: EVERYONE CHOOSES THEIR TEAM
-                    hostTeam = MultiplayerTeam.Red;
+                    //Random teams
+                    hostTeam = RandomTeamGenerator.GenerateTeam(ref redTeamCount, ref blueTeamCount);
 
                     StateManager.NetworkData.DataWriter.Write(hostTeam.Value.ToInt());
                 }
@@ -463,8 +516,8 @@ namespace PGCGame.Screens.Multiplayer
 
                     if (StateManager.NetworkData.SessionMode == MultiplayerSessionType.TDM)
                     {
-                        //TODO: GAMER CHOOSES TEAM
-                        MultiplayerTeam team = MultiplayerTeam.Blue;
+                        //Random team
+                        MultiplayerTeam team = RandomTeamGenerator.GenerateTeam(ref redTeamCount, ref blueTeamCount); ;
                         isAlly = hostTeam.Value == team;
                         StateManager.NetworkData.DataWriter.Write(team.ToInt());
                     }
