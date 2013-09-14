@@ -391,7 +391,7 @@ namespace PGCGame.Screens.Multiplayer
                 netGamer.ReceiveData(StateManager.NetworkData.DataReader, out infosender);
 
                 MultiplayerTeam? mpTeam = null;
-                if (StateManager.NetworkData.SessionMode == MultiplayerSessionType.TDM)
+                if (StateManager.NetworkData.SessionMode == MultiplayerSessionType.TDM || StateManager.NetworkData.SessionMode == MultiplayerSessionType.Coop)
                 {
                     mpTeam = (MultiplayerTeam)Enum.Parse(typeof(MultiplayerTeam), StateManager.NetworkData.DataReader.ReadInt32().ToString(), true);
                 }
