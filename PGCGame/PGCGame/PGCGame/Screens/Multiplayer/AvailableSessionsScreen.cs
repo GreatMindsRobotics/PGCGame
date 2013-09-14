@@ -54,7 +54,7 @@ namespace PGCGame.Screens.Multiplayer
         {
             base.InitScreen(screenName);
             BackgroundSprite = HorizontalMenuBGSprite.CurrentBG;
-            title = new TextSprite(Sprites.SpriteBatch, GameContent.Assets.Fonts.BoldText, "Available "+(StateManager.NetworkData.SessionType == NetworkSessionType.SystemLink ? "LAN" : "LIVE")+" Sectors");
+            title = new TextSprite(Sprites.SpriteBatch, GameContent.Assets.Fonts.BoldText, "Available " + (StateManager.NetworkData.SessionType == NetworkSessionType.SystemLink ? "LAN" : "LIVE") + " Sectors");
             title.Color = Color.White;
             title.Y = 5;
             title.X = title.GetCenterPosition(Graphics.Viewport).X;
@@ -66,7 +66,7 @@ namespace PGCGame.Screens.Multiplayer
             reload.ParentSprite = reloadButton;
             reload.NonHoverColor = Color.White;
             reload.HoverColor = Color.MediumAquamarine;
-            
+
             reload.IsHoverable = true;
             reload.Pressed += new EventHandler(reload_Pressed);
 
@@ -76,7 +76,7 @@ namespace PGCGame.Screens.Multiplayer
             BackLabel.ParentSprite = BackButton;
             BackLabel.Pressed += new EventHandler(BackLabel_Pressed);
             BackLabel.Visible = true;
-            
+
             Sprites.Add(BackButton);
 
             AdditionalSprites.Add(title);
@@ -84,7 +84,7 @@ namespace PGCGame.Screens.Multiplayer
             Sprites.Add(reloadButton);
 
 #if XBOX
-            AllButtons = new GamePadButtonEnumerator(new TextSprite[,] { { reload, BackLabel } }, InputType.LeftJoystick);
+            AllButtons = new GamePadButtonEnumerator(new TextSprite[,] { { reload }, { BackLabel } }, InputType.LeftJoystick);
             AllButtons.FireTextSpritePressed = true;
 #endif
         }
@@ -139,7 +139,7 @@ namespace PGCGame.Screens.Multiplayer
         {
             AdditionalSprites.Clear();
 #if XBOX
-            List<TextSprite> allItems = new List<TextSprite>(new TextSprite[]{reload});
+            List<TextSprite> allItems = new List<TextSprite>(new TextSprite[] { reload });
 #endif
             title.Text = "Available " + (StateManager.NetworkData.SessionType == NetworkSessionType.SystemLink ? "LAN" : "LIVE") + " Sectors";
             AdditionalSprites.Add(title);
@@ -159,10 +159,10 @@ namespace PGCGame.Screens.Multiplayer
             }
 #if XBOX
             allItems.Add(BackLabel);
-            TextSprite[,] buttons = new TextSprite[1, allItems.Count];
+            TextSprite[,] buttons = new TextSprite[allItems.Count, 1];
             for (int i = 0; i < allItems.Count; i++)
             {
-                buttons[0, i] = allItems[i];
+                buttons[i, 0] = allItems[i];
             }
 
             AllButtons = new GamePadButtonEnumerator(buttons, InputType.LeftJoystick);
@@ -191,8 +191,9 @@ namespace PGCGame.Screens.Multiplayer
             lScr.UserCallbackStartsTask = false;
             lScr.UserCallback = new PGCGame.CoreTypes.Delegates.AsyncHandlerMethod(FinishJoin);
             lScr.LoadingText = "Joining\nLAN sector...";
-            lScr.ScreenFinished += new EventHandler(delegate(object evSender, EventArgs ea) {
-                StateManager.ScreenState = CoreTypes.ScreenType.MultiPlayerShipSelect; 
+            lScr.ScreenFinished += new EventHandler(delegate(object evSender, EventArgs ea)
+            {
+                StateManager.ScreenState = CoreTypes.ScreenType.MultiPlayerShipSelect;
             });
             NetworkSession.BeginJoin(sender.Session, lScr.Callback, null);
             StateManager.NetworkData.SessionMode = sender.SessionType;
