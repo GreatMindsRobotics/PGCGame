@@ -26,6 +26,11 @@ namespace PGCGame
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
+        internal bool ShowError(Exception e)
+        {
+            return ShowMissingRequirementMessage(e);
+        }
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
