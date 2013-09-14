@@ -35,7 +35,7 @@ namespace PGCGame.Ships.Enemies
                     break;
             }
 
-            enemy.WorldCoords = StateManager.RandomGenerator.NextVector2((LocationUtility)StateManager.SpawnArea.Location, StateManager.SpawnArea.Location.Cast<LocationUtility>()+new Vector2(StateManager.SpawnArea.Width, StateManager.SpawnArea.Height));
+            enemy.WorldCoords = StateManager.RandomGenerator.NextVector2((LocationUtility)StateManager.SpawnArea.Location, new Vector2(StateManager.SpawnArea.X, StateManager.SpawnArea.Y)+new Vector2(StateManager.SpawnArea.Width, StateManager.SpawnArea.Height));
 
             enemy.DistanceToNose = .5f;
 
