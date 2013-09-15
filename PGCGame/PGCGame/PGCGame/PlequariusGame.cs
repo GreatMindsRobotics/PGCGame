@@ -116,7 +116,7 @@ namespace PGCGame
             //Instantiate the singleton class HorizontalMenuBGSprite
             HorizontalMenuBGSprite scrollingBG = new HorizontalMenuBGSprite(GameContent.Assets.Images.Backgrounds.Screens[ScreenBackgrounds.GlobalScrollingBg], spriteBatch);
 
-            
+
             //Initialize screens
 
             availableNetSessions = new AvailableSessionsScreen(spriteBatch);
@@ -209,6 +209,24 @@ namespace PGCGame
         {
             base.Update(gameTime);
 
+            if (StateManager.NetworkData.IsMultiplayer)
+            {
+                //No cheating
+
+                StateManager.DebugData.BringDronesBack = false;
+                StateManager.DebugData.DebugBackground = false;
+                StateManager.DebugData.EmergencyHeal = false;
+                //StateManager.DebugData.FogOfWarEnabled= false;
+                StateManager.DebugData.InfiniteMoney = false;
+                StateManager.DebugData.InfiniteSecondaryWeapons = false;
+                StateManager.DebugData.Invincible = false;
+                StateManager.DebugData.KillAll = false;
+                StateManager.DebugData.KillYourSelf = false;
+                StateManager.DebugData.OPBullets = false;
+                StateManager.DebugData.ShipSpeedIncrease = false;
+                StateManager.DebugData.ShowShipIDs = false;
+            }
+
             screenManager.Update(gameTime);
 
             if (StateManager.DebugData.InfiniteMoney)
@@ -228,14 +246,14 @@ namespace PGCGame
             try
             {
                 screenManager.BeginDraw();
-            }  
-            catch(InvalidOperationException)
+            }
+            catch (InvalidOperationException)
             {
                 //Don't draw frame
                 return false;
             }
             return base.BeginDraw();
-            
+
         }
 
         /// <summary>
