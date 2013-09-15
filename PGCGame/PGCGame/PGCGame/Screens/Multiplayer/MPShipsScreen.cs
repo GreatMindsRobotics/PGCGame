@@ -321,12 +321,12 @@ namespace PGCGame.Screens.Multiplayer
             {
                 if (!v.Key.ID.HasValue)
                 {
-                    
+
                     BaseEnemyShip enemy = BaseEnemyShip.CreateRandomEnemy(GameScreen.World);
                     enemy.WorldCoords = new Vector2(v.Value.Value.X, v.Value.Value.Y);
                     enemy.Rotation.Radians = v.Value.Value.Z;
                     enemy.CurrentHealth = v.Value.Value.W.ToInt();
-                    
+
                     game.Sprites.Add(enemy);
                     game.enemies.Add(enemy);
                     StateManager.EnemyShips.Add(enemy);
@@ -385,7 +385,7 @@ namespace PGCGame.Screens.Multiplayer
 
             int gamersReceived = 0;
 
-            while (netGamer.IsDataAvailable && (gamersReceived < StateManager.NetworkData.CurrentSession.AllGamers.Count || StateManager.NetworkData.SessionMode == MultiplayerSessionType.Coop) )
+            while (netGamer.IsDataAvailable && (gamersReceived < StateManager.NetworkData.CurrentSession.AllGamers.Count || StateManager.NetworkData.SessionMode == MultiplayerSessionType.Coop))
             {
                 NetworkGamer infosender;
                 netGamer.ReceiveData(StateManager.NetworkData.DataReader, out infosender);
@@ -399,13 +399,10 @@ namespace PGCGame.Screens.Multiplayer
                 Vector4 ship = StateManager.NetworkData.DataReader.ReadVector4();
 
                 NetworkPlayerID targetPlayer = new NetworkPlayerID(Guid.NewGuid());
-                try
+                if (StateManager.NetworkData.DataReader.ReadBoolean())
                 {
                     targetPlayer = new NetworkPlayerID(StateManager.NetworkData.DataReader.ReadByte());
                 }
-                catch { }
-
-
 
                 ships.Add(targetPlayer, new KeyValuePair<MultiplayerTeam?, Vector4>(mpTeam, ship));
                 gamersReceived++;
@@ -566,6 +563,7 @@ namespace PGCGame.Screens.Multiplayer
             }
 
             StateManager.NetworkData.DataWriter.Write(new Vector4(my.WorldCoords.X, my.WorldCoords.Y, my.Rotation.Radians, my.CurrentHealth));
+            StateManager.NetworkData.DataWriter.Write(true);
             StateManager.NetworkData.DataWriter.Write(StateManager.NetworkData.CurrentSession.LocalGamers[0].Id);
 
             StateManager.NetworkData.CurrentSession.LocalGamers[0].SendData(StateManager.NetworkData.DataWriter, SendDataOptions.Reliable);
@@ -593,6 +591,7 @@ namespace PGCGame.Screens.Multiplayer
                 }
 
                 StateManager.NetworkData.DataWriter.Write(new Vector4(sns.WorldCoords.X, sns.WorldCoords.Y, sns.Rotation.Radians, sns.CurrentHealth));
+                StateManager.NetworkData.DataWriter.Write(true);
                 StateManager.NetworkData.DataWriter.Write(g.Id);
 
                 if (isAlly)
@@ -612,7 +611,7 @@ namespace PGCGame.Screens.Multiplayer
             {
                 for (int i = 0; i < 4; i++)
                 {
-                   
+
                     BaseEnemyShip enemy = BaseEnemyShip.CreateRandomEnemy(GameScreen.World);
                     game.Sprites.Add(enemy);
                     game.enemies.Add(enemy);
@@ -622,7 +621,7 @@ namespace PGCGame.Screens.Multiplayer
 
                     StateManager.NetworkData.DataWriter.Write(new Vector4(enemy.WorldCoords.X, enemy.WorldCoords.Y, enemy.Rotation.Radians, enemy.CurrentHealth));
                     //StateManager.NetworkData.DataWriter.Write(g.Id);
-
+                    StateManager.NetworkData.DataWriter.Write(false);
                     StateManager.EnemyShips.Add(enemy);
 
                     //StateManager.AllScreens[ScreenType.Game.ToString()].Sprites.Add(sns);
