@@ -789,8 +789,8 @@ namespace PGCGame.Screens
                 }
                 else
                 {
-                    StateManager.NetworkData.LeaveSession();
-                    StateManager.ScreenState = CoreTypes.ScreenType.NetworkSelectScreen;
+                    //StateManager.NetworkData.LeaveSession();
+                    //StateManager.ScreenState = CoreTypes.ScreenType.NetworkSelectScreen;
                 }
 
             }
