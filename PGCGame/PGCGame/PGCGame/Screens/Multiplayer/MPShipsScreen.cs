@@ -562,6 +562,12 @@ namespace PGCGame.Screens.Multiplayer
                 StateManager.NetworkData.DataWriter.Write(hostTeam.Value.ToInt());
             }
 
+            float lastHostX;
+            if (StateManager.NetworkData.SessionMode == MultiplayerSessionType.Coop)
+            {
+                my.WorldCoords = new Vector2(my.Width*1.875f, my.WorldCoords.Y);
+            }
+            lastHostX = my.WorldCoords.X;
             StateManager.NetworkData.DataWriter.Write(new Vector4(my.WorldCoords.X, my.WorldCoords.Y, my.Rotation.Radians, my.CurrentHealth));
             StateManager.NetworkData.DataWriter.Write(true);
             StateManager.NetworkData.DataWriter.Write(StateManager.NetworkData.CurrentSession.LocalGamers[0].Id);
@@ -579,6 +585,10 @@ namespace PGCGame.Screens.Multiplayer
                 sns.RotateTowardsMouse = false;
                 sns.Controller = g;
                 sns.WorldCoords = StateManager.RandomGenerator.NextVector2(new Vector2(500), new Vector2(StateManager.SpawnArea.X + StateManager.SpawnArea.Width, StateManager.SpawnArea.Y + StateManager.SpawnArea.Height));
+                if (StateManager.NetworkData.SessionMode == MultiplayerSessionType.Coop)
+                {
+                    sns.WorldCoords = new Vector2(lastHostX + my.Width, my.WorldCoords.Y);
+                }
 
                 bool isAlly = false;
 
