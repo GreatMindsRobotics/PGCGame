@@ -588,6 +588,7 @@ namespace PGCGame.Screens.Multiplayer
                 if (StateManager.NetworkData.SessionMode == MultiplayerSessionType.Coop)
                 {
                     sns.WorldCoords = new Vector2(lastHostX + my.Width, my.WorldCoords.Y);
+                    lastHostX += my.Width;
                 }
 
                 bool isAlly = false;
