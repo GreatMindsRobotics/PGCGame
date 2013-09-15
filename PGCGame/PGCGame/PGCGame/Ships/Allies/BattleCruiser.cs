@@ -48,12 +48,14 @@ namespace PGCGame
                 Scale = new Vector2(.85f);
                 Effect = SpriteEffects.FlipVertically;
                 DistanceToNose = .5f;
+                InitialHealth = 120;
                 DamagePerShot = 20;
             }
             else if (Tier == ShipTier.Tier2)
             {
 
                 Scale = new Vector2(.85f);
+                InitialHealth = 125;
                 DistanceToNose = .30f;
                 DamagePerShot = 30;
             }
@@ -62,6 +64,7 @@ namespace PGCGame
 
                 Scale = new Vector2(.85f);
                 DistanceToNose = .488f;
+                InitialHealth = 130;
                 DamagePerShot = 40;
             }
             else if (Tier == ShipTier.Tier4)
@@ -69,6 +72,7 @@ namespace PGCGame
 
                 Scale = new Vector2(.85f);
                 DistanceToNose = .5f;
+                InitialHealth = 135;
                 DamagePerShot = 50;
             }
         }
