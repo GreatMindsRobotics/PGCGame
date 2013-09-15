@@ -291,7 +291,7 @@ namespace PGCGame.Screens
             playerSbObjects.Add(miniShipInfoBg);
             playerSbObjects.Add(miniMap);
 
-            if (StateManager.DebugData.FogOfWarEnabled && !StateManager.NetworkData.IsMultiplayer)
+            if (StateManager.DebugData.FogOfWarEnabled)
             {
                 //Create fog of war array
                 // > 9x15 = Xbox lag
