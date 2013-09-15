@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace blah
 {
-    class Player : Sprite
+    public class Player : Sprite
     {
         private int _damage;
         private int _speed;
@@ -17,12 +17,15 @@ namespace blah
         private int _lastShot;
         private int _bSpeed;
 
+        private Texture2D _texture;
         private Texture2D _bulletTex;
         private List<Bullet> _bullets = new List<Bullet>();
 
-        public Player(Texture2D texture, Vector2 pos, SpriteBatch sb, int damage, int speed, int shoot, int bSpeed)
+        public Player(Texture2D texture, Texture2D bTex, Vector2 pos, SpriteBatch sb, int damage, int speed, int shoot, int bSpeed)
             : base(texture, pos, sb)
         {
+            this._texture = texture;
+            this._bulletTex = bTex;
             this._damage = damage;
             this._speed = speed;
             this._shoot = shoot;
@@ -30,7 +33,7 @@ namespace blah
             this._lastShot = 0;
         }
 
-        public override void Update(KeyboardState kState, GameTime time)
+        public void Update(KeyboardState kState, GameTime time)
         {
             base.Update();
 
@@ -42,7 +45,7 @@ namespace blah
                 {
                     this._lastShot = 0;
 
-                    this._bullets.Add(new Bullet(this._bulletTex, this.Position, this.SpriteBatch, this._damage, this._bSpeed));
+                    //this._bullets.Add(new Bullet(this._bulletTex, this.Position, this.SpriteBatch, this._damage, this._bSpeed));
                 }
             }
         }
