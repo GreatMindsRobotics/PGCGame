@@ -789,6 +789,7 @@ namespace PGCGame.Screens
                 }
                 else
                 {
+                    TintColor = Color.Red;
                     //StateManager.NetworkData.LeaveSession();
                     //StateManager.ScreenState = CoreTypes.ScreenType.NetworkSelectScreen;
                 }
