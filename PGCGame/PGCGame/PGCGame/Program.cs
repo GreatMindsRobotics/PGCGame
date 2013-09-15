@@ -1,4 +1,5 @@
 ﻿using System;
+using PGCGame.Failsafe;
 
 namespace PGCGame
 {
@@ -10,9 +11,24 @@ namespace PGCGame
         /// </summary>
         static void Main(string[] args)
         {
-            using (Game1 game = new Game1())
+            PlequariusGame mainGame = new PlequariusGame();
+            try
             {
-                game.Run();
+                mainGame.Run();
+
+            }
+            catch(Exception ex)
+            {
+                //Uh-oh Joe! Our game crashed!
+                //Time to run our "failsafe" error message box.
+                using (FailsafeErrorGame errGame = new FailsafeErrorGame(ex))
+                {
+                    errGame.Run();
+                }
+            }
+            finally
+            {
+                mainGame.Dispose();
             }
         }
     }

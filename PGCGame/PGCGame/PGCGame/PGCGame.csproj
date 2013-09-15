@@ -86,6 +86,7 @@
     <Compile Include="CoreTypes\ShipCollection.cs" />
     <Compile Include="CoreTypes\ShipStats.cs" />
     <Compile Include="CoreTypes\Utilites\LocationUtility.cs" />
+    <Compile Include="Failsafe\FailsafeErrorGame.cs" />
     <Compile Include="Screens\LevelCompleteScreen.cs" />
     <Compile Include="Screens\LoadingScreen.cs" />
     <Compile Include="Screens\Multiplayer\AvailableSessionsScreen.cs" />
@@ -127,7 +128,7 @@
     <Compile Include="Ships\Allies\FighterCarrier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Screens\GameOver.cs" />
-    <Compile Include="Game1.cs" />
+    <Compile Include="PlequariusGame.cs" />
     <Compile Include="SecondaryWeapons\SecondaryWeapon.cs" />
     <Compile Include="Ships\Enemies\BaseEnemyShip.cs" />
     <Compile Include="Ships\Enemies\EnemyBattleCruiser.cs" />

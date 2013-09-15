@@ -24,7 +24,7 @@ namespace PGCGame
     /// <summary>
     /// Main type for PGCGame
     /// </summary>
-    public class Game1 : Microsoft.Xna.Framework.Game
+    public class PlequariusGame : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -55,7 +55,7 @@ namespace PGCGame
         MulitplayerShipSelectScreen multiplayerShipSelectScreen;
 
 
-        public Game1()
+        public PlequariusGame()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
