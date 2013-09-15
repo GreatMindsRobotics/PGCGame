@@ -385,7 +385,7 @@ namespace PGCGame.Screens.Multiplayer
 
             int gamersReceived = 0;
 
-            while (netGamer.IsDataAvailable && (gamersReceived < StateManager.NetworkData.CurrentSession.AllGamers.Count || StateManager.NetworkData.SessionMode == MultiplayerSessionType.Coop))
+            while (netGamer.IsDataAvailable && (gamersReceived < StateManager.NetworkData.CurrentSession.AllGamers.Count + (StateManager.NetworkData.SessionMode == MultiplayerSessionType.Coop ? 4 : 0) ))
             {
                 NetworkGamer infosender;
                 netGamer.ReceiveData(StateManager.NetworkData.DataReader, out infosender);
