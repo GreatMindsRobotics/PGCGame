@@ -45,10 +45,12 @@ namespace PGCGame
                 Scale = new Vector2(.85f);
                 DistanceToNose = .5f;
                 DamagePerShot = 5;
+                _initHealth = 110;
             }
             else if (Tier == ShipTier.Tier2)
             {
                 Scale = new Vector2(.85f);
+                _initHealth = 120;
                 DistanceToNose = .50f;
                 DamagePerShot = 7;
             }
@@ -56,6 +58,7 @@ namespace PGCGame
             {
                 Scale = new Vector2(.85f);
                 DistanceToNose = .488f;
+                _initHealth = 130;
                 DamagePerShot = 10;
             }
             else if (Tier == ShipTier.Tier4)
@@ -63,6 +66,7 @@ namespace PGCGame
                 Scale = new Vector2(.85f);
                 DistanceToNose = .5f;
                 DamagePerShot = 15;
+                _initHealth = 140;
             }
         }
 
