@@ -17,11 +17,21 @@ namespace blah
 {
     public class Game1 : Microsoft.Xna.Framework.Game
     {
-        SpriteManager spriteManager;
+        public SpriteManager spriteManager;
 
         Screen titleScreen;
         Screen gameScreen;
         ScreenManager screenManager;
+
+        Player player;
+
+        KeyboardState keyboardState;
+        GameTime gameTime;
+
+        Texture2D bullet_blueTexture;
+        Texture2D bullet_greenTexture;
+        Texture2D bullet_yellowTexture;
+        Texture2D shipTexture;
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -48,7 +58,16 @@ namespace blah
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            spriteManager = new SpriteManager(spriteBatch /*PUT SPRITES HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/);
+            bullet_blueTexture = this.Content.Load<Texture2D>("bullet_blue");
+            bullet_greenTexture = this.Content.Load<Texture2D>("bullet_green");
+            bullet_yellowTexture = this.Content.Load<Texture2D>("bullet_yellow");
+            shipTexture = this.Content.Load<Texture2D>("spaceship");
+
+            player = new Player(shipTexture, new Vector2(this.GraphicsDevice.Viewport.Width/2-50, this.GraphicsDevice.Viewport.Height-200), spriteBatch, 1, new Vector2(0,1), 1, new Vector2(0,1));
+            player.setBulletTexture(bullet_blueTexture);
+            player.Speed = new Vector2(1,0);
+            player.Updated += new EventHandler(player_Updated);
+            spriteManager = new SpriteManager(spriteBatch, player);
 
             gameScreen = new Screen(spriteManager, Color.PapayaWhip);
             gameScreen.Visible = false;
@@ -75,6 +94,11 @@ namespace blah
             // TODO: use this.Content to load your game content here
         }
 
+        void player_Updated(object sender, EventArgs e)
+        {
+            player.updatePlayer(keyboardState, gameTime);
+        }
+
         void playLabel_Clicked(object sender, EventArgs e)
         {
             titleScreen.Visible = false;
@@ -86,12 +110,16 @@ namespace blah
             // TODO: Unload any non ContentManager content here
         }
 
-        protected override void Update(GameTime gameTime)
+        protected override void Update(GameTime gametime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
                 this.Exit();
             }
+
+            gameTime = gametime;
+
+            keyboardState = Keyboard.GetState();
          
             screenManager.Update(gameTime);
 

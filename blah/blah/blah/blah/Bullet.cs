@@ -15,19 +15,13 @@ namespace blah
     public class Bullet : Sprite
     {
         private int _damage;
-        private int _speed;
         private Player _owner;
 
-        public Bullet(Texture2D texture, Vector2 pos, SpriteBatch sb, int damage, int speed)
+        public Bullet(Texture2D texture, Vector2 pos, SpriteBatch sb, int damage, Vector2 speed)
             : base(texture, pos, sb)
         {
             this._damage = damage;
-            this._speed = speed;
-        }
-
-        public override void Update()
-        {
-            base.Update();
+            this.Speed = speed;
         }
 
         public void setDamage(int damage)
@@ -40,14 +34,14 @@ namespace blah
             return _damage;
         }
 
-        public void setSpeed(int speed)
+        public void setSpeed(Vector2 speed)
         {
-            this._speed = speed;
+            this.Speed = speed;
         }
 
-        public int getSpeed()
+        public Vector2 getSpeed()
         {
-            return _speed;
+            return Speed;
         }
 
         public void setOwner(Player owner)

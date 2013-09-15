@@ -6,36 +6,52 @@ using Glib.XNA.SpriteLib;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using blah;
 
 namespace blah
 {
+<<<<<<< HEAD
     public class Player : Sprite
+=======
+    public class Player : Sprite //Had to make this public?
+>>>>>>> Added player to the game, player functions, etc.......................................................
     {
         private int _damage;
-        private int _speed;
         private int _shoot;
         private int _lastShot;
-        private int _bSpeed;
+        private Vector2 _bSpeed;
 
         private Texture2D _texture;
         private Texture2D _bulletTex;
         private List<Bullet> _bullets = new List<Bullet>();
 
+<<<<<<< HEAD
         public Player(Texture2D texture, Texture2D bTex, Vector2 pos, SpriteBatch sb, int damage, int speed, int shoot, int bSpeed)
+=======
+        public Player(Texture2D texture, Vector2 pos, SpriteBatch sb, int damage, Vector2 speed, int shoot, Vector2 bSpeed)
+>>>>>>> Added player to the game, player functions, etc.......................................................
             : base(texture, pos, sb)
         {
             this._texture = texture;
             this._bulletTex = bTex;
             this._damage = damage;
-            this._speed = speed;
+            this.Speed = speed;
             this._shoot = shoot;
             this._bSpeed = bSpeed;
             this._lastShot = 0;
         }
 
+<<<<<<< HEAD
         public void Update(KeyboardState kState, GameTime time)
+=======
+        public void updatePlayer(KeyboardState kState, GameTime time) //OVERRIDE?
+>>>>>>> Added player to the game, player functions, etc.......................................................
         {
-            base.Update();
+
+            foreach (Bullet bullet in _bullets)
+             {
+                bullet.Update();
+            }
 
             if (kState.IsKeyDown(Keys.Space))
             {
@@ -55,27 +71,32 @@ namespace blah
             this._damage = damage;
         }
 
+        public void setBulletTexture(Texture2D bTexture)
+        {
+            this._bulletTex = bTexture;
+        }
+
         public int getDamage()
         {
             return _damage;
         }
 
-        public void setSpeed(int speed)
+        public void setSpeed(Vector2 speed)
         {
-            this._speed = speed;
+            this.Speed = speed;
         }
 
-        public int getSpeed()
+        public Vector2 getSpeed()
         {
-            return _speed;
+            return Speed;
         }
 
-        public void setBSpeed(int bSpeed)
+        public void setBSpeed(Vector2 bSpeed)
         {
             this._bSpeed = bSpeed;
         }
 
-        public int getBSpeed()
+        public Vector2 getBSpeed()
         {
             return _bSpeed;
         }
