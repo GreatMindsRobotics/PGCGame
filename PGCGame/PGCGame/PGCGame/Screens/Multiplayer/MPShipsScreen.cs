@@ -565,7 +565,7 @@ namespace PGCGame.Screens.Multiplayer
             float lastHostX;
             if (StateManager.NetworkData.SessionMode == MultiplayerSessionType.Coop)
             {
-                my.WorldCoords = new Vector2(my.Width*1.875f, my.WorldCoords.Y);
+                my.WorldCoords = new Vector2(StateManager.SpawnArea.X+my.Width*1.875f, my.WorldCoords.Y);
             }
             lastHostX = my.WorldCoords.X;
             StateManager.NetworkData.DataWriter.Write(new Vector4(my.WorldCoords.X, my.WorldCoords.Y, my.Rotation.Radians, my.CurrentHealth));
