@@ -691,7 +691,13 @@ namespace PGCGame.Screens
                     {
                         allEnemiesDead = false;
                     }
+                    else if (enemyShip.TimeDead <= MPEnemyDeadTime)
+                    {
+                        allEnemiesDead = false;
+                    }
                 }
+                
+
             }
 
             if( (_lastState.IsKeyUp(Keys.CapsLock) || _lastState.IsKeyUp(Keys.N)) && (KeyboardManager.State.IsKeyDown(Keys.CapsLock) && KeyboardManager.State.IsKeyDown(Keys.N)) )
@@ -797,7 +803,6 @@ namespace PGCGame.Screens
                     }
                     else
                     {
-                        TintColor = Color.Red;
                         if (playerShip.ShipState == ShipState.Dead && StateManager.Lives <= 0)
                         {
                             playerMinimapVisible = null;
@@ -1191,6 +1196,7 @@ namespace PGCGame.Screens
 
         bool inNightMode = false;
         RasterizerState rastState = RasterizerState.CullCounterClockwise;
+        public readonly static TimeSpan MPEnemyDeadTime = TimeSpan.FromSeconds(1.75);
 
         public override void OpenSpriteBatch(ref SpriteBatch sb)
         {

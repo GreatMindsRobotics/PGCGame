@@ -42,6 +42,8 @@ namespace PGCGame
         #endregion StaticProperties
         #region Private Fields
 
+        private TimeSpan _timeDead;
+
         public Ship(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
             : base(texture, location, spriteBatch)
         {
@@ -106,7 +108,19 @@ namespace PGCGame
         protected KeyboardState _lastKs = new KeyboardState();
 
         protected ShipState shipState;
-        public ShipState ShipState { get { return shipState; } set { shipState = value; } }
+        public ShipState ShipState
+        {
+            get { return shipState; }
+            set { if (shipState != value) { shipState = value; _timeDead = TimeSpan.Zero; } }
+        }
+
+        public TimeSpan TimeDead
+        {
+            get
+            {
+                return _timeDead;
+            }
+        }
 
         protected bool _hasHealthBar = true;
 
@@ -399,6 +413,10 @@ namespace PGCGame
 
                 _healthBar.Denominator = InitialHealth;
                 _healthBar.Value = CurrentHealth;
+            }
+            else
+            {
+                _timeDead += gt.ElapsedGameTime;
             }
         }
 
