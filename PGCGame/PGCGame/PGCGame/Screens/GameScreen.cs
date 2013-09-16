@@ -799,7 +799,7 @@ namespace PGCGame.Screens
                     }
                     else
                     {
-                        //TintColor = Color.Red;
+                        TintColor = Color.Red;
                         if (playerShip.ShipState == ShipState.Dead && StateManager.Lives <= 0)
                         {
                             playerMinimapVisible = null;
