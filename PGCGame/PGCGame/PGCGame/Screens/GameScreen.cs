@@ -789,7 +789,33 @@ namespace PGCGame.Screens
                 }
                 else
                 {
-                    TintColor = Color.Red;
+                    if (StateManager.NetworkData.SessionMode == MultiplayerSessionType.LMS)
+                    {
+                        //TODO: WE NEED A SCREEN FOR MULTIPLAYER DEAD THAT DOESN'T TOUCH THE NETWORKSESSION BUT ONLY LETS YOU LEAVE IF
+                        // 1) YOU AREN'T THE HOST
+                        // 2) NOBODY ELSE IS IN THE GAME
+                    }
+                    else
+                    {
+                        //TintColor = Color.Red;
+                        if (playerShip.ShipState == ShipState.Dead && StateManager.Lives <= 0)
+                        {
+                            playerMinimapVisible = null;
+                            _minimapYou = null;
+                            StateManager.NetworkData.LeaveSession();
+                            //StateManager.ScreenState = MULTIPLAYER DEAD SCREEN!!!!!!!!!!!!!!!!!! (MENTIONED ABOVE)
+                        }
+                        else if (playerShip.ShipState == ShipState.Dead)
+                        {
+                            StateManager.Lives--;
+                            StateManager.Deaths++;
+                            StateManager.AmountOfPointsRecievedInCurrentLevel = 0;
+                            StateManager.AmountOfSpaceBucksRecievedInCurrentLevel = 0;
+                            playerShip.CurrentHealth = playerShip.InitialHealth;
+                            playerShip.ShipState = ShipState.Alive;
+                            playerShip.WorldCoords = StateManager.RandomGenerator.NextVector2(new Vector2(500), new Vector2(StateManager.SpawnArea.X + StateManager.SpawnArea.Width, StateManager.SpawnArea.Y + StateManager.SpawnArea.Height));
+                        }
+                    }
                     //StateManager.NetworkData.LeaveSession();
                     //StateManager.ScreenState = CoreTypes.ScreenType.NetworkSelectScreen;
                 }
