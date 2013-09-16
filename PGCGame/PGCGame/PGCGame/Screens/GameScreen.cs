@@ -819,6 +819,7 @@ namespace PGCGame.Screens
                             playerShip.CurrentHealth = playerShip.InitialHealth;
                             playerShip.ShipState = ShipState.Alive;
                             playerShip.WorldCoords = StateManager.RandomGenerator.NextVector2(new Vector2(500), new Vector2(StateManager.SpawnArea.X + StateManager.SpawnArea.Width, StateManager.SpawnArea.Y + StateManager.SpawnArea.Height));
+                            TintColor = Color.White();
                         }
                     }
                     //StateManager.NetworkData.LeaveSession();
