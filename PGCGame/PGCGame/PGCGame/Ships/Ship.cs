@@ -282,6 +282,10 @@ namespace PGCGame
                     {
                         HealthChanged(this, EventArgs.Empty);
                     }
+                    if (value > 0 && (ShipState == CoreTypes.ShipState.Dead || ShipState == CoreTypes.ShipState.Exploding))
+                    {
+                        ShipState = CoreTypes.ShipState.Alive;
+                    }
                 }
             }
         }
@@ -368,7 +372,7 @@ namespace PGCGame
             if (shipState != ShipState.Dead && shipState != ShipState.Exploding)
             {
                 base.Update();
-
+                _timeDead = TimeSpan.Zero;
                 if (WorldCoords.X < 0 || WorldCoords.X >= StateManager.WorldSize.Width || WorldCoords.Y <= 0 || WorldCoords.Y >= StateManager.WorldSize.Height)
                 {
                     //"Void" effect

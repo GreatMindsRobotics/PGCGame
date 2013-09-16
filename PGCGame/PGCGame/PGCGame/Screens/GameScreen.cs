@@ -1195,7 +1195,7 @@ namespace PGCGame.Screens
 
         bool inNightMode = false;
         RasterizerState rastState = RasterizerState.CullCounterClockwise;
-        public readonly static TimeSpan MPEnemyDeadTime = TimeSpan.FromSeconds(1.75);
+        public readonly static TimeSpan MPEnemyDeadTime = TimeSpan.FromSeconds(3.5);
 
         public override void OpenSpriteBatch(ref SpriteBatch sb)
         {
