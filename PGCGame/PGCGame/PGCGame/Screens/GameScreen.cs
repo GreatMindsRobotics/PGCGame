@@ -687,7 +687,11 @@ namespace PGCGame.Screens
             {
                 foreach (Ship enemyShip in StateManager.EnemyShips)
                 {
-                    if (enemyShip.ShipState != ShipState.Dead && enemyShip.ShipState != ShipState.Exploding && enemyShip.TimeDead > (enemyShip is BaseAllyShip && (enemyShip as BaseAllyShip).Controller != null ? TimeSpan.FromTicks((enemyShip as BaseAllyShip).Controller.RoundtripTime.Ticks * 2L) : TimeSpan.FromMilliseconds(500)))
+                    if (enemyShip.ShipState != ShipState.Dead && enemyShip.ShipState != ShipState.Exploding)
+                    {
+                        allEnemiesDead = false;
+                    }
+                    else if (enemyShip.TimeDead <= (enemyShip is BaseAllyShip && (enemyShip as BaseAllyShip).Controller != null ? TimeSpan.FromTicks((enemyShip as BaseAllyShip).Controller.RoundtripTime.Ticks * 2L)+TimeSpan.FromTicks(1250L) : TimeSpan.FromMilliseconds(500)))
                     {
                         allEnemiesDead = false;
                     }
