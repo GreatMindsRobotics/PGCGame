@@ -691,7 +691,7 @@ namespace PGCGame.Screens
                     {
                         allEnemiesDead = false;
                     }
-                    else if (enemyShip.TimeDead <= (enemyShip is BaseAllyShip && (enemyShip as BaseAllyShip).Controller != null ? TimeSpan.FromTicks((enemyShip as BaseAllyShip).Controller.RoundtripTime.Ticks * 2L)+TimeSpan.FromTicks(1250L) : TimeSpan.FromMilliseconds(500)))
+                    else if (enemyShip.TimeDead <= MPEnemyDeadTime)
                     {
                         allEnemiesDead = false;
                     }
@@ -803,7 +803,6 @@ namespace PGCGame.Screens
                     }
                     else
                     {
-                        TintColor = Color.Red;
                         if (playerShip.ShipState == ShipState.Dead && StateManager.Lives <= 0)
                         {
                             playerMinimapVisible = null;
@@ -1196,6 +1195,7 @@ namespace PGCGame.Screens
 
         bool inNightMode = false;
         RasterizerState rastState = RasterizerState.CullCounterClockwise;
+        public readonly static TimeSpan MPEnemyDeadTime = TimeSpan.FromSeconds(1.75);
 
         public override void OpenSpriteBatch(ref SpriteBatch sb)
         {
