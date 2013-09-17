@@ -18,7 +18,7 @@ namespace PGCGame.Screens.Multiplayer
 
         public override void InitScreen(ScreenType screenName)
         {
-        
+            base.InitScreen(screenName);
         }
 
         public override void Update(GameTime gameTime)
