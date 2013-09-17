@@ -58,6 +58,7 @@ namespace PGCGame
         TransitionScreen transitionScreen;
         LevelCompleteScreen levelCompleteScreen;
         MulitplayerShipSelectScreen multiplayerShipSelectScreen;
+        MultiplayerLoseScreen mpLose;
 
 
         public PlequariusGame()
@@ -185,7 +186,10 @@ namespace PGCGame
             mpWin = new MultiplayerWinScreen(spriteBatch);
             mpWin.InitScreen(ScreenType.MPWinningScreen);
 
-            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen, weaponSelectScreen, upgradeScreen, tierSelectScreen, levelSelectScreen, controlScreen, networkScreen, gameOver, transitionScreen, levelCompleteScreen, loadingScreen, availableNetSessions, netMatchCreate, multiplayerShipSelectScreen, mpShipList, mpWin);
+            mpLose = new MultiplayerLoseScreen(spriteBatch);
+            mpLose.InitScreen(ScreenType.MPLoseScreen);
+
+            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen, weaponSelectScreen, upgradeScreen, tierSelectScreen, levelSelectScreen, controlScreen, networkScreen, gameOver, transitionScreen, levelCompleteScreen, loadingScreen, availableNetSessions, netMatchCreate, multiplayerShipSelectScreen, mpShipList, mpWin, mpLose);
             StateManager.AllScreens = screenManager;
             StateManager.ScreenState = ScreenType.Title;
         }
