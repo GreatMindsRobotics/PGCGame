@@ -213,23 +213,23 @@ namespace PGCGame
         {
             base.Update(gameTime);
 
-            if (StateManager.NetworkData.IsMultiplayer)
-            {
-                //No cheating
+            //if (StateManager.NetworkData.IsMultiplayer)
+            //{
+            //    //No cheating
 
-                StateManager.DebugData.BringDronesBack = false;
-                StateManager.DebugData.DebugBackground = false;
-                StateManager.DebugData.EmergencyHeal = false;
-                //StateManager.DebugData.FogOfWarEnabled= false;
-                StateManager.DebugData.InfiniteMoney = false;
-                StateManager.DebugData.InfiniteSecondaryWeapons = false;
-                StateManager.DebugData.Invincible = false;
-                StateManager.DebugData.KillAll = false;
-                StateManager.DebugData.KillYourSelf = false;
-                StateManager.DebugData.OPBullets = false;
-                StateManager.DebugData.ShipSpeedIncrease = false;
-                StateManager.DebugData.ShowShipIDs = false;
-            }
+            //    StateManager.DebugData.BringDronesBack = false;
+            //    StateManager.DebugData.DebugBackground = false;
+            //    StateManager.DebugData.EmergencyHeal = false;
+            //    //StateManager.DebugData.FogOfWarEnabled= false;
+            //    StateManager.DebugData.InfiniteMoney = false;
+            //    StateManager.DebugData.InfiniteSecondaryWeapons = false;
+            //    StateManager.DebugData.Invincible = false;
+            //    StateManager.DebugData.KillAll = false;
+            //    StateManager.DebugData.KillYourSelf = false;
+            //    StateManager.DebugData.OPBullets = false;
+            //    StateManager.DebugData.ShipSpeedIncrease = false;
+            //    StateManager.DebugData.ShowShipIDs = false;
+            //}
 
             screenManager.Update(gameTime);
 

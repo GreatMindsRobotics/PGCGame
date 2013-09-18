@@ -808,7 +808,6 @@ namespace PGCGame.Screens
                             playerMinimapVisible = null;
                             _minimapYou = null;
                             StateManager.NetworkData.LeaveSession();
-                            StateManager.ScreenState = ScreenType.MPLoseScreen;
                             //StateManager.ScreenState = MULTIPLAYER DEAD SCREEN!!!!!!!!!!!!!!!!!! (MENTIONED ABOVE)
                         }
                         else if (playerShip.ShipState == ShipState.Dead)
@@ -821,6 +820,11 @@ namespace PGCGame.Screens
                             playerShip.ShipState = ShipState.Alive;
                             playerShip.WorldCoords = StateManager.RandomGenerator.NextVector2(new Vector2(500), new Vector2(StateManager.SpawnArea.X + StateManager.SpawnArea.Width, StateManager.SpawnArea.Y + StateManager.SpawnArea.Height));
                             TintColor = Color.White;
+
+                            if(StateManager.Lives >= 5)
+                            {
+                                StateManager.ScreenState = ScreenType.MPLoseScreen;
+                            }
                         }
                     }
                     //StateManager.NetworkData.LeaveSession();
