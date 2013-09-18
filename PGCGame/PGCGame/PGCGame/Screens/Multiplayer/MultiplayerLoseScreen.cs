@@ -16,8 +16,12 @@ namespace PGCGame.Screens.Multiplayer
     {
         public MultiplayerLoseScreen(SpriteBatch sb) : base(sb, Color.Black) { }
 
+        TextSprite Lose;
+
         public override void InitScreen(ScreenType screenName)
         {
+            Lose = new TextSprite(Sprites.SpriteBatch, GameContent.Assets.Fonts.BoldText, "You Lose =(", Color.White);
+
             base.InitScreen(screenName);
         }
 

@@ -808,6 +808,7 @@ namespace PGCGame.Screens
                             playerMinimapVisible = null;
                             _minimapYou = null;
                             StateManager.NetworkData.LeaveSession();
+                            StateManager.ScreenState = ScreenType.MPLoseScreen;
                             //StateManager.ScreenState = MULTIPLAYER DEAD SCREEN!!!!!!!!!!!!!!!!!! (MENTIONED ABOVE)
                         }
                         else if (playerShip.ShipState == ShipState.Dead)
