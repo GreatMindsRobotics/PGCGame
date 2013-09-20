@@ -11,6 +11,7 @@ namespace PGCGame
         /// </summary>
         static void Main(string[] args)
         {
+#if !DEBUG
             PlequariusGame mainGame = new PlequariusGame();
             try
             {
@@ -30,6 +31,15 @@ namespace PGCGame
             {
                 mainGame.Dispose();
             }
+#else
+            using(PlequariusGame game = new PlequariusGame())
+            {
+                //Debug = Will show crash in debugger
+                game.Run();
+            }
+
+#endif
+
         }
     }
 #endif
