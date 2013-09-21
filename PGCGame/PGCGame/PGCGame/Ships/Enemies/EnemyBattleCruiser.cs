@@ -24,7 +24,7 @@ namespace PGCGame.Ships.Enemies
             killWorth = 10;
             shipState = ShipState.Alive;
 
-            BulletTexture = GameContent.Assets.Images.Ships.Bullets[ShipType.BattleCruiser, ShipTier.Tier1];
+            //BulletTexture = GameContent.Assets.Images.Ships.Bullets[ShipType.BattleCruiser, ShipTier.Tier1];
         }
 
         public override ShipType ShipType

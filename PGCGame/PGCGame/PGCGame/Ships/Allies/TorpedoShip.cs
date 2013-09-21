@@ -28,7 +28,7 @@ namespace PGCGame
             : base(texture, location, spriteBatch, isAllyShip)
         {
             Scale = new Vector2(.925f);
-            BulletTexture = GameContent.Assets.Images.Ships.Bullets[ShipType.TorpedoShip, ShipTier.Tier1];
+            //BulletTexture = GameContent.Assets.Images.Ships.Bullets[ShipType.TorpedoShip, ShipTier.Tier1];
             MovementSpeed = new Vector2(1.333f);
             //MovementSpeed = new Vector2(1f);
             DelayBetweenShots = TimeSpan.FromSeconds(.75);
@@ -76,7 +76,6 @@ namespace PGCGame
             Bullet bullet = StateManager.BulletPool.GetBullet();
             bullet.InitializePooledBullet(WorldCoords - new Vector2(Height * -DistanceToNose, Height * -DistanceToNose) * Rotation.Vector, this);
             bullet.SpriteBatch = WorldSb;
-            bullet.Texture = BulletTexture;
             
             bullet.Speed = Rotation.Vector * 6f;
             bullet.Rotation = Rotation;

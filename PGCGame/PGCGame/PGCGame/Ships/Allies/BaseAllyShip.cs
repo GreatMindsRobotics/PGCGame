@@ -102,7 +102,9 @@ namespace PGCGame.Ships.Allies
             Bullet bullet = StateManager.BulletPool.GetBullet();
             bullet.InitializePooledBullet(WorldCoords - new Vector2(Height * -DistanceToNose, Height * -DistanceToNose) * Rotation.Vector, this);
             bullet.SpriteBatch = WorldSb;
-            bullet.Texture = BulletTexture;
+
+            //Shrink ray is always laser
+            bullet.Texture = GameContent.Assets.Images.Ships.Bullets[CoreTypes.ShipType.Drone, ShipTier.Tier1];
 
             
             bullet.Speed = Rotation.Vector * 3f;

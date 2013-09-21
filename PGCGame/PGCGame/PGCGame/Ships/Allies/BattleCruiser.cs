@@ -29,7 +29,7 @@ namespace PGCGame
             : base(texture, location, spriteBatch, isAlly)
         {
             MovementSpeed = Vector2.One;
-            BulletTexture = GameContent.Assets.Images.Ships.Bullets[ShipType.BattleCruiser, ShipTier.Tier1];
+            //BulletTexture = GameContent.Assets.Images.Ships.Bullets[ShipType.BattleCruiser, ShipTier.Tier1];
             DelayBetweenShots = TimeSpan.FromSeconds(1);
             DamagePerShot = 20;
             MovementSpeed = new Vector2(.7f);

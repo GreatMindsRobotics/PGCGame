@@ -19,7 +19,7 @@ namespace PGCGame
             : base(texture, location, spriteBatch)
         {
             Scale = new Vector2(.75f);
-            BulletTexture = GameContent.Assets.Images.Ships.Bullets[ShipType.Drone, ShipTier.Tier1];
+            //BulletTexture = GameContent.Assets.Images.Ships.Bullets[ShipType.Drone, ShipTier.Tier1];
 
             DistanceToNose = .5f;
             Tier = ShipTier.Tier1;

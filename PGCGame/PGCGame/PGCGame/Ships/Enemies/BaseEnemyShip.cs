@@ -98,7 +98,6 @@ namespace PGCGame.Ships.Enemies
             Bullet bullet = StateManager.BulletPool.GetBullet();
             bullet.InitializePooledBullet(WorldCoords - new Vector2(Height * -DistanceToNose, Height * -DistanceToNose) * Rotation.Vector, this);
             bullet.SpriteBatch = WorldSb;
-            bullet.Texture = BulletTexture;
             bullet.Speed = Rotation.Vector * 3f;
             bullet.Rotation = Rotation;
             bullet.Damage = DamagePerShot;

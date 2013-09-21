@@ -80,7 +80,7 @@ namespace PGCGame
             Scale = new Vector2(.75f);
             RotateTowardsMouse = false;
             _initHealth = 10;
-            BulletTexture = GameContent.Assets.Images.Ships.Bullets[ShipType.Drone, ShipTier.Tier1];
+            //BulletTexture = GameContent.Assets.Images.Ships.Bullets[ShipType.Drone, ShipTier.Tier1];
             DamagePerShot = 1;
 #if XBOX
             GamePadManager.One.Buttons.XButtonPressed += new EventHandler(Buttons_XButtonPressed);
@@ -117,7 +117,6 @@ namespace PGCGame
                 Bullet bullet = StateManager.BulletPool.GetBullet();
                 bullet.InitializePooledBullet(WorldCoords, this);
                 bullet.SpriteBatch = WorldSb;
-                bullet.Texture = BulletTexture;
                 
                 Vector2 normalizedDistance = this.closestEnemyShipDistance.Value;
                 bullet.Rotation = new SpriteRotation(normalizedDistance.ToAngle(), AngleType.Radians);

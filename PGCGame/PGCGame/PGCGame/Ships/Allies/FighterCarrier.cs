@@ -43,7 +43,7 @@ namespace PGCGame
                 Drones[1].Rotation.Radians = MathHelper.TwoPi;
 
             }
-            BulletTexture = GameContent.Assets.Images.Ships.Bullets[ShipType.FighterCarrier, ShipTier.Tier1];
+            //BulletTexture = GameContent.Assets.Images.Ships.Bullets[ShipType.FighterCarrier, ShipTier.Tier1];
             DelayBetweenShots = TimeSpan.FromMilliseconds(100);
             DamagePerShot = 2;
             _initHealth = 100;

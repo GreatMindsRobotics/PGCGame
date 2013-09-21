@@ -101,7 +101,7 @@ namespace PGCGame
         //Update
         //DrawNonAuto
 
-        public Texture2D BulletTexture { get; set; }
+        //public Texture2D BulletTexture { get; set; }
 
         public SpriteBatch WorldSb;
         //private TimeSpan _elapsedShotTime = new TimeSpan();
