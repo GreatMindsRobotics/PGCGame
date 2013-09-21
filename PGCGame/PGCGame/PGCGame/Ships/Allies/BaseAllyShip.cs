@@ -104,7 +104,7 @@ namespace PGCGame.Ships.Allies
             bullet.SpriteBatch = WorldSb;
 
             //Shrink ray is always laser
-            bullet.Texture = GameContent.Assets.Images.Ships.Bullets[CoreTypes.ShipType.Drone, ShipTier.Tier1];
+            bullet.Texture = GameContent.Assets.Images.Ships.Bullets.Laser;
 
             
             bullet.Speed = Rotation.Vector * 3f;
