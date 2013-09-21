@@ -268,6 +268,13 @@ namespace PGCGame.CoreTypes
                         //TEMP
                         for (int i = ShipTier.Tier1.ToInt(); i <= ShipTier.Tier4.ToInt(); i++)
                         {
+                            _bulletTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.EnemyBattleCruiser, Enum.Parse(typeof(ShipTier), i.ToString(), true).Cast<ShipTier>()), content.Load<Texture2D>("Images\\TempBullets\\Laser"));
+                            _bulletTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.EnemyFighterCarrier, Enum.Parse(typeof(ShipTier), i.ToString(), true).Cast<ShipTier>()), content.Load<Texture2D>("Images\\TempBullets\\Laser"));
+                            _bulletTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.EnemyTorpedoShip, Enum.Parse(typeof(ShipTier), i.ToString(), true).Cast<ShipTier>()), _textureFactory.CreateRectangle(5, 3, Color.Red));
+                            _bulletTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.EnemyBoss, Enum.Parse(typeof(ShipTier), i.ToString(), true).Cast<ShipTier>()), content.Load<Texture2D>("Images\\TempBullets\\Laser"));
+                            _bulletTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.EnemyBossesClones, Enum.Parse(typeof(ShipTier), i.ToString(), true).Cast<ShipTier>()), content.Load<Texture2D>("Images\\TempBullets\\Laser"));
+                            _bulletTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.EnemyDrone, Enum.Parse(typeof(ShipTier), i.ToString(), true).Cast<ShipTier>()), content.Load<Texture2D>("Images\\TempBullets\\Laser"));
+
                             _bulletTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.BattleCruiser, Enum.Parse(typeof(ShipTier), i.ToString(), true).Cast<ShipTier>()), content.Load<Texture2D>("Images\\TempBullets\\Laser"));
                             _bulletTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.FighterCarrier, Enum.Parse(typeof(ShipTier), i.ToString(), true).Cast<ShipTier>()), content.Load<Texture2D>("Images\\TempBullets\\Laser"));
                             _bulletTextures.Add(new KeyValuePair<ShipType, ShipTier>(ShipType.TorpedoShip, Enum.Parse(typeof(ShipTier), i.ToString(), true).Cast<ShipTier>()), _textureFactory.CreateRectangle(5, 3, Color.Red));
