@@ -14,6 +14,7 @@ using Microsoft.Xna.Framework.Media;
 using Glib.XNA;
 using Glib;
 using Glib.XNA.SpriteLib;
+using PGCGame.CoreTypes;
 
 
 namespace PGCGame
@@ -56,6 +57,19 @@ namespace PGCGame
             {
                 return _traveledDistance;
             }
+        }
+
+        /// <summary>
+        /// Initialize a bullet that has been retrieved from the pool.
+        /// </summary>
+        public void InitializePooledBullet(Vector2 pos, Ship parent)
+        {
+            _isDead = false;
+            Position = pos;
+            ParentShip = parent;
+            Texture = GameContent.Assets.Images.Ships.Bullets[ParentShip.ShipType, ParentShip.Tier];
+            _traveledDistance = Vector2.Zero;
+            MaximumDistance = new Vector2(4000f);
         }
 
         private bool _isDead = false;
