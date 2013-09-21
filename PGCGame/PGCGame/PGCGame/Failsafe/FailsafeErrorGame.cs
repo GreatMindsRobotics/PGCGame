@@ -54,9 +54,9 @@ namespace PGCGame.Failsafe
             parentButton.Position = parentButton.GetCenterPosition(GraphicsDevice.Viewport);
 
             TextSprite title = new TextSprite(spriteBatch, Content.Load<SpriteFont>("Fonts\\SegoeUIMonoBold"), "Runtime Error in PGCGame", Color.Red);
-#if DEBUG
+
             title.Text += ": " + this.error.GetType().FullName;
-#endif
+
             title.X = title.GetCenterPosition(GraphicsDevice.Viewport).X;
             title.Y = 5;
             mainScreen.AdditionalSprites.Add(title);
@@ -66,12 +66,10 @@ namespace PGCGame.Failsafe
             details.X = details.GetCenterPosition(GraphicsDevice.Viewport).X;
             mainScreen.AdditionalSprites.Add(details);
 
-#if DEBUG
             TextSprite exceptMsg = new TextSprite(spriteBatch, Content.Load<SpriteFont>("Fonts\\SegoeUIMono"), error.Message, Color.White);
             exceptMsg.X = exceptMsg.GetCenterPosition(GraphicsDevice.Viewport).X;
             exceptMsg.Y = details.Y + 1 + details.Height;
             mainScreen.AdditionalSprites.Add(exceptMsg);
-#endif
 
             TextSprite reportError = new TextSprite(spriteBatch, Content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "Report Error", Color.White);
             reportError.IsHoverable = true;
