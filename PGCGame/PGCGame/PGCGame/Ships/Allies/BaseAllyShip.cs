@@ -99,7 +99,12 @@ namespace PGCGame.Ships.Allies
 
         public virtual void ShrinkRayShoot(ShrinkRay bulletShooter)
         {
-            Bullet bullet = new Bullet(BulletTexture, WorldCoords - new Vector2(Height * -DistanceToNose, Height * -DistanceToNose) * Rotation.Vector, WorldSb, this);
+            Bullet bullet = StateManager.BulletPool.GetBullet();
+            bullet.InitializePooledBullet(WorldCoords - new Vector2(Height * -DistanceToNose, Height * -DistanceToNose) * Rotation.Vector, this);
+            bullet.SpriteBatch = WorldSb;
+            bullet.Texture = BulletTexture;
+
+            
             bullet.Speed = Rotation.Vector * 3f;
             bullet.Rotation = Rotation;
             bullet.Damage = 0;

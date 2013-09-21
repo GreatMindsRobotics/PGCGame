@@ -892,6 +892,7 @@ namespace PGCGame.Screens
                 b.IsDead = b.IsDead || b.X <= 0 || b.X >= bg.TotalWidth || b.Y <= 0 || b.Y >= bg.TotalHeight;
                 if (b.IsDead)
                 {
+                    StateManager.BulletPool.ReturnBullet(StateManager.AllyBullets.Legit[i]);
                     StateManager.AllyBullets.Legit.RemoveAt(i);
                     i--;
                 }
@@ -927,6 +928,7 @@ namespace PGCGame.Screens
                 b.IsDead = b.IsDead || b.X <= 0 || b.X >= bg.TotalWidth || b.Y <= 0 || b.Y >= bg.TotalHeight;
                 if (b.IsDead)
                 {
+                    StateManager.BulletPool.ReturnBullet(StateManager.EnemyBullets.Legit[i]);
                     StateManager.EnemyBullets.Legit.RemoveAt(i);
                     i--;
                 }
@@ -940,6 +942,7 @@ namespace PGCGame.Screens
                 b.IsDead = b.IsDead || b.X <= 0 || b.X >= bg.TotalWidth || b.Y <= 0 || b.Y >= bg.TotalHeight;
                 if (b.IsDead)
                 {
+                    StateManager.BulletPool.ReturnBullet(StateManager.AllyBullets.Dud[i]);
                     StateManager.AllyBullets.Dud.RemoveAt(i);
                     i--;
                 }
@@ -952,6 +955,7 @@ namespace PGCGame.Screens
                 b.IsDead = b.IsDead || b.X <= 0 || b.X >= bg.TotalWidth || b.Y <= 0 || b.Y >= bg.TotalHeight;
                 if (b.IsDead)
                 {
+                    StateManager.BulletPool.ReturnBullet(StateManager.EnemyBullets.Dud[i]);
                     StateManager.EnemyBullets.Dud.RemoveAt(i);
                     i--;
                 }
@@ -1158,7 +1162,12 @@ namespace PGCGame.Screens
                                 senderAlly = true;
                                 parent = StateManager.AllyShips[dataSender];
                             }
-                            Bullet newBullet = new Bullet(GameContent.Assets.Images.Ships.Bullets[(ShipType)Enum.Parse(typeof(ShipType), addlData.Z.ToInt().ToString(), true), (ShipTier)Enum.Parse(typeof(ShipTier), addlData.W.ToInt().ToString(), true)], new Vector2(bulletData.X, bulletData.Y), World, parent);
+                            //Bullet newBullet = new Bullet(GameContent.Assets.Images.Ships.Bullets[(ShipType)Enum.Parse(typeof(ShipType), addlData.Z.ToInt().ToString(), true), (ShipTier)Enum.Parse(typeof(ShipTier), addlData.W.ToInt().ToString(), true)], new Vector2(bulletData.X, bulletData.Y), World, parent);
+                            Bullet newBullet = StateManager.BulletPool.GetBullet();
+                            newBullet.InitializePooledBullet(new Vector2(bulletData.X, bulletData.Y), parent);
+                            newBullet.SpriteBatch = World;
+                            newBullet.Texture = GameContent.Assets.Images.Ships.Bullets[(ShipType)Enum.Parse(typeof(ShipType), addlData.Z.ToInt().ToString(), true), (ShipTier)Enum.Parse(typeof(ShipTier), addlData.W.ToInt().ToString(), true)];
+                            
                             newBullet.Speed = new Vector2(bulletData.Z, bulletData.W);
                             newBullet.Rotation = SpriteRotation.FromRadians(addlData.Y);
                             newBullet.Damage = addlData.X.ToInt();

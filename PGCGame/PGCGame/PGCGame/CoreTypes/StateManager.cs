@@ -19,7 +19,7 @@ namespace PGCGame
     public static class StateManager
     {
         #region Private Fields
-
+        private static BulletPool _bulletPool;
         private static Game _game;
         private static bool _hasBoughtScanner = false;
         public static int HealthPacks = 0;
@@ -113,6 +113,12 @@ namespace PGCGame
         /// </summary>
         public static void Reset()
         {
+            AllyBullets = new BulletCollection();
+            EnemyBullets = new BulletCollection();
+            if (_bulletPool == null)
+            {
+                _bulletPool = new BulletPool();
+            }
             Screens.Shop.firstShop = true;
             nextLevel = false;
             HighestUnlockedLevel = GameLevel.Level1;
@@ -160,6 +166,22 @@ namespace PGCGame
         #endregion Public Fields
 
         #region Public Properties
+
+        /// <summary>
+        /// Gets the current pool of bullets.
+        /// </summary>
+        public static BulletPool BulletPool
+        {
+            get
+            {
+                if (_bulletPool == null)
+                {
+                    _bulletPool = new BulletPool();
+                }
+                return _bulletPool;
+            }
+        }
+
 
         public static event EventHandler<ViewportEventArgs> ScreenResolutionChanged
         {

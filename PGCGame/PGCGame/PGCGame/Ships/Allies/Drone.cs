@@ -114,7 +114,11 @@ namespace PGCGame
             {
                 //Glen's experiment
                 DroneShoot = GameContent.Assets.Sound[SoundEffectType.DronesShoot];
-                Bullet bullet = new Bullet(BulletTexture, WorldCoords, WorldSb, this);
+                Bullet bullet = StateManager.BulletPool.GetBullet();
+                bullet.InitializePooledBullet(WorldCoords, this);
+                bullet.SpriteBatch = WorldSb;
+                bullet.Texture = BulletTexture;
+                
                 Vector2 normalizedDistance = this.closestEnemyShipDistance.Value;
                 bullet.Rotation = new SpriteRotation(normalizedDistance.ToAngle(), AngleType.Radians);
                 normalizedDistance.Normalize();

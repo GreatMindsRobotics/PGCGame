@@ -69,8 +69,8 @@ namespace PGCGame.CoreTypes
 
             if (Count <= 5)
             {
-                //Refill the pool
-                while (Count <= 500)
+                //Refill the pool, but we should have bullets returned, so not too much
+                while (Count <= 20)
                 {
                     PushInternal(new Bullet(GameContent.Assets.Images.Ships.Bullets[ShipType.BattleCruiser, ShipTier.Tier1], Vector2.Zero, GameScreen.World, null));
                 }
