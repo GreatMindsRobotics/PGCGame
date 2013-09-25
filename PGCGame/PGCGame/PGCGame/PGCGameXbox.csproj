@@ -182,9 +182,6 @@
     <None Include="Ships\ShipDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="GlenLibrary">
-      <HintPath>..\..\GlenLibrary.dll</HintPath>
-    </Reference>
     <Reference Include="GlibXNAXbox">
       <HintPath>..\..\GlibXNAXbox.dll</HintPath>
     </Reference>
