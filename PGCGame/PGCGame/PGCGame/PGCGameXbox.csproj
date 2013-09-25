@@ -182,8 +182,11 @@
     <None Include="Ships\ShipDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="GlibXbox">
-      <HintPath>..\..\GlibXbox.dll</HintPath>
+    <Reference Include="GlenLibrary">
+      <HintPath>..\..\GlenLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="GlibXNAXbox">
+      <HintPath>..\..\GlibXNAXbox.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework" />
     <Reference Include="Microsoft.Xna.Framework.Game" />
