@@ -292,56 +292,6 @@
             Gets or sets the height of the ScreenRegion.
             </summary>
         </member>
-        <member name="E:Glib.XNA.InputLib.ScreenRegion.MouseEnter">
-            <summary>
-            An event called when a mouse enters this ScreenRegion.
-            </summary>
-        </member>
-        <member name="E:Glib.XNA.InputLib.ScreenRegion.MouseLeave">
-            <summary>
-            An event called when a mouse leaves this ScreenRegion.
-            </summary>
-        </member>
-        <member name="E:Glib.XNA.InputLib.ScreenRegion.LeftMouseClick">
-            <summary>
-            An event called when there is a left mouse click in this region.
-            </summary>
-        </member>
-        <member name="E:Glib.XNA.InputLib.ScreenRegion.RightMouseClick">
-            <summary>
-            An event called when there is a right mouse click (AKA a right click) in this region.
-            </summary>
-        </member>
-        <member name="T:Glib.XNA.InputLib.MouseManager">
-            <summary>
-            Represents a manager of mouse events and data.
-            </summary>
-        </member>
-        <member name="M:Glib.XNA.InputLib.MouseManager.Update">
-            <summary>
-            Update the MouseManager.
-            </summary>
-        </member>
-        <member name="P:Glib.XNA.InputLib.MouseManager.CurrentMouseState">
-            <summary>
-            Gets the current mouse state.
-            </summary>
-        </member>
-        <member name="P:Glib.XNA.InputLib.MouseManager.LastMouseState">
-            <summary>
-            Gets the last known mouse state before the current mouse state.
-            </summary>
-        </member>
-        <member name="E:Glib.XNA.InputLib.MouseManager.Updated">
-            <summary>
-            An event fired after the update of the MouseManager, but before the assignment of LastMouseState.
-            </summary>
-        </member>
-        <member name="P:Glib.XNA.InputLib.MouseManager.AllRegions">
-            <summary>
-            Gets a list of all known updated SreenRegion objects.
-            </summary>
-        </member>
         <member name="T:Glib.XNA.SpriteLib.BackgroundSprite">
             <summary>
             Represents a background Sprite which tiles a background.
@@ -516,32 +466,12 @@
             Call the drawn event after drawing of the Sprite.
             </summary>
         </member>
-        <member name="M:Glib.XNA.SpriteLib.Sprite.ClickCheck(Microsoft.Xna.Framework.Input.MouseState)">
-            <summary>
-            Checks whether the user is clicking on the sprite.
-            </summary>
-            <param name="ms">The current MouseState.</param>
-            <returns>Whether or not the mouse, based on the given MouseState, is clicking on this Sprite.</returns>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.Sprite.ClickCheck">
-            <summary>
-            Checks whether the user is clicking on the sprite, using the MouseState of InputLib.Mouse.MouseManager.
-            </summary>
-            <returns>Whether or not the mouse is clicking on this Sprite.</returns>
-        </member>
         <member name="M:Glib.XNA.SpriteLib.Sprite.Intersects(Microsoft.Xna.Framework.Vector2)">
             <summary>
             Checks whether the given point intersects with the sprite.
             </summary>
             <param name="pos">The position to check.</param>
             <returns>Whether or not the specified position intersects with this Sprite.</returns>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.Sprite.Intersects(Microsoft.Xna.Framework.Input.MouseState)">
-            <summary>
-            Checks whether the specified MouseState's pointer intersects with this sprite.
-            </summary>
-            <param name="ms">The MouseState to check intersection against.</param>
-            <returns>Whether or not the specified mouse position intersects with this Sprite.</returns>
         </member>
         <member name="M:Glib.XNA.SpriteLib.Sprite.Intersects(Microsoft.Xna.Framework.Rectangle)">
             <summary>
@@ -573,27 +503,6 @@
             Remove this Sprite from it's associated SpriteManager.
             </summary>
             <exception cref="T:System.NullReferenceException">If there is no associated SpriteManager (the SpriteManager property is null).</exception>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.Sprite.FollowMouse(Glib.XNA.SpriteLib.SpriteRotation,System.Single)">
-            <summary>
-            Follow the mouse pointer.
-            </summary>
-            <remarks>
-            Uses the InputLib.Mouse.MouseManager.CurrentMouseState.
-            </remarks>
-            <param name="initialRotation">The offset rotation to use in adjusting the Sprite's rotation towards the mouse.</param>
-            <param name="speed">The speed of following.</param>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.Sprite.FollowMouse">
-            <summary>
-            Follow the mouse pointer at .05 speed.
-            </summary>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.Sprite.FollowMouse(System.Single)">
-            <summary>
-            Follow the mouse pointer.
-            </summary>
-            <param name="speed">The speed of following.</param>
         </member>
         <member name="M:Glib.XNA.SpriteLib.Sprite.Update">
             <summary>
@@ -684,16 +593,6 @@
         <member name="P:Glib.XNA.SpriteLib.Sprite.Position">
             <summary>
             The current position of the sprite.
-            </summary>
-        </member>
-        <member name="E:Glib.XNA.SpriteLib.Sprite.MouseEnter">
-            <summary>
-            An event called when the mouse enters the area of the Sprite.
-            </summary>
-        </member>
-        <member name="E:Glib.XNA.SpriteLib.Sprite.MouseLeave">
-            <summary>
-            An event called when the mouse leaves the area of the Sprite.
             </summary>
         </member>
         <member name="P:Glib.XNA.SpriteLib.Sprite.Rectangle">
@@ -798,6 +697,13 @@
             <param name="obj">The sizable object to center.</param>
             <param name="centerTo">The viewport to center the ISizable to.</param>
             <returns>The position which would be required to center the specified sizable object.</returns>
+        </member>
+        <member name="M:Glib.XNA.XnaExtensions.Inverse(Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Calculates the inverse of the specified vector (where new.X = orig.Y and new.Y = orig.X).
+            </summary>
+            <param name="vector">The vector to invert.</param>
+            <returns>The inverse of the specified vector.</returns>
         </member>
         <member name="M:Glib.XNA.XnaExtensions.GetCenterPosition(Glib.XNA.ISizable,Microsoft.Xna.Framework.Graphics.Viewport,Microsoft.Xna.Framework.Vector2)">
             <summary>
@@ -1117,11 +1023,6 @@
         <member name="P:Glib.XNA.SpriteLib.TextSprite.Visible">
             <summary>
             Gets or sets a boolean indicating whether or not this TextSprite is visible.
-            </summary>
-        </member>
-        <member name="E:Glib.XNA.SpriteLib.TextSprite.Clicked">
-            <summary>
-            An event fired after every click of this TextSprite.
             </summary>
         </member>
         <member name="E:Glib.XNA.SpriteLib.TextSprite.Pressed">
@@ -2195,6 +2096,205 @@
             This operation is expensive, so make minimal calls to it.
             </remarks>
         </member>
+        <member name="T:Glib.SupplementaryExtensions">
+            <summary>
+            A class providing extension methods that are present in the core library, which cannot be used on Xbox projects.
+            </summary>
+        </member>
+        <member name="M:Glib.SupplementaryExtensions.ToInt(System.Object)">
+            <summary>
+            Convert the specified object to an integer.
+            </summary>
+            <param name="o">The object to convert to an integer.</param>
+            <returns>The integer representation of the specified object.</returns>
+        </member>
+        <member name="M:Glib.SupplementaryExtensions.ToArrayString(System.Array)">
+            <summary>
+            Convert an array to a string, using space as a delimiter.
+            </summary>
+            <param name="array">The array to convert.</param>
+            <returns>All elements of the array delimited by delimiter in a string.</returns>
+        </member>
+        <member name="M:Glib.SupplementaryExtensions.ToArrayString(System.Array,System.String)">
+            <summary>
+            Convert an array to a string.
+            </summary>
+            <param name="array">The array to convert.</param>
+            <param name="delimiter">The delimiter between elements.</param>
+            <returns>All elements of the array delimited by delimiter in a string.</returns>
+        </member>
+        <member name="M:Glib.SupplementaryExtensions.Format(System.String,System.Object[])">
+            <summary>
+            Format the specified string, using String.Format(String, Object[]).
+            </summary>
+            <param name="s">String.Format(String, Object[])'s first argument.</param>
+            <param name="formatElements">The array of objects to go into String.Format(String, Object[])'s 2nd argument.</param>
+            <returns>The formatted string.</returns>
+        </member>
+        <member name="M:Glib.SupplementaryExtensions.Format(System.String,System.String@,System.Object[])">
+            <summary>
+            Format the specified string, using String.Format(String, Object[]), and sending the results to output.
+            </summary>
+            <param name="s">String.Format(String, Object[])'s first argument.</param>
+            <param name="output">The string to output the results to.</param>
+            <param name="formatElements">The array of objects to go into String.Format(String, Object[])'s 2nd argument.</param>
+        </member>
+        <member name="M:Glib.SupplementaryExtensions.RaiseToPower(System.Double,System.Double)">
+            <summary>
+            Raise the specified number to a power.
+            </summary>
+            <param name="d">The number to raise to a power.</param>
+            <param name="power">The power to raise a number to.</param>
+            <returns>The number risen to a power.</returns>
+        </member>
+        <member name="M:Glib.SupplementaryExtensions.RaiseToPower(System.Single,System.Double)">
+            <summary>
+            Raise the specified number to the specified power.
+            </summary>
+            <param name="d">The number to raise to a power.</param>
+            <param name="power">The power to raise the number to.</param>
+            <returns>The number risen to the specified power.</returns>
+        </member>
+        <member name="M:Glib.SupplementaryExtensions.RaiseToPower(System.Int16,System.Double)">
+            <summary>
+            Raise the specified number to the specified power.
+            </summary>
+            <param name="d">The number to raise to a power.</param>
+            <param name="power">The power to raise the number to.</param>
+            <returns>The number risen to the specified power.</returns>
+        </member>
+        <member name="M:Glib.SupplementaryExtensions.RaiseToPower(System.Int32,System.Double)">
+            <summary>
+            Raise the specified number to the specified power.
+            </summary>
+            <param name="d">The number to raise to a power.</param>
+            <param name="power">The power to raise the number to.</param>
+            <returns>The number risen to the specified power.</returns>
+        </member>
+        <member name="M:Glib.SupplementaryExtensions.RaiseToPower(System.Decimal,System.Double)">
+            <summary>
+            Raise the specified number to the specified power.
+            </summary>
+            <param name="d">The number to raise to a power.</param>
+            <param name="power">The power to raise the number to.</param>
+            <returns>The number risen to the specified power.</returns>
+        </member>
+        <member name="M:Glib.SupplementaryExtensions.RaiseToPower(System.Int64,System.Double)">
+            <summary>
+            Raise the specified number to the specified power.
+            </summary>
+            <param name="d">The number to raise to a power.</param>
+            <param name="power">The power to raise the number to.</param>
+            <returns>The number risen to the specified power.</returns>
+        </member>
+        <member name="M:Glib.SupplementaryExtensions.ToDecimal(System.Object)">
+            <summary>
+            Convert the specified object into a decimal.
+            </summary>
+            <param name="o">The object to convert to a decimal.</param>
+            <returns>The object represented as a decimal.</returns>
+        </member>
+        <member name="M:Glib.SupplementaryExtensions.ToShort(System.Object)">
+            <summary>
+            Convert the specified object to a short.
+            </summary>
+            <param name="o">The object to convert.</param>
+            <returns>The short representation of the specified object.</returns>
+        </member>
+        <member name="M:Glib.SupplementaryExtensions.ToLong(System.Object)">
+            <summary>
+            Convert the specified object to a long.
+            </summary>
+            <param name="o">The object to convert.</param>
+            <returns>The long representation of the specified object.</returns>
+        </member>
+        <member name="M:Glib.SupplementaryExtensions.ToFloat(System.Object)">
+            <summary>
+            Convert the specified object to a single-precision floating point number.
+            </summary>
+            <param name="o">The object to convert.</param>
+            <returns>The object represented as a float.</returns>
+        </member>
+        <member name="M:Glib.SupplementaryExtensions.ToDouble(System.Object)">
+            <summary>
+            Convert the specified object to a double-precision floating point number.
+            </summary>
+            <param name="o">The object to convert.</param>
+            <returns>The object represented as a double.</returns>
+        </member>
+        <member name="M:Glib.SupplementaryExtensions.ToBoolean(System.Object)">
+            <summary>
+            Convert the specified object to a boolean.
+            </summary>
+            <param name="o">The object to convert.</param>
+            <returns>The boolean representation of the specified object.</returns>
+        </member>
+        <member name="M:Glib.SupplementaryExtensions.ToUnsignedShort(System.Object)">
+            <summary>
+            Convert the specified object to an unsigned short.
+            </summary>
+            <param name="o">The object to convert.</param>
+            <returns>The ushort representation of the specified object.</returns>
+        </member>
+        <member name="M:Glib.SupplementaryExtensions.ToUnsignedInt(System.Object)">
+            <summary>
+            Convert the specified object to a uint.
+            </summary>
+            <param name="o">The object to convert.</param>
+            <returns>This object represented as a UInt32.</returns>
+        </member>
+        <member name="M:Glib.SupplementaryExtensions.ToUnsignedLong(System.Object)">
+            <summary>
+            Convert this object to an unsigned long.
+            </summary>
+            <param name="o">The object to convert.</param>
+            <returns>The unsigned long representation of the specified object.</returns>
+        </member>
+        <member name="M:Glib.SupplementaryExtensions.Round(System.Single)">
+            <summary>
+            Round a float to the nearest whole number.
+            </summary>
+            <param name="f">The floating-point number to round</param>
+            <returns>The number rounded to the nearest integer</returns>
+        </member>
+        <member name="M:Glib.SupplementaryExtensions.Round(System.Double)">
+            <summary>
+            Round a double to the nearest whole number.
+            </summary>
+            <param name="d">The floating-point number to round</param>
+            <returns>The number rounded to the nearest integer</returns>
+        </member>
+        <member name="M:Glib.SupplementaryExtensions.Round(System.Decimal)">
+            <summary>
+            Round a decimal to the nearest whole number.
+            </summary>
+            <param name="d">The decimal number to round</param>
+            <returns>The number rounded to the nearest integer</returns>
+        </member>
+        <member name="M:Glib.SupplementaryExtensions.Implements(System.Type,System.Type)">
+            <summary>
+            Check if a type implements a given interface.
+            </summary>
+            <param name="cT">The type to check implementation of an interface on</param>
+            <param name="t">The interface to check</param>
+            <returns>Whether or not the object implements the given interface</returns>
+        </member>
+        <member name="M:Glib.SupplementaryExtensions.Cast``1(System.Object)">
+            <summary>
+            Cast this object to the specified type.
+            </summary>
+            <typeparam name="T">The type to cast the object to.</typeparam>
+            <param name="o">The object to cast.</param>
+            <returns>The object casted to T.</returns>
+        </member>
+        <member name="M:Glib.SupplementaryExtensions.Cast``1(System.Object,``0@)">
+            <summary>
+            Cast this object to the specified type, and output the casted object to a variable.
+            </summary>
+            <typeparam name="T">The type to cast the object to.</typeparam>
+            <param name="o">The object to cast.</param>
+            <param name="castedObj">The object casted to T.</param>
+        </member>
         <member name="T:Glib.XNA.SpriteLib.TextBoxSprite">
             <summary>
             A Sprite which accepts Text as input.
@@ -2856,39 +2956,6 @@
             The <see cref="N:Glib.XNA"/> namespace provides various XNA utilities and classes.
             </summary>
         </member>
-        <member name="T:Glib.XNA.SpriteLib.MouseFollowParams">
-            <summary>
-            The parameters to use for automatically following the mouse every update.
-            </summary>
-        </member>
-        <member name="F:Glib.XNA.SpriteLib.MouseFollowParams.MouseFollowSpeed">
-            <summary>
-            The speed of mouse following.
-            </summary>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.MouseFollowParams.#ctor(System.Single)">
-            <summary>
-            Creates a new MouseFollowParams.
-            </summary>
-            <param name="speed">The speed of mouse following.</param>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.MouseFollowParams.#ctor(System.Single,Glib.XNA.SpriteLib.SpriteRotation)">
-            <summary>
-            Creates a new MouseFollowParams.
-            </summary>
-            <param name="speed">The speed of mouse following.</param>
-            <param name="initialRotation">The initial rotation of the Sprite.</param>
-        </member>
-        <member name="F:Glib.XNA.SpriteLib.MouseFollowParams.InitialRotation">
-            <summary>
-            The initial rotation of the Sprite.
-            </summary>
-        </member>
-        <member name="P:Glib.XNA.SpriteLib.MouseFollowParams.DoesFollow">
-            <summary>
-            Gets a boolean indicating whether or not the mouse is being followed.
-            </summary>
-        </member>
         <member name="T:Glib.XNA.SpriteLib.UpdateParamaters">
             <summary>
             A structure representing things to automatically do when Update() is called on a Sprite.
@@ -2897,11 +2964,6 @@
         <member name="F:Glib.XNA.SpriteLib.UpdateParamaters.UpdateX">
             <summary>
             Whether or not to acknowledge the XSpeed value.
-            </summary>
-        </member>
-        <member name="F:Glib.XNA.SpriteLib.UpdateParamaters.MouseFollow">
-            <summary>
-            The parameters for automatic mouse following.
             </summary>
         </member>
         <member name="F:Glib.XNA.SpriteLib.UpdateParamaters.UpdateY">
@@ -2921,14 +2983,6 @@
             <param name="UpdateXParam">Whether or not to acknowledge the XIncrease value.</param>
             <param name="UpdateYParam">Whether or not to acknowledge the YIncrease value.</param>
             <param name="FixEdgeOffParam">Whether or not to automatically fix the sprite from going off the edge.</param>
-        </member>
-        <member name="M:Glib.XNA.SpriteLib.UpdateParamaters.#ctor(System.Boolean,System.Boolean,Glib.XNA.SpriteLib.MouseFollowParams)">
-            <summary>
-            Create a new UpdateParamaters with the values specified.
-            </summary>
-            <param name="UpdateXParam">Whether or not to acknowledge the XIncrease value.</param>
-            <param name="UpdateYParam">Whether or not to acknowledge the YIncrease value.</param>
-            <param name="followParams">The parameters for mouse following.</param>
         </member>
         <member name="M:Glib.XNA.SpriteLib.UpdateParamaters.#ctor(System.Boolean,System.Boolean)">
             <summary>
@@ -3061,205 +3115,6 @@
             <summary>
             An edge representing the right side of a viewport.
             </summary>
-        </member>
-        <member name="T:Glib.SupplementaryExtensions">
-            <summary>
-            A class providing extension methods that are present in the core library, which cannot be used on Xbox projects.
-            </summary>
-        </member>
-        <member name="M:Glib.SupplementaryExtensions.ToInt(System.Object)">
-            <summary>
-            Convert the specified object to an integer.
-            </summary>
-            <param name="o">The object to convert to an integer.</param>
-            <returns>The integer representation of the specified object.</returns>
-        </member>
-        <member name="M:Glib.SupplementaryExtensions.ToArrayString(System.Array)">
-            <summary>
-            Convert an array to a string, using space as a delimiter.
-            </summary>
-            <param name="array">The array to convert.</param>
-            <returns>All elements of the array delimited by delimiter in a string.</returns>
-        </member>
-        <member name="M:Glib.SupplementaryExtensions.ToArrayString(System.Array,System.String)">
-            <summary>
-            Convert an array to a string.
-            </summary>
-            <param name="array">The array to convert.</param>
-            <param name="delimiter">The delimiter between elements.</param>
-            <returns>All elements of the array delimited by delimiter in a string.</returns>
-        </member>
-        <member name="M:Glib.SupplementaryExtensions.Format(System.String,System.Object[])">
-            <summary>
-            Format the specified string, using String.Format(String, Object[]).
-            </summary>
-            <param name="s">String.Format(String, Object[])'s first argument.</param>
-            <param name="formatElements">The array of objects to go into String.Format(String, Object[])'s 2nd argument.</param>
-            <returns>The formatted string.</returns>
-        </member>
-        <member name="M:Glib.SupplementaryExtensions.Format(System.String,System.String@,System.Object[])">
-            <summary>
-            Format the specified string, using String.Format(String, Object[]), and sending the results to output.
-            </summary>
-            <param name="s">String.Format(String, Object[])'s first argument.</param>
-            <param name="output">The string to output the results to.</param>
-            <param name="formatElements">The array of objects to go into String.Format(String, Object[])'s 2nd argument.</param>
-        </member>
-        <member name="M:Glib.SupplementaryExtensions.RaiseToPower(System.Double,System.Double)">
-            <summary>
-            Raise the specified number to a power.
-            </summary>
-            <param name="d">The number to raise to a power.</param>
-            <param name="power">The power to raise a number to.</param>
-            <returns>The number risen to a power.</returns>
-        </member>
-        <member name="M:Glib.SupplementaryExtensions.RaiseToPower(System.Single,System.Double)">
-            <summary>
-            Raise the specified number to the specified power.
-            </summary>
-            <param name="d">The number to raise to a power.</param>
-            <param name="power">The power to raise the number to.</param>
-            <returns>The number risen to the specified power.</returns>
-        </member>
-        <member name="M:Glib.SupplementaryExtensions.RaiseToPower(System.Int16,System.Double)">
-            <summary>
-            Raise the specified number to the specified power.
-            </summary>
-            <param name="d">The number to raise to a power.</param>
-            <param name="power">The power to raise the number to.</param>
-            <returns>The number risen to the specified power.</returns>
-        </member>
-        <member name="M:Glib.SupplementaryExtensions.RaiseToPower(System.Int32,System.Double)">
-            <summary>
-            Raise the specified number to the specified power.
-            </summary>
-            <param name="d">The number to raise to a power.</param>
-            <param name="power">The power to raise the number to.</param>
-            <returns>The number risen to the specified power.</returns>
-        </member>
-        <member name="M:Glib.SupplementaryExtensions.RaiseToPower(System.Decimal,System.Double)">
-            <summary>
-            Raise the specified number to the specified power.
-            </summary>
-            <param name="d">The number to raise to a power.</param>
-            <param name="power">The power to raise the number to.</param>
-            <returns>The number risen to the specified power.</returns>
-        </member>
-        <member name="M:Glib.SupplementaryExtensions.RaiseToPower(System.Int64,System.Double)">
-            <summary>
-            Raise the specified number to the specified power.
-            </summary>
-            <param name="d">The number to raise to a power.</param>
-            <param name="power">The power to raise the number to.</param>
-            <returns>The number risen to the specified power.</returns>
-        </member>
-        <member name="M:Glib.SupplementaryExtensions.ToDecimal(System.Object)">
-            <summary>
-            Convert the specified object into a decimal.
-            </summary>
-            <param name="o">The object to convert to a decimal.</param>
-            <returns>The object represented as a decimal.</returns>
-        </member>
-        <member name="M:Glib.SupplementaryExtensions.ToShort(System.Object)">
-            <summary>
-            Convert the specified object to a short.
-            </summary>
-            <param name="o">The object to convert.</param>
-            <returns>The short representation of the specified object.</returns>
-        </member>
-        <member name="M:Glib.SupplementaryExtensions.ToLong(System.Object)">
-            <summary>
-            Convert the specified object to a long.
-            </summary>
-            <param name="o">The object to convert.</param>
-            <returns>The long representation of the specified object.</returns>
-        </member>
-        <member name="M:Glib.SupplementaryExtensions.ToFloat(System.Object)">
-            <summary>
-            Convert the specified object to a single-precision floating point number.
-            </summary>
-            <param name="o">The object to convert.</param>
-            <returns>The object represented as a float.</returns>
-        </member>
-        <member name="M:Glib.SupplementaryExtensions.ToDouble(System.Object)">
-            <summary>
-            Convert the specified object to a double-precision floating point number.
-            </summary>
-            <param name="o">The object to convert.</param>
-            <returns>The object represented as a double.</returns>
-        </member>
-        <member name="M:Glib.SupplementaryExtensions.ToBoolean(System.Object)">
-            <summary>
-            Convert the specified object to a boolean.
-            </summary>
-            <param name="o">The object to convert.</param>
-            <returns>The boolean representation of the specified object.</returns>
-        </member>
-        <member name="M:Glib.SupplementaryExtensions.ToUnsignedShort(System.Object)">
-            <summary>
-            Convert the specified object to an unsigned short.
-            </summary>
-            <param name="o">The object to convert.</param>
-            <returns>The ushort representation of the specified object.</returns>
-        </member>
-        <member name="M:Glib.SupplementaryExtensions.ToUnsignedInt(System.Object)">
-            <summary>
-            Convert the specified object to a uint.
-            </summary>
-            <param name="o">The object to convert.</param>
-            <returns>This object represented as a UInt32.</returns>
-        </member>
-        <member name="M:Glib.SupplementaryExtensions.ToUnsignedLong(System.Object)">
-            <summary>
-            Convert this object to an unsigned long.
-            </summary>
-            <param name="o">The object to convert.</param>
-            <returns>The unsigned long representation of the specified object.</returns>
-        </member>
-        <member name="M:Glib.SupplementaryExtensions.Round(System.Single)">
-            <summary>
-            Round a float to the nearest whole number.
-            </summary>
-            <param name="f">The floating-point number to round</param>
-            <returns>The number rounded to the nearest integer</returns>
-        </member>
-        <member name="M:Glib.SupplementaryExtensions.Round(System.Double)">
-            <summary>
-            Round a double to the nearest whole number.
-            </summary>
-            <param name="d">The floating-point number to round</param>
-            <returns>The number rounded to the nearest integer</returns>
-        </member>
-        <member name="M:Glib.SupplementaryExtensions.Round(System.Decimal)">
-            <summary>
-            Round a decimal to the nearest whole number.
-            </summary>
-            <param name="d">The decimal number to round</param>
-            <returns>The number rounded to the nearest integer</returns>
-        </member>
-        <member name="M:Glib.SupplementaryExtensions.Implements(System.Type,System.Type)">
-            <summary>
-            Check if a type implements a given interface.
-            </summary>
-            <param name="cT">The type to check implementation of an interface on</param>
-            <param name="t">The interface to check</param>
-            <returns>Whether or not the object implements the given interface</returns>
-        </member>
-        <member name="M:Glib.SupplementaryExtensions.Cast``1(System.Object)">
-            <summary>
-            Cast this object to the specified type.
-            </summary>
-            <typeparam name="T">The type to cast the object to.</typeparam>
-            <param name="o">The object to cast.</param>
-            <returns>The object casted to T.</returns>
-        </member>
-        <member name="M:Glib.SupplementaryExtensions.Cast``1(System.Object,``0@)">
-            <summary>
-            Cast this object to the specified type, and output the casted object to a variable.
-            </summary>
-            <typeparam name="T">The type to cast the object to.</typeparam>
-            <param name="o">The object to cast.</param>
-            <param name="castedObj">The object casted to T.</param>
         </member>
     </members>
 </doc>

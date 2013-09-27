@@ -182,8 +182,8 @@
     <None Include="Ships\ShipDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="GlibXNAXbox">
-      <HintPath>..\..\GlibXNAXbox.dll</HintPath>
+    <Reference Include="GlibXNA">
+      <HintPath>..\PGCGameXbox\GlibXNA.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework" />
     <Reference Include="Microsoft.Xna.Framework.Game" />

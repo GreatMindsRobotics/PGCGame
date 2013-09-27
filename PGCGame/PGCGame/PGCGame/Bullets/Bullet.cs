@@ -66,6 +66,8 @@ namespace PGCGame
         {
             _isDead = false;
             Position = pos;
+            Color = Color.White;
+            Damage = 0;
             ParentShip = parent;
             Texture = GameContent.Assets.Images.Ships.Bullets[ParentShip.ShipType, ParentShip.Tier];
             _traveledDistance = Vector2.Zero;

@@ -130,7 +130,7 @@ namespace PGCGame.Screens
         {
             if (playerShip != null)
             {
-                playerShip.Position = playerShip.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport, playerShip.Origin);
+                playerShip.Position = playerShip.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport, playerShip.Origin*playerShip.Scale);
             }
             if (miniMap != null)
             {
@@ -309,7 +309,7 @@ namespace PGCGame.Screens
             playerShip = BaseAllyShip.CreateShip(ship, playerSb);
 
             playerShip.WorldSb = Sprites.SpriteBatch;
-            playerShip.Position = playerShip.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport, playerShip.Origin);
+            playerShip.Position = playerShip.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport, playerShip.Origin*playerShip.Scale);
             playerShip.WCMoved += new EventHandler(playerShip_WCMoved);
             playerShip.WCMoved += wcMovePrettyCode;
             playerShip.IsPlayerShip = true;
