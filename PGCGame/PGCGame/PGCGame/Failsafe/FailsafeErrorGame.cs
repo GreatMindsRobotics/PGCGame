@@ -31,6 +31,8 @@ namespace PGCGame.Failsafe
 
         Screen mainScreen;
 
+        //Direct user to http://pgcgame.com/Home/ContactUs
+
         protected override void Initialize()
         {
             IsMouseVisible = true;
@@ -59,7 +61,7 @@ namespace PGCGame.Failsafe
             title.Y = 5;
             mainScreen.AdditionalSprites.Add(title);
 
-            TextSprite details = new TextSprite(spriteBatch, Content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "Please report this error at: \nhttp://pgcgame.com/ReportError", Color.White);
+            TextSprite details = new TextSprite(spriteBatch, Content.Load<SpriteFont>("Fonts\\SegoeUIMono"), "Please report this error at: \nhttp://pgcgame.com/Home/ContactUs", Color.White);
             details.Y = title.Y + title.Font.LineSpacing;
             details.X = details.GetCenterPosition(GraphicsDevice.Viewport).X;
             mainScreen.AdditionalSprites.Add(details);
@@ -83,7 +85,7 @@ namespace PGCGame.Failsafe
         private void ErrLinkOpen(TextSprite clicked)
         {
             clicked.IsHoverable = false;
-            clicked.Text = "Error opening website, please report manually";
+            clicked.Text = "Error opening website";
             clicked.ParentSprite.Visible = false;
             clicked.X = clicked.GetCenterPosition(GraphicsDevice.Viewport).X;
         }
@@ -93,8 +95,7 @@ namespace PGCGame.Failsafe
 #if WINDOWS
             try
             {
-                
-                System.Diagnostics.Process.Start(string.Format("http://pgcgame.com/ReportError?except={0}&msg={1}&innerexcept={2}&stack={3}", System.Uri.EscapeDataString(error.GetType().FullName), Uri.EscapeDataString(error.Message), Uri.EscapeDataString(error.InnerException == null ? "No Inner Exception" : error.InnerException.GetType().FullName), Uri.EscapeDataString(error.StackTrace)));
+                System.Diagnostics.Process.Start("http://pgcgame.com/Home/ContactUs");
             }
             catch
             {
