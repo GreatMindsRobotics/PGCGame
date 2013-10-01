@@ -15,90 +15,17 @@ using Microsoft.Xna.Framework.Input;
 using PGCGame.CoreTypes;
 using Glib.XNA.InputLib;
 using Microsoft.Xna.Framework.Media;
-using Microsoft.Xna.Framework.GamerServices;
 
 namespace PGCGame.Screens
 {
     public class Title : BaseScreen
     {
-        public override void MiscellaneousProcessing()
-        {
-            if (hasrenderedavatar)
-            {
-                avatarRenderer.Draw(avatarAnimation.BoneTransforms,
-    avatarAnimation.Expression);
-            }
-        }
-
         public Title(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
         {
-            StateManager.ScreenStateChanged += new EventHandler(StateManager_ScreenStateChanged);
+
             ButtonClick = GameContent.Assets.Sound[SoundEffectType.ButtonPressed];
         }
-
-        private void avatarRetrieved(IAsyncResult res)
-        {
-            try
-            {
-                AvatarDescription gamerDesc = AvatarDescription.EndGetFromGamer(res);
-                Matrix world = avatarRenderer.World;
-                Matrix proj = avatarRenderer.Projection;
-                Matrix view = avatarRenderer.View;
-                avatarRenderer = new AvatarRenderer(gamerDesc, true);
-                avatarRenderer.World = world;
-                avatarRenderer.View = view;
-                avatarRenderer.Projection = proj;
-            }
-            catch { }
-        }
-
-        void StateManager_ScreenStateChanged(object sender, EventArgs e)
-        {
-            if (Visible)
-            {
-#if XBOX
-                _elapsedAvatarRender = TimeSpan.Zero;
-                hasrenderedavatar = false;
-                avatarDesc = AvatarDescription.CreateRandom();
-                if (Gamer.SignedInGamers.Count > 0)
-                {
-                    AvatarDescription.BeginGetFromGamer(Gamer.SignedInGamers[0], avatarRetrieved, null);
-                }
-                else
-                {
-                    SignedInGamer.SignedIn += new EventHandler<SignedInEventArgs>(SignedInGamer_SignedIn);
-                }
-                avatarRenderer = new AvatarRenderer(avatarDesc, true);
-                avatarAnimation = new AvatarAnimation(AvatarAnimationPreset.Wave);
-                avatarRenderer.World =
-    Matrix.CreateRotationY(MathHelper.Pi);
-                avatarRenderer.Projection =
-                    Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4,
-                    StateManager.GraphicsManager.GraphicsDevice.Viewport.AspectRatio, .01f, 200.0f);
-                avatarRenderer.View =
-                    Matrix.CreateLookAt(new Vector3(0, 1, 3), new Vector3(0, 1, 0),
-                    Vector3.Up);
-#endif
-            }
-        }
-
-        void SignedInGamer_SignedIn(object sender, SignedInEventArgs e)
-        {
-            if (_elapsedAvatarRender.Ticks <= TimeSpan.TicksPerSecond * 25)
-            {
-                AvatarDescription.BeginGetFromGamer(e.Gamer, avatarRetrieved, null);
-            }
-        }
-
-#if XBOX
-        private TimeSpan _elapsedAvatarRender = TimeSpan.Zero;
-        bool hasrenderedavatar = false;
-        AvatarDescription avatarDesc;
-        AvatarRenderer avatarRenderer;
-        AvatarAnimation avatarAnimation;
-#endif
-
 
         Sprite TitleImage;
 
@@ -179,9 +106,9 @@ namespace PGCGame.Screens
             Sprites.Add(PlayButton);
 
             PlayLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Play");
-
+            
             PlayLabel.IsHoverable = true;
-
+            
 
             PlayLabel.NonHoverColor = Color.White;
             PlayLabel.HoverColor = Color.MediumAquamarine;
@@ -189,13 +116,13 @@ namespace PGCGame.Screens
 
 
             ExitButton = new Sprite(buttonTexture, new Vector2(PlayButton.X, PlayButton.Y + (PlayButton.Height * 1.6f)), Sprites.SpriteBatch);
-
+            
             Sprites.Add(ExitButton);
 
             ExitLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, SegoeUIMono, "Exit");
-
+            
             ExitLabel.IsHoverable = true;
-
+            
             ExitLabel.NonHoverColor = Color.White;
             ExitLabel.HoverColor = Color.MediumAquamarine;
             AdditionalSprites.Add(ExitLabel);
@@ -276,7 +203,7 @@ namespace PGCGame.Screens
                 ship = new Sprite(GameContent.Assets.Images.Ships[type, tier], Vector2.Zero, Sprites.SpriteBatch);
             }
             else
-            {
+            { 
                 ship.Texture = GameContent.Assets.Images.Ships[type, tier];
             }
 
@@ -299,30 +226,6 @@ namespace PGCGame.Screens
 
         public override void Update(GameTime gameTime)
         {
-            if (!StateManager.IsWindowFocused())
-            {
-                //Not active window
-                return;
-            }
-
-#if XBOX
-            if (!hasrenderedavatar)
-            {
-                _elapsedAvatarRender += gameTime.ElapsedGameTime;
-            }
-
-            if (_elapsedAvatarRender.Ticks >= TimeSpan.TicksPerSecond * 100)
-            {
-                hasrenderedavatar = true;
-                _elapsedAvatarRender = TimeSpan.Zero;
-            }
-
-            if (hasrenderedavatar && !avatarRenderer.IsDisposed && !avatarAnimation.IsDisposed)
-            {
-                avatarAnimation.Update(gameTime.ElapsedGameTime, true);
-            }
-#endif
-
             if (ship.Position.X < Graphics.Viewport.Width * 3)
             {
                 if (ship.Rotation.Degrees <= 90)
@@ -345,9 +248,16 @@ namespace PGCGame.Screens
             }
             else
             {
-                setupTitleShip();
+                setupTitleShip(); 
             }
 
+
+            if (!StateManager.IsWindowFocused())
+            {
+                //Not active window
+                return;
+            }
+            
 #if XBOX
             ButtonManagement.Update(gameTime);
 #endif
