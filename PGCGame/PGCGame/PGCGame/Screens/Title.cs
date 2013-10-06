@@ -23,11 +23,13 @@ namespace PGCGame.Screens
     {
         public override void MiscellaneousProcessing()
         {
+#if XBOX
             if (hasrenderedavatar)
             {
                 avatarRenderer.Draw(avatarAnimation.BoneTransforms,
     avatarAnimation.Expression);
             }
+#endif
         }
 
         public Title(SpriteBatch spriteBatch)
@@ -37,6 +39,7 @@ namespace PGCGame.Screens
             ButtonClick = GameContent.Assets.Sound[SoundEffectType.ButtonPressed];
         }
 
+#if XBOX
         private void avatarRetrieved(IAsyncResult res)
         {
             try
@@ -52,6 +55,7 @@ namespace PGCGame.Screens
             }
             catch { }
         }
+#endif
 
         void StateManager_ScreenStateChanged(object sender, EventArgs e)
         {
@@ -83,15 +87,16 @@ namespace PGCGame.Screens
             }
         }
 
+#if XBOX
         void SignedInGamer_SignedIn(object sender, SignedInEventArgs e)
         {
+
             if (_elapsedAvatarRender.Ticks <= TimeSpan.TicksPerSecond * 25)
             {
                 AvatarDescription.BeginGetFromGamer(e.Gamer, avatarRetrieved, null);
             }
         }
 
-#if XBOX
         private TimeSpan _elapsedAvatarRender = TimeSpan.Zero;
         bool hasrenderedavatar = false;
         AvatarDescription avatarDesc;
