@@ -97,10 +97,9 @@ namespace PGCGame.Screens.Multiplayer
         void FinishLanSectorSearch(object res)
         {
             IAsyncResult getMySectors = res as IAsyncResult;
-            if (StateManager.NetworkData.CurrentSession != null)
+            if (StateManager.NetworkData.IsMultiplayer)
             {
                 StateManager.NetworkData.LeaveSession();
-                StateManager.NetworkData.CurrentSession = null;
             }
             if (StateManager.NetworkData.AvailableSessions != null)
             {
@@ -174,8 +173,7 @@ namespace PGCGame.Screens.Multiplayer
         {
             IAsyncResult r = res as IAsyncResult;
 
-            StateManager.NetworkData.CurrentSession = NetworkSession.EndJoin(r);
-            StateManager.NetworkData.RegisterNetworkSession();
+            StateManager.NetworkData.RegisterNetworkSession(NetworkSession.EndJoin(r));
 
         }
 

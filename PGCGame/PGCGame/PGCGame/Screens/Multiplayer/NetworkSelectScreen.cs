@@ -235,13 +235,9 @@ namespace PGCGame.Screens.Multiplayer
                     }
                     StateManager.NetworkData.AvailableSessions = null;
                 }
-                if (StateManager.NetworkData.CurrentSession != null)
+                if (StateManager.NetworkData.IsMultiplayer)
                 {
-                    if (!StateManager.NetworkData.CurrentSession.IsDisposed)
-                    {
-                        StateManager.NetworkData.CurrentSession.Dispose();
-                    }
-                    StateManager.NetworkData.CurrentSession = null;
+                    StateManager.NetworkData.LeaveSession();
                 }
                 StateManager.ScreenState = CoreTypes.ScreenType.MainMenu;
                 if (StateManager.Options.SFXEnabled) { ButtonClick.Play(); }

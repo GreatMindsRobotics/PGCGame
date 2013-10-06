@@ -451,17 +451,42 @@ namespace PGCGame
         public static class NetworkData
         {
             public static NetworkSessionType SessionType;
+            
+            /// <summary>
+            /// Determines whether the game is currently in a multiplayer session.
+            /// </summary>
             public static bool IsMultiplayer
             {
                 get
                 {
                     return CurrentSession != null && !CurrentSession.IsDisposed && CurrentSession.AllGamers.Count > 0;
                 }
+                set
+                {
+                    if (value && !IsMultiplayer)
+                    {
+                        throw new InvalidOperationException("You cannot join a session by setting this property. Please assign CurrentSession to a NetworkSession object.");
+                    }
+                    else if (value && IsMultiplayer)
+                    {
+                        return;
+                    }
+                    else if (!value)
+                    {
+                        LeaveSession();
+                    }
+                }
             }
 
+            /// <summary>
+            /// Leaves and disposes of the current network session.
+            /// </summary>
             public static void LeaveSession()
             {
-                _game.Services.RemoveService(typeof(NetworkSession));
+                if (_game != null)
+                {
+                    _game.Services.RemoveService(typeof(NetworkSession));
+                }
                 if (CurrentSession != null && !CurrentSession.IsDisposed)
                 {
                     CurrentSession.Dispose();
@@ -473,10 +498,28 @@ namespace PGCGame
 
             public static ShipStats SelectedNetworkShip;
 
-            public static NetworkSession CurrentSession;
+            private static NetworkSession _currentSession;
 
-            public static void RegisterNetworkSession()
+            /// <summary>
+            /// Gets the current <see cref="Microsoft.Xna.Framework.Net.NetworkSession"/> that is the game in which the user is playing. This value should not be used for checking if we are in a multiplayer game, for that use <seealso cref="IsMultiplayer"/>.
+            /// </summary>
+            public static NetworkSession CurrentSession
             {
+                get { return _currentSession; }
+                private set { _currentSession = value; }
+            }
+            
+
+            /// <summary>
+            /// Registers the specified network session as the current network session.
+            /// </summary>
+            public static void RegisterNetworkSession(NetworkSession register)
+            {
+                if (register == null)
+                {
+                    throw new ArgumentNullException("register");
+                }
+                CurrentSession = register;
                 _game.Services.AddService(typeof(NetworkSession), CurrentSession);
                 DataReader = new PacketReader();
                 DataWriter = new PacketWriter();
@@ -493,8 +536,27 @@ namespace PGCGame
                 }
             }
 
-            public static PacketReader DataReader;
-            public static PacketWriter DataWriter;
+            private static PacketReader _dataReader;
+
+            /// <summary>
+            /// Gets the <see cref="PacketReader"/> used to read data sent from the network.
+            /// </summary>
+            public static PacketReader DataReader
+            {
+                get { return _dataReader; }
+                private set { _dataReader = value; }
+            }
+
+            private static PacketWriter _dataWriter;
+
+            /// <summary>
+            /// Gets the <see cref="PacketWriter"/> used to write data across the network.
+            /// </summary>
+            public static PacketWriter DataWriter
+            {
+                get { return _dataWriter; }
+                private set { _dataWriter = value; }
+            }
 
             public static AvailableNetworkSessionCollection AvailableSessions;
         }

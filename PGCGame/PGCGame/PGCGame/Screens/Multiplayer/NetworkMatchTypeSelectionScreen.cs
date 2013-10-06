@@ -144,7 +144,7 @@ namespace PGCGame.Screens.Multiplayer
             IAsyncResult getMySectors = arg as IAsyncResult;
             try
             {
-                StateManager.NetworkData.CurrentSession = NetworkSession.EndCreate(getMySectors);
+                StateManager.NetworkData.RegisterNetworkSession(NetworkSession.EndCreate(getMySectors));
             }
             catch (GamerPrivilegeException)
             {
@@ -163,7 +163,7 @@ namespace PGCGame.Screens.Multiplayer
             }
             StateManager.NetworkData.CurrentSession.AllowHostMigration = false;
             StateManager.NetworkData.CurrentSession.AllowJoinInProgress = false;
-            StateManager.NetworkData.RegisterNetworkSession();
+            
         }
 
         void ScreenStateToNetSelect(IAsyncResult res)
