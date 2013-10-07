@@ -29,7 +29,7 @@ namespace PGCGame.Screens.SelectScreens
         List<SecondaryWeapon> itemsShown = new List<SecondaryWeapon>();
         TextSprite SpaceBucksAmount;
         TextSprite ItemAmount;
-        bool bought = false;
+        //bool bought = false;
 
         public override void InitScreen(ScreenType screenType)
         {
@@ -50,16 +50,16 @@ namespace PGCGame.Screens.SelectScreens
             AdditionalSprites.Add(ItemAmount);
 
             SpriteFont font = GameContent.Assets.Fonts.NormalText;
-            
+
 
             //EMP
             EMP weapon1 = new EMP(EMP, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.75f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.3f), Sprites.SpriteBatch);
             TextSprite text1 = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.01f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.1f), font, "\n\nAn electro magnetic pulse. \nThis device disables all \nnearby enemy ships \nwithin your ship's range. \n\ncost: 1000 credits", Color.White);
-                        
-            
+
+
             weapon1.Scale = new Vector2(0.5f, 0.5f);
-           
-            
+
+
             itemsShown.Add(weapon1);
 
             //Ray Gun
@@ -84,19 +84,19 @@ namespace PGCGame.Screens.SelectScreens
             //HealthPack
 
             HealthPack weapon4 = new HealthPack(HealthPack, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.74f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.3f), Sprites.SpriteBatch);
-            TextSprite text4 = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.1f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 1.5f), font, "\n\n\nThis power up regenerates\nyour health up\nby 50%\n\nCost: "+weapon4.Cost, Color.White);
+            TextSprite text4 = new TextSprite(Sprites.SpriteBatch, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.1f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 1.5f), font, "\n\n\nThis power up regenerates\nyour health up\nby 50%\n\nCost: " + weapon4.Cost, Color.White);
             text4.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * 0.01f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * 0.05f);
             weapon4.Scale = new Vector2(0.5f, 0.5f);
 
             items.Add(new KeyValuePair<Sprite, TextSprite>(weapon4, text4));
             itemsShown.Add(weapon4);
 
-            ChangeItem +=new EventHandler(WeaponSelectScreen_ChangeItem);
+            ChangeItem += new EventHandler(WeaponSelectScreen_ChangeItem);
 
             items.Add(new KeyValuePair<Sprite, TextSprite>(weapon1, text1));
-            
+
             base.InitScreen(screenType);
-            
+
             acceptLabel.Text = "Buy";
             //In clicked code
             this.nextButtonClicked += new EventHandler(WeaponSelectScreen_nextButtonClicked);
@@ -116,13 +116,12 @@ namespace PGCGame.Screens.SelectScreens
                 if (item.Texture == items[selected].Key.Texture && item.Cost <= StateManager.SpaceBucks)
                 {
                     StateManager.SpaceBucks -= item.Cost;
-                    bought = true;
 
-                        if (StateManager.Options.SFXEnabled)
-                        {
-                            ItemBought.Play();
-                        }
-                    
+                    if (StateManager.Options.SFXEnabled)
+                    {
+                        ItemBought.Play();
+                    }
+
                     SpaceBucksAmount.Text = string.Format("You have {0} credits", StateManager.SpaceBucks);
                     if (item.GetType() == typeof(SpaceMine))
                     {
@@ -130,7 +129,7 @@ namespace PGCGame.Screens.SelectScreens
                     }
                     else if (item.GetType() == typeof(EMP))
                     {
-                        StateManager.PowerUps[2].Push(new EMP(GameContent.Assets.Images.SecondaryWeapon[SecondaryWeaponType.EMP, TextureDisplayType.InGameUse],Vector2.Zero, Sprites.SpriteBatch));
+                        StateManager.PowerUps[2].Push(new EMP(GameContent.Assets.Images.SecondaryWeapon[SecondaryWeaponType.EMP, TextureDisplayType.InGameUse], Vector2.Zero, Sprites.SpriteBatch));
                     }
                     else if (item.GetType() == typeof(ShrinkRay))
                     {

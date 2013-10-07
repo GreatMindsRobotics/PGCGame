@@ -187,7 +187,7 @@ namespace PGCGame
                     case CoreTypes.DroneState.Stowed:
                         //Drone is stowed on the Figher Carrier; wait for deploy command. This is the default state
 #if WINDOWS
-                        if (keyboard.IsKeyDown(DeployKey) && _lastKs != null && _lastKs.IsKeyUp(DeployKey))
+                        if (StateManager.InputManager.IsKeyDownOnFrame(DeployKey))
                         {
                             if(StateManager.Options.SFXEnabled)
                             {
@@ -209,11 +209,9 @@ namespace PGCGame
                         //Deploy command was given; allow "Stow" command (same key as deploy); else, continue deploying
 
 #if WINDOWS
-                        if (keyboard.IsKeyDown(DeployKey) && _lastKs != null && _lastKs.IsKeyUp(DeployKey) && !OtherDroneDetects())
+                        if (StateManager.InputManager.IsKeyDownOnFrame(DeployKey) && !OtherDroneDetects())
                         {
                             DroneState = DroneState.Stowing;
-
-                            _lastKs = keyboard;
                             return;
                         }
 #elif XBOX
@@ -252,7 +250,7 @@ namespace PGCGame
                     case CoreTypes.DroneState.Deployed:
                         //Drone is deployed; monitor for enemies, and listen for "Stow" command (same key as deploy)s
 #if WINDOWS
-                        if (keyboard.IsKeyDown(DeployKey) && _lastKs != null && _lastKs.IsKeyUp(DeployKey) && !OtherDroneDetects())
+                        if (StateManager.InputManager.IsKeyDownOnFrame(DeployKey) && !OtherDroneDetects())
                         {
                             if (StateManager.Options.SFXEnabled)
                             {
@@ -260,8 +258,6 @@ namespace PGCGame
                             }
 
                             DroneState = DroneState.Stowing;
-
-                            _lastKs = keyboard;
                             return;
                         }
 #elif XBOX
@@ -312,12 +308,10 @@ namespace PGCGame
                         //Monitor for re-deployment command (same key as stow)
 
 #if WINDOWS
-                        if (keyboard.IsKeyDown(DeployKey) && _lastKs != null && _lastKs.IsKeyUp(DeployKey))
+                        if (StateManager.InputManager.IsKeyDownOnFrame(DeployKey))
                         {
 
                             DroneState = DroneState.Deploying;
-
-                            _lastKs = keyboard;
                             return;
                         }
 #elif XBOX
@@ -373,7 +367,6 @@ namespace PGCGame
                     Rotation += .5f;
                 }
 
-                _lastKs = keyboard;
                 base.Update(gameTime);
             }
         }

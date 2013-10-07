@@ -89,7 +89,7 @@ namespace PGCGame
 
             GamerServicesComponent services = new GamerServicesComponent(this);
             IsMouseVisible = true;
-            Components.Add(new InputManagerComponent(this));
+            Components.Add(new PlequariusInputComponent(this));
             Components.Add(services);
 
             StateManager.InitGame(this);
@@ -242,6 +242,7 @@ namespace PGCGame
             {
                 StateManager.NetworkData.CurrentSession.Update();
             }
+            StateManager.InputManager.UpdateLastState();
         }
 
         protected override bool BeginDraw()

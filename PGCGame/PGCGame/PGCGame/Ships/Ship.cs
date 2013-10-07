@@ -105,7 +105,6 @@ namespace PGCGame
 
         public SpriteBatch WorldSb;
         //private TimeSpan _elapsedShotTime = new TimeSpan();
-        protected KeyboardState _lastKs = new KeyboardState();
 
         protected ShipState shipState;
         public ShipState ShipState

@@ -451,7 +451,7 @@ namespace PGCGame
         public static class NetworkData
         {
             public static NetworkSessionType SessionType;
-            
+
             /// <summary>
             /// Determines whether the game is currently in a multiplayer session.
             /// </summary>
@@ -508,7 +508,7 @@ namespace PGCGame
                 get { return _currentSession; }
                 private set { _currentSession = value; }
             }
-            
+
 
             /// <summary>
             /// Registers the specified network session as the current network session.
@@ -572,7 +572,7 @@ namespace PGCGame
             public static bool KillAll = false;
             public static bool Invincible = false;
             public static bool BringDronesBack = false;
-            public static bool KillYourSelf = false;
+            public static bool KillYourSelf = true;
             /// <summary>
             /// Buggy - due to reference passing
             /// </summary>
@@ -588,6 +588,98 @@ namespace PGCGame
 
         public static class InputManager
         {
+            private static KeyboardState _lastKs = new KeyboardState();
+
+            public static class DebugControlManager
+            {
+                static DebugControlManager()
+                {
+                    KeyboardManager.KeyDown += new Glib.XNA.SingleKeyEventHandler(KeyboardManager_KeyDown);
+                }
+                public static event EventHandler ShipHeal;
+                public static event EventHandler ShipSuicide;
+
+                private static void KeyboardManager_KeyDown(object source, Glib.XNA.SingleKeyEventArgs e)
+                {
+                    if (StateManager.DebugData.KillYourSelf && e.Key == Keys.F3 && ShipSuicide != null)
+                    {
+                        ShipSuicide(KeyboardManager.State, EventArgs.Empty);
+                    }
+                }
+
+                internal static void Update()
+                {
+                    if (ShipHeal != null && StateManager.DebugData.EmergencyHeal && GamePadManager.One.Current.DPad.Down == ButtonState.Pressed && ButtonState.Pressed == GamePadManager.One.Current.DPad.Right)
+                    {
+                        ShipHeal(GamePadManager.One, EventArgs.Empty);
+                    }
+                    if (ShipHeal != null && StateManager.DebugData.EmergencyHeal && KeyboardManager.State.IsKeyDown(Keys.F4))
+                    {
+                        ShipHeal(KeyboardManager.State, EventArgs.Empty);
+                    }
+                    if (StateManager.DebugData.KillYourSelf && ShipSuicide != null && GamePadManager.One.Current.IsButtonDown(Buttons.RightStick) && GamePadManager.One.Current.IsButtonDown(Buttons.LeftStick))
+                    {
+                        ShipSuicide(GamePadManager.One, EventArgs.Empty);
+                    }
+
+                }
+            }
+
+            internal static void Update()
+            {
+                DebugControlManager.Update();
+            }
+
+            internal static void UpdateLastState()
+            {
+                _lastKs = KeyboardManager.State;
+            }
+
+            public static bool ShootControlDown
+            {
+                get
+                {
+#if WINDOWS
+                    return (StateManager.Options.LeftButtonEnabled && MouseManager.CurrentMouseState.LeftButton == ButtonState.Pressed) || (!StateManager.Options.LeftButtonEnabled && KeyboardManager.State.IsKeyDown(Keys.Space));
+#elif XBOX
+                    return GamePadManager.One.Current.Triggers.Right > 0.875f;
+#else
+                    return false;
+#endif
+                }
+            }
+
+            public static bool IsKeyDownOnFrame(Keys key)
+            {
+                return _lastKs.IsKeyUp(key) && KeyboardManager.State.IsKeyDown(key);
+            }
+
+            public static bool DeploySecondaryWeapon(SecondaryWeaponType currentIndex)
+            {
+                return StateManager.PowerUps[currentIndex.ToInt()].Count > 0 && (  (StateManager.Options.SecondaryButtonEnabled && KeyboardManager.State.IsKeyDown(Keys.RightShift) && _lastKs.IsKeyUp(Keys.RightShift)) || (!StateManager.Options.SecondaryButtonEnabled && KeyboardManager.State.IsKeyDown(Keys.R) && KeyboardManager.State.IsKeyUp(Keys.R))  );
+             
+            }
+
+            /// <param name="direction">-1 means left one, +1 means right one.</param>
+            public static bool ShouldMoveSecondaryWeaponSelection(short direction)
+            {
+                if (direction != -1 && direction != 1)
+                {
+                    throw new ArgumentException("Direction must equal either -1 or 1.");
+                }
+                if (direction == 1)
+                {
+                    return (!StateManager.Options.SwitchButtonEnabled && (KeyboardManager.State.IsKeyDown(Keys.E) && _lastKs.IsKeyUp(Keys.E)))
+                    || (StateManager.Options.SwitchButtonEnabled && (KeyboardManager.State.IsKeyDown(Keys.PageUp) && _lastKs.IsKeyUp(Keys.PageUp)));
+                }
+                else if(direction == -1)
+                {
+                    return (!StateManager.Options.SwitchButtonEnabled && (KeyboardManager.State.IsKeyDown(Keys.Q) && _lastKs.IsKeyUp(Keys.Q)))
+                    || (StateManager.Options.SwitchButtonEnabled && (KeyboardManager.State.IsKeyDown(Keys.PageDown) && _lastKs.IsKeyUp(Keys.PageDown)));
+                }
+                return false;
+            }
+
             public static bool ShouldMove(MoveDirection direction)
             {
 #if WINDOWS
