@@ -39,8 +39,9 @@ namespace PGCGame.CoreTypes
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime gameTime)
         {
-            StateManager.InputManager.Update();
             base.Update(gameTime);
+            StateManager.InputManager.Update();
+            
         }
     }
 }
