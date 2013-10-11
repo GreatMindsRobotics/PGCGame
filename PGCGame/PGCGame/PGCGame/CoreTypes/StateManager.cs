@@ -715,6 +715,18 @@ namespace PGCGame
             }
         }
 
+        public static class MusicManager
+        {
+            private static ScreenMusic _song;
+
+            public static ScreenMusic CurrentSong
+            {
+                get { return _song; }
+                set { _song = value; }
+            }
+            
+        }
+
         public static class Options
         {
             private static bool _musicEnabled = true;
