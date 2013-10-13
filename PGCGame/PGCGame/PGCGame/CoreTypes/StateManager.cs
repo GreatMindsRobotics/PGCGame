@@ -247,6 +247,14 @@ namespace PGCGame
 
         public static int SpaceBucks { get { return _spaceBucks; } set { _spaceBucks = value; } }
 
+        public static ScreenType LastScreen
+        {
+            get
+            {
+                return _screenStack.Peek();
+            }
+        }
+
         public static Guid EnemyID
         {
             get
@@ -359,13 +367,6 @@ namespace PGCGame
 
                 case ScreenType.Pause:
                     activeScreen.Cast<PGCGame.Screens.PauseScreen>().lastState = new KeyboardState(Keys.Escape);
-                    break;
-
-                case ScreenType.Credits:
-                    if (StateManager.Options.MusicEnabled)
-                    {
-                        activeScreen.Cast<PGCGame.Screens.Credits>().PlayMusic();
-                    }
                     break;
             }
 
@@ -656,8 +657,8 @@ namespace PGCGame
 
             public static bool DeploySecondaryWeapon(SecondaryWeaponType currentIndex)
             {
-                return StateManager.PowerUps[currentIndex.ToInt()].Count > 0 && (  (StateManager.Options.SecondaryButtonEnabled && KeyboardManager.State.IsKeyDown(Keys.RightShift) && _lastKs.IsKeyUp(Keys.RightShift)) || (!StateManager.Options.SecondaryButtonEnabled && KeyboardManager.State.IsKeyDown(Keys.R) && KeyboardManager.State.IsKeyUp(Keys.R))  );
-             
+                return StateManager.PowerUps[currentIndex.ToInt()].Count > 0 && ((StateManager.Options.SecondaryButtonEnabled && KeyboardManager.State.IsKeyDown(Keys.RightShift) && _lastKs.IsKeyUp(Keys.RightShift)) || (!StateManager.Options.SecondaryButtonEnabled && KeyboardManager.State.IsKeyDown(Keys.R) && KeyboardManager.State.IsKeyUp(Keys.R)));
+
             }
 
             /// <param name="direction">-1 means left one, +1 means right one.</param>
@@ -672,7 +673,7 @@ namespace PGCGame
                     return (!StateManager.Options.SwitchButtonEnabled && (KeyboardManager.State.IsKeyDown(Keys.E) && _lastKs.IsKeyUp(Keys.E)))
                     || (StateManager.Options.SwitchButtonEnabled && (KeyboardManager.State.IsKeyDown(Keys.PageUp) && _lastKs.IsKeyUp(Keys.PageUp)));
                 }
-                else if(direction == -1)
+                else if (direction == -1)
                 {
                     return (!StateManager.Options.SwitchButtonEnabled && (KeyboardManager.State.IsKeyDown(Keys.Q) && _lastKs.IsKeyUp(Keys.Q)))
                     || (StateManager.Options.SwitchButtonEnabled && (KeyboardManager.State.IsKeyDown(Keys.PageDown) && _lastKs.IsKeyUp(Keys.PageDown)));
@@ -717,14 +718,55 @@ namespace PGCGame
 
         public static class MusicManager
         {
-            private static ScreenMusic _song;
+            private static MediaState? _mediaState;
 
-            public static ScreenMusic CurrentSong
+            private static ScreenMusic? _currentMusic = null;
+
+            public static ScreenMusic? CurrentMusic
             {
-                get { return _song; }
-                set { _song = value; }
+                get { return _currentMusic; }
+                private set { _currentMusic = value; }
             }
             
+
+            public static MediaState MediaPlayerState
+            {
+                get
+                {
+                    if (!_mediaState.HasValue)
+                    {
+                        _mediaState = MediaPlayer.State;
+                    }
+                    return _mediaState.Value;
+                }
+                private set { _mediaState = value; }
+            }
+
+            public static void Stop()
+            {
+                MediaPlayer.Stop();
+                _currentMusic = null;
+                _mediaState = MediaState.Stopped;
+            }
+
+            public static void Resume()
+            {
+                MediaPlayer.Resume();
+                _mediaState = MediaState.Playing;
+            }
+
+            public static void Pause()
+            {
+                MediaPlayer.Pause();
+                _mediaState = MediaState.Paused;
+            }
+
+            public static void Play(ScreenMusic song)
+            {
+                MediaPlayer.Play(GameContent.Assets.Music[song]);
+                _currentMusic = song;
+                _mediaState = MediaState.Playing;
+            }
         }
 
         public static class Options

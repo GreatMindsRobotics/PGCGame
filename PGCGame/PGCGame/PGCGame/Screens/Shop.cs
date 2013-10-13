@@ -21,6 +21,11 @@ namespace PGCGame.Screens
 {
     public class Shop : BaseScreen
     {
+        public override MusicBehaviour Music
+        {
+            get { return MusicBehaviour.NoMusic; }
+        }
+
         public Shop(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
         {

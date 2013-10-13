@@ -14,6 +14,11 @@ namespace PGCGame.Screens.Multiplayer
 {
     public class MultiplayerLoseScreen : BaseScreen
     {
+        public override MusicBehaviour Music
+        {
+            get { return MusicBehaviour.NoMusic; }
+        }
+
         public MultiplayerLoseScreen(SpriteBatch sb) : base(sb, Color.Black) { }
 
         TextSprite Lose;

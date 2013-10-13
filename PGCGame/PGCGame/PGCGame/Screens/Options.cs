@@ -21,7 +21,10 @@ namespace PGCGame.Screens
 {
     public class Options : BaseScreen
     {
-
+        public override MusicBehaviour Music
+        {
+            get { return MusicBehaviour.NoMusic; }
+        }
 
         public Options(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)

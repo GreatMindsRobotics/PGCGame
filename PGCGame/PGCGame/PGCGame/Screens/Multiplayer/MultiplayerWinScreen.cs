@@ -13,6 +13,11 @@ namespace PGCGame.Screens.Multiplayer
 {
     public class MultiplayerWinScreen : BaseScreen
     {
+        public override MusicBehaviour Music
+        {
+            get { return MusicBehaviour.NoMusic; }
+        }
+
         public MultiplayerWinScreen(SpriteBatch sb) : base(sb, Color.Black) { }
 
         TextSprite title;

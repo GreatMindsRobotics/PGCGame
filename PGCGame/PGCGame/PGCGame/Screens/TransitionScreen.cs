@@ -19,6 +19,11 @@ namespace PGCGame
     public class TransitionScreen : BaseScreen
     {
 
+        public override MusicBehaviour Music
+        {
+            get { return MusicBehaviour.NoMusic; }
+        }
+
         Sprite ship;
         bool hasPlayedSound = false;
 

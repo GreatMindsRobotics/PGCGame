@@ -18,6 +18,11 @@ namespace PGCGame.Screens
     /// </summary>
     public class LoadingScreen : BaseScreen
     {
+        public override MusicBehaviour Music
+        {
+            get { return MusicBehaviour.NoMusic; }
+        }
+
         private string _loadingText = "";
 
         public RunWorkerCompletedEventHandler BackgroundWorkerCallback

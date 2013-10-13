@@ -20,6 +20,11 @@ namespace PGCGame.Screens
 {
     public abstract class BaseSelectScreen : BaseScreen
     {
+        public override MusicBehaviour Music
+        {
+            get { return MusicBehaviour.NoMusic; }
+        }
+
         protected bool _firstTimeInit = true;
 
         public BaseSelectScreen(SpriteBatch spriteBatch)

@@ -19,6 +19,12 @@ namespace PGCGame.Screens
 {
     public class ControlScreen : BaseScreen
     {
+        private MusicBehaviour _music = new MusicBehaviour();
+
+        public override MusicBehaviour Music
+        {
+            get { return _music; }
+        }
 
          public ControlScreen(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)

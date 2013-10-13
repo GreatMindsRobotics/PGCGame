@@ -22,6 +22,11 @@ namespace PGCGame.Screens.Multiplayer
 {
     public class NetworkSelectScreen : BaseScreen
     {
+        public override MusicBehaviour Music
+        {
+            get { return MusicBehaviour.NoMusic; }
+        }
+
         public NetworkSelectScreen(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
         {

@@ -13,6 +13,11 @@ namespace PGCGame.Screens
 {
     public class GameOver : BaseScreen
     {
+        public override MusicBehaviour Music
+        {
+            get { return MusicBehaviour.NoMusic; }
+        }
+
         public GameOver(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
         {

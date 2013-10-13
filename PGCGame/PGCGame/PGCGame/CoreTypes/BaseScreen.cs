@@ -12,14 +12,68 @@ namespace PGCGame.CoreTypes
 {
     public abstract class BaseScreen : Glib.XNA.SpriteLib.Screen
     {
+        public abstract MusicBehaviour Music { get; }
+
         public BaseScreen(SpriteBatch spriteBatch, Color color)
             : base(spriteBatch, StateManager.DebugData.DebugBackground ? Color.Red : color)
         {
+            StateManager.ScreenStateChanged += new EventHandler(StateManager_ScreenStateChanged);
             ButtonClick = GameContent.Assets.Sound[SoundEffectType.ButtonPressed];
 #if XBOX
             StateManager.ScreenStateChanged += new EventHandler(StateManager_ScreenStateChanged);
             GamePadManager.One.Buttons.BButtonPressed += new EventHandler(Buttons_BButtonPressed);
 #endif
+        }
+
+        void StateManager_ScreenStateChanged(object sender, EventArgs e)
+        {
+            if (Visible)
+            {
+#if XBOX
+                elapsedBackButtonTime = TimeSpan.Zero;
+#endif
+                MusicBehaviour lastScreenMusic = StateManager.GetScreen<BaseScreen>(StateManager.LastScreen).Music;
+                if (lastScreenMusic != Music)
+                {
+                    if (Music.PauseMusic && StateManager.MusicManager.CurrentMusic.HasValue && StateManager.MusicManager.CurrentMusic == Music.DesiredMusic)
+                    {
+                        StateManager.MusicManager.Resume();
+                        return;
+                    }
+
+                    if (lastScreenMusic.PauseMusic)
+                    {
+                        StateManager.MusicManager.Pause();
+                        if (Music.DesiredMusic.HasValue && Music.DesiredMusic.Value != lastScreenMusic.DesiredMusic.Value)
+                        {
+                            throw new InvalidOperationException("When a screen being transitioned from has music that is requested to be paused, the receiving screen must not have music.");
+                        }
+                        if (Music.DesiredMusic == lastScreenMusic.DesiredMusic)
+                        {
+                            StateManager.MusicManager.Resume();
+                        }
+                    }
+                    else
+                    {
+                        StateManager.MusicManager.Stop();
+                        if (Music.DesiredMusic.HasValue)
+                        {
+                            StateManager.MusicManager.Play(Music.DesiredMusic.Value);
+                        }
+                    }
+
+                    /*
+                    if (StateManager.MusicManager.MediaPlayerState == Microsoft.Xna.Framework.Media.MediaState.Playing || StateManager.MusicManager.MediaPlayerState == Microsoft.Xna.Framework.Media.MediaState.Paused)
+                    {
+                        StateManager.MusicManager.Stop();
+                    }
+                    if (StateManager.Options.MusicEnabled && Music.HasValue)
+                    {
+                        StateManager.MusicManager.Play(Music.Value);
+                    }
+                    */
+                }
+            }
         }
 
 
@@ -45,14 +99,6 @@ namespace PGCGame.CoreTypes
             else if (_screenType == CoreTypes.ScreenType.MainMenu && Visible && elapsedBackButtonTime > requiredBackButtonTime)
             {
                 StateManager.Exit();
-            }
-        }
-
-        void StateManager_ScreenStateChanged(object sender, EventArgs e)
-        {
-            if (Visible)
-            {
-                elapsedBackButtonTime = TimeSpan.Zero;
             }
         }
 #endif

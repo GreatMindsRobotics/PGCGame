@@ -9,6 +9,13 @@ namespace PGCGame
 {
     public class LevelCompleteScreen : CoreTypes.BaseScreen
     {
+        public override MusicBehaviour Music
+        {
+            get { return _music; }
+        }
+
+        private readonly MusicBehaviour _music = new MusicBehaviour();
+
         public LevelCompleteScreen(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.White)
         {

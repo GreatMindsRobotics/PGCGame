@@ -23,32 +23,28 @@ namespace PGCGame.Screens
     public class Credits : BaseScreen
     {
         private List<TextSprite> credits = new List<TextSprite>();
-        private Song _creditsSong;
+
         private Vector2 _scrollingSpeed;
 
         private XmlCredits _xmlCredits = XmlBaseLoader.Create<XmlCredits>(XmlDataFile.Credits);
         
         private TimeSpan _timeUntilCreditsFinish = TimeSpan.FromSeconds(87.5);
         private TimeSpan _elapsedTime;
-        private EventHandler<EventArgs> musicHandler;
 
         private SpriteFont _creditsFont = GameContent.Assets.Fonts.NormalText;
         private SpriteFont _boldCreditsFont = GameContent.Assets.Fonts.BoldText;
 
+        private MusicBehaviour _musicBehave = new MusicBehaviour(ScreenMusic.Credits);
 
-        private void music_StateChange(object src, EventArgs data)
+        public override MusicBehaviour Music
         {
-            if (Visible && StateManager.Options.MusicEnabled && MediaPlayer.State != MediaState.Playing)
-            {
-                MediaPlayer.Play(_creditsSong);
-            }
+            get { return _musicBehave; }
         }
-
+       
         public Credits(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
         {
             _xmlCredits.LoadData();
-            musicHandler = new EventHandler<EventArgs>(music_StateChange);
             StateManager.Options.ScreenResolutionChanged += new EventHandler<ViewportEventArgs>(Options_ScreenResolutionChanged);
             StateManager.ScreenStateChanged += new EventHandler(StateManager_ScreenStateChanged);
         }
@@ -94,16 +90,9 @@ namespace PGCGame.Screens
 
         Sprite gameTitle;
 
-        internal void PlayMusic()
-        {
-            MediaPlayer.Play(_creditsSong);
-        }
-
         public override void InitScreen(ScreenType screenType)
         {
             base.InitScreen(screenType);
-            MediaPlayer.MediaStateChanged -= musicHandler;
-            MediaPlayer.MediaStateChanged += musicHandler;
             BackgroundSprite = new Sprite(GameContent.Assets.Images.Backgrounds.Screens[ScreenBackgrounds.Credits], Vector2.Zero, Sprites.SpriteBatch);
             SpriteFont SegoeUIMono = GameContent.Assets.Fonts.NormalText;
             _scrollingSpeed = new Vector2(0, -1);
@@ -116,8 +105,6 @@ namespace PGCGame.Screens
             //credits = new TextSprite(Sprites.SpriteBatch, GameContent.GameAssets.Fonts.NormalText, "   Plequarius: Galactic Commanders\n\n\n\n\n\nAll Developement:\nGlen Husman\n\nMinor Assistance:\nAbe", Color.White);
 
             //credits.Position = new Vector2(credits.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport).X, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height+imgSprite.Height);
-
-            _creditsSong = GameContent.Assets.Music[ScreenMusic.Credits];
 
             int lastWeekID = 0;
             foreach (KeyValuePair<XmlCredits.Week, XmlCredits.Student> weekStudent in _xmlCredits.Students)
@@ -202,7 +189,6 @@ namespace PGCGame.Screens
 
             if (_elapsedTime >= _timeUntilCreditsFinish || keyboard.IsKeyDown(Keys.Escape))
             {
-                MediaPlayer.Stop();
                 _elapsedTime = TimeSpan.Zero;
                 StateManager.ScreenState = ScreenType.Title;
                 

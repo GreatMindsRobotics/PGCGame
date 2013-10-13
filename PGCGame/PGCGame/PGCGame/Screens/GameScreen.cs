@@ -37,7 +37,6 @@ namespace PGCGame.Screens
         public GameScreen(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
         {
-            StateManager.Options.MusicStateChanged += new EventHandler(Options_MusicStateChanged);
             worldCam = new Camera2DMatrix();
             playerSb = new SpriteBatch(spriteBatch.GraphicsDevice);
 
@@ -53,29 +52,6 @@ namespace PGCGame.Screens
             });
 #endif
         }
-
-        void Options_MusicStateChanged(object sender, EventArgs e)
-        {
-            RunNextUpdate = new Delegates.NextRun(delegate()
-            {
-                if (StateManager.Options.MusicEnabled)
-                {
-                    if (MediaPlayer.State == MediaState.Paused)
-                    {
-                        MediaPlayer.Resume();
-                    }
-                    else
-                    {
-                        MediaPlayer.Play(_gameSong);
-                    }
-                }
-                else
-                {
-                    MediaPlayer.Stop();
-                }
-            });
-        }
-
         /// <summary>
         /// The amount to divide the background size by to generate the minimap size.
         /// </summary>
@@ -88,7 +64,6 @@ namespace PGCGame.Screens
         SpriteFont bold;
         Texture2D bgImg;
         SpriteFont SegoeUIMono = GameContent.Assets.Fonts.NormalText;
-        Song _gameSong;
         List<ISprite> playerSbObjects = new List<ISprite>();
 
         public override void InitScreen(ScreenType screenType)
@@ -97,33 +72,18 @@ namespace PGCGame.Screens
 
             bold = GameContent.Assets.Fonts.BoldText;
             normal = GameContent.Assets.Fonts.NormalText;
-            StateManager.ScreenStateChanged += new EventHandler(delegate(object src, EventArgs arg)
-            {
-                if (Visible)
-                {
-                    if (StateManager.Options.MusicEnabled)
-                    {
-                        if (MediaPlayer.State == MediaState.Paused)
-                        {
-                            MediaPlayer.Resume();
-                        }
-                        else
-                        {
-                            MediaPlayer.Play(_gameSong);
-                        }
-                    }
-                    else
-                    {
-                        MediaPlayer.Stop();
-                    }
-                }
-            });
 
             StateManager.Options.ScreenResolutionChanged += new EventHandler<ViewportEventArgs>(Options_ScreenResolutionChanged);
 
-            _gameSong = GameContent.Assets.Music[ScreenMusic.Level1];
-
+            
             bgImg = GameContent.Assets.Images.Backgrounds.Levels[GameLevel.Level1];
+        }
+
+        private MusicBehaviour _music = new MusicBehaviour(ScreenMusic.Level1, true);
+
+        public override MusicBehaviour Music
+        {
+            get { return _music; }
         }
 
         void Options_ScreenResolutionChanged(object sender, ViewportEventArgs e)
@@ -628,14 +588,6 @@ namespace PGCGame.Screens
 
             if (!_gameHasStarted)
             {
-                //_allowMusicHandling = false;
-                MediaPlayer.Stop();
-                if (StateManager.Options.MusicEnabled)
-                {
-                    MediaPlayer.Play(_gameSong);
-                }
-                //_allowMusicHandling = true;
-
                 if (playerShip.WorldCoords == Vector2.Zero)
                 {
                     //This is the temporary workaround

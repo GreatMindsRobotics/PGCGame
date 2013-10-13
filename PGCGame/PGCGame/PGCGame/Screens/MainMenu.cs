@@ -23,6 +23,10 @@ namespace PGCGame.Screens
 {
     public class MainMenu : BaseScreen
     {
+        public override MusicBehaviour Music
+        {
+            get { return new MusicBehaviour(ScreenMusic.MainMenu, true); }
+        }
 
         public MainMenu(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)

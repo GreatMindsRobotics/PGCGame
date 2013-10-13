@@ -16,6 +16,11 @@ namespace PGCGame.Screens.Multiplayer
 {
     public class AvailableSessionsScreen : BaseScreen
     {
+        public override MusicBehaviour Music
+        {
+            get { return MusicBehaviour.NoMusic; }
+        }
+
         public AvailableSessionsScreen(SpriteBatch sb)
             : base(sb, Color.Black)
         {

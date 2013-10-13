@@ -118,37 +118,21 @@ namespace PGCGame.Screens
 
         Sprite ship;
 
-        Song _gameSong;
-
+        
 #if XBOX
         GamePadButtonEnumerator ButtonManagement;
 #endif
 
+        private MusicBehaviour _music = new MusicBehaviour(ScreenMusic.Level1, true);
+
+        public override MusicBehaviour Music
+        {
+            get { return _music; }
+        }
 
         public override void InitScreen(ScreenType screenName)
         {
             base.InitScreen(screenName);
-
-            _gameSong = GameContent.Assets.Music[ScreenMusic.Level1];
-
-            StateManager.Options.MusicStateChanged += new EventHandler(Options_MusicStateChanged);
-            StateManager.ScreenStateChanged += new EventHandler(delegate(object src, EventArgs arg)
-            {
-                if (Visible)
-                {
-                    if (StateManager.Options.MusicEnabled)
-                    {
-                        if (MediaPlayer.State != MediaState.Playing)
-                        {
-                            MediaPlayer.Play(_gameSong);
-                        }
-                    }
-                    else
-                    {
-                        MediaPlayer.Stop();
-                    }
-                }
-            });
 
             Viewport viewport = Sprites.SpriteBatch.GraphicsDevice.Viewport;
 
@@ -290,15 +274,6 @@ namespace PGCGame.Screens
             ship.XSpeed = 1.5f;
             ship.YSpeed = -ship.XSpeed * .8f;
             ship.Rotation.Degrees = 0;
-        }
-
-
-        void Options_MusicStateChanged(object sender, EventArgs e)
-        {
-            if (MediaPlayer.State == MediaState.Playing)
-            {
-                MediaPlayer.Stop();
-            }
         }
 
 

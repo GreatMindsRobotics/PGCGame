@@ -20,6 +20,10 @@ namespace PGCGame.Screens
 {
     public class PauseScreen : BaseScreen
     {
+        public override MusicBehaviour Music
+        {
+            get { return MusicBehaviour.NoMusic; }
+        }
 
         TextSprite ExitLabel;
         TextSprite PauseLabel;

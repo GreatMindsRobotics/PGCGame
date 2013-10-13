@@ -20,6 +20,11 @@ namespace PGCGame.Screens.Multiplayer
 
     public class MPShipsScreen : BaseScreen
     {
+        public override MusicBehaviour Music
+        {
+            get { return MusicBehaviour.NoMusic; }
+        }
+
         public MPShipsScreen(SpriteBatch sb)
             : base(sb, Color.Black)
         {
