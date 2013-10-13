@@ -19,12 +19,13 @@ namespace PGCGame
     public static class StateManager
     {
         #region Private Fields
+        private static ScreenType _lastScreen = ScreenType.Title;
         private static BulletPool _bulletPool;
         private static Game _game;
         private static bool _hasBoughtScanner = false;
         public static int HealthPacks = 0;
         private static Stack<ScreenType> _screenStack = new Stack<ScreenType>();
-        private static ScreenType _screenState = ScreenType.Title;
+        private static ScreenType _screenState = ScreenType.LoadingScreen;
         private static GraphicsDeviceManager _gfx;
         private static Guid _enemyID = Guid.NewGuid();
         private static int _spaceBucks = 100000;
@@ -235,13 +236,16 @@ namespace PGCGame
             }
             set
             {
-                if (value != ScreenType.TransitionScreen && value != ScreenType.LoadingScreen)
+                if (value != _screenState)
                 {
-                    _screenStack.Push(value);
-                }
-                _screenState = value;
+                    if (value != ScreenType.TransitionScreen && value != ScreenType.LoadingScreen)
+                    {
+                        _screenStack.Push(value);
+                    }
+                    _screenState = value;
 
-                SwitchScreen(value);
+                    SwitchScreen(value);
+                }
             }
         }
 
@@ -251,9 +255,11 @@ namespace PGCGame
         {
             get
             {
-                return _screenStack.Peek();
+                return _lastScreen;
             }
         }
+
+        
 
         public static Guid EnemyID
         {
@@ -361,10 +367,6 @@ namespace PGCGame
                     activeScreen.Cast<PGCGame.Screens.GameScreen>().ResetLastKS(Keys.Escape);
                     break;
 
-                case ScreenType.GameOver:
-                    activeScreen.Cast<PGCGame.Screens.GameOver>();
-                    break;
-
                 case ScreenType.Pause:
                     activeScreen.Cast<PGCGame.Screens.PauseScreen>().lastState = new KeyboardState(Keys.Escape);
                     break;
@@ -376,6 +378,7 @@ namespace PGCGame
             {
                 ScreenStateChanged(null, EventArgs.Empty);
             }
+            _lastScreen = screenType;
         }
 
         #endregion Private Methods
@@ -727,7 +730,19 @@ namespace PGCGame
                 get { return _currentMusic; }
                 private set { _currentMusic = value; }
             }
-            
+
+            static MusicManager()
+            {
+                Options.MusicStateChanged += new EventHandler(Options_MusicStateChanged);
+            }
+
+            static void Options_MusicStateChanged(object sender, EventArgs e)
+            {
+                if (!Options.MusicEnabled)
+                {
+                    Stop();
+                }
+            }
 
             public static MediaState MediaPlayerState
             {
@@ -763,9 +778,12 @@ namespace PGCGame
 
             public static void Play(ScreenMusic song)
             {
-                MediaPlayer.Play(GameContent.Assets.Music[song]);
-                _currentMusic = song;
-                _mediaState = MediaState.Playing;
+                if (Options.MusicEnabled)
+                {
+                    MediaPlayer.Play(GameContent.Assets.Music[song]);
+                    _currentMusic = song;
+                    _mediaState = MediaState.Playing;
+                }
             }
         }
 

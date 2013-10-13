@@ -12,6 +12,7 @@ namespace PGCGame.CoreTypes
 {
     public abstract class BaseScreen : Glib.XNA.SpriteLib.Screen
     {
+        private static bool _isFirstScreen = true;
         public abstract MusicBehaviour Music { get; }
 
         public BaseScreen(SpriteBatch spriteBatch, Color color)
@@ -32,7 +33,36 @@ namespace PGCGame.CoreTypes
 #if XBOX
                 elapsedBackButtonTime = TimeSpan.Zero;
 #endif
+                if (_isFirstScreen)
+                {
+                    _isFirstScreen = false;
+                    if (Music.DesiredMusic.HasValue)
+                    {
+                        StateManager.MusicManager.Play(Music.DesiredMusic.Value);
+                    }
+                    return;
+                }
+
                 MusicBehaviour lastScreenMusic = StateManager.GetScreen<BaseScreen>(StateManager.LastScreen).Music;
+                if (lastScreenMusic == Music)
+                {
+                    if (Music.DesiredMusic.HasValue)
+                    {
+                        StateManager.MusicManager.Resume();
+                    }
+                    else
+                    {
+                        if (lastScreenMusic.PauseMusic)
+                        {
+                            StateManager.MusicManager.Pause();
+                        }
+                        else
+                        {
+                            StateManager.MusicManager.Stop();
+                        }
+                    }
+                    return;
+                }
                 if (lastScreenMusic != Music)
                 {
                     if (Music.PauseMusic && StateManager.MusicManager.CurrentMusic.HasValue && StateManager.MusicManager.CurrentMusic == Music.DesiredMusic)
@@ -48,10 +78,7 @@ namespace PGCGame.CoreTypes
                         {
                             throw new InvalidOperationException("When a screen being transitioned from has music that is requested to be paused, the receiving screen must not have music.");
                         }
-                        if (Music.DesiredMusic == lastScreenMusic.DesiredMusic)
-                        {
-                            StateManager.MusicManager.Resume();
-                        }
+                        
                     }
                     else
                     {

@@ -75,8 +75,6 @@ namespace PGCGame.Screens.Multiplayer
         {
             base.InitScreen(screnType);
 
-            StateManager.Options.MusicStateChanged += new EventHandler(Options_MusicStateChanged);
-
             Texture2D planetTexture = GameContent.Assets.Images.NonPlayingObjects.Planet;
             Texture2D altPlanetTexture = GameContent.Assets.Images.NonPlayingObjects.AltPlanet;
             Texture2D buttonImage = GameContent.Assets.Images.Controls.Button;
@@ -330,14 +328,6 @@ namespace PGCGame.Screens.Multiplayer
         void lScr_ScreenFinished(object sender, EventArgs e)
         {
             StateManager.ScreenState = isError ? ScreenType.NetworkSelectScreen : CoreTypes.ScreenType.NetworkSessionsScreen;
-        }
-
-        void Options_MusicStateChanged(object sender, EventArgs e)
-        {
-            if (MediaPlayer.State == MediaState.Playing)
-            {
-                MediaPlayer.Stop();
-            }
         }
 
         void Options_ScreenResolutionChanged(object sender, ViewportEventArgs e)

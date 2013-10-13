@@ -317,10 +317,6 @@ namespace PGCGame.Screens
 
                     StateManager.Options.MusicEnabled = !StateManager.Options.MusicEnabled;
                     MusicVolumeLabel.Text = String.Format("Music: {0}", StateManager.Options.MusicEnabled ? "On" : "Off");
-                    if (MusicVolumeLabel.Text == "Music: On")
-                    {
-                        MediaPlayer.Resume();
-                    }
                 }
                 if (SFXLabel.IsSelected)
                 {

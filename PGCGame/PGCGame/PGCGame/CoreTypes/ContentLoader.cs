@@ -77,7 +77,7 @@ namespace PGCGame.CoreTypes
 
             public Song this[ScreenMusic index]
             {
-                get { return _gameMusic[index]; }
+                get { return _gameMusic[index == ScreenMusic.MainMenu ? ScreenMusic.Level1 : index]; }
             }
 
             internal GameMusic(ContentManager content)

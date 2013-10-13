@@ -176,7 +176,7 @@ namespace PGCGame.Screens
 
             if (this.Visible)
             {
-                StateManager.GoBack();
+                StateManager.ScreenState = CoreTypes.ScreenType.Game;
             }
         }
 

@@ -123,7 +123,7 @@ namespace PGCGame.Screens
         GamePadButtonEnumerator ButtonManagement;
 #endif
 
-        private MusicBehaviour _music = new MusicBehaviour(ScreenMusic.Level1, true);
+        private MusicBehaviour _music = new MusicBehaviour(ScreenMusic.MainMenu, false);
 
         public override MusicBehaviour Music
         {
