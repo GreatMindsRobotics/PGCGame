@@ -87,6 +87,7 @@
     <Compile Include="Failsafe\FailsafeErrorGame.cs" />
     <Compile Include="PlequariusGame.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Screens\CheatEditScreen.cs" />
     <Compile Include="Screens\ControlScreen.cs" />
     <Compile Include="Screens\Credits.cs" />
     <Compile Include="Screens\GameOver.cs" />

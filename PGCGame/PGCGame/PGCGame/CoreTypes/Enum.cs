@@ -6,7 +6,7 @@ using System.Text;
 namespace PGCGame.CoreTypes
 {
     public enum ScreenType
-    {   
+    {
         Title,
         MainMenu,
         Credits,
@@ -29,7 +29,8 @@ namespace PGCGame.CoreTypes
         MultiPlayerShipSelect,
         MPShipsDisplay,
         MPWinningScreen,
-        MPLoseScreen
+        MPLoseScreen,
+        CheatModifyScreen
     }
 
     /// <summary>

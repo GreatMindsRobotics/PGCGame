@@ -15,6 +15,7 @@ using Glib.XNA.SpriteLib;
 using PGCGame.CoreTypes;
 using Glib.XNA.InputLib;
 using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.GamerServices;
 
 
 namespace PGCGame.Screens
@@ -30,16 +31,33 @@ namespace PGCGame.Screens
             : base(spriteBatch, Color.Black)
         {
             ButtonClick = GameContent.Assets.Sound[SoundEffectType.ButtonPressed];
-            StateManager.ScreenResolutionChanged += new EventHandler<ViewportEventArgs>(StateManager_ScreenResolutionChanged);
+            StateManager.ScreenStateChanged += new EventHandler(StateManager_ScreenStateChanged);
         }
 
-        void StateManager_ScreenResolutionChanged(object sender, ViewportEventArgs e)
+        void StateManager_ScreenStateChanged(object sender, EventArgs e)
         {
             if (Visible)
             {
-
+                bool showCheats = StateManager.GamerServicesAreAvailable;
+                if (showCheats)
+                {
+                    showCheats = false;
+                    foreach (SignedInGamer gamer in Gamer.SignedInGamers)
+                    {
+                        if (gamer.IsSignedInToLive && StateManager.GameDevs.Contains(gamer.Gamertag.ToLower()))
+                        {
+                            showCheats = true;
+                            break;
+                        }
+                    }
+                }
+                CheatsButton.Visible = showCheats;
+                CheatsLabel.Visible = showCheats;
             }
         }
+
+        Sprite CheatsButton;
+        TextSprite CheatsLabel;
 
         Sprite ControlButton;
         TextSprite ControlLabel;
@@ -86,7 +104,7 @@ namespace PGCGame.Screens
             ControlLabel.HoverColor = Color.MediumAquamarine;
             ControlLabel.NonHoverColor = Color.White;
 
-                                                                                                                                                                             
+                                                                                                                                                                      
 
             
 #if WINDOWS
@@ -180,6 +198,12 @@ namespace PGCGame.Screens
             AdditionalSprites.Add(BackLabel);
             AdditionalSprites.Add(MusicVolumeLabel);
 
+            CheatsButton = new Sprite(button, new Vector2(MusicButton.X, BackButton.Y), Sprites.SpriteBatch);
+            CheatsButton.Visible = StateManager.GamerServicesAreAvailable && Gamer.SignedInGamers.Count > 0;
+            Sprites.Add(CheatsButton);
+
+            CheatsLabel = StateManager.CreateButtonTextSprite(false, "Cheats", CheatsButton, this);
+            CheatsLabel.Pressed += new EventHandler(CheatsLabel_Pressed);
 #if XBOX
             AllButtons = new GamePadButtonEnumerator(new TextSprite[,] { { ControlLabel,  SFXLabel}, { BackLabel,  MusicVolumeLabel}}, InputType.LeftJoystick);
             AllButtons.ButtonPress += new EventHandler(AllButtons_ButtonPress);
@@ -190,6 +214,11 @@ namespace PGCGame.Screens
             StateManager.Options.ScreenResolutionChanged += new EventHandler<ViewportEventArgs>(Options_ScreenResolutionChanged);
 #endif
 
+        }
+
+        void CheatsLabel_Pressed(object sender, EventArgs e)
+        {
+            StateManager.ScreenState = CoreTypes.ScreenType.CheatModifyScreen;
         }
 
 #if XBOX

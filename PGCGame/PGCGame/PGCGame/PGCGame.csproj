@@ -94,6 +94,7 @@
     <Compile Include="CoreTypes\ShipStats.cs" />
     <Compile Include="CoreTypes\Utilites\LocationUtility.cs" />
     <Compile Include="Failsafe\FailsafeErrorGame.cs" />
+    <Compile Include="Screens\CheatEditScreen.cs" />
     <Compile Include="Screens\LevelCompleteScreen.cs" />
     <Compile Include="Screens\LoadingScreen.cs" />
     <Compile Include="Screens\Multiplayer\AvailableSessionsScreen.cs" />

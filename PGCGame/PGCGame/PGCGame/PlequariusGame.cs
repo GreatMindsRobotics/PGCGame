@@ -38,6 +38,7 @@ namespace PGCGame
 
         Title titleScreen;
         MPShipsScreen mpShipList;
+        CheatEditScreen cheatScreen;
         AvailableSessionsScreen availableNetSessions;
         NetworkMatchTypeSelectionScreen netMatchCreate;
         MainMenu mainMenuScreen;
@@ -189,7 +190,10 @@ namespace PGCGame
             mpLose = new MultiplayerLoseScreen(spriteBatch);
             mpLose.InitScreen(ScreenType.MPLoseScreen);
 
-            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen, weaponSelectScreen, upgradeScreen, tierSelectScreen, levelSelectScreen, controlScreen, networkScreen, gameOver, transitionScreen, levelCompleteScreen, loadingScreen, availableNetSessions, netMatchCreate, multiplayerShipSelectScreen, mpShipList, mpWin, mpLose);
+            cheatScreen = new CheatEditScreen(spriteBatch);
+            cheatScreen.InitScreen(ScreenType.CheatModifyScreen);
+
+            screenManager = new ScreenManager(spriteBatch, Color.White, titleScreen, mainMenuScreen, creditsScreen, gameScreen, optionScreen, shopScreen, pauseScreen, weaponSelectScreen, upgradeScreen, tierSelectScreen, levelSelectScreen, controlScreen, networkScreen, gameOver, transitionScreen, levelCompleteScreen, loadingScreen, availableNetSessions, netMatchCreate, multiplayerShipSelectScreen, mpShipList, mpWin, mpLose, cheatScreen);
             StateManager.AllScreens = screenManager;
             StateManager.ScreenState = ScreenType.Title;
         }
