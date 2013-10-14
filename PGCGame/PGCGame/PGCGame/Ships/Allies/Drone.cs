@@ -71,6 +71,8 @@ namespace PGCGame
             : base(texture, location, spriteBatch, true)
         {
             ParentShip = parent;
+            parent.TierChanged += new EventHandler(parent_TierChanged);
+            TierChanged += new EventHandler(parent_TierChanged);
 
             _hasHealthBar = false;
 
@@ -79,12 +81,33 @@ namespace PGCGame
             WorldCoords = ParentShip.WorldCoords;
             Scale = new Vector2(.75f);
             RotateTowardsMouse = false;
-            _initHealth = 10;
-            //BulletTexture = GameContent.Assets.Images.Ships.Bullets[ShipType.Drone, ShipTier.Tier1];
-            DamagePerShot = 1;
 #if XBOX
             GamePadManager.One.Buttons.XButtonPressed += new EventHandler(Buttons_XButtonPressed);
 #endif
+        }
+
+        void parent_TierChanged(object sender, EventArgs e)
+        {
+            //Upgrade drones based on parent ship
+            switch (ParentShip.Tier)
+            {
+                case ShipTier.Tier1:
+                    _initHealth = 10;
+                    DamagePerShot = 1;
+                    break;
+                case ShipTier.Tier2:
+                    _initHealth = 10;
+                    DamagePerShot = 1;
+                    break;
+                case ShipTier.Tier3:
+                    _initHealth = 12;
+                    DamagePerShot = 1;
+                    break;
+                case ShipTier.Tier4:
+                    _initHealth = 12;
+                    DamagePerShot = 2;
+                    break;
+            }
         }
 
         static Drone()
@@ -134,6 +157,14 @@ namespace PGCGame
             }
         }
 
+        public const float Range = 400;
+
+        public const float RangeSquared = Range * Range;
+
+        /// <summary>
+        /// Computes the distance to the nearest enemy.
+        /// </summary>
+        /// <returns>Whether or not an enemy is in range.</returns>
         private bool isEnemyDetected()
         {
             //finds the closes ship 
@@ -156,12 +187,11 @@ namespace PGCGame
                 }
             }
 
-            //TODO: Cleanup magic numbers
-            return (closestEnemyShipDistance.HasValue && closestEnemyShip != null && closestEnemyShipDistance.Value.LengthSquared() < Math.Pow(400, 2) && closestEnemyShip.CurrentHealth > 0);          
+            return (closestEnemyShipDistance.HasValue && closestEnemyShip != null && closestEnemyShipDistance.Value.LengthSquared() < RangeSquared && closestEnemyShip.CurrentHealth > 0);          
         }
 
-        public static readonly DroneState[] BadStates = { DroneState.Attacking, DroneState.AcceptingFate,
-                    DroneState.EvadingFire, DroneState.MovingToTarget, DroneState.TargetAcquired, DroneState.RIP};
+        public static readonly System.Collections.ObjectModel.ReadOnlyCollection<DroneState> BadStates = new System.Collections.ObjectModel.ReadOnlyCollection<DroneState>(new DroneState[]{ DroneState.AcceptingFate,
+                    DroneState.EvadingFire, DroneState.MovingToTarget, DroneState.RIP});
 
         public override void Update(GameTime gameTime)
         {
@@ -170,7 +200,7 @@ namespace PGCGame
 
             DroneDeploy = GameContent.Assets.Sound[SoundEffectType.DronesDeploy];
 
-            if (CurrentHealth <= 0)
+            if (CurrentHealth <= 0 && (shipState != CoreTypes.ShipState.Exploding || DroneState != CoreTypes.DroneState.RIP))
             {
                 this.shipState = CoreTypes.ShipState.Exploding;
                 DroneState = CoreTypes.DroneState.RIP;

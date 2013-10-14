@@ -29,7 +29,16 @@ namespace PGCGame.Screens
         public Options(SpriteBatch spriteBatch)
             : base(spriteBatch, Color.Black)
         {
-            ButtonClick = GameContent.Assets.Sound[SoundEffectType.ButtonPressed];                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+            ButtonClick = GameContent.Assets.Sound[SoundEffectType.ButtonPressed];
+            StateManager.ScreenResolutionChanged += new EventHandler<ViewportEventArgs>(StateManager_ScreenResolutionChanged);
+        }
+
+        void StateManager_ScreenResolutionChanged(object sender, ViewportEventArgs e)
+        {
+            if (Visible)
+            {
+
+            }
         }
 
         Sprite ControlButton;

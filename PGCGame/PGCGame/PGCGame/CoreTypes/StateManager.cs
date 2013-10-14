@@ -734,6 +734,7 @@ namespace PGCGame
             static MusicManager()
             {
                 Options.MusicStateChanged += new EventHandler(Options_MusicStateChanged);
+                MediaPlayer.IsRepeating = true;
             }
 
             static void Options_MusicStateChanged(object sender, EventArgs e)
