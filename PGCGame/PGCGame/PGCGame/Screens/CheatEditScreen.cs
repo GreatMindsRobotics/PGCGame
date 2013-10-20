@@ -26,6 +26,7 @@ namespace PGCGame.Screens
                 if (showCheats)
                 {
                     showCheats = false;
+#if WINDOWS
                     foreach (SignedInGamer gamer in Gamer.SignedInGamers)
                     {
                         if (gamer.IsSignedInToLive && StateManager.GameDevs.Contains(gamer.Gamertag.ToLower()))
@@ -34,6 +35,7 @@ namespace PGCGame.Screens
                             break;
                         }
                     }
+#endif
                 }
                 if (!showCheats)
                 {
@@ -54,6 +56,7 @@ namespace PGCGame.Screens
             shipSpeed.Text = string.Format("ShipSpeedIncrease: {0}", StateManager.DebugData.ShipSpeedIncrease);
             killall.Text = string.Format("KillAll: {0}", StateManager.DebugData.KillAll);
             emergencyheal.Text = string.Format("EmergencyHeal: {0}", StateManager.DebugData.EmergencyHeal);
+            fowEnabled.Text = string.Format("FogOfWarEnabled: {0}", StateManager.DebugData.FogOfWarEnabled);
         }
 
         private void event_OnPressGeneral(object src, EventArgs ea)
@@ -66,6 +69,7 @@ namespace PGCGame.Screens
         TextSprite shipSpeed;
         TextSprite killall;
         TextSprite emergencyheal;
+        TextSprite fowEnabled;
 
         public override void InitScreen(ScreenType screenName)
         {
@@ -97,7 +101,17 @@ namespace PGCGame.Screens
             emergencyheal.Pressed += new EventHandler(emergencyheal_Pressed);
             emergencyheal.Pressed += new EventHandler(event_OnPressGeneral);
 
+            fowEnabled = StateManager.CreateButtonTextSprite(false, null, null, this);
+            fowEnabled.Y = emergencyheal.Height + emergencyheal.Y;
+            fowEnabled.Pressed += new EventHandler(fowEnabled_Pressed);
+            fowEnabled.Pressed += new EventHandler(event_OnPressGeneral);
+
             UpdateTextSprites();
+        }
+
+        void fowEnabled_Pressed(object sender, EventArgs e)
+        {
+            StateManager.DebugData.FogOfWarEnabled = !StateManager.DebugData.FogOfWarEnabled;
         }
 
         void emergencyheal_Pressed(object sender, EventArgs e)

@@ -34,7 +34,7 @@ namespace PGCGame
 
         #region Public Fields
 
-        public static readonly ReadOnlyCollection<string> GameDevs = new ReadOnlyCollection<string>(new string[]{"glen3b", "alex45101", "buildcoolrobots"});
+        public static readonly ReadOnlyCollection<string> GameDevs = new ReadOnlyCollection<string>(new string[]{"glen3b", "alex45101", "buildcoolrobots", "zerodrequiem"});
 
         public static bool GamerServicesAreAvailable = true;
 
@@ -389,7 +389,7 @@ namespace PGCGame
 
         public static TextSprite CreateButtonTextSprite(Boolean boldFont, string text, Sprite parentSprite, Screen parentScreen)
         {
-            TextSprite newTextSprite = new TextSprite(parentScreen.Sprites.SpriteBatch, Vector2.Zero, boldFont ? GameContent.Assets.Fonts.BoldText : GameContent.Assets.Fonts.NormalText, text == null ? "GameTextSprite" : text);
+            TextSprite newTextSprite = new TextSprite(parentScreen.Sprites.SpriteBatch, Vector2.Zero, boldFont ? GameContent.Assets.Fonts.BoldText : GameContent.Assets.Fonts.NormalText, text == null ? "Text" : text);
             newTextSprite.IsHoverable = true;
 #if WINDOWS
             newTextSprite.CallKeyboardClickEvent = false;

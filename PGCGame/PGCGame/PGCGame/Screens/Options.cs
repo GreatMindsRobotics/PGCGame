@@ -39,6 +39,7 @@ namespace PGCGame.Screens
             if (Visible)
             {
                 bool showCheats = StateManager.GamerServicesAreAvailable;
+#if WINDOWS
                 if (showCheats)
                 {
                     showCheats = false;
@@ -51,6 +52,9 @@ namespace PGCGame.Screens
                         }
                     }
                 }
+#else
+                showCheats = false;
+#endif
                 CheatsButton.Visible = showCheats;
                 CheatsLabel.Visible = showCheats;
             }
