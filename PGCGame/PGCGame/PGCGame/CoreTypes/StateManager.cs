@@ -662,7 +662,7 @@ namespace PGCGame
 
             public static bool DeploySecondaryWeapon(SecondaryWeaponType currentIndex)
             {
-                return StateManager.PowerUps[currentIndex.ToInt()].Count > 0 && ((StateManager.Options.SecondaryButtonEnabled && KeyboardManager.State.IsKeyDown(Keys.RightShift) && _lastKs.IsKeyUp(Keys.RightShift)) || (!StateManager.Options.SecondaryButtonEnabled && KeyboardManager.State.IsKeyDown(Keys.R) && KeyboardManager.State.IsKeyUp(Keys.R)));
+                return StateManager.PowerUps[currentIndex.ToInt()].Count > 0 && ((StateManager.Options.SecondaryButtonEnabled && KeyboardManager.State.IsKeyDown(Keys.RightShift) && _lastKs.IsKeyUp(Keys.RightShift)) || (!StateManager.Options.SecondaryButtonEnabled && KeyboardManager.State.IsKeyDown(Keys.R) && _lastKs.IsKeyUp(Keys.R)));
 
             }
 
