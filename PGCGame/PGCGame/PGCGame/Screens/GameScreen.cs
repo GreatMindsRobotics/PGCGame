@@ -75,8 +75,91 @@ namespace PGCGame.Screens
 
             StateManager.Options.ScreenResolutionChanged += new EventHandler<ViewportEventArgs>(Options_ScreenResolutionChanged);
 
-            
+            StateManager.NetworkData.DataReceived += new EventHandler<Glib.XNA.NetworkLib.NetworkInformationReceivedEventArgs>(NetworkData_DataReceived);
             bgImg = GameContent.Assets.Images.Backgrounds.Levels[GameLevel.Level1];
+        }
+
+        private Dictionary<byte, Bullet> _bulletsInProgress = new Dictionary<byte, Bullet>();
+
+        void NetworkData_DataReceived(object sender, Glib.XNA.NetworkLib.NetworkInformationReceivedEventArgs e)
+        {
+            if (!Visible)
+            {
+                return;
+            }
+
+            string[] propNameComponents = e.PropertyName.Split('.');
+
+            if (propNameComponents[0].Equals("NewBullet", StringComparison.InvariantCultureIgnoreCase))
+            {
+                #region Bullet Handling
+
+                if (propNameComponents[1].Equals("PosSpeed", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    Vector4 bulletData = (Vector4)e.Data;
+                    BaseAllyShip parent = null;
+                    try
+                    {
+                        parent = StateManager.EnemyShips[e.Sender];
+                    }
+                    catch (IndexOutOfRangeException)
+                    {
+                        parent = StateManager.AllyShips[e.Sender];
+                    }
+                    Bullet newBullet = StateManager.BulletPool.GetBullet();
+                    newBullet.InitializePooledBullet(new Vector2(bulletData.X, bulletData.Y), parent);
+                    newBullet.SpriteBatch = World;
+                    newBullet.Speed = new Vector2(bulletData.Z, bulletData.W);
+                    newBullet.MaximumDistance = new Vector2(4000f);
+                    _bulletsInProgress[e.Sender.Id] = newBullet;
+                }
+                else if (propNameComponents[1].Equals("FinalData", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    Vector4 addlData = (Vector4)e.Data;
+                    Bullet newBullet = _bulletsInProgress[e.Sender.Id];
+                    newBullet.Rotation = SpriteRotation.FromRadians(addlData.Y);
+                    newBullet.Damage = addlData.X.ToInt();
+
+                    //Debug.WriteLine("Bullet received from {0}: X: {1}, Y: {2}", newBullet.ParentShip.Controller.Gamertag, newBullet.X, newBullet.Y);
+                    (newBullet.ParentShip.PlayerType == PlayerType.Ally || newBullet.ParentShip.PlayerType == PlayerType.MyShip ? StateManager.AllyBullets : StateManager.EnemyBullets).Legit.Add(newBullet);
+                    _bulletsInProgress.Remove(e.Sender.Id);
+                }
+                #endregion
+            }
+
+            if (propNameComponents[0].Equals("MPShip", StringComparison.InvariantCultureIgnoreCase))
+            {
+                #region Ship Handling
+                if (propNameComponents[1].Equals("CurrentShipState", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    Vector4 shipData = (Vector4)e.Data;
+                    foreach (Ship s in StateManager.EnemyShips)
+                    {
+                        BaseAllyShip sh = s as BaseAllyShip;
+                        if (sh != null && sh.Controller != null && sh.Controller.Id == e.Sender.Id)
+                        {
+                            Debug.WriteLine("Received ship data from {0}: [{1}, {2}], health {3}", e.Sender.Gamertag, shipData.X, shipData.Y, shipData.W);
+                            sh.WorldCoords = new Vector2(shipData.X, shipData.Y);
+                            sh.Rotation = SpriteRotation.FromRadians(shipData.Z);
+                            sh.CurrentHealth = shipData.W.ToInt();
+                            break;
+                        }
+                    }
+                    foreach (Ship s in StateManager.AllyShips)
+                    {
+                        BaseAllyShip sh = s as BaseAllyShip;
+                        if (sh != null && sh.Controller != null && sh.Controller.Id == e.Sender.Id)
+                        {
+                            Debug.WriteLine("Received ship data from {0}: [{1}, {2}], health {3}", e.Sender.Gamertag, shipData.X, shipData.Y, shipData.W);
+                            sh.WorldCoords = new Vector2(shipData.X, shipData.Y);
+                            sh.Rotation = SpriteRotation.FromRadians(shipData.Z);
+                            sh.CurrentHealth = shipData.W.ToInt();
+                            break;
+                        }
+                    }
+                }
+                #endregion
+            }
         }
 
         private MusicBehaviour _music = new MusicBehaviour(ScreenMusic.Level1, true);
@@ -90,7 +173,7 @@ namespace PGCGame.Screens
         {
             if (playerShip != null)
             {
-                playerShip.Position = playerShip.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport, playerShip.Origin*playerShip.Scale);
+                playerShip.Position = playerShip.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport, playerShip.Origin * playerShip.Scale);
             }
             if (miniMap != null)
             {
@@ -269,7 +352,7 @@ namespace PGCGame.Screens
             playerShip = BaseAllyShip.CreateShip(ship, playerSb);
 
             playerShip.WorldSb = Sprites.SpriteBatch;
-            playerShip.Position = playerShip.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport, playerShip.Origin*playerShip.Scale);
+            playerShip.Position = playerShip.GetCenterPosition(Sprites.SpriteBatch.GraphicsDevice.Viewport, playerShip.Origin * playerShip.Scale);
             playerShip.WCMoved += new EventHandler(playerShip_WCMoved);
             playerShip.WCMoved += wcMovePrettyCode;
             playerShip.IsPlayerShip = true;
@@ -303,6 +386,8 @@ namespace PGCGame.Screens
 
             World = Sprites.SpriteBatch;
             playerShip.BulletFired += new EventHandler<BulletEventArgs>(playerShip_BulletFired);
+
+            _bulletsInProgress.Clear();
         }
 
         /// <summary>
@@ -321,11 +406,9 @@ namespace PGCGame.Screens
 
                 //IsBullet is true
                 e.Bullet.MaximumDistance = new Vector2(4000f);
-                StateManager.NetworkData.DataWriter.Write(true);
-                StateManager.NetworkData.DataWriter.Write(new Vector4(e.BulletPosition, e.BulletSpeed.X, e.BulletSpeed.Y));
-                StateManager.NetworkData.DataWriter.Write(new Vector4(e.Bullet.Damage, e.BulletRotation, e.Bullet.ParentShip.ShipType.ToInt(), e.Bullet.ParentShip.Tier.ToInt()));
-
-                StateManager.NetworkData.CurrentSession.LocalGamers[0].SendData(StateManager.NetworkData.DataWriter, SendDataOptions.None);
+                StateManager.NetworkData.SendData("NewBullet.PosSpeed", new Vector4(e.BulletPosition, e.BulletSpeed.X, e.BulletSpeed.Y));
+                StateManager.NetworkData.SendData("NewBullet.FinalData", new Vector4(e.Bullet.Damage, e.BulletRotation, e.Bullet.ParentShip.ShipType.ToInt(), e.Bullet.ParentShip.Tier.ToInt()));
+                StateManager.NetworkData.WriteNetworkData(SendDataOptions.None, null);
 
             }
         }
@@ -496,7 +579,7 @@ namespace PGCGame.Screens
             {
                 miniShip.Texture = GameContent.Assets.Images.MiniShips[ship.PlayerType];
             }
-            
+
             miniShip.Scale = ship.PlayerType == PlayerType.MyShip || ship.PlayerType == PlayerType.Ally ? new Vector2(.1f) : new Vector2(.07f);
             miniShip.Color = ship.PlayerType == PlayerType.MyShip || ship.PlayerType == PlayerType.Ally ? Color.Green : Color.Red;
             if (StateManager.ShowShipData)
@@ -648,11 +731,11 @@ namespace PGCGame.Screens
                         allEnemiesDead = false;
                     }
                 }
-                
+
 
             }
 
-            if( (_lastState.IsKeyUp(Keys.CapsLock) || _lastState.IsKeyUp(Keys.N)) && (KeyboardManager.State.IsKeyDown(Keys.CapsLock) && KeyboardManager.State.IsKeyDown(Keys.N)) )
+            if ((_lastState.IsKeyUp(Keys.CapsLock) || _lastState.IsKeyUp(Keys.N)) && (KeyboardManager.State.IsKeyDown(Keys.CapsLock) && KeyboardManager.State.IsKeyDown(Keys.N)))
             {
                 inNightMode = !inNightMode;
                 rastState = inNightMode ? new RasterizerState() { DepthBias = 125, FillMode = FillMode.WireFrame, ScissorTestEnable = true } : RasterizerState.CullCounterClockwise;
@@ -773,7 +856,7 @@ namespace PGCGame.Screens
                             playerShip.WorldCoords = StateManager.RandomGenerator.NextVector2(new Vector2(500), new Vector2(StateManager.SpawnArea.X + StateManager.SpawnArea.Width, StateManager.SpawnArea.Y + StateManager.SpawnArea.Height));
                             TintColor = Color.White;
 
-                            if(StateManager.Lives >= 5)
+                            if (StateManager.Lives >= 5)
                             {
                                 StateManager.ScreenState = ScreenType.MPLoseScreen;
                             }
@@ -1058,8 +1141,9 @@ namespace PGCGame.Screens
                 playerShip.Healthbar.Position = new Vector2(playerShip.Healthbar.Position.X - (playerShip.Healthbar.Width / 2), playerShip.Healthbar.Position.Y - (playerShip.Healthbar.Height / 1.5f));
             }
 
-            #region Networking Code
+            #region (Non-GLib) Networking Code
 
+            /*
             if (StateManager.NetworkData.IsMultiplayer)
             {
                 while (StateManager.NetworkData.CurrentSession.LocalGamers[0].IsDataAvailable)
@@ -1130,7 +1214,7 @@ namespace PGCGame.Screens
                     }
                 }
             }
-
+            */
             #endregion
 
             _gameHasStarted = true;

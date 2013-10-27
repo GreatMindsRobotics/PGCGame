@@ -14,6 +14,7 @@ using Glib.XNA.InputLib;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.Net;
 using System.Collections.ObjectModel;
+using Glib.XNA.NetworkLib;
 
 namespace PGCGame
 {
@@ -34,7 +35,7 @@ namespace PGCGame
 
         #region Public Fields
 
-        public static readonly ReadOnlyCollection<string> GameDevs = new ReadOnlyCollection<string>(new string[]{"glen3b", "alex45101", "buildcoolrobots", "zerodrequiem"});
+        public static readonly ReadOnlyCollection<string> GameDevs = new ReadOnlyCollection<string>(new string[] { "glen3b", "alex45101", "buildcoolrobots", "zerodrequiem" });
 
         public static bool GamerServicesAreAvailable = true;
 
@@ -261,7 +262,7 @@ namespace PGCGame
             }
         }
 
-        
+
 
         public static Guid EnemyID
         {
@@ -411,6 +412,8 @@ namespace PGCGame
         public static void InitGame(Game underlyingGame)
         {
             _game = underlyingGame;
+            NetworkData.component = new NetworkWatcherComponent(underlyingGame);
+            underlyingGame.Components.Add(NetworkData.component);
         }
 
 
@@ -454,6 +457,29 @@ namespace PGCGame
 
         #region Public Classes
 
+        /// <summary>
+        /// A class providing network functionality.
+        /// </summary>
+        /// <remarks>
+        /// This class uses GLib networking.
+        /// The property names should follow the following syntax:
+        /// 
+        /// NetworkItem.DetailedWhatThisIs
+        /// 
+        /// So, for a bullet's first Vector4,
+        /// NewBullet.PosSpeed
+        /// 
+        /// It is also conventional for the final piece of data for an object to follow: NetworkItem.FinalData
+        /// 
+        /// This tells the client computer to stop processing.
+        /// 
+        /// 
+        /// 
+        /// All data for a specific category could follow the following syntax (EX: Ships for all players):
+        /// 
+        /// NetCategory.IndividualID.DetailedWhatItIs
+        /// 
+        /// </remarks>
         public static class NetworkData
         {
             public static NetworkSessionType SessionType;
@@ -512,9 +538,42 @@ namespace PGCGame
             public static NetworkSession CurrentSession
             {
                 get { return _currentSession; }
-                private set { _currentSession = value; }
+                private set { _currentSession = value; component.Session = value; }
             }
 
+            public static event EventHandler<NetworkInformationReceivedEventArgs> DataReceived
+            {
+                add
+                {
+                    component.NetworkInformationReceived += value;
+                }
+                remove
+                {
+                    component.NetworkInformationReceived -= value;
+                }
+            }
+
+            internal static NetworkWatcherComponent component;
+
+            public static void SendData(string property, double data)
+            {
+                component.WriteData(property, 0, data);
+            }
+
+            public static void SendData(string property, string data)
+            {
+                component.WriteData(property, 0, data);
+            }
+
+            public static void WriteNetworkData(SendDataOptions opt, NetworkGamer receive)
+            {
+                component.SendData(0, receive, opt);
+            }
+
+            public static void SendData(string property, Vector4 data)
+            {
+                component.WriteData(property, 0, data);
+            }
 
             /// <summary>
             /// Registers the specified network session as the current network session.
@@ -527,8 +586,8 @@ namespace PGCGame
                 }
                 CurrentSession = register;
                 _game.Services.AddService(typeof(NetworkSession), CurrentSession);
-                DataReader = new PacketReader();
-                DataWriter = new PacketWriter();
+                _dataReader = new PacketReader();
+                _dataWriter = new PacketWriter();
                 //CurrentSession.GameStarted += new EventHandler<GameStartedEventArgs>(CurrentSession_GameStarted);
                 CurrentSession.GameEnded += new EventHandler<GameEndedEventArgs>(CurrentSession_GameEnded);
             }
@@ -547,6 +606,7 @@ namespace PGCGame
             /// <summary>
             /// Gets the <see cref="PacketReader"/> used to read data sent from the network.
             /// </summary>
+            [Obsolete("Use GLib", false)]
             public static PacketReader DataReader
             {
                 get { return _dataReader; }
@@ -558,6 +618,7 @@ namespace PGCGame
             /// <summary>
             /// Gets the <see cref="PacketWriter"/> used to write data across the network.
             /// </summary>
+            [Obsolete("Use GLib", false)]
             public static PacketWriter DataWriter
             {
                 get { return _dataWriter; }
