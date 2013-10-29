@@ -42,9 +42,11 @@ namespace GitPractice
 
         Song bgMusic;
 
+        int RandomNumb;
+
         Texture2D backgroundImage;
         Vector2 backgroundLocation;
-        Color backgroundTint;
+        Color BGTint;
 
         string randomStringToShowConflict;
 
@@ -124,7 +126,7 @@ namespace GitPractice
             MediaPlayer.IsRepeating = true;
             backgroundImage = Content.Load<Texture2D>("bgImage");
             backgroundLocation = Vector2.Zero;
-            backgroundTint = Color.White;
+            BGTint = Color.White;
         }
 
         /// <summary>
@@ -219,11 +221,13 @@ namespace GitPractice
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+
             GraphicsDevice.Clear(Color.Red);
+
 
             spriteBatch.Begin();
 
-            spriteBatch.Draw(backgroundImage, backgroundLocation, backgroundTint);
+            spriteBatch.Draw(backgroundImage, backgroundLocation, BGTint);
 
 
             spriteBatch.DrawString(font, text, scorePosition, Color.Green);
