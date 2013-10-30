@@ -62,7 +62,7 @@ namespace GitPracticeAgain
             bg.Update();
             enemy.move();
             asteroid.Update();
-            ship.Update(Keyboard.GetState());
+            ship.Update(Keyboard.GetState(), GraphicsDevice.Viewport);
             base.Update(gameTime);
         }
 

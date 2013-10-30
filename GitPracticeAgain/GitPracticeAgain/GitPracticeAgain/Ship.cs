@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace GitPracticeAgain
 {
@@ -12,7 +13,7 @@ namespace GitPracticeAgain
          Vector2 Speed = new Vector2(5,5);
         
         
-        public void Update(KeyboardState keyboardState)
+        public void Update(KeyboardState keyboardState, Viewport viewport)
         {
             if (keyboardState.IsKeyDown(Keys.Up))
             {
@@ -33,6 +34,8 @@ namespace GitPracticeAgain
                 _position.Y += Speed.Y;
             }
 
+            _position.Y = MathHelper.Clamp(_position.Y, 0, viewport.Height - Texture.Height);
+            _position.X = MathHelper.Clamp(_position.X, 0, viewport.Width - Texture.Width);
             
         }
 
