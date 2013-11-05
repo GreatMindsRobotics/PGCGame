@@ -222,7 +222,7 @@ namespace GitPractice
         protected override void Draw(GameTime gameTime)
         {
 
-            GraphicsDevice.Clear(Color.Red);
+            GraphicsDevice.Clear(Color.Turquoise);
 
 
             spriteBatch.Begin();
