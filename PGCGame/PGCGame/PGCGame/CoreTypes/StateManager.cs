@@ -788,10 +788,15 @@ namespace PGCGame
 
             private static ScreenMusic? _currentMusic = null;
 
+            public static ScreenMusic? PausedMusic
+            {
+                get;
+                private set;
+            }
+
             public static ScreenMusic? CurrentMusic
             {
                 get { return _currentMusic; }
-                private set { _currentMusic = value; }
             }
 
             static MusicManager()
@@ -830,12 +835,14 @@ namespace PGCGame
 
             public static void Resume()
             {
+                PausedMusic = null;
                 MediaPlayer.Resume();
                 _mediaState = MediaState.Playing;
             }
 
             public static void Pause()
             {
+                PausedMusic = CurrentMusic;
                 MediaPlayer.Pause();
                 _mediaState = MediaState.Paused;
             }
@@ -844,6 +851,7 @@ namespace PGCGame
             {
                 if (Options.MusicEnabled)
                 {
+                    PausedMusic = null;
                     MediaPlayer.Play(GameContent.Assets.Music[song]);
                     _currentMusic = song;
                     _mediaState = MediaState.Playing;

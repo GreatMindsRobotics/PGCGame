@@ -44,61 +44,31 @@ namespace PGCGame.CoreTypes
                 }
 
                 MusicBehaviour lastScreenMusic = StateManager.GetScreen<BaseScreen>(StateManager.LastScreen).Music;
-                if (lastScreenMusic == Music)
+
+                if (lastScreenMusic.DesiredMusic == Music.DesiredMusic)
                 {
-                    if (Music.DesiredMusic.HasValue)
-                    {
-                        StateManager.MusicManager.Resume();
-                    }
-                    else
-                    {
-                        if (lastScreenMusic.PauseMusic)
-                        {
-                            StateManager.MusicManager.Pause();
-                        }
-                        else
-                        {
-                            StateManager.MusicManager.Stop();
-                        }
-                    }
                     return;
                 }
-                if (lastScreenMusic != Music)
+
+                if (lastScreenMusic.PauseMusic && lastScreenMusic.DesiredMusic.HasValue)
                 {
-                    if (Music.PauseMusic && StateManager.MusicManager.CurrentMusic.HasValue && StateManager.MusicManager.CurrentMusic == Music.DesiredMusic)
+                    StateManager.MusicManager.Pause();
+                }
+                else if(lastScreenMusic.DesiredMusic.HasValue)
+                {
+                    StateManager.MusicManager.Stop();
+                }
+
+                if (Music.DesiredMusic.HasValue)
+                {
+                    if (Music.DesiredMusic == StateManager.MusicManager.PausedMusic)
                     {
                         StateManager.MusicManager.Resume();
-                        return;
-                    }
-
-                    if (lastScreenMusic.PauseMusic)
-                    {
-                        StateManager.MusicManager.Pause();
-                        if (Music.DesiredMusic.HasValue && Music.DesiredMusic.Value != lastScreenMusic.DesiredMusic.Value)
-                        {
-                            throw new InvalidOperationException("When a screen being transitioned from has music that is requested to be paused, the receiving screen must not have music.");
-                        }
-                        
                     }
                     else
                     {
-                        StateManager.MusicManager.Stop();
-                        if (Music.DesiredMusic.HasValue)
-                        {
-                            StateManager.MusicManager.Play(Music.DesiredMusic.Value);
-                        }
+                        StateManager.MusicManager.Play(Music.DesiredMusic.Value);
                     }
-
-                    /*
-                    if (StateManager.MusicManager.MediaPlayerState == Microsoft.Xna.Framework.Media.MediaState.Playing || StateManager.MusicManager.MediaPlayerState == Microsoft.Xna.Framework.Media.MediaState.Paused)
-                    {
-                        StateManager.MusicManager.Stop();
-                    }
-                    if (StateManager.Options.MusicEnabled && Music.HasValue)
-                    {
-                        StateManager.MusicManager.Play(Music.Value);
-                    }
-                    */
                 }
             }
         }
