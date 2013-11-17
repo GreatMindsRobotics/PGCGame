@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PGCGame.CoreTypes;
 using Glib.XNA.InputLib;
+using Glib;
 
 namespace PGCGame
 {
@@ -91,7 +92,7 @@ namespace PGCGame
             }
             else
             {
-                winText.Text = string.Format("You died {3} times \n\n {2} Completed!\n\nYou earned {1} Points\n\nYou have obtained {0} spacebucks   ", StateManager.AmountOfSpaceBucksRecievedInCurrentLevel, StateManager.AmountOfPointsRecievedInCurrentLevel, StateManager.CurrentLevel-1, StateManager.Deaths);
+                winText.Text = string.Format("You died {3} times \n\n {2} Completed!\n\nYou earned {1} Points\n\nYou have obtained {0} spacebucks   ", StateManager.AmountOfSpaceBucksRecievedInCurrentLevel, StateManager.AmountOfPointsRecievedInCurrentLevel, StateManager.CurrentLevel.ToInt()-1, StateManager.Deaths);
 
             }
             Sprites[1].Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width, Sprites[0].Y + Sprites[0].Height / 2);
