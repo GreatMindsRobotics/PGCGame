@@ -84,6 +84,11 @@ namespace PGCGame
                 InitialHealth = 145;
                 DamagePerShot = 5;
             }
+
+            foreach (Drone d in Drones)
+            {
+                d.Tier = Tier;
+            }
         }
      
         public List<Drone> Drones = new List<Drone>();

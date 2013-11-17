@@ -71,7 +71,7 @@ namespace PGCGame
             : base(texture, location, spriteBatch, true)
         {
             ParentShip = parent;
-            parent.TierChanged += new EventHandler(parent_TierChanged);
+            //parent.TierChanged += new EventHandler(parent_TierChanged);
             TierChanged += new EventHandler(parent_TierChanged);
 
             _hasHealthBar = false;
