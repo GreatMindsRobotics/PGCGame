@@ -15,6 +15,7 @@ using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.Net;
 using System.Collections.ObjectModel;
 using Glib.XNA.NetworkLib;
+using Microsoft.Xna.Framework.GamerServices;
 
 namespace PGCGame
 {
@@ -409,12 +410,39 @@ namespace PGCGame
             return AllScreens[screenType.ToString()] as TScreen;
         }
 
-        public static void InitGame(Game underlyingGame)
+        public static void InitGame(Game underlyingGame, GraphicsDeviceManager graphicMgr)
         {
             _game = underlyingGame;
+
+            StateManager.GraphicsManager = graphicMgr;
+            StateManager.IsWindowFocused = new Delegates.CheckIfWindowFocused(() => underlyingGame.IsActive);
+            StateManager.Exit = new Delegates.QuitFunction(() => underlyingGame.Exit());
+
+            underlyingGame.IsMouseVisible = true;
+            underlyingGame.Components.Add(new PlequariusInputComponent(underlyingGame));
             NetworkData.component = new NetworkWatcherComponent(underlyingGame);
             underlyingGame.Components.Add(NetworkData.component);
             KeyboardManager.KeyDown += new Glib.XNA.SingleKeyEventHandler(KeyboardManager_KeyDown);
+
+            underlyingGame.TargetElapsedTime = new TimeSpan(underlyingGame.TargetElapsedTime.Ticks / StateManager.DebugData.OverclockAmount);
+        }
+
+        public static void InitializeGame(GamerServicesComponent serviceProvider, Delegates.ReturnLessFunc xnaFrameworkInit)
+        {
+            GamerServicesAreAvailable = serviceProvider != null;
+
+            _game.Components.Add(serviceProvider);
+
+            try
+            {
+                xnaFrameworkInit();
+            }
+            catch (GamerServicesNotAvailableException)
+            {
+                StateManager.GamerServicesAreAvailable = false;
+                _game.Components.Remove(serviceProvider);
+                xnaFrameworkInit();
+            };
         }
 
         private static void KeyboardManager_KeyDown(object source, Glib.XNA.SingleKeyEventArgs e)
@@ -660,7 +688,10 @@ namespace PGCGame
             /// <summary>
             /// Multiply the game framerate - by default 60 FPS - by this amount.
             /// </summary>
-            public static int OverclockAmount = 1;
+            /// <remarks>
+            /// Runtime changes? I think not.
+            /// </remarks>
+            public const int OverclockAmount = 1;
         }
 
         public static class InputManager
@@ -883,6 +914,85 @@ namespace PGCGame
                 set { _sfxEnabled = value; }
             }
 
+            /// <summary>
+            /// An event fired when saved options have been asynchronously loaded.
+            /// </summary>
+            public static event EventHandler OptionsLoaded;
+
+            /// <summary>
+            /// Load saved options asynchronously.
+            /// </summary>
+            public static void LoadOptionsAsync()
+            {
+                StorageDevice.BeginShowSelector(PlayerIndex.One, StorageDeviceFound, null);
+            }
+
+            private static void StorageDeviceFound(IAsyncResult res)
+            {
+                StorageDevice dev = StorageDevice.EndShowSelector(res);
+                if (dev == null)
+                {
+                    return;
+                }
+
+                StateManager.SelectedStorage = dev;
+
+                dev.BeginOpenContainer("PGCGame", StorageContainerOpened, null);
+            }
+
+            private static void StorageContainerOpened(IAsyncResult res)
+            {
+                StorageContainer strContain = StateManager.SelectedStorage.EndOpenContainer(res);
+
+
+                // Check to see whether the save exists.
+                if (!strContain.FileExists(Screens.Options.Filename))
+                {
+                    // If not, dispose of the container and return.
+                    strContain.Dispose();
+                    return;
+                }
+
+                System.ComponentModel.BackgroundWorker br = new System.ComponentModel.BackgroundWorker();
+
+                br.DoWork += new System.ComponentModel.DoWorkEventHandler(br_DoWork);
+                br.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(br_RunWorkerCompleted);
+
+                br.RunWorkerAsync(strContain);
+            }
+
+            private static void br_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+            {
+                if (e.Result == null)
+                {
+                    return;
+                }
+                SerializableGamePreferences prefs = (SerializableGamePreferences)e.Result;
+                ArrowKeysEnabled = prefs.ArrowKeys;
+                LeftButtonEnabled = prefs.LeftButtonEnabled;
+                SecondaryButtonEnabled = prefs.SecondaryButtonEnabled;
+                SwitchButtonEnabled = prefs.SecondaryButtonEnabled;
+                DeployDronesEnabled = prefs.DroneDeploy;
+                SFXEnabled = prefs.SFXOn;
+                MusicEnabled = prefs.MusicOn;
+                
+
+                if (OptionsLoaded != null)
+                {
+                    OptionsLoaded(null, e);
+                }
+            }
+
+            private static void br_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+            {
+                StorageContainer container = e.Argument as StorageContainer;
+                System.IO.Stream stream = container.OpenFile(Screens.Options.Filename, System.IO.FileMode.Open);
+                System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(SerializableGamePreferences));
+                SerializableGamePreferences savedState = (SerializableGamePreferences)serializer.Deserialize(stream);
+                stream.Close();
+                container.Dispose();
+                e.Result = savedState;
+            }
 
             public static bool ArrowKeysEnabled { get; set; }
             public static bool LeftButtonEnabled { get; set; }

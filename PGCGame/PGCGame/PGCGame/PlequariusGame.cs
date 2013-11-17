@@ -31,7 +31,7 @@ namespace PGCGame
             return ShowMissingRequirementMessage(e);
         }
 
-        GraphicsDeviceManager graphics;
+        private GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
         ScreenManager screenManager;
@@ -80,28 +80,16 @@ namespace PGCGame
         }
 
         /// <summary>
-        /// Initialize StateManager and InputManager.
+        /// Initialize this Game through StateManager.
         /// </summary>
         protected override void Initialize()
         {
-            StateManager.GraphicsManager = graphics;
-            StateManager.IsWindowFocused = new Delegates.CheckIfWindowFocused(() => IsActive);
-            StateManager.Exit = new Delegates.QuitFunction(() => Exit());
+            //Begin loading options
+            StateManager.Options.LoadOptionsAsync();
 
-            GamerServicesComponent services = new GamerServicesComponent(this);
-            IsMouseVisible = true;
-            Components.Add(new PlequariusInputComponent(this));
-            Components.Add(services);
+            StateManager.InitGame(this, graphics);
 
-            StateManager.InitGame(this);
-
-            TargetElapsedTime = new TimeSpan(TargetElapsedTime.Ticks / StateManager.DebugData.OverclockAmount);
-
-            try
-            {
-                base.Initialize();
-            }
-            catch (GamerServicesNotAvailableException) { StateManager.GamerServicesAreAvailable = false; Components.Remove(services); base.Initialize(); };
+            StateManager.InitializeGame(new GamerServicesComponent(this), base.Initialize);
         }
 
         /// <summary>

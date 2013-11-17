@@ -16,6 +16,8 @@ using PGCGame.CoreTypes;
 using Glib.XNA.InputLib;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Storage;
+using System.ComponentModel;
 
 
 namespace PGCGame.Screens
@@ -71,7 +73,7 @@ namespace PGCGame.Screens
 
         TextSprite GFXLabel;
 #endif
-        
+
         TextSprite SFXLabel;
         TextSprite MusicVolumeLabel;
         TextSprite BackLabel;
@@ -92,10 +94,10 @@ namespace PGCGame.Screens
 
             //Move Controls (aka Controls)
             ControlButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .1f), Sprites.SpriteBatch);
-            
+
 #if WINDOWS
             ControlButton.MouseEnter += new EventHandler(ControlButton_MouseEnter);
-            ControlButton.MouseLeave += new EventHandler(ControlButton_MouseLeave); 
+            ControlButton.MouseLeave += new EventHandler(ControlButton_MouseLeave);
 #endif
             ControlLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, font, ("Controls"));
             ControlLabel.Position = new Vector2(ControlButton.Position.X + (ControlButton.Width / 2 - ControlLabel.Width / 2), ControlButton.Position.Y + (ControlButton.Height / 2 - ControlLabel.Height / 2));
@@ -108,15 +110,15 @@ namespace PGCGame.Screens
             ControlLabel.HoverColor = Color.MediumAquamarine;
             ControlLabel.NonHoverColor = Color.White;
 
-                                                                                                                                                                      
 
-            
+
+
 #if WINDOWS
             //GFX
             Sprite GraphicsButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .35f), Sprites.SpriteBatch);
 
-            GraphicsButton.MouseEnter +=new EventHandler(GraphicsButton_MouseEnter);
-            GraphicsButton.MouseLeave +=new EventHandler(GraphicsButton_MouseLeave);
+            GraphicsButton.MouseEnter += new EventHandler(GraphicsButton_MouseEnter);
+            GraphicsButton.MouseLeave += new EventHandler(GraphicsButton_MouseLeave);
 
 
             GFXLabel = new TextSprite(Sprites.SpriteBatch, font, String.Format("GFX: {0}", StateManager.GraphicsManager.IsFullScreen ? "Full" : "Standard"));
@@ -131,7 +133,7 @@ namespace PGCGame.Screens
 
             //SFX
             Sprite SFXButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .5f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .10f), Sprites.SpriteBatch);
-            
+
 #if WINDOWS
             SFXButton.MouseEnter += new EventHandler(SFXButton_MouseEnter);
             SFXButton.MouseLeave += new EventHandler(SFXButton_MouseLeave);
@@ -154,7 +156,7 @@ namespace PGCGame.Screens
             Sprite BackButton = new Sprite(button, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .06f, Sprites.SpriteBatch.GraphicsDevice.Viewport.Height * .35f), Sprites.SpriteBatch);
 #endif
             BackLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, GameContent.Assets.Fonts.NormalText, "Back");
-            BackLabel.Position = new Vector2((BackButton.X + BackButton.Width/2) - BackLabel.Width/2, (BackButton.Y + BackButton.Height/2) - BackLabel.Height/2);
+            BackLabel.Position = new Vector2((BackButton.X + BackButton.Width / 2) - BackLabel.Width / 2, (BackButton.Y + BackButton.Height / 2) - BackLabel.Height / 2);
 #if WINDOWS
             BackLabel.CallKeyboardClickEvent = false;
 #endif
@@ -174,7 +176,7 @@ namespace PGCGame.Screens
             MusicButton.MouseEnter += new EventHandler(MusicButton_MouseEnter);
             MusicButton.MouseLeave += new EventHandler(MusicButton_MouseLeave);
 #endif
-
+            StateManager.Options.MusicStateChanged += new EventHandler(Options_MusicStateChanged);
             MusicVolumeLabel = new TextSprite(Sprites.SpriteBatch, Vector2.Zero, font, "Music: " + (StateManager.Options.MusicEnabled ? "On" : "Off"));
             MusicVolumeLabel.Position = new Vector2((MusicButton.X + MusicButton.Width / 2) - MusicVolumeLabel.Width / 2, (MusicButton.Y + MusicButton.Height / 2) - MusicVolumeLabel.Height / 2);
             MusicVolumeLabel.Color = Color.White;
@@ -218,6 +220,11 @@ namespace PGCGame.Screens
             StateManager.Options.ScreenResolutionChanged += new EventHandler<ViewportEventArgs>(Options_ScreenResolutionChanged);
 #endif
 
+        }
+
+        void Options_MusicStateChanged(object sender, EventArgs e)
+        {
+            MusicVolumeLabel.Text = "Music: " + (StateManager.Options.MusicEnabled ? "On" : "Off");
         }
 
         void CheatsLabel_Pressed(object sender, EventArgs e)
@@ -315,7 +322,7 @@ namespace PGCGame.Screens
         {
             MusicVolumeLabel.IsSelected = true;
         }
-     
+
 
         //back button
         void BackButton_MouseLeave(object sender, EventArgs e)
@@ -333,7 +340,69 @@ namespace PGCGame.Screens
 
 #endif
 
+        public static readonly string Filename = "PGCPreferences.dat";
 
+        private void storageContainerOpened(object iAsyncRes)
+        {
+            StorageContainer strContain = StateManager.SelectedStorage.EndOpenContainer(iAsyncRes as IAsyncResult);
+
+            BackgroundWorker fileSaver = new BackgroundWorker();
+            fileSaver.DoWork += new DoWorkEventHandler(fileSaver_DoWork);
+            fileSaver.RunWorkerCompleted += new RunWorkerCompletedEventHandler(fileSaver_RunWorkerCompleted);
+            fileSaver.RunWorkerAsync(strContain);
+        }
+
+        void fileSaver_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            lScr.FinishTask();
+        }
+
+        void fileSaver_DoWork(object sender, DoWorkEventArgs e)
+        {
+            StorageContainer saveData = e.Argument as StorageContainer;
+            
+
+            // Check to see whether the save exists.
+            if (saveData.FileExists(Filename))
+            {
+                // Delete it so that we can create one fresh.
+                saveData.DeleteFile(Filename);
+            }
+            System.IO.Stream stream = saveData.CreateFile(Filename);
+            System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(SerializableGamePreferences));
+            serializer.Serialize(stream, SerializableGamePreferences.Current);
+            stream.Close();
+            saveData.Dispose();
+        }
+
+        private void storageDeviceFound(object iAsyncRes)
+        {
+            IAsyncResult res = iAsyncRes as IAsyncResult;
+            try
+            {
+                StorageDevice dev = StorageDevice.EndShowSelector(res);
+                if (dev == null)
+                {
+                    //Error occurred.
+                    lScr.FinishTask();
+                    return;
+                }
+
+                StateManager.SelectedStorage = dev;
+
+                lScr.UserCallback = new PGCGame.CoreTypes.Delegates.AsyncHandlerMethod(storageContainerOpened);
+                dev.BeginOpenContainer("PGCGame", lScr.Callback, null);
+
+            }
+            catch
+            {
+                //Error occurred.
+                lScr.FinishTask();
+                return;
+            };
+        }
+
+        LoadingScreen lScr;
 
         public override void Update(GameTime gameTime)
         {
@@ -348,7 +417,21 @@ namespace PGCGame.Screens
                         ButtonClick.Play();
                     }
 
-                    StateManager.GoBack();
+                    if (lScr == null)
+                    {
+                        lScr = StateManager.AllScreens[ScreenType.LoadingScreen.ToString()] as LoadingScreen;
+                    }
+                    lScr.Reset();
+                    lScr.ScreenFinished += new EventHandler(lScr_ScreenFinished);
+                    lScr.UserCallbackStartsTask = true;
+                    lScr.UserCallback = new Delegates.AsyncHandlerMethod(storageDeviceFound);
+                    lScr.LoadingText = "Saving data...";
+                    StorageDevice.BeginShowSelector(PlayerIndex.One, lScr.Callback, null);
+                    StateManager.ScreenState = CoreTypes.ScreenType.LoadingScreen;
+
+                    StateManager.ScreenState = ScreenType.LoadingScreen;
+
+                    //StateManager.GoBack();
                 }
                 if (MusicVolumeLabel.IsSelected)
                 {
@@ -398,6 +481,11 @@ namespace PGCGame.Screens
 
 #endif
             base.Update(gameTime);
+        }
+
+        void lScr_ScreenFinished(object sender, EventArgs e)
+        {
+            StateManager.ScreenState = CoreTypes.ScreenType.MainMenu;
         }
 #if XBOX
         GamePadState currentGamePad;

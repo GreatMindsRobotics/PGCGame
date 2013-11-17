@@ -79,6 +79,7 @@
     <Compile Include="CoreTypes\Extensions.cs" />
     <Compile Include="CoreTypes\MusicBehaviour.cs" />
     <Compile Include="CoreTypes\PlequariusInputComponent.cs" />
+    <Compile Include="CoreTypes\SerializableGamePreferences.cs" />
     <Compile Include="CoreTypes\SerializableGameState.cs" />
     <Compile Include="CoreTypes\ShipCollection.cs" />
     <Compile Include="CoreTypes\ShipStats.cs" />

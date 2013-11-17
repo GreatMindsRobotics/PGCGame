@@ -10,6 +10,7 @@ namespace PGCGame.CoreTypes
         /// <summary>
         /// Provides ability to exit the game from any screen; delegate call to Game.Exit();
         /// </summary>
+        [Obsolete("Use a ReturnLessFunc")]
         public delegate void QuitFunction();
 
         public delegate void AsyncHandlerMethod(object asyncResult);
@@ -17,6 +18,7 @@ namespace PGCGame.CoreTypes
         /// <summary>
         /// Provides ability to run code on the next update of a screen.
         /// </summary>
+        [Obsolete("Use a ReturnLessFunc")]
         public delegate void NextRun();
 
         /// <summary>
@@ -24,5 +26,10 @@ namespace PGCGame.CoreTypes
         /// </summary>
         /// <returns>true if game has focus; otherwise false</returns>
         public delegate bool CheckIfWindowFocused();
+
+        /// <summary>
+        /// Provides a parameterless returnless function delegate.
+        /// </summary>
+        public delegate void ReturnLessFunc();
     }
 }

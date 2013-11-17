@@ -327,6 +327,11 @@ namespace PGCGame.Screens
             lScr.FinishTask();
         }
 
+        /// <summary>
+        /// Loads saved data.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void br_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             StorageContainer container = e.Argument as StorageContainer;

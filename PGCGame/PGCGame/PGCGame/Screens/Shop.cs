@@ -218,9 +218,9 @@ namespace PGCGame.Screens
             isSaving = false;
         }
 
-        TimeSpan _elapsedSaveTime = TimeSpan.Zero;
+        private TimeSpan _elapsedSaveTime = TimeSpan.Zero;
 
-        TimeSpan _reqSaveTime = TimeSpan.FromSeconds(.2);
+        private TimeSpan _reqSaveTime = TimeSpan.FromSeconds(.2);
 
         void bw_DoWork(object sender, DoWorkEventArgs e)
         {
