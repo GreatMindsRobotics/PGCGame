@@ -1097,12 +1097,6 @@ namespace PGCGame.Screens
                     }
                 }
 
-
-                if (_lastState.IsKeyUp(Keys.F11) && KeyboardManager.State.IsKeyDown(Keys.F11))
-                {
-                    StateManager.Options.ToggleFullscreen();
-                }
-
                 if (camMove.X != 0 || camMove.Y != 0)
                 {
                     worldCam.Move(camMove);

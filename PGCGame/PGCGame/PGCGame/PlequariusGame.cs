@@ -80,7 +80,7 @@ namespace PGCGame
         }
 
         /// <summary>
-        /// Initialize StateManager and InputManager
+        /// Initialize StateManager and InputManager.
         /// </summary>
         protected override void Initialize()
         {

@@ -414,6 +414,16 @@ namespace PGCGame
             _game = underlyingGame;
             NetworkData.component = new NetworkWatcherComponent(underlyingGame);
             underlyingGame.Components.Add(NetworkData.component);
+            KeyboardManager.KeyDown += new Glib.XNA.SingleKeyEventHandler(KeyboardManager_KeyDown);
+        }
+
+        private static void KeyboardManager_KeyDown(object source, Glib.XNA.SingleKeyEventArgs e)
+        {
+            if (e.Key == Keys.F11)
+            {
+                //Fullscreen toggle
+                StateManager.Options.ToggleFullscreen();
+            }
         }
 
 
