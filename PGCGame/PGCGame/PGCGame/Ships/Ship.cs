@@ -344,7 +344,28 @@ namespace PGCGame
 
         #region PublicMethod
 
+        public override int GetHashCode()
+        {
+            return ShipID.GetHashCode();
+        }
 
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Ship)) return false;
+            return (obj as Ship).ShipID.Equals(ShipID);
+        }
+
+        public static bool operator !=(Ship a, Ship b)
+        {
+            return !(a == b);
+        }
+
+        public static bool operator ==(Ship a, Ship b)
+        {
+            if (object.Equals(a, null)) return object.Equals(b, null);
+
+            return a.Equals(b);
+        }
 
         public virtual void Shoot()
         {

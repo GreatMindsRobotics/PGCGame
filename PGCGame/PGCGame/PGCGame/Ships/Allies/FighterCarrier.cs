@@ -42,6 +42,7 @@ namespace PGCGame
                 Drones.Add(new Drone(droneTexture, location, spriteBatch, this) { DroneState = CoreTypes.DroneState.Stowed });
                 Drones[1].Rotation.Radians = MathHelper.TwoPi;
 
+                StateManager.InputManager.DebugControlManager.DroneSuicide += new EventHandler<DroneEventArgs>(DebugControlManager_DroneSuicide);
             }
             //BulletTexture = GameContent.Assets.Images.Ships.Bullets[ShipType.FighterCarrier, ShipTier.Tier1];
             DelayBetweenShots = TimeSpan.FromMilliseconds(100);
@@ -52,6 +53,14 @@ namespace PGCGame
             DamagePerShot = 2;
             this.PlayerType = PlayerType.Ally;
             ShootSound = GameContent.Assets.Sound[SoundEffectType.FighterCarrierFire];
+        }
+
+        void DebugControlManager_DroneSuicide(object sender, DroneEventArgs e)
+        {
+            if (e.DroneID < Drones.Count)
+            {
+                Drones[e.DroneID].Kill(false);
+            }
         }
 
         void FighterCarrier_TierChanged(object sender, EventArgs e)

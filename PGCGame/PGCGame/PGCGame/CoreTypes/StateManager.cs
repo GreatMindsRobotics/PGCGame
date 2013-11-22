@@ -685,6 +685,8 @@ namespace PGCGame
 
             public static bool FogOfWarEnabled = true;
 
+            public static bool KillDrones = true;
+
             /// <summary>
             /// Multiply the game framerate - by default 60 FPS - by this amount.
             /// </summary>
@@ -706,6 +708,8 @@ namespace PGCGame
                 }
                 public static event EventHandler ShipHeal;
                 public static event EventHandler ShipSuicide;
+                public static event EventHandler<DroneEventArgs> DroneSuicide;
+
 
                 private static void KeyboardManager_KeyDown(object source, Glib.XNA.SingleKeyEventArgs e)
                 {
@@ -730,6 +734,17 @@ namespace PGCGame
                         ShipSuicide(GamePadManager.One, EventArgs.Empty);
                     }
 
+                    if (StateManager.DebugData.KillDrones && DroneSuicide != null && (KeyboardManager.State.IsKeyDown(Keys.RightControl) || KeyboardManager.State.IsKeyDown(Keys.LeftControl)) && KeyboardManager.State.IsKeyDown(Keys.D))
+                    {
+                        if (KeyboardManager.State.IsKeyDown(Keys.D1))
+                        {
+                            DroneSuicide(null, new DroneEventArgs(0));
+                        }
+                        if (KeyboardManager.State.IsKeyDown(Keys.D2))
+                        {
+                            DroneSuicide(null, new DroneEventArgs(1));
+                        }
+                    }
                 }
             }
 

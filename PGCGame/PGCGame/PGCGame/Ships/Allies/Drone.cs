@@ -167,6 +167,12 @@ namespace PGCGame
         /// <returns>Whether or not an enemy is in range.</returns>
         private bool isEnemyDetected()
         {
+            if (shipState == CoreTypes.ShipState.Dead || shipState == CoreTypes.ShipState.Exploding)
+            {
+                //Can't detect an enemy if dead
+                return false;
+            }
+
             //finds the closes ship 
             foreach (Ship enemyShip in StateManager.EnemyShips)
             {

@@ -87,6 +87,7 @@
     <Compile Include="CoreTypes\BulletCollection.cs" />
     <Compile Include="CoreTypes\BulletFiredEventArgs.cs" />
     <Compile Include="CoreTypes\BulletPool.cs" />
+    <Compile Include="CoreTypes\DroneEventArgs.cs" />
     <Compile Include="CoreTypes\MusicBehaviour.cs" />
     <Compile Include="CoreTypes\PlequariusInputComponent.cs" />
     <Compile Include="CoreTypes\SerializableGamePreferences.cs" />
