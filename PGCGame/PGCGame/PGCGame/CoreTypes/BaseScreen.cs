@@ -100,7 +100,7 @@ namespace PGCGame.CoreTypes
         }
 #endif
 
-        public PGCGame.CoreTypes.Delegates.NextRun RunNextUpdate = null;
+        public PGCGame.CoreTypes.Delegates.ReturnLessFunc RunNextUpdate = null;
 
         private ScreenType _screenType;
         public ScreenType ScreenType

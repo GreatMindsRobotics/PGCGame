@@ -71,7 +71,7 @@ namespace PGCGame
 
         public static Delegates.CheckIfWindowFocused IsWindowFocused;
 
-        public static Delegates.QuitFunction Exit;
+        public static Delegates.ReturnLessFunc Exit;
 
         /// <summary>
         /// Keeps track of active ships in the game. This info can be used for mini-map, collision detection, etc
@@ -416,7 +416,7 @@ namespace PGCGame
 
             StateManager.GraphicsManager = graphicMgr;
             StateManager.IsWindowFocused = new Delegates.CheckIfWindowFocused(() => underlyingGame.IsActive);
-            StateManager.Exit = new Delegates.QuitFunction(() => underlyingGame.Exit());
+            StateManager.Exit = new Delegates.ReturnLessFunc(() => underlyingGame.Exit());
 
             underlyingGame.IsMouseVisible = true;
             underlyingGame.Components.Add(new PlequariusInputComponent(underlyingGame));
@@ -673,7 +673,7 @@ namespace PGCGame
             public static bool ShipSpeedIncrease = true;
             public static bool OPBullets = false;
             public static bool ShowShipIDs = false;
-            public static bool EmergencyHeal = false;
+            public static bool EmergencyHeal = true;
             public static bool KillAll = false;
             public static bool Invincible = false;
             public static bool BringDronesBack = false;
@@ -734,7 +734,7 @@ namespace PGCGame
                         ShipSuicide(GamePadManager.One, EventArgs.Empty);
                     }
 
-                    if (StateManager.DebugData.KillDrones && DroneSuicide != null && (KeyboardManager.State.IsKeyDown(Keys.RightControl) || KeyboardManager.State.IsKeyDown(Keys.LeftControl)) && KeyboardManager.State.IsKeyDown(Keys.D))
+                    if (StateManager.DebugData.KillDrones && DroneSuicide != null && (KeyboardManager.State.IsKeyDown(Keys.RightControl) || KeyboardManager.State.IsKeyDown(Keys.LeftControl)) && KeyboardManager.State.IsKeyDown(Keys.G))
                     {
                         if (KeyboardManager.State.IsKeyDown(Keys.D1))
                         {
