@@ -395,9 +395,6 @@ namespace PGCGame
                 {
                     return;
                 }
-                else
-                {
-                }
 
                 if (!
                     BadStates.Contains(DroneState))
