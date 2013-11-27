@@ -460,7 +460,7 @@ namespace PGCGame
                 case CoreTypes.PlayerType.MyShip:
                     return pt == CoreTypes.PlayerType.Ally || pt == CoreTypes.PlayerType.MyShip;
             }
-            return false;
+            return pt == PlayerType;
         }
 
         public override void DrawNonAuto()
