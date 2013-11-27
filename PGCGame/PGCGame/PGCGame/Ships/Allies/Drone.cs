@@ -206,10 +206,13 @@ namespace PGCGame
 
             DroneDeploy = GameContent.Assets.Sound[SoundEffectType.DronesDeploy];
 
-            if (CurrentHealth <= 0 && (shipState != CoreTypes.ShipState.Exploding || DroneState != CoreTypes.DroneState.RIP))
+            if (CurrentHealth <= 0)
             {
-                this.shipState = CoreTypes.ShipState.Exploding;
                 DroneState = CoreTypes.DroneState.RIP;
+                if (!(shipState == CoreTypes.ShipState.Exploding || shipState == CoreTypes.ShipState.Dead))
+                {
+                    this.shipState = CoreTypes.ShipState.Exploding;
+                }
             }
 
             _elapsedRotationDelay += gameTime.ElapsedGameTime;
