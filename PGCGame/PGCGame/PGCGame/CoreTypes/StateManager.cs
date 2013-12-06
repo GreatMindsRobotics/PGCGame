@@ -420,8 +420,8 @@ namespace PGCGame
 
             underlyingGame.IsMouseVisible = true;
             underlyingGame.Components.Add(new PlequariusInputComponent(underlyingGame));
-            NetworkData.component = new NetworkWatcherComponent(underlyingGame);
-            underlyingGame.Components.Add(NetworkData.component);
+            NetworkData.Component = new NetworkWatcherComponent(underlyingGame);
+            underlyingGame.Components.Add(NetworkData.Component);
             KeyboardManager.KeyDown += new Glib.XNA.SingleKeyEventHandler(KeyboardManager_KeyDown);
 
             underlyingGame.TargetElapsedTime = new TimeSpan(underlyingGame.TargetElapsedTime.Ticks / StateManager.DebugData.OverclockAmount);
@@ -576,41 +576,41 @@ namespace PGCGame
             public static NetworkSession CurrentSession
             {
                 get { return _currentSession; }
-                private set { _currentSession = value; component.Session = value; }
+                private set { _currentSession = value; Component.Session = value; }
             }
 
             public static event EventHandler<NetworkInformationReceivedEventArgs> DataReceived
             {
                 add
                 {
-                    component.NetworkInformationReceived += value;
+                    Component.NetworkInformationReceived += value;
                 }
                 remove
                 {
-                    component.NetworkInformationReceived -= value;
+                    Component.NetworkInformationReceived -= value;
                 }
             }
 
-            internal static NetworkWatcherComponent component;
+            public static NetworkWatcherComponent Component;
 
             public static void SendData(string property, double data)
             {
-                component.WriteData(property, 0, data);
+                Component.WriteData(property, 0, data);
             }
 
             public static void SendData(string property, string data)
             {
-                component.WriteData(property, 0, data);
+                Component.WriteData(property, 0, data);
             }
 
             public static void WriteNetworkData(SendDataOptions opt, NetworkGamer receive)
             {
-                component.SendData(0, receive, opt);
+                Component.SendData(0, receive, opt);
             }
 
             public static void SendData(string property, Vector4 data)
             {
-                component.WriteData(property, 0, data);
+                Component.WriteData(property, 0, data);
             }
 
             /// <summary>
