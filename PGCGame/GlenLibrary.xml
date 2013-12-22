@@ -96,6 +96,28 @@
             The second Y coordinate of the X.
             </summary>
         </member>
+        <member name="T:Glib.WinForms.ControlValidatedEventHandler">
+            <summary>
+            The handler for a control validation event.
+            </summary>
+            <param name="sender">The object performing validation.</param>
+            <param name="eventArgs">The <see cref="T:Glib.WinForms.ControlValidatedEventArgs"/> for this event.</param>
+        </member>
+        <member name="T:Glib.WinForms.ControlValidatedEventArgs">
+            <summary>
+            Represents event arguments for the <see cref="T:Glib.WinForms.ControlValidatedEventHandler"/> event.
+            </summary>
+        </member>
+        <member name="P:Glib.WinForms.ControlValidatedEventArgs.ValidatedControl">
+            <summary>
+            Gets the control that was validated.
+            </summary>
+        </member>
+        <member name="P:Glib.WinForms.ControlValidatedEventArgs.ValidationResult">
+            <summary>
+            Gets the result of the validation.
+            </summary>
+        </member>
         <member name="T:Glib.WinForms.FormValidator">
             <summary>
             A class validating forms to ensure all <see cref="T:Glib.WinForms.IRequiredField"/>s are complete.
@@ -136,6 +158,11 @@
         <member name="P:Glib.WinForms.FormValidator.ControlsToValidate">
             <summary>
             Gets the collection of controls to validate.
+            </summary>
+        </member>
+        <member name="E:Glib.WinForms.FormValidator.ControlValidated">
+            <summary>
+            An event fired when a control is validated.
             </summary>
         </member>
         <member name="P:Glib.WinForms.FormValidator.IsComplete">
@@ -196,7 +223,7 @@
         </member>
         <member name="T:Glib.Exceptions.NamespaceDoc">
             <summary>
-            The <see cref="N:Glib.Exceptions"/> namespace provides various extensions not provided by the .NET framework.
+            The <see cref="N:Glib.Exceptions"/> namespace provides various exception classes that are not provided by the .NET framework.
             </summary>
         </member>
         <member name="T:Glib.WinForms.Controls.SqlParameterTextBox">
@@ -211,12 +238,12 @@
         </member>
         <member name="P:Glib.SQL.ISQLParameterProvider.ParameterName">
             <summary>
-            The name of the provided parameter.
+            Gets the name of the provided parameter.
             </summary>
         </member>
         <member name="P:Glib.SQL.ISQLParameterProvider.ParameterValue">
             <summary>
-            The value of the provided parameter.
+            Gets the value of the provided parameter.
             </summary>
         </member>
         <member name="M:Glib.WinForms.Controls.SqlParameterTextBox.#ctor(System.String)">
@@ -227,12 +254,12 @@
         </member>
         <member name="P:Glib.WinForms.Controls.SqlParameterTextBox.ParameterName">
             <summary>
-            The name of the represented SQL parameter.
+            Gets the name of the represented SQL parameter.
             </summary>
         </member>
         <member name="P:Glib.WinForms.Controls.SqlParameterTextBox.ParameterValue">
             <summary>
-            The string value of the text box, which is the value of the SQL parameter.
+            Gets or sets the string value of the text box, which is the value of the SQL parameter.
             </summary>
         </member>
         <member name="T:Glib.WinForms.Shapes.Triangle">
@@ -1122,7 +1149,7 @@
         </member>
         <member name="M:Glib.WinForms.Controls.RequiredTextBox.IsValid(System.String)">
             <summary>
-            The default field validation code.
+            The default field validation predicate.
             </summary>
             <remarks>
             Checks if the field text is empty, and returns that value inverted.
@@ -1132,7 +1159,7 @@
         </member>
         <member name="M:Glib.WinForms.Controls.RequiredTextBox.#ctor">
             <summary>
-            Create a new RequiredTextBox with default validation code.
+            Create a new RequiredTextBox with default validation logic.
             </summary>
         </member>
         <member name="F:Glib.WinForms.Controls.RequiredTextBox.FieldValidation">
@@ -1143,7 +1170,7 @@
         </member>
         <member name="M:Glib.WinForms.Controls.RequiredTextBox.#ctor(System.Predicate{System.String})">
             <summary>
-            Create a new RequiredTextBox with the specified parameter name and validation code.
+            Create a new RequiredTextBox with the specified parameter name and validation predicate.
             </summary>
             <param name="validator">The predicate to use to check if the field is complete.</param>
         </member>
