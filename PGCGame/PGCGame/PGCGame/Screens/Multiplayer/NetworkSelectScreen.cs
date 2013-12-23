@@ -90,7 +90,7 @@ namespace PGCGame.Screens.Multiplayer
             LANButton = new Sprite(buttonImage, new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width * .6f, HostLANButton.Y), Sprites.SpriteBatch);
 
             HostLIVEButton = new Sprite(buttonImage, new Vector2(HostLANButton.X, HostLANButton.Y+HostLANButton.Height+SegoeUIMono.LineSpacing), Sprites.SpriteBatch);
-            HostLIVEButton.Scale.X = 1.1775f;
+            HostLIVEButton.Scale = new Vector2(1.1775f, 1);
             Sprites.Add(HostLIVEButton);
 
             HostLIVELabel = new TextSprite(Sprites.SpriteBatch, SegoeUIMono, "Host LIVE Sector");
@@ -142,7 +142,7 @@ namespace PGCGame.Screens.Multiplayer
             AdditionalSprites.Add(HostLANLabel);
 
             ScanLIVEButton = new Sprite(buttonImage, new Vector2(LANButton.X, HostLIVEButton.Y), Sprites.SpriteBatch);
-            ScanLIVEButton.Scale.X = 1.5f;
+            ScanLIVEButton.Scale = new Vector2(1.5f, 1);
             Sprites.Add(ScanLIVEButton);
 
             ScanLIVELabel = new TextSprite(Sprites.SpriteBatch, SegoeUIMono, "Scan for LIVE Sectors", Color.White);

@@ -274,8 +274,7 @@ namespace PGCGame
                         {
                             if (Scale.X < .75f)
                             {
-                                Scale.X += .03f;
-                                Scale.Y += .03f;
+                                Scale += new Vector2(.03f);
                             }
                             else
                             {
@@ -370,8 +369,7 @@ namespace PGCGame
                             //Shrink into mother-ship
                             if (Scale.X > .3f)
                             {
-                                Scale.X -= .05f;
-                                Scale.Y -= .05f;
+                                Scale = new Vector2(Scale.X - .05f, Scale.Y - .05f);
                             }
                             else
                             {

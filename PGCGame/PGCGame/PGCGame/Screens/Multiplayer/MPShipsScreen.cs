@@ -570,7 +570,7 @@ namespace PGCGame.Screens.Multiplayer
                 sns.PlayerType = PlayerType.Solo;
                 sns.RotateTowardsMouse = false;
                 sns.Controller = g;
-                sns.WorldCoords = Extensions.NextVector2(StateManager.RandomGenerator, new Vector2(500), new Vector2(StateManager.SpawnArea.X + StateManager.SpawnArea.Width, StateManager.SpawnArea.Y + StateManager.SpawnArea.Height));
+                sns.WorldCoords = StateManager.RandomGenerator.NextVector2(new Vector2(500), new Vector2(StateManager.SpawnArea.X + StateManager.SpawnArea.Width, StateManager.SpawnArea.Y + StateManager.SpawnArea.Height));
                 if (StateManager.NetworkData.SessionMode == MultiplayerSessionType.Coop)
                 {
                     sns.WorldCoords = new Vector2(lastHostX + my.Width, my.WorldCoords.Y);

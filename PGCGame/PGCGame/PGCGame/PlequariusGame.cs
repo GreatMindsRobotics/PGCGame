@@ -230,7 +230,7 @@ namespace PGCGame
                 StateManager.SpaceBucks = int.MaxValue;
             }
 
-            //Handled by NetworkWatcherComponent
+            //Handled by SessionManagerComponent
 
             //if (StateManager.NetworkData.IsMultiplayer)
             //{

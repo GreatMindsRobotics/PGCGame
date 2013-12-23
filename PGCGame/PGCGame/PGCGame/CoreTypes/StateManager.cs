@@ -421,7 +421,8 @@ namespace PGCGame
             underlyingGame.IsMouseVisible = true;
             underlyingGame.Components.Add(new PlequariusInputComponent(underlyingGame));
             NetworkData.Component = new NetworkWatcherComponent(underlyingGame);
-            underlyingGame.Components.Add(NetworkData.Component);
+            NetworkData.SessionComponent = new SessionManagerComponent(underlyingGame);
+            underlyingGame.Components.Add(NetworkData.SessionComponent);
             KeyboardManager.KeyDown += new Glib.XNA.SingleKeyEventHandler(KeyboardManager_KeyDown);
 
             underlyingGame.TargetElapsedTime = new TimeSpan(underlyingGame.TargetElapsedTime.Ticks / StateManager.DebugData.OverclockAmount);
@@ -442,7 +443,7 @@ namespace PGCGame
                 StateManager.GamerServicesAreAvailable = false;
                 _game.Components.Remove(serviceProvider);
                 xnaFrameworkInit();
-            };
+            }
         }
 
         private static void KeyboardManager_KeyDown(object source, Glib.XNA.SingleKeyEventArgs e)
@@ -664,13 +665,15 @@ namespace PGCGame
             }
 
             public static AvailableNetworkSessionCollection AvailableSessions;
+
+            public static SessionManagerComponent SessionComponent { get; set; }
         }
 
         public static class DebugData
         {
             public static bool InfiniteMoney = false;
             public static bool DebugBackground = false;
-            public static bool ShipSpeedIncrease = true;
+            public static bool ShipSpeedIncrease = false;
             public static bool OPBullets = false;
             public static bool ShowShipIDs = false;
             public static bool EmergencyHeal = true;

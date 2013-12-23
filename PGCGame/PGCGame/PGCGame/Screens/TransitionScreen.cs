@@ -154,8 +154,7 @@ namespace PGCGame
                     {
                         ship.Rotation.Radians = (new Vector2(Graphics.Viewport.Width / 2, Graphics.Viewport.Height / 2) - ship.Position).ToAngle();
                         ship.YSpeed -= .0008f;
-                        ship.Scale.X -= .001f;
-                        ship.Scale.Y -= .001f;
+                        ship.Scale -= new Vector2(.001f);
                     }
                     else
                     {
@@ -163,8 +162,7 @@ namespace PGCGame
                         ship.YSpeed = 0;
                         if (ship.Scale.X >= .005f)
                         {
-                            ship.Scale.X -= .003f;
-                            ship.Scale.Y -= .003f;
+                            ship.Scale -= new Vector2(.003f);
                         }
                     }
                     if (StateManager.Options.SFXEnabled && ship.Rotation.Degrees > 75 && !hasPlayedSound)

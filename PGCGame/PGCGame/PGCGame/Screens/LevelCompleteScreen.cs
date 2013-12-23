@@ -154,8 +154,7 @@ namespace PGCGame
                         if (Sprites[1].Y > Sprites.SpriteBatch.GraphicsDevice.Viewport.Height - Sprites.SpriteBatch.GraphicsDevice.Viewport.Height / 7)
                         {
 
-                            ship.Scale.X += .005f;
-                            ship.Scale.Y += .005f;
+                            ship.Scale += new Vector2(.005f);
                             Sprites[1].YSpeed = 0f;
                         }
 

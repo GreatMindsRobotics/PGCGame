@@ -88,7 +88,7 @@ namespace PGCGame.Screens
                 return;
             }
 
-            string[] propNameComponents = e.PropertyName.Split('.');
+            string[] propNameComponents = e.Data.Name.Split('.');
 
             if (propNameComponents[0].Equals("NewBullet", StringComparison.InvariantCultureIgnoreCase))
             {
@@ -96,33 +96,33 @@ namespace PGCGame.Screens
 
                 if (propNameComponents[1].Equals("PosSpeed", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    Vector4 bulletData = (Vector4)e.Data;
+                    Vector4 bulletData = (Vector4)e.Data.Data;
                     BaseAllyShip parent = null;
                     try
                     {
-                        parent = StateManager.EnemyShips[e.Sender];
+                        parent = StateManager.EnemyShips[e.Data.Sender];
                     }
                     catch (IndexOutOfRangeException)
                     {
-                        parent = StateManager.AllyShips[e.Sender];
+                        parent = StateManager.AllyShips[e.Data.Sender];
                     }
                     Bullet newBullet = StateManager.BulletPool.GetBullet();
                     newBullet.InitializePooledBullet(new Vector2(bulletData.X, bulletData.Y), parent);
                     newBullet.SpriteBatch = World;
                     newBullet.Speed = new Vector2(bulletData.Z, bulletData.W);
                     newBullet.MaximumDistance = new Vector2(4000f);
-                    _bulletsInProgress[e.Sender.Id] = newBullet;
+                    _bulletsInProgress[e.Data.Sender.Id] = newBullet;
                 }
                 else if (propNameComponents[1].Equals("FinalData", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    Vector4 addlData = (Vector4)e.Data;
-                    Bullet newBullet = _bulletsInProgress[e.Sender.Id];
+                    Vector4 addlData = (Vector4)e.Data.Data;
+                    Bullet newBullet = _bulletsInProgress[e.Data.Sender.Id];
                     newBullet.Rotation = SpriteRotation.FromRadians(addlData.Y);
                     newBullet.Damage = addlData.X.ToInt();
 
                     //Debug.WriteLine("Bullet received from {0}: X: {1}, Y: {2}", newBullet.ParentShip.Controller.Gamertag, newBullet.X, newBullet.Y);
                     (newBullet.ParentShip.PlayerType == PlayerType.Ally || newBullet.ParentShip.PlayerType == PlayerType.MyShip ? StateManager.AllyBullets : StateManager.EnemyBullets).Legit.Add(newBullet);
-                    _bulletsInProgress.Remove(e.Sender.Id);
+                    _bulletsInProgress.Remove(e.Data.Sender.Id);
                 }
                 #endregion
             }
@@ -132,13 +132,13 @@ namespace PGCGame.Screens
                 #region Ship Handling
                 if (propNameComponents[1].Equals("CurrentShipState", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    Vector4 shipData = (Vector4)e.Data;
+                    Vector4 shipData = (Vector4)e.Data.Data;
                     foreach (Ship s in StateManager.EnemyShips)
                     {
                         BaseAllyShip sh = s as BaseAllyShip;
-                        if (sh != null && sh.Controller != null && sh.Controller.Id == e.Sender.Id)
+                        if (sh != null && sh.Controller != null && sh.Controller.Id == e.Data.Sender.Id)
                         {
-                            Debug.WriteLine("Received ship data from {0}: [{1}, {2}], health {3}", e.Sender.Gamertag, shipData.X, shipData.Y, shipData.W);
+                            Debug.WriteLine("Received ship data from {0}: [{1}, {2}], health {3}", e.Data.Sender.Gamertag, shipData.X, shipData.Y, shipData.W);
                             sh.WorldCoords = new Vector2(shipData.X, shipData.Y);
                             sh.Rotation = SpriteRotation.FromRadians(shipData.Z);
                             sh.CurrentHealth = shipData.W.ToInt();
@@ -148,9 +148,9 @@ namespace PGCGame.Screens
                     foreach (Ship s in StateManager.AllyShips)
                     {
                         BaseAllyShip sh = s as BaseAllyShip;
-                        if (sh != null && sh.Controller != null && sh.Controller.Id == e.Sender.Id)
+                        if (sh != null && sh.Controller != null && sh.Controller.Id == e.Data.Sender.Id)
                         {
-                            Debug.WriteLine("Received ship data from {0}: [{1}, {2}], health {3}", e.Sender.Gamertag, shipData.X, shipData.Y, shipData.W);
+                            Debug.WriteLine("Received ship data from {0}: [{1}, {2}], health {3}", e.Data.Sender.Gamertag, shipData.X, shipData.Y, shipData.W);
                             sh.WorldCoords = new Vector2(shipData.X, shipData.Y);
                             sh.Rotation = SpriteRotation.FromRadians(shipData.Z);
                             sh.CurrentHealth = shipData.W.ToInt();

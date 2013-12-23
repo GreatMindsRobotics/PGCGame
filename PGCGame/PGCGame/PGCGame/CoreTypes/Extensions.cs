@@ -32,6 +32,9 @@ namespace PGCGame.CoreTypes
             return TimeSpan.FromMilliseconds(random.Next(minValue.TotalMilliseconds.Round(), maxValue.TotalMilliseconds.Round()));
         }
 
+
+        /*
+        // Implemented by GLib
         /// <summary>
         /// Generates a new Vector2 between minValue and maxValue
         /// </summary>
@@ -65,6 +68,7 @@ namespace PGCGame.CoreTypes
 
             return new Vector2(x, y);
         }
+        */
 
 
         /// <summary>
