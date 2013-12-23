@@ -577,7 +577,7 @@ namespace PGCGame
             public static NetworkSession CurrentSession
             {
                 get { return _currentSession; }
-                private set { _currentSession = value; Component.Session = value; }
+                private set { _currentSession = value; Component.Session = value; SessionComponent.JoinSession(value); }
             }
 
             public static event EventHandler<NetworkInformationReceivedEventArgs> DataReceived
