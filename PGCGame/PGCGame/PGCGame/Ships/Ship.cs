@@ -163,6 +163,9 @@ namespace PGCGame
         }
         public SoundEffectInstance ShootSound { get; set; }
 
+        public List<Texture2D> particles = new List<Texture2D>();
+        public CoreTypes.Utilites.ParticleEngine engine;
+
         public SoundEffectInstance ExplosionSFX { get; set; }
 
         public SoundEffectInstance EnemyShoots { get; set; }
@@ -445,6 +448,7 @@ namespace PGCGame
             {
                 _timeDead += gt.ElapsedGameTime;
             }
+            engine.Update(gt);
         }
 
         public bool IsAllyWith(PlayerType pt)
@@ -499,7 +503,7 @@ namespace PGCGame
                     return;
                 }
 
-
+                engine.Draw(SpriteBatch);
 
                 base.DrawNonAuto();
 

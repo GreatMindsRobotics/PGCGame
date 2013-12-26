@@ -156,6 +156,12 @@ namespace PGCGame.CoreTypes
         Level4 = 4
     }
 
+    public enum Particle
+    {
+        Square,
+        Circle
+    }
+
     /// <summary>
     /// States for the Drone AI FSM
     /// </summary>

@@ -85,6 +85,8 @@
     <Compile Include="CoreTypes\ShipCollection.cs" />
     <Compile Include="CoreTypes\ShipStats.cs" />
     <Compile Include="CoreTypes\Utilites\LocationUtility.cs" />
+    <Compile Include="CoreTypes\Utilites\Particle.cs" />
+    <Compile Include="CoreTypes\Utilites\ParticleEngine.cs" />
     <Compile Include="CoreTypes\ViewportEventArgs.cs" />
     <Compile Include="Failsafe\FailsafeErrorGame.cs" />
     <Compile Include="PlequariusGame.cs" />

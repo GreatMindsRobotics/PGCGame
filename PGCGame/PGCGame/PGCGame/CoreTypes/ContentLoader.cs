@@ -205,6 +205,24 @@ namespace PGCGame.CoreTypes
                 }
             }
 
+            public readonly Particles particles;
+            public class Particles
+            {
+                private Dictionary<Particle, Texture2D> _particles;
+
+                public Texture2D this[Particle index]
+                {
+                    get { return _particles[index]; }
+                }
+
+                internal Particles(ContentManager content)
+                {
+                    _particles = new Dictionary<Particle, Texture2D>();
+                    _particles.Add(Particle.Square, content.Load<Texture2D>("Images\\Equipment\\Particles\\Orange Square"));
+                    _particles.Add(Particle.Circle, content.Load<Texture2D>("Images\\Equipment\\Particles\\Orange Circle"));
+                }
+            }
+
             public readonly GameShips Ships;
             public class GameShips
             {

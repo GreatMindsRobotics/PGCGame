@@ -52,6 +52,7 @@ namespace PGCGame.Screens
             });
 #endif
         }
+
         /// <summary>
         /// The amount to divide the background size by to generate the minimap size.
         /// </summary>
@@ -65,6 +66,7 @@ namespace PGCGame.Screens
         Texture2D bgImg;
         SpriteFont SegoeUIMono = GameContent.Assets.Fonts.NormalText;
         List<ISprite> playerSbObjects = new List<ISprite>();
+
 
         public override void InitScreen(ScreenType screenType)
         {
@@ -387,7 +389,23 @@ namespace PGCGame.Screens
             World = Sprites.SpriteBatch;
             playerShip.BulletFired += new EventHandler<BulletEventArgs>(playerShip_BulletFired);
 
+
+
             _bulletsInProgress.Clear();
+
+            foreach (Ship s in enemies)
+            {
+                s.particles.Add(GameContent.Assets.Images.particles[Particle.Circle]);
+                s.particles.Add(GameContent.Assets.Images.particles[Particle.Square]);
+
+                s.engine = new CoreTypes.Utilites.ParticleEngine(s.particles, new Vector2(s.Position.X - s.Width, s.Position.Y - s.Height));
+            }
+
+            playerShip.particles.Add(GameContent.Assets.Images.particles[Particle.Circle]);
+            playerShip.particles.Add(GameContent.Assets.Images.particles[Particle.Square]);
+
+            playerShip.engine = new CoreTypes.Utilites.ParticleEngine(playerShip.particles, new Vector2(playerShip.Position.X - playerShip.Width, playerShip.Position.Y - playerShip.Height));
+
         }
 
         /// <summary>
