@@ -158,6 +158,7 @@ namespace PGCGame.CoreTypes
                 SecondaryWeapon = new GameSecondaryWeapon(content);
                 Equipment = new GameEquipment(content);
                 SpriteSheets = new SpriteSheetLoader(content);
+                particles = new Particles(content);
             }
 
             public readonly GameBackgrounds Backgrounds;
@@ -207,7 +208,7 @@ namespace PGCGame.CoreTypes
 
             public readonly Particles particles;
             public class Particles
-            {
+            {                
                 private Dictionary<Particle, Texture2D> _particles;
 
                 public Texture2D this[Particle index]

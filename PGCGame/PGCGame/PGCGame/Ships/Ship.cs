@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Input;
 using Glib.XNA;
 using Glib;
 using Glib.XNA.SpriteLib;
+using Glib.XNA.SpriteLib.ParticleEngine;
 
 using PGCGame.CoreTypes;
 using PGCGame.Ships.Allies;
@@ -163,8 +164,9 @@ namespace PGCGame
         }
         public SoundEffectInstance ShootSound { get; set; }
 
-        public List<Texture2D> particles = new List<Texture2D>();
-        public CoreTypes.Utilites.ParticleEngine engine;
+        public Texture2D[] particles = new Texture2D[2];
+        public RandomParticleGenerator gen;
+        public ParticleEngine engine;
 
         public SoundEffectInstance ExplosionSFX { get; set; }
 
@@ -399,6 +401,12 @@ namespace PGCGame
             {
                 base.Update();
                 _timeDead = TimeSpan.Zero;
+
+                if (engine != null)
+                {
+                    engine.Update(gt);
+                }
+
                 if (WorldCoords.X < 0 || WorldCoords.X >= StateManager.WorldSize.Width || WorldCoords.Y <= 0 || WorldCoords.Y >= StateManager.WorldSize.Height)
                 {
                     //"Void" effect
@@ -448,7 +456,6 @@ namespace PGCGame
             {
                 _timeDead += gt.ElapsedGameTime;
             }
-            engine.Update(gt);
         }
 
         public bool IsAllyWith(PlayerType pt)
@@ -502,8 +509,6 @@ namespace PGCGame
                     }
                     return;
                 }
-
-                engine.Draw(SpriteBatch);
 
                 base.DrawNonAuto();
 
