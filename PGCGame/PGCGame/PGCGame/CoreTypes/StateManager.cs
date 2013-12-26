@@ -421,7 +421,10 @@ namespace PGCGame
             underlyingGame.IsMouseVisible = true;
             underlyingGame.Components.Add(new PlequariusInputComponent(underlyingGame));
             NetworkData.Component = new NetworkWatcherComponent(underlyingGame);
-            NetworkData.SessionComponent = new SessionManagerComponent(underlyingGame);
+            
+            //[STAN] Commenting out this line of code - causing NullReferenceException on base.Update(gameTime), line 206, PlequariusGame.cs
+            //NetworkData.SessionComponent = new SessionManagerComponent(underlyingGame);
+            
             underlyingGame.Components.Add(NetworkData.SessionComponent);
             KeyboardManager.KeyDown += new Glib.XNA.SingleKeyEventHandler(KeyboardManager_KeyDown);
 
