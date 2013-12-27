@@ -13,6 +13,7 @@ using Glib.XNA.SpriteLib;
 using PGCGame.CoreTypes;
 using PGCGame.Screens;
 using Glib.XNA.InputLib;
+using PGCGame.CoreTypes.Utilites;
 
 namespace PGCGame 
 {
@@ -24,7 +25,7 @@ namespace PGCGame
             get { return MusicBehaviour.NoMusic; }
         }
 
-        Sprite ship;
+        Ship_Sprite ship;
         bool hasPlayedSound = false;
 
         public TransitionScreen(SpriteBatch spriteBatch)
@@ -100,7 +101,7 @@ namespace PGCGame
         {
             Sprites.Clear();
             hasPlayedSound = false;
-            ship = new Sprite(GameContent.Assets.Images.Ships[StateManager.SelectedShip, StateManager.SelectedTier], Vector2.Zero, Sprites.SpriteBatch);
+            ship = new Ship_Sprite(GameContent.Assets.Images.Ships[StateManager.SelectedShip, StateManager.SelectedTier], Vector2.Zero, Sprites.SpriteBatch);
 
             ship.Position = new Vector2(-ship.Texture.Width / 2, Graphics.Viewport.Height);
             ship.Scale = new Vector2(0.8f);
