@@ -70,6 +70,16 @@ namespace PGCGame
 
             ExplosionSFX = GameContent.Assets.Sound[SoundEffectType.EnemyExplodes];
             FriendlyName = ShipType.ToFriendlyString();
+
+            particles[0] = GameContent.Assets.Images.particles[ParticleType.Circle];
+            particles[1] = GameContent.Assets.Images.particles[ParticleType.Square];
+            gen = new PGCGame.CoreTypes.Utilites.PGCParticleGenerator(SpriteBatch, particles);
+            gen.ParticlesToGenerate = 1;
+            engine = new Glib.XNA.SpriteLib.ParticleEngine.ParticleEngine(gen);
+
+            engine.PositionOffset = new Vector2(0, Height / 2);
+
+            engine.Tracked = this;
         }
 
         internal ISizedScreenObject Healthbar
@@ -401,15 +411,6 @@ namespace PGCGame
             {
                 base.Update();
                 _timeDead = TimeSpan.Zero;
-
-                //TEMP FIX: Glib particle engine only supports particle engine with random color particles.
-                foreach (Particle p in engine.Particles)
-                {
-                    if (p.Color != Color.Orange)
-                    {
-                        p.Color = Color.Orange;
-                    }
-                }
                 
                 engine.Update(gt);
 
