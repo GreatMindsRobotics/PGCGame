@@ -156,7 +156,7 @@ namespace PGCGame.CoreTypes
         Level4 = 4
     }
 
-    public enum Particle
+    public enum ParticleType
     {
         Square,
         Circle

@@ -403,8 +403,8 @@ namespace PGCGame.Screens
             //    s.engine.Tracked = s;
             //}
 
-            playerShip.particles[0] = GameContent.Assets.Images.particles[Particle.Circle];
-            playerShip.particles[1] = GameContent.Assets.Images.particles[Particle.Square];
+            playerShip.particles[0] = GameContent.Assets.Images.particles[ParticleType.Circle];
+            playerShip.particles[1] = GameContent.Assets.Images.particles[ParticleType.Square];
             playerShip.gen = new Glib.XNA.SpriteLib.ParticleEngine.RandomParticleGenerator(playerShip.SpriteBatch, playerShip.particles);
             playerShip.gen.ParticlesToGenerate = 1;
             playerShip.engine = new Glib.XNA.SpriteLib.ParticleEngine.ParticleEngine(playerShip.gen);
