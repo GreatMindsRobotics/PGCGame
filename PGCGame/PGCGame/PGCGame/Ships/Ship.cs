@@ -516,6 +516,10 @@ namespace PGCGame
                 {
                     _healthBar.DrawNonAuto();
                 }
+                if (engine != null)
+                {
+                    engine.Draw();
+                }
             }
         }
         #endregion PublicMethod

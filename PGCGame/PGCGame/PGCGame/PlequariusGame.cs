@@ -18,6 +18,7 @@ using PGCGame.Screens.SelectScreens;
 using Glib.XNA.InputLib;
 using PGCGame.CoreTypes;
 using PGCGame.Screens.Multiplayer;
+using System.Diagnostics;
 
 namespace PGCGame
 {
@@ -246,10 +247,15 @@ namespace PGCGame
             {
                 screenManager.BeginDraw();
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException ioe)
             {
-                //Don't draw frame
-                return false;
+                //Frame had error rendering
+                Debug.WriteLine("Error beginning render of frame.");
+                Debug.WriteLine("{0} exception in {2}: {1}", ioe.GetType().FullName, ioe.Message, ioe.Source);
+                Debug.WriteLine(ioe.StackTrace);
+
+                //DO NOT RETURN FALSE - Supposed to "Don't draw frame", doesn't draw ANY FRAMES IN THE FUTURE
+                return true;
             }
             return base.BeginDraw();
 

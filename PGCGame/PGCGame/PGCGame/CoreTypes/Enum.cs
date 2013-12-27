@@ -237,11 +237,11 @@ namespace PGCGame.CoreTypes
 
     public enum ShipState
     {
+        Alive,
         Idle,
         Moving,
         Firing,
         Dead,
         Exploding,
-        Alive
     }
 }

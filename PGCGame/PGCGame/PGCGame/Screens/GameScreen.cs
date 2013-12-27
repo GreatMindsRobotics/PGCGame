@@ -409,7 +409,7 @@ namespace PGCGame.Screens
             playerShip.gen.ParticlesToGenerate = 1;
             playerShip.engine = new Glib.XNA.SpriteLib.ParticleEngine.ParticleEngine(playerShip.gen);
 
-            playerShip.engine.ParticlesVisible = false;
+            playerShip.engine.ParticlesVisible = true;
 
             playerShip.engine.Tracked = playerShip;
         }
