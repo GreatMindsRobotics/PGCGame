@@ -405,7 +405,7 @@ namespace PGCGame.Screens
 
             playerShip.particles[0] = GameContent.Assets.Images.particles[Particle.Circle];
             playerShip.particles[1] = GameContent.Assets.Images.particles[Particle.Square];
-            playerShip.gen = new Glib.XNA.SpriteLib.ParticleEngine.RandomParticleGenerator(Sprites.SpriteBatch, playerShip.particles);
+            playerShip.gen = new Glib.XNA.SpriteLib.ParticleEngine.RandomParticleGenerator(playerShip.SpriteBatch, playerShip.particles);
             playerShip.gen.ParticlesToGenerate = 1;
             playerShip.engine = new Glib.XNA.SpriteLib.ParticleEngine.ParticleEngine(playerShip.gen);
 
