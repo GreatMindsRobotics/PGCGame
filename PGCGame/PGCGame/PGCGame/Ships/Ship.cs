@@ -45,6 +45,10 @@ namespace PGCGame
 
         private TimeSpan _timeDead;
 
+        Vector2 angleVector;
+        float toEngineAngle;
+        float toEngineLength;
+
         public Ship(Texture2D texture, Vector2 location, SpriteBatch spriteBatch)
             : base(texture, location, spriteBatch)
         {
@@ -77,7 +81,11 @@ namespace PGCGame
             gen.ParticlesToGenerate = 1;
             engine = new Glib.XNA.SpriteLib.ParticleEngine.ParticleEngine(gen);
 
-            engine.PositionOffset = new Vector2(0, Height / 2);
+            Vector2 toEngine = new Vector2(Position.X, Position.Y - texture.Height / 2);
+            toEngineLength = -toEngine.Length();
+            toEngineAngle = toEngine.ToAngle();
+
+            engine.PositionOffset = new Vector2(0, texture.Height / 2);
 
             engine.Tracked = this;
         }
@@ -411,7 +419,12 @@ namespace PGCGame
             {
                 base.Update();
                 _timeDead = TimeSpan.Zero;
-                
+
+
+                angleVector = (Rotation.Radians + toEngineAngle).AngleToVector();
+                angleVector.Normalize();
+                engine.PositionOffset = angleVector * toEngineLength;
+
                 engine.Update(gt);
 
                 if (WorldCoords.X < 0 || WorldCoords.X >= StateManager.WorldSize.Width || WorldCoords.Y <= 0 || WorldCoords.Y >= StateManager.WorldSize.Height)
