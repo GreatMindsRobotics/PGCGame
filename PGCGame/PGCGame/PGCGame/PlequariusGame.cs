@@ -251,7 +251,11 @@ namespace PGCGame
             {
                 //Frame had error rendering
                 Debug.WriteLine("Error beginning render of frame.");
+#if WINDOWS
                 Debug.WriteLine("{0} exception in {2}: {1}", ioe.GetType().FullName, ioe.Message, ioe.Source);
+#else
+                Debug.WriteLine("{0} exception: {1}", ioe.GetType().FullName, ioe.Message);
+#endif
                 Debug.WriteLine(ioe.StackTrace);
 
                 //DO NOT RETURN FALSE - Supposed to "Don't draw frame", doesn't draw ANY FRAMES IN THE FUTURE

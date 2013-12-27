@@ -166,7 +166,7 @@ namespace PGCGame.Screens
             }
 
             //The IEnumerable cast method
-            AdditionalSprites.AddRange(credits.Cast<ISprite>());
+            AdditionalSprites.AddRange(credits.Cast<IDrawableComponent>());
             Sprites.Add(gameTitle);
 
             _elapsedTime = TimeSpan.Zero;
