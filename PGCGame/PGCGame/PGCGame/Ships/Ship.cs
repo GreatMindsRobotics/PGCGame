@@ -402,10 +402,16 @@ namespace PGCGame
                 base.Update();
                 _timeDead = TimeSpan.Zero;
 
-                if (engine != null)
+                //TEMP FIX: Glib particle engine only supports particle engine with random color particles.
+                foreach (Particle p in engine.Particles)
                 {
-                    engine.Update(gt);
+                    if (p.Color != Color.Orange)
+                    {
+                        p.Color = Color.Orange;
+                    }
                 }
+                
+                engine.Update(gt);
 
                 if (WorldCoords.X < 0 || WorldCoords.X >= StateManager.WorldSize.Width || WorldCoords.Y <= 0 || WorldCoords.Y >= StateManager.WorldSize.Height)
                 {

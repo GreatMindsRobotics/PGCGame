@@ -393,15 +393,16 @@ namespace PGCGame.Screens
 
             _bulletsInProgress.Clear();
 
-            //foreach (Ship s in enemies)
-            //{
-
-            //    s.particles[0] = GameContent.Assets.Images.particles[Particle.Circle];
-            //    s.particles[1] = GameContent.Assets.Images.particles[Particle.Square];
-            //    s.gen = new Glib.XNA.SpriteLib.ParticleEngine.RandomParticleGenerator(Sprites.SpriteBatch, s.particles);
-            //    s.engine = new Glib.XNA.SpriteLib.ParticleEngine.ParticleEngine(s.gen);
-            //    s.engine.Tracked = s;
-            //}
+            foreach (Ship s in enemies)
+            {
+                s.particles[0] = GameContent.Assets.Images.particles[ParticleType.Circle];
+                s.particles[1] = GameContent.Assets.Images.particles[ParticleType.Square];
+                s.gen = new Glib.XNA.SpriteLib.ParticleEngine.RandomParticleGenerator(Sprites.SpriteBatch, s.particles);
+                s.gen.ParticlesToGenerate = 1;
+                s.engine = new Glib.XNA.SpriteLib.ParticleEngine.ParticleEngine(s.gen);
+                s.engine.PositionOffset = new Vector2(0, s.Height / 2);
+                s.engine.Tracked = s;
+            }
 
             playerShip.particles[0] = GameContent.Assets.Images.particles[ParticleType.Circle];
             playerShip.particles[1] = GameContent.Assets.Images.particles[ParticleType.Square];
@@ -409,7 +410,7 @@ namespace PGCGame.Screens
             playerShip.gen.ParticlesToGenerate = 1;
             playerShip.engine = new Glib.XNA.SpriteLib.ParticleEngine.ParticleEngine(playerShip.gen);
 
-            playerShip.engine.ParticlesVisible = true;
+            playerShip.engine.PositionOffset = new Vector2(0, playerShip.Height / 2); 
 
             playerShip.engine.Tracked = playerShip;
         }
