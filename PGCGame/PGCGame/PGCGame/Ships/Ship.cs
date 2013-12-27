@@ -424,7 +424,6 @@ namespace PGCGame
                 angleVector = (Rotation.Radians + toEngineAngle).AngleToVector();
                 angleVector.Normalize();
                 engine.PositionOffset = angleVector * toEngineLength;
-
                 engine.Update(gt);
 
                 if (WorldCoords.X < 0 || WorldCoords.X >= StateManager.WorldSize.Width || WorldCoords.Y <= 0 || WorldCoords.Y >= StateManager.WorldSize.Height)

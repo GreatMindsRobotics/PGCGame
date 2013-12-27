@@ -85,12 +85,15 @@ namespace PGCGame
         /// </summary>
         protected override void Initialize()
         {
-            //Begin loading options
-            StateManager.Options.LoadOptionsAsync();
-
             StateManager.InitGame(this, graphics);
 
             StateManager.InitializeGame(new GamerServicesComponent(this), base.Initialize);
+
+            if (StateManager.GamerServicesAreAvailable)
+            {
+                //Begin loading options, must be done at end to allow for gamer services initialization
+                StateManager.Options.LoadOptionsAsync();
+            }
         }
 
         /// <summary>
