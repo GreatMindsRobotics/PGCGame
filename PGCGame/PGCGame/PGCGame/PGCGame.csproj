@@ -95,7 +95,6 @@
     <Compile Include="CoreTypes\ShipCollection.cs" />
     <Compile Include="CoreTypes\ShipStats.cs" />
     <Compile Include="CoreTypes\Utilites\LocationUtility.cs" />
-    <Compile Include="CoreTypes\Utilites\PGCParticleGenerator.cs" />
     <Compile Include="Failsafe\FailsafeErrorGame.cs" />
     <Compile Include="Screens\CheatEditScreen.cs" />
     <Compile Include="Screens\LevelCompleteScreen.cs" />

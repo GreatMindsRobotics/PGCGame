@@ -77,7 +77,9 @@ namespace PGCGame
 
             particles[0] = GameContent.Assets.Images.particles[ParticleType.Circle];
             particles[1] = GameContent.Assets.Images.particles[ParticleType.Square];
-            gen = new PGCGame.CoreTypes.Utilites.PGCParticleGenerator(SpriteBatch, particles);
+            gen = new RandomParticleGenerator(SpriteBatch, particles);
+            gen.TTLSettings = TimeToLiveSettings.AlphaLess100;
+            gen.RandomProperties = new RandomParticleProperties() { ColorFactor = 0.985f, Tint = Color.White };
             gen.ParticlesToGenerate = 1;
             engine = new Glib.XNA.SpriteLib.ParticleEngine.ParticleEngine(gen);
 
