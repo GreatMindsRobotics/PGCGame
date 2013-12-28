@@ -16,6 +16,7 @@ using PGCGame.CoreTypes;
 using Glib.XNA.InputLib;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.GamerServices;
+using PGCGame.CoreTypes.Utilites;
 
 namespace PGCGame.Screens
 {
@@ -116,7 +117,7 @@ namespace PGCGame.Screens
         Sprite ExitButton;
         TextSprite ExitLabel;
 
-        Sprite ship;
+        Ship_Sprite ship;
 
         
 #if XBOX
@@ -262,11 +263,12 @@ namespace PGCGame.Screens
 
             if (ship == null)
             {
-                ship = new Sprite(GameContent.Assets.Images.Ships[type, tier], Vector2.Zero, Sprites.SpriteBatch);
+                ship = new Ship_Sprite(GameContent.Assets.Images.Ships[type, tier], Vector2.Zero, Sprites.SpriteBatch);
             }
             else
             {
                 ship.Texture = GameContent.Assets.Images.Ships[type, tier];
+                ship.TextureChanged();
             }
 
             ship.Position = new Vector2(-ship.Texture.Width / 2, Graphics.Viewport.Height);

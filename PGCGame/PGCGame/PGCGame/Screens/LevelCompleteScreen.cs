@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using PGCGame.CoreTypes;
 using Glib.XNA.InputLib;
 using Glib;
+using PGCGame.CoreTypes.Utilites;
 
 namespace PGCGame
 {
@@ -25,7 +26,7 @@ namespace PGCGame
 
         }
         TextSprite winText;
-        Sprite ship;
+        Ship_Sprite ship;
         bool setWinText = false;
 
 #if XBOX
@@ -39,7 +40,7 @@ namespace PGCGame
 
 
             StateManager.levelCompleted += new EventHandler(StateManager_levelCompleted);
-            ship = new Sprite(GameContent.Assets.Images.Ships[ShipType.FighterCarrier, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
+            ship = new Ship_Sprite(GameContent.Assets.Images.Ships[ShipType.FighterCarrier, ShipTier.Tier1], Vector2.Zero, Sprites.SpriteBatch);
 
             ship.Position = new Vector2(Sprites.SpriteBatch.GraphicsDevice.Viewport.Width, (float)StateManager.GraphicsManager.GraphicsDevice.Viewport.Height / 2 - 70);
             ship.Scale = new Vector2(0);
