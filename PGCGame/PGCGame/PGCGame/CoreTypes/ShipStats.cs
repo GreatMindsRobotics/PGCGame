@@ -19,5 +19,26 @@ namespace PGCGame.CoreTypes
 
         public ShipType Type;
         public ShipTier Tier;
+
+        public override bool Equals(object obj)
+        {
+            if (obj != null && obj is ShipStats)
+            {
+                ShipStats val = (ShipStats)obj;
+                return val.Type == Type && val.Tier == Tier;
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked // Overflow is fine, just wrap
+            {
+                int hash = 23;
+                hash = hash * 31 + this.Type.GetHashCode();
+                hash = hash * 31 + this.Tier.GetHashCode();
+                return hash;
+            }
+        }
     }
 }
