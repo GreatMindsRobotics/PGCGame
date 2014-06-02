@@ -11,7 +11,7 @@ namespace PGCGame.CoreTypes
     /// <summary>
     /// A pool of bullets.
     /// </summary>
-    public class BulletPool
+    public sealed class BulletPool
     {
         /// <summary>
         /// The initial pool size.
@@ -47,7 +47,10 @@ namespace PGCGame.CoreTypes
         /// <param name="returnBullet">The bullet to return.</param>
         public void ReturnBullet(Bullet returnBullet)
         {
-            _bulletDeque.AddLast(returnBullet);
+            lock (_bulletDeque.SyncRoot)
+            {
+                _bulletDeque.AddLast(returnBullet);
+            }
         }
 
         /// <summary>
@@ -56,22 +59,25 @@ namespace PGCGame.CoreTypes
         /// <returns>A Bullet instance from the pool.</returns>
         public Bullet GetBullet()
         {
-            if (_bulletDeque.Count <= 0)
+            lock (_bulletDeque.SyncRoot)
             {
-                throw new InvalidOperationException("The bullet pool is in an invalid state (possibly due to multiple threads accessing it). Please reinitialize the pool.");
-            }
-            Bullet returnVal = _bulletDeque.PopFirst();
-
-            if (_bulletDeque.Count <= ADD_BULLETS_THRESHOLD)
-            {
-                //Refill the pool, but we should have bullets returned, so not too much
-                while (_bulletDeque.Count <= BULLET_ADD_AMOUNT + ADD_BULLETS_THRESHOLD)
+                if (_bulletDeque.Count <= 0)
                 {
-                    _bulletDeque.AddLast(new Bullet(GameContent.Assets.Images.Ships.Bullets[ShipType.BattleCruiser, ShipTier.Tier1], Vector2.Zero, GameScreen.World, null));
+                    throw new InvalidOperationException("The bullet pool is in an invalid state.");
                 }
-            }
+                Bullet returnVal = _bulletDeque.PopFirst();
 
-            return returnVal;
+                if (_bulletDeque.Count <= ADD_BULLETS_THRESHOLD)
+                {
+                    //Refill the pool, but we should have bullets returned, so not too much
+                    while (_bulletDeque.Count <= BULLET_ADD_AMOUNT + ADD_BULLETS_THRESHOLD)
+                    {
+                        _bulletDeque.AddLast(new Bullet(GameContent.Assets.Images.Ships.Bullets[ShipType.BattleCruiser, ShipTier.Tier1], Vector2.Zero, GameScreen.World, null));
+                    }
+                }
+
+                return returnVal;
+            }
         }
     }
 }

@@ -40,6 +40,17 @@ namespace PGCGame.CoreTypes.Utilities
             get { return this.Count == 0; }
         }
 
+        /// <summary>
+        /// Gets an object that can be used to synchronize access to the Deque.
+        /// </summary>
+        public virtual object SyncRoot
+        {
+            get
+            {
+                return this;
+            }
+        }
+
         public IEnumerable<T> Reversed
         {
             get
