@@ -6,7 +6,7 @@ using Glib.XNA;
 using Glib;
 using Microsoft.Xna.Framework;
 
-namespace PGCGame.CoreTypes.Utilites
+namespace PGCGame.CoreTypes.Utilities
 {
     public class LocationUtility : IPositionable
     {

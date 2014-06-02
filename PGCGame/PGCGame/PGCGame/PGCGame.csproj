@@ -94,7 +94,8 @@
     <Compile Include="CoreTypes\SerializableGameState.cs" />
     <Compile Include="CoreTypes\ShipCollection.cs" />
     <Compile Include="CoreTypes\ShipStats.cs" />
-    <Compile Include="CoreTypes\Utilites\LocationUtility.cs" />
+    <Compile Include="CoreTypes\Utilities\Deque.cs" />
+    <Compile Include="CoreTypes\Utilities\LocationUtility.cs" />
     <Compile Include="CoreTypes\Ship Sprite.cs" />
     <Compile Include="Failsafe\FailsafeErrorGame.cs" />
     <Compile Include="Screens\CheatEditScreen.cs" />

@@ -4,46 +4,41 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using PGCGame.Screens;
+using PGCGame.CoreTypes.Utilities;
 
 namespace PGCGame.CoreTypes
 {
     /// <summary>
     /// A pool of bullets.
     /// </summary>
-    public class BulletPool : Stack<Bullet>
+    public class BulletPool
     {
+        /// <summary>
+        /// The initial pool size.
+        /// </summary>
+        public const int POOL_SIZE = 6000;
+
+        /// <summary>
+        /// The threshold which determines when to add new bullets to the pool.
+        /// </summary>
+        public const int ADD_BULLETS_THRESHOLD = 15;
+
+        /// <summary>
+        /// The amount of bullets to add when the pool is empty (as determined by ADD_BULLETS_THRESHOLD).
+        /// </summary>
+        public const int BULLET_ADD_AMOUNT = 15;
+
+        private Deque<Bullet> _bulletDeque;
+
         public BulletPool()
         {
+            _bulletDeque = new Deque<Bullet>(POOL_SIZE);
+
             //Initialize the pool.
-            for (int i = 0; i < 5000; i++)
+            for (int i = 0; i < POOL_SIZE; i++)
             {
-                PushInternal(new Bullet(GameContent.Assets.Images.Ships.Bullets[ShipType.BattleCruiser, ShipTier.Tier1], Vector2.Zero, GameScreen.World, null));
+                _bulletDeque.AddFirst(new Bullet(GameContent.Assets.Images.Ships.Bullets[ShipType.BattleCruiser, ShipTier.Tier1], Vector2.Zero, GameScreen.World, null));
             }
-        }
-
-        protected Bullet PopInternal()
-        {
-            return base.Pop();
-        }
-
-        protected void PushInternal(Bullet b)
-        {
-            base.Push(b);
-        }
-
-        public new void Push(Bullet t)
-        {
-            throw new InvalidOperationException("You cannot manually push bullets to a BulletPool.");
-        }
-
-        public new Bullet Pop()
-        {
-            throw new InvalidOperationException("You cannot pop a bullet off of a BulletPool.");
-        }
-
-        public new Bullet Peek()
-        {
-            throw new InvalidOperationException("You cannot peek at a bullet from a BulletPool.");
         }
 
         /// <summary>
@@ -52,7 +47,7 @@ namespace PGCGame.CoreTypes
         /// <param name="returnBullet">The bullet to return.</param>
         public void ReturnBullet(Bullet returnBullet)
         {
-            PushInternal(returnBullet);
+            _bulletDeque.AddLast(returnBullet);
         }
 
         /// <summary>
@@ -61,18 +56,18 @@ namespace PGCGame.CoreTypes
         /// <returns>A Bullet instance from the pool.</returns>
         public Bullet GetBullet()
         {
-            if (Count <= 0)
+            if (_bulletDeque.Count <= 0)
             {
                 throw new InvalidOperationException("The bullet pool is in an invalid state (possibly due to multiple threads accessing it). Please reinitialize the pool.");
             }
-            Bullet returnVal = PopInternal();
+            Bullet returnVal = _bulletDeque.PopFirst();
 
-            if (Count <= 5)
+            if (_bulletDeque.Count <= ADD_BULLETS_THRESHOLD)
             {
                 //Refill the pool, but we should have bullets returned, so not too much
-                while (Count <= 20)
+                while (_bulletDeque.Count <= BULLET_ADD_AMOUNT + ADD_BULLETS_THRESHOLD)
                 {
-                    PushInternal(new Bullet(GameContent.Assets.Images.Ships.Bullets[ShipType.BattleCruiser, ShipTier.Tier1], Vector2.Zero, GameScreen.World, null));
+                    _bulletDeque.AddLast(new Bullet(GameContent.Assets.Images.Ships.Bullets[ShipType.BattleCruiser, ShipTier.Tier1], Vector2.Zero, GameScreen.World, null));
                 }
             }
 

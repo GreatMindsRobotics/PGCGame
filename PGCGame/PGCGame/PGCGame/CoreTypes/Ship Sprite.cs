@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Glib.XNA.SpriteLib.ParticleEngine;
 using Glib.XNA;
 
-namespace PGCGame.CoreTypes.Utilites
+namespace PGCGame.CoreTypes.Utilities
 {
     class Ship_Sprite : Sprite, ITimerSprite
     {
