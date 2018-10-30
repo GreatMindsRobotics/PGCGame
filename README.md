@@ -1,5 +1,6 @@
 Plequarius: Galactic Commanders
 =======
             
-For more information about __Plequarius: Galactic Commanders__ go to [pgcgame.com](http://pgcgame.com/).
-Uses [GLib](http://glen3b.github.io/Glib).
+__Plequarius: Galactic Commanders__ was built by a group of students form [Great Minds Robotics](http://www.buildcoolrobots.com), as a GameDev Summer Camp in 2013. 
+
+Uses [GLib](https://github.com/glen3b/GLib).
